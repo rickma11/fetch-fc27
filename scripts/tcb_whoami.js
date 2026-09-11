@@ -130,15 +130,32 @@ function show(label, r) {
   }
 
   console.log('\n==== 结论 ====');
+  // 最快的判定：拿环境归属账号（云开发控制台「所属腾讯云主账号 ID」）与密钥账号对一下
+  if (cred.EXPECT_ACCOUNT) {
+    console.log('① 账号对照（最关键）');
+    console.log('   环境归属账号（你填的 TCB_EXPECT_ACCOUNT） = ' + cred.EXPECT_ACCOUNT);
+    console.log('   本套密钥归属账号（STS AccountId）          = ' + (actualAppId || '未知'));
+    if (actualAppId && actualAppId !== cred.EXPECT_ACCOUNT) {
+      console.log('   ✘ 两个账号不一致 → 跨账号，密钥永远看不到该环境，加多少 CAM 策略都没用。');
+      console.log('     → 用「微信公众平台」方式登录腾讯云（小程序管理员扫码），落到账号 ' + cred.EXPECT_ACCOUNT);
+      console.log('       后在「访问管理 → 访问密钥 → API 密钥管理」新建密钥。');
+    } else if (actualAppId) {
+      console.log('   ✔ 两个账号一致 → 同账号。若仍看不到环境，才轮到排查环境 ID / 地域 / CAM 策略。');
+    }
+    console.log('');
+  }
+  console.log('② 环境可见性');
   if (envVisible) {
     console.log('✔ 能看到目标环境。若仍报权限错，就只剩 CAM 策略没给 tcb:* 这一种可能。');
   } else if (actualAppId) {
     console.log('✘ 该密钥（账号 Uin ' + actualAppId + '）在所有地域都看不到 ' + EXPECTED_ENV + '。');
     console.log('  → 三种可能，按概率排序：');
-    console.log('     1) 这个密钥不是环境归属账号下的（对照：环境存储桶后缀 AppId = ' + EXPECTED_APPID + '）');
+    console.log('     1) 这个密钥不是环境归属账号下的（环境存储桶后缀 AppId = ' + EXPECTED_APPID + '）');
     console.log('     2) 环境未「关联」到当前腾讯云账号（微信云开发环境需在腾讯云控制台做关联）');
     console.log('     3) 环境 ID 有误（请到微信开发者工具 → 云开发控制台核对）');
-    console.log('  → 最快验证：用小程序管理员微信扫码登录腾讯云控制台，看「云开发」下能不能看到这个环境。');
+    console.log('  ⛔ 注意：用「协作者」不能解决这个问题 —— 协作者语义是「对方进你的账号」，');
+    console.log('     不会让你访问对方的资源。正确做法是换成环境归属账号下的密钥。');
+    console.log('  → 核对方法：微信开发者工具 → 云开发控制台 → 环境名 → 展开详情的「所属腾讯云主账号 ID」。');
   } else {
     console.log('△ 未能识别账号身份，请检查密钥是否有效。');
   }

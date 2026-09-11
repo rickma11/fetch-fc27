@@ -62,6 +62,9 @@ function resolve() {
   const env = pick('TCB_ENV_ID');
   const sid = pick('TCB_SECRET_ID');
   const skey = pick('TCB_SECRET_KEY');
+  // 可选：环境归属的腾讯云账号 ID（Uin）。填了以后 tcb_whoami.js 会直接对照两个账号 ID，
+  // 一眼判定「跨账号」还是「同账号但缺权限」——这是最快、最不会误判的一步。
+  const expect = pick('TCB_EXPECT_ACCOUNT');
   const missing = [];
   if (!env.value) missing.push('TCB_ENV_ID');
   if (!sid.value) missing.push('TCB_SECRET_ID');
@@ -70,16 +73,18 @@ function resolve() {
     ENV_ID: env.value,
     SECRET_ID: sid.value,
     SECRET_KEY: skey.value,
+    EXPECT_ACCOUNT: expect.value || null,
     missing: missing,
     source: missing.length ? null : env.from,
     hint: [
       '未找到云开发凭证：' + missing.join(' / '),
       '',
       '两种填法（选一种即可）：',
-      '  ① 本地文件（推荐，只填一次）：在仓库根目录新建 .env.local，内容三行 ——',
+      '  ① 本地文件（推荐，只填一次）：在仓库根目录新建 .env.local，内容四行 ——',
       '       TCB_ENV_ID=你的环境ID',
       '       TCB_SECRET_ID=你的SecretId',
       '       TCB_SECRET_KEY=你的SecretKey',
+      '       TCB_EXPECT_ACCOUNT=环境归属的腾讯云账号ID（可选，云开发控制台「所属腾讯云主账号 ID」）',
       '  ② PowerShell 当前窗口临时设置：',
       '       $env:TCB_ENV_ID="你的环境ID"; $env:TCB_SECRET_ID="xx"; $env:TCB_SECRET_KEY="yy"',
       '',
