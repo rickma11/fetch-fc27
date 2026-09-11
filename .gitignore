@@ -3,6 +3,9 @@ node_modules/
 # 抓取原始转储（体积大，每次运行重新生成）
 fc27_dump.json
 
+# 图片暂存目录（下载后立刻上传云存储并删除，不进仓库）
+images_out/
+
 # 增量落库包（每次运行重新生成，仅供 upload_db.js 读取）
 cloud-data/fc*/incremental.json
 

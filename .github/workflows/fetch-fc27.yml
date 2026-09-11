@@ -11,6 +11,10 @@ on:
         type: choice
         default: auto
         options: [auto, incremental, full]
+      img_max:
+        description: '本次最多下载多少张图片，0=不限（首次全量背图填 0）'
+        type: string
+        default: '1500'
 
 permissions:
   contents: write
@@ -23,7 +27,9 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    # 日常 15 分钟左右；首次全量背图（3 万张，跨境上传）最慢，留足余量。
+    # 图片清单是边传边记的，即使被超时杀掉，下次也只补没传完的部分。
+    timeout-minutes: 180
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -46,6 +52,11 @@ jobs:
           fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "本次模式: $MODE（北京时间 $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M %A')）"
+
+          IMG='${{ github.event.inputs.img_max }}'
+          if [ -z "$IMG" ]; then IMG=1500; fi   # 定时任务默认每次最多补 1500 张
+          echo "img_max=$IMG" >> "$GITHUB_OUTPUT"
+          echo "图片单次上限: $IMG（0=不限）"
 
       - name: Install dependencies
         env:
@@ -70,6 +81,9 @@ jobs:
       - name: Fetch FC27 via real browser (bypass Cloudflare)
         env:
           FC_MODE: ${{ steps.mode.outputs.mode }}
+          FC_IMG: '1'
+          FC_IMG_CONC: '10'
+          FC_IMG_MAX: ${{ steps.mode.outputs.img_max }}
         run: node scripts/fetch_ci.js
 
       - name: Shape data (offline)
@@ -83,6 +97,17 @@ jobs:
           FC_MODE: ${{ steps.mode.outputs.mode }}
         run: node scripts/upload_db.js --ver 27
 
+      # 图片上传放在落库之后：图片失败不该拖累每天的数据同步。
+      # 允许失败（continue-on-error）——脚本会把「已成功」的部分写进 images.json，
+      # 下次运行按清单续传，不会重复也不会漏。
+      - name: Upload player images to Cloud Storage
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/upload_images.js --ver 27
+
       # 注意：必须放在落库成功之后。快照只有在数据确实写进数据库后才能推进，
       # 否则一旦落库失败，下次增量会误判「无变化」而永久漏数据。
       - name: Commit version history
@@ -90,6 +115,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add cloud-data/fc27/snapshot.json cloud-data/fc27/changes.json cloud-data/fc27/facets.json || true
+          # 图片清单：记录每个球员的图已上传到哪个内容签名，驱动图片增量
+          git add cloud-data/fc27/images.json || true
           if [ "${{ steps.mode.outputs.mode }}" = "full" ]; then
             # 全量数据文件体积大，只在每周全量时留一份版本快照
             git add cloud-data/fc27/players.json cloud-data/fc27/details.json || true
@@ -99,4 +126,11 @@ jobs:
 
       - name: Show run summary
         if: always()
-        run: cat cloud-data/fc27/changes.json || true
+        run: |
+          cat cloud-data/fc27/changes.json || true
+          node -e "
+            const f='cloud-data/fc27/images.json';
+            try { const j=JSON.parse(require('fs').readFileSync(f,'utf8'));
+              console.log('\n图片清单: 已上传 '+Object.keys(j).length+' 名球员的卡图'); }
+            catch(e){ console.log('\n图片清单: 尚未生成'); }
+          "

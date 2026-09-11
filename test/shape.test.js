@@ -99,5 +99,24 @@ t('eaId / overall / 名称透传', function () {
   assert.strictEqual(pArr.commonName, 'FC27 Array Guy');
 });
 
+console.log('图片命名与签名（必须与小程序 utils/format.js 的 IMG_SUFFIX 一致）:');
+const img = require('../scripts/images');
+t('云存储文件名约定不变', function () {
+  assert.strictEqual(img.fileNameOf(192563, 'portrait'), '192563.webp');
+  assert.strictEqual(img.fileNameOf(192563, 'card'), '192563_card.webp');
+  assert.strictEqual(img.fileNameOf(192563, 'simple'), '192563_simple.webp');
+});
+t('云路径为 fc{ver}/images/<文件名>', function () {
+  assert.strictEqual(img.cloudPathOf('192563_card.webp', 27), 'fc27/images/192563_card.webp');
+});
+t('图片签名随内容 hash 变化（换图能触发重传）', function () {
+  const a = { eaId: 1, cardImagePath: 'p/1.aaa.webp', imagePath: 'p/1.bbb.webp' };
+  const b = { eaId: 1, cardImagePath: 'p/1.zzz.webp', imagePath: 'p/1.bbb.webp' };
+  assert.notStrictEqual(img.imgSigOf(a), img.imgSigOf(b));
+});
+t('无图片字段 → 签名为空（不会产生空任务）', function () {
+  assert.strictEqual(img.imgSigOf({ eaId: 1 }), '');
+});
+
 console.log('\n结果: 通过 ' + pass + ' / 失败 ' + fail);
 process.exit(fail ? 1 : 0);

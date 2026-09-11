@@ -13,12 +13,21 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 const { sigOfRaw, diffSigs } = require('./sig');
+const imgLib = require('./images');
+const dl = require('./imgdl');
 
 const VER = 27;
 const BASE = `https://www.fut.gg/api/fut/players/v2/${VER}/`;
 const DET = `https://www.fut.gg/api/fut/player-item-definitions/${VER}/`;
 const OUT = path.resolve(__dirname, '..', 'fc27_dump.json');
 const SNAP = path.resolve(__dirname, '..', 'cloud-data', `fc${VER}`, 'snapshot.json');
+const IMG_DIR = path.resolve(__dirname, '..', 'images_out');
+const IMG_CONC = Number(process.env.FC_IMG_CONC || 10);
+const FORCE_IMG = String(process.env.FC_IMG_FORCE || '') === '1';
+// 单次运行最多下多少张图。0 = 不限。
+// 日常跑设个上限，避免某天突然新增大量球员时把任务拖成几小时；
+// 首次全量背图用 0（不限）一次性铺完。
+const IMG_MAX = Number(process.env.FC_IMG_MAX || 0);
 
 // 模式：环境变量 FC_MODE 优先，其次命令行 --mode=xxx
 function argMode() {
@@ -209,6 +218,112 @@ function readSnapshot() {
 
   console.log('详情抓取完成:', Object.keys(detRes.details).length, '条，失败', detRes.failed, '条');
 
+  // ---------- 阶段 4：下载球员图片（按签名增量，全量模式也跳过未变的）----------
+  const imgStats = { planned: 0, done: 0, failed: 0, skipped: 0, bytes: 0, channel: '' };
+  if (String(process.env.FC_IMG || '1') !== '0') {
+    const manifest = imgLib.readManifest(VER);
+    const types = imgLib.activeTypes();
+    const tasks = [];
+    const taskMeta = {};
+    const typeOrder = {};
+    types.forEach((t, i) => { typeOrder[t.key] = i; });
+    for (const it of listRes.items) {
+      const eaId = it.eaId;
+      const sig = imgLib.imgSigOf(it);
+      if (!sig) continue;                                   // 该球员没有图片字段
+      if (!FORCE_IMG && manifest[eaId] === sig) { imgStats.skipped++; continue; }
+      const files = {};
+      for (const t of types) {
+        const url = imgLib.srcUrlOf(it, t, false);
+        if (!url) continue;
+        const name = imgLib.fileNameOf(eaId, t);
+        files[t.key] = name;
+        tasks.push({
+          eaId, type: t.key, url,
+          rawUrl: imgLib.srcUrlOf(it, t, true),
+          file: path.join(IMG_DIR, name),
+          ovr: Number(it.overall) || 0
+        });
+      }
+      if (Object.keys(files).length) taskMeta[eaId] = { sig, files };
+    }
+    // 高总评优先：这样即使单次有上限，也是先把最常被浏览的卡补齐
+    tasks.sort((a, b) => (b.ovr - a.ovr) || (Number(a.eaId) - Number(b.eaId)) || (typeOrder[a.type] - typeOrder[b.type]));
+    if (IMG_MAX > 0 && tasks.length > IMG_MAX) {
+      console.log(`图片任务 ${tasks.length} 张，本次上限 ${IMG_MAX} 张（余下下次继续）`);
+      tasks.length = IMG_MAX;
+    }
+    imgStats.planned = tasks.length;
+    console.log(`图片下载: 待下载 ${tasks.length} 张（球员 ${Object.keys(taskMeta).length} 人 / 已有签名跳过 ${imgStats.skipped} 人 / 类型 ${types.map(t => t.key).join(',')}）`);
+
+    if (tasks.length) {
+      fs.mkdirSync(IMG_DIR, { recursive: true });
+      const sink = new dl.ImgSink(page);
+
+      // 探测可用通道：A=Node 侧请求，B=页面内 fetch，C=img + response body
+      fs.mkdirSync(IMG_DIR, { recursive: true });
+      const probeFile = path.join(IMG_DIR, '_probe.bin');
+      let channel = await dl.probe(ctx, page, sink, tasks[0].url, probeFile, UA);
+      try { fs.unlinkSync(probeFile); } catch (e) { }
+      if (channel === 'C') await dl.disableCache(ctx, page);
+      if (!channel) {
+        console.error('三种图片下载通道全部不可用，跳过图片下载（数据同步不受影响）');
+      } else {
+        imgStats.channel = channel;
+        const order = channel === 'A' ? ['A', 'B', 'C'] : channel === 'B' ? ['B', 'C', 'A'] : ['C', 'B', 'A'];
+        const pick = (ch, url, file, tmo) =>
+          ch === 'A' ? dl.methodA(ctx, url, file, UA)
+            : ch === 'B' ? dl.methodB(page, url, file)
+              : sink.fetch(url, file, tmo);
+
+        let cursor = 0;
+        async function worker() {
+          while (true) {
+            const i = cursor++;
+            if (i >= tasks.length) return;
+            const t = tasks[i];
+            let lastErr = null, ok = false;
+            for (const ch of order) {
+              try { imgStats.bytes += await pick(ch, t.url, t.file, 60000); ok = true; break; }
+              catch (e) { lastErr = e; }
+            }
+            if (!ok && t.rawUrl && t.rawUrl !== t.url) {
+              // 缩放地址不通 → 退回原图
+              for (const ch of order) {
+                try { imgStats.bytes += await pick(ch, t.rawUrl, t.file, 90000); ok = true; break; }
+                catch (e) { lastErr = e; }
+              }
+            }
+            if (ok) imgStats.done++;
+            else {
+              imgStats.failed++;
+              if (imgStats.failed <= 5) console.log('[img] 失败', t.eaId, t.type, (lastErr && lastErr.message) || lastErr);
+            }
+            if ((imgStats.done + imgStats.failed) % 500 === 0) {
+              console.log('图片进度', imgStats.done + imgStats.failed, '/', tasks.length,
+                '| 失败', imgStats.failed, '| 已下', Math.round(imgStats.bytes / 1048576), 'MB');
+            }
+          }
+        }
+        await Promise.all(Array.from({ length: Math.min(IMG_CONC, tasks.length) }, worker));
+        console.log('图片下载完成: 成功', imgStats.done, '| 失败', imgStats.failed,
+          '| 共', Math.round(imgStats.bytes / 1048576), 'MB | 通道', channel);
+      }
+
+      // 交给 upload_images.js：只记录「真的下载成功」的文件
+      const index = {};
+      for (const t of tasks) {
+        if (!fs.existsSync(t.file)) continue;
+        const m = index[t.eaId] || (index[t.eaId] = { sig: taskMeta[t.eaId].sig, files: {} });
+        m.files[t.type] = path.basename(t.file);
+      }
+      fs.writeFileSync(path.join(IMG_DIR, '_tasks.json'), JSON.stringify(index));
+      console.log('待上传球员:', Object.keys(index).length, '人 →images_out/_tasks.json');
+    }
+  } else {
+    console.log('图片下载已关闭（FC_IMG=0）');
+  }
+
   const dump = {
     mode: mode,
     ver: Number(VER),
@@ -223,7 +338,8 @@ function readSnapshot() {
     pageSize: listRes.pageSize,
     totalPages: listRes.totalPages,
     count: listRes.count,
-    detailFailed: detRes.failed
+    detailFailed: detRes.failed,
+    images: imgStats
   };
   fs.writeFileSync(OUT, JSON.stringify(dump));
   console.log('写入', OUT, '| 列表', dump.list.length, '| 详情', Object.keys(dump.details).length);

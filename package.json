@@ -9,7 +9,8 @@
     "fetch:full": "node scripts/fetch_ci.js --mode=full",
     "fetch:incremental": "node scripts/fetch_ci.js --mode=incremental",
     "shape": "node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27 --no-local",
-    "upload": "node scripts/upload_db.js --ver 27"
+    "upload": "node scripts/upload_db.js --ver 27",
+    "upload:images": "node scripts/upload_images.js --ver 27"
   },
   "dependencies": {
     "@cloudbase/node-sdk": "^3.18.3",
