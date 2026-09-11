@@ -16,7 +16,7 @@
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-const { sigOfRaw } = require('./sig');
+const { sigOfRaw, normFaceStats, normRarity } = require('./sig');
 
 const ROOT = path.resolve(__dirname, '..');
 
@@ -320,4 +320,11 @@ async function main() {
   console.log(`  cloud-data/fc${VER}/facets.json     （筛选取值，提交 git）`);
 }
 
-main().catch(e => { console.error('抓取失败:', e); process.exit(1); });
+// 作为脚本运行时才执行抓取/成型；被 require 时只导出函数（供单测直接调用 pickPlayer）
+if (require.main === module) {
+  main().catch(e => { console.error('抓取失败:', e); process.exit(1); });
+}
+
+// 单测入口：pickPlayer 是「列表文档字段」的唯一来源，
+// 之前它缺了 sig.js 的归一化函数导入，CI 全量跑完才发现六维全 0 —— 必须有单测兜住。
+module.exports = { pickPlayer };
