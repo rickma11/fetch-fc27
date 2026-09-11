@@ -29,9 +29,80 @@ function joinIds(arr) {
   return arr.slice().sort().join('.');
 }
 
+var FACE_KEYS = ['pace', 'shooting', 'passing', 'dribbling', 'defending', 'physicality'];
+
+// 六维字段在不同版本/不同接口里出现过三种形态，这里统一归一化成
+// { pace, shooting, passing, dribbling, defending, physicality }：
+//   ① FC26 列表：faceStats = { pace, shooting, passing, dribbling, defending, physicality }
+//   ② FC27 列表：faceStatsV2 = { facePace, faceShooting, ... }（扁平，最省事）
+//   ③ FC27 列表：faceStats = [{ defKey: 'facePace', rating: 88 }, ...]（对象数组）
+// 早期只认 ①，导致 FC27 全量 10000 条六维被写成 0（且签名里也全是空，变化检测失效）。
+function normFaceStats(it) {
+  var zero = { pace: 0, shooting: 0, passing: 0, dribbling: 0, defending: 0, physicality: 0 };
+  if (!it) return zero;
+  var i, k;
+
+  var v2 = it.faceStatsV2;
+  if (v2 && typeof v2 === 'object' && !Array.isArray(v2)) {
+    var out = {};
+    for (i = 0; i < FACE_KEYS.length; i++) {
+      k = FACE_KEYS[i];
+      out[k] = Number(v2['face' + k.charAt(0).toUpperCase() + k.slice(1)]) || 0;
+    }
+    if (FACE_KEYS.some(function (x) { return out[x]; })) return out;
+  }
+
+  var f = it.faceStats;
+  if (Array.isArray(f)) {
+    var arr = { pace: 0, shooting: 0, passing: 0, dribbling: 0, defending: 0, physicality: 0 };
+    for (i = 0; i < f.length; i++) {
+      var row = f[i];
+      if (!row) continue;
+      var key = row.defKey || String(row.identifier || '').replace(/^face_/, '');
+      key = String(key).replace(/^face/, '');
+      key = key.charAt(0).toLowerCase() + key.slice(1);
+      if (arr[key] === undefined) continue;
+      arr[key] = Number(row.rating != null ? row.rating : row.value) || 0;
+    }
+    if (FACE_KEYS.some(function (x) { return arr[x]; })) return arr;
+  }
+
+  if (f && typeof f === 'object' && !Array.isArray(f)) {
+    var obj = {};
+    for (i = 0; i < FACE_KEYS.length; i++) {
+      k = FACE_KEYS[i];
+      obj[k] = Number(f[k]) || 0;
+    }
+    if (FACE_KEYS.some(function (x) { return obj[x]; })) return obj;
+  }
+  return zero;
+}
+
+// 稀有度同样是两种形态：FC26 为嵌套对象 item.rarity.{name}，FC27 为扁平 item.rarityName。
+function rarityNameOf(it) {
+  if (!it) return '';
+  if (it.rarity && it.rarity.name) return String(it.rarity.name);
+  if (it.rarityName) return String(it.rarityName);
+  return '';
+}
+
+function normRarity(it) {
+  if (!it) return null;
+  if (it.rarity && typeof it.rarity === 'object' && !Array.isArray(it.rarity)) return it.rarity;
+  if (it.rarityName) {
+    return {
+      name: it.rarityName,
+      id: it.rarityId != null ? it.rarityId : null,
+      eaId: it.rarityEaId != null ? it.rarityEaId : null,
+      imagePath: it.rarityImagePath || ''
+    };
+  }
+  return null;
+}
+
 // 把参与签名的字段拼成规范化字符串（顺序固定、缺失值统一为空）
 function sigSource(it) {
-  var f = (it && it.faceStats) || {};
+  var f = normFaceStats(it);
   return [
     it.overall,
     it.position,
@@ -44,7 +115,7 @@ function sigSource(it) {
     it.bodytypeCode,
     it.isRealFace,
     it.shirtNumber,
-    it.rarity && it.rarity.name,
+    rarityNameOf(it),
     it.club && it.club.name,
     it.league && it.league.name,
     it.nation && it.nation.name,
@@ -86,4 +157,11 @@ function diffSigs(snap, sigs) {
   return { newIds: newIds, changedIds: changedIds, removedIds: removedIds, fullFallback: false };
 }
 
-module.exports = { sigOfRaw: sigOfRaw, sigSource: sigSource, diffSigs: diffSigs };
+module.exports = {
+  sigOfRaw: sigOfRaw,
+  sigSource: sigSource,
+  diffSigs: diffSigs,
+  normFaceStats: normFaceStats,
+  rarityNameOf: rarityNameOf,
+  normRarity: normRarity
+};

@@ -61,7 +61,9 @@ function getJson(url) {
 }
 
 function pickPlayer(item) {
-  const f = item.faceStats || {};
+  // 六维的形态差异（FC26 对象 / FC27 扁平对象 / FC27 对象数组）统一在 sig.js 里归一化，
+  // 保证「列表文档里的六维」与「签名里参与比对的六维」永远取自同一处，不会再分叉。
+  const f = normFaceStats(item);
   return {
     id: item.id,
     eaId: item.eaId,
@@ -81,7 +83,7 @@ function pickPlayer(item) {
     club: item.club || null,
     league: item.league || null,
     nation: item.nation || null,
-    rarity: item.rarity || null,
+    rarity: normRarity(item),
     imagePath: item.imagePath || '',
     cardImagePath: item.cardImagePath || '',
     simpleCardImagePath: item.simpleCardImagePath || '',
