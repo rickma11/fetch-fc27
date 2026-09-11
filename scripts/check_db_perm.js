@@ -36,8 +36,13 @@ let step = 'init';
   catch (e) { console.log('  · 集合已存在，跳过'); }
 
   step = 'InsertDocument';
-  await db.collection(COL).doc(PROBE_ID).set({ _id: PROBE_ID, t: Date.now() });
-  console.log('  ✔ tcb:InsertDocument 通过');
+  // 注意：doc(id) 已指定主键，data 里绝不能再带 _id，否则报「不能更新_id的值」
+  await db.collection(COL).doc(PROBE_ID).set({ t: Date.now() });
+  console.log('  ✔ tcb:InsertDocument 通过（doc().set() 覆盖写 —— 增量模式用）');
+
+  step = 'AddDocument';
+  await db.collection(COL).add([{ _id: PROBE_ID + '_add', t: Date.now() }]);
+  console.log('  ✔ collection.add() 带显式 _id 通过（全量模式用）');
 
   step = 'QueryDocument';
   const r = await db.collection(COL).doc(PROBE_ID).get();
@@ -50,7 +55,12 @@ let step = 'init';
 
   step = 'DeleteDocument';
   await db.collection(COL).doc(PROBE_ID).remove();
+  await db.collection(COL).doc(PROBE_ID + '_add').remove();
   console.log('  ✔ tcb:DeleteDocument 通过');
+
+  step = 'BatchRemove';
+  const br = await db.collection(COL).where({ _id: db.command.neq('') }).remove();
+  console.log('  ✔ 条件批量删除通过（全量模式清空用）:', JSON.stringify(br));
 
   console.log('\n✔ 数据库读写权限正常，可以重新触发 CI（mode=full 建基线）');
 })().catch(function (e) {

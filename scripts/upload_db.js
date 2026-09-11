@@ -44,10 +44,24 @@ const DIR = path.join(ROOT, 'cloud-data', `fc${VER}`);
 const PLAYER_BATCH = 100;   // 列表文档小，批量大些
 const DETAIL_BATCH = 20;    // 详情节约 2KB（成型后），批次小些避免请求体过大
 const UPSERT_CONC = 8;      // 增量 upsert 并发
+const FULL_CONC = 10;       // 全量逐条 upsert 并发（add() 不可用时的兜底路径）
 
 async function ensureCollection(name) {
-  try { await db.createCollection(name); console.log('  已创建集合', name); }
-  catch (e) { console.log('  集合已存在', name); }
+  try {
+    await db.createCollection(name);
+    console.log('  已创建集合', name);
+    return true;
+  } catch (e) {
+    const msg = String((e && e.message) || e);
+    // 「已存在」是正常情况；其他错误（环境不存在 / 无权限）必须显式暴露 ——
+    // 否则会被误读成「集合已存在」，把真实故障掩盖到后面几步（2026-09-11 实际踩过）。
+    if (/exist|已存在|EXIST/i.test(msg)) {
+      console.log('  集合已存在', name);
+      return true;
+    }
+    console.warn('  ⚠ 建集合失败（后续写入很可能同样失败）:', msg);
+    return false;
+  }
 }
 
 // 清空集合内全部文档（保留集合本身与已建索引）；服务端单次最多删 1000 条，循环删净
@@ -69,7 +83,30 @@ async function clearDocs(name) {
   return total;
 }
 
-async function insertAll(name, docs, batchSize) {
+// 探测 collection.add() 能否带显式 _id。服务端 SDK 各版本行为不一致，
+// 不支持时全量模式退回逐条 doc(id).set()：慢一些，但保证主键 = eaId 且天然幂等。
+async function addAcceptsExplicitId(name) {
+  const probeId = '__probe_add_with_id__';
+  try {
+    await db.collection(name).add([{ _id: probeId, probe: 1 }]);
+    try { await db.collection(name).doc(probeId).remove(); } catch (e) { /* 清理失败不影响主流程 */ }
+    return true;
+  } catch (e) {
+    const msg = String((e && e.message) || e);
+    if (/exist|已存在/i.test(msg)) return true;   // 上次探测残留 → 说明能带 _id 写入
+    console.log('  · collection.add() 不接受显式 _id（' + msg.slice(0, 90) + '），改逐条 doc(id).set()');
+    return false;
+  }
+}
+
+async function insertAll(name, docs, batchSize, canAddWithId) {
+  if (!canAddWithId) {
+    const r = await runConc(docs, FULL_CONC, function (d) {
+      return db.collection(name).doc(String(d._id)).set(bodyOf(d));
+    }, name + ' 逐条写');
+    console.log('  写入', name, r.done, '条' + (r.failed ? '（失败 ' + r.failed + '）' : ''));
+    return r.done;
+  }
   let ok = 0;
   for (let i = 0; i < docs.length; i += batchSize) {
     const slice = docs.slice(i, i + batchSize);
@@ -103,10 +140,18 @@ async function runConc(items, conc, fn, label) {
   return { done, failed };
 }
 
+// 去掉 _id 后再交给 doc(id).set()：doc(id) 已指定主键，
+// data 里再带 _id 会被服务端拒绝并报「不能更新_id的值」（2026-09-11 实测）。
+function bodyOf(doc) {
+  const body = Object.assign({}, doc);
+  delete body._id;
+  return body;
+}
+
 async function upsertAll(name, docs, conc, label) {
   if (!docs.length) { console.log('  ' + label + ': 无变化，跳过'); return; }
   await runConc(docs, conc, function (d) {
-    return db.collection(name).doc(String(d._id)).set(d);
+    return db.collection(name).doc(String(d._id)).set(bodyOf(d));
   }, label);
 }
 
@@ -127,13 +172,8 @@ async function removeByIds(name, ids) {
 
 async function writeFacets(facets, mCol) {
   await ensureCollection(mCol);
-  facets._id = 'facets';
-  try {
-    await db.collection(mCol).doc('facets').set(facets);   // 服务端 SDK：直接传对象
-  } catch (e) {
-    await clearDocs(mCol);
-    await db.collection(mCol).add([facets]);
-  }
+  // set() 本身就是「不存在则创建」，无需再清空；_id 由 doc('facets') 指定，不能放进 body
+  await db.collection(mCol).doc('facets').set(bodyOf(facets));
   console.log('  facets 写入完成（联赛', (facets.leagues || []).length, '俱乐部', (facets.clubs || []).length, '）');
 }
 
@@ -192,12 +232,13 @@ async function writeFacets(facets, mCol) {
     console.log('== 全量重建', pCol, '==');
     await ensureCollection(pCol);
     await clearDocs(pCol);
-    await insertAll(pCol, pDocs, PLAYER_BATCH);
+    const canAddWithId = await addAcceptsExplicitId(pCol);
+    await insertAll(pCol, pDocs, PLAYER_BATCH, canAddWithId);
 
     console.log('== 全量重建', dCol, '==');
     await ensureCollection(dCol);
     await clearDocs(dCol);
-    await insertAll(dCol, dDocs, DETAIL_BATCH);
+    await insertAll(dCol, dDocs, DETAIL_BATCH, canAddWithId);
 
     // 筛选取值（联赛/俱乐部/稀有度…），单文档，供前端筛选面板使用
     if (fs.existsSync(fFile)) {
