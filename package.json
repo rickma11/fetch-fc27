@@ -1,0 +1,15 @@
+{
+  "name": "fetch-fc27",
+  "version": "1.0.0",
+  "private": true,
+  "description": "每日自动抓取 fut.gg FC27 球员数据：Playwright 真实浏览器过 Cloudflare -> 成型 -> 提交 git 版本历史 -> 推送 WeChat 云存储",
+  "scripts": {
+    "fetch": "node scripts/fetch_ci.js",
+    "shape": "node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27",
+    "upload": "node scripts/upload_cloud.js"
+  },
+  "dependencies": {
+    "playwright": "^1.47.0",
+    "tcb-admin-node": "^2.5.0"
+  }
+}

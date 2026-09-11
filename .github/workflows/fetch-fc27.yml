@@ -1,0 +1,50 @@
+name: Fetch FC27 Daily
+
+on:
+  schedule:
+    # 19:00 UTC = 北京时间 03:00（GitHub cron 为尽力触发，可能延后数分钟）
+    - cron: '0 19 * * *'
+  workflow_dispatch: {}   # 允许在 Actions 页面手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Fetch FC27 via real browser (bypass Cloudflare)
+        run: node scripts/fetch_ci.js
+
+      - name: Shape data (offline)
+        run: node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27
+
+      - name: Commit version history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cloud-data/fc27 data
+          git commit -m "chore: daily FC27 sync $(date +'%Y-%m-%d')" || echo "no changes"
+          git push
+
+      - name: Upload to WeChat Cloud Storage
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/upload_cloud.js
