@@ -6,7 +6,7 @@
   "scripts": {
     "fetch": "node scripts/fetch_ci.js",
     "shape": "node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27",
-    "upload": "node scripts/upload_cloud.js"
+    "upload": "node scripts/upload_db.js --ver 27"
   },
   "dependencies": {
     "@cloudbase/node-sdk": "^3.18.3",

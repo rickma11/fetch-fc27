@@ -57,23 +57,51 @@ const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
     const players = [], seen = new Set();
     for (let pg = 1; pg <= 999; pg++) {
       const res = await fetch(`${BASE}?page=${pg}`, { headers: { 'Accept': 'application/json' } });
-      if (!res.ok) { console.log('列表第', pg, '页失败 status=', res.status); break; }
+      if (!res.ok) { console.log('列表第', pg, '页结束 status=', res.status, '（404=已翻到末页，属正常终止）'); break; }
       const j = await res.json();
+      if (pg === 1) {
+        console.log('列表响应根级字段:', Object.keys(j).join(','));
+        ['count', 'total', 'totalCount', 'numPages', 'totalPages', 'next', 'previous', 'page', 'pageSize'].forEach(function (k) {
+          if (j[k] !== undefined) console.log('  元信息 ' + k + ' =', JSON.stringify(j[k]));
+        });
+      }
       if (!j.data || !Array.isArray(j.data) || j.data.length === 0) { console.log('列表第', pg, '页为空，到达末页'); break; }
       for (const it of j.data) if (!seen.has(it.eaId)) { seen.add(it.eaId); players.push(it); }
-      console.log('列表 page', pg, '累计', players.length, '人');
-      await sleep(300);
+      if (pg % 25 === 0) console.log('列表进度: page', pg, '累计', players.length, '人');
+      await sleep(120);
     }
+    console.log('列表抓取完成，共', players.length, '人');
+    // 并发抓详情（CONC 路），单条失败重试 2 次，避免个别抖动影响整体
     const details = {};
-    for (let i = 0; i < players.length; i++) {
-      const p = players[i];
-      try {
-        const r = await fetch(`${DET}${p.eaId}/`, { headers: { 'Accept': 'application/json' } });
-        details[p.eaId] = r.ok ? await r.json() : { data: p };
-      } catch (e) { details[p.eaId] = { data: p }; }
-      if (i % 25 === 0 || i === players.length - 1) console.log('详情', i + 1, '/', players.length);
-      await sleep(250);
+    const CONC = 5;
+    let cursor = 0, done = 0, failed = 0;
+    async function fetchDetail(p) {
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          const r = await fetch(`${DET}${p.eaId}/`, { headers: { 'Accept': 'application/json' } });
+          if (r.ok) return await r.json();
+          if (r.status === 404) return { data: p };
+          await sleep(500 * (attempt + 1));
+        } catch (e) { await sleep(500 * (attempt + 1)); }
+      }
+      return null;
     }
+    async function worker() {
+      while (true) {
+        const i = cursor++;
+        if (i >= players.length) return;
+        const p = players[i];
+        const raw = await fetchDetail(p);
+        if (raw) details[p.eaId] = raw; else { details[p.eaId] = { data: p }; failed++; }
+        done++;
+        if (done % 200 === 0 || done === players.length) {
+          console.log('详情进度', done, '/', players.length, failed ? ('| 降级 ' + failed) : '');
+        }
+        await sleep(60);
+      }
+    }
+    await Promise.all(Array.from({ length: CONC }, worker));
+    console.log('详情抓取完成:', Object.keys(details).length, '条，降级', failed, '条');
     return { players, details };
   }, { BASE, DET });
 
