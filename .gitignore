@@ -9,4 +9,9 @@ cloud-data/fc*/incremental.json
 # 旧版「小程序本地兜底」文件：现在是数据库架构，CI 不再生成（--no-local）
 data/
 
+# 本地云开发凭证（绝不提交；CI 走 GitHub Secrets）
+.env.local
+.env
+.tcb.local.json
+
 .DS_Store

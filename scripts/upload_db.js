@@ -15,14 +15,18 @@
 const fs = require('fs');
 const path = require('path');
 const cloudbase = require('@cloudbase/node-sdk');
+const { resolve } = require('./tcb_env');
 
-const ENV_ID = process.env.TCB_ENV_ID;
-const SECRET_ID = process.env.TCB_SECRET_ID;
-const SECRET_KEY = process.env.TCB_SECRET_KEY;
-if (!ENV_ID || !SECRET_ID || !SECRET_KEY) {
-  console.error('缺少环境变量 TCB_ENV_ID / TCB_SECRET_ID / TCB_SECRET_KEY，无法写入数据库');
+// 凭证来源见 scripts/tcb_env.js（CI 走环境变量，本地可写 .env.local）
+const cred = resolve();
+if (cred.missing.length) {
+  console.error('缺少云开发凭证：' + cred.missing.join(' / ') + '，无法写入数据库');
+  console.error(cred.hint);
   process.exit(1);
 }
+const ENV_ID = cred.ENV_ID;
+const SECRET_ID = cred.SECRET_ID;
+const SECRET_KEY = cred.SECRET_KEY;
 const app = cloudbase.init({ env: ENV_ID, secretId: SECRET_ID, secretKey: SECRET_KEY });
 const db = app.database();
 const _ = db.command;
