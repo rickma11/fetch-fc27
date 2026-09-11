@@ -97,5 +97,24 @@ async function insertAll(name, docs, batchSize) {
   await clearDocs(dCol);
   await insertAll(dCol, dDocs, DETAIL_BATCH);
 
+  // 筛选取值（联赛/俱乐部/稀有度…），单文档，供前端筛选面板使用
+  const fFile = path.join(ROOT, 'cloud-data', `fc${VER}`, 'facets.json');
+  const mCol = `meta_fc${VER}`;
+  if (fs.existsSync(fFile)) {
+    const facets = JSON.parse(fs.readFileSync(fFile, 'utf8'));
+    console.log('== 写入', mCol, '==');
+    await ensureCollection(mCol);
+    facets._id = 'facets';
+    try {
+      await db.collection(mCol).doc('facets').set(facets);   // 服务端 SDK：直接传对象
+    } catch (e) {
+      await clearDocs(mCol);
+      await db.collection(mCol).add([facets]);
+    }
+    console.log('  facets 写入完成（联赛', (facets.leagues || []).length, '俱乐部', (facets.clubs || []).length, '）');
+  } else {
+    console.log('未找到 facets.json，跳过（可重跑 fetch_futgg.js 生成）');
+  }
+
   console.log('数据库写入完成');
 })().catch(function (e) { console.error('写入失败:', e); process.exit(1); });

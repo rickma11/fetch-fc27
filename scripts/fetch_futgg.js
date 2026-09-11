@@ -188,6 +188,26 @@ async function main() {
   fs.writeFileSync(path.join(cloudDir, 'players.json'), JSON.stringify(players, null, 2));
   fs.writeFileSync(path.join(cloudDir, 'details.json'), JSON.stringify(details, null, 2));
 
+  // 筛选面板的取值范围：预先算好，前端就不必拉全量数据
+  function uniqSorted(arr) {
+    const s = new Set();
+    arr.forEach(function (x) { if (x) s.add(x); });
+    return Array.from(s).sort();
+  }
+  const facets = {
+    version: VER,
+    total: players.length,
+    positions: uniqSorted(players.map(function (p) { return p.position; })),
+    leagues: uniqSorted(players.map(function (p) { return p.league && p.league.name; })),
+    clubs: uniqSorted(players.map(function (p) { return p.club && p.club.name; })),
+    nations: uniqSorted(players.map(function (p) { return p.nation && p.nation.name; })),
+    rarities: uniqSorted(players.map(function (p) { return p.rarity && p.rarity.name; })),
+    accs: uniqSorted(players.map(function (p) { return p.accelerateType; })),
+    updatedAt: new Date().toISOString()
+  };
+  fs.writeFileSync(path.join(cloudDir, 'facets.json'), JSON.stringify(facets, null, 2));
+  console.log('  筛选取值: 联赛', facets.leagues.length, '| 俱乐部', facets.clubs.length, '| 稀有度', facets.rarities.length, '| 位置', facets.positions.length);
+
   console.log('完成。FC' + VER);
   console.log(`  data/players_fc${VER}.js  （版本化本地兜底 / git 版本历史）`);
   console.log(`  data/details_fc${VER}.js  （版本化本地兜底 / git 版本历史）`);
