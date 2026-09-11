@@ -1,11 +1,14 @@
 {
   "name": "fetch-fc27",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "每日自动抓取 fut.gg FC27 球员数据：Playwright 真实浏览器过 Cloudflare -> 成型 -> 提交 git 版本历史 -> 推送 WeChat 云存储",
+  "description": "每日自动抓取 fut.gg FC27 球员数据：Playwright 真实浏览器过 Cloudflare -> 增量/全量成型 -> 落云数据库 -> 提交 git 版本历史",
   "scripts": {
+    "test": "node test/sig.test.js",
     "fetch": "node scripts/fetch_ci.js",
-    "shape": "node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27",
+    "fetch:full": "node scripts/fetch_ci.js --mode=full",
+    "fetch:incremental": "node scripts/fetch_ci.js --mode=incremental",
+    "shape": "node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27 --no-local",
     "upload": "node scripts/upload_db.js --ver 27"
   },
   "dependencies": {

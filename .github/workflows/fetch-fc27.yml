@@ -4,10 +4,21 @@ on:
   schedule:
     # 19:00 UTC = 北京时间 03:00（GitHub cron 为尽力触发，可能延后数分钟）
     - cron: '0 19 * * *'
-  workflow_dispatch: {}   # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '抓取模式：auto=北京时间周日全量、其余增量'
+        type: choice
+        default: auto
+        options: [auto, incremental, full]
 
 permissions:
   contents: write
+
+# 同一时间只跑一个，避免两次抓取互相踩到快照
+concurrency:
+  group: fetch-fc27
+  cancel-in-progress: false
 
 jobs:
   fetch:
@@ -22,31 +33,61 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Resolve mode
+        id: mode
+        run: |
+          IN='${{ github.event.inputs.mode }}'
+          if [ -z "$IN" ] || [ "$IN" = "auto" ]; then
+            # 用北京时间判断星期：周日(7)跑全量兜底，其余走增量
+            BJ_DOW=$(TZ=Asia/Shanghai date +%u)
+            if [ "$BJ_DOW" = "7" ]; then MODE=full; else MODE=incremental; fi
+          else
+            MODE="$IN"
+          fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "本次模式: $MODE（北京时间 $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M %A')）"
+
       - name: Install dependencies
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 浏览器内核交给下一步单独装，避免此处重复下载
         run: npm install
 
+      - name: Unit tests (签名与差异归类)
+        run: npm test
+
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
       - name: Fetch FC27 via real browser (bypass Cloudflare)
+        env:
+          FC_MODE: ${{ steps.mode.outputs.mode }}
         run: node scripts/fetch_ci.js
 
       - name: Shape data (offline)
-        run: node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27
-
-      - name: Commit version history
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A cloud-data data || true
-          git commit -m "chore: daily FC27 sync $(date +'%Y-%m-%d')" || echo "no changes"
-          git push
+        run: node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27 --no-local
 
       - name: Upload to CloudBase Database
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          FC_MODE: ${{ steps.mode.outputs.mode }}
         run: node scripts/upload_db.js --ver 27
+
+      # 注意：必须放在落库成功之后。快照只有在数据确实写进数据库后才能推进，
+      # 否则一旦落库失败，下次增量会误判「无变化」而永久漏数据。
+      - name: Commit version history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cloud-data/fc27/snapshot.json cloud-data/fc27/changes.json cloud-data/fc27/facets.json || true
+          if [ "${{ steps.mode.outputs.mode }}" = "full" ]; then
+            # 全量数据文件体积大，只在每周全量时留一份版本快照
+            git add cloud-data/fc27/players.json cloud-data/fc27/details.json || true
+          fi
+          git commit -m "chore: FC27 ${{ steps.mode.outputs.mode }} sync $(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M')" || echo "no changes"
+          git push
+
+      - name: Show run summary
+        if: always()
+        run: cat cloud-data/fc27/changes.json || true

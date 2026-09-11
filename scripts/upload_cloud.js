@@ -1,3 +1,8 @@
+// 【已废弃，流水线不再调用】
+// 原因：10000+ 张卡的全量 JSON 无法走云函数整包返回（小程序链路限 1MB、云函数限 6MB），
+// 已改为写入云开发数据库、由云函数按需查询。见 scripts/upload_db.js。
+// 仅保留此文件供参考，勿在 CI 中启用。
+//
 // 把成型后的 JSON 推送到 WeChat 云开发云存储 fc27/ 目录，供小程序云函数读取。
 // 凭证来自环境变量（CI 中由 GitHub Secrets 注入，切勿硬编码）：
 //   TCB_ENV_ID / TCB_SECRET_ID / TCB_SECRET_KEY

@@ -1,3 +1,12 @@
 node_modules/
+
+# 抓取原始转储（体积大，每次运行重新生成）
 fc27_dump.json
+
+# 增量落库包（每次运行重新生成，仅供 upload_db.js 读取）
+cloud-data/fc*/incremental.json
+
+# 旧版「小程序本地兜底」文件：现在是数据库架构，CI 不再生成（--no-local）
+data/
+
 .DS_Store
