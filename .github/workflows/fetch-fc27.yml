@@ -23,6 +23,8 @@ jobs:
           node-version: '22'
 
       - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 浏览器内核交给下一步单独装，避免此处重复下载
         run: npm install
 
       - name: Install Playwright Chromium
