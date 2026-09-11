@@ -55,6 +55,15 @@ jobs:
       - name: Unit tests (签名与差异归类)
         run: npm test
 
+      # 前置检查：先确认这套凭证能不能看到目标环境、有没有数据库操作权限。
+      # 放在抓取之前 —— 凭证有问题时几秒就失败，不用白等 6 分钟抓取再报错。
+      - name: Preflight (云开发凭证体检)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/tcb_whoami.js
+
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
