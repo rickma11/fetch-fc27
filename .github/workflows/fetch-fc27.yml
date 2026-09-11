@@ -27,9 +27,11 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    # 日常 15 分钟左右；首次全量背图（3 万张，跨境上传）最慢，留足余量。
+    # 日常 15 分钟左右；首次全量背图（2 万张，跨境上传）最慢，留足余量。
+    # 实测：每周日 auto=full 整轮（抓取 42min + 落库 18min + 背图 ~2h）≈ 179 分钟，
+    # 距旧上限 180min 仅差 1 分钟 —— 稍慢就会被强杀（连提交版本历史都跑不到），故提到 300。
     # 图片清单是边传边记的，即使被超时杀掉，下次也只补没传完的部分。
-    timeout-minutes: 180
+    timeout-minutes: 300
     steps:
       - name: Checkout
         uses: actions/checkout@v6
