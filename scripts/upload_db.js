@@ -27,7 +27,10 @@ if (cred.missing.length) {
 const ENV_ID = cred.ENV_ID;
 const SECRET_ID = cred.SECRET_ID;
 const SECRET_KEY = cred.SECRET_KEY;
-const app = cloudbase.init({ env: ENV_ID, secretId: SECRET_ID, secretKey: SECRET_KEY });
+// timeout: SDK 默认只有 15s（tcbapirequester 的 defaultTimeout=15000）。
+// GitHub runner 在国内端点跨境访问时单请求常超 3s，偶发尖峰必然击穿 15s →
+// ESOCKETTIMEDOUT（2026-09-11 run #7 实际踩到）。这里放宽到 90s。
+const app = cloudbase.init({ env: ENV_ID, secretId: SECRET_ID, secretKey: SECRET_KEY, timeout: 90000 });
 const db = app.database();
 const _ = db.command;
 
@@ -41,10 +44,14 @@ for (let i = 0; i < argv.length; i++) {
 
 const ROOT = path.resolve(__dirname, '..');
 const DIR = path.join(ROOT, 'cloud-data', `fc${VER}`);
-const PLAYER_BATCH = 100;   // 列表文档小，批量大些
-const DETAIL_BATCH = 20;    // 详情节约 2KB（成型后），批次小些避免请求体过大
+// 批次与并发：本机实测（scripts/probe_bulk.js）到 TCB 端点约 700~1100 条/秒，
+// 但 CI runner 跨境访问慢一到两个数量级，故批次不宜过大、改用适度并发叠加网络等待。
+// 全量 10000 列表 + 10000 详情 ≈ 600 个请求，并发 6 下预计 5~10 分钟。
+const PLAYER_BATCH = 50;    // 列表文档小（约 0.8KB），批次可大些
+const DETAIL_BATCH = 25;    // 详情约 2KB，批次小些避免请求体过大、单请求超时
+const INSERT_CONC = 6;      // 全量批量插入并发
 const UPSERT_CONC = 8;      // 增量 upsert 并发
-const FULL_CONC = 10;       // 全量逐条 upsert 并发（add() 不可用时的兜底路径）
+const FULL_CONC = 10;       // 逐条 upsert 并发（add() 不可用 / 批次兜底时用）
 
 async function ensureCollection(name) {
   try {
@@ -99,6 +106,8 @@ async function addAcceptsExplicitId(name) {
   }
 }
 
+function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
 async function insertAll(name, docs, batchSize, canAddWithId) {
   if (!canAddWithId) {
     const r = await runConc(docs, FULL_CONC, function (d) {
@@ -107,16 +116,49 @@ async function insertAll(name, docs, batchSize, canAddWithId) {
     console.log('  写入', name, r.done, '条' + (r.failed ? '（失败 ' + r.failed + '）' : ''));
     return r.done;
   }
-  let ok = 0;
-  for (let i = 0; i < docs.length; i += batchSize) {
-    const slice = docs.slice(i, i + batchSize);
-    await db.collection(name).add(slice);   // 服务端 SDK：直接传数组，不套 data 层
-    ok += slice.length;
-    if (i % (batchSize * 10) === 0 || i + batchSize >= docs.length) {
-      console.log(`  ${name}: ${Math.min(ok, docs.length)}/${docs.length}`);
+
+  const batches = [];
+  for (let i = 0; i < docs.length; i += batchSize) batches.push(docs.slice(i, i + batchSize));
+
+  const t0 = Date.now();
+  let ok = 0, failedDocs = 0, cursor = 0, doneBatches = 0;
+
+  async function worker() {
+    for (;;) {
+      const idx = cursor++;
+      if (idx >= batches.length) return;
+      const slice = batches[idx];
+      try {
+        await db.collection(name).add(slice);   // 服务端 SDK：直接传数组，不套 data 层
+        ok += slice.length;
+      } catch (e) {
+        const msg = String((e && e.message) || e);
+        // 单次超时不代表整批失败：先等 2s 原样重试一次（add 不幂等，
+        // 若上一批其实已落库，重试会撞 _id 重复 → 直接落到逐条 upsert 兜底）
+        try {
+          await sleep(2000);
+          await db.collection(name).add(slice);
+          ok += slice.length;
+        } catch (e2) {
+          console.warn('    ' + name + ' 批次 ' + idx + ' 两次失败（' + msg.slice(0, 70) + '）→ 逐条 upsert 兜底');
+          const r = await runConc(slice, FULL_CONC, function (d) {
+            return db.collection(name).doc(String(d._id)).set(bodyOf(d));   // 幂等，安全重试
+          }, name + ' 兜底');
+          ok += (r.done - r.failed);
+          failedDocs += r.failed;
+        }
+      }
+      doneBatches++;
+      if (doneBatches % 20 === 0 || doneBatches === batches.length) {
+        console.log(`  ${name}: ${ok}/${docs.length}（批次 ${doneBatches}/${batches.length}，${Math.round((Date.now() - t0) / 1000)}s）`);
+      }
     }
   }
-  console.log('  写入', name, ok, '条');
+
+  await Promise.all(Array.from({ length: INSERT_CONC }, worker));
+  console.log('  写入', name, ok, '条' + (failedDocs ? '（失败 ' + failedDocs + '）' : '') +
+    `，耗时 ${Math.round((Date.now() - t0) / 1000)}s`);
+  if (failedDocs) throw new Error(name + ' 有 ' + failedDocs + ' 条写入失败');
   return ok;
 }
 
