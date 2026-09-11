@@ -14,7 +14,10 @@ const OUT = path.resolve(__dirname, '..', 'fc27_dump.json');
 const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
 
 (async () => {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox', '--disable-dev-shm-usage']
+  });
   const ctx = await browser.newContext({
     userAgent: UA,
     locale: 'en-US',
@@ -28,24 +31,37 @@ const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
   console.log('打开 fut.gg 过 Cloudflare ...');
   await page.goto('https://www.fut.gg/', { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-  // 等待 cf_clearance 种下（真实浏览器会自动解出挑战，无需人工）
-  try {
-    await page.waitForFunction(() => /cf_clearance=/.test(document.cookie), { timeout: 90000 });
-    console.log('cf_clearance 已就绪，开始抓取');
-  } catch (e) {
-    console.warn('警告：90s 内未检测到 cf_clearance，Cloudflare 可能弹了交互验证，尝试继续（大概率会被拦截）');
+  // 等待 Cloudflare 放行：轮询同源 API 直到返回 200。
+  // 注意 cf_clearance 是 HttpOnly cookie，document.cookie 读不到，只能靠实际请求探测。
+  let passed = false;
+  for (let i = 0; i < 30; i++) {
+    let status = 0;
+    try {
+      status = await page.evaluate(async (u) => {
+        try { const r = await fetch(u, { headers: { Accept: 'application/json' } }); return r.status; }
+        catch (e) { return -1; }
+      }, `${BASE}?page=1`);
+    } catch (e) { status = -2; }
+    if (status === 200) { passed = true; console.log(`Cloudflare 已通过（第 ${i + 1} 次尝试）`); break; }
+    console.log(`等待 Cloudflare 挑战解除... status=${status} (${i + 1}/30)`);
+    await page.waitForTimeout(3000);
+  }
+  if (!passed) {
+    await browser.close();
+    console.error('未能通过 Cloudflare（可能弹了交互式验证），退出');
+    process.exit(1);
   }
 
   const result = await page.evaluate(async ({ BASE, DET }) => {
     const sleep = ms => new Promise(r => setTimeout(r, ms));
     const players = [], seen = new Set();
-    for (let page = 1; page <= 999; page++) {
-      const res = await fetch(`${BASE}?page=${page}`, { headers: { 'Accept': 'application/json' } });
-      if (!res.ok) { console.log('列表第', page, '页失败 status=', res.status); break; }
+    for (let pg = 1; pg <= 999; pg++) {
+      const res = await fetch(`${BASE}?page=${pg}`, { headers: { 'Accept': 'application/json' } });
+      if (!res.ok) { console.log('列表第', pg, '页失败 status=', res.status); break; }
       const j = await res.json();
-      if (!j.data || !Array.isArray(j.data) || j.data.length === 0) { console.log('列表第', page, '页为空，到达末页'); break; }
+      if (!j.data || !Array.isArray(j.data) || j.data.length === 0) { console.log('列表第', pg, '页为空，到达末页'); break; }
       for (const it of j.data) if (!seen.has(it.eaId)) { seen.add(it.eaId); players.push(it); }
-      console.log('列表 page', page, '累计', players.length, '人');
+      console.log('列表 page', pg, '累计', players.length, '人');
       await sleep(300);
     }
     const details = {};
