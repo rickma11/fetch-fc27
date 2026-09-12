@@ -62,8 +62,21 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
 
 (async () => {
   const players = JSON.parse(fs.readFileSync(path.join(ROOT, 'cloud-data', 'fc' + VER, 'players.json'), 'utf8'));
-  const target = players.filter(p => p.cardImagePath && !p.imagePath && (!ONLY || ONLY.has(String(p.eaId))));
-  if (!target.length) { console.log('没有需要处理的球员（无半身像且没有卡面的为空）'); return; }
+  // 当前 fut.gg 真实 imagePath（来自本次抓取的 dump，权威）：eaId -> 相对路径。
+  // 用来识别「原本无半身像、现已补上」的球员，使其在下方 target 中被排除（不再生成 _np.webp），
+  // 否则在 players.json 两次 full 之间过期时，会回弹重生成 _np 并把它们加回清单。
+  const curImg = {};
+  const _dumpP = path.join(ROOT, 'fc27_dump.json');
+  if (fs.existsSync(_dumpP)) {
+    try {
+      const _dump = JSON.parse(fs.readFileSync(_dumpP, 'utf8'));
+      const _list = Array.isArray(_dump.list) ? _dump.list : (Array.isArray(_dump.players) ? _dump.players : []);
+      for (const _it of _list) if (_it && _it.eaId != null && _it.imagePath) curImg[String(_it.eaId)] = String(_it.imagePath);
+    } catch (e) { /* dump 读取失败不致命，仅失去对账能力 */ }
+  }
+  const target = players.filter(p => p.cardImagePath && !p.imagePath && !curImg[String(p.eaId)] && (!ONLY || ONLY.has(String(p.eaId))));
+  // 注：此处不再提前 return —— 下方 Phase 0 对账必须在生成前执行，
+  // 否则当「所有无半身像球员都已获图」(target 为空) 时，对账会被跳过、清单得不到清理。
   const silPath = path.join(ROOT, 'assets', 'noportrait', 'silhouette.png');
   if (!fs.existsSync(silPath)) {
     console.error('缺少剪影素材 assets/noportrait/silhouette.png，先跑：node scripts/make_noportrait_silhouette.js --src <参考图>');
@@ -79,6 +92,48 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   const app = cloudbase.init({ env: cred.ENV_ID, secretId: cred.SECRET_ID, secretKey: cred.SECRET_KEY, timeout: 60000 });
   const BUCKET = '636c-' + cred.ENV_ID + '-1475854307';
   const PREFIX = 'cloud://' + cred.ENV_ID + '.' + BUCKET + '/fc' + VER + '/images/';
+
+  // ---- Phase 0：对账「已获半身像」的球员（fut.gg 补图后自动切回真实卡面）----
+  // 列表签名(sig.js)刻意不含 imagePath，故补半身像不会改变签名 → 不会进入增量落库包 →
+  // 云数据库里的 imagePath 始终是空 → 小程序端 displayImg() 继续判定「无像」、沿用 _np.webp。
+  // 这里用「本次抓取的 dump 列表」(权威、含最新 imagePath) 检出这些球员，主动：
+  //   ① 把 imagePath 写进云数据库(players/details) —— 客户端随即切回真实卡面(_card.webp 已是带脸版)；
+  //   ② 从 noportrait.json 清单移除 —— 不再为其生成 _np.webp；
+  //   ③ 删除云存储里已无引用的孤儿 _np.webp(节省约数 MB 云存储)。
+  // 该步骤每天随 CI 触发，即「定期检查并重新启用半身像」的机制；portrait/card 图片本身已由
+  // fetch_ci 阶段4(签名变化即下载) + upload_images 负责下载并上传，这里只补上 DB 标记与清单清理。
+  const manifestPath = path.join(ROOT, 'cloud-data', 'fc' + VER, 'noportrait.json');
+  const manifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : {};
+  const db = app.database();
+  const gained = Object.keys(manifest).filter(function (id) { return curImg[id]; });
+  if (gained.length) {
+    if (DRY) {
+      console.log('对账[dry]：' + gained.length + ' 名球员已获 fut.gg 半身像，将切回真实卡面（dry 模式不写库/不删孤儿/不改清单）');
+    } else {
+      console.log('对账：' + gained.length + ' 名球员已获 fut.gg 半身像，切回真实卡面…');
+      let okDb = 0, okDel = 0;
+      for (const id of gained) {
+        const imgPath = curImg[id];
+        try {
+          await db.collection('players_fc' + VER).doc(id).update({ data: { imagePath: imgPath } });
+          await db.collection('details_fc' + VER).doc(id).update({ data: { imagePath: imgPath } });
+          okDb++;
+        } catch (e) { console.warn('  [reconcile] 更新 DB ' + id + ' 失败: ' + ((e && e.message) || e)); }
+        try { await app.deleteFile({ fileList: [PREFIX + id + '_np.webp'] }); okDel++; }
+        catch (e) { /* 孤儿删除失败不致命 */ }
+        delete manifest[id];
+      }
+      console.log('  → DB 更新 ' + okDb + ' 人 | 孤儿 _np.webp 删除 ' + okDel + ' 张 | 清单移除 ' + gained.length + ' 人');
+    }
+  } else {
+    console.log('对账：noportrait 清单中暂无球员已获半身像');
+  }
+  // 没有任何需要生成的卡面时，仍写出已对账清理的清单并结束（避免无谓的底板/剪影计算）
+  if (!target.length) {
+    if (!DRY) fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1));
+    console.log('无新无半身像卡面需生成（noportrait 清单已对账' + (DRY ? '，dry 未落盘' : '') + '）');
+    return;
+  }
 
   fs.mkdirSync(CACHE, { recursive: true });
   fs.mkdirSync(PLATE_DIR, { recursive: true });
@@ -207,8 +262,7 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   console.log('剪影 ' + SIL_WIDTH + 'x' + silH + ' @ (' + silLeft + ',' + SIL_TOP + ')');
 
   // ---------- 3) 逐人生成 ----------
-  const manifestPath = path.join(ROOT, 'cloud-data', 'fc' + VER, 'noportrait.json');
-  const manifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : {};
+  // manifest / manifestPath 已在上方 Phase 0 对账阶段声明并加载（已移除已获半身像的球员）
   const inIcon = (x, y) => x >= ICON.x0 && x <= ICON.x1 && y >= ICON.y0 && y <= ICON.y1;
   const inName = (x, y) => x >= NAME.x0 && x <= NAME.x1 && y >= NAME.y0 && y <= NAME.y1;
   const ink = new Uint8Array(W * H), dil = new Uint8Array(W * H);
