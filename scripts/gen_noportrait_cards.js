@@ -14,7 +14,7 @@
  * 选项：
  *   --ver 26|27   版本（默认 27）
  *   --conc N      并发上传数（默认 4）
- *   --sil-width N 剪影宽度（默认 320；头顶固定 y=132、底部 y=500）
+ *   --sil-width N 剪影宽度（默认 320；头顶固定 y=132、底部 y=450，避免压住姓名带）
  *   --dry         不写云存储、不写清单
  *   --keep        保留中间产物（_np_out/）
  *
@@ -43,7 +43,7 @@ const ONLY = (() => { const i = process.argv.indexOf('--only'); return i >= 0 &&
 const REG = { x0: 96, y0: 96, x1: 434, y1: 180 };          // 建底板用的观察区
 const ICON = { x0: 112, x1: 150, y0: 114, y1: 150 };        // 破图图标（整块抹掉）
 const NAME = { x0: 141, x1: 430, y0: 100, y1: 178 };        // 顶部多余姓名行
-const SIL_TOP = 132, SIL_BOT = 500, SIL_GREY = 167;         // 真实半身像实测占位：头顶 132、底 500
+const SIL_TOP = 132, SIL_BOT = 450, SIL_GREY = 167;         // 真实半身像实测占位：头顶 132；底抬到 450（>450 会压住底部姓名带 y≈455~484）
 const INK_REL = 35;          // 「比该像素背景中位暗 35 以上」判为字迹
 const DILATE_SAMPLE = 3;     // 建底板时，把字迹及其 3px 邻域从样本里剔除（躲开 WebP 的过冲亮环）
 const DILATE_FILL = 2;       // 抹除时，把字迹膨胀 2px 一起填（连抗锯齿边一起去掉）
