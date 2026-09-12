@@ -7,7 +7,8 @@
 //   代码文件」，既不拉数据也不产生分叉，几秒完成。
 //
 // 用法：
-//   GH_TOKEN=xxx node scripts/push_files_api.js "<提交信息标题>" <文件1> [文件2 ...]
+//   GH_TOKEN=xxx node scripts/push_files_api.js "<提交信息标题>" <文件1> [文件2 ...] ["!要删除的路径"]
+//   路径前加一个半角感叹号表示删除该文件（例： "!scripts/old.js"）
 //
 // 注意：提交信息标题建议写成 `标题 || 正文`，会把 || 之后的内容放在正文首行。
 // 仓库名默认从 git remote origin 推断，可用 GH_REPO=owner/name 覆盖。
@@ -80,8 +81,15 @@ async function api(method, url, body, tok) {
   console.log('远端 main =', parentSha.slice(0, 7), '|', parent.message.split('\n')[0].slice(0, 60));
 
   // 1) 上传每个文件的 blob（逐字节，UTF-8 中文注释不会损坏）
+  //    参数以 `!` 开头表示「删除该路径」（tree 里 sha=null 即删除）
   const tree = [];
   for (const rel of files) {
+    if (rel.charAt(0) === '!') {
+      const p = rel.slice(1).replace(/\\/g, '/');
+      tree.push({ path: p, mode: '100644', type: 'blob', sha: null });
+      console.log('  del ', p);
+      continue;
+    }
     const abs = path.resolve(ROOT, rel);
     if (!fs.existsSync(abs)) throw new Error('文件不存在: ' + rel);
     const buf = fs.readFileSync(abs);

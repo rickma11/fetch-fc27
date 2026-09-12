@@ -113,6 +113,17 @@ jobs:
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/upload_images.js --ver 27
 
+      # 通用卡面：fut.gg 没有半身像的球员（约 320 名）在小程序里直接展示一张按稀有度选的
+      # 干净底卡，不再逐人合成。素材只在 fut.gg 稀有度底图内容变化时才重抓重传（清单比对签名）。
+      # 放在这里是因为 game-assets.fut.gg 有 Cloudflare 保护，只有 Actions 的浏览器环境过得去。
+      - name: Upload generic card faces to Cloud Storage
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/fetch_generic_cards.js --ver 27
+
       # 注意：必须放在落库成功之后。快照只有在数据确实写进数据库后才能推进，
       # 否则一旦落库失败，下次增量会误判「无变化」而永久漏数据。
       - name: Commit version history
@@ -122,6 +133,8 @@ jobs:
           git add cloud-data/fc27/snapshot.json cloud-data/fc27/changes.json cloud-data/fc27/facets.json || true
           # 图片清单：记录每个球员的图已上传到哪个内容签名，驱动图片增量
           git add cloud-data/fc27/images.json || true
+          # 通用卡面素材 + 清单（供小程序预览内嵌 / 下次比对签名）
+          git add assets/generic_cards cloud-data/generic || true
           if [ "${{ steps.mode.outputs.mode }}" = "full" ]; then
             # 全量数据文件体积大，只在每周全量时留一份版本快照
             git add cloud-data/fc27/players.json cloud-data/fc27/details.json || true
