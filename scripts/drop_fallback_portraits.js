@@ -1,9 +1,9 @@
 // 清理「逐人合成兜底卡面」的历史产物。
 //
 // 背景：早期为了让没有半身像（fut.gg imagePath 为空）的球员也有图，曾用
-// scripts/gen_fallback_portraits.js 逐人合成「本人卡面 + 灰剪影」并写成 {eaId}.webp。
-// 该方案已废弃 —— 现在小程序端识别到「无 portrait」直接换用通用卡面（云存储
-// common/generic/g{1,2,3}.webp），不再需要任何逐人合成产物。
+// scripts/gen_fallback_portraits.js 逐人合成并写成 {eaId}.webp（占的是半身像的名字）。
+// 那个方案已废弃 —— 现在无像球员走的是 scripts/gen_noportrait_cards.js 生成的
+// {eaId}_np.webp（原卡面 + 通用剪影），与半身像文件名互不干扰。
 //
 // 本脚本做的事：
 //   1) 从 cloud-data/fc{ver}/images.json 删除这些球员的签名条目（让清单回归自然状态）

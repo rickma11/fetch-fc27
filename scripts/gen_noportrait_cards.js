@@ -1,0 +1,300 @@
+/**
+ * 给「没有半身像」的球员生成展示卡面 = 该球员本人的原卡面 + 通用灰色半身剪影
+ *
+ * 背景：fut.gg 上约 3.2% 的球员 imagePath 为空（没有半身像），这些人的 _card.webp 里
+ * 照片区本来就是空的，而且 fut.gg 还多画了两处残留：
+ *   ① 左上角一个「破图占位图标」  ② OVR 右边一行多余的球员姓名
+ * 本脚本把这两处抹掉，在真实半身像的占位框里叠一个通用灰色半身剪影，输出 {eaId}_np.webp。
+ *
+ * 用法（在仓库根目录）：
+ *   node scripts/gen_noportrait_cards.js --ver 27                 # 增量（只处理还没生成过的）
+ *   node scripts/gen_noportrait_cards.js --ver 27 --force         # 全量重生成
+ *   node scripts/gen_noportrait_cards.js --ver 27 --dry --only 229153,246070
+ *   node scripts/gen_noportrait_cards.js --ver 27 --no-upload     # 只出图不上传（本地检查用）
+ * 选项：
+ *   --ver 26|27   版本（默认 27）
+ *   --conc N      并发上传数（默认 4）
+ *   --sil-width N 剪影宽度（默认 320；头顶固定 y=132、底部 y=500）
+ *   --dry         不写云存储、不写清单
+ *   --keep        保留中间产物（_np_out/）
+ *
+ * 数据来源：**云存储里已有的 {eaId}_card.webp**（不需要访问 fut.gg，本机可跑）。
+ * 清单：cloud-data/fc{ver}/noportrait.json —— 独立文件，绝不能并进 images.json
+ *       （images.json 的签名驱动图片增量，混入新类型会让所有球员签名失效 → 触发全量重传）。
+ */
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+const crypto = require('crypto');
+const cloudbase = require('@cloudbase/node-sdk');
+const sharp = require('sharp');
+const { resolve } = require('./tcb_env');
+
+const ROOT = path.resolve(__dirname, '..');
+const VER = (() => { const i = process.argv.indexOf('--ver'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '27'; })();
+const CONC = Number((() => { const i = process.argv.indexOf('--conc'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '4'; })());
+const SIL_WIDTH = Number((() => { const i = process.argv.indexOf('--sil-width'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '320'; })());
+const FORCE = process.argv.includes('--force');
+const DRY = process.argv.includes('--dry');
+const NO_UPLOAD = process.argv.includes('--no-upload');
+const ONLY = (() => { const i = process.argv.indexOf('--only'); return i >= 0 && process.argv[i + 1] ? new Set(process.argv[i + 1].split(',')) : null; })();
+
+// ---- 版式参数（500x698 卡面基准）----
+const REG = { x0: 96, y0: 96, x1: 434, y1: 180 };          // 建底板用的观察区
+const ICON = { x0: 112, x1: 150, y0: 114, y1: 150 };        // 破图图标（整块抹掉）
+const NAME = { x0: 141, x1: 430, y0: 100, y1: 178 };        // 顶部多余姓名行
+const SIL_TOP = 132, SIL_BOT = 500, SIL_GREY = 167;         // 真实半身像实测占位：头顶 132、底 500
+const INK_REL = 35;          // 「比该像素背景中位暗 35 以上」判为字迹
+const DILATE_SAMPLE = 3;     // 建底板时，把字迹及其 3px 邻域从样本里剔除（躲开 WebP 的过冲亮环）
+const DILATE_FILL = 2;       // 抹除时，把字迹膨胀 2px 一起填（连抗锯齿边一起去掉）
+const W = 500, H = 698;
+const RW = REG.x1 - REG.x0, RH = REG.y1 - REG.y0;
+const NP_PARAMS = 'np-v4|icon:' + [ICON.x0, ICON.x1, ICON.y0, ICON.y1].join(',') + '|name:' + [NAME.x0, NAME.x1, NAME.y0, NAME.y1].join(',') +
+  '|sil:' + [SIL_TOP, SIL_BOT, SIL_WIDTH, SIL_GREY].join(',');
+
+const CACHE = path.join(os.tmpdir(), 'fc_np_cache');
+const PLATE_DIR = path.join(CACHE, 'plates');
+const OUT_DIR = path.join(ROOT, '_np_out');
+
+const lvlOf = p => (String((p.rarity && p.rarity.imagePath) || '').match(/rarities-level-(\d)-large/) || [])[1] || '?';
+const lum = (d, i) => (d[i * 4] + d[i * 4 + 1] + d[i * 4 + 2]) / 3;
+const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length / 2)]; };
+
+(async () => {
+  const players = JSON.parse(fs.readFileSync(path.join(ROOT, 'cloud-data', 'fc' + VER, 'players.json'), 'utf8'));
+  const target = players.filter(p => p.cardImagePath && !p.imagePath && (!ONLY || ONLY.has(String(p.eaId))));
+  if (!target.length) { console.log('没有需要处理的球员（无半身像且没有卡面的为空）'); return; }
+  const silPath = path.join(ROOT, 'assets', 'noportrait', 'silhouette.png');
+  if (!fs.existsSync(silPath)) {
+    console.error('缺少剪影素材 assets/noportrait/silhouette.png，先跑：node scripts/make_noportrait_silhouette.js --src <参考图>');
+    process.exit(1);
+  }
+  const silMeta = await sharp(silPath).metadata();
+  const silBufFull = fs.readFileSync(silPath);
+  // 剪影文件内容也进签名：换了剪影形状/灰阶后，所有已生成的卡会自动判为过期并重做
+  const PARAMS = NP_PARAMS + '|silfile:' +
+    crypto.createHash('sha1').update(silBufFull).digest('hex').slice(0, 8);
+
+  const cred = resolve();
+  const app = cloudbase.init({ env: cred.ENV_ID, secretId: cred.SECRET_ID, secretKey: cred.SECRET_KEY, timeout: 60000 });
+  const BUCKET = '636c-' + cred.ENV_ID + '-1475854307';
+  const PREFIX = 'cloud://' + cred.ENV_ID + '.' + BUCKET + '/fc' + VER + '/images/';
+
+  fs.mkdirSync(CACHE, { recursive: true });
+  fs.mkdirSync(PLATE_DIR, { recursive: true });
+  if (!DRY) fs.mkdirSync(OUT_DIR, { recursive: true });
+
+  const dlCard = async id => {
+    const f = path.join(CACHE, VER + '_' + id + '_card.webp');
+    if (fs.existsSync(f)) return fs.readFileSync(f);
+    const r = await app.downloadFile({ fileID: PREFIX + id + '_card.webp' });
+    const b = Buffer.from(r.fileContent);
+    fs.writeFileSync(f, b);
+    return b;
+  };
+
+  // ---------- 1) 每个稀有度建一块「背景底板」 ----------
+  // 同稀有度卡的背景逐像素完全一致（实测 98~100/120 张同值），而字迹是暗色 → 可以精确还原背景。
+  // 关键：先把「字迹及其 3px 邻域」的样本剔除，否则 WebP 在深色笔画边缘的 +12 级过冲亮环会被当成背景，留下亮残影。
+  // 破图图标整块剔除（图标内部有浅色像素），空出的像素用同行左右最近有效值线性插值。
+  const buildPlate = async lv => {
+    const pf = path.join(PLATE_DIR, 'fc' + VER + '_l' + lv + '.raw');
+    if (fs.existsSync(pf) && !FORCE) return fs.readFileSync(pf);
+    const pool = players.filter(p => !p.imagePath && p.cardImagePath && lvlOf(p) === lv);
+    const M = Math.min(120, pool.length), S = [];
+    for (let i = 0; i < M; i++) {
+      const c = pool[Math.floor(pool.length * i / M)];
+      try {
+        const b = await dlCard(c.eaId);
+        const { data } = await sharp(b).ensureAlpha().extract({ left: REG.x0, top: REG.y0, width: RW, height: RH }).raw().toBuffer({ resolveWithObject: true });
+        S.push(data);
+      } catch (e) { }
+    }
+    const N = S.length, NP = RW * RH;
+    if (!N) return null;
+    // pass1 逐像素中位（粗略背景，仅供判字迹用）
+    const med = new Float32Array(NP);
+    for (let i = 0; i < NP; i++) {
+      const v = [];
+      for (const d of S) { if (d[i * 4 + 3] < 200) continue; v.push(lum(d, i)); }
+      med[i] = v.length ? mid(v) : -1;
+    }
+    // 样本级剔除
+    const usable = S.map(d => { const m = new Uint8Array(NP); for (let i = 0; i < NP; i++) m[i] = d[i * 4 + 3] < 200 ? 0 : 1; return m; });
+    for (let k = 0; k < N; k++) {
+      const ink = new Uint8Array(NP);
+      for (let y = 0; y < RH; y++) for (let x = 0; x < RW; x++) {
+        const i = y * RW + x, cx = REG.x0 + x, cy = REG.y0 + y;
+        if (cx >= ICON.x0 && cx <= ICON.x1 && cy >= ICON.y0 && cy <= ICON.y1) { ink[i] = 1; continue; }
+        if (med[i] >= 0 && usable[k][i] && lum(S[k], i) < med[i] - INK_REL) ink[i] = 1;
+      }
+      const ex = new Uint8Array(NP);
+      for (let y = 0; y < RH; y++) for (let x = 0; x < RW; x++) {
+        if (!ink[y * RW + x]) continue;
+        for (let dy = -DILATE_SAMPLE; dy <= DILATE_SAMPLE; dy++) for (let dx = -DILATE_SAMPLE; dx <= DILATE_SAMPLE; dx++) {
+          const xx = x + dx, yy = y + dy;
+          if (xx < 0 || yy < 0 || xx >= RW || yy >= RH) continue;
+          ex[yy * RW + xx] = 1;
+        }
+      }
+      for (let i = 0; i < NP; i++) if (ex[i]) usable[k][i] = 0;
+    }
+    // pass2 用剩余样本的中位作背景
+    const plate = Buffer.alloc(NP * 4), valid = new Uint8Array(NP);
+    let usableSum = 0;
+    for (let i = 0; i < NP; i++) {
+      const r = [], g = [], b = [];
+      for (let k = 0; k < N; k++) { if (!usable[k][i]) continue; const d = S[k]; r.push(d[i * 4]); g.push(d[i * 4 + 1]); b.push(d[i * 4 + 2]); }
+      if (!r.length) { plate[i * 4 + 3] = 0; continue; }
+      plate[i * 4] = mid(r); plate[i * 4 + 1] = mid(g); plate[i * 4 + 2] = mid(b); plate[i * 4 + 3] = 255;
+      valid[i] = 1; usableSum += r.length;
+    }
+    for (let y = 0; y < RH; y++) for (let x = 0; x < RW; x++) {
+      const i = y * RW + x;
+      if (valid[i]) continue;
+      let xl = x - 1; while (xl >= 0 && !valid[y * RW + xl]) xl--;
+      let xr = x + 1; while (xr < RW && !valid[y * RW + xr]) xr++;
+      if (xl < 0 && xr >= RW) continue;
+      if (xl < 0 || xr >= RW) { const s = (xl < 0 ? y * RW + xr : y * RW + xl) * 4; for (let c = 0; c < 3; c++) plate[i * 4 + c] = plate[s + c]; }
+      else { const t = (x - xl) / (xr - xl); for (let c = 0; c < 3; c++) plate[i * 4 + c] = Math.round(plate[(y * RW + xl) * 4 + c] * (1 - t) + plate[(y * RW + xr) * 4 + c] * t); }
+      plate[i * 4 + 3] = 255;
+    }
+    // ---- 底板行内去污 ----
+    // 命名行在所有卡上都是「左对齐 + 基线对齐」，于是有些像素（典型是首字母左侧竖笔画，
+    // x≈142-145、y≈150-165）在**所有**样本里都是墨迹 —— 中位学到的就不是背景而是墨迹色，
+    // 「比中位暗 35」的判据自然失效，填完等于没填（实测残留一段 4px 宽的黑竖线）。
+    // 修法：逐行取该行背景参考亮度（P60，墨迹占比仅 1~13%，稳落在背景），把显著暗于它的
+    // 像素判为污染，用同行左右最近的干净像素线性插值重建。
+    // 只在姓名行范围内做，且此时 `valid` 里的背景像素都已是干净样本。
+    for (let y = NAME.y0; y <= NAME.y1; y++) {
+      const ry = y - REG.y0;
+      if (ry < 0 || ry >= RH) continue;
+      const x1 = Math.min(NAME.x1, REG.x1);
+      const ok = [];
+      for (let x = NAME.x0; x <= x1; x++) { const po = (ry * RW + (x - REG.x0)) * 4; if (plate[po + 3] >= 200) ok.push(x); }
+      if (ok.length < 8) continue;
+      const lums = ok.map(x => { const po = (ry * RW + (x - REG.x0)) * 4; return (plate[po] + plate[po + 1] + plate[po + 2]) / 3; }).sort((a, b) => a - b);
+      const bg = lums[Math.floor(lums.length * 0.6)];
+      const clean = ok.filter(x => { const po = (ry * RW + (x - REG.x0)) * 4; return (plate[po] + plate[po + 1] + plate[po + 2]) / 3 >= bg - 40; });
+      if (!clean.length || clean.length === ok.length) continue;
+      for (let x = NAME.x0; x <= x1; x++) {
+        const po = (ry * RW + (x - REG.x0)) * 4;
+        if (plate[po + 3] < 200) continue;
+        if ((plate[po] + plate[po + 1] + plate[po + 2]) / 3 >= bg - 40) continue;
+        let l = -1, r = -1;
+        for (const c of clean) { if (c < x) l = c; else if (r < 0) { r = c; break; } }
+        if (l < 0) l = r; else if (r < 0) r = l;
+        if (l < 0) continue;
+        const lp = (ry * RW + (l - REG.x0)) * 4, rp = (ry * RW + (r - REG.x0)) * 4;
+        const t = r === l ? 0 : (x - l) / (r - l);
+        for (let c = 0; c < 3; c++) plate[po + c] = Math.round(plate[lp + c] * (1 - t) + plate[rp + c] * t);
+      }
+    }
+    fs.writeFileSync(pf, plate);
+    console.log('  底板[level' + lv + '] 样本 ' + N + '，平均每像素可用样本 ' + (usableSum / NP).toFixed(0));
+    return plate;
+  };
+
+  const levels = ['1', '2', '3', '?'];
+  const plates = {};
+  console.log('建立背景底板（每个稀有度一块）…');
+  for (const lv of levels) if (players.some(p => !p.imagePath && lvlOf(p) === lv)) plates[lv] = await buildPlate(lv);
+
+  // ---------- 2) 剪影 ----------
+  const silH = SIL_BOT - SIL_TOP;
+  const silScaled = await sharp(silBufFull).resize({ width: SIL_WIDTH, height: silH, kernel: 'lanczos3' }).png().toBuffer();
+  const silLeft = Math.round(W / 2 - SIL_WIDTH / 2);
+  console.log('剪影 ' + SIL_WIDTH + 'x' + silH + ' @ (' + silLeft + ',' + SIL_TOP + ')');
+
+  // ---------- 3) 逐人生成 ----------
+  const manifestPath = path.join(ROOT, 'cloud-data', 'fc' + VER, 'noportrait.json');
+  const manifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : {};
+  const inIcon = (x, y) => x >= ICON.x0 && x <= ICON.x1 && y >= ICON.y0 && y <= ICON.y1;
+  const inName = (x, y) => x >= NAME.x0 && x <= NAME.x1 && y >= NAME.y0 && y <= NAME.y1;
+  const ink = new Uint8Array(W * H), dil = new Uint8Array(W * H);
+
+  async function build(p) {
+    const id = String(p.eaId);
+    const src = await dlCard(id);
+    const sig = crypto.createHash('sha1').update(PARAMS).update(src).digest('hex').slice(0, 16);
+    if (!FORCE && manifest[id] === sig) return { id, skipped: true };
+    const plate = plates[lvlOf(p)];
+    if (!plate) return { id, error: '无对应稀有度的底板' };
+    const { data: card } = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    const PL = (x, y) => { const po = ((y - REG.y0) * RW + (x - REG.x0)) * 4; return (plate[po] + plate[po + 1] + plate[po + 2]) / 3; };
+    ink.fill(0); dil.fill(0);
+    for (let y = NAME.y0; y <= NAME.y1; y++) for (let x = NAME.x0; x <= NAME.x1; x++) {
+      if (inIcon(x, y)) continue;
+      const o = (y * W + x) * 4;
+      // ⚠️ 轮廓外的全透明像素（RGBA 0,0,0,0）亮度算 0，会被误判成「字迹」，膨胀填色后
+      // 在卡片右上角外侧留下一块底板色矩形（实测每张 786~807 px，9 张抽验一致）。
+      // 照片区/图标区在卡面轮廓内，一定不透明，所以这道门槛不影响清残留。
+      if (card[o + 3] < 200) continue;
+      if ((card[o] + card[o + 1] + card[o + 2]) / 3 < PL(x, y) - INK_REL) ink[y * W + x] = 1;
+    }
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      if (!ink[y * W + x]) continue;
+      for (let dy = -DILATE_FILL; dy <= DILATE_FILL; dy++) for (let dx = -DILATE_FILL; dx <= DILATE_FILL; dx++) {
+        const xx = x + dx, yy = y + dy;
+        if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue;
+        if (inName(xx, yy) || inIcon(xx, yy)) dil[yy * W + xx] = 1;
+      }
+    }
+    let filled = 0;
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      // NAME 区**无条件整块填**（不靠亮度判定）：所有卡的姓名都是左对齐、首字母竖笔画位置
+      // 完全重合，底板在那几个像素上学到的是「笔画」而不是背景 → 按亮度判定必然漏填，
+      // 实测漏掉「Dixon」的 D 左侧竖笔画下半段。该区域已验证只有姓名+纯背景（有半身像的卡
+      // 在同一区域没有任何暗像素），整块覆盖是安全的。
+      // 左边界 141 是刻意的：OVR 两位数右边界 ≤139，140 为空隙，避免把 OVR 数字削掉一角。
+      if (!inIcon(x, y) && !inName(x, y) && !dil[y * W + x]) continue;
+      const o = (y * W + x) * 4, po = ((y - REG.y0) * RW + (x - REG.x0)) * 4;
+      if (plate[po + 3] < 200) continue;
+      if (card[o + 3] < 200) continue;   // 原图此处本就透明 → 保持透明，别把底板色渗到卡面轮廓外
+      card[o] = plate[po]; card[o + 1] = plate[po + 1]; card[o + 2] = plate[po + 2]; card[o + 3] = 255; filled++;
+    }
+    const base = await sharp(card, { raw: { width: W, height: H, channels: 4 } }).png().toBuffer();
+    const webp = await sharp(base)
+      .composite([{ input: silScaled, left: silLeft, top: SIL_TOP }])
+      .webp({ quality: 82, effort: 4 })
+      .toBuffer();
+    return { id, sig, filled, webp };
+  }
+
+  console.log('开始处理 ' + target.length + ' 名无半身像球员…');
+  let done = 0, skip = 0, fail = 0, bytes = 0;
+  const updated = {};
+  const queue = [];
+  const runOne = async p => {
+    try {
+      const r = await build(p);
+      if (r.skipped) { skip++; return; }
+      if (r.error) { fail++; console.log('  ✘ ' + r.id + ' ' + r.error); return; }
+      if (!DRY) {
+        fs.writeFileSync(path.join(OUT_DIR, r.id + '.webp'), r.webp);
+        if (!NO_UPLOAD) await app.uploadFile({ cloudPath: 'fc' + VER + '/images/' + r.id + '_np.webp', fileContent: r.webp });
+      }
+      // 只在真的传上云之后才记签名 —— 否则 --no-upload 会把没上传的卡标成「已完成」，
+      // 下次跑直接跳过，云上永远停在旧版本。
+      if (!NO_UPLOAD) updated[r.id] = r.sig;
+      done++; bytes += r.webp.length;
+      if (done % 25 === 0) console.log('  已处理 ' + done + ' 张…');
+    } catch (e) {
+      fail++; console.log('  ✘ ' + p.eaId + ' ' + p.commonName + ' → ' + e.message);
+    }
+  };
+  for (const p of target) {
+    queue.push(runOne(p));
+    if (queue.length >= CONC) await Promise.all(queue.splice(0, queue.length));
+  }
+  await Promise.all(queue);
+
+  if (!DRY) {
+    Object.assign(manifest, updated);
+    fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1));
+  }
+  console.log('完成：生成 ' + done + ' 张、跳过（内容未变）' + skip + ' 张、失败 ' + fail + ' 张，共 ' + (bytes / 1048576).toFixed(1) + ' MB');
+  console.log('清单 → ' + path.relative(ROOT, manifestPath) + '（共 ' + Object.keys(manifest).length + ' 条）');
+  if (!NO_UPLOAD && !DRY) console.log('云存储 → cloud://…/fc' + VER + '/images/{eaId}_np.webp');
+  if (DRY) console.log('（--dry：没有上传、没有写清单）');
+})().catch(e => { console.error(e); process.exit(1); });

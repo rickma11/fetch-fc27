@@ -10,10 +10,13 @@
     "fetch:incremental": "node scripts/fetch_ci.js --mode=incremental",
     "shape": "node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27 --no-local",
     "upload": "node scripts/upload_db.js --ver 27",
-    "upload:images": "node scripts/upload_images.js --ver 27"
+    "upload:images": "node scripts/upload_images.js --ver 27",
+    "noportrait": "node scripts/gen_noportrait_cards.js --ver 27",
+    "noportrait:preview": "node scripts/preview_noportrait.js"
   },
   "dependencies": {
     "@cloudbase/node-sdk": "^3.18.3",
-    "playwright": "^1.63.0"
+    "playwright": "^1.63.0",
+    "sharp": "^0.34.0"
   }
 }

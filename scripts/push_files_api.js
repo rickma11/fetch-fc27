@@ -10,6 +10,11 @@
 //   GH_TOKEN=xxx node scripts/push_files_api.js "<提交信息标题>" <文件1> [文件2 ...] ["!要删除的路径"]
 //   路径前加一个半角感叹号表示删除该文件（例： "!scripts/old.js"）
 //
+//   ⚠️ 删除的坑：若该路径在远端 base tree 里根本不存在（例如只是本地某次未推送的提交
+//   里加的），GitHub 会对整次 trees 请求返回 422 `GitRPC::BadObjectState` —— 看起来
+//   像瞬时故障，其实不是，重试多少次都一样。本脚本会先确认远端是否存在，不存在就跳过
+//   并打印提示，不让整次提交失败。
+//
 // 注意：提交信息标题建议写成 `标题 || 正文`，会把 || 之后的内容放在正文首行。
 // 仓库名默认从 git remote origin 推断，可用 GH_REPO=owner/name 覆盖。
 
@@ -59,6 +64,24 @@ async function api(method, url, body, tok) {
   return data;
 }
 
+// 判断某路径在远端指定 ref 上是否存在。
+// 用 contents API：存在返回 200（文件）或 200 数组（目录），不存在返回 404。
+// 不用 git/trees 递归查 —— 仓库里 players/details 等大文件多，递归拉树慢且可能截断。
+async function existsOnRemote(repo, ref, p, tok) {
+  const res = await fetch(API + '/repos/' + repo + '/contents/' + p + '?ref=' + ref, {
+    headers: {
+      'Authorization': 'Bearer ' + tok,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'User-Agent': 'fetch-fc27-push-api'
+    }
+  });
+  if (res.status === 404) return false;
+  if (res.ok) return true;
+  // 其它状态（限流、权限）保守当作"存在"，让后续 trees 请求去报真实错误
+  return true;
+}
+
 (async () => {
   const argv = process.argv.slice(2);
   const message = argv[0];
@@ -86,6 +109,11 @@ async function api(method, url, body, tok) {
   for (const rel of files) {
     if (rel.charAt(0) === '!') {
       const p = rel.slice(1).replace(/\\/g, '/');
+      // 远端不存在时不能提交 sha:null —— GitHub 会对整次请求返回 422 GitRPC::BadObjectState
+      if (!(await existsOnRemote(repo, 'main', p, tok))) {
+        console.log('  skip', p, '(远端本就没有，无需删除)');
+        continue;
+      }
       tree.push({ path: p, mode: '100644', type: 'blob', sha: null });
       console.log('  del ', p);
       continue;
