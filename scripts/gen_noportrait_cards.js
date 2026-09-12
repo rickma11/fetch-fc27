@@ -258,18 +258,35 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
       .composite([{ input: silScaled, left: silLeft, top: SIL_TOP }])
       .webp({ quality: 82, effort: 4 })
       .toBuffer();
-    return { id, sig, filled, webp };
+    // 回归自检（每张跑一次，几十毫秒）：**卡面轮廓外绝不能被填成不透明**。
+    // 这是最容易复发的一类缺陷 —— 历史 bug：轮廓外是 RGBA(0,0,0,0)，亮度算 0 → 被当成字迹 →
+    // 膨胀填色后在卡片右上角外侧留下一块矩形底板色（每张 786~807 px，抽验 9 张全中）。
+    // 注意 `card` 的 alpha 通道仍保留原图值：填充只发生在原图 alpha>=200 的像素上，
+    // 所以「card alpha<50 但输出 alpha>200」= 底板色渗到轮廓外。
+    let leak = 0;
+    {
+      const { data: out, info: oi } = await sharp(webp).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+      if (oi.width === W && oi.height === H) {
+        for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+          const i = (y * W + x) * 4;
+          if (card[i + 3] < 50 && out[i + 3] > 200) leak++;
+        }
+      }
+    }
+    return { id, sig, filled, webp, leak };
   }
 
   console.log('开始处理 ' + target.length + ' 名无半身像球员…');
   let done = 0, skip = 0, fail = 0, bytes = 0;
   const updated = {};
   const queue = [];
+  let leaks = 0, leakIds = [];
   const runOne = async p => {
     try {
       const r = await build(p);
       if (r.skipped) { skip++; return; }
       if (r.error) { fail++; console.log('  ✘ ' + r.id + ' ' + r.error); return; }
+      if (r.leak) { leaks += r.leak; if (leakIds.length < 8) leakIds.push(r.id + '=' + r.leak); }
       if (!DRY) {
         fs.writeFileSync(path.join(OUT_DIR, r.id + '.webp'), r.webp);
         if (!NO_UPLOAD) await app.uploadFile({ cloudPath: 'fc' + VER + '/images/' + r.id + '_np.webp', fileContent: r.webp });
@@ -297,4 +314,13 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   console.log('清单 → ' + path.relative(ROOT, manifestPath) + '（共 ' + Object.keys(manifest).length + ' 条）');
   if (!NO_UPLOAD && !DRY) console.log('云存储 → cloud://…/fc' + VER + '/images/{eaId}_np.webp');
   if (DRY) console.log('（--dry：没有上传、没有写清单）');
+  // 回归自检汇总：必须为 0。非 0 = 底板色渗到卡面轮廓外（见 build() 里的说明）。
+  if (leaks) {
+    console.error('\n⚠️ 透明穿透自检未通过：' + leaks + ' 个像素（' + leakIds.join(', ') + '）');
+    console.error('   说明底板色渗到了卡面轮廓外 —— 检查 build() 里两处 `alpha < 200` 门槛是否被改动，');
+    console.error('   确认后必须重跑一次（加 --force）并再次确认本行显示 0，否则不要上传/提交清单。');
+    process.exit(2);
+  } else if (done) {
+    console.log('自检：透明穿透 0 个像素 ✔');
+  }
 })().catch(e => { console.error(e); process.exit(1); });
