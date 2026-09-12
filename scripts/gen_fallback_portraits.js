@@ -1,12 +1,18 @@
-// 为 fut.gg 没有 portrait（imagePath 空）的球员生成「兜底半身像」：
-// 取该球员的 _card.webp 作底图，叠加一层半透明青色蒙版（与小程序主题色 #22d3ee 一致），
-// 输出 {eaId}.webp 上传云存储。生成后 images.json 也同步补签名（让 fetch-fc27 知道这张已"上传"）。
+// 为 fut.gg 没有 portrait（imagePath 为空）的球员生成「兜底卡面」：
+//   取该球员【自己的】_card.webp 作底图（这样 OVR/位置/姓名/六维/国旗/队徽 全是本人数据），
+//   在空白的照片区叠加一个灰色通用人物剪影，输出 {eaId}.webp 上传云存储。
 //
 // 为什么需要：
-//   fut.gg 上有约 320 名球员（约 3.2%）只有卡面大图、没有半身像。
-//   小程序列表页会因此灰框展示。本脚本补齐后所有球员都有头像。
+//   fut.gg 上约 3.2%（~320 名）球员只有卡面大图、没有半身像（imagePath 为空），
+//   且这些球员的卡面图里【照片区本来就是空的】—— 小程序卡片会显得很空且列表小头像灰框。
+//   补齐后：所有球员的 {eaId}.webp 都存在（有真实半身像的用真实图，没有的用本脚本生成的卡面图）。
 //
-// 用法：node scripts/gen_fallback_portraits.js --ver 27 [--conc 8] [--dry]
+// 注意：
+//   - 不要用「某个球员的卡面」当所有人的模板（会出现"人人都是 Fekir"的错误数据）。
+//   - 剪影素材已固化为仓库资源 assets/fallback_silhouette.png（灰填充 + alpha），
+//     来源：用户提供的白底人像剪影，经 scripts/make_silhouette_asset.js 提取 bbox 得到。
+//
+// 用法：node scripts/gen_fallback_portraits.js --ver 27 [--conc 6] [--dry] [--force]
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
@@ -28,21 +34,69 @@ const CONC = (function () {
   return a ? Number(a.slice(7)) : (Number(process.env.FC_FB_CONC) || 6);
 })();
 const DRY = process.argv.includes('--dry');
+const FORCE = process.argv.includes('--force');
+
+const SIG = 'fb-fallback-v2';   // 设计版本：本人卡面 + 灰色通用剪影
+
+// 版式参数（以 500px 宽卡面为基准，实际按卡面宽度等比缩放）
+const FB_WIDTH = 215;   // 剪影宽度
+const FB_TOP = 165;     // 剪影顶部 y（避开卡面顶部的小名字标签，也不碰姓名/六维）
+const FB_FADE = 0.14;   // 底部渐隐比例
 
 const ROOT = path.resolve(__dirname, '..');
+const SIL_ASSET = path.join(ROOT, 'assets', 'fallback_silhouette.png');
 const TMP_DIR = path.join(ROOT, '_fb_portraits_tmp');
 fs.mkdirSync(TMP_DIR, { recursive: true });
 
 const app = cloudbase.init({ env: cred.ENV_ID, secretId: cred.SECRET_ID, secretKey: cred.SECRET_KEY, timeout: 60000 });
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+// 把剪影素材缩放 + 底部渐隐，合成到卡面，返回 WebP Buffer
+async function composeFallback(cardBuf) {
+  const cardMeta = await sharp(cardBuf).metadata();
+  const W = cardMeta.width || 500;
+  const scale = W / 500;
+  const silMeta = await sharp(SIL_ASSET).metadata();
+  const targetW = Math.round(FB_WIDTH * scale);
+  const targetH = Math.round(targetW * silMeta.height / silMeta.width);
+
+  const { data, info } = await sharp(SIL_ASSET)
+    .resize(targetW, targetH, { fit: 'fill' })
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  const fadeStart = Math.round(info.height * (1 - FB_FADE));
+  for (let y = fadeStart; y < info.height; y++) {
+    const k = 1 - (y - fadeStart) / Math.max(1, info.height - fadeStart);
+    for (let x = 0; x < info.width; x++) {
+      const o = (y * info.width + x) * 4 + 3;
+      data[o] = Math.round(data[o] * k);
+    }
+  }
+
+  const silPng = await sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } }).png().toBuffer();
+
+  return sharp(cardBuf)
+    .composite([{
+      input: silPng,
+      left: Math.round((W - targetW) / 2),
+      top: Math.round(FB_TOP * scale),
+      blend: 'over'
+    }])
+    .webp({ quality: 85 })
+    .toBuffer();
+}
 
 (async () => {
-  console.log(`[fallback-portraits] ver=FC${VER} conc=${CONC} dry=${DRY}`);
+  console.log(`[fallback-portraits] ver=FC${VER} conc=${CONC} dry=${DRY} force=${FORCE} sig=${SIG}`);
+  if (!fs.existsSync(SIL_ASSET)) { console.error('缺少剪影素材：' + SIL_ASSET); process.exit(1); }
 
   // 1) 找出「有卡面、没半身像」的球员
   const players = JSON.parse(fs.readFileSync(path.join(ROOT, 'cloud-data', `fc${VER}`, 'players.json'), 'utf8'));
+  const manifest = imgLib.readManifest(VER);
   const targets = players.filter(p => p.cardImagePath && !p.imagePath);
-  console.log(`  候选 ${targets.length} 名球员（有卡面无半身像）`);
+  const todo = FORCE ? targets : targets.filter(p => manifest[String(p.eaId)] !== SIG);
+  console.log(`  候选 ${targets.length} 名（有卡面无半身像）| 需处理 ${todo.length} 名`);
 
   // 2) 探测拿 PREFIX（与 upload_images.js / gen_preview_cloud.js 一致的做法）
   const probe = await app.uploadFile({
@@ -53,71 +107,41 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   await app.deleteFile({ fileList: [probe.fileID] });
 
   // 3) 并发生成 + 上传
-  const newSigs = {};   // eaId -> new sig (与原签名不同，触发后续变更检测；这里用固定前缀方便人工识别)
-  let ok = 0, skip = 0, fail = 0;
+  const newSigs = {};
+  let ok = 0, fail = 0, skipped = targets.length - todo.length;
   let cursor = 0, done = 0;
 
   async function worker() {
     while (true) {
       const i = cursor++;
-      if (i >= targets.length) return;
-      const p = targets[i];
+      if (i >= todo.length) return;
+      const p = todo[i];
       const eaId = String(p.eaId);
-      const cardFile = `${eaId}_card.webp`;
-      const portraitFile = `${eaId}.webp`;
-      const localCard = path.join(TMP_DIR, cardFile);
-      const localPortrait = path.join(TMP_DIR, portraitFile);
-
       try {
-        // 已存在则跳过（支持断点续传）
-        if (fs.existsSync(localPortrait) && !DRY) { ok++; done++; continue; }
-
-        // 下载 _card.webp
-        const dl = await app.downloadFile({ fileID: `${PREFIX}fc${VER}/images/${cardFile}` });
+        const dl = await app.downloadFile({ fileID: `${PREFIX}fc${VER}/images/${eaId}_card.webp` });
         const cardBuf = Buffer.from(dl.fileContent);
-        if (!cardBuf.length) throw new Error('card 文件为空');
+        if (!cardBuf.length) throw new Error('卡面文件为空');
 
-        // 生成 tinted portrait：原图 + 40% 透明度青色蒙版
-        //   选用 #22d3ee 是小程序首页选中色 / tab 主题色，视觉上一眼能识别"这是兜底图"
-        const cardMeta = await sharp(cardBuf).metadata();
-        const tintedBuf = await sharp(cardBuf)
-          .composite([{
-            input: Buffer.from(
-              `<svg width="${cardMeta.width}" height="${cardMeta.height}">` +
-              `<rect width="100%" height="100%" fill="#22d3ee" fill-opacity="0.4"/>` +
-              `</svg>`
-            ),
-            top: 0, left: 0
-          }])
-          .webp({ quality: 82 })
-          .toBuffer();
-
-        fs.writeFileSync(localPortrait, tintedBuf);
-
+        const out = await composeFallback(cardBuf);
         if (!DRY) {
-          await app.uploadFile({
-            cloudPath: `fc${VER}/images/${portraitFile}`,
-            fileContent: tintedBuf
-          });
+          await app.uploadFile({ cloudPath: `fc${VER}/images/${eaId}.webp`, fileContent: out });
         }
-        // 用「fb-」前缀的固定签名，避免与真实 portrait 冲突，标识这是兜底图
-        newSigs[eaId] = 'fb-fallback-v1';
+        newSigs[eaId] = SIG;
         ok++;
       } catch (e) {
         fail++;
-        if (fail <= 5) console.log(`  ✗ ${eaId}: ${(e && e.message) || e}`);
+        if (fail <= 8) console.log(`  ✗ ${eaId} ${p.commonName || ''}: ${(e && e.message) || e}`);
       }
       done++;
-      if (done % 50 === 0 || done === targets.length) {
-        console.log(`  进度 ${done}/${targets.length} | 成功 ${ok} | 失败 ${fail}`);
+      if (done % 50 === 0 || done === todo.length) {
+        console.log(`  进度 ${done}/${todo.length} | 成功 ${ok} | 失败 ${fail}`);
       }
     }
   }
-  await Promise.all(Array.from({ length: Math.min(CONC, targets.length) }, worker));
+  await Promise.all(Array.from({ length: Math.min(CONC, Math.max(1, todo.length)) }, worker));
 
   // 4) 合并写回 images.json
   if (!DRY && Object.keys(newSigs).length) {
-    const manifest = imgLib.readManifest(VER);
     Object.assign(manifest, newSigs);
     imgLib.writeManifest(VER, manifest);
     console.log(`  ✓ images.json 已合并 ${Object.keys(newSigs).length} 条兜底签名`);
@@ -126,5 +150,5 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   // 5) 清理临时目录
   try { fs.rmSync(TMP_DIR, { recursive: true, force: true }); } catch (e) {}
 
-  console.log(`\n✔ 完成 | 生成 ${ok} 个兜底头像 | 失败 ${fail} | dry=${DRY}`);
+  console.log(`\n✔ 完成 | 生成 ${ok} 个兜底卡面 | 跳过 ${skipped} | 失败 ${fail} | dry=${DRY}`);
 })().catch(e => { console.error('脚本异常:', e); process.exit(1); });
