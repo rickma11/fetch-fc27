@@ -106,13 +106,29 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   const manifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : {};
   const db = app.database();
   const gained = Object.keys(manifest).filter(function (id) { return curImg[id]; });
-  if (gained.length) {
+  // ② 漏网之鱼：云库 imagePath 为空、但本次 dump 已有真实头像的球员。
+  //    np 生成曾失败 / 从未进清单者，补头像后 upload_db 增量（签名刻意不含 imagePath）不会写云库，
+  //    若只靠清单对账会永久停在空头像 —— 这里直接查云库空头像集合兜底，去掉对清单与单一步骤的依赖。
+  let missed = [];
+  if (!DRY) {
+    try {
+      let skip = 0;
+      for (;;) {
+        const r = await db.collection('players_fc' + VER).where({ imagePath: '' }).limit(1000).skip(skip).get();
+        const rows = (r && r.data) || [];
+        for (const d of rows) { const id = String(d._id); if (curImg[id] && !manifest[id]) missed.push(id); }
+        if (rows.length < 1000) break;
+        skip += 1000;
+      }
+    } catch (e) { console.warn('  [reconcile] 查询空头像球员失败: ' + ((e && e.message) || e)); }
+  }
+  if (gained.length || missed.length) {
     if (DRY) {
-      console.log('对账[dry]：' + gained.length + ' 名球员已获 fut.gg 半身像，将切回真实卡面（dry 模式不写库/不删孤儿/不改清单）');
+      console.log('对账[dry]：清单内 ' + gained.length + ' + 云库空头像漏网 ' + missed.length + ' 名球员已获 fut.gg 半身像，将切回真实卡面（dry 模式不写库/不删孤儿/不改清单）');
     } else {
-      console.log('对账：' + gained.length + ' 名球员已获 fut.gg 半身像，切回真实卡面…');
+      console.log('对账：清单内 ' + gained.length + ' + 云库空头像漏网 ' + missed.length + ' 名球员已获 fut.gg 半身像，切回真实卡面…');
       let okDb = 0, okDel = 0;
-      for (const id of gained) {
+      const flip = async function (id, inManifest) {
         const imgPath = curImg[id];
         try {
           await db.collection('players_fc' + VER).doc(id).update({ data: { imagePath: imgPath } });
@@ -121,9 +137,11 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
         } catch (e) { console.warn('  [reconcile] 更新 DB ' + id + ' 失败: ' + ((e && e.message) || e)); }
         try { await app.deleteFile({ fileList: [PREFIX + id + '_np.webp'] }); okDel++; }
         catch (e) { /* 孤儿删除失败不致命 */ }
-        delete manifest[id];
-      }
-      console.log('  → DB 更新 ' + okDb + ' 人 | 孤儿 _np.webp 删除 ' + okDel + ' 张 | 清单移除 ' + gained.length + ' 人');
+        if (inManifest) delete manifest[id];
+      };
+      for (const id of gained) await flip(id, true);
+      for (const id of missed) await flip(id, false);
+      console.log('  → DB 更新 ' + okDb + ' 人 | 孤儿 _np.webp 删除 ' + okDel + ' 张 | 清单移除 ' + gained.length + ' 人（漏网 ' + missed.length + ' 人不占清单）');
     }
   } else {
     console.log('对账：noportrait 清单中暂无球员已获半身像');

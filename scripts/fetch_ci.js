@@ -223,6 +223,15 @@ function readSnapshot() {
   if (String(process.env.FC_IMG || '1') !== '0') {
     const manifest = imgLib.readManifest(VER);
     const types = imgLib.activeTypes();
+    // 无头像 / 已在 noportrait 清单的球员 → 图片任务置顶，避免被 FC_IMG_MAX 上限 + 总评降序排序饿死：
+    // 否则低总评无头像球员出 _np.webp 会滞后数天（gen_noportrait_cards 必须先从云存储取 _card.webp 建底板），
+    // 且他们后来补的真实头像也会因同一上限 + 排序而滞后下载。
+    const npManifestPath = path.join(path.resolve(__dirname, '..'), 'cloud-data', `fc${VER}`, 'noportrait.json');
+    let npManifest = new Set();
+    try {
+      const nj = JSON.parse(fs.readFileSync(npManifestPath, 'utf8'));
+      npManifest = new Set(Object.keys(nj).map(String));
+    } catch (e) { /* 清单缺失不致命，仅失去置顶能力 */ }
     const tasks = [];
     const taskMeta = {};
     const typeOrder = {};
@@ -242,16 +251,23 @@ function readSnapshot() {
           eaId, type: t.key, url,
           rawUrl: imgLib.srcUrlOf(it, t, true),
           file: path.join(IMG_DIR, name),
-          ovr: Number(it.overall) || 0
+          ovr: Number(it.overall) || 0,
+          // 置顶标记：当前无头像（!imagePath && cardImagePath）或已在 noportrait 清单内（可能刚补头像）的球员
+          pri: ((!it.imagePath && it.cardImagePath) || npManifest.has(String(it.eaId))) ? 1 : 0,
+          // 置顶组内顺序：card 先于 portrait（_np 建底板只需 card；补头像时两者都抓）
+          typePri: t.key === 'card' ? 0 : (t.key === 'portrait' ? 1 : 2)
         });
       }
       if (Object.keys(files).length) taskMeta[eaId] = { sig, files };
     }
-    // 高总评优先：这样即使单次有上限，也是先把最常被浏览的卡补齐
-    tasks.sort((a, b) => (b.ovr - a.ovr) || (Number(a.eaId) - Number(b.eaId)) || (typeOrder[a.type] - typeOrder[b.type]));
+    // 置顶组优先（pri 降序），组内高总评在前、card 先于 portrait；非置顶组再按总评降序
+    tasks.sort((a, b) => (b.pri - a.pri) || (b.ovr - a.ovr) || (a.typePri - b.typePri) || (Number(a.eaId) - Number(b.eaId)));
+    const priCount = tasks.filter(t => t.pri).length;
     if (IMG_MAX > 0 && tasks.length > IMG_MAX) {
-      console.log(`图片任务 ${tasks.length} 张，本次上限 ${IMG_MAX} 张（余下下次继续）`);
+      console.log(`图片任务 ${tasks.length} 张（其中无头像/清单置顶 ${priCount} 张全部保留），本次上限 ${IMG_MAX} 张（余下下次继续）`);
       tasks.length = IMG_MAX;
+    } else if (priCount) {
+      console.log(`图片任务 ${tasks.length} 张，无头像/清单置顶 ${priCount} 张`);
     }
     imgStats.planned = tasks.length;
     console.log(`图片下载: 待下载 ${tasks.length} 张（球员 ${Object.keys(taskMeta).length} 人 / 已有签名跳过 ${imgStats.skipped} 人 / 类型 ${types.map(t => t.key).join(',')}）`);
