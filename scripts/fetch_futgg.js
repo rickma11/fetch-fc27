@@ -16,7 +16,7 @@
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
-const { sigOfRaw, normFaceStats, normRarity } = require('./sig');
+const { sigOfRaw, normFaceStats, normalizeRarity } = require('./sig');
 
 const ROOT = path.resolve(__dirname, '..');
 
@@ -83,7 +83,12 @@ function pickPlayer(item) {
     club: item.club || null,
     league: item.league || null,
     nation: item.nation || null,
-    rarity: normRarity(item),
+    // 稀有度：fut.gg 把普通卡的 rarityName 一律写成 "Rare"，真实档位在顶层 quality
+    // （GOLD/SILVER/BRONZE）。normalizeRarity 只把「占位名」换成 金/银/铜，
+    // 特殊活动卡（Hall of FUT 及后续所有活动）原样保留 —— 见 sig.js 顶部说明。
+    // ⚠️ 它返回副本、不改 raw item，所以签名（sigSource 读原始 rarityName）不受影响，
+    //    不会因为这次改动触发全量重抓详情。
+    rarity: normalizeRarity(item),
     imagePath: item.imagePath || '',
     cardImagePath: item.cardImagePath || '',
     simpleCardImagePath: item.simpleCardImagePath || '',
