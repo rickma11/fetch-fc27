@@ -133,6 +133,13 @@ function buildDetail(p, detRaw) {
     rolesPlus: d.chemistryRolesPlusEaIds || d.rolesPlus || p.rolesPlus,
     rolesPlusPlus: d.chemistryRolesPlusPlusEaIds || d.rolesPlusPlus || p.rolesPlusPlus,
     alternativePositionIds: d.alternativePositionIds || p.alternativePositionIds,
+    // AcceleRATE 分类：7 个桶（lengthy / explosive / controlled / mostlyLengthy /
+    // mostlyExplosive / controlledLengthy / controlledExplosive），元素是**化学风格英文名**
+    // （如 "Sniper"），表示「用该化学风格后加速类型会变成什么」。
+    // 与列表接口的 accelerateType（基础类型，无化学时）配套，供小程序化学选择器标注 L/C/E。
+    // 实测（2026-09-14，抽样 60 人）只有 lengthy/explosive/controlled 三桶有值，
+    // 其余四桶恒为空 —— 但这里按原样整存，EA 后续若启用不必再改数据结构。
+    accelerateTypes: d.accelerateTypes || null,
     facePace: facePace != null ? facePace : p.facePace,
     faceShooting: faceShooting != null ? faceShooting : p.faceShooting,
     facePassing: facePassing != null ? facePassing : p.facePassing,
