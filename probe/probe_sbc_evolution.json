@@ -1,57 +1,39 @@
 {
   "ver": 26,
-  "chunkCount": 13,
-  "usefulChunks": [
-    "prebid.js",
-    "index-CONql_qb.js"
-  ],
-  "allApiPaths": [
-    "/api/${e.isNotFutEndpoint",
-    "/api/broadcast",
-    "/api/event",
-    "/api/fastlane.json",
-    "/api/gg-settings/update/",
-    "/api/header-bidding-request",
-    "/api/supabase/change-password/",
-    "/api/supabase/reset-password/",
-    "/api/supabase/sign-in/",
-    "/api/supabase/sign-up/",
-    "/api/sync/iframe",
-    "/api/sync/iframe/${y}",
-    "/api/sync/image",
-    "/api/sync/image/${y}",
-    "/api/users/check-username/",
-    "/api/users/identity/",
-    "/api/users/set-username/",
-    "/api/users/update-profile/",
-    "/api/v1/event/timeout",
-    "/api/v1/initsyncrnd/{UUID}",
-    "/api/v1/prebid"
-  ],
-  "allFutPaths": [
-    "fut/pick/",
-    "fut/pick/vote/"
-  ],
-  "hookContext": [
-    {
-      "kw": "useGetTrendingEvolutions",
-      "ctx": "ers:()=>SLe,useGetHomepageTabs:()=>gLe,useGetHotness:()=>wLe,useGetRecentPlayers:()=>bLe,useGetRecentlyUpgraded:()=>xLe,useGetTrendingEvolutions:()=>yLe,useGetTrendingPlayers:()=>vLe,useGetWhatsHot:()=>CLe},1),hLe,gLe,_Le,vLe,yLe,bLe,xLe,SLe,CLe,wLe,TLe,ELe,DLe=o((()=>{Zh(),Us(),$f(),PD(),tp(),f_(),xM(),cLe(),pLe(),hLe"
+  "pages": {
+    "/evolutions": {
+      "htmlLen": 181736,
+      "totalScriptLen": 4656,
+      "markers": {
+        "endtime": 0,
+        "claim_endtime": 0,
+        "sbcScoreRequirement": 0,
+        "evolutionsArr": 0,
+        "sbcsArr": 0,
+        "isSbc": 0,
+        "next_f_push": 0,
+        "nextData": 0
+      },
+      "samples": [
+        "e\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Evolutions\",\"item\":\"https://www.fut.gg/evolutions/\"}]}"
+      ]
     },
-    {
-      "kw": "useGetSbc",
-      "ctx": "tsPagedQueryOptions:()=>Nue,getSbcSetsQueryOptions:()=>Oue,getUserClubSbcsQueryOptions:()=>Aue,useGetCategories:()=>Due,useGetSbcSets:()=>kue,useGetUserClubSbcs:()=>jue},1),Eue,Due,Oue,kue,Aue,jue,Mue,Nue,Pue,Fue,Iue,Lue=o((()=>{Us(),Zh(),$f(),wue(),Eue=({isSsr:e,isEnabled:t=!0}={})=>Kh({queryKey:[`sbc`,`categories`,Hs"
-    },
-    {
-      "kw": "getSbcSetList",
-      "ctx": "LIMITED`,e.REFRESH=`REFRESH`,e}({})})),Wue=o((()=>{Uue()})),Gue=c({getExpiringSoonSbcs:()=>que,getRemainingPrice:()=>mv,getSbcSetListDerived:()=>Kue,getSbcsInCategory:()=>Jue,isSbcExpired:()=>Yue},1),Kue,mv,que,Jue,Yue,Xue=o((()=>{Rue(),Hue(),Wue(),Xf(),Kue=({sbc:e,includeRemainingPrice:t,isObjectCompleted:n})=>{let r="
-    },
-    {
-      "kw": "SbcChallenge",
-      "ctx": "\"assets/best-by-role-Dib-_JoI.js\",\"assets/_position-CIY5kIio.js\",\"assets/_categorySlug._sbcSetSlug-DP9UcYaN.js\",\"assets/SbcChallenge-Scwchg5R.js\",\"assets/_sbcListLayout.index-DeHBQXQS.js\",\"assets/SbcSetResults-DtMlp3dD.js\",\"assets/_rarityGroup-BdQhFOgj.js\",\"assets/RaritySquadSidebar-DHgEP7dC.js\",\"assets/_raritySquad-Ez"
-    },
-    {
-      "kw": "useGetEvolutions",
-      "ctx": "olutionsQueryOptions:()=>nEe,pathsQueryOptions:()=>$Te,useEligiblePlayersInfinite:()=>cEe,useGetEvolutionDetail:()=>dEe,useGetEvolutions:()=>rEe,usePathsInfinite:()=>eEe,useSbGetEvolutionPlayers:()=>uEe,useSearch:()=>iEe,useSearchByName:()=>oEe,useSearchInfinite:()=>aEe,useTrendingPlayers:()=>sEe,useTrendingPlayersInfi"
+    "/sbc": {
+      "htmlLen": 93465,
+      "totalScriptLen": 4642,
+      "markers": {
+        "endtime": 0,
+        "claim_endtime": 0,
+        "sbcScoreRequirement": 0,
+        "evolutionsArr": 0,
+        "sbcsArr": 0,
+        "isSbc": 0,
+        "next_f_push": 0,
+        "nextData": 0
+      },
+      "samples": [
+        "e\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"SBC\",\"item\":\"https://www.fut.gg/sbc/\"}]}"
+      ]
     }
-  ]
+  }
 }
