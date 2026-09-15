@@ -94,6 +94,13 @@ jobs:
       - name: Shape data (offline)
         run: node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27 --no-local
 
+      # SBC / Evolutions 抓取（与球员管线同一套真实浏览器过 CF 机制，独立步骤、独立浏览器）
+      # 输出 cloud-data/fc27/sbcs.json + evolutions.json + sbc_evo_summary.json
+      # FC27 SBC 当前尚未上线 → 写出空数组，等上线后自动有数据；Evolution 同理。
+      - name: Scrape SBC & Evolutions (real browser bypass Cloudflare)
+        continue-on-error: true
+        run: node scripts/scrape_sbc_evolutions.js --ver 27
+
       - name: Upload to CloudBase Database
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
@@ -137,6 +144,8 @@ jobs:
           git add cloud-data/fc27/images.json || true
           # 无半身像卡面清单（内容签名，未变则下次跳过重新生成）
           git add cloud-data/fc27/noportrait.json || true
+          # SBC / Evolutions 抓取结果（每日更新，小文件，每次都提交）
+          git add cloud-data/fc27/sbcs.json cloud-data/fc27/evolutions.json cloud-data/fc27/sbc_evo_summary.json || true
           if [ "${{ steps.mode.outputs.mode }}" = "full" ]; then
             # 全量数据文件体积大，只在每周全量时留一份版本快照
             git add cloud-data/fc27/players.json cloud-data/fc27/details.json || true
