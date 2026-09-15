@@ -66,7 +66,9 @@ const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
   }
   const outDir = path.resolve(__dirname, '..', 'probe');
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, 'r11_datasets.json'), JSON.stringify(out, null, 2));
-  console.log('\n已写出 probe/r11_datasets.json');
+  const json = JSON.stringify(out, null, 2);
+  fs.writeFileSync(path.join(outDir, 'r11_datasets.json'), json);
+  fs.writeFileSync(path.join(outDir, 'probe_sbc_evolution.json'), json); // 兼容 workflow 提交/上传步骤
+  console.log('\n已写出 probe/r11_datasets.json (+ probe_sbc_evolution.json)');
   await browser.close();
 })().catch(e => { console.error('失败:', e); process.exit(1); });
