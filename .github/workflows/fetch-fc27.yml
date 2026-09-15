@@ -142,7 +142,21 @@ jobs:
             git add cloud-data/fc27/players.json cloud-data/fc27/details.json || true
           fi
           git commit -m "chore: FC27 ${{ steps.mode.outputs.mode }} sync $(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M')" || echo "no changes"
-          git push
+          # 远端 main 可能已被 probe-futgg workflow 的结果回写推进（两者并发组不同、互不排斥），
+          # 也可能是「re-run failed jobs」复用了旧 checkout sha —— 盲推会 non-fast-forward 被拒。
+          # 先变基到最新 main 再推（probe 只动 probe/，与 cloud-data/ 无冲突），带 3 次重试。
+          for i in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main; then
+              if git push; then exit 0; fi
+            else
+              git rebase --abort
+            fi
+            echo "push 第 $i 次被拒，5 秒后重试..."
+            sleep 5
+          done
+          echo "::error::push 重试 3 次后仍失败"
+          exit 1
 
       - name: Show run summary
         if: always()
