@@ -1,14 +1,16 @@
-// 探查 fut.gg 真实的 SBC / Evolutions API 端点 + 响应体结构。
+// 探查 fut.gg 真实的 SBC / Evolutions API 端点 + 响应体结构（第二轮修正版）。
 // 复用 fetch_ci.js 的「Playwright 真实 Chromium 过 Cloudflare」逻辑。
 //
-// 关键修正：fut.gg 对同源 fetch 有请求头校验，直接 page.evaluate fetch 会 404。
-//   改为监听页面「自己的」XHR 响应，直接抓取真实响应体（status + 字段 + 截断样本）。
+// 第一轮教训：① 用 window.fetch 重抓被 fut.gg 请求头校验挡成 404；
+//             ② 仅靠「页面自发 XHR 的 response listener」不稳定（本轮 0 命中）。
+// 本版改法：过 CF 后，用 Playwright 的 page.request.fetch（共享浏览器上下文 cookie，
+//           天然带 CF 通关凭证 + 浏览器式请求头）主动抓取已确认真实存在的端点，直接拿响应体。
 //
 // 输出：probe/probe_sbc_evolution.json（落盘）+ 控制台打印。
 //
 // 运行：
 //   本机（需装 Playwright）：npm i playwright && npx playwright install chromium
-//                           FC_VER=26 node scripts/probe_futgg_sbc_evolution.js
+//           FC_VER=26 node scripts/probe_futgg_sbc_evolution.js
 //   CI：推到仓库后，Actions 手动 dispatch（见 .github/workflows/probe-futgg.yml）
 //
 // 注：纯探查脚本，不写数据库、不动快照，安全可反复跑。
@@ -19,19 +21,23 @@ const { chromium } = require('playwright');
 const VER = Number(process.env.FC_VER || 27);
 const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
 
-// 想抓的真实端点关键词（fut.gg 页面自己会请求这些）
-const WANT = [
-  /fut\.gg\/api\/fut\/evolution-list/i,
-  /fut\.gg\/api\/fut\/evolutions/i,
-  /fut\.gg\/api\/fut\/challenges/i,
-  /fut\.gg\/api\/fut\/sbc/i,
-  /fut\.gg\/api\/fut\/squad-building-challenges/i
+const KNOWN = [
+  `https://www.fut.gg/api/fut/evolution-list/v2/${VER}/`,
+  `https://www.fut.gg/api/fut/evolutions/${VER}/`,
+  `https://www.fut.gg/api/fut/evolutions/v2/${VER}/`,
+  `https://www.fut.gg/api/fut/evolutions/list/${VER}/`,
+  `https://www.fut.gg/api/fut/challenges/v2/${VER}/`,
+  `https://www.fut.gg/api/fut/sbc-challenges/${VER}/`,
+  `https://www.fut.gg/api/fut/sbc/v2/${VER}/`,
+  `https://www.fut.gg/api/fut/squad-building-challenges/v2/${VER}/`
 ];
 
-function topKeys(obj, n = 20) {
-  if (!obj || typeof obj !== 'object') return [];
-  if (Array.isArray(obj)) return `array(${obj.length})` + (obj[0] && typeof obj[0] === 'object' ? ' itemKeys=' + Object.keys(obj[0]).join(',') : '');
-  // 顶层或嵌套：优先 data.items / data.results / items / results
+function topKeys(obj, n = 24) {
+  if (!obj || typeof obj !== 'object') return String(obj);
+  if (Array.isArray(obj)) {
+    const item = obj[0];
+    return `array(${obj.length})` + (item && typeof item === 'object' ? ' itemKeys=' + Object.keys(item).slice(0, 30).join(',') : ' first=' + JSON.stringify(item).slice(0, 100));
+  }
   for (const k of ['data', 'items', 'results', 'list', 'evolutions', 'challenges', 'sbc']) {
     if (obj[k] && Array.isArray(obj[k])) {
       const sample = obj[k][0];
@@ -39,6 +45,29 @@ function topKeys(obj, n = 20) {
     }
   }
   return Object.keys(obj).slice(0, n).join(',');
+}
+
+function sampleItem(j) {
+  let arr = null;
+  if (Array.isArray(j)) arr = j;
+  else for (const k of ['data', 'items', 'results', 'list', 'evolutions', 'challenges', 'sbc']) {
+    if (j && j[k] && Array.isArray(j[k])) { arr = j[k]; break; }
+  }
+  if (!arr || !arr.length) return null;
+  const s = arr[0];
+  if (!s || typeof s !== 'object') return null;
+  const out = {};
+  for (const k of Object.keys(s).slice(0, 50)) {
+    let v = s[k];
+    if (typeof v === 'string' && v.length > 160) v = v.slice(0, 160) + '…';
+    else if (typeof v === 'object' && v !== null) {
+      // 嵌套对象只展开一层
+      if (Array.isArray(v)) v = `[arr(${v.length})]`;
+      else v = '[obj:' + Object.keys(v).slice(0, 12).join(',') + ']';
+    }
+    out[k] = v;
+  }
+  return out;
 }
 
 (async () => {
@@ -51,63 +80,6 @@ function topKeys(obj, n = 20) {
   });
   const page = await ctx.newPage();
   page.on('console', m => console.log('[browser]', m.text()));
-
-  // 收集所有 fut.gg/api 真实请求（导航前注册）
-  const apiHits = new Set();
-  page.on('request', req => {
-    const u = req.url();
-    if (/fut\.gg\/api/i.test(u)) apiHits.add(u);
-  });
-
-  // 拦截响应体：只抓 SBC / Evolutions 相关
-  const captured = [];
-  const seenUrl = new Set();
-  page.on('response', async (resp) => {
-    const u = resp.url();
-    const m = WANT.some(re => re.test(u));
-    if (!m) return;
-    if (seenUrl.has(u)) return;
-    seenUrl.add(u);
-    try {
-      const ct = resp.headers()['content-type'] || '';
-      const status = resp.status();
-      let info = { url: u, status, len: 0, structure: '' };
-      if (ct.includes('json') || status === 200) {
-        const t = await resp.text();
-        info.len = t.length;
-        try {
-          const j = JSON.parse(t);
-          info.structure = topKeys(j);
-          // 若顶层有数组/嵌套数组，附一个样本对象（截断到合理长度）
-          const sample = extractSample(j);
-          if (sample) info.sample = sample;
-        } catch (e) { info.structure = '(非 JSON) ' + t.slice(0, 200); }
-      }
-      captured.push(info);
-      console.log('[capture]', status, u, '|', info.structure);
-    } catch (e) { /* 响应体已不可读，忽略 */ }
-  });
-
-  function extractSample(j) {
-    // 尽量找到一个对象样本
-    let arr = null;
-    if (Array.isArray(j)) arr = j;
-    else for (const k of ['data', 'items', 'results', 'list', 'evolutions', 'challenges', 'sbc']) {
-      if (j && j[k] && Array.isArray(j[k])) { arr = j[k]; break; }
-    }
-    if (!arr || !arr.length) return null;
-    const sample = arr[0];
-    if (!sample || typeof sample !== 'object') return null;
-    // 截断长字符串字段，便于阅读
-    const out = {};
-    for (const k of Object.keys(sample).slice(0, 40)) {
-      let v = sample[k];
-      if (typeof v === 'string' && v.length > 120) v = v.slice(0, 120) + '…';
-      if (typeof v === 'object' && v !== null) v = '[obj]';
-      out[k] = v;
-    }
-    return out;
-  }
 
   console.log('打开 fut.gg 过 Cloudflare ...');
   await page.goto('https://www.fut.gg/', { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -127,24 +99,44 @@ function topKeys(obj, n = 20) {
   }
   if (!passed) { await browser.close(); console.error('未能过 Cloudflare'); process.exit(1); }
 
-  // 访问 evolutions / sbc 页，让页面自己触发真实 XHR
-  for (const p of ['/evolutions', '/evolutions/27', '/sbc', '/squad-building-challenges', '/sbc-challenges']) {
+  // 先访问一下页面，确保上下文里有了 CF 凭证 / 必要的 cookie
+  await page.goto('https://www.fut.gg/evolutions', { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
+  await page.waitForTimeout(2000);
+
+  // 用 Playwright APIRequest（共享上下文 cookie）主动抓取已知端点
+  const api = ctx.request;
+  const captured = [];
+  for (const u of KNOWN) {
     try {
-      await page.goto('https://www.fut.gg' + p, { waitUntil: 'networkidle', timeout: 60000 });
-      await page.waitForTimeout(4000);
-      console.log('已访问页面:', p, '| 累计 api 请求', apiHits.size, '| 已抓响应', captured.length);
-    } catch (e) { console.log('访问', p, '失败:', e.message); }
+      const r = await api.fetch(u, {
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Referer': 'https://www.fut.gg/evolutions',
+          'sec-fetch-site': 'same-origin',
+          'sec-fetch-mode': 'cors',
+          'sec-fetch-dest': 'empty',
+          'x-requested-with': 'XMLHttpRequest'
+        }
+      });
+      const t = await r.text();
+      let structure = '', sample = null;
+      try { const j = JSON.parse(t); structure = topKeys(j); sample = sampleItem(j); }
+      catch (e) { structure = '(非 JSON) ' + t.slice(0, 200); }
+      captured.push({ url: u, status: r.status(), len: t.length, structure, sample });
+      console.log('[fetch]', r.status(), u, '|', structure);
+    } catch (e) {
+      captured.push({ url: u, error: String(e).slice(0, 200) });
+      console.log('[fetch-err]', u, String(e).slice(0, 160));
+    }
   }
 
-  const result = {
-    observedApiRequests: [...apiHits].filter(u => WANT.some(re => re.test(u))).sort(),
-    captured
-  };
+  const result = { ver: VER, captured };
   const outDir = path.resolve(__dirname, '..', 'probe');
   fs.mkdirSync(outDir, { recursive: true });
   const outPath = path.join(outDir, 'probe_sbc_evolution.json');
   fs.writeFileSync(outPath, JSON.stringify(result, null, 2));
-  console.log('\n===== 抓到的真实端点响应 =====');
+  console.log('\n===== 抓到的端点响应 =====');
   console.log(JSON.stringify(result.captured, null, 2));
   console.log('\n已写出', outPath);
   await browser.close();
