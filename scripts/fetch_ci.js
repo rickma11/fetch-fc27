@@ -37,6 +37,8 @@ function argMode() {
 const MODE_IN = String(process.env.FC_MODE || argMode() || 'auto').toLowerCase();
 const LIST_CONC = Number(process.env.FC_LIST_CONC || 5);
 const DET_CONC = Number(process.env.FC_DET_CONC || 5);
+// 分桶翻页的下限 OVR（上限固定 99）。默认 1 覆盖任何铜卡长尾；如确认最低 OVR 较高可调大以省请求。
+const OVR_MIN = Number(process.env.FC_OVR_MIN || 1);
 
 // 跟随用户真实浏览器（Chrome/147），提升过 Cloudflare 的成功率
 const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
@@ -94,8 +96,11 @@ function readSnapshot() {
     process.exit(1);
   }
 
-  // ---------- 阶段 1：抓全量列表（先探总数，再并发翻页）----------
-  const listRes = await page.evaluate(async ({ BASE, LIST_CONC }) => {
+  // ---------- 阶段 1：抓全量列表（按 overall 分桶翻页，绕过 max_result_window=10000）----------
+  //   普通 ?page=N 翻页到第 ~334 页（10000/30）起越窗被截断，低 OVR 卡（如 81426=57 OVR）漏抓。
+  //   改法：按 overall 单值分桶（overall__gte=X&overall__lte=X，参数名见 utweb/参考/futgg/filter_taxonomy.md），
+  //   每桶命中数远小于 10000，桶内翻页不触窗口；OVR 99→OVR_MIN 全桶并集即完整名单。
+  const listRes = await page.evaluate(async ({ BASE, LIST_CONC, OVR_MIN }) => {
     const sleep = ms => new Promise(r => setTimeout(r, ms));
     const r1 = await fetch(`${BASE}?page=1`, { headers: { Accept: 'application/json' } });
     if (!r1.ok) throw new Error('列表第 1 页失败 status=' + r1.status);
@@ -108,59 +113,51 @@ function readSnapshot() {
     const first = Array.isArray(j1.data) ? j1.data : [];
     const pageSize = first.length || 30;
 
-    let cnt = null;
-    ['count', 'total', 'totalCount'].forEach(k => { if (typeof j1[k] === 'number') cnt = j1[k]; });
-    let totalPages = null;
-    ['numPages', 'totalPages'].forEach(k => { if (typeof j1[k] === 'number') totalPages = j1[k]; });
-    if (totalPages === null && cnt !== null) totalPages = Math.ceil(cnt / pageSize);
-    console.log('分页推断: count=' + cnt + ' pageSize=' + pageSize + ' totalPages=' + totalPages);
-    if (cnt !== null && cnt > 10000) {
-      console.log('⚠️ 接口 count=' + cnt + ' 超过 10000，疑似被 max_result_window 截断，实际可见条目会少于该值');
-    }
+    // 按 overall 分桶翻页，绕过 max_result_window=10000 的全局窗口（详见脚本头部说明）。
+    // OVR 上限固定 99（FC 最高总评），下限取传入的 OVR_MIN（默认 1，覆盖任何铜卡长尾）。
+    // 每个 OVR 桶命中数远小于 10000，桶内翻页不会越窗；全部桶并集即完整名单（含低 OVR 的 81426 等）。
+    const OVR_MAX = 99;
 
     const items = [], seen = new Set();
     const push = arr => { for (const it of arr) if (it && !seen.has(it.eaId)) { seen.add(it.eaId); items.push(it); } };
-    push(first);
+    push(first);  // 第 1 页（无过滤）的卡也并入，下方分桶会去重
 
-    if (totalPages && totalPages > 1) {
-      // 已知道总页数 → 并发翻页（对 fut.gg 压力可控：每请求间隔 60ms）
-      const cap = Math.min(totalPages, 2000);
-      let cursor = 2, okPages = 1, errPages = 0;
-      async function w() {
-        while (true) {
-          const pg = cursor++;
-          if (pg > cap) return;
+    // 单桶翻页：overall__gte/lte 同值，逐页抓到空页 / 404 或连续失败为止
+    async function fetchBucket(ovr) {
+      for (let pg = 1; pg <= 2000; pg++) {
+        let ok = false;
+        for (let attempt = 0; attempt < 3 && !ok; attempt++) {
           try {
-            const r = await fetch(`${BASE}?page=${pg}`, { headers: { Accept: 'application/json' } });
+            const r = await fetch(`${BASE}?overall__gte=${ovr}&overall__lte=${ovr}&page=${pg}`, { headers: { Accept: 'application/json' } });
             if (r.ok) {
               const j = await r.json();
-              if (Array.isArray(j.data)) push(j.data);
-              okPages++;
-            } else { errPages++; }
-          } catch (e) { errPages++; }
-          if ((cursor - 2) % 100 === 0) console.log('列表进度 page', cursor - 1, '/', cap, '累计', seen.size, '人');
-          await sleep(60);
+              if (Array.isArray(j.data) && j.data.length) { push(j.data); ok = true; }
+              else return;                       // 空页 = 桶末页
+            } else if (r.status === 404) { return; }
+            else { await sleep(400 * (attempt + 1)); }
+          } catch (e) { await sleep(400 * (attempt + 1)); }
         }
-      }
-      await Promise.all(Array.from({ length: LIST_CONC }, w));
-      console.log('并发翻页完成: 成功页', okPages, '失败页', errPages);
-    } else {
-      // 无分页元信息 → 顺序翻页到末页（404/空页即终止）
-      for (let pg = 2; pg <= 999; pg++) {
-        try {
-          const r = await fetch(`${BASE}?page=${pg}`, { headers: { Accept: 'application/json' } });
-          if (!r.ok) { console.log('列表第', pg, '页结束 status=', r.status, '（404=已翻到末页，属正常终止）'); break; }
-          const j = await r.json();
-          if (!Array.isArray(j.data) || j.data.length === 0) { console.log('列表第', pg, '页为空，到达末页'); break; }
-          push(j.data);
-        } catch (e) { console.log('列表第', pg, '页异常，停止:', e.message); break; }
-        if (pg % 25 === 0) console.log('列表进度: page', pg, '累计', seen.size, '人');
-        await sleep(100);
+        if (!ok) return;                         // 连续失败放弃该桶剩余页
+        if (pg % 50 === 0) console.log(`  OVR ${ovr} 进度 page ${pg} 累计 ${seen.size}`);
+        await sleep(60);
       }
     }
+
+    // 并发桶：多个 worker 同时翻不同 OVR 桶（桶间互不依赖，仅共享 seen 去重）
+    let ovrCursor = OVR_MAX;
+    async function w() {
+      while (true) {
+        const o = ovrCursor--;
+        if (o < OVR_MIN) return;
+        await fetchBucket(o);
+      }
+    }
+    const bucketCount = OVR_MAX - OVR_MIN + 1;
+    await Promise.all(Array.from({ length: Math.min(LIST_CONC, bucketCount) }, w));
+    console.log('分桶翻页完成: OVR ' + OVR_MAX + '→' + OVR_MIN + ' 共 ' + bucketCount + ' 桶');
     console.log('列表抓取完成，去重后', items.length, '人');
-    return { items, meta, pageSize, totalPages, count: cnt };
-  }, { BASE, LIST_CONC });
+    return { items, meta, pageSize, totalPages: null, count: items.length };
+  }, { BASE, LIST_CONC, OVR_MIN });
 
   // ---------- 阶段 2：Node 侧算签名 + 差异比对 ----------
   const sigs = {};

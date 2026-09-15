@@ -72,13 +72,47 @@ const HOT_CLUBS = [
 // 位置顺序：前场 → 中场 → 后场 → 门将（库内实际 12 个位置；未列出的排最后，按字母序）
 const POSITION_ORDER = ['ST', 'LW', 'RW', 'CAM', 'CM', 'LM', 'RM', 'CDM', 'LB', 'CB', 'RB', 'GK'];
 
+// 欧洲国家男子联赛（不含五大联赛）：联赛置顶段第二项。
+// 成员＝ utils/i18n.js LEAGUE_ZH 中「欧洲男足」条目（含各级别，如英冠/德乙/西乙/法乙等），
+// 用 i18n 权威英文名，确保与 facets 完全一致。土耳其/阿塞拜疆/塞浦路斯等 UEFA 成员联赛一并纳入。
+const EUROPEAN_LEAGUES = [
+  'EFL Championship', 'EFL League One', 'EFL League Two',
+  'LALIGA HYPERMOTION', 'Serie BKT',
+  'Bundesliga 2', '3. Liga',
+  'Ligue 2 BKT',
+  'Eredivisie', 'Liga Portugal', '1A Pro League',
+  'Trendyol Süper Lig', 'Hellas Liga', 'Scottish Premiership',
+  'Credit Suisse Super League', 'Österreichische Fußball-Bundesliga',
+  'Eliteserien', 'Allsvenskan', '3F Superliga', 'SUPERLIGA',
+  'PKO Bank Polski Ekstraklasa', 'Česká Liga', 'Liga Hrvatska',
+  'Ukrayina Liha', 'Magyar Liga', 'Finnliiga', 'Liga Cyprus',
+  'Liga Azerbaijan', 'SSE Airtricity Men\'s Premier Division'
+];
+
+// 联赛置顶段＝五大联赛 + 欧洲国家联赛 + 沙特 + 中超（其余按中文拼音排在后面）
+const LEAGUE_PIN_EXTRA = EUROPEAN_LEAGUES.concat([
+  'ROSHN Saudi League',                          // 沙特职业联赛
+  'Chinese Football Association Super League'    // 中超
+]);
+
+// 世界杯传统强国（国家置顶段第一项）：按历史战绩大致分档，仅用于排序、不含任何评价
+const WORLDCUP_POWERS = [
+  'Brazil', 'Germany', 'Italy', 'Argentina', 'France',
+  'Spain', 'England', 'Netherlands',
+  'Portugal', 'Belgium', 'Croatia', 'Uruguay'
+];
+// 国家置顶段＝世界杯传统强国 + 中国（其余按拼音）
+const NATION_PIN = WORLDCUP_POWERS.concat(['China PR']);
+
 // ---------- 排序工具 ----------
 
 const pinyinColl = new Intl.Collator('zh-Hans-u-co-pinyin', { usage: 'sort', sensitivity: 'base' });
 const latinColl = new Intl.Collator('en', { usage: 'sort', sensitivity: 'base' });
 
 function zhOf(kind, en) {
-  return kind === 'league' ? i18n.leagueZh(en) : i18n.clubZh(en);
+  if (kind === 'league') return i18n.leagueZh(en);
+  if (kind === 'nation') return i18n.nationZh(en);
+  return i18n.clubZh(en);
 }
 
 // 按「中文显示名的拼音」排序；显示名相同时用英文原名兜底，保证结果稳定
@@ -112,11 +146,12 @@ async function loadFromCloud() {
   const leagues = [];
   const clubs = [];
   const positions = [];
+  const nations = [];
   const byLeague = {};   // league -> Set(club)
   let total = 0;
   for (let skip = 0; skip < 20000; skip += 500) {
     const r = await db.collection(col)
-      .field({ 'club.name': true, 'league.name': true, position: true })
+      .field({ 'club.name': true, 'league.name': true, 'nation.name': true, position: true })
       .skip(skip).limit(500).get();
     const rows = r.data || [];
     if (!rows.length) break;
@@ -124,16 +159,18 @@ async function loadFromCloud() {
     rows.forEach(function (p) {
       const c = p.club && p.club.name;
       const l = p.league && p.league.name;
+      const n = p.nation && p.nation.name;
       if (l) leagues.push(l);
       if (c) clubs.push(c);
       if (p.position) positions.push(p.position);
+      if (n) nations.push(n);
       if (c && l) (byLeague[l] = byLeague[l] || new Set()).add(c);
     });
     if (rows.length < 500) break;
   }
   const byLeagueArr = {};
   Object.keys(byLeague).forEach(function (l) { byLeagueArr[l] = Array.from(byLeague[l]); });
-  return { leagues: leagues, clubs: clubs, positions: positions, byLeague: byLeagueArr, total: total, source: 'cloud:' + col };
+  return { leagues: leagues, clubs: clubs, positions: positions, nations: nations, byLeague: byLeagueArr, total: total, source: 'cloud:' + col };
 }
 
 function loadFromLocal() {
@@ -146,18 +183,21 @@ function loadFromLocal() {
   const leagues = [];
   const clubs = [];
   const positions = [];
+  const nations = [];
   const byLeague = {};
   players.forEach(function (p) {
     const c = p.club && p.club.name;
     const l = p.league && p.league.name;
+    const n = p.nation && p.nation.name;
     if (l) leagues.push(l);
     if (c) clubs.push(c);
     if (p.position) positions.push(p.position);
+    if (n) nations.push(n);
     if (c && l) (byLeague[l] = byLeague[l] || new Set()).add(c);
   });
   const byLeagueArr = {};
   Object.keys(byLeague).forEach(function (l) { byLeagueArr[l] = Array.from(byLeague[l]); });
-  return { leagues: leagues, clubs: clubs, positions: positions, byLeague: byLeagueArr, total: players.length, source: 'local:players.json' };
+  return { leagues: leagues, clubs: clubs, positions: positions, nations: nations, byLeague: byLeagueArr, total: players.length, source: 'local:players.json' };
 }
 
 // ---------- 主流程 ----------
@@ -169,13 +209,24 @@ function loadFromLocal() {
 
   const leagueAll = uniq(raw.leagues);
   const clubAll = uniq(raw.clubs);
-  console.log('联赛', leagueAll.length, '| 俱乐部', clubAll.length);
+  const nationAll = uniq(raw.nations || []);
+  console.log('联赛', leagueAll.length, '| 俱乐部', clubAll.length, '| 国家', nationAll.length);
 
-  // 联赛：五大置顶（按 BIG5 声明顺序）→ 其余按拼音
+  // 联赛：五大 + 欧洲国家联赛 + 沙特 + 中超 置顶（按声明顺序）→ 其余按中文拼音
+  const pinnedLeagues = BIG5.concat(LEAGUE_PIN_EXTRA);
+  const pinnedLeagueSet = new Set(pinnedLeagues);
   const big5 = BIG5.filter(function (l) { return leagueAll.indexOf(l) >= 0; });
   const big5Missing = BIG5.filter(function (l) { return leagueAll.indexOf(l) < 0; });
-  const leagueRest = pinyinSort(leagueAll.filter(function (l) { return BIG5.indexOf(l) < 0; }), 'league');
-  const LEAGUE_ORDER = big5.concat(leagueRest);
+  const leaguePinned = pinnedLeagues.filter(function (l) { return leagueAll.indexOf(l) >= 0; });
+  const leaguePinnedMissing = pinnedLeagues.filter(function (l) { return leagueAll.indexOf(l) < 0; });
+  const leagueRest = pinyinSort(leagueAll.filter(function (l) { return !pinnedLeagueSet.has(l); }), 'league');
+  const LEAGUE_ORDER = leaguePinned.concat(leagueRest);
+
+  // 国家：世界杯传统强国 + 中国 置顶（按声明顺序）→ 其余按中文拼音
+  const nationPinned = NATION_PIN.filter(function (n) { return nationAll.indexOf(n) >= 0; });
+  const nationPinnedMissing = NATION_PIN.filter(function (n) { return nationAll.indexOf(n) < 0; });
+  const NATION_ORDER = nationPinned.concat(pinyinSort(nationAll.filter(function (n) { return NATION_PIN.indexOf(n) < 0; }), 'nation'));
+  const nationNoZh = nationAll.filter(function (n) { return i18n.nationZh(n) === n; });
 
   // 俱乐部：热门置顶（按 HOT_CLUBS 声明顺序）→ 其余按拼音
   const hot = HOT_CLUBS.filter(function (c) { return clubAll.indexOf(c) >= 0; });
@@ -203,6 +254,7 @@ function loadFromLocal() {
     CLUB_ORDER: CLUB_ORDER,
     CLUBS_BY_LEAGUE: CLUBS_BY_LEAGUE,
     POSITION_ORDER: POSITIONS,
+    NATION_ORDER: NATION_ORDER,
     meta: {
       version: VER,
       updatedAt: new Date().toISOString(),
@@ -210,6 +262,7 @@ function loadFromLocal() {
       players: raw.total,
       leagues: LEAGUE_ORDER.length,
       clubs: CLUB_ORDER.length,
+      nations: NATION_ORDER.length,
       hotClubs: hot.length
     }
   };
@@ -224,16 +277,23 @@ function loadFromLocal() {
   // ---- 自检：把口径问题打出来，避免"悄悄排错" ----
   console.log('\n== 产出 ==');
   console.log('文件:', OUT_FILE, '|', (fs.statSync(OUT_FILE).size / 1024).toFixed(1) + ' KB', '| 耗时', (Date.now() - t0) + 'ms');
-  console.log('联赛', LEAGUE_ORDER.length, '| 俱乐部', CLUB_ORDER.length, '| 位置', POSITIONS.length, '| 热门球队命中', hot.length + '/' + HOT_CLUBS.length);
+  console.log('联赛', LEAGUE_ORDER.length, '| 俱乐部', CLUB_ORDER.length, '| 位置', POSITIONS.length, '| 国家', NATION_ORDER.length, '| 热门球队命中', hot.length + '/' + HOT_CLUBS.length);
   if (big5Missing.length) console.log('⚠ 五大联赛没在数据里找到:', big5Missing.join(', '));
+  if (leaguePinnedMissing.length) console.log('⚠ 置顶联赛没在数据里找到（不影响其余）:', leaguePinnedMissing.join(', '));
+  if (nationPinnedMissing.length) console.log('⚠ 置顶国家没在数据里找到（不影响其余）:', nationPinnedMissing.join(', '));
   if (hotMissing.length) console.log('⚠ 热门球队没在数据里找到:', hotMissing.join(', '));
+  if (nationNoZh.length) console.log('⚠ 国家缺中文映射（回落英文名）:', nationNoZh.join(', '));
 
   const zh = function (l) { return i18n.leagueZh(l); };
-  console.log('\n联赛前 10（应为五大 + 拼音开头）:');
-  LEAGUE_ORDER.slice(0, 10).forEach(function (l, i) { console.log('  ' + String(i + 1).padStart(2) + '. ' + zh(l) + '  (' + l + ')'); });
-  console.log('联赛第 6~14（其余按拼音）:');
-  LEAGUE_ORDER.slice(5, 14).forEach(function (l, i) { console.log('  ' + String(i + 6).padStart(2) + '. ' + zh(l) + '  (' + l + ')'); });
+  console.log('\n联赛前 12（应为五大 + 欧洲联赛开头）:');
+  LEAGUE_ORDER.slice(0, 12).forEach(function (l, i) { console.log('  ' + String(i + 1).padStart(2) + '. ' + zh(l) + '  (' + l + ')'); });
+  console.log('联赛第 13~24（欧洲联赛继续）:');
+  LEAGUE_ORDER.slice(12, 24).forEach(function (l, i) { console.log('  ' + String(i + 13).padStart(2) + '. ' + zh(l) + '  (' + l + ')'); });
+  console.log('联赛第 25~34（沙特 / 中超 / 其余按拼音）:');
+  LEAGUE_ORDER.slice(24, 34).forEach(function (l, i) { console.log('  ' + String(i + 25).padStart(2) + '. ' + zh(l) + '  (' + l + ')'); });
   console.log('\n位置顺序:', POSITIONS.join(' → '));
+  console.log('\n国家前 15（世界杯强国 + 中国 置顶，其余拼音）:');
+  NATION_ORDER.slice(0, 15).forEach(function (n, i) { console.log('  ' + String(i + 1).padStart(2) + '. ' + i18n.nationZh(n) + '  (' + n + ')'); });
   console.log('\n俱乐部前 12（热门置顶）:');
   CLUB_ORDER.slice(0, 12).forEach(function (c, i) { console.log('  ' + String(i + 1).padStart(2) + '. ' + i18n.clubZh(c) + '  (' + c + ')'); });
   console.log('俱乐部第 36~48（其余按拼音）:');
