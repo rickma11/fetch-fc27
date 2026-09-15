@@ -1,331 +1,57 @@
 {
   "ver": 26,
-  "futApiResponses": [
-    {
-      "url": "https://www.fut.gg/api/fut/players/v2/26/?page=1",
-      "status": 200,
-      "host": "www.fut.gg",
-      "len": 0
-    }
+  "chunkCount": 13,
+  "usefulChunks": [
+    "prebid.js",
+    "index-CONql_qb.js"
   ],
-  "evoSbcResponseUrls": [
-    {
-      "url": "https://assets.fut.gg/ts/assets/StreamlinedSbcArtwork-DgbDqdwK.js",
-      "status": 200,
-      "len": 367
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/StreamlinedSbcBadge-DlchJZmS.js",
-      "status": 200,
-      "len": 736
-    },
-    {
-      "url": "https://www.fut.gg/cdn-cgi/challenge-platform/scripts/jsd/main.js",
-      "status": 302,
-      "len": 0
-    },
-    {
-      "url": "https://www.fut.gg/cdn-cgi/challenge-platform/h/g/scripts/jsd/330e41bb475c/main.js?",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://www.fut.gg/cdn-cgi/challenge-platform/h/g/jsd/oneshot/330e41bb475c/0.977788301875641:1789463122:cKjDF1ip4QQEgH1T5d3o0UbxPonLPDy6CS4vLiCVDAU/a3b6c4de0a0d2bdc",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://www.fut.gg/evolutions",
-      "status": 301,
-      "len": 0
-    },
-    {
-      "url": "https://www.fut.gg/evolutions/",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/evolutions-oD2vq_8T.js",
-      "status": 200,
-      "len": 825
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/EvolutionScreen-DUjbuebM.js",
-      "status": 200,
-      "len": 3987
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/EvolutionPageHeader-BSG0j-wj.js",
-      "status": 200,
-      "len": 528
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/Evolution-Bw350RDP.js",
-      "status": 200,
-      "len": 2854
-    },
-    {
-      "url": "https://cm.g.doubleclick.net/partnerpixels?gdpr=0&addtl_consent=2~~dv.&us_privacy=1YNN&gpp_sid=-1&url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F",
-      "status": 200,
-      "len": 48
-    },
-    {
-      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69b1v891198259z8891192812za20gzb891192812zd891192812&_p=1789466265793&_gaz=1&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&tcfd=11458&gdid=dZTcxZD&_eu=AAAAAGA&cid=1531603224.1789466267&frm=0&pscdl=noapi&rcb=7&sr=1280x800&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=115616986~115938465~115938469~118897920~118897930~119793973~120213116~120385422~120469145~120469153&sid=1789466266&sct=1&seg=0&dl=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&dt=EA%20SPORTS%20FC%2027%20Evolutions%20-%20FUT.GG&_tu=CA&en=page_view&_fv=1&_nsi=1&_ss=1&ep.logged_in=false&tfd=1084",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://rtb.openx.net/esp?url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&rid=esp",
-      "status": 302,
-      "len": 0
-    },
-    {
-      "url": "https://rtb.openx.net/esp?url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&rid=esp&cc=1",
-      "status": 200,
-      "len": 85
-    },
-    {
-      "url": "https://ups.analytics.yahoo.com/ups/58813/fed?gpp_sid=-1&gdpr=false&us_privacy=1YNN&v=1&url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073237&ntv_pas=eyIyMDczMjM3IjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJsZW5ndGgiOjF9&ntv_ppf=eyJsdW1pZXJlLXN0aWNreS1mb290ZXIiOnsiYmFubmVyIjp7Ijk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=4e299428-6151-4485-af08-a2e5ad341989&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtc3RpY2t5LWZvb3RlciIsIm1lZGlhVHlwZXMiOnsiYmFubmVyIjp7InNpemVzIjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJwb3MiOjF9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://fastlane.rubiconproject.com/a/api/fastlane.json?account_id=28421&site_id=644825&zone_id=4168975&size_id=2&alt_size_ids=1%2C43%2C44%2C55&p_pos=atf&gdpr=0&gpp=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gpp_sid=7%2C9&rf=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&kw=FIFA%2CFUT%2CFIFA%20Ultimate%20Team%2CEAFC%2CEA%20FC%2CEA%20SPORTS%20FC&tg_i.domain=fut.gg&tg_i.page=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&tg_i.name=FUT.gg&tg_i.cattax=1&tg_i.cat=IAB17&tg_i.sectioncat=IAB17-44&tg_i.documentLang=en&tg_i.dfp_ad_unit_code=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&tk_flint=pbjs_lite_v11.31.0&x_source.tid=72b26e10-6e9b-472d-93eb-2a0b59ef5e3e&l_pb_bid_id=e68f6e1e-a91c-4f8e-bfc5-3ed4efec6f2a&p_screen_res=1280x800&rp_secure=1&x_imp.ext.tid=3d9a5418-1ddc-435f-a334-dfca7620582b&rp_hard_floor=0.5&p_gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&m_ch_ua=%22HeadlessChrome%22%7Cv%3D%22153%22%2C%22Not_A%20Brand%22%7Cv%3D%228%22%2C%22Chromium%22%7Cv%3D%22153%22&m_ch_mobile=%3F0&m_ch_platform=Windows&slots=1&rand=0.35953746865269753",
-      "status": 200,
-      "len": 484
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1789466266922&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=0almgsqa&pi=3&maxw=970&maxh=90&si=1446336&bf=970x90%2C728x90%2C468x60%2C320x50%2C300x50&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=3d9a5418-1ddc-435f-a334-dfca7620582b&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=711a8f36-e7c8-4ed4-8e38-1769a1e62a1b&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1789466266923&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=udp6qdqx&pi=2&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=3d9a5418-1ddc-435f-a334-dfca7620582b&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=a7988d72-9ae4-4b15-bb9b-da5baf5e3576&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbWVzIjpbInZpZGVvL21wNCIsImFwcGxpY2F0aW9uL2phdmFzY3JpcHQiXSwicHJvdG9jb2xzIjpbMiwzLDUsNiw3LDhdLCJhcGkiOlsyLDcsOF0sInJlbmRlcmVyIjp7InVybCI6Imh0dHBzOi8vaW1hc2RrLmdvb2dsZWFwaXMuY29tL2pzL3Nka2xvYWRlci9pbWEzLmpzIn0sInciOjMwMCwiaCI6MTY5fX19XQ==&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowfQ==&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://sync6.im-apps.net/9001/pid?ref=null&page=https://www.fut.gg/evolutions/",
-      "status": 200,
-      "len": 70
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=d220dbcd-a8bf-47b2-88e0-d29b64513ed3&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=fed966b3-76b8-4b5d-8840-dc64e1ce0284&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=4249bea8-5dcb-46be-a14d-5941468bf260&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbWVzIjpbInZpZGVvL21wNCIsImFwcGxpY2F0aW9uL2phdmFzY3JpcHQiXSwicHJvdG9jb2xzIjpbMiwzLDUsNiw3LDhdLCJhcGkiOlsyLDcsOF0sInJlbmRlcmVyIjp7InVybCI6Imh0dHBzOi8vaW1hc2RrLmdvb2dsZWFwaXMuY29tL2pzL3Nka2xvYWRlci9pbWEzLmpzIn0sInciOjMwMCwiaCI6MTY5fX19XQ==&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoxLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://securepubads.g.doubleclick.net/gampad/ads?pvsid=8728957017990650&correlator=2080598431090097&eid=95397228%2C95401325&output=ldjh&gdfp_req=1&vrg=202609040101&ptt=17&impl=fif&gdpr=0&addtl_consent=2~~dv.&us_privacy=1YNN&gpp=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gpp_sid=7%2C9&iu_parts=23358177982%2Clumiere-sticky-footer%2Cfutgg&enc_prev_ius=%2F0%2F1%2F2&prev_iu_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&ifi=1&dids=lumiere-sticky-footer&adfs=3050368757&sfv=1-0-45&eri=1&sc=1&cookie_enabled=1&abxe=1&dt=1789466267616&lmt=1789480633&adxs=155&adys=730&biw=1280&bih=800&scr_x=0&scr_y=0&btvi=0&ucis=1&oid=2&u_his=3&u_h=800&u_w=1280&u_ah=800&u_aw=1280&u_cd=24&u_sd=1&u_tz=-240&dmc=16&bc=31&nvt=1&uach=WyJXaW5kb3dzIiwiMTAuMCIsIng4NiIsIiIsIjE1My4wLjgwMTAuMTIiLG51bGwsMCxudWxsLCI2NCIsW1siSGVhZGxlc3NDaHJvbWUiLCIxNTMuMC44MDEwLjEyIl0sWyJOb3RfQSBCcmFuZCIsIjguMC4wLjAiXSxbIkNocm9taXVtIiwiMTUzLjAuODAxMC4xMiJdXSwwXQ..&url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&vis=1&psz=1280x-1&msz=1280x-1&fws=512&ohw=0&a3p=EloKDWNyd2RjbnRybC5uZXQSQDkxZTBhYzI4NTg1MmNjOTZjOWZiZmNjM2ZlMTExODVjYTAyYzIyNWIzMDA2MDNkNDZjNmVjY2YzNjc4OGJmYWUYuJqBpIo0SAASHQoOZXNwLmNyaXRlby5jb20Y2ZiBpIo0SABSAghkEjwKC25vdmF0aXEuY29tEiRkNDU0NWY5Yy02MzQ0LTQxMDUtYjIxNS1kNmE2YWRhYzRjNmUYgJuBpIo0SAASMQoSaW50aW1hdGVtZXJnZXIuY29tEhJiLmZmNDUxMWEwOGJkY2VmODAYlp2BpIo0SAASGAoJeWFob28uY29tGMiZgaSKNEgAUgIIbxJ5CghteWdhcnVJRBJkTExzMy9WOVhLenltTmwvWkhZY01JVjVJUkVqRFhlZFpBUitBaHcxMFBpelM5NTlYWEQrT3FhZTN2VmZOaDlKZ0t0MUxOVjZldmh0M1lhZmUyMW1xZHNDYjVyR1J0Q25Renc9PRi5nYGkijRIABIdChBlc3AucHVibWF0aWMuY29tEgAYtpuBpIo0SAASGwoMaWQ1LXN5bmMuY29tGJ2dgaSKNEgAUgIIahI-CgVvcGVueBIsZXlKcElqb2lNV1V2ZFVwSWRWQlNLekpSZVhSeU0yNVRXV2R1WnowOUluMD0Y2ZqBpIo0SAASFwoIcnRiaG91c2UYwJuBpIo0SABSAghq&dlt=1789466265787&idt=637&prev_scp=flr%3D0.50&cust_params=site%3Dfutgg&adks=1149041389&frm=20&eoidce=1&gblpids=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&pb_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&pgls=CAk.&pbbce=1",
-      "status": 200,
-      "len": 430
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=f992bf54-c71f-41eb-b01e-7b0b9cac62c5&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbWVzIjpbInZpZGVvL21wNCIsImFwcGxpY2F0aW9uL2phdmFzY3JpcHQiXSwicHJvdG9jb2xzIjpbMiwzLDUsNiw3LDhdLCJhcGkiOlsyLDcsOF0sInJlbmRlcmVyIjp7InVybCI6Imh0dHBzOi8vaW1hc2RrLmdvb2dsZWFwaXMuY29tL2pzL3Nka2xvYWRlci9pbWEzLmpzIn0sInciOjMwMCwiaCI6MTY5fX19XQ==&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoyLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=d220dbcd-a8bf-47b2-88e0-d29b64513ed3&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=f4eb9196-c143-4a3a-ac86-81bba0a25f6b&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69b1v891198259za20gzb891192812zd891192812&_p=1789466265793&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&tcfd=11458&gdid=dZTcxZD&_eu=AEAAAGQ&ae=a&cid=1531603224.1789466267&frm=0&pscdl=noapi&rcb=7&sr=1280x800&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=2&tag_exp=115616986~115938465~115938469~118897920~118897930~119793973~120213116~120385422~120469145~120469153&sid=1789466266&sct=1&seg=0&dl=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&dt=EA%20SPORTS%20FC%2027%20Evolutions%20-%20FUT.GG&_tu=CA&en=scroll&ep.logged_in=false&epn.percent_scrolled=90&_et=4&tfd=6093",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=64e9c491-9053-4287-bf6a-98f77ae5d165&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbWVzIjpbInZpZGVvL21wNCIsImFwcGxpY2F0aW9uL2phdmFzY3JpcHQiXSwicHJvdG9jb2xzIjpbMiwzLDUsNiw3LDhdLCJhcGkiOlsyLDcsOF0sInJlbmRlcmVyIjp7InVybCI6Imh0dHBzOi8vaW1hc2RrLmdvb2dsZWFwaXMuY29tL2pzL3Nka2xvYWRlci9pbWEzLmpzIn0sInciOjMwMCwiaCI6MTY5fX19XQ==&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjozLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=d220dbcd-a8bf-47b2-88e0-d29b64513ed3&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=7ff9332a-fe8b-4990-938d-830f4f5fd6d3&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fevolutions%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://www.fut.gg/sbc",
-      "status": 301,
-      "len": 0
-    },
-    {
-      "url": "https://www.fut.gg/sbc/",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/_sbcListLayout.index-DeHBQXQS.js",
-      "status": 200,
-      "len": 483
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/_sbcListLayout-DCeh5KPT.js",
-      "status": 200,
-      "len": 799
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/SbcSetResults-DtMlp3dD.js",
-      "status": 200,
-      "len": 1063
-    },
-    {
-      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69b1v891198259z8891192812za20gzb891192812zd891192812&_p=1789466278179&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAGQ&cid=1531603224.1789466267&frm=0&pscdl=noapi&rcb=14&sr=1280x800&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=115616986~115938466~115938468~118897920~118897930~120213116~120385423~120412526~120469145~120469153&sid=1789466266&sct=1&seg=1&dl=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&dt=EA%20SPORTS%20FC%2027%20SBC%20-%20All%20Squad%20Building%20Challenges%20-%20FUT.GG&en=page_view&ep.logged_in=false&tfd=388",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/SbcSet-EvERdIaF.js",
-      "status": 200,
-      "len": 1918
-    },
-    {
-      "url": "https://assets.fut.gg/ts/assets/SbcReward-CNfPuSVR.js",
-      "status": 200,
-      "len": 1003
-    },
-    {
-      "url": "https://cm.g.doubleclick.net/partnerpixels?gdpr=0&addtl_consent=2~~dv.&us_privacy=1YNN&gpp_sid=-1&url=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F",
-      "status": 200,
-      "len": 48
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=81ab717a-ba83-48c2-a497-b443d65f371f&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=b9fed1f4-68c6-4b85-9520-3463415c4cbe&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbWVzIjpbInZpZGVvL21wNCIsImFwcGxpY2F0aW9uL2phdmFzY3JpcHQiXSwicHJvdG9jb2xzIjpbMiwzLDUsNiw3LDhdLCJhcGkiOlsyLDcsOF0sInJlbmRlcmVyIjp7InVybCI6Imh0dHBzOi8vaW1hc2RrLmdvb2dsZWFwaXMuY29tL2pzL3Nka2xvYWRlci9pbWEzLmpzIn0sInciOjMwMCwiaCI6MTY5fX19XQ==&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowfQ==&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073237&ntv_pas=eyIyMDczMjM3IjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJsZW5ndGgiOjF9&ntv_ppf=eyJsdW1pZXJlLXN0aWNreS1mb290ZXIiOnsiYmFubmVyIjp7Ijk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=8e7fe3d9-28b5-4a61-8f91-307db9945da0&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtc3RpY2t5LWZvb3RlciIsIm1lZGlhVHlwZXMiOnsiYmFubmVyIjp7InNpemVzIjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJwb3MiOjF9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1789466278629&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=udp6qdqx&pi=2&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=f5b83a95-0964-45ed-855e-e780480ed869&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1789466278628&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=0almgsqa&pi=3&maxw=970&maxh=90&si=1446336&bf=970x90%2C728x90%2C468x60%2C320x50%2C300x50&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=f5b83a95-0964-45ed-855e-e780480ed869&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=9438c992-a435-45c7-9ec3-cbc9c78d0bfc&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=9560ff6f-cf68-4319-8c8c-861d20ee61a1&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=92d844d8-80d4-4b34-b8bb-c29fea8456ec&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbWVzIjpbInZpZGVvL21wNCIsImFwcGxpY2F0aW9uL2phdmFzY3JpcHQiXSwicHJvdG9jb2xzIjpbMiwzLDUsNiw3LDhdLCJhcGkiOlsyLDcsOF0sInJlbmRlcmVyIjp7InVybCI6Imh0dHBzOi8vaW1hc2RrLmdvb2dsZWFwaXMuY29tL2pzL3Nka2xvYWRlci9pbWEzLmpzIn0sInciOjMwMCwiaCI6MTY5fX19XQ==&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoxLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://fastlane.rubiconproject.com/a/api/fastlane.json?account_id=28421&site_id=644825&zone_id=4168975&size_id=2&alt_size_ids=1%2C43%2C44%2C55&p_pos=atf&gdpr=0&gpp=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gpp_sid=7%2C9&rf=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&kw=FIFA%2CFUT%2CFIFA%20Ultimate%20Team%2CEAFC%2CEA%20FC%2CEA%20SPORTS%20FC&tg_i.domain=fut.gg&tg_i.page=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&tg_i.name=FUT.gg&tg_i.cattax=1&tg_i.cat=IAB17&tg_i.sectioncat=IAB17-44&tg_i.documentLang=en&tg_i.dfp_ad_unit_code=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&tk_flint=pbjs_lite_v11.31.0&x_source.tid=6f345a10-f140-4471-92e6-caf3f18b1d23&l_pb_bid_id=9e0f8daf-783c-4b26-9db6-379c656bd504&p_screen_res=1280x800&rp_secure=1&x_imp.ext.tid=f5b83a95-0964-45ed-855e-e780480ed869&rp_hard_floor=0.5&p_gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&m_ch_ua=%22HeadlessChrome%22%7Cv%3D%22153%22%2C%22Not_A%20Brand%22%7Cv%3D%228%22%2C%22Chromium%22%7Cv%3D%22153%22&m_ch_mobile=%3F0&m_ch_platform=Windows&slots=1&rand=0.8017166325154296",
-      "status": 200,
-      "len": 477
-    },
-    {
-      "url": "https://securepubads.g.doubleclick.net/gampad/ads?pvsid=3668368214788061&correlator=3824101375964874&eid=122880807%2C95340252%2C95340254&output=ldjh&gdfp_req=1&vrg=202609040101&ptt=17&impl=fif&gdpr=0&addtl_consent=2~~dv.&us_privacy=1YNN&gpp=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gpp_sid=7%2C9&iu_parts=23358177982%2Clumiere-sticky-footer%2Cfutgg&enc_prev_ius=%2F0%2F1%2F2&prev_iu_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&ifi=1&dids=lumiere-sticky-footer&adfs=3050368757&sfv=1-0-45&eri=1&sc=1&cookie=ID%3D94188604a6092303%3AT%3D1789466267%3ART%3D1789466267%3AS%3DALNI_MZ8B7rJaMfO2UKXI2xgz2a14_fDFw&gpic=UID%3D000015000a365b3c%3AT%3D1789466267%3ART%3D1789466267%3AS%3DALNI_Ma3iAbDovptFSzxIO4R2q7hNV6keA&abxe=1&dt=1789466280174&lmt=1789480678&adxs=155&adys=730&biw=1280&bih=800&scr_x=0&scr_y=0&btvi=0&ucis=1&oid=2&u_his=4&u_h=800&u_w=1280&u_ah=800&u_aw=1280&u_cd=24&u_sd=1&u_tz=-240&dmc=16&bc=31&nvt=1&uach=WyJXaW5kb3dzIiwiMTAuMCIsIng4NiIsIiIsIjE1My4wLjgwMTAuMTIiLG51bGwsMCxudWxsLCI2NCIsW1siSGVhZGxlc3NDaHJvbWUiLCIxNTMuMC44MDEwLjEyIl0sWyJOb3RfQSBCcmFuZCIsIjguMC4wLjAiXSxbIkNocm9taXVtIiwiMTUzLjAuODAxMC4xMiJdXSwwXQ..&url=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&vis=1&psz=1280x-1&msz=1280x-1&fws=512&ohw=0&a3p=EloKDWNyd2RjbnRybC5uZXQSQDkxZTBhYzI4NTg1MmNjOTZjOWZiZmNjM2ZlMTExODVjYTAyYzIyNWIzMDA2MDNkNDZjNmVjY2YzNjc4OGJmYWUYuJqBpIo0SAASHQoOZXNwLmNyaXRlby5jb20Y2ZiBpIo0SABSAghkEjwKC25vdmF0aXEuY29tEiQ0Yzg5ODUxNS0zNWE0LTRiZDMtOTU0Ny05NWQ2OWI4M2Q0ZDkYiPWBpIo0SAASMQoSaW50aW1hdGVtZXJnZXIuY29tEhJiLmZmNDUxMWEwOGJkY2VmODAYlp2BpIo0SAASGAoJeWFob28uY29tGMiZgaSKNEgAUgIIbxJ5CghteWdhcnVJRBJkTExzMy9WOVhLenltTmwvWkhZY01JVjVJUkVqRFhlZFpBUitBaHcxMFBpelM5NTlYWEQrT3FhZTN2VmZOaDlKZ0t0MUxOVjZldmh0M1lhZmUyMW1xZHNDYjVyR1J0Q25Renc9PRi5nYGkijRIABIdChBlc3AucHVibWF0aWMuY29tEgAYtpuBpIo0SAASGwoMaWQ1LXN5bmMuY29tGJ2dgaSKNEgAUgIIahI-CgVvcGVueBIsZXlKcElqb2lNV1V2ZFVwSWRWQlNLekpSZVhSeU0yNVRXV2R1WnowOUluMD0Y2ZqBpIo0SAASFwoIcnRiaG91c2UYwJuBpIo0SABSAghq&dlt=1789466278172&idt=256&prev_scp=flr%3D0.50&cust_params=site%3Dfutgg&adks=1149041389&frm=20&eo_id_str=ID%3D3c6c1de92d6fdfdc%3AT%3D1789466267%3ART%3D1789466267%3AS%3DAA-AfjYWAJBBQ_IHsEeOXFbwavNG&gblpids=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&pb_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&pgls=CAk.&pbbce=1",
-      "status": 200,
-      "len": 44674
-    },
-    {
-      "url": "https://ad.doubleclick.net/pcs/view?xai=AKAOjss4pjB-2ZyZJmeg_P_sw_bTN_z1RVUekeH5oCLpcUbR4mBXzR4geSpw24xxvb9wqxGm3fDYzqMqd5oDkSo3DVlR4_52vel6ucXMxXXwYVLwQc2JfSy4pY-PK2e8d6gQX82QRvZUe02vuGnZ9L58jkBptrd6gDc2ZNyaznasocxOrKlJkI2Sf36uw14pVtcMc7W2RyPyHVQf4ny5YmI2sYWRXcnTrpMRA-Y_xnGnBB85djpUZmLYf_sVO_D7QGE-FhsgyNLNQqfIuALElIQ0qPdA3EptjfJqwQlTkPfCJSemJbfEbWYQqsc7vJzEM3jJyPrTUxx53-yRpBCZE6cZiQqzrtAAVWyzR2pOiYEgu7SlDatRbyWRaEBv8HInpyNMedJJuZtaDwLTWHVTNgm9GK8dKnJiUbh9zJRGIhViYwk7mPiue4yu8c-4Mje7hznZWzONfn-QWeobjnWYruixm_WmD8aZuy-f4XbknqF6S7BsleNXnG-uEx91xcWH1gVEUId8cnl2GjpwE9z0rLXpohPuMzcRSeLpvudhiaROHjv_D1pnn59Os0TicdwDtpIdg5PmD4SeuAvsofFldZETTUDPc1LhTGN8kVRhQQVEzWH-_hC9W1D_Cd64gy1SmT2GPwz9bvm0aPXITgvr3exUPFiZ4e2C3ApLAzJ8Qu6z7XnsiJWgTFTPwSlReexoxQP6Bwwjlqle73E7RBKaUB5pCN2qDeJEcLntxVkN__R7GNTuTBTiuJ_RINqK3bqpU_xaEo-1DumssM3aEvEkGoP2qTsJUKxMlcUeA5IGtinDRZaGM6sSK8bHUgWKP6iY0zI5P1JCjKU3rJXLtR4WljMWBfGKHmCBdBbeEu_JnetKV6JOZNlVAaBT0lOuIJAdqrrx1mTGPVN1VxlLQ6XQgOAnTY-Jju70eDKSoNvz2oMuRYFXOCSajv7dYUMGuSIt2oIopXwy1qkCragVgYffxX4_jtLx5dLssp29qZ65jOO8XfPTyhjR9PCUGSPlFdwiYXqpgYyni3d5xVg6f7w6qMTbkwa8HJL1mIOj-zxgGiCeAfWJzKQ-x3TMGh3exQJqReauXvviAA79X8yjjDiU0eY8QrDpCnaqqzzVL2tlt6j7xvQArJm6x6tpBB3FZCPXdzIrBfrgKINuE6R5b1xk4dNbMrX-mr5UzMjZD1_tmL2yVy68dEtUCBf6yfBZp4GAbFW72Vf-4Z4Mk0mYK0qb9bgtfixefSzJhcQT443z0M8wcscWQVwG8h3LPIORfwHz__kG6ogEhDPwzozhvvxW25oEID5ryuyCK7s78jBZc8JtoeSYQLE2qjaX-MdZ0oXEPguvSxzWD8ObZysvYqbH_yIUOhcdb1pBZV8D1WeIVaF6gz3qErrcuk5gKse7VspWXhUnBNFsdVwo6ha0s3GGuLX45NAdHH6miS7JLhlZFrPAnV_rUEaBw-X6qyxK5DIgjqjwK-YiTUQ5Ejl1n1i5xWn8JU3ioBi4LVSEAwdjKgtWZVXQG3WlAViRPrGQ9fT7Cb3WLDac3CF8I20hUrk20BLB0LQiAxPc_XTaArjusrG7R9IV9mUdOJ8ADNzpoqOYUzmQhOAEU3UzrhTDVwhNFkJS7dtQDXHF7a_qKZyAgrJWRLs-R9kZ3RNo1mXxNYBwrtYfR8tb_xuAS-TZ1MdTrkx4tRPFbQyAVoSYvNOj_g&sai=AMfl-YT3z234Lxnzrpvgv__YLMBKZf8rUHEdYzPkbdgV-BI7ZBjAp1v5UhzzUJf5fM7lXdOexBGq8t0OolLXOE4qn4oTqA01-GTxBMnV9bXF1b_iOQgnSalKONHaqbTcdXGFf43N4U8sog84rbgo64lE3sXRFFM-DerpxTtMVKZcyQalMqfIf79B8rHcLumvA23A6FV94Q1rVQi-uAaHmGyL15GBpaqHoLb4SIxePBWuZlFGqQGdK7c5kmDMT-vskE5Mt5gs_8Pl4FAGtRcVKld0B8EhtcMUcmYj4RAAO-Bt4MX25XoEeJQiIwTYMDl5tpXLn5dlERYAbYQLe9l7OLDl1FHdTG4cxVDqjWaDRy1TuFHeHQTCtikLHFQf2-GPDtXpM4H8C810I_dYh-94XAQ4LJMfAyMPcmLv-GM1pdYTM-YUZozH82zLus1KJDrw7LPLtPCMZ8GhEpIJ36YDwVRJj3FE_hEqEVGx3PM_HBp-gCOI47Drm7e82IV1wtEHIlFXA33ZZQTd0KkS_uPXA0zhuuGRnY9mjEu9Xr_SyNoq9qGaRoknj28EmuZFS6gaBn53QnpHLBCMjkLW2IciXlKZppYzGA9afNWObMJxL6aJll_9o9_prGNLjZgQEhnvo8HIMXR8ojQ2RVeFAurDzFPWWlp5pW-0Vt9YYs4LcFLqWWDKOOH7gg9DE4Ri5qWBRjOtatZUg_sr90soigAuMxv87dFGKs1BmauAn-p1K4Pmss5izrLhW-328GULyiXYPzvszzXWCkHSTQclvYAM2RYaVm2507Sr3lx4LN0-oyx4dIT_v6zfkbez9WxDNNgl4loc9Yo8YAmDEl9r7nye1BMIxxCY-4eIJ51RcqyIZwEAJo6ntqnbks-RhvKFN9_Ij7TD66tTf9F9rn-Ml8TyUQT0x1h6nTx5pttpSMTqdXDCg-rLD7vSWnOQxYNifyWlnlSeqUjS5C-HS_iyLlWqdbYDqudhy9oxtLf56CzCw7Dtl__263uUZRt1umO14WPK3OIIdcfQm_oyd9XoJb76EhmvGjjlEc9zuQMK3AhKLGdrDbBndTlKbLvq0pWb1p_v-fgiAV0SW_qgwxKw0Q8cfac8Nse-bcjMnfPAmZnFxvG9Hri00l028KCbYTAVh_ZQwz0dV5RCASZPMuSV443g99TiaWeA-emXpm06h3v7hliXa6kZvVDCRV-AysBC0Bx0U6iYYD8lDdyNvRRpduXHL1NCNnJ50-TTXKa1Sm-NbfbzrpJUBoQpxwgeRivKtNX6ONgShnoj63kyOUkbGZzFrzcwXIFVgnB24BEjhEqrQ2fMURenVgOObg&sig=Cg0ArKJSzHffZJcGoA37EAE&uach_m=%5BUACH%5D&crd=aHR0cHM6Ly9sZWdvLmNvbQ&pr=missingexchangepricemacro&fbs_aeid=%5Bgw_fbsaeid%5D&urlfix=1&omid=0&rm=1&ctpt=1&cbvp=1&cstd=0&cisv=r20260911.72264&arae=0&ftch=1&adurl=",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://ad.doubleclick.net/pcs/view?xai=AKAOjss4pjB-2ZyZJmeg_P_sw_bTN_z1RVUekeH5oCLpcUbR4mBXzR4geSpw24xxvb9wqxGm3fDYzqMqd5oDkSo3DVlR4_52vel6ucXMxXXwYVLwQc2JfSy4pY-PK2e8d6gQX82QRvZUe02vuGnZ9L58jkBptrd6gDc2ZNyaznasocxOrKlJkI2Sf36uw14pVtcMc7W2RyPyHVQf4ny5YmI2sYWRXcnTrpMRA-Y_xnGnBB85djpUZmLYf_sVO_D7QGE-FhsgyNLNQqfIuALElIQ0qPdA3EptjfJqwQlTkPfCJSemJbfEbWYQqsc7vJzEM3jJyPrTUxx53-yRpBCZE6cZiQqzrtAAVWyzR2pOiYEgu7SlDatRbyWRaEBv8HInpyNMedJJuZtaDwLTWHVTNgm9GK8dKnJiUbh9zJRGIhViYwk7mPiue4yu8c-4Mje7hznZWzONfn-QWeobjnWYruixm_WmD8aZuy-f4XbknqF6S7BsleNXnG-uEx91xcWH1gVEUId8cnl2GjpwE9z0rLXpohPuMzcRSeLpvudhiaROHjv_D1pnn59Os0TicdwDtpIdg5PmD4SeuAvsofFldZETTUDPc1LhTGN8kVRhQQVEzWH-_hC9W1D_Cd64gy1SmT2GPwz9bvm0aPXITgvr3exUPFiZ4e2C3ApLAzJ8Qu6z7XnsiJWgTFTPwSlReexoxQP6Bwwjlqle73E7RBKaUB5pCN2qDeJEcLntxVkN__R7GNTuTBTiuJ_RINqK3bqpU_xaEo-1DumssM3aEvEkGoP2qTsJUKxMlcUeA5IGtinDRZaGM6sSK8bHUgWKP6iY0zI5P1JCjKU3rJXLtR4WljMWBfGKHmCBdBbeEu_JnetKV6JOZNlVAaBT0lOuIJAdqrrx1mTGPVN1VxlLQ6XQgOAnTY-Jju70eDKSoNvz2oMuRYFXOCSajv7dYUMGuSIt2oIopXwy1qkCragVgYffxX4_jtLx5dLssp29qZ65jOO8XfPTyhjR9PCUGSPlFdwiYXqpgYyni3d5xVg6f7w6qMTbkwa8HJL1mIOj-zxgGiCeAfWJzKQ-x3TMGh3exQJqReauXvviAA79X8yjjDiU0eY8QrDpCnaqqzzVL2tlt6j7xvQArJm6x6tpBB3FZCPXdzIrBfrgKINuE6R5b1xk4dNbMrX-mr5UzMjZD1_tmL2yVy68dEtUCBf6yfBZp4GAbFW72Vf-4Z4Mk0mYK0qb9bgtfixefSzJhcQT443z0M8wcscWQVwG8h3LPIORfwHz__kG6ogEhDPwzozhvvxW25oEID5ryuyCK7s78jBZc8JtoeSYQLE2qjaX-MdZ0oXEPguvSxzWD8ObZysvYqbH_yIUOhcdb1pBZV8D1WeIVaF6gz3qErrcuk5gKse7VspWXhUnBNFsdVwo6ha0s3GGuLX45NAdHH6miS7JLhlZFrPAnV_rUEaBw-X6qyxK5DIgjqjwK-YiTUQ5Ejl1n1i5xWn8JU3ioBi4LVSEAwdjKgtWZVXQG3WlAViRPrGQ9fT7Cb3WLDac3CF8I20hUrk20BLB0LQiAxPc_XTaArjusrG7R9IV9mUdOJ8ADNzpoqOYUzmQhOAEU3UzrhTDVwhNFkJS7dtQDXHF7a_qKZyAgrJWRLs-R9kZ3RNo1mXxNYBwrtYfR8tb_xuAS-TZ1MdTrkx4tRPFbQyAVoSYvNOj_g&sai=AMfl-YT3z234Lxnzrpvgv__YLMBKZf8rUHEdYzPkbdgV-BI7ZBjAp1v5UhzzUJf5fM7lXdOexBGq8t0OolLXOE4qn4oTqA01-GTxBMnV9bXF1b_iOQgnSalKONHaqbTcdXGFf43N4U8sog84rbgo64lE3sXRFFM-DerpxTtMVKZcyQalMqfIf79B8rHcLumvA23A6FV94Q1rVQi-uAaHmGyL15GBpaqHoLb4SIxePBWuZlFGqQGdK7c5kmDMT-vskE5Mt5gs_8Pl4FAGtRcVKld0B8EhtcMUcmYj4RAAO-Bt4MX25XoEeJQiIwTYMDl5tpXLn5dlERYAbYQLe9l7OLDl1FHdTG4cxVDqjWaDRy1TuFHeHQTCtikLHFQf2-GPDtXpM4H8C810I_dYh-94XAQ4LJMfAyMPcmLv-GM1pdYTM-YUZozH82zLus1KJDrw7LPLtPCMZ8GhEpIJ36YDwVRJj3FE_hEqEVGx3PM_HBp-gCOI47Drm7e82IV1wtEHIlFXA33ZZQTd0KkS_uPXA0zhuuGRnY9mjEu9Xr_SyNoq9qGaRoknj28EmuZFS6gaBn53QnpHLBCMjkLW2IciXlKZppYzGA9afNWObMJxL6aJll_9o9_prGNLjZgQEhnvo8HIMXR8ojQ2RVeFAurDzFPWWlp5pW-0Vt9YYs4LcFLqWWDKOOH7gg9DE4Ri5qWBRjOtatZUg_sr90soigAuMxv87dFGKs1BmauAn-p1K4Pmss5izrLhW-328GULyiXYPzvszzXWCkHSTQclvYAM2RYaVm2507Sr3lx4LN0-oyx4dIT_v6zfkbez9WxDNNgl4loc9Yo8YAmDEl9r7nye1BMIxxCY-4eIJ51RcqyIZwEAJo6ntqnbks-RhvKFN9_Ij7TD66tTf9F9rn-Ml8TyUQT0x1h6nTx5pttpSMTqdXDCg-rLD7vSWnOQxYNifyWlnlSeqUjS5C-HS_iyLlWqdbYDqudhy9oxtLf56CzCw7Dtl__263uUZRt1umO14WPK3OIIdcfQm_oyd9XoJb76EhmvGjjlEc9zuQMK3AhKLGdrDbBndTlKbLvq0pWb1p_v-fgiAV0SW_qgwxKw0Q8cfac8Nse-bcjMnfPAmZnFxvG9Hri00l028KCbYTAVh_ZQwz0dV5RCASZPMuSV443g99TiaWeA-emXpm06h3v7hliXa6kZvVDCRV-AysBC0Bx0U6iYYD8lDdyNvRRpduXHL1NCNnJ50-TTXKa1Sm-NbfbzrpJUBoQpxwgeRivKtNX6ONgShnoj63kyOUkbGZzFrzcwXIFVgnB24BEjhEqrQ2fMURenVgOObg&sig=Cg0ArKJSzHffZJcGoA37EAE&uach_m=%5BUACH%5D&crd=aHR0cHM6Ly9sZWdvLmNvbQ&pr=missingexchangepricemacro&fbs_aeid=%5Bgw_fbsaeid%5D&urlfix=1&omid=0&rm=1&ctpt=112&vt=11&dtpt=111&igpp=1&dett=2&cstd=0&cisv=r20260911.72264&uach=WyJXaW5kb3dzIiwiMTAuMCIsIng4NiIsIiIsIjE1My4wLjgwMTAuMTIiLG51bGwsMCxudWxsLCI2NCIsW1siSGVhZGxlc3NDaHJvbWUiLCIxNTMuMC44MDEwLjEyIl0sWyJOb3RfQSBCcmFuZCIsIjguMC4wLjAiXSxbIkNocm9taXVtIiwiMTUzLjAuODAxMC4xMiJdXSwwXQ..&arae=0&ftch=1&adurl=",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://rtb0.doubleverify.com/verify.js?ctx=43015477&cmp=34509022&sid=9663855&plc=436982375&crt=257373921&advid=14825270&adsrv=1&mon=1&blk=1&cawf=crtwrp&cm360cw=1&unit=728x90&prr=1&turl=https://www.fut.gg/sbc/&aucmp=22184710999&auevent=ABAjH0iWjN8MlF33HkJbQ3EjIHtW&autt=1&ppid=103&aucrtv=701576611&auorder=1018015196&pltfrm=1&ausite=2222780801932&auxch=1&aufilter1=Insert_SeatID_Here&c1=Insert_SeatID_Here&adid=&app=&dup=&gmnpo=&isdvvid=&supplySource=&tagtype=&aUrlD=0&bridua=3&brver=&fcl=915&fec=240&flt=0&brh=4&vavbkt=&lvvn=28&fcifrms=10&winh=800&winw=1280&chro=0&noc=4&wouh=800&wouw=1280&htmlmsging=1&refD=1&scah=800&scaw=1280&jsver=10495&uid=1789466280901794&fwc=0&srcurlD=0&ttfrms=40&num=6&dvp_isOnHead=0&flvr=1&ver=10495&jsCallback=__verify_callback_1789466280901794&jsTagObjCallback=__tagObject_callback_1789466280901794&ssl=1&prndr=1&m1=32&blkmode=2&ee_dp_rdystreq=interactive&dvp_rcp=2&dvp_seem=2&dvp_tuk=1&dvp_sukv=23053336.262173858&ee_dp_sukv=23053336.262173858&dvp_tukv=16857963892.921661&ee_dp_tukv=16857963892.921661&eparams=DC4FC%3Dl9EEADTbpTauTauHHH%5D7FE%5D88TauD34TauU2%3F4r92%3A%3Fl9EEADTbpTauTauHHH%5D7FE%5D88Tar9EEADTbpTauTauHHH%5D7FE%5D88U42%3FFC%3Dl9EEADTbpTauTauHHH%5D7FE%5D88TauD34Tau&referrer=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=8232c3d0-9bb4-4cfb-a0a9-ae1dfa5b1cf7&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbWVzIjpbInZpZGVvL21wNCIsImFwcGxpY2F0aW9uL2phdmFzY3JpcHQiXSwicHJvdG9jb2xzIjpbMiwzLDUsNiw3LDhdLCJhcGkiOlsyLDcsOF0sInJlbmRlcmVyIjp7InVybCI6Imh0dHBzOi8vaW1hc2RrLmdvb2dsZWFwaXMuY29tL2pzL3Nka2xvYWRlci9pbWEzLmpzIn0sInciOjMwMCwiaCI6MTY5fX19XQ==&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoyLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=9438c992-a435-45c7-9ec3-cbc9c78d0bfc&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=0e37d092-97a9-4a7f-ad2a-c291f56a63ac&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    },
-    {
-      "url": "https://pagead2.googlesyndication.com/pcs/activeview?xai=AKAOjst_DezAmB7NXeuWLw_eHEPuwbi991Wsbk1OtbMFtky7lgJUw7immL-6-Ik1kj47s4Bxa5XLlbl1hyuS9JVpK74APpQwX-8-9mJ7Fw452i4ODsn-cTb6Vn_vcbfcJ05UXc6FcA2w34-5WIDdpMnrYUU0TPUyMjQ0t1RCeBVKsDUHxKbe_GAnqiydyJHYlbKVB8GgnV9YrwWWwdnQiV70PTgx&sai=AMfl-YSh66enTZ4WFDLCqlfTLmch5zAC51n5-RBQMBy5DzcJW5lw841Wbn5EzozFzIRQ1sV_mgM6YjCMaITZarJNJiFqrxh1B3ZuMLxXTjdQvBRT9VS4EmfV6mnlMdto_XtGMvbnWMLn-FVn4ELdwB4w3FBbcnpLpDRsT6a0hytNsNjnQfjX5blXjdGGbeXKWrRHbaZy5jbMJRjYcf5qNIomBL6-tC8mPTDjkdB-8z-k0TgmaSLNjnrerAt5Jb4U-CKDGNrUKHJYyldAOvWsbjdpjl7QcKlJBNj7xgJYr6nwZqeWFxV7g_LsVTdrX1vcdrZ704Rj2Z_PhZt9tEBYSL7a9KFMBLrPCIsOMebmr8ouBhqeO5DyaZDEE-AV&sig=Cg0ArKJSzJquOKh8R-yEEAE&cid=CAQS9QEAQM4h3GY56bbJGeuDW8uYA6xDt2kRL8ckNQLpb10H8Q-vCmd7DQurOwdQQwslpdMfBXXXuCb3QPTxCg8DIs6pMok8q_kpy6xFRSv7K-zRY1xlrZVgrm-MDhjDEb1ySLEjDWiabXHrUOurT3_pfkFaPs2AZCaUlO9d4NtEx-j7yxscwmcfPTl3c66GSMzst1kYLNjesYa4ivkjsnTPlZOZRvoWOv-Nog-NRuCujH_0ybbVr93dWnE_Mmx55pGAa-5i9uyHCoCy-ZgiXwx4ACar-cxVWd0lm45MaXJeDbcbdwkaaewroNlA6Ke2GBpaMKfacuzFjRgB&id=lidar2&mcvt=1000&p=710,276,804,1004&tm=1021.5&tu=21.89999999999418&mtos=157,1000,1000,1000,1000&tos=157,843,0,0,0&v=20260831&bin=7&avms=nio&bs=1280,800&mc=1&vu=1&app=0&itpl=20&adk=1149041389&rs=4&la=0&cr=0&uach=WyJXaW5kb3dzIiwiMTAuMCIsIng4NiIsIiIsIjE1My4wLjgwMTAuMTIiLG51bGwsMCxudWxsLCI2NCIsW1siSGVhZGxlc3NDaHJvbWUiLCIxNTMuMC44MDEwLjEyIl0sWyJOb3RfQSBCcmFuZCIsIjguMC4wLjAiXSxbIkNocm9taXVtIiwiMTUzLjAuODAxMC4xMiJdXSwwXQ%3D%3D&vs=4&r=v&co=8539908000&rst=1789466280702&rpt=110&isd=0&lsd=0&met=ie&wmsd=0&pbe=0&fle=0&vae=0&spb=0&sfl=0&ffslot=0&reach=8&io2=0",
-      "status": 200,
-      "len": 42
-    },
-    {
-      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69b1v891198259za20gzb891192812zd891192812&_p=1789466278179&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAGQ&ae=a&cid=1531603224.1789466267&frm=0&pscdl=noapi&rcb=14&sr=1280x800&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=2&tag_exp=115616986~115938466~115938468~118897920~118897930~120213116~120385423~120412526~120469145~120469153&sid=1789466266&sct=1&seg=1&dl=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&dt=EA%20SPORTS%20FC%2027%20SBC%20-%20All%20Squad%20Building%20Challenges%20-%20FUT.GG&en=scroll&ep.logged_in=false&epn.percent_scrolled=90&_et=4&tfd=5389",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://exchange.postrelease.com/prebid?ntv_gpp_consent=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=ff94bca8-2565-4cea-bea3-4fa046a4037a&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbWVzIjpbInZpZGVvL21wNCIsImFwcGxpY2F0aW9uL2phdmFzY3JpcHQiXSwicHJvdG9jb2xzIjpbMiwzLDUsNiw3LDhdLCJhcGkiOlsyLDcsOF0sInJlbmRlcmVyIjp7InVybCI6Imh0dHBzOi8vaW1hc2RrLmdvb2dsZWFwaXMuY29tL2pzL3Nka2xvYWRlci9pbWEzLmpzIn0sInciOjMwMCwiaCI6MTY5fX19XQ==&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjozLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F",
-      "status": 204,
-      "len": 0
-    },
-    {
-      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=9438c992-a435-45c7-9ec3-cbc9c78d0bfc&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&gppString=DBACLMA~BVQAAAAAAEA.QA~BVAAAAQ&gppSid=7%2C9&tId=f2cf2da9-9f78-478d-85cc-2f275a20688d&vw=1280&vh=800&sw=1280&sh=800&pu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Fsbc%2F&ns=10138&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
-      "status": 200,
-      "len": 0
-    }
-  ],
-  "bundleApiPaths": [
-    "/api/esp/increment",
+  "allApiPaths": [
+    "/api/${e.isNotFutEndpoint",
+    "/api/broadcast",
     "/api/event",
     "/api/fastlane.json",
+    "/api/gg-settings/update/",
     "/api/header-bidding-request",
+    "/api/supabase/change-password/",
+    "/api/supabase/reset-password/",
+    "/api/supabase/sign-in/",
+    "/api/supabase/sign-up/",
     "/api/sync/iframe",
     "/api/sync/iframe/${y}",
     "/api/sync/image",
     "/api/sync/image/${y}",
+    "/api/users/check-username/",
+    "/api/users/identity/",
+    "/api/users/set-username/",
+    "/api/users/update-profile/",
     "/api/v1/event/timeout",
     "/api/v1/initsyncrnd/{UUID}",
     "/api/v1/prebid"
   ],
-  "bundleHooks": [
+  "allFutPaths": [
+    "fut/pick/",
+    "fut/pick/vote/"
+  ],
+  "hookContext": [
     {
       "kw": "useGetTrendingEvolutions",
-      "ctx": "trending`,m=f.startsWith(`tab-`)?d.find(e=>e.id===f)?.filterQuery??null:null,h=t!==null,{data:g=[],isLoading:_}=A.api.useGetTrendingPlayers({enabled:h&&f===`trending`}),{data:v=[],isLoading:ne}=A.api.useGetTrendingEvolutions({enabled:h&&f===`evolutions`}),{data:y=[],isLoading:ie}=A.api.useGetRecentPlayers({enabled:h&&f===`recent`}),{data:b=[],isLoading:x}=A.api.useGetRecentlyUpgraded({enabled:h&&f"
+      "ctx": "ers:()=>SLe,useGetHomepageTabs:()=>gLe,useGetHotness:()=>wLe,useGetRecentPlayers:()=>bLe,useGetRecentlyUpgraded:()=>xLe,useGetTrendingEvolutions:()=>yLe,useGetTrendingPlayers:()=>vLe,useGetWhatsHot:()=>CLe},1),hLe,gLe,_Le,vLe,yLe,bLe,xLe,SLe,CLe,wLe,TLe,ELe,DLe=o((()=>{Zh(),Us(),$f(),PD(),tp(),f_(),xM(),cLe(),pLe(),hLe"
+    },
+    {
+      "kw": "useGetSbc",
+      "ctx": "tsPagedQueryOptions:()=>Nue,getSbcSetsQueryOptions:()=>Oue,getUserClubSbcsQueryOptions:()=>Aue,useGetCategories:()=>Due,useGetSbcSets:()=>kue,useGetUserClubSbcs:()=>jue},1),Eue,Due,Oue,kue,Aue,jue,Mue,Nue,Pue,Fue,Iue,Lue=o((()=>{Us(),Zh(),$f(),wue(),Eue=({isSsr:e,isEnabled:t=!0}={})=>Kh({queryKey:[`sbc`,`categories`,Hs"
     },
     {
       "kw": "getSbcSetList",
-      "ctx": ":[e,`%`]})]})}})),Mt,U,Nt,Pt=k((()=>{y(),Ge(),He(),h(),Mt=w(j(),1),M(),ie(),Ve(),E(),P(),jt(),U=w(D(),1),Nt=({sbc:e,votePercentage:t,shadingStyle:n=`gradient-top`})=>{let r=(0,Mt.useMemo)(()=>d.utils.getSbcSetListDerived({sbc:e,includeRemainingPrice:!1,isObjectCompleted:()=>!1}),[e]),i=r.playerReward?.player?.cardImageUrl??r.def.imageUrl,a=!!r.playerReward?.player?.cardImageUrl;return(0,U.jsxs)(`a"
+      "ctx": "LIMITED`,e.REFRESH=`REFRESH`,e}({})})),Wue=o((()=>{Uue()})),Gue=c({getExpiringSoonSbcs:()=>que,getRemainingPrice:()=>mv,getSbcSetListDerived:()=>Kue,getSbcsInCategory:()=>Jue,isSbcExpired:()=>Yue},1),Kue,mv,que,Jue,Yue,Xue=o((()=>{Rue(),Hue(),Wue(),Xf(),Kue=({sbc:e,includeRemainingPrice:t,isObjectCompleted:n})=>{let r="
     },
     {
-      "kw": "getSbcSetList",
-      "ctx": "shouldFetchGgRating:d=!1})=>{let{isObjectCompleted:f}=c.hooks.useGgClubLegacy({gameYear:x(e.category.game),isEnabled:l,onError:()=>{g.error(`Error checking completion`)}}),m=(0,U.useMemo)(()=>n.utils.getSbcSetListDerived({sbc:e,includeRemainingPrice:l,isObjectCompleted:f}),[e,l,f]);return(0,W.jsxs)(`div`,{className:r({\"bg-gray-800 rounded-lg p-1 flex flex-col gap-4 pointer-events-none group/sbc bo"
+      "kw": "SbcChallenge",
+      "ctx": "\"assets/best-by-role-Dib-_JoI.js\",\"assets/_position-CIY5kIio.js\",\"assets/_categorySlug._sbcSetSlug-DP9UcYaN.js\",\"assets/SbcChallenge-Scwchg5R.js\",\"assets/_sbcListLayout.index-DeHBQXQS.js\",\"assets/SbcSetResults-DtMlp3dD.js\",\"assets/_rarityGroup-BdQhFOgj.js\",\"assets/RaritySquadSidebar-DHgEP7dC.js\",\"assets/_raritySquad-Ez"
+    },
+    {
+      "kw": "useGetEvolutions",
+      "ctx": "olutionsQueryOptions:()=>nEe,pathsQueryOptions:()=>$Te,useEligiblePlayersInfinite:()=>cEe,useGetEvolutionDetail:()=>dEe,useGetEvolutions:()=>rEe,usePathsInfinite:()=>eEe,useSbGetEvolutionPlayers:()=>uEe,useSearch:()=>iEe,useSearchByName:()=>oEe,useSearchInfinite:()=>aEe,useTrendingPlayers:()=>sEe,useTrendingPlayersInfi"
     }
-  ],
-  "allResponseCount": 368
+  ]
 }
