@@ -1,0 +1,54 @@
+name: Probe fut.gg SBC/Evolutions endpoints
+
+# 探查 fut.gg 真实的 SBC / Evolutions API 端点路径（写正式抓取脚本的前置）。
+# 机制与 fetch-fc27.yml 完全一致：真实 Chromium 过 Cloudflare → 页面内 fetch 探端点。
+# 结果 commit 回仓库 probe/probe_sbc_evolution.json，方便在 GitHub 直接查看/比对。
+# 纯探查、不写库、不动快照，可随时手动重跑。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 版本号（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-futgg
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 浏览器内核交给下一步单独装
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Probe endpoints (real browser bypass Cloudflare)
+        env:
+          FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
+        run: node scripts/probe_futgg_sbc_evolution.js
+
+      - name: Commit probe result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add probe/probe_sbc_evolution.json || true
+          git commit -m "probe: fut.gg SBC/Evolutions endpoints FC${{ github.event.inputs.fc_ver || '27' }} $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
+          git push
