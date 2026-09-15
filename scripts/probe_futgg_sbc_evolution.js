@@ -1,12 +1,9 @@
-// 探查 fut.gg 的 SBC / Evolutions 数据来源（第八轮：主动抓取路由 chunk 源码 grep 真实端点）。
+// 探查 fut.gg 的 SBC / Evolutions 数据来源（第九轮：提取 RSC 服务端渲染数据流）。
 //
-// 前七轮教训：
-//   - /evolutions、/sbc 是 SPA 客户端渲染：数据由 React Query 在客户端拉，不在服务端 HTML。
-//   - bundle 里只有 React Query 钩子名（useGetTrendingEvolutions、getSbcSetListDerived），
-//     真实 /api/ 路径藏在路由专属 chunk（assets/evolutions-*.js、SbcSet-*.js 等）里，
-//     但 response 监听器漏抓了这些 chunk（缓存/异步 text 被吞）。
-// 本轮：CF 通关后主动 page.request.fetch 抓 chunk 源码（同源带 cookie，不会被 CF 二次挑战），
-//       直接 grep 出真实 /api/ 端点与带版本的 URL 模板。
+// 关键假设：前八轮发现 React Query 钩子（useGetEvolutions / useGetSbcSets / getSbcSetListDerived）
+// 首屏 enabled 依赖 tab/SSR，且 r8 的 368 个响应里没有 evolution/sbc 的客户端 API 调用
+// => 数据大概率是 Next.js App Router 的 RSC 数据流（self.__next_f.push 脚本）服务端渲染进 HTML 的。
+// 之前 r5 只查了 __NEXT_DATA__（false），漏了 RSC 分块。本轮专门抽取 RSC 文本，grep 数据标记。
 //
 // 输出：probe/probe_sbc_evolution.json
 const fs = require('fs');
@@ -25,29 +22,16 @@ const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
     userAgent: UA, locale: 'en-US', viewport: { width: 1280, height: 800 }, timezoneId: 'America/New_York'
   });
   const page = await ctx.newPage();
-  page.on('console', m => { const t = m.text(); if (/error|404|fail|redirect/i.test(t)) console.log('[browser]', t.slice(0, 160)); });
 
-  const apiHits = new Map();   // url -> {apiPaths:[], futCtx:[]}
-  const fetchChunk = async (url) => {
-    if (apiHits.has(url)) return;
+  const rscChunks = [];   // 收集 self.__next_f.push 文本
+  page.on('script', async (script) => {
+    const src = script.src();
+    if (src) return; // 只抓内联脚本
     try {
-      const r = await page.request.fetch(url, { headers: { Accept: '*/*' } });
-      if (r.status() !== 200) { apiHits.set(url, { skipped: r.status() }); return; }
-      const t = await r.text();
-      const apiPaths = [...new Set((t.match(/\/api\/[A-Za-z0-9_./{}$-]+/g) || []))];
-      // 找 fut/ 开头的 URL 模板（含版本占位）
-      const futPaths = [...new Set((t.match(/fut\/[A-Za-z0-9_./{}$-]+/g) || []))];
-      // 钩子/fetch 附近上下文
-      const futCtx = [];
-      for (const kw of ['useGetTrendingEvolutions', 'useGetSbc', 'getSbcSetList', 'evolution-list', 'EvolutionList', 'sbc-challenges', 'SbcChallenge', 'useGetEvolutions', 'fetchEvolution', 'fetchSbc']) {
-        let idx = t.indexOf(kw);
-        if (idx >= 0) futCtx.push({ kw, ctx: t.slice(idx - 120, idx + 200).replace(/\s+/g, ' ') });
-      }
-      apiHits.set(url, { len: t.length, apiPaths: apiPaths.slice(0, 60), futPaths: futPaths.slice(0, 40), futCtx });
-      console.log('[chunk]', url.split('/').pop(), '| status 200 | apiPaths:', apiPaths.slice(0, 20).join(' '));
-      for (const c of futCtx) console.log('   ctx', c.kw, '=>', c.ctx.slice(0, 260));
-    } catch (e) { apiHits.set(url, { err: String(e).slice(0, 120) }); }
-  };
+      const txt = await script.textContent();
+      if (txt && txt.includes('__next_f')) rscChunks.push(txt);
+    } catch (e) {}
+  });
 
   console.log('打开 fut.gg 过 Cloudflare ...');
   await page.goto('https://www.fut.gg/', { waitUntil: 'domcontentloaded', timeout: 60000 });
@@ -66,57 +50,54 @@ const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
   }
   if (!passed) { await browser.close(); console.error('未能过 Cloudflare'); process.exit(1); }
 
-  // 导航到两个路由，让所有相关 chunk 加载
+  const result = { ver: VER, pages: {} };
   for (const route of ['/evolutions', '/sbc']) {
+    console.log(`\n=== 导航 ${route} 抽取 RSC ===`);
     try {
-      console.log(`\n=== 导航 ${route} 收集 chunk ===`);
       await page.goto(`https://www.fut.gg${route}`, { waitUntil: 'networkidle', timeout: 60000 });
-      await page.waitForTimeout(4000);
+      await page.waitForTimeout(6000);
     } catch (e) { console.log('  导航失败:', e.message); }
+    // 直接读 DOM 里的所有 script（含 RSC），用 evaluate 抓全文
+    const html = await page.content();
+    const scripts = await page.evaluate(() => {
+      const out = [];
+      document.querySelectorAll('script').forEach(s => { if (s.textContent) out.push(s.textContent); });
+      return out;
+    });
+    const all = scripts.join('\n');
+    // 数据标记
+    const markers = {
+      endtime: (all.match(/"endtime"/g) || []).length,
+      claim_endtime: (all.match(/"claim_endtime"/g) || []).length,
+      sbcScoreRequirement: (all.match(/sbcScoreRequirement/g) || []).length,
+      evolutionsArr: (all.match(/"evolutions"/g) || []).length,
+      sbcsArr: (all.match(/"sbcs"/g) || []).length,
+      isSbc: (all.match(/isSbc/g) || []).length,
+      next_f_push: (all.match(/__next_f/g) || []).length,
+      nextData: (all.match(/__NEXT_DATA__/g) || []).length,
+    };
+    // 抽取含 evolution/sbc 的 RSC 片段样本
+    const samples = [];
+    const re = /(?:sbc|evolution|evolutions|challenge)["'\s:]+/gi;
+    let m; let n = 0;
+    while ((m = re.exec(all)) && n < 8) {
+      samples.push(all.slice(m.index - 80, m.index + 160).replace(/\s+/g, ' '));
+      n++;
+    }
+    result.pages[route] = {
+      htmlLen: html.length,
+      totalScriptLen: all.length,
+      markers,
+      samples
+    };
+    console.log(`  markers:`, JSON.stringify(markers));
+    for (const s of samples) console.log('   sample:', s.slice(0, 200));
   }
 
-  // 收集页面加载过的所有 JS chunk URL（去重）
-  const scriptSrcs = await page.evaluate(() => {
-    const s = new Set();
-    document.querySelectorAll('script[src]').forEach(el => s.add(el.src));
-    return [...s];
-  });
-  // 也加首页加载时抓到的（通过临时监听整页脚本——此处用 evaluate 兜底：再回首页收集）
-  console.log(`\n=== 共收集 ${scriptSrcs.length} 个 script src，开始 grep 进化/SBC 相关 chunk ===`);
-
-  // 优先抓含 evolution/sbc 关键字的 chunk
-  const priority = scriptSrcs.filter(u => /evolution|sbc|Evolution|Sbc/i.test(u));
-  const rest = scriptSrcs.filter(u => !/evolution|sbc|Evolution|Sbc/i.test(u));
-  for (const u of [...priority, ...rest]) {
-    if (apiHits.has(u)) continue;
-    await fetchChunk(u);
-  }
-
-  // 汇总：只保留含 fut/ 或 api/ 路径的 chunk
-  const useful = {};
-  for (const [url, v] of apiHits) {
-    if (v.apiPaths && v.apiPaths.length) useful[url.split('/').pop()] = v;
-  }
-  const allApiPaths = [...new Set(Object.values(useful).flatMap(v => v.apiPaths || []))].sort();
-  const allFutPaths = [...new Set(Object.values(useful).flatMap(v => v.futPaths || []))].sort();
-
-  const result = {
-    ver: VER,
-    chunkCount: scriptSrcs.length,
-    usefulChunks: Object.keys(useful),
-    allApiPaths,
-    allFutPaths,
-    hookContext: Object.values(useful).flatMap(v => v.futCtx || [])
-  };
   const outDir = path.resolve(__dirname, '..', 'probe');
   fs.mkdirSync(outDir, { recursive: true });
   const outPath = path.join(outDir, 'probe_sbc_evolution.json');
   fs.writeFileSync(outPath, JSON.stringify(result, null, 2));
-
-  console.log('\n===== 全部 /api/ 路径（去重）=====');
-  console.log(JSON.stringify(allApiPaths, null, 2));
-  console.log('\n===== 全部 fut/ 路径模板（去重）=====');
-  console.log(JSON.stringify(allFutPaths, null, 2));
   console.log('\n已写出', outPath);
   await browser.close();
 })().catch(e => { console.error('探查失败:', e); process.exit(1); });
