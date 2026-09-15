@@ -12,6 +12,10 @@ on:
         description: 'FC 版本号（默认 26，因 FC27 SBC 可能未上线，先用 26 看真实 SBC 数据）'
         type: string
         default: '26'
+      script:
+        description: '要跑的探查脚本（scripts/ 下）'
+        type: string
+        default: 'probe_sbc_endpoint_r12.js'
 
 permissions:
   contents: write
@@ -44,14 +48,14 @@ jobs:
       - name: Probe endpoints (real browser bypass Cloudflare)
         env:
           FC_VER: ${{ github.event.inputs.fc_ver || '26' }}
-        run: node scripts/probe_sbc_endpoint_r12.js
+        run: node scripts/${{ github.event.inputs.script || 'probe_sbc_endpoint_r12.js' }}
 
       - name: Upload probe result (artifact)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: probe-r12-sbc-endpoint
-          path: probe/r12_sbc_endpoint.json
+          name: probe-${{ github.event.inputs.script || 'r12' }}
+          path: probe/
           if-no-files-found: warn
 
       - name: Commit probe result
@@ -60,8 +64,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add probe/r12_sbc_endpoint.json || true
-          git commit -m "probe r12: fut.gg SBC endpoint FC${{ github.event.inputs.fc_ver || '26' }} $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
+          git add probe/ || true
+          git commit -m "probe ${{ github.event.inputs.script || 'r12' }}: fut.gg SBC probe FC${{ github.event.inputs.fc_ver || '26' }} $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
           # 远端可能被 fetch-fc27 daily 的版本快照提交推进过（并发组不同），先变基再推
           for i in 1 2 3; do
             git fetch origin main
