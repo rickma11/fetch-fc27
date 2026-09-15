@@ -1,4 +1,61 @@
 {
-  "observedApiRequests": [],
-  "captured": []
+  "ver": 26,
+  "captured": [
+    {
+      "url": "https://www.fut.gg/api/fut/evolution-list/v2/26/",
+      "status": 404,
+      "len": 887,
+      "structure": "(非 JSON) <!doctype html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Page Not Found - FUT.GG</title>\n    <style>\n     ",
+      "sample": null
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/evolutions/26/",
+      "status": 404,
+      "len": 887,
+      "structure": "(非 JSON) <!doctype html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Page Not Found - FUT.GG</title>\n    <style>\n     ",
+      "sample": null
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/evolutions/v2/26/",
+      "status": 404,
+      "len": 23,
+      "structure": "detail",
+      "sample": null
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/evolutions/list/26/",
+      "status": 404,
+      "len": 887,
+      "structure": "(非 JSON) <!doctype html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Page Not Found - FUT.GG</title>\n    <style>\n     ",
+      "sample": null
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/challenges/v2/26/",
+      "status": 404,
+      "len": 887,
+      "structure": "(非 JSON) <!doctype html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Page Not Found - FUT.GG</title>\n    <style>\n     ",
+      "sample": null
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/sbc-challenges/26/",
+      "status": 404,
+      "len": 887,
+      "structure": "(非 JSON) <!doctype html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Page Not Found - FUT.GG</title>\n    <style>\n     ",
+      "sample": null
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/sbc/v2/26/",
+      "status": 404,
+      "len": 887,
+      "structure": "(非 JSON) <!doctype html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Page Not Found - FUT.GG</title>\n    <style>\n     ",
+      "sample": null
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/squad-building-challenges/v2/26/",
+      "status": 404,
+      "len": 887,
+      "structure": "(非 JSON) <!doctype html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Page Not Found - FUT.GG</title>\n    <style>\n     ",
+      "sample": null
+    }
+  ]
 }
