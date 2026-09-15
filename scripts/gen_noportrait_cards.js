@@ -1,20 +1,28 @@
 /**
  * 给「没有半身像」的球员生成展示卡面 = 该球员本人的原卡面 + 通用灰色半身剪影
  *
- * 背景：fut.gg 上约 3.2% 的球员 imagePath 为空（没有半身像），这些人的 _card.webp 里
- * 照片区本来就是空的，而且 fut.gg 还多画了两处残留：
- *   ① 左上角一个「破图占位图标」  ② OVR 右边一行多余的球员姓名
- * 本脚本把这两处抹掉，在真实半身像的占位框里叠一个通用灰色半身剪影，输出 {eaId}_np.webp。
+ * 背景（2026-09-16 更新）：fut.gg 上约 6% 的球员 imagePath 为空（没有半身像）。
+ *   ① 老版式卡面：照片区空白，但 fut.gg 多画了两处残留 —— 左上角一个「破图占位图标」、
+ *      OVR 右边一行多余的球员姓名；② 新版式卡面（fut.gg 2026-09 起逐步替换，实测约占
+ *      抽样 20%）：残留没了，取而代之的是**把「通用人像」烘焙进照片区**，实测 bbox
+ *      x[144,415] y[156,442]（多张卡完全一致），底边正好被照片区底边裁掉。
+ *   两种版式都要出「干净卡面 + 通用剪影」，所以剪影必须**完全盖住**那块通用人像
+ *   （见下方 SIL_* 版式参数，底部必须到 442 不能只到 438）。
+ *
+ *   残留抹除仍按老算法做（新版式卡面上它只是空转，不会留痕）。
  *
  * 用法（在仓库根目录）：
  *   node scripts/gen_noportrait_cards.js --ver 27                 # 增量（只处理还没生成过的）
+ *   node scripts/gen_noportrait_cards.js --ver 27 --all           # 目标集合改为「云库全量无半身像球员」
  *   node scripts/gen_noportrait_cards.js --ver 27 --force         # 全量重生成
  *   node scripts/gen_noportrait_cards.js --ver 27 --dry --only 229153,246070
  *   node scripts/gen_noportrait_cards.js --ver 27 --no-upload     # 只出图不上传（本地检查用）
  * 选项：
  *   --ver 26|27   版本（默认 27）
+ *   --all         目标集合取自云库（imagePath 为空且有卡面），而不是本地 players.json
  *   --conc N      并发上传数（默认 4）
- *   --sil-width N 剪影宽度（默认 320；头顶固定 y=132、底部 y=450，避免压住姓名带）
+ *   --sil-width N 剪影宽度（默认 340）
+ *   --sil-cx N    剪影中心 x（默认 275；右肩缺口靠它让开右侧逆足标签列）
  *   --dry         不写云存储、不写清单
  *   --keep        保留中间产物（_np_out/）
  *
@@ -33,9 +41,10 @@ const { resolve } = require('./tcb_env');
 const ROOT = path.resolve(__dirname, '..');
 const VER = (() => { const i = process.argv.indexOf('--ver'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '27'; })();
 const CONC = Number((() => { const i = process.argv.indexOf('--conc'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '4'; })());
-const SIL_WIDTH = Number((() => { const i = process.argv.indexOf('--sil-width'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '320'; })());
+const SIL_WIDTH = Number((() => { const i = process.argv.indexOf('--sil-width'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '340'; })());
 const FORCE = process.argv.includes('--force');
 const DRY = process.argv.includes('--dry');
+const ALL = process.argv.includes('--all');
 const NO_UPLOAD = process.argv.includes('--no-upload');
 const ONLY = (() => { const i = process.argv.indexOf('--only'); return i >= 0 && process.argv[i + 1] ? new Set(process.argv[i + 1].split(',')) : null; })();
 
@@ -43,14 +52,24 @@ const ONLY = (() => { const i = process.argv.indexOf('--only'); return i >= 0 &&
 const REG = { x0: 96, y0: 96, x1: 434, y1: 180 };          // 建底板用的观察区
 const ICON = { x0: 112, x1: 150, y0: 114, y1: 150 };        // 破图图标（整块抹掉）
 const NAME = { x0: 141, x1: 430, y0: 100, y1: 178 };        // 顶部多余姓名行
-const SIL_TOP = 132, SIL_BOT = 450, SIL_GREY = 167;         // 真实半身像实测占位：头顶 132；底抬到 450（>450 会压住底部姓名带 y≈455~484）
+// 剪影版式：以「fut.gg 通用人像」为基准 —— 实测人像 x[144,415]、y[156,442]，底边 442 就是
+// 照片区底边（443 起是姓名带）。剪影取 宽 340 / 底边 442，**中心 267**：
+//   ① 底边与人像裁剪线重合、横向比人像宽，能把它完全盖住；
+//   ② 素材（assets/noportrait/silhouette.png）的**右肩已裁掉一块缺口**（用户手工裁的），
+//      缺口正好让开卡面右侧的逆足标签列 —— 标签左边界实测 ≈410（脚 R/L、星级 1★2 等）。
+//      中心 267 时剪影右边界 436、缺口右缘落在 ≈406，标签整体完整；
+//      中心 279 时右肩会压住标签左下角（Fekir 的 L 标签实测被压 5~8px）。
+//   ③ 左右都不越出卡面轮廓（卡面实体 x47~453；剪影实绘 x97~436）。
+// 中心可调：--sil-cx N
+const SIL_CX = Number((() => { const i = process.argv.indexOf('--sil-cx'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '275'; })());
+const SIL_BOT = 442;
 const INK_REL = 35;          // 「比该像素背景中位暗 35 以上」判为字迹
 const DILATE_SAMPLE = 3;     // 建底板时，把字迹及其 3px 邻域从样本里剔除（躲开 WebP 的过冲亮环）
 const DILATE_FILL = 2;       // 抹除时，把字迹膨胀 2px 一起填（连抗锯齿边一起去掉）
 const W = 500, H = 698;
 const RW = REG.x1 - REG.x0, RH = REG.y1 - REG.y0;
-const NP_PARAMS = 'np-v4|icon:' + [ICON.x0, ICON.x1, ICON.y0, ICON.y1].join(',') + '|name:' + [NAME.x0, NAME.x1, NAME.y0, NAME.y1].join(',') +
-  '|sil:' + [SIL_TOP, SIL_BOT, SIL_WIDTH, SIL_GREY].join(',');
+const NP_PARAMS = 'np-v5|icon:' + [ICON.x0, ICON.x1, ICON.y0, ICON.y1].join(',') + '|name:' + [NAME.x0, NAME.x1, NAME.y0, NAME.y1].join(',') +
+  '|sil:' + [SIL_WIDTH, SIL_CX, SIL_BOT].join(',');
 
 const CACHE = path.join(os.tmpdir(), 'fc_np_cache');
 const PLATE_DIR = path.join(CACHE, 'plates');
@@ -74,12 +93,51 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
       for (const _it of _list) if (_it && _it.eaId != null && _it.imagePath) curImg[String(_it.eaId)] = String(_it.imagePath);
     } catch (e) { /* dump 读取失败不致命，仅失去对账能力 */ }
   }
-  const target = players.filter(p => p.cardImagePath && !p.imagePath && !curImg[String(p.eaId)] && (!ONLY || ONLY.has(String(p.eaId))));
+  const cred = resolve();
+  const app = cloudbase.init({ env: cred.ENV_ID, secretId: cred.SECRET_ID, secretKey: cred.SECRET_KEY, timeout: 60000 });
+  const BUCKET = '636c-' + cred.ENV_ID + '-1475854307';
+  const PREFIX = 'cloud://' + cred.ENV_ID + '.' + BUCKET + '/fc' + VER + '/images/';
+  const db = app.database();
+
+  // 目标集合：
+  //   默认 —— players.json 里「有卡面、无 imagePath」的人。⚠️ 本机这份 players.json 常是上一轮
+  //            全量快照（历史上受 10000 条上限影响），新入库 / 不在里面的无像球员会被漏掉；
+  //            要「把端上在用的无像卡面全量重做」时必须用 --all。
+  //   --all —— 直接问云库（imagePath 为空且有卡面）。端上 displayImg() 对这类球员一律拼
+  //            {eaId}_np.webp，所以这才是「真正需要存在 _np.webp」的全集。
+  let target;
+  if (ALL) {
+    const rows = [];
+    let skip = 0;
+    for (;;) {
+      const r = await db.collection('players_fc' + VER).where({ imagePath: '' }).limit(1000).skip(skip).get();
+      const got = (r && r.data) || [];
+      rows.push(...got);
+      if (got.length < 1000) break;
+      skip += 1000;
+    }
+    const hasCard = rows.filter(d => d.cardImagePath);
+    target = hasCard
+      .filter(d => !curImg[String(d._id)])
+      .map(d => ({ eaId: d._id, commonName: d.commonName, imagePath: d.imagePath, cardImagePath: d.cardImagePath, rarity: d.rarity }));
+    console.log('--all：云库 imagePath 为空且有卡面 ' + hasCard.length + ' 人，扣掉已获半身像后剩 ' + target.length + ' 人');
+  } else {
+    target = players.filter(p => p.cardImagePath && !p.imagePath && !curImg[String(p.eaId)]);
+  }
+  if (ONLY) target = target.filter(p => ONLY.has(String(p.eaId)));
   // 注：此处不再提前 return —— 下方 Phase 0 对账必须在生成前执行，
   // 否则当「所有无半身像球员都已获图」(target 为空) 时，对账会被跳过、清单得不到清理。
+  // 建底板的样本池：本地 players.json 的无像球员 ∪ 本次目标（--all 时后者才是全量）
+  const platePool = (() => {
+    const m = new Map();
+    for (const p of players) if (!p.imagePath && p.cardImagePath) m.set(String(p.eaId), p);
+    for (const p of target) m.set(String(p.eaId), p);
+    return [...m.values()];
+  })();
+
   const silPath = path.join(ROOT, 'assets', 'noportrait', 'silhouette.png');
   if (!fs.existsSync(silPath)) {
-    console.error('缺少剪影素材 assets/noportrait/silhouette.png，先跑：node scripts/make_noportrait_silhouette.js --src <参考图>');
+    console.error('缺少剪影素材 assets/noportrait/silhouette.png，先跑：node scripts/make_noportrait_silhouette.js --plain --src <剪影图>');
     process.exit(1);
   }
   const silMeta = await sharp(silPath).metadata();
@@ -87,11 +145,6 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   // 剪影文件内容也进签名：换了剪影形状/灰阶后，所有已生成的卡会自动判为过期并重做
   const PARAMS = NP_PARAMS + '|silfile:' +
     crypto.createHash('sha1').update(silBufFull).digest('hex').slice(0, 8);
-
-  const cred = resolve();
-  const app = cloudbase.init({ env: cred.ENV_ID, secretId: cred.SECRET_ID, secretKey: cred.SECRET_KEY, timeout: 60000 });
-  const BUCKET = '636c-' + cred.ENV_ID + '-1475854307';
-  const PREFIX = 'cloud://' + cred.ENV_ID + '.' + BUCKET + '/fc' + VER + '/images/';
 
   // ---- Phase 0：对账「已获半身像」的球员（fut.gg 补图后自动切回真实卡面）----
   // 列表签名(sig.js)刻意不含 imagePath，故补半身像不会改变签名 → 不会进入增量落库包 →
@@ -104,7 +157,6 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   // fetch_ci 阶段4(签名变化即下载) + upload_images 负责下载并上传，这里只补上 DB 标记与清单清理。
   const manifestPath = path.join(ROOT, 'cloud-data', 'fc' + VER, 'noportrait.json');
   const manifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : {};
-  const db = app.database();
   const gained = Object.keys(manifest).filter(function (id) { return curImg[id]; });
   // ② 漏网之鱼：云库 imagePath 为空、但本次 dump 已有真实头像的球员。
   //    np 生成曾失败 / 从未进清单者，补头像后 upload_db 增量（签名刻意不含 imagePath）不会写云库，
@@ -173,7 +225,7 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   const buildPlate = async lv => {
     const pf = path.join(PLATE_DIR, 'fc' + VER + '_l' + lv + '.raw');
     if (fs.existsSync(pf) && !FORCE) return fs.readFileSync(pf);
-    const pool = players.filter(p => !p.imagePath && p.cardImagePath && lvlOf(p) === lv);
+    const pool = platePool.filter(p => lvlOf(p) === lv);
     const M = Math.min(120, pool.length), S = [];
     for (let i = 0; i < M; i++) {
       const c = pool[Math.floor(pool.length * i / M)];
@@ -271,13 +323,16 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   const levels = ['1', '2', '3', '?'];
   const plates = {};
   console.log('建立背景底板（每个稀有度一块）…');
-  for (const lv of levels) if (players.some(p => !p.imagePath && lvlOf(p) === lv)) plates[lv] = await buildPlate(lv);
+  for (const lv of levels) if (platePool.some(p => lvlOf(p) === lv)) plates[lv] = await buildPlate(lv);
 
   // ---------- 2) 剪影 ----------
-  const silH = SIL_BOT - SIL_TOP;
+  // 素材已裁到人形包围盒 → 只定「宽」，高按素材比例走（不做非等比拉伸）；
+  // 底边贴住 SIL_BOT（= fut.gg 通用人像的裁剪线 = 照片区底边 442），中心对齐 SIL_CX。
+  const silH = Math.round(SIL_WIDTH * silMeta.height / silMeta.width);
+  const silTop = SIL_BOT - silH;
   const silScaled = await sharp(silBufFull).resize({ width: SIL_WIDTH, height: silH, kernel: 'lanczos3' }).png().toBuffer();
-  const silLeft = Math.round(W / 2 - SIL_WIDTH / 2);
-  console.log('剪影 ' + SIL_WIDTH + 'x' + silH + ' @ (' + silLeft + ',' + SIL_TOP + ')');
+  const silLeft = Math.round(SIL_CX - SIL_WIDTH / 2);
+  console.log('剪影 ' + SIL_WIDTH + 'x' + silH + ' @ (' + silLeft + ',' + silTop + ')，底边 ' + SIL_BOT + '，素材 ' + silMeta.width + 'x' + silMeta.height);
 
   // ---------- 3) 逐人生成 ----------
   // manifest / manifestPath 已在上方 Phase 0 对账阶段声明并加载（已移除已获半身像的球员）
@@ -327,7 +382,7 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
     }
     const base = await sharp(card, { raw: { width: W, height: H, channels: 4 } }).png().toBuffer();
     const webp = await sharp(base)
-      .composite([{ input: silScaled, left: silLeft, top: SIL_TOP }])
+      .composite([{ input: silScaled, left: silLeft, top: silTop }])
       .webp({ quality: 82, effort: 4 })
       .toBuffer();
     // 回归自检（每张跑一次，几十毫秒）：**卡面轮廓外绝不能被填成不透明**。
