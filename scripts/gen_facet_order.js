@@ -70,7 +70,8 @@ const HOT_CLUBS = [
 ];
 
 // 位置顺序：前场 → 中场 → 后场 → 门将（库内实际 12 个位置；未列出的排最后，按字母序）
-const POSITION_ORDER = ['ST', 'LW', 'RW', 'CAM', 'CM', 'LM', 'RM', 'CDM', 'LB', 'CB', 'RB', 'GK'];
+// 中场段内部按「中路 → 边路」排：CAM → CM → CDM → LM → RM（2026-09-15 用户指定，与 list.js 的 POS_GROUPS 一致）
+const POSITION_ORDER = ['LW', 'ST', 'RW', 'CAM', 'CM', 'CDM', 'LM', 'RM', 'LB', 'CB', 'RB', 'GK'];
 
 // 欧洲国家男子联赛（不含五大联赛）：联赛置顶段第二项。
 // 成员＝ utils/i18n.js LEAGUE_ZH 中「欧洲男足」条目（含各级别，如英冠/德乙/西乙/法乙等），
@@ -149,7 +150,11 @@ async function loadFromCloud() {
   const nations = [];
   const byLeague = {};   // league -> Set(club)
   let total = 0;
-  for (let skip = 0; skip < 20000; skip += 500) {
+  // ⚠️ 这里**不能写死条数上限**（原来是 skip < 20000）。
+  //    2026-09-16 踩到：云库已 21241 条（OVR 分桶补全后），写死 20000 会把尾部 1241 条漏掉，
+  //    于是只有 1 名球员的联赛（Thailand League）整条消失 → 它的排序位不存在 → 筛选面板里排到最后。
+  //    改成「取不满一页就停」，与库容量解耦。
+  for (let skip = 0; ; skip += 500) {
     const r = await db.collection(col)
       .field({ 'club.name': true, 'league.name': true, 'nation.name': true, position: true })
       .skip(skip).limit(500).get();

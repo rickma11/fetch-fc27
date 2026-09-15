@@ -13,7 +13,10 @@ _np_out/
 cloud-data/fc*/incremental.json
 
 # 旧版「小程序本地兜底」文件：现在是数据库架构，CI 不再生成（--no-local）
-data/
+data/*
+# 例外：译名对照表是 CI 的 sync_i18n.js 输入，必须入库（否则 CI 翻不出新译名）
+!data/country-zh.json
+!data/i18n-names.json
 
 # 本地云开发凭证（绝不提交；CI 走 GitHub Secrets）
 .env.local
@@ -21,3 +24,8 @@ data/
 .tcb.local.json
 
 .DS_Store
+
+# 凭证文件（切勿提交）
+.gh_token
+.gh_token.txt
+*.gh_token

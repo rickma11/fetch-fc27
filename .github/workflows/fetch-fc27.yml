@@ -109,6 +109,20 @@ jobs:
           FC_MODE: ${{ steps.mode.outputs.mode }}
         run: node scripts/upload_db.js --ver 27
 
+      # 译名自动对账（2026-09-16）：EA 每次数据更新都可能冒出新的联赛/俱乐部/国家。
+      # 本步骤扫刚落库的全量数据，把「包内词典没收录」的取值补齐：
+      #   · 国家       → fetch-fc27/data/country-zh.json 全量对照表
+      #   · 联赛       → "<国家/地区> League|Liga|…" 规则推导
+      #   · 俱乐部     → 不机器翻译（EA 化名硬翻必错），留在 cloud-data/fc27/i18n_pending.json 等人工补
+      # 结果写云库 dicts/names，端上启动拉取后立即生效 —— **新联赛/新国家不用重新发版**。
+      # 必须放在落库之后（要扫当天最新数据）。
+      - name: Sync i18n names to cloud (auto-translate new leagues/clubs/nations)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/sync_i18n.js --ver 27
+
       # 图片上传放在落库之后：图片失败不该拖累每天的数据同步。
       # 允许失败（continue-on-error）——脚本会把「已成功」的部分写进 images.json，
       # 下次运行按清单续传，不会重复也不会漏。
@@ -140,6 +154,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add cloud-data/fc27/snapshot.json cloud-data/fc27/changes.json cloud-data/fc27/facets.json || true
+          # 译名对账：增长层词典（自动补的译名）+ 待人工处理的清单
+          git add data/i18n-names.json cloud-data/fc27/i18n_pending.json || true
           # 图片清单：记录每个球员的图已上传到哪个内容签名，驱动图片增量
           git add cloud-data/fc27/images.json || true
           # 无半身像卡面清单（内容签名，未变则下次跳过重新生成）
