@@ -48,6 +48,8 @@ jobs:
       - name: Probe endpoints (real browser bypass Cloudflare)
         env:
           FC_VER: ${{ github.event.inputs.fc_ver || '26' }}
+          # 验证模式：让正式抓取脚本把输出额外写进 probe/，便于从 artifact 读回核验
+          PROBE_OUT: '1'
         run: node scripts/${{ github.event.inputs.script || 'probe_sbc_endpoint_r12.js' }}
 
       - name: Upload probe result (artifact)
