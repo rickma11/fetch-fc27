@@ -43,7 +43,7 @@ jobs:
       - name: Probe endpoints (real browser bypass Cloudflare)
         env:
           FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
-        run: node scripts/probe_futgg_sbc_evolution.js
+        run: node scripts/probe_r2_datasets.js
 
       - name: Upload probe result (artifact)
         if: always()
