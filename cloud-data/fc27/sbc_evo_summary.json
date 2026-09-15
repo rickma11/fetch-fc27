@@ -1,13 +1,15 @@
 {
   "ver": 27,
-  "fetchedAt": "2026-09-15T12:07:20.735Z",
+  "fetchedAt": "2026-09-15T12:27:52.819Z",
   "sbc": {
-    "totalCount": 0,
-    "count": 0
+    "totalCount": 1,
+    "count": 1
   },
   "evolutions": {
-    "active": 0,
-    "all": 0
+    "active": 1,
+    "all": 1
   },
-  "errors": []
+  "errors": [],
+  "isMock": true,
+  "mockSourceVer": 26
 }
