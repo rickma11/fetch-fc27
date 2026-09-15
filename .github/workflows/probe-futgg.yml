@@ -45,10 +45,20 @@ jobs:
           FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
         run: node scripts/probe_futgg_sbc_evolution.js
 
+      - name: Upload probe result (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: probe-sbc-evolution
+          path: probe/probe_sbc_evolution.json
+          if-no-files-found: warn
+
       - name: Commit probe result
+        if: always()
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add probe/probe_sbc_evolution.json || true
           git commit -m "probe: fut.gg SBC/Evolutions endpoints FC${{ github.event.inputs.fc_ver || '27' }} $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
-          git push
+          git push || echo "push skipped"

@@ -1,15 +1,13 @@
-// 探查 fut.gg 的 SBC / Evolutions 数据来源（第四轮：抓 HTML 内嵌的 Next.js 数据）。
+// 探查 fut.gg 的 SBC / Evolutions 数据来源（第五轮修正版）。
 //
-// 前三轮教训：
-//   ① 猜的 /api/ 端点全 404（连页面「自己请求过」的也 404）→ 路径不对。
-//   ② 监听 XHR response 也抓不到：/evolutions、/sbc 页面在加载期间根本不发起 fut.gg/api 请求
-//      （只有球员列表页会调 /api/fut/players/v2/26/）。说明 SBC/进化数据是**服务端渲染进 HTML** 的。
+// 关键背景 / 教训：
+//   - round-5 直接 page.goto('/evolutions') 会触发 Cloudflare 二次挑战（redirect loop），
+//     拿到的是 CF 拦截页（htmlLen=82KB、nextData=false），不是真内容。
+//   - 但页面加载了 SBC 组件 bundle：assets.fut.gg/ts/assets/StreamlinedSbcBadge-*.js、
+//     StreamlinedSbcArtwork-*.js（200）。真实数据 API 路径就藏在这些前端 bundle 里。
+//   - 正确做法：① 用 response 监听器读取这些 bundle 源码、grep "/api/fut/..." 等真实端点；
+//               ② 用页内 fetch('/evolutions') 取子页 HTML（同源、带 CF cookie，不会二次挑战）。
 //
-// 本版做法（确定性）：过 CF 后，对 /evolutions、/sbc、/squad-building-challenges 各页：
-//   1. 取 page.content() 完整 HTML
-//   2. 抽取 __NEXT_DATA__（JSON）与 self.__next_f.push(...) 分块（Next.js RSC 数据流，含真实数据）
-//   3. 在其中检索 evolution / sbc / challenge 相关字段，打印结构 + 样本
-//   4. 同时记录导航期间所有（不限 host）响应 URL，看清真实请求了哪些地址
 // 输出：probe/probe_sbc_evolution.json
 const fs = require('fs');
 const path = require('path');
@@ -27,15 +25,32 @@ const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
     userAgent: UA, locale: 'en-US', viewport: { width: 1280, height: 800 }, timezoneId: 'America/New_York'
   });
   const page = await ctx.newPage();
-  page.on('console', m => { const t = m.text(); if (/error|404|fail/i.test(t)) console.log('[browser]', t.slice(0, 200)); });
+  page.on('console', m => { const t = m.text(); if (/error|404|fail|redirect/i.test(t)) console.log('[browser]', t.slice(0, 160)); });
 
-  // 记录所有响应 URL（不限 host），看清真实请求了哪些地址
-  const allResponses = [];
-  const seenResp = new Set();
+  // 收集：① 所有 assets.fut.gg 的 JS bundle 源码（grep API 路径）；② 所有 /api/ 响应
+  const bundleSources = [];   // {url, len, apiPaths:[]}
+  const apiResponses = [];    // {url, status, len}
+  const seen = new Set();
   page.on('response', async (resp) => {
     const u = resp.url();
-    if (seenResp.has(u)) return; seenResp.add(u);
-    allResponses.push({ url: u, status: resp.status() });
+    if (seen.has(u)) return; seen.add(u);
+    const ct = resp.headers()['content-type'] || '';
+    const lower = u.toLowerCase();
+    if (lower.includes('assets.fut.gg') && (lower.endsWith('.js') || ct.includes('javascript'))) {
+      try {
+        const t = await resp.text();
+        // 找所有 /api/... 路径片段 + 含 evolution/sbc/challenge 的字符串
+        const paths = [...new Set((t.match(/\/api\/[A-Za-z0-9_./-]+/g) || []))];
+        const evo = [...new Set((t.match(/[A-Za-z0-9_./-]*(?:evolution|sbc|challenge)[A-Za-z0-9_./-]*/gi) || []))].slice(0, 40);
+        bundleSources.push({ url: u, len: t.length, apiPaths: paths.slice(0, 60), evoStrings: evo });
+        if (paths.length) console.log('[bundle]', u.split('/').pop(), 'apiPaths:', paths.slice(0, 20).join(' '));
+        if (evo.length) console.log('[bundle]', u.split('/').pop(), 'evoStrings:', evo.slice(0, 15).join(' '));
+      } catch (e) {}
+    }
+    if (/fut\.gg\/api/i.test(u)) {
+      try { const t = await resp.text(); apiResponses.push({ url: u, status: resp.status(), len: t.length }); }
+      catch (e) { apiResponses.push({ url: u, status: resp.status(), len: -1 }); }
+    }
   });
 
   console.log('打开 fut.gg 过 Cloudflare ...');
@@ -56,96 +71,72 @@ const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
   }
   if (!passed) { await browser.close(); console.error('未能过 Cloudflare'); process.exit(1); }
 
-  // 抽取 HTML 内嵌数据
-  function extractFromHtml(html) {
-    const res = { hasNextData: false, nextDataKeys: [], rscChunks: 0, evolutionHits: [], sbcHits: [], sample: null };
-    // __NEXT_DATA__
-    const m = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
-    if (m) {
-      try {
-        const j = JSON.parse(m[1]);
-        res.hasNextData = true;
-        res.nextDataKeys = Object.keys(j).slice(0, 20);
-        // 递归收集含 evolution/sbc/challenge 的字段路径与样本
-        const walk = (o, path0, depth) => {
-          if (depth > 8 || res.evolutionHits.length + res.sbcHits.length > 60) return;
-          if (o && typeof o === 'object') {
-            for (const k of Object.keys(o)) {
-              const p = path0 ? path0 + '.' + k : k;
-              const lk = k.toLowerCase();
-              if (/evolution/i.test(lk)) res.evolutionHits.push(p);
-              else if (/sbc|challenge/i.test(lk)) res.sbcHits.push(p);
-              try { walk(o[k], p, depth + 1); } catch (e) {}
-            }
-          }
-        };
-        walk(j, '', 0);
-        // 取第一个 evolution 数组项样本
-        const findFirstArr = (o, depth) => {
-          if (depth > 8 || !o || typeof o !== 'object') return null;
-          for (const k of Object.keys(o)) {
-            const lk = k.toLowerCase();
-            if ((/evolution/i.test(lk) || /sbc|challenge/i.test(lk)) && Array.isArray(o[k]) && o[k][0]) return { key: k, len: o[k].length, item: o[k][0] };
-            const r = findFirstArr(o[k], depth + 1); if (r) return r;
-          }
-          return null;
-        };
-        res.sample = findFirstArr(j, 0);
-      } catch (e) { res.nextDataKeys = ['(解析失败) ' + e.message]; }
-    }
-    // RSC 分块 self.__next_f.push(...)
-    const rsc = html.match(/self\.__next_f\.push\([^)]*\)/g) || [];
-    res.rscChunks = rsc.length;
-    // 在 RSC 分块里做一次关键词命中计数
-    let evoCount = 0, sbcCount = 0;
-    for (const c of rsc) {
-      if (/evolution/i.test(c)) evoCount++;
-      if (/sbc|challenge/i.test(c)) sbcCount++;
-    }
-    res.rscEvolutionChunks = evoCount;
-    res.rscSbcChunks = sbcCount;
-    return res;
-  }
-
-  const pages = ['/evolutions', '/sbc', '/squad-building-challenges'];
-  const perPage = [];
-  for (const p of pages) {
+  // 页内 fetch 子页 HTML（同源、带 CF cookie，不会二次挑战）
+  const subPages = ['/evolutions', '/sbc', '/squad-building-challenges'];
+  const pageHtml = {};
+  for (const p of subPages) {
     try {
-      await page.goto('https://www.fut.gg' + p, { waitUntil: 'domcontentloaded', timeout: 60000 });
-      // 等水合 + 可能的客户端 fetch
-      await page.waitForTimeout(7000);
-      const html = await page.content();
-      const info = extractFromHtml(html);
-      info.page = p;
-      info.htmlLen = html.length;
-      perPage.push(info);
-      console.log(`已访问 ${p} | htmlLen=${html.length} nextData=${info.hasNextData} rscChunks=${info.rscChunks} evoHits=${info.evolutionHits.length} sbcHits=${info.sbcHits.length}`);
-      if (info.sample) console.log('  sample key=', info.sample.key, 'len=', info.sample.len, 'itemKeys=', Object.keys(info.sample.item).slice(0, 40).join(','));
-    } catch (e) { console.log('访问', p, '失败:', e.message); }
+      const info = await page.evaluate(async (path) => {
+        const r = await fetch(path, { headers: { Accept: 'text/html' }, credentials: 'same-origin' });
+        const html = await r.text();
+        const m = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
+        let keys = [], evoHits = [], sbcHits = [], sample = null;
+        if (m) {
+          try {
+            const j = JSON.parse(m[1]);
+            keys = Object.keys(j).slice(0, 20);
+            const walk = (o, pp, d) => {
+              if (d > 8 || evoHits.length + sbcHits.length > 50) return;
+              if (o && typeof o === 'object') for (const k of Object.keys(o)) {
+                const lk = k.toLowerCase();
+                if (/evolution/i.test(lk)) evoHits.push(pp ? pp + '.' + k : k);
+                else if (/sbc|challenge/i.test(lk)) sbcHits.push(pp ? pp + '.' + k : k);
+                try { walk(o[k], pp ? pp + '.' + k : k, d + 1); } catch (e) {}
+              }
+            };
+            walk(j, '', 0);
+            const findArr = (o, d) => {
+              if (d > 8 || !o || typeof o !== 'object') return null;
+              for (const k of Object.keys(o)) {
+                const lk = k.toLowerCase();
+                if ((/evolution/i.test(lk) || /sbc|challenge/i.test(lk)) && Array.isArray(o[k]) && o[k][0]) return { key: k, len: o[k].length, itemKeys: Object.keys(o[k][0]).slice(0, 40) };
+                const r2 = findArr(o[k], d + 1); if (r2) return r2;
+              }
+              return null;
+            };
+            sample = findArr(j, 0);
+          } catch (e) {}
+        }
+        // 在 HTML 里找内嵌的 api 路径
+        const apis = [...new Set((html.match(/\/api\/[A-Za-z0-9_./-]+/g) || []))];
+        return { status: r.status, htmlLen: html.length, nextData: !!m, keys, evoHits: evoHits.slice(0, 20), sbcHits: sbcHits.slice(0, 20), sample, htmlApis: apis.slice(0, 30) };
+      }, p);
+      pageHtml[p] = info;
+      console.log(`页内fetch ${p} | status=${info.status} htmlLen=${info.htmlLen} nextData=${info.nextData} evoHits=${info.evoHits.length} sbcHits=${info.sbcHits.length}`);
+      if (info.sample) console.log('  sample:', JSON.stringify(info.sample).slice(0, 300));
+      if (info.htmlApis.length) console.log('  htmlApis:', info.htmlApis.join(' '));
+    } catch (e) { console.log('页内fetch', p, '失败:', e.message); }
   }
 
-  // 过滤出与 SBC/Evo 相关的响应 URL（任意 host）
-  const relevantUrls = allResponses.filter(r => /evolution|sbc|challenge|\/api\//i.test(r.url)).slice(0, 60);
+  // 汇总所有 bundle 里发现的 api 路径（去重）
+  const allApiPaths = [...new Set(bundleSources.flatMap(b => b.apiPaths))].sort();
+  const allEvoStrings = [...new Set(bundleSources.flatMap(b => b.evoStrings))].sort();
 
   const result = {
     ver: VER,
-    pages: perPage,
-    relevantResponseUrls: relevantUrls,
-    allResponseCount: allResponses.length
+    subPageInHtml: pageHtml,
+    bundleApiPaths: allApiPaths,
+    bundleEvoStrings: allEvoStrings,
+    apiResponses
   };
   const outDir = path.resolve(__dirname, '..', 'probe');
   fs.mkdirSync(outDir, { recursive: true });
   const outPath = path.join(outDir, 'probe_sbc_evolution.json');
   fs.writeFileSync(outPath, JSON.stringify(result, null, 2));
-
-  console.log('\n===== 各页面内嵌数据摘要 =====');
-  for (const pg of perPage) {
-    console.log(`\n[${pg.page}] nextData=${pg.hasNextData} rscChunks=${pg.rscChunks} (evo=${pg.rscEvolutionChunks} sbc=${pg.rscSbcChunks})`);
-    if (pg.evolutionHits.length) console.log('  evolution 字段路径(前10):', pg.evolutionHits.slice(0, 10).join(' | '));
-    if (pg.sbcHits.length) console.log('  sbc/challenge 字段路径(前10):', pg.sbcHits.slice(0, 10).join(' | '));
-  }
-  console.log('\n===== 与 SBC/Evo 相关的响应 URL =====');
-  console.log(JSON.stringify(relevantUrls, null, 2));
+  console.log('\n===== bundle 内发现的 /api/ 路径 =====');
+  console.log(JSON.stringify(allApiPaths, null, 2));
+  console.log('\n===== bundle 内 evolution/sbc/challenge 字符串 =====');
+  console.log(JSON.stringify(allEvoStrings.slice(0, 60), null, 2));
   console.log('\n已写出', outPath);
   await browser.close();
 })().catch(e => { console.error('探查失败:', e); process.exit(1); });
