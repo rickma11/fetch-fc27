@@ -1,0 +1,82 @@
+{
+  "observedApiRequests": [
+    "https://www.fut.gg/api/discovery/whats-hot/",
+    "https://www.fut.gg/api/fut/challenges/v2/26/",
+    "https://www.fut.gg/api/fut/evolution-list/v2/26/",
+    "https://www.fut.gg/api/fut/evolutions/26/",
+    "https://www.fut.gg/api/fut/evolutions/list/26/",
+    "https://www.fut.gg/api/fut/evolutions/v2/26/",
+    "https://www.fut.gg/api/fut/games/grid/2026-09-15/?game=27",
+    "https://www.fut.gg/api/fut/players/v2/26/?page=1",
+    "https://www.fut.gg/api/fut/players/v2/27/?sorts=-pageviews",
+    "https://www.fut.gg/api/fut/sbc-challenges/26/",
+    "https://www.fut.gg/api/fut/sbc-challenges/v2/26/",
+    "https://www.fut.gg/api/fut/sbc/list/26/",
+    "https://www.fut.gg/api/fut/sbc/v2/26/",
+    "https://www.fut.gg/api/fut/squad-building-challenges/v2/26/"
+  ],
+  "probed": [
+    {
+      "url": "https://www.fut.gg/api/fut/evolutions/v2/26/",
+      "status": 404,
+      "len": 23,
+      "sampleKeys": [
+        "detail"
+      ]
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/evolutions/26/",
+      "status": 404,
+      "len": 887,
+      "sampleKeys": []
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/evolution-list/v2/26/",
+      "status": 404,
+      "len": 887,
+      "sampleKeys": []
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/sbc-challenges/v2/26/",
+      "status": 404,
+      "len": 887,
+      "sampleKeys": []
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/sbc-challenges/26/",
+      "status": 404,
+      "len": 887,
+      "sampleKeys": []
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/sbc/v2/26/",
+      "status": 404,
+      "len": 887,
+      "sampleKeys": []
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/squad-building-challenges/v2/26/",
+      "status": 404,
+      "len": 887,
+      "sampleKeys": []
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/challenges/v2/26/",
+      "status": 404,
+      "len": 887,
+      "sampleKeys": []
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/evolutions/list/26/",
+      "status": 404,
+      "len": 887,
+      "sampleKeys": []
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/sbc/list/26/",
+      "status": 404,
+      "len": 887,
+      "sampleKeys": []
+    }
+  ]
+}
