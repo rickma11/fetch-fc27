@@ -60,6 +60,16 @@ function getJson(url) {
   });
 }
 
+// 卡片来源（fut.gg item 上的标记字段）归一成单值，供小程序「卡片来源」筛选使用。
+// 优先级 SBC > 任务奖励(Objective) > 赛季通行证(Season Pass) > 卡池 —— 三者几乎互斥，
+// 万一将来出现同时命中的卡，取最"专属"的那个。isSpecial（活动特殊卡）与来源正交，不参与归一。
+function cardSourceOf(item) {
+  if (item.isSbc === true) return 'SBC';
+  if (item.isObjective === true) return 'OBJECTIVE';
+  if (item.isSeasonPass === true) return 'SEASON_PASS';
+  return 'POOL';
+}
+
 function pickPlayer(item) {
   // 六维的形态差异（FC26 对象 / FC27 扁平对象 / FC27 对象数组）统一在 sig.js 里归一化，
   // 保证「列表文档里的六维」与「签名里参与比对的六维」永远取自同一处，不会再分叉。
@@ -99,6 +109,15 @@ function pickPlayer(item) {
     rolesPlus: item.chemistryRolesPlusEaIds || [],
     rolesPlusPlus: item.chemistryRolesPlusPlusEaIds || [],
     alternativePositionIds: item.alternativePositionIds || [],
+    // 卡片来源：fut.gg item 上的 isSbc / isObjective / isSeasonPass 标记 → 单值 cardSource。
+    // ⚠️ 用 typeof 判定：字段在接口上缺失时记 null，以区分「确定不是 SBC」与「接口没给这个字段」——
+    //    fetch_ci.js 抓完会打印各字段的存在率，CI 日志里能直接看出接口是否真的提供了这些标记
+    //    （若全为 0，说明列表接口不返回来源，需改用 ?is_sbc=1 等筛选参数分桶抓取来补）。
+    isSbc: (typeof item.isSbc === 'boolean') ? item.isSbc : null,
+    isObjective: (typeof item.isObjective === 'boolean') ? item.isObjective : null,
+    isSeasonPass: (typeof item.isSeasonPass === 'boolean') ? item.isSeasonPass : null,
+    isSpecial: (typeof item.isSpecial === 'boolean') ? item.isSpecial : null,
+    cardSource: cardSourceOf(item),
     facePace: f.pace || 0,
     faceShooting: f.shooting || 0,
     facePassing: f.passing || 0,

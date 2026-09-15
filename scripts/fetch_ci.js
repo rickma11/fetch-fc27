@@ -156,6 +156,22 @@ function readSnapshot() {
     await Promise.all(Array.from({ length: Math.min(LIST_CONC, bucketCount) }, w));
     console.log('分桶翻页完成: OVR ' + OVR_MAX + '→' + OVR_MIN + ' 共 ' + bucketCount + ' 桶');
     console.log('列表抓取完成，去重后', items.length, '人');
+
+    // 「卡片来源」字段自检：确认列表接口真的回传了 isSbc / isObjective / isSeasonPass。
+    // fut.gg 前端筛选支持这三个参数，但 item 上是否回传需实证 —— 全为 0 说明标记没被回传，
+    // 「卡片来源」筛选会把所有卡静默归入「卡池」，那时需改用 ?is_sbc=1 等筛选参数分别抓取打标。
+    const srcProbe = { isSbc: 0, isObjective: 0, isSeasonPass: 0, isSpecial: 0, sampled: items.length };
+    for (const it of items) {
+      if (typeof it.isSbc === 'boolean') srcProbe.isSbc++;
+      if (typeof it.isObjective === 'boolean') srcProbe.isObjective++;
+      if (typeof it.isSeasonPass === 'boolean') srcProbe.isSeasonPass++;
+      if (typeof it.isSpecial === 'boolean') srcProbe.isSpecial++;
+    }
+    console.log('卡片来源字段自检:', JSON.stringify(srcProbe));
+    if (srcProbe.isSbc === 0 && srcProbe.isObjective === 0) {
+      console.log('⚠️ 列表接口未回传来源标记（isSbc/isObjective 全缺失）→ 卡片来源筛选将全部落「卡池」');
+    }
+
     return { items, meta, pageSize, totalPages: null, count: items.length };
   }, { BASE, LIST_CONC, OVR_MIN });
 
