@@ -92,7 +92,17 @@ const lum = (d, i) => (d[i * 4] + d[i * 4 + 1] + d[i * 4 + 2]) / 3;
 const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length / 2)]; };
 
 (async () => {
-  const players = JSON.parse(fs.readFileSync(path.join(ROOT, 'cloud-data', 'fc' + VER, 'players.json'), 'utf8'));
+  // ⚠️ 这份文件**只在 full 模式**才由 shape 重写；incremental / images-only 的 CI 里它不存在
+  //    （或只是仓库里那份历史遗留的截断快照），历史上只有 10000 条。所以：
+  //    ① 读失败绝不能崩（否则整个无像卡步骤挂掉）；② CI 里必须用 `--all`，让目标集合取自
+  //    云库（imagePath 为空的那批），而不是这份过期文件 —— 否则新出现的无像球员永远补不上 _np。
+  let players = [];
+  try {
+    players = JSON.parse(fs.readFileSync(path.join(ROOT, 'cloud-data', 'fc' + VER, 'players.json'), 'utf8'));
+  } catch (e) {
+    console.warn('⚠️ 读不到 cloud-data/fc' + VER + '/players.json（' + ((e && e.code) || e.message) +
+      '）→ 本地候选集合为空；若未加 --all，本次不会有任何目标。');
+  }
   // 当前 fut.gg 真实 imagePath（来自本次抓取的 dump，权威）：eaId -> 相对路径。
   // 用来识别「原本无半身像、现已补上」的球员，使其在下方 target 中被排除（不再生成 _np.webp），
   // 否则在 players.json 两次 full 之间过期时，会回弹重生成 _np 并把它们加回清单。
