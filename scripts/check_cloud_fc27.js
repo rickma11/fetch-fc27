@@ -12,7 +12,7 @@
  *   - rolesPlus / rolesPlusPlus 非空人数（抽样统计）
  *   - 若干带 sbcPoints 的样本
  *   - --ids 指定 eaId 逐个核查（打印 imagePath 形态 + **端上会取哪个文件**）
- *   - --files 配合 --ids：再查云存储 {eaId}_portrait/_card/_np.webp 是否存在及大小
+ *   - --files 配合 --ids：再查云存储 {eaId}.webp(半身像)/_card.webp/_np.webp 是否存在及大小
  *     ← 专治「端上显示破图」：端上按 imagePath 是否非空二选一，若取的文件不存在/是破图就露馅
  *
  * 判据（正常基线）：总数 ≈ 21000、48-89 段 > 0、<=47 段 > 0、sbcPoints > 0。
@@ -24,6 +24,9 @@ const fs = require('fs');
 const path = require('path');
 const cloudbase = require('@cloudbase/node-sdk');
 const { resolve } = require('./tcb_env');
+// 图片命名唯一真源：半身像 = `{eaId}.webp`、卡面 = `{eaId}_card.webp`
+// ⚠️ 曾在此手写 `{eaId}_portrait.webp`（不存在的名字）→ 每次核查都误报「半身像不存在」。
+const imgLib = require('./images');
 
 const argv = process.argv.slice(2);
 function opt(name, def) {
@@ -122,14 +125,21 @@ function log(s) { lines.push(s); console.log(s); }
           ' | 端上取 ' + pick +
           ' | sbcPoints=' + JSON.stringify(d.sbcPoints));
         if (checkFiles) {
-          for (const suf of ['_portrait.webp', '_card.webp', '_np.webp']) {
+          // ⚠️ 文件名以 images.js#ALL_TYPES 为准：portrait 无后缀（`{eaId}.webp`）、card 为 `_card.webp`；
+          //    `_np.webp` 是 gen_noportrait_cards.js 生成的无像卡（不在 ALL_TYPES 里，故写字面量）。
+          const files = [
+            ['半身像', imgLib.fileNameOf(id, 'portrait')],
+            ['卡面', imgLib.fileNameOf(id, 'card')],
+            ['无像卡', id + '_np.webp']
+          ];
+          for (const [label, fn] of files) {
             let size = -1;
             try {
-              const fr = await app.downloadFile({ fileID: PREFIX + id + suf });
+              const fr = await app.downloadFile({ fileID: PREFIX + fn });
               size = fr && fr.fileContent ? fr.fileContent.length : 0;
             } catch (e) { size = -1; }
-            log('      ' + id + suf + ' -> ' + (size < 0 ? '❌ 不存在' : size + ' bytes') +
-              (id + suf === pick && size < 0 ? '  ← ⚠️ 端上要用的文件不存在（会显示破图/空白）' : ''));
+            log('      ' + fn + ' [' + label + '] -> ' + (size < 0 ? '❌ 不存在' : size + ' bytes') +
+              (fn === pick && size < 0 ? '  ← ⚠️ 端上要用的文件不存在（会显示破图/空白）' : ''));
           }
         }
       } catch (e) { log('  ' + id + ': 查询失败 ' + e.message); }
