@@ -69,21 +69,46 @@ function log(s) { lines.push(s); console.log(s); }
 
   // rolesPlus / rolesPlusPlus（抽样）
   const sample = await pCol.limit(SAMPLE).get();
-  let rp = 0, rpp = 0;
+  // 图片路径新旧格式统计：旧格式 `27/players/prelaunch-photos-v2/…`（fut.gg 早期半身像路径）、
+  // 新格式 `2027/player-item/…`。**两者都是真实头像，不是占位图**；旧格式占多说明数据快照偏旧，
+  // 需重跑抓取。真正「无半身像」只认 imagePath 为空。
+  let rp = 0, rpp = 0, legacyImg = 0, emptyImg = 0;
   const sbcSamples = [];
   for (const d of sample.data) {
     if (Array.isArray(d.rolesPlus) && d.rolesPlus.length) rp++;
     if (Array.isArray(d.rolesPlusPlus) && d.rolesPlusPlus.length) rpp++;
+    if (typeof d.imagePath === 'string' && /prelaunch-photos/i.test(d.imagePath)) legacyImg++;
+    if (!d.imagePath) emptyImg++;
     if (d.sbcPoints > 0 && sbcSamples.length < 5) {
       sbcSamples.push({ eaId: d.eaId, name: d.commonName || d.lastName, overall: d.overall, sbcPoints: d.sbcPoints });
     }
   }
-  log('抽样 ' + sample.data.length + ' 人: rolesPlus 非空 ' + rp + ' | rolesPlusPlus 非空 ' + rpp);
+  log('抽样 ' + sample.data.length + ' 人: rolesPlus 非空 ' + rp + ' | rolesPlusPlus 非空 ' + rpp +
+    ' | imagePath 空 ' + emptyImg + ' | imagePath 旧格式(prelaunch) ' + legacyImg);
   if (sbcSamples.length) {
     log('sbcPoints 样本:');
     sbcSamples.forEach(s => log('  ' + JSON.stringify(s)));
   } else {
     log('sbcPoints 样本: 无（尚未回填）');
+  }
+
+  // 哨兵核查：指定 eaId 逐个打印关键字段（用于确认个案是否修复，如 --ids 216594）
+  const idsArg = opt('ids', '');
+  if (idsArg) {
+    log('--- 哨兵核查 ---');
+    for (const id of idsArg.split(',').map(s => s.trim()).filter(Boolean)) {
+      try {
+        const r = await pCol.doc(id).get();
+        const arr = Array.isArray(r.data) ? r.data : [r.data];
+        const d = arr[0];
+        if (!d) { log('  ' + id + ': 文档不存在'); continue; }
+        const isPh = typeof d.imagePath === 'string' && d.imagePath && PH_RE.test(d.imagePath);
+        log('  ' + id + ' ' + (d.commonName || d.lastName || '') + ' OVR' + d.overall +
+          ' | imagePath=' + JSON.stringify(d.imagePath) + (isPh ? ' ← ⚠️占位图' : (d.imagePath ? ' ← 真图' : ' ← 空(走 _np)')) +
+          ' | 端上显示 ' + (d.imagePath ? '{id}_card.webp' : '{id}_np.webp') +
+          ' | sbcPoints=' + JSON.stringify(d.sbcPoints));
+      } catch (e) { log('  ' + id + ': 查询失败 ' + e.message); }
+    }
   }
 
   // 健康判据
