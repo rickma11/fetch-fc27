@@ -1,10 +1,11 @@
 // 用 GitHub REST API 把工作区的若干文件提交到远端 main（单次提交，不经过 git push）。
 //
 // 为什么需要它：
-//   CI 每个工作日都会往 main 提交一次数据（snapshot/changes/facets，每周全量还会带上
-//   players.json + details.json ≈76MB）。本机仓库因此经常与远端分叉 —— 此时 `git push`
-//   会被拒（非快进），而 `git fetch` 又要拉下那几十 MB 数据。走 API 只提交「我改的这几个
-//   代码文件」，既不拉数据也不产生分叉，几秒完成。
+//   CI 每个工作日都会往 main 提交一次小文件（snapshot/changes/facets/i18n 等）。
+//   注意：全量（full）模式**不再**提交 players.json + details.json —— 这两个文件单文件常超
+//   GitHub 100MB 硬限，pre-receive 会确定性拒绝并连累整次 push。全量真源是云库，git 只留小清单。
+//   本机仓库因此经常与远端分叉 —— 此时 `git push` 会被拒（非快进），而 `git fetch` 又要拉下那
+//   几十 MB 数据。走 API 只提交「我改的这几个代码文件」，既不拉数据也不产生分叉，几秒完成。
 //
 // 用法：
 //   GH_TOKEN=xxx node scripts/push_files_api.js "<提交信息标题>" <文件1> [文件2 ...] ["!要删除的路径"]
