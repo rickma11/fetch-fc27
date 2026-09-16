@@ -118,11 +118,13 @@ function readSnapshot() {
     // 每个 OVR 桶命中数远小于 10000，桶内翻页不会越窗；全部桶并集即完整名单（含低 OVR 的 81426 等）。
     const OVR_MAX = 99;
 
-    const items = [], seen = new Set();
+    const items = [], seen = new Set(), failedOvr = [];
     const push = arr => { for (const it of arr) if (it && !seen.has(it.eaId)) { seen.add(it.eaId); items.push(it); } };
     push(first);  // 第 1 页（无过滤）的卡也并入，下方分桶会去重
 
-    // 单桶翻页：overall__gte/lte 同值，逐页抓到空页 / 404 或连续失败为止
+    // 单桶翻页：overall__gte/lte 同值，逐页抓到空页 / 404 或连续失败为止。
+    // 韧性：某页连续失败时指数退避重试；若该桶首页（pg=1）三次都失败，记进 failedOvr，
+    // 稍后由下方兜底循环用更长退避整体重试一次，避免中段 OVR（请求量最大、最易被限流）整桶丢失。
     async function fetchBucket(ovr) {
       for (let pg = 1; pg <= 2000; pg++) {
         let ok = false;
@@ -134,10 +136,10 @@ function readSnapshot() {
               if (Array.isArray(j.data) && j.data.length) { push(j.data); ok = true; }
               else return;                       // 空页 = 桶末页
             } else if (r.status === 404) { return; }
-            else { await sleep(400 * (attempt + 1)); }
-          } catch (e) { await sleep(400 * (attempt + 1)); }
+            else { await sleep(400 * Math.pow(2, attempt)); }   // 指数退避：400/800/1600ms
+          } catch (e) { await sleep(400 * Math.pow(2, attempt)); }
         }
-        if (!ok) return;                         // 连续失败放弃该桶剩余页
+        if (!ok) { if (pg === 1) failedOvr.push(ovr); return; }   // 仅首页失败记为需重试（中段桶限流多发于此）
         if (pg % 50 === 0) console.log(`  OVR ${ovr} 进度 page ${pg} 累计 ${seen.size}`);
         await sleep(60);
       }
@@ -154,7 +156,15 @@ function readSnapshot() {
     }
     const bucketCount = OVR_MAX - OVR_MIN + 1;
     await Promise.all(Array.from({ length: Math.min(LIST_CONC, bucketCount) }, w));
-    console.log('分桶翻页完成: OVR ' + OVR_MAX + '→' + OVR_MIN + ' 共 ' + bucketCount + ' 桶');
+    // 限流兜底：首页失败的桶（多为中段 OVR）集中用更长退避整体重试一次，尽量不丢球员
+    if (failedOvr.length) {
+      console.log('⚠️ 首页失败桶 ' + failedOvr.length + ' 个（OVR: ' + failedOvr.join(',') + '），退避 3s 后重试…');
+      for (const ovr of failedOvr) {
+        await sleep(3000);
+        await fetchBucket(ovr);
+      }
+    }
+    console.log('分桶翻页完成: OVR ' + OVR_MAX + '→' + OVR_MIN + ' 共 ' + bucketCount + ' 桶' + (failedOvr.length ? '（已重试 ' + failedOvr.length + ' 个失败桶）' : ''));
     console.log('列表抓取完成，去重后', items.length, '人');
 
     // 「卡片来源」字段自检：确认列表接口真的回传了 isSbc / isObjective / isSeasonPass。
@@ -174,6 +184,17 @@ function readSnapshot() {
 
     return { items, meta, pageSize, totalPages: null, count: items.length };
   }, { BASE, LIST_CONC, OVR_MIN });
+
+  // ---------- 安全闸：全量模式下列表抓取异常偏少，阻断后续（含清空云库），避免把云库写成残缺数据 ----------
+  // 正常全量名单约 21000 人；若中段 OVR 桶被限流/遗漏，listRes.items 会远小于此。
+  // 此时若继续走 full 落库（clearDocs + 全量重插），会把云库中幸存的 2 万中段球员删除，造成不可逆损坏。
+  // 因此宁可中断本次 run，也比写成残缺数据强（下次重跑即可恢复）。阈值取 19000 留出合理余量。
+  if (mode === 'full' && listRes.items.length < 19000) {
+    console.error('⚠️ 列表抓取异常偏少（' + listRes.items.length + ' 人，预期 ~21000）——疑似中段 OVR 桶被限流/遗漏。');
+    console.error('⚠️ 已阻断全量落库，防止云库被清空成残缺数据。请检查网络/限流后重跑（韧性重试已记录失败桶）。');
+    await browser.close();
+    process.exit(1);
+  }
 
   // ---------- FC_IMG_ONLY：只下图片、不抓详情/不落库（images-only 模式）----------
   // 图片下载只需要列表里的 imagePath（阶段 1 已拿到），不依赖详情（阶段 3）。
