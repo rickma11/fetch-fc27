@@ -90,11 +90,11 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
       cp.execSync(`git add ${MANIFEST_REL}`, { cwd: ROOT, stdio: 'ignore' });
       cp.execSync(`git commit -m "checkpoint: images.json auto-sync (ver ${VER})"`, { cwd: ROOT, stdio: 'ignore' });
       try {
-        cp.execSync('git push origin HEAD', { cwd: ROOT, stdio: 'ignore' });
+        cp.execSync('git push origin HEAD:main', { cwd: ROOT, stdio: 'ignore' });
       } catch (e) {
         // 可能被 probe-futgg 并发推进 origin/main 导致 non-fast-forward，拉回再推一次
         cp.execSync('git pull --rebase origin main', { cwd: ROOT, stdio: 'ignore' });
-        cp.execSync('git push origin HEAD', { cwd: ROOT, stdio: 'ignore' });
+        cp.execSync('git push origin HEAD:main', { cwd: ROOT, stdio: 'ignore' });
       }
     } catch (e) {
       // 兜底失败绝不拖累上传主流程
