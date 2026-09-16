@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '抓取模式：auto=北京时间周日全量、其余增量'
+        description: '抓取模式：auto=北京时间周日全量、其余增量；data-only=仅拉球员数据、跳过头像'
         type: choice
         default: auto
-        options: [auto, incremental, full]
+        options: [auto, incremental, full, data-only]
       img_max:
         description: '本次最多下载多少张图片，0=不限（首次全量背图填 0）'
         type: string
@@ -60,6 +60,17 @@ jobs:
           echo "img_max=$IMG" >> "$GITHUB_OUTPUT"
           echo "图片单次上限: $IMG（0=不限）"
 
+          # data-only：仅拉球员数据、完全跳过头像（下载+上传+无像卡生成），省约 2h 图流程。
+          # 落库仍走 full，确保 sbcPoints 这类新字段回填到全部球员；头像由日常/周日 run 补。
+          if [ "$IN" = "data-only" ]; then
+            echo "skip_images=true" >> "$GITHUB_OUTPUT"
+            echo "db_mode=full" >> "$GITHUB_OUTPUT"
+            echo "[data-only] 跳过头像步骤（FC_IMG=0），云库落库=full"
+          else
+            echo "skip_images=false" >> "$GITHUB_OUTPUT"
+            echo "db_mode=$MODE" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Install dependencies
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 浏览器内核交给下一步单独装，避免此处重复下载
@@ -82,8 +93,9 @@ jobs:
 
       - name: Fetch FC27 via real browser (bypass Cloudflare)
         env:
-          FC_MODE: ${{ steps.mode.outputs.mode }}
-          FC_IMG: '1'
+          FC_MODE: ${{ steps.mode.outputs.db_mode }}
+          # data-only 时 FC_IMG=0：fetch_ci.js 跳过阶段 4 图片下载（数据 dump 不受影响）
+          FC_IMG: ${{ steps.mode.outputs.skip_images == 'true' && '0' || '1' }}
           # 只下载/上传两种图：portrait(半身像) + card(FUT 卡面)。
           # simple(简约卡) 小程序端没有任何页面展示，是死数据，故跳过以省 1/3 流量与云存储。
           FC_IMG_TYPES: 'portrait,card'
@@ -106,7 +118,7 @@ jobs:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
-          FC_MODE: ${{ steps.mode.outputs.mode }}
+          FC_MODE: ${{ steps.mode.outputs.db_mode }}
         run: node scripts/upload_db.js --ver 27
 
       # 译名自动对账（2026-09-16）：EA 每次数据更新都可能冒出新的联赛/俱乐部/国家。
@@ -127,6 +139,7 @@ jobs:
       # 允许失败（continue-on-error）——脚本会把「已成功」的部分写进 images.json，
       # 下次运行按清单续传，不会重复也不会漏。
       - name: Upload player images to Cloud Storage
+        if: ${{ steps.mode.outputs.skip_images != 'true' }}
         continue-on-error: true
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
@@ -140,6 +153,7 @@ jobs:
       # 数据源就是上一步刚上传的 {eaId}_card.webp，不访问 fut.gg，因此本机也能手动补跑。
       # 放在图片上传之后：当天新出现的无像球员当天就有图。签名未变的一律跳过。
       - name: Build no-portrait cards to Cloud Storage
+        if: ${{ steps.mode.outputs.skip_images != 'true' }}
         continue-on-error: true
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
