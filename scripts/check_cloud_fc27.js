@@ -3,7 +3,7 @@
  * 云库 FC27 数据体检 —— 核对落库完整性，用于每次 data-only / full run 后回归。
  *
  * 用法：
- *   node scripts/check_cloud_fc27.js [--ver 27] [--sample 500]
+ *   node scripts/check_cloud_fc27.js [--ver 27] [--sample 500] [--ids 216594,...] [--files]
  *
  * 输出（同时打印到 stdout 与 _gh_diag/_cloud_check_fc<ver>.txt）：
  *   - players_fc27 / details_fc27 真实总数（skip 分页交叉 count()，count 有时不准）
@@ -11,8 +11,14 @@
  *   - sbcPoints 非空人数                 ← 用于确认 SBC 积分是否已回填
  *   - rolesPlus / rolesPlusPlus 非空人数（抽样统计）
  *   - 若干带 sbcPoints 的样本
+ *   - --ids 指定 eaId 逐个核查（打印 imagePath 形态 + **端上会取哪个文件**）
+ *   - --files 配合 --ids：再查云存储 {eaId}_portrait/_card/_np.webp 是否存在及大小
+ *     ← 专治「端上显示破图」：端上按 imagePath 是否非空二选一，若取的文件不存在/是破图就露馅
  *
  * 判据（正常基线）：总数 ≈ 21000、48-89 段 > 0、<=47 段 > 0、sbcPoints > 0。
+ *
+ * ⚠️ imagePath 两种格式 `27/players/prelaunch-photos-v2/…`（旧）与 `2027/player-item/…`（新）
+ *     **都是真实半身像路径**，不是占位图；只有 imagePath 为空才算「无半身像」。
  */
 const fs = require('fs');
 const path = require('path');
@@ -93,8 +99,14 @@ function log(s) { lines.push(s); console.log(s); }
   }
 
   // 哨兵核查：指定 eaId 逐个打印关键字段（用于确认个案是否修复，如 --ids 216594）
+  // 端上 utils/format.js#displayImg 的规则：imagePath 非空 → 取 {eaId}_card.webp；为空 → 取 {eaId}_np.webp。
+  // 加 --files 可再查云存储里这三个文件是否真的存在 —— 「有 imagePath 但 _card 是破图」这类
+  // 问题（如 Nabil Fekir），只查库是看不出来的，必须落到文件层。
   const idsArg = opt('ids', '');
+  const checkFiles = argv.includes('--files');
   if (idsArg) {
+    const BUCKET = '636c-' + cred.ENV_ID + '-1475854307';
+    const PREFIX = 'cloud://' + cred.ENV_ID + '.' + BUCKET + '/fc' + VER + '/images/';
     log('--- 哨兵核查 ---');
     for (const id of idsArg.split(',').map(s => s.trim()).filter(Boolean)) {
       try {
@@ -102,11 +114,24 @@ function log(s) { lines.push(s); console.log(s); }
         const arr = Array.isArray(r.data) ? r.data : [r.data];
         const d = arr[0];
         if (!d) { log('  ' + id + ': 文档不存在'); continue; }
-        const isPh = typeof d.imagePath === 'string' && d.imagePath && PH_RE.test(d.imagePath);
+        const img = typeof d.imagePath === 'string' ? d.imagePath : '';
+        const imgKind = !img ? '空(→走 _np)' : (/prelaunch-photos/i.test(img) ? '旧格式 prelaunch(真实头像)' : '新格式 player-item(真实头像)');
+        const pick = img ? id + '_card.webp' : id + '_np.webp';
         log('  ' + id + ' ' + (d.commonName || d.lastName || '') + ' OVR' + d.overall +
-          ' | imagePath=' + JSON.stringify(d.imagePath) + (isPh ? ' ← ⚠️占位图' : (d.imagePath ? ' ← 真图' : ' ← 空(走 _np)')) +
-          ' | 端上显示 ' + (d.imagePath ? '{id}_card.webp' : '{id}_np.webp') +
+          ' | imagePath=' + JSON.stringify(img) + ' [' + imgKind + ']' +
+          ' | 端上取 ' + pick +
           ' | sbcPoints=' + JSON.stringify(d.sbcPoints));
+        if (checkFiles) {
+          for (const suf of ['_portrait.webp', '_card.webp', '_np.webp']) {
+            let size = -1;
+            try {
+              const fr = await app.downloadFile({ fileID: PREFIX + id + suf });
+              size = fr && fr.fileContent ? fr.fileContent.length : 0;
+            } catch (e) { size = -1; }
+            log('      ' + id + suf + ' -> ' + (size < 0 ? '❌ 不存在' : size + ' bytes') +
+              (id + suf === pick && size < 0 ? '  ← ⚠️ 端上要用的文件不存在（会显示破图/空白）' : ''));
+          }
+        }
       } catch (e) { log('  ' + id + ': 查询失败 ' + e.message); }
     }
   }
