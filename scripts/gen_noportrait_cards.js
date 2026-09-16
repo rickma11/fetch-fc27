@@ -42,6 +42,9 @@ const crypto = require('crypto');
 const cloudbase = require('@cloudbase/node-sdk');
 const sharp = require('sharp');
 const { resolve } = require('./tcb_env');
+// 图片命名唯一真源（半身像 = `{eaId}.webp`、卡面 = `{eaId}_card.webp`、无像 = `{eaId}_np.webp`）。
+// ⚠️ 曾经在这里手写 `{eaId}_portrait.webp` —— 该文件名**根本不存在**，导致 portrait 就绪判定永久为假。
+const imgLib = require('./images');
 
 const ROOT = path.resolve(__dirname, '..');
 const VER = (() => { const i = process.argv.indexOf('--ver'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '27'; })();
@@ -167,7 +170,11 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   //      （非空→{eaId}_card.webp、空→{eaId}_np.webp）→ 端上立刻切到 _card.webp；
   //   ③ 而 _card.webp 还是按旧 cardImagePath 下载的**破图**，portrait 更要等下一次
   //      「带图片下载的 run」才会真的上传 —— 于是从「完好的通用剪影卡」退化成「破图」。
-  // 故翻转前必须确认云存储里 {eaId}_portrait.webp 真的存在：
+  // 故翻转前必须确认云存储里半身像文件真的存在。⚠️ 文件名由 `images.js#ALL_TYPES` 决定：
+  //   半身像（portrait）＝ **`{eaId}.webp`（无后缀！）**、卡面 ＝ `{eaId}_card.webp`、
+  //   无像卡 ＝ `{eaId}_np.webp`。曾在此手写 `{eaId}_portrait.webp`（不存在的名字）→ 该判定
+  //   永久为假：Phase 0 永不翻转（球员拿到真头像后仍停在剪影卡），且 `--reclaim` 会**误判**
+  //   「portrait 缺失」而把正常球员的 imagePath 清空退回剪影卡。故改用 imgLib.fileNameOf 取真源。
   //   不存在 → 不写库、不删 _np.webp，保留剪影兜底，等下次 images-only 补图后再翻。
   // ⚠️ 顺序依赖（已在 workflow 保证，勿挪动）：本步骤恒排在「Upload player images」之后，
   //    因此同一 run 内刚补上的 portrait 在这里是可见的。
@@ -177,7 +184,7 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
     if (portraitOk.has(id)) return portraitOk.get(id);
     let ok = false;
     try {
-      const r = await app.downloadFile({ fileID: PREFIX + id + '_portrait.webp' });
+      const r = await app.downloadFile({ fileID: PREFIX + imgLib.fileNameOf(id, 'portrait') });
       ok = !!(r && r.fileContent && r.fileContent.length > 0);
     } catch (e) { ok = false; }          // 不存在 / 无权限都按「未就绪」处理，保守不翻转
     portraitOk.set(id, ok);
@@ -228,7 +235,7 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
     const ready = new Set(checked.filter(x => x.ok).map(x => x.id));
     const pendingIds = checked.filter(x => !x.ok).map(x => x.id);
     if (pendingIds.length) {
-      console.log('  ⚠️ ' + pendingIds.length + ' 人 fut.gg 已给半身像路径，但云存储 {eaId}_portrait.webp 尚不存在' +
+      console.log('  ⚠️ ' + pendingIds.length + ' 人 fut.gg 已给半身像路径，但云存储 {eaId}.webp（半身像）尚不存在' +
         '（图片还没下载/上传）→ 本次**不翻转**、保留 _np.webp 兜底，避免端上退化成破图。' +
         (pendingIds.length <= 10 ? ' id: ' + pendingIds.join(',') : '（前 10 个 id: ' + pendingIds.slice(0, 10).join(',') + '）'));
     }
