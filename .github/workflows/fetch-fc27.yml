@@ -162,10 +162,8 @@ jobs:
           git add cloud-data/fc27/noportrait.json || true
           # SBC / Evolutions 抓取结果（每日更新，小文件，每次都提交）
           git add cloud-data/fc27/sbcs.json cloud-data/fc27/evolutions.json cloud-data/fc27/sbc_evo_summary.json || true
-          if [ "${{ steps.mode.outputs.mode }}" = "full" ]; then
-            # 全量数据文件体积大，只在每周全量时留一份版本快照
-            git add cloud-data/fc27/players.json cloud-data/fc27/details.json || true
-          fi
+          # ⚠️ 不再提交 players.json / details.json：全量数据单文件常超 GitHub 100MB 硬限，
+          # pre-receive 会确定性拒绝且整次 push（含小清单）一起失败。全量真源是云库，无需在 git 留版本快照。
           git commit -m "chore: FC27 ${{ steps.mode.outputs.mode }} sync $(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M')" || echo "no changes"
           # 远端 main 可能已被 probe-futgg workflow 的结果回写推进（两者并发组不同、互不排斥），
           # 也可能是「re-run failed jobs」复用了旧 checkout sha —— 盲推会 non-fast-forward 被拒。
