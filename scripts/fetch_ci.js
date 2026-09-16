@@ -119,27 +119,47 @@ function readSnapshot() {
     const OVR_MAX = 99;
 
     const items = [], seen = new Set(), failedOvr = [];
-    const push = arr => { for (const it of arr) if (it && !seen.has(it.eaId)) { seen.add(it.eaId); items.push(it); } };
+    // push 返回「本次新增（去重后）条数」——用于识别 fut.gg 的越界页行为（见 fetchBucket 注释）。
+    const push = arr => { let added = 0; for (const it of arr) if (it && !seen.has(it.eaId)) { seen.add(it.eaId); items.push(it); added++; } return added; };
     push(first);  // 第 1 页（无过滤）的卡也并入，下方分桶会去重
 
-    // 单桶翻页：overall__gte/lte 同值，逐页抓到空页 / 404 或连续失败为止。
+    // 单桶翻页：overall__gte/lte 同值，逐页抓到「桶末」为止。
+    // ⚠️ 关键坑（2026-09-17 实测）：fut.gg 对**超出末页**的 page 不返回空数组，而是**重复最后一页内容**。
+    //    实证：OVR 95 只有 2 人，但 page=5 与 page=100 都照样返回同样 2 人（Pelé / Maradona）。
+    //    所以「空页即桶末」这条永远不成立 —— 旧逻辑会把每个桶一路翻到 2000 页上限：
+    //    高 OVR 桶（91~99 合计才 ~45 人）白跑上万个请求、进度日志永远停在「累计 45」，
+    //    还大幅抬高被限流概率（中段桶正是被这些空转拖慢/触发 429）。
+    //    改法：**连续 2 页都没有新增（整页全为已见球员）** 即判定到桶末 → 空转从 2000 页降到 2~3 页。
     // 韧性：某页连续失败时指数退避重试；若该桶首页（pg=1）三次都失败，记进 failedOvr，
     // 稍后由下方兜底循环用更长退避整体重试一次，避免中段 OVR（请求量最大、最易被限流）整桶丢失。
     async function fetchBucket(ovr) {
+      let dup = 0, got = 0;                     // dup=连续零新增页数；got=本桶累计新增
       for (let pg = 1; pg <= 2000; pg++) {
-        let ok = false;
-        for (let attempt = 0; attempt < 3 && !ok; attempt++) {
+        let added = -1;                         // -1 = 本页请求未成功
+        for (let attempt = 0; attempt < 3 && added < 0; attempt++) {
           try {
             const r = await fetch(`${BASE}?overall__gte=${ovr}&overall__lte=${ovr}&page=${pg}`, { headers: { Accept: 'application/json' } });
             if (r.ok) {
               const j = await r.json();
-              if (Array.isArray(j.data) && j.data.length) { push(j.data); ok = true; }
-              else return;                       // 空页 = 桶末页
+              if (Array.isArray(j.data) && j.data.length) { added = push(j.data); }
+              else return;                       // 真空页 = 桶末页
             } else if (r.status === 404) { return; }
             else { await sleep(400 * Math.pow(2, attempt)); }   // 指数退避：400/800/1600ms
           } catch (e) { await sleep(400 * Math.pow(2, attempt)); }
         }
-        if (!ok) { if (pg === 1) failedOvr.push(ovr); return; }   // 仅首页失败记为需重试（中段桶限流多发于此）
+        if (added < 0) {
+          // 仅首页失败记为需重试（中段桶限流多发于此）
+          if (pg === 1) failedOvr.push(ovr);
+          console.log(`  OVR ${ovr} 中断：本桶 ${got} 人（第 ${pg} 页请求失败，累计 ${seen.size}）`);
+          return;
+        }
+        got += added;
+        if (added === 0) {
+          if (++dup >= 2) {                      // 连续 2 页全为已见 → 桶末（fut.gg 越界页会重复末页内容）
+            console.log(`  OVR ${ovr} 完成：本桶 ${got} 人（翻至第 ${pg} 页判定结束，累计 ${seen.size}）`);
+            return;
+          }
+        } else { dup = 0; }
         if (pg % 50 === 0) console.log(`  OVR ${ovr} 进度 page ${pg} 累计 ${seen.size}`);
         await sleep(60);
       }
