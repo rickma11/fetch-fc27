@@ -175,6 +175,21 @@ function readSnapshot() {
     return { items, meta, pageSize, totalPages: null, count: items.length };
   }, { BASE, LIST_CONC, OVR_MIN });
 
+  // ---------- FC_IMG_ONLY：只下图片、不抓详情/不落库（images-only 模式）----------
+  // 图片下载只需要列表里的 imagePath（阶段 1 已拿到），不依赖详情（阶段 3）。
+  // 因此 images-only 在阶段 1 抓列表后直接跑图片并退出，省掉最慢的详情抓取与数据落库。
+  if (String(process.env.FC_IMG_ONLY || '') === '1') {
+    if (String(process.env.FC_IMG || '1') !== '0') {
+      console.log('[images-only] 仅下载球员图片（跳过详情抓取与数据落库）');
+      const imgOnlyStats = await runImageStage();
+      console.log('[images-only] 图片下载完成，_tasks.json 已写出，结束（不落库）| 成功', imgOnlyStats.done, '失败', imgOnlyStats.failed);
+    } else {
+      console.log('[images-only] FC_IMG=0，无图片可下，直接结束');
+    }
+    await browser.close();
+    process.exit(0);
+  }
+
   // ---------- 阶段 2：Node 侧算签名 + 差异比对 ----------
   const sigs = {};
   for (const it of listRes.items) sigs[it.eaId] = sigOfRaw(it);
@@ -232,6 +247,9 @@ function readSnapshot() {
   console.log('详情抓取完成:', Object.keys(detRes.details).length, '条，失败', detRes.failed, '条');
 
   // ---------- 阶段 4：下载球员图片（按签名增量，全量模式也跳过未变的）----------
+  // 抽成 runImageStage()：images-only 模式（FC_IMG_ONLY=1）在阶段 1 抓列表后直接调用并退出，
+  //           正常 / data-only 模式在此原位调用。函数体内只看列表的 imagePath，不依赖详情。
+  async function runImageStage() {
   const imgStats = { planned: 0, done: 0, failed: 0, skipped: 0, bytes: 0, channel: '' };
   if (String(process.env.FC_IMG || '1') !== '0') {
     const manifest = imgLib.readManifest(VER);
@@ -352,6 +370,9 @@ function readSnapshot() {
   } else {
     console.log('图片下载已关闭（FC_IMG=0）');
   }
+  return imgStats;
+  }
+  const imgStats = await runImageStage();
 
   const dump = {
     mode: mode,
