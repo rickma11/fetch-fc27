@@ -120,8 +120,11 @@ function pickPlayer(item) {
     createdAt: item.createdAt || '',
     playstyles: item.playStyleEaIds || [],
     playstylesPlus: item.playStylePlusEaIds || [],
-    rolesPlus: item.chemistryRolesPlusEaIds || [],
-    rolesPlusPlus: item.chemistryRolesPlusPlusEaIds || [],
+    // ⚠️ 角色字段：列表接口字段名就是 rolesPlus / rolesPlusPlus（实测 Ronaldo=[42]/[141]）。
+    //    早期误写成 chemistryRolesPlusEaIds（那是**详情**接口的字段名），导致列表侧恒为空数组。
+    //    这里两个名字都兜底，防止 fut.gg 再改名。
+    rolesPlus: item.rolesPlus || item.chemistryRolesPlusEaIds || [],
+    rolesPlusPlus: item.rolesPlusPlus || item.chemistryRolesPlusPlusEaIds || [],
     alternativePositionIds: item.alternativePositionIds || [],
     // 卡片来源：fut.gg item 上的 isSbc / isObjective / isSeasonPass 标记 → 单值 cardSource。
     // ⚠️ 用 typeof 判定：字段在接口上缺失时记 null，以区分「确定不是 SBC」与「接口没给这个字段」——
@@ -168,12 +171,17 @@ function buildDetail(p, detRaw) {
     attributes: attributes,
     playstyles: d.playStyleEaIds || d.playstyles || p.playstyles,
     playstylesPlus: d.playStylePlusEaIds || d.playstylesPlus || p.playstylesPlus,
-    rolesPlus: d.chemistryRolesPlusEaIds || d.rolesPlus || p.rolesPlus,
-    rolesPlusPlus: d.chemistryRolesPlusPlusEaIds || d.rolesPlusPlus || p.rolesPlusPlus,
+    rolesPlus: d.rolesPlus || d.chemistryRolesPlusEaIds || p.rolesPlus,
+    rolesPlusPlus: d.rolesPlusPlus || d.chemistryRolesPlusPlusEaIds || p.rolesPlusPlus,
     alternativePositionIds: d.alternativePositionIds || p.alternativePositionIds,
-    // SBC 积分：详情接口回填（currentDbPrice 优先，price 兜底），详情缺失则沿用列表值
-    sbcPoints: (d.currentDbPrice != null) ? d.currentDbPrice
-             : (d.price != null ? d.price : (p.sbcPoints != null ? p.sbcPoints : null)),
+    // SBC 积分（fut.gg 页面那个绿钻数值）＝详情接口的 gradingScore。
+    //   实测 Mbappé(231747) gradingScore=19000，与页面「SBC 19,000」完全吻合。
+    // ⚠️ 早期误把 gradingScore 当成 GG 评分排除掉了 —— GG 评分是 ggRating / ggr（不采集），
+    //    gradingScore 是 SBC 积分，两者同名不同义，别再搞混。
+    // ⚠️ price / currentDbPrice / coinCost / pointCost 实测恒为 null/0，拿不到值，仅作兜底。
+    sbcPoints: (d.gradingScore != null) ? d.gradingScore
+             : (d.currentDbPrice != null ? d.currentDbPrice
+             : (d.price != null ? d.price : (p.sbcPoints != null ? p.sbcPoints : null))),
     // AcceleRATE 分类：7 个桶（lengthy / explosive / controlled / mostlyLengthy /
     // mostlyExplosive / controlledLengthy / controlledExplosive），元素是**化学风格英文名**
     // （如 "Sniper"），表示「用该化学风格后加速类型会变成什么」。
@@ -241,7 +249,11 @@ async function main() {
       if (eaIdSet.has(p.eaId)) continue;
       eaIdSet.add(p.eaId);
       players.push(p);
-      details[p.eaId] = buildDetail(p, (dump.details && dump.details[p.eaId]) || {});
+      const _det = buildDetail(p, (dump.details && dump.details[p.eaId]) || {});
+      details[p.eaId] = _det;
+      // SBC 积分只有详情接口有（gradingScore），回写到列表文档，
+      // 否则 players_fc27 里没有该字段、端上列表/详情页读不到。
+      if (_det.sbcPoints != null) p.sbcPoints = _det.sbcPoints;
       if (players.length % 500 === 0) console.log('  成型', players.length, '/', needSet ? needSet.size : listPlayers.length);
     }
     if (needSet) {
@@ -276,7 +288,9 @@ async function main() {
       console.log(`  详情 ${i + 1}/${players.length}: ${p.commonName} (${p.eaId})`);
       try {
         const det = await getJson(url);
-        details[p.eaId] = buildDetail(p, det);
+        const _bd = buildDetail(p, det);
+        details[p.eaId] = _bd;
+        if (_bd.sbcPoints != null) p.sbcPoints = _bd.sbcPoints;   // 同 full 分支：回写列表文档
       } catch (e) {
         console.warn('    详情失败，使用列表数据兜底:', e.message);
         details[p.eaId] = p;
