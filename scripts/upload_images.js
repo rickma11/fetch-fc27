@@ -88,7 +88,16 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
       cp.execSync('git config user.email "github-actions[bot]@users.noreply.github.com"', { cwd: ROOT, stdio: 'ignore' });
       cp.execSync('git config user.name "github-actions[bot]"', { cwd: ROOT, stdio: 'ignore' });
       cp.execSync(`git add ${MANIFEST_REL}`, { cwd: ROOT, stdio: 'ignore' });
-      cp.execSync(`git commit -m "checkpoint: images.json auto-sync (ver ${VER})"`, { cwd: ROOT, stdio: 'ignore' });
+      try {
+        cp.execSync(`git commit -m "checkpoint: images.json auto-sync (ver ${VER})"`, { cwd: ROOT, stdio: 'ignore' });
+      } catch (e) {
+        return;   // 无变化可提交 → 无需 push
+      }
+      // ⚠️ 关键：工作区必然残留未暂存改动（players.json / details.json 等仍被 git 跟踪，
+      //    每次 run 本地重新生成 → 显示为 modified）。而 git rebase/pull --rebase 要求工作区
+      //    干净，否则报 "cannot rebase: You have unstaged changes" 并失败 —— 会让本轮续传进度
+      //    全部丢失。清单已在上一步 commit 进 HEAD，故此处可安全丢弃其余未暂存改动。
+      try { cp.execSync('git reset --hard HEAD', { cwd: ROOT, stdio: 'ignore' }); } catch (e) { }
       try {
         cp.execSync('git push origin HEAD:main', { cwd: ROOT, stdio: 'ignore' });
       } catch (e) {
