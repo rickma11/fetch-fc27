@@ -90,7 +90,16 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
     try {
       const _dump = JSON.parse(fs.readFileSync(_dumpP, 'utf8'));
       const _list = Array.isArray(_dump.list) ? _dump.list : (Array.isArray(_dump.players) ? _dump.players : []);
-      for (const _it of _list) if (_it && _it.eaId != null && _it.imagePath) curImg[String(_it.eaId)] = String(_it.imagePath);
+      // ⚠️ 必须排除占位图：fut.gg 对照片未就绪的球员返回 `prelaunch-photos-v2/…`（非空但非真图）。
+      // 早期版本没过滤，于是 Phase 0 把这些球员误判成「已获半身像」→ 写库 + 删掉 _np.webp，
+      // 结果端上切到 _card.webp（照片区是 fut.gg 通用人像）＝用户看到的「未处理头像」。
+      // 正则与 fetch_futgg.js#PLACEHOLDER_IMG_RE 同源，**改一处必须同改另一处**。
+      const _PH = /prelaunch-photos|placeholder|\/no-player\//i;
+      for (const _it of _list) {
+        if (_it && _it.eaId != null && _it.imagePath && !_PH.test(String(_it.imagePath))) {
+          curImg[String(_it.eaId)] = String(_it.imagePath);
+        }
+      }
     } catch (e) { /* dump 读取失败不致命，仅失去对账能力 */ }
   }
   const cred = resolve();
