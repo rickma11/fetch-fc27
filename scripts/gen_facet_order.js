@@ -7,7 +7,7 @@
 //     · clubs 只是一个去重数组，**不含「俱乐部属于哪个联赛」的信息**，做不了「选了联赛只列该联赛球队」。
 //   产品要求的顺序：
 //     · 位置：前场 → 中场 → 后场 → 门将
-//     · 联赛：五大联赛置顶，其余按**中文显示名的拼音**
+//     · 联赛：**四段** —— ① 五大联赛 ② 女足 4 大联赛 + 中超 ③ 其他欧洲国家联赛 ④ 其余按中文拼音
 //     · 俱乐部：五大联赛热门球队置顶，其余按拼音
 //
 // 为什么拼音在这里算而不是在小程序端算：
@@ -16,7 +16,7 @@
 //   排序名取 i18n 的**中文显示名**，做到「显示什么就按什么排」；无中文映射的回落英文原名。
 //
 // 产物：eafc-miniapp/data/facetOrder.js
-//   LEAGUE_ORDER      联赛英文名有序数组（五大置顶 → 其余拼音）
+//   LEAGUE_ORDER      联赛英文名有序数组（五大 → 女足4+中超 → 其他欧洲联赛 → 其余拼音）
 //   CLUB_ORDER        俱乐部英文名有序数组（五大热门球队置顶 → 其余拼音）
 //   CLUBS_BY_LEAGUE   { 联赛英文名: [俱乐部英文名...] }，联赛内已按 CLUB_ORDER 排好
 //   POSITION_ORDER    位置顺序（前场→中场→后场→门将）
@@ -73,9 +73,11 @@ const HOT_CLUBS = [
 // 中场段内部按「中路 → 边路」排：CAM → CM → CDM → LM → RM（2026-09-15 用户指定，与 list.js 的 POS_GROUPS 一致）
 const POSITION_ORDER = ['LW', 'ST', 'RW', 'CAM', 'CM', 'CDM', 'LM', 'RM', 'LB', 'CB', 'RB', 'GK'];
 
-// 欧洲国家男子联赛（不含五大联赛）：联赛置顶段第二项。
+// 欧洲国家男子联赛（不含五大联赛）：联赛置顶段**第三项**。
 // 成员＝ utils/i18n.js LEAGUE_ZH 中「欧洲男足」条目（含各级别，如英冠/德乙/西乙/法乙等），
 // 用 i18n 权威英文名，确保与 facets 完全一致。土耳其/阿塞拜疆/塞浦路斯等 UEFA 成员联赛一并纳入。
+// ⚠️ 女足联赛**不在**本表（走下面的 WOMEN_CSL_PIN，排在它前面）；
+//    沙特职业联赛 2026-09-16 已按用户要求移出置顶段 → 落回「其余按拼音」。
 const EUROPEAN_LEAGUES = [
   'EFL Championship', 'EFL League One', 'EFL League Two',
   'LALIGA HYPERMOTION', 'Serie BKT',
@@ -90,11 +92,20 @@ const EUROPEAN_LEAGUES = [
   'Liga Azerbaijan', 'SSE Airtricity Men\'s Premier Division'
 ];
 
-// 联赛置顶段＝五大联赛 + 欧洲国家联赛 + 沙特 + 中超（其余按中文拼音排在后面）
-const LEAGUE_PIN_EXTRA = EUROPEAN_LEAGUES.concat([
-  'ROSHN Saudi League',                          // 沙特职业联赛
-  'Chinese Football Association Super League'    // 中超
-]);
+// 联赛置顶段第 2 项：女足 4 大联赛 + 中超（2026-09-16 用户指定的顺序，段内就按本数组排）。
+// 英女超 / 美国女足联赛在 i18n 里登记了多种撇号写法（fut.gg 的弯引号 ’ / ASCII ' / 无撇号），
+// 这里全列一遍：数据里不存在的会被 leagueAll 过滤掉，不会凭空多出条目。
+const WOMEN_CSL_PIN = [
+  'Barclays Women\u2019s Super League', 'Barclays Women\'s Super League', 'Barclays Womens Super League',
+  'Liga F',
+  'National Women\u2019s Soccer League', 'National Women\'s Soccer League',
+  'Arkema Première Ligue',
+  'Chinese Football Association Super League'
+];
+
+// 联赛置顶段（四段式，按段序拼接）：
+//   ① 五大联赛  ② 女足 4 大联赛 + 中超  ③ 其他欧洲国家联赛  ④ 其余按中文显示名拼音
+const LEAGUE_PIN = BIG5.concat(WOMEN_CSL_PIN, EUROPEAN_LEAGUES);
 
 // 世界杯传统强国（国家置顶段第一项）：按历史战绩大致分档，仅用于排序、不含任何评价
 const WORLDCUP_POWERS = [
@@ -217,13 +228,12 @@ function loadFromLocal() {
   const nationAll = uniq(raw.nations || []);
   console.log('联赛', leagueAll.length, '| 俱乐部', clubAll.length, '| 国家', nationAll.length);
 
-  // 联赛：五大 + 欧洲国家联赛 + 沙特 + 中超 置顶（按声明顺序）→ 其余按中文拼音
-  const pinnedLeagues = BIG5.concat(LEAGUE_PIN_EXTRA);
-  const pinnedLeagueSet = new Set(pinnedLeagues);
-  const big5 = BIG5.filter(function (l) { return leagueAll.indexOf(l) >= 0; });
+  // 联赛：① 五大联赛 ② 女足 4 大联赛 + 中超 ③ 其他欧洲国家联赛 置顶（段内按常量声明序）
+  //       → ④ 其余（含沙特、其他女足联赛）按中文显示名拼音
+  const pinnedLeagueSet = new Set(LEAGUE_PIN);
   const big5Missing = BIG5.filter(function (l) { return leagueAll.indexOf(l) < 0; });
-  const leaguePinned = pinnedLeagues.filter(function (l) { return leagueAll.indexOf(l) >= 0; });
-  const leaguePinnedMissing = pinnedLeagues.filter(function (l) { return leagueAll.indexOf(l) < 0; });
+  const leaguePinned = LEAGUE_PIN.filter(function (l) { return leagueAll.indexOf(l) >= 0; });
+  const leaguePinnedMissing = LEAGUE_PIN.filter(function (l) { return leagueAll.indexOf(l) < 0; });
   const leagueRest = pinyinSort(leagueAll.filter(function (l) { return !pinnedLeagueSet.has(l); }), 'league');
   const LEAGUE_ORDER = leaguePinned.concat(leagueRest);
 
@@ -290,12 +300,22 @@ function loadFromLocal() {
   if (nationNoZh.length) console.log('⚠ 国家缺中文映射（回落英文名）:', nationNoZh.join(', '));
 
   const zh = function (l) { return i18n.leagueZh(l); };
-  console.log('\n联赛前 12（应为五大 + 欧洲联赛开头）:');
-  LEAGUE_ORDER.slice(0, 12).forEach(function (l, i) { console.log('  ' + String(i + 1).padStart(2) + '. ' + zh(l) + '  (' + l + ')'); });
-  console.log('联赛第 13~24（欧洲联赛继续）:');
-  LEAGUE_ORDER.slice(12, 24).forEach(function (l, i) { console.log('  ' + String(i + 13).padStart(2) + '. ' + zh(l) + '  (' + l + ')'); });
-  console.log('联赛第 25~34（沙特 / 中超 / 其余按拼音）:');
-  LEAGUE_ORDER.slice(24, 34).forEach(function (l, i) { console.log('  ' + String(i + 25).padStart(2) + '. ' + zh(l) + '  (' + l + ')'); });
+  // 段边界自检：四段各自命中了多少、首尾是谁（比按固定下标切片更抗数据变化）
+  const SEGS = [
+    ['① 五大联赛', BIG5],
+    ['② 女足4大 + 中超', WOMEN_CSL_PIN],
+    ['③ 其他欧洲国家联赛', EUROPEAN_LEAGUES]
+  ];
+  console.log('\n== 联赛四段 ==');
+  SEGS.forEach(function (seg) {
+    const hit = seg[1].filter(function (l) { return leagueAll.indexOf(l) >= 0; });
+    console.log('  ' + seg[0] + '  命中 ' + hit.length + '/' + seg[1].length
+      + (hit.length ? '  ' + zh(hit[0]) + ' … ' + zh(hit[hit.length - 1]) : '  （空）'));
+  });
+  console.log('  ④ 其余（按中文拼音）  ' + leagueRest.length + ' 项  '
+    + (leagueRest.length ? zh(leagueRest[0]) + ' … ' + zh(leagueRest[leagueRest.length - 1]) : '（空）'));
+  console.log('\n联赛前 16:');
+  LEAGUE_ORDER.slice(0, 16).forEach(function (l, i) { console.log('  ' + String(i + 1).padStart(2) + '. ' + zh(l) + '  (' + l + ')'); });
   console.log('\n位置顺序:', POSITIONS.join(' → '));
   console.log('\n国家前 15（世界杯强国 + 中国 置顶，其余拼音）:');
   NATION_ORDER.slice(0, 15).forEach(function (n, i) { console.log('  ' + String(i + 1).padStart(2) + '. ' + i18n.nationZh(n) + '  (' + n + ')'); });
