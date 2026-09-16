@@ -7,12 +7,19 @@
 //   合并成一份「名字词典」写进云库 dicts/names → 端上 utils/dictSync.js 拉取后立即生效。
 //
 // 三级来源（后面的覆盖前面的）：
-//   ① eafc-miniapp/utils/i18n.js            随包发布的定死快照（人工维护，覆盖最全）
+//   ① data/i18n-bundle.json                包内词典的**快照**（由 eafc-miniapp/scripts/gen_cloud_i18n.js
+//                                          从 miniapp utils/i18n.js 生成；人工维护，覆盖最全）
 //   ② fetch-fc27/data/i18n-names.json       增长层：自动补的 + 人工补的（本脚本会回写）
 //   ③ 规则自动推导
 //        · 国家：data/country-zh.json 的「英文 → 中文」全量表（含形容词形式）
 //        · 联赛："<国家/地区> League|Liga|Ligue|…" → "<国家中文>联赛"
 //        · 俱乐部：**不做机器翻译**（EA 对未授权球队用化名，硬翻必错）→ 进 pending 报告等人工补
+//
+// ⚠️ 为什么 ① 用快照而不是直接 require miniapp 源码（2026-09-16 踩坑）：
+//    本仓库的 CI 只 checkout fetch-fc27，工作区里没有 ../eafc-miniapp。
+//    原先 `require('../eafc-miniapp/utils/i18n.js')` 在 CI 里直接 MODULE_NOT_FOUND，
+//    test/i18n.test.js 挂在 require 上 → npm test 失败 → run #26/#27 全红
+//    （本地因为有同级目录，永远复现不出来）。
 //
 // 产物：
 //   ① 云库 dicts/names 单文档 { map, counts, pending, pendingCount, updateTime, updateISO }
@@ -28,7 +35,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const MINI = path.resolve(ROOT, '..', 'eafc-miniapp');
+const MINI = path.resolve(ROOT, '..', 'eafc-miniapp');   // 仅本地开发存在，用来提醒「快照过期」；CI 里没有
+const BUNDLE_FILE = path.join(ROOT, 'data', 'i18n-bundle.json');
 const SUPP_FILE = path.join(ROOT, 'data', 'i18n-names.json');
 const COUNTRY_FILE = path.join(ROOT, 'data', 'country-zh.json');
 
@@ -92,7 +100,34 @@ async function scan(db) {
 
 // ---------- 2. 载入三级词典 ----------
 
-const bundle = require(path.join(MINI, 'utils', 'i18n.js'));
+// ① 包内词典快照 —— 仓库内的 data/i18n-bundle.json，本地与 CI 都读得到（不再 require miniapp 源码）。
+const bundle = JSON.parse(fs.readFileSync(BUNDLE_FILE, 'utf8'));
+const BUNDLE_MIN = { LEAGUE_ZH: 20, LEAGUE_SHORT_ZH: 20, CLUB_ZH: 100, NATION_ZH: 50 };
+Object.keys(BUNDLE_MIN).forEach(function (k) {
+  const n = Object.keys(bundle[k] || {}).length;
+  if (n < BUNDLE_MIN[k]) {
+    throw new Error('词典快照 ' + path.relative(ROOT, BUNDLE_FILE) + ' 的 ' + k + ' 只有 ' + n +
+      ' 条（应 >= ' + BUNDLE_MIN[k] + '）。疑似未生成或被清空 —— 拒绝继续，否则会把云端 dicts/names 写残。' +
+      '\n生成命令：cd eafc-miniapp && node scripts/gen_cloud_i18n.js');
+  }
+});
+
+// 本地开发时 miniapp 源码就在同级目录：数量对不上说明快照该重新生成了（CI 里没有这个目录，自动跳过）。
+(function warnIfBundleStale() {
+  const live = path.join(MINI, 'utils', 'i18n.js');
+  if (!fs.existsSync(live)) return;
+  try {
+    const l = require(live);
+    const stale = ['LEAGUE_ZH', 'LEAGUE_SHORT_ZH', 'CLUB_ZH', 'NATION_ZH'].filter(function (k) {
+      return Object.keys(l[k] || {}).length !== Object.keys(bundle[k] || {}).length;
+    });
+    if (stale.length) {
+      console.warn('[sync_i18n] ⚠️ 快照 data/i18n-bundle.json 与 miniapp 源码不一致（' + stale.join(' / ') +
+        '）→ 请在 eafc-miniapp 重跑 node scripts/gen_cloud_i18n.js');
+    }
+  } catch (e) { /* 源码语法问题不该拖垮对账 */ }
+})();
+
 const country = JSON.parse(fs.readFileSync(COUNTRY_FILE, 'utf8'));
 const supp = JSON.parse(fs.readFileSync(SUPP_FILE, 'utf8'));
 

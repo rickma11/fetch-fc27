@@ -17,6 +17,9 @@ data/*
 # 例外：译名对照表是 CI 的 sync_i18n.js 输入，必须入库（否则 CI 翻不出新译名）
 !data/country-zh.json
 !data/i18n-names.json
+# 例外：包内词典快照（eafc-miniapp 侧生成）。CI 只 checkout 本仓库、拿不到 miniapp 源码，
+# sync_i18n.js 必须靠它，缺了会被 BUNDLE_MIN 守卫拦下（见 2026-09-16 CI 修复）。
+!data/i18n-bundle.json
 
 # 本地云开发凭证（绝不提交；CI 走 GitHub Secrets）
 .env.local
