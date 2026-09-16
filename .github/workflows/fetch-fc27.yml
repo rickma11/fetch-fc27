@@ -218,19 +218,31 @@ jobs:
           # ⚠️ 不再提交 players.json / details.json：全量数据单文件常超 GitHub 100MB 硬限，
           # pre-receive 会确定性拒绝且整次 push（含小清单）一起失败。全量真源是云库，无需在 git 留版本快照。
           git commit -m "chore: FC27 ${{ steps.mode.outputs.mode }} sync $(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M')" || echo "no changes"
+          # ⚠️ 工作区几乎必然残留「未跟踪/未暂存」文件（fc27_dump.json、players.json、
+          #    details.json 等中间产物，故意不提交）。而 git rebase 要求工作区干净，
+          #    否则直接报 "cannot rebase: You have unstaged changes" 并以 exit 128 失败
+          #    —— 这会让整步判 failure，清单（images.json 等）一个都提交不上去。
+          #    故先整包 stash（含未跟踪），push 完成后再尝试 pop 回来。
+          STASHED=0
+          if [ -n "$(git status --porcelain)" ]; then
+            git stash push -u -m "wip-before-rebase" && STASHED=1 || echo "stash 失败，继续尝试"
+          fi
           # 远端 main 可能已被 probe-futgg workflow 的结果回写推进（两者并发组不同、互不排斥），
           # 也可能是「re-run failed jobs」复用了旧 checkout sha —— 盲推会 non-fast-forward 被拒。
           # 先变基到最新 main 再推（probe 只动 probe/，与 cloud-data/ 无冲突），带 3 次重试。
+          PUSHED=0
           for i in 1 2 3; do
             git fetch origin main
             if git rebase origin/main; then
-              if git push; then exit 0; fi
+              if git push; then PUSHED=1; break; fi
             else
               git rebase --abort
             fi
             echo "push 第 $i 次被拒，5 秒后重试..."
             sleep 5
           done
+          if [ "$STASHED" = "1" ]; then git stash pop || echo "stash pop 失败（推送已完成，残留可忽略）"; fi
+          if [ "$PUSHED" = "1" ]; then echo "push 成功"; exit 0; fi
           echo "::error::push 重试 3 次后仍失败"
           exit 1
 
