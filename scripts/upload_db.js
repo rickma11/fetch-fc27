@@ -3,8 +3,15 @@
 // 且小程序链路响应上限仅 1MB、云函数 6MB，整包返回必然失败。数据库按需查询才是正解。
 //
 // 两种模式：
-//   full        —— 建集合 → 清空 → 分批插入全量（每周兜底 & 首次基线）
+//   full        —— 按 eaId 逐条「增量覆盖」全量（upsert，绝不删除任何文档，每周兜底 & 首次基线）
 //   incremental —— 只 upsert「新增 / 变化」的文档 + 删除已下架的卡（每日默认）
+//
+// ⚠️ 关于「为什么不再清空再全插」：旧实现 full 模式是 clearDocs 清空集合 + 全量重插，
+//   这在「抓取不完整」（取消 / Cloudflare 限流 / 网络抖动）时会清空云库里完好的数据、
+//   再用残缺数据回填，造成不可逆丢失。改为 upsert（doc(eaId).set 整体覆盖）后：
+//   - 新字段（如 sbcPoints）随覆盖自然落到全部文档，无需先清空；
+//   - 缺失的球员（本次没抓到）保留在云库，只漏写、不会丢；
+//   - 真正需要破坏性重建（改 schema / 清脏数据）时，显式设 FORCE_WIPE=1 才清空。
 //
 // 凭证来自环境变量（CI 由 GitHub Secrets 注入）：TCB_ENV_ID / TCB_SECRET_ID / TCB_SECRET_KEY
 // 用法：node scripts/upload_db.js --ver 27 [--mode full|incremental|auto]
@@ -52,6 +59,7 @@ const DETAIL_BATCH = 25;    // 详情约 2KB，批次小些避免请求体过大
 const INSERT_CONC = 6;      // 全量批量插入并发
 const UPSERT_CONC = 8;      // 增量 upsert 并发
 const FULL_CONC = 10;       // 逐条 upsert 并发（add() 不可用 / 批次兜底时用）
+const FULL_UPSERT_CONC = 12; // 全量增量覆盖并发（doc(id).set 整体覆盖，按 eaId 幂等）
 
 async function ensureCollection(name) {
   try {
@@ -271,16 +279,27 @@ async function writeFacets(facets, mCol) {
     const pDocs = players.map(function (p) { return Object.assign({}, p, { _id: String(p.eaId) }); });
     const dDocs = details.map(function (d) { return Object.assign({}, d, { _id: String(d.eaId) }); });
 
-    console.log('== 全量重建', pCol, '==');
-    await ensureCollection(pCol);
-    await clearDocs(pCol);
-    const canAddWithId = await addAcceptsExplicitId(pCol);
-    await insertAll(pCol, pDocs, PLAYER_BATCH, canAddWithId);
+    // 全量「增量覆盖（不删除）」：按 eaId 逐条 set 覆盖，缺失的球员保留、新字段自然带入。
+    // 仅在显式 FORCE_WIPE=1 时才走破坏性「清空+全插」（改 schema / 清脏数据等场景）。
+    const FORCE_WIPE = process.env.FORCE_WIPE === '1';
+    if (FORCE_WIPE) {
+      console.log('⚠️ FORCE_WIPE=1：先清空再全量插入（破坏性，仅在改 schema / 清脏数据时使用）');
+      await ensureCollection(pCol);
+      await clearDocs(pCol);
+      const canAddWithId = await addAcceptsExplicitId(pCol);
+      await insertAll(pCol, pDocs, PLAYER_BATCH, canAddWithId);
+      await ensureCollection(dCol);
+      await clearDocs(dCol);
+      await insertAll(dCol, dDocs, DETAIL_BATCH, canAddWithId);
+    } else {
+      console.log('== 全量增量覆盖（不删除）', pCol, '==');
+      await ensureCollection(pCol);
+      await upsertAll(pCol, pDocs, FULL_UPSERT_CONC, 'players');
 
-    console.log('== 全量重建', dCol, '==');
-    await ensureCollection(dCol);
-    await clearDocs(dCol);
-    await insertAll(dCol, dDocs, DETAIL_BATCH, canAddWithId);
+      console.log('== 全量增量覆盖（不删除）', dCol, '==');
+      await ensureCollection(dCol);
+      await upsertAll(dCol, dDocs, FULL_UPSERT_CONC, 'details');
+    }
 
     // 筛选取值（联赛/俱乐部/稀有度…），单文档，供前端筛选面板使用
     if (fs.existsSync(fFile)) {
