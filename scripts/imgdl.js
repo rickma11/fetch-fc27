@@ -5,7 +5,10 @@
 // 所以这里准备三种通道，启动时各探一次，按「快 → 稳」取第一个可用的：
 //
 //   A. ctx.request.get           —— Node 侧直取。最快（流式、无 base64 开销），但可能被拦。
-//   B. 页面内 fetch → base64      —— 走浏览器网络栈与 cookie；需要 CDN 返回 CORS 头。
+//   B. 页面内 fetch → base64      —— 走浏览器网络栈；需要 CDN 返回 CORS 头。
+//      ⚠️ credentials 必须用 'omit'：game-assets 返回 ACAO:*（通配符），
+//      带 cookie（'include'）会被 CORS 拦截（"must not be the wildcard '*' when
+//      the request's credentials mode is 'include'"，2026-09-16 线上实锤）。
 //   C. <img> 触发加载 + 监听 response.body() —— 走浏览器网络栈，不需要 CORS，最稳但最慢。
 //
 // 探测只在 1 个 URL 上各跑一次，成本可忽略；选定后整批用它，
@@ -31,7 +34,7 @@ async function methodA(ctx, url, file, ua) {
 
 async function methodB(page, url, file) {
   const b64 = await page.evaluate(async (u) => {
-    const r = await fetch(u, { credentials: 'include' });
+    const r = await fetch(u, { credentials: 'omit' });
     if (!r.ok) throw new Error('status ' + r.status());
     const buf = await r.arrayBuffer();
     const bytes = new Uint8Array(buf);
