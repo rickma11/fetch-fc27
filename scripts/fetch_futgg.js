@@ -70,6 +70,20 @@ function cardSourceOf(item) {
   return 'POOL';
 }
 
+// 半身像路径归一：fut.gg 对「真实照片尚未就绪」的球员会返回**占位图**路径
+// （实测 `27/players/prelaunch-photos-v2/{eaId}.webp`）—— 它非空，但根本不是真实半身像。
+// 若当成真图写库会连坏两处：
+//   ① 端上 displayImg() 判定「有半身像」→ 显示 _card.webp，而那是 fut.gg 原始卡面，
+//      照片区是它自己烘焙的通用人像/破图残留 —— 看上去就是「未处理的头像」；
+//   ② gen_noportrait_cards 的 Phase 0 对账会误判该球员「已获半身像」→ 写库并
+//      **删掉**我们辛苦生成的通用剪影卡 _np.webp，处理好的卡面被破坏。
+// 故在采集层就把占位图归一成空串，与「真正无半身像」同口径。
+// ⚠️ sig.js 的签名不含 imagePath，此改动不会触发全量重抓（增量安全）。
+const PLACEHOLDER_IMG_RE = /prelaunch-photos|placeholder|\/no-player\//i;
+function realImagePath(v) {
+  return (typeof v === 'string' && v && !PLACEHOLDER_IMG_RE.test(v)) ? v : '';
+}
+
 function pickPlayer(item) {
   // 六维的形态差异（FC26 对象 / FC27 扁平对象 / FC27 对象数组）统一在 sig.js 里归一化，
   // 保证「列表文档里的六维」与「签名里参与比对的六维」永远取自同一处，不会再分叉。
@@ -99,7 +113,7 @@ function pickPlayer(item) {
     // ⚠️ 它返回副本、不改 raw item，所以签名（sigSource 读原始 rarityName）不受影响，
     //    不会因为这次改动触发全量重抓详情。
     rarity: normalizeRarity(item),
-    imagePath: item.imagePath || '',
+    imagePath: realImagePath(item.imagePath),
     cardImagePath: item.cardImagePath || '',
     simpleCardImagePath: item.simpleCardImagePath || '',
     socialImagePath: item.socialImagePath || '',
@@ -157,6 +171,9 @@ function buildDetail(p, detRaw) {
     rolesPlus: d.chemistryRolesPlusEaIds || d.rolesPlus || p.rolesPlus,
     rolesPlusPlus: d.chemistryRolesPlusPlusEaIds || d.rolesPlusPlus || p.rolesPlusPlus,
     alternativePositionIds: d.alternativePositionIds || p.alternativePositionIds,
+    // SBC 积分：详情接口回填（currentDbPrice 优先，price 兜底），详情缺失则沿用列表值
+    sbcPoints: (d.currentDbPrice != null) ? d.currentDbPrice
+             : (d.price != null ? d.price : (p.sbcPoints != null ? p.sbcPoints : null)),
     // AcceleRATE 分类：7 个桶（lengthy / explosive / controlled / mostlyLengthy /
     // mostlyExplosive / controlledLengthy / controlledExplosive），元素是**化学风格英文名**
     // （如 "Sniper"），表示「用该化学风格后加速类型会变成什么」。
