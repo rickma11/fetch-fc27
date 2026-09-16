@@ -15,6 +15,7 @@
 // 用法：node scripts/upload_images.js --ver 27
 const fs = require('fs');
 const path = require('path');
+const cp = require('child_process');
 const cloudbase = require('@cloudbase/node-sdk');
 const { resolve } = require('./tcb_env');
 const imgLib = require('./images');
@@ -76,12 +77,37 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const doneFiles = new Set();
   let failed = 0, bytes = 0, sinceFlush = 0;
 
+  // 续传兜底：上传过程中把 images.json 清单实时推回 git，
+  // 这样即便 job 在 timeout-minutes(300) 硬超时下被强杀（连 if:always() 步骤都不会执行），
+  // 已上传的部分也已记账并入库，下次 run 只补剩下的，不会从头重来。
+  // 仅在 GitHub Actions 环境生效；本地手动跑不触发 push（避免污染本地仓库）。
+  const MANIFEST_REL = path.join('cloud-data', `fc${VER || 27}`, 'images.json');
+  function gitCheckpoint() {
+    if (process.env.GITHUB_ACTIONS !== 'true') return;
+    try {
+      cp.execSync('git config user.email "github-actions[bot]@users.noreply.github.com"', { cwd: ROOT, stdio: 'ignore' });
+      cp.execSync('git config user.name "github-actions[bot]"', { cwd: ROOT, stdio: 'ignore' });
+      cp.execSync(`git add ${MANIFEST_REL}`, { cwd: ROOT, stdio: 'ignore' });
+      cp.execSync(`git commit -m "checkpoint: images.json auto-sync (ver ${VER})"`, { cwd: ROOT, stdio: 'ignore' });
+      try {
+        cp.execSync('git push origin HEAD', { cwd: ROOT, stdio: 'ignore' });
+      } catch (e) {
+        // 可能被 probe-futgg 并发推进 origin/main 导致 non-fast-forward，拉回再推一次
+        cp.execSync('git pull --rebase origin main', { cwd: ROOT, stdio: 'ignore' });
+        cp.execSync('git push origin HEAD', { cwd: ROOT, stdio: 'ignore' });
+      }
+    } catch (e) {
+      // 兜底失败绝不拖累上传主流程
+    }
+  }
+
   // 边传边记账：清单只在「某球员所有图都成功」时才收录，避免记下残缺状态
   function flush() {
     const merged = Object.assign({}, manifest, doneEa);
     const written = imgLib.writeManifest(VER, merged);
     doneFiles.forEach(f => { try { fs.unlinkSync(path.join(IMG_DIR, f)); } catch (e) { } });
     console.log(`  [记账] 清单已更新 ${Object.keys(written).length} 人 | 本次完整 ${Object.keys(doneEa).length} 人 | 已传 ${Math.round(bytes / 1048576)} MB`);
+    gitCheckpoint();
     return written;
   }
 
