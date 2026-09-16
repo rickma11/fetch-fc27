@@ -2,7 +2,7 @@
  * 生成通用半身剪影素材 assets/noportrait/silhouette.png（供 gen_noportrait_cards.js 使用）。
  * 仅在需要更换剪影形状时跑一次。两种输入模式：
  *
- *   ① 已经是干净剪影（透明底 PNG，如用户直接给的 tytx.png）：
+ *   ① 已经是干净剪影（透明底 PNG，如用户裁好右肩缺口的 tytx.png）：
  *      node scripts/make_noportrait_silhouette.js --plain --src <剪影图>
  *      → 只做「裁到自己的人形包围盒」，去掉四周留白，让 gen 脚本能用「宽/中心/底边」三个
  *        数就把人像摆到位（留白会让目标尺寸算不准）。
@@ -13,7 +13,13 @@
  *        （通道极差 < 22 且 亮度 128~205）取掩膜，再做 7x7 形态学闭运算（>55% 实心 / >25% 半透明）
  *        得到带 1px 羽化的 alpha。
  *
- * 当前素材来源（2026-09-16）：用户提供的 tytx.png，用模式①生成，输出 541x477。
+ * 当前素材来源（2026-09-16）：`assets/noportrait/tytx-source.png`（用户提供并手工裁掉右肩缺口），
+ * 用模式①生成，输出 535x477。⚠️ 源图**必须留在 `fetch-fc27/assets/` 下**，不能放回
+ * `eafc-miniapp/images/` —— 小程序包内所有图片/音频都会计入微信「图片和音频资源 ≤200K」
+ * 的**体积总和**（含零引用文件），源图 100KB 放进去会把额度吃掉一半（详见
+ * `eafc-miniapp/项目交接与继续指南.md` §9.4）。
+ * 换素材：把新图放 `assets/noportrait/`，用 `--plain --src assets/noportrait/<新图>` 重跑。
+ * 剪影文件内容进 `gen_noportrait_cards.js` 的签名 → 换素材后已生成的卡自动判过期，无需 --force。
  */
 const fs = require('fs');
 const path = require('path');
