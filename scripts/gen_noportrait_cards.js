@@ -17,8 +17,13 @@
  *   node scripts/gen_noportrait_cards.js --ver 27 --force         # 全量重生成
  *   node scripts/gen_noportrait_cards.js --ver 27 --dry --only 229153,246070
  *   node scripts/gen_noportrait_cards.js --ver 27 --no-upload     # 只出图不上传（本地检查用）
+ *   node scripts/gen_noportrait_cards.js --ver 27 --reclaim 216594   # 救急：把破图球员回退到 _np.webp
+ *   node scripts/gen_noportrait_cards.js --ver 27 --reclaim-all      # 救急：扫清单内全部球员做同样回退
  * 选项：
  *   --ver 26|27   版本（默认 27）
+ *   --reclaim <ids>  反向回收：imagePath 非空但 portrait 缺失、且 _np.webp 完好的球员，
+ *                    清空 imagePath 让端上回退剪影卡（修「破图」）。默认关闭，救急用。
+ *   --reclaim-all    同上，范围改为 noportrait 清单内全部球员。
  *   --all         目标集合取自云库（imagePath 为空且有卡面），而不是本地 players.json
  *   --conc N      并发上传数（默认 4）
  *   --sil-width N 剪影宽度（默认 340）
@@ -47,6 +52,10 @@ const DRY = process.argv.includes('--dry');
 const ALL = process.argv.includes('--all');
 const NO_UPLOAD = process.argv.includes('--no-upload');
 const ONLY = (() => { const i = process.argv.indexOf('--only'); return i >= 0 && process.argv[i + 1] ? new Set(process.argv[i + 1].split(',')) : null; })();
+// 反向回收（救急用，默认关闭）：把「已退化成破图」的球员回退到通用剪影卡，见 Phase 0b 说明。
+//   --reclaim <id,id,…>  只处理指定球员   --reclaim-all  处理 noportrait 清单内全部球员
+const RECLAIM_IDS = (() => { const i = process.argv.indexOf('--reclaim'); return i >= 0 && process.argv[i + 1] ? new Set(process.argv[i + 1].split(',').map(s => s.trim()).filter(Boolean)) : null; })();
+const RECLAIM_ALL = process.argv.includes('--reclaim-all');
 
 // ---- 版式参数（500x698 卡面基准）----
 const REG = { x0: 96, y0: 96, x1: 434, y1: 180 };          // 建底板用的观察区
@@ -151,6 +160,39 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   const PARAMS = NP_PARAMS + '|silfile:' +
     crypto.createHash('sha1').update(silBufFull).digest('hex').slice(0, 8);
 
+  // ---- Phase 0 前置校验：portrait 文件是否真的已落到云存储 ----
+  // ⚠️ 「云库 imagePath 非空」**不等于**「半身像文件已就绪」。实测退化链（Nabil Fekir 216594）：
+  //   ① fut.gg 给该球员补了 imagePath → upload_db 落库时把它写进去（签名刻意不含 imagePath，
+  //      所以增量也会写）；② 微信小程序 utils/format.js#displayImg 只按该字段二选一
+  //      （非空→{eaId}_card.webp、空→{eaId}_np.webp）→ 端上立刻切到 _card.webp；
+  //   ③ 而 _card.webp 还是按旧 cardImagePath 下载的**破图**，portrait 更要等下一次
+  //      「带图片下载的 run」才会真的上传 —— 于是从「完好的通用剪影卡」退化成「破图」。
+  // 故翻转前必须确认云存储里 {eaId}_portrait.webp 真的存在：
+  //   不存在 → 不写库、不删 _np.webp，保留剪影兜底，等下次 images-only 补图后再翻。
+  // ⚠️ 顺序依赖（已在 workflow 保证，勿挪动）：本步骤恒排在「Upload player images」之后，
+  //    因此同一 run 内刚补上的 portrait 在这里是可见的。
+  const PORTRAIT_CHECK_CONC = 8;
+  const portraitOk = new Map();          // id -> 是否存在（同一次运行内缓存）
+  const hasPortrait = async function (id) {
+    if (portraitOk.has(id)) return portraitOk.get(id);
+    let ok = false;
+    try {
+      const r = await app.downloadFile({ fileID: PREFIX + id + '_portrait.webp' });
+      ok = !!(r && r.fileContent && r.fileContent.length > 0);
+    } catch (e) { ok = false; }          // 不存在 / 无权限都按「未就绪」处理，保守不翻转
+    portraitOk.set(id, ok);
+    return ok;
+  };
+  const checkPortraits = async function (ids) {
+    const out = [];
+    for (let i = 0; i < ids.length; i += PORTRAIT_CHECK_CONC) {
+      const batch = ids.slice(i, i + PORTRAIT_CHECK_CONC);
+      const rs = await Promise.all(batch.map(async id => ({ id, ok: await hasPortrait(id) })));
+      for (const r of rs) out.push(r);
+    }
+    return out;
+  };
+
   // ---- Phase 0：对账「已获半身像」的球员（fut.gg 补图后自动切回真实卡面）----
   // 列表签名(sig.js)刻意不含 imagePath，故补半身像不会改变签名 → 不会进入增量落库包 →
   // 云数据库里的 imagePath 始终是空 → 小程序端 displayImg() 继续判定「无像」、沿用 _np.webp。
@@ -180,10 +222,25 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
     } catch (e) { console.warn('  [reconcile] 查询空头像球员失败: ' + ((e && e.message) || e)); }
   }
   if (gained.length || missed.length) {
+    // 前置校验：只有 portrait 真的躺在云存储里，才算「已获半身像」、才允许翻转（详见 hasPortrait 上方说明）
+    const allIds = gained.concat(missed);
+    const checked = await checkPortraits(allIds);
+    const ready = new Set(checked.filter(x => x.ok).map(x => x.id));
+    const pendingIds = checked.filter(x => !x.ok).map(x => x.id);
+    if (pendingIds.length) {
+      console.log('  ⚠️ ' + pendingIds.length + ' 人 fut.gg 已给半身像路径，但云存储 {eaId}_portrait.webp 尚不存在' +
+        '（图片还没下载/上传）→ 本次**不翻转**、保留 _np.webp 兜底，避免端上退化成破图。' +
+        (pendingIds.length <= 10 ? ' id: ' + pendingIds.join(',') : '（前 10 个 id: ' + pendingIds.slice(0, 10).join(',') + '）'));
+    }
+    const g = gained.filter(id => ready.has(id));
+    const m = missed.filter(id => ready.has(id));
     if (DRY) {
-      console.log('对账[dry]：清单内 ' + gained.length + ' + 云库空头像漏网 ' + missed.length + ' 名球员已获 fut.gg 半身像，将切回真实卡面（dry 模式不写库/不删孤儿/不改清单）');
+      console.log('对账[dry]：清单内 ' + gained.length + ' + 云库空头像漏网 ' + missed.length +
+        ' 名球员已获半身像路径，其中 portrait 已就绪 ' + (g.length + m.length) + ' 人将切回真实卡面（dry 不写库/不删孤儿/不改清单）');
+    } else if (!g.length && !m.length) {
+      console.log('对账：' + allIds.length + ' 人已获半身像路径，但 portrait 均未就绪 → 本次不翻转（保留 _np.webp 兜底）');
     } else {
-      console.log('对账：清单内 ' + gained.length + ' + 云库空头像漏网 ' + missed.length + ' 名球员已获 fut.gg 半身像，切回真实卡面…');
+      console.log('对账：portrait 已就绪 ' + (g.length + m.length) + ' 人（清单内 ' + g.length + ' + 漏网 ' + m.length + '），切回真实卡面…');
       let okDb = 0, okDel = 0;
       const flip = async function (id, inManifest) {
         const imgPath = curImg[id];
@@ -196,13 +253,49 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
         catch (e) { /* 孤儿删除失败不致命 */ }
         if (inManifest) delete manifest[id];
       };
-      for (const id of gained) await flip(id, true);
-      for (const id of missed) await flip(id, false);
-      console.log('  → DB 更新 ' + okDb + ' 人 | 孤儿 _np.webp 删除 ' + okDel + ' 张 | 清单移除 ' + gained.length + ' 人（漏网 ' + missed.length + ' 人不占清单）');
+      for (const id of g) await flip(id, true);
+      for (const id of m) await flip(id, false);
+      console.log('  → DB 更新 ' + okDb + ' 人 | 孤儿 _np.webp 删除 ' + okDel + ' 张 | 清单移除 ' + g.length + ' 人（漏网 ' + m.length + ' 人不占清单）');
     }
   } else {
     console.log('对账：noportrait 清单中暂无球员已获半身像');
   }
+
+  // ---- Phase 0b：反向回收「已退化成破图」的球员（救急，默认关闭）----
+  // 场景：云库 imagePath 非空 → 端上取 {eaId}_card.webp，但 portrait 从未上传成功，
+  //       _card 还是按旧 cardImagePath 下载的**破图**；而 _np.webp（通用剪影卡）完好却用不上。
+  //       实例：Nabil Fekir 216594（portrait 缺失 + _card 破图 + _np 完好 33044 B）。
+  // 做法：确认 _np.webp 确实存在的前提下，把 imagePath 清空 → displayImg() 自动回退 _np.webp。
+  //       等下次 images-only 补齐 portrait/card 后，Phase 0 正向对账会把它翻回真实卡面。
+  // ⚠️ 只在 _np.webp 存在时才回退：否则会把「破图」变成「完全空白」，比现状更糟。
+  // ⚠️ 默认关闭 —— 日常 run 不该自动改这个字段（正向对账已能防住未来的退化）。
+  if (RECLAIM_IDS || RECLAIM_ALL) {
+    const ids = RECLAIM_IDS ? [...RECLAIM_IDS] : Object.keys(manifest);
+    console.log('反向回收：检查 ' + ids.length + ' 名球员（--reclaim' + (RECLAIM_ALL ? '-all' : '') + '）…');
+    let rOk = 0, rNoImg = 0, rHasPortrait = 0, rNoNp = 0;
+    for (const id of ids) {
+      let d = null;
+      try { const r = await db.collection('players_fc' + VER).doc(id).get(); d = (Array.isArray(r.data) ? r.data : [r.data])[0]; }
+      catch (e) { continue; }
+      if (!d) continue;
+      const img = typeof d.imagePath === 'string' ? d.imagePath : '';
+      if (!img) { rNoImg++; continue; }                       // 本就走 _np，无需处理
+      if (await hasPortrait(id)) { rHasPortrait++; continue; } // portrait 已就绪 → 正常，不动
+      let hasNp = false;
+      try { const fr = await app.downloadFile({ fileID: PREFIX + id + '_np.webp' }); hasNp = !!(fr && fr.fileContent && fr.fileContent.length); }
+      catch (e) { hasNp = false; }
+      if (!hasNp) { rNoNp++; console.warn('  ⚠️ ' + id + ' imagePath 非空但 portrait 缺失，且 _np.webp 也不存在 → 不动（回退会变空白）'); continue; }
+      if (DRY) { console.log('  [dry] ' + id + ' 将清空 imagePath（portrait 缺失、_np 完好）→ 端上回退 _np.webp'); rOk++; continue; }
+      try {
+        await db.collection('players_fc' + VER).doc(id).update({ data: { imagePath: '' } });
+        await db.collection('details_fc' + VER).doc(id).update({ data: { imagePath: '' } });
+        rOk++;
+      } catch (e) { console.warn('  [reclaim] 清空 ' + id + ' 失败: ' + ((e && e.message) || e)); }
+    }
+    console.log('  → 已回退 ' + rOk + ' 人 | 本就无 imagePath ' + rNoImg + ' 人（跳过） | portrait 已就绪 ' +
+      rHasPortrait + ' 人（跳过） | _np 也缺 ' + rNoNp + ' 人（不敢动）');
+  }
+
   // 没有任何需要生成的卡面时，仍写出已对账清理的清单并结束（避免无谓的底板/剪影计算）
   if (!target.length) {
     if (!DRY) fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 1));
