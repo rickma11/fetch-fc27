@@ -191,6 +191,9 @@ jobs:
       # 建一张干净底板抹掉残留，再叠一枚通用灰色半身剪影，输出 {eaId}_np.webp 给小程序展示。
       # 数据源就是上一步刚上传的 {eaId}_card.webp，不访问 fut.gg，因此本机也能手动补跑。
       # 放在图片上传之后：当天新出现的无像球员当天就有图。签名未变的一律跳过。
+      # ⚠️ 必须带 `--all`：目标集合改从**云库**取（imagePath 为空的球员），而不是仓库里那份
+      #    只在 full 模式才更新的 players.json（历史上是 10000 条截断快照）—— 否则新出现的
+      #    无像球员不在那份文件里，永远拿不到 _np.webp，端上会显示空白。
       - name: Build no-portrait cards to Cloud Storage
         if: ${{ steps.mode.outputs.run_np == 'true' }}
         continue-on-error: true
@@ -198,7 +201,7 @@ jobs:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
-        run: node scripts/gen_noportrait_cards.js --ver 27
+        run: node scripts/gen_noportrait_cards.js --ver 27 --all
 
       # 注意：必须放在落库成功之后。快照只有在数据确实写进数据库后才能推进，
       # 否则一旦落库失败，下次增量会误判「无变化」而永久漏数据。
