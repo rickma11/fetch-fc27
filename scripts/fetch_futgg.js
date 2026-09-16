@@ -113,7 +113,7 @@ function pickPlayer(item) {
     // ⚠️ 它返回副本、不改 raw item，所以签名（sigSource 读原始 rarityName）不受影响，
     //    不会因为这次改动触发全量重抓详情。
     rarity: normalizeRarity(item),
-    imagePath: realImagePath(item.imagePath),
+    imagePath: item.imagePath || '',
     cardImagePath: item.cardImagePath || '',
     simpleCardImagePath: item.simpleCardImagePath || '',
     socialImagePath: item.socialImagePath || '',
