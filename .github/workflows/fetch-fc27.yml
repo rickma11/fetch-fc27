@@ -55,10 +55,11 @@ jobs:
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "本次模式: $MODE（北京时间 $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M %A')）"
 
-          # 数据落库开关：data-only / images-only / no-portrait-only 都不落库球员数据
-          # （只做图或只做无像卡），避免无谓的重抓与全量重插。
+          # 数据落库开关：只有「只做图 / 只做无像卡」两种模式跳过落库。
+          # ⚠️ data-only **绝不能**跳：它的全部意义就是重塑数据并落库（新字段靠它回填）。
+          #    2026-09-17 踩坑：曾把 data-only 也列进来 → run#34 抓完 21242 人却不落库，白跑 53min。
           case "$IN" in
-            data-only|images-only|no-portrait-only) SKIP_DB=true ;;
+            images-only|no-portrait-only) SKIP_DB=true ;;
             *) SKIP_DB=false ;;
           esac
           echo "skip_db=$SKIP_DB" >> "$GITHUB_OUTPUT"
