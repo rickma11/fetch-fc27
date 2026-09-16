@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: '抓取模式：auto=北京时间周日全量、其余增量；data-only=仅拉球员数据、跳过头像'
+        description: '抓取模式：auto=北京时间周日全量、其余增量；data-only=仅拉球员数据跳过头像；images-only=仅下载球员图片（不抓数据）；no-portrait-only=仅基于云存储已有卡面重做无头像卡面'
         type: choice
         default: auto
-        options: [auto, incremental, full, data-only]
+        options: [auto, incremental, full, data-only, images-only, no-portrait-only]
       img_max:
         description: '本次最多下载多少张图片，0=不限（首次全量背图填 0）'
         type: string
@@ -55,17 +55,47 @@ jobs:
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "本次模式: $MODE（北京时间 $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M %A')）"
 
-          IMG='${{ github.event.inputs.img_max }}'
-          if [ -z "$IMG" ]; then IMG=1500; fi   # 定时任务默认每次最多补 1500 张
+          # 数据落库开关：data-only / images-only / no-portrait-only 都不落库球员数据
+          # （只做图或只做无像卡），避免无谓的重抓与全量重插。
+          case "$IN" in
+            data-only|images-only|no-portrait-only) SKIP_DB=true ;;
+            *) SKIP_DB=false ;;
+          esac
+          echo "skip_db=$SKIP_DB" >> "$GITHUB_OUTPUT"
+
+          # 整体跳过抓取步骤：no-portrait-only 不需要列表/详情/图片，
+          # 直接基于云存储里已有的 {eaId}_card.webp 生成无像卡面。
+          if [ "$IN" = "no-portrait-only" ]; then SKIP_FETCH=true; else SKIP_FETCH=false; fi
+          echo "skip_fetch=$SKIP_FETCH" >> "$GITHUB_OUTPUT"
+
+          # 图片模式：images-only 让 fetch_ci 只抓列表+下图片就退出（FC_IMG_ONLY=1），不抓详情。
+          if [ "$IN" = "images-only" ]; then FC_IMG_ONLY=1; else FC_IMG_ONLY=; fi
+          echo "fc_img_only=$FC_IMG_ONLY" >> "$GITHUB_OUTPUT"
+
+          # 是否跑无像卡生成：data-only 跳过（图整段都跳）；其余都跑。
+          if [ "$IN" = "data-only" ]; then RUN_NP=false; else RUN_NP=true; fi
+          echo "run_np=$RUN_NP" >> "$GITHUB_OUTPUT"
+
+          # 图片单次上限：images-only 默认 0（不限，专门补图，run 可配更长 timeout）；其余用输入或默认 1500。
+          if [ "$IN" = "images-only" ]; then
+            IMG=0
+          else
+            IMG='${{ github.event.inputs.img_max }}'
+            if [ -z "$IMG" ]; then IMG=1500; fi
+          fi
           echo "img_max=$IMG" >> "$GITHUB_OUTPUT"
           echo "图片单次上限: $IMG（0=不限）"
 
-          # data-only：仅拉球员数据、完全跳过头像（下载+上传+无像卡生成），省约 2h 图流程。
-          # 落库仍走 full，确保 sbcPoints 这类新字段回填到全部球员；头像由日常/周日 run 补。
+          # 跳过头像下载+上传：data-only 与 no-portrait-only 都不下新图（后者基于已有 card.webp）。
+          # 仍跑无像卡生成的看 RUN_NP；Upload player images 看 skip_images。
           if [ "$IN" = "data-only" ]; then
             echo "skip_images=true" >> "$GITHUB_OUTPUT"
             echo "db_mode=full" >> "$GITHUB_OUTPUT"
             echo "[data-only] 跳过头像步骤（FC_IMG=0），云库落库=full"
+          elif [ "$IN" = "no-portrait-only" ]; then
+            echo "skip_images=true" >> "$GITHUB_OUTPUT"
+            echo "db_mode=$MODE" >> "$GITHUB_OUTPUT"
+            echo "[no-portrait-only] 跳过抓取与图片上传，仅基于云存储已有 card.webp 生成无像卡面"
           else
             echo "skip_images=false" >> "$GITHUB_OUTPUT"
             echo "db_mode=$MODE" >> "$GITHUB_OUTPUT"
@@ -92,10 +122,14 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Fetch FC27 via real browser (bypass Cloudflare)
+        # no-portrait-only 跳过整个抓取（直接基于云存储已有卡面建无像卡）
+        if: ${{ steps.mode.outputs.skip_fetch != 'true' }}
         env:
           FC_MODE: ${{ steps.mode.outputs.db_mode }}
           # data-only 时 FC_IMG=0：fetch_ci.js 跳过阶段 4 图片下载（数据 dump 不受影响）
+          # images-only 时 FC_IMG_ONLY=1：fetch_ci.js 抓列表后只下图片并退出，不抓详情/不落库
           FC_IMG: ${{ steps.mode.outputs.skip_images == 'true' && '0' || '1' }}
+          FC_IMG_ONLY: ${{ steps.mode.outputs.fc_img_only }}
           # 只下载/上传两种图：portrait(半身像) + card(FUT 卡面)。
           # simple(简约卡) 小程序端没有任何页面展示，是死数据，故跳过以省 1/3 流量与云存储。
           FC_IMG_TYPES: 'portrait,card'
@@ -104,16 +138,19 @@ jobs:
         run: node scripts/fetch_ci.js
 
       - name: Shape data (offline)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
         run: node scripts/fetch_futgg.js --from-dump fc27_dump.json --ver 27 --no-local
 
       # SBC / Evolutions 抓取（与球员管线同一套真实浏览器过 CF 机制，独立步骤、独立浏览器）
       # 输出 cloud-data/fc27/sbcs.json + evolutions.json + sbc_evo_summary.json
       # FC27 SBC 当前尚未上线 → 写出空数组，等上线后自动有数据；Evolution 同理。
       - name: Scrape SBC & Evolutions (real browser bypass Cloudflare)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
         continue-on-error: true
         run: node scripts/scrape_sbc_evolutions.js --ver 27
 
       - name: Upload to CloudBase Database
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
@@ -129,6 +166,7 @@ jobs:
       # 结果写云库 dicts/names，端上启动拉取后立即生效 —— **新联赛/新国家不用重新发版**。
       # 必须放在落库之后（要扫当天最新数据）。
       - name: Sync i18n names to cloud (auto-translate new leagues/clubs/nations)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
@@ -153,7 +191,7 @@ jobs:
       # 数据源就是上一步刚上传的 {eaId}_card.webp，不访问 fut.gg，因此本机也能手动补跑。
       # 放在图片上传之后：当天新出现的无像球员当天就有图。签名未变的一律跳过。
       - name: Build no-portrait cards to Cloud Storage
-        if: ${{ steps.mode.outputs.skip_images != 'true' }}
+        if: ${{ steps.mode.outputs.run_np == 'true' }}
         continue-on-error: true
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
