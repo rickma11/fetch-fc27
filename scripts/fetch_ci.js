@@ -238,6 +238,27 @@ function readSnapshot() {
   const curIds = Object.keys(sigs);
   const diff = (mode === 'full') ? diffSigs(null, sigs) : diffSigs(snap, sigs);
   const newIds = diff.newIds, changedIds = diff.changedIds, removedIds = diff.removedIds;
+
+  // ---------- 幽灵孪生卡黑名单（cleanup_ghost_dups.js 产出，dup_ghost_ids.json）----------
+  // fut.gg 自 2026-09-15 起对一批转会/更新球员「同一张卡同时返回新旧两个 id」，
+  // 每日列表仍会带回老 id → 若不处理会重新入库形成幽灵孪生。两份动作防复发：
+  //   1) 从本次列表剔除老 id —— 不再 upsert 回云库（也省图片下载）；
+  //   2) 并入 removedIds —— 万一仍有残留文档被 upsert，落库时一并删净。
+  const ghostPath = path.resolve(__dirname, '..', 'cloud-data', `fc${VER}`, 'dup_ghost_ids.json');
+  let ghostIds = [];
+  try { ghostIds = JSON.parse(fs.readFileSync(ghostPath, 'utf8')) || []; } catch (e) { ghostIds = []; }
+  if (ghostIds.length) {
+    const ghostSet = new Set(ghostIds.map(String));
+    const before = listRes.items.length;
+    listRes.items = listRes.items.filter(function (it) { return !ghostSet.has(String(it.eaId)); });
+    if (listRes.items.length !== before) {
+      console.log(`幽灵黑名单过滤：剔除 ${before - listRes.items.length} 条老 id（防复发，来源 ${path.basename(ghostPath)}）`);
+    }
+    const curRemoved = new Set(removedIds.map(String));
+    let added = 0;
+    for (const id of ghostIds) { if (!curRemoved.has(String(id))) { removedIds.push(Number(id)); curRemoved.add(String(id)); added++; } }
+    if (added) console.log('幽灵黑名单并入 removedIds:', added, '条');
+  }
   // 增量模式但快照被判定不可用 → 已在上方降级为 full，这里再兜一层
   if (mode !== 'full' && diff.fullFallback) {
     console.log('快照不可用，本次按全量处理');
