@@ -16,9 +16,10 @@
 // 凭证来自环境变量（CI 由 GitHub Secrets 注入）：TCB_ENV_ID / TCB_SECRET_ID / TCB_SECRET_KEY
 // 用法：node scripts/upload_db.js --ver 27 [--mode full|incremental|auto]
 // 集合：
-//   players_fc{ver}  列表字段（_id = eaId，供搜索/排序/分页）
-//   details_fc{ver}  完整详情（_id = eaId，供主键直查）
-//   meta_fc{ver}     筛选取值（单文档 _id = facets）
+//   players_fc{ver}     列表字段（_id = eaId，供搜索/排序/分页）
+//   details_fc{ver}     完整详情（_id = eaId，供主键直查）
+//   meta_fc{ver}        筛选取值（单文档 _id = facets）
+//   evolutions_fc{ver}  进化（_id = 进化 id，来源 evolutions.json；full/incremental 都会写）
 const fs = require('fs');
 const path = require('path');
 const cloudbase = require('@cloudbase/node-sdk');
@@ -44,9 +45,13 @@ const _ = db.command;
 const argv = process.argv.slice(2);
 let VER = '27';
 let MODE = String(process.env.FC_MODE || 'auto').toLowerCase();
+// 只写进化数据（不动球员/详情/facets）—— 用于端上开发期单独补数据，也避免本地整跑覆盖线上球员数据。
+// 用法：node scripts/upload_db.js --ver 27 --evolutions-only
+let EVO_ONLY = false;
 for (let i = 0; i < argv.length; i++) {
   if ((argv[i] === '--ver' || argv[i] === '-v') && argv[i + 1]) VER = String(argv[++i]).replace(/[^0-9]/g, '') || '27';
   else if (argv[i].startsWith('--mode=')) MODE = argv[i].slice(7).toLowerCase();
+  else if (argv[i] === '--evolutions-only') EVO_ONLY = true;
 }
 
 const ROOT = path.resolve(__dirname, '..');
@@ -227,6 +232,65 @@ async function writeFacets(facets, mCol) {
   console.log('  facets 写入完成（联赛', (facets.leagues || []).length, '俱乐部', (facets.clubs || []).length, '）');
 }
 
+// ---------------------------------------------------------------- 进化（Evolutions）
+// 来源：cloud-data/fc{ver}/evolutions.json（scrape_sbc_evolutions.js 从 r2.fut.gg 抓的静态 CDN）
+// 形状：{ ver, manifestKeys, activeHash, allHash, active[], all[], fetchedAt }
+//   - all[]  全量（含已结束的历史）；active[] 当前进行中 → 端上用 active 判定「进行中」
+//   - 单条记录自带 id（如 2488），故 _id = String(id)，端上按主键直查
+// ⚠️ 与球员一样「只 upsert 不删除」；但进化有「已下架」语义（fut.gg 移除该进化），
+//    故对「云库有、本次数据没有」的文档只打标记 isStale=true + isActive=false，绝不 remove。
+// 注意：dataset 可能为空（hash = 空串 MD5 d7517139）→ 此时不写库、也不打 stale，
+//      避免「抓取失败写出空数据集」把云库整批标脏。判据＝本次 all 长度为 0 直接跳过。
+async function uploadEvolutions(ver, dir) {
+  const f = path.join(dir, 'evolutions.json');
+  const col = `evolutions_fc${ver}`;
+  if (!fs.existsSync(f)) { console.log('未找到 evolutions.json，跳过进化数据'); return; }
+  let j;
+  try { j = JSON.parse(fs.readFileSync(f, 'utf8')); }
+  catch (e) { console.warn('  ⚠ evolutions.json 解析失败，跳过:', e.message); return; }
+
+  const all = Array.isArray(j.all) ? j.all : [];
+  if (!all.length) {
+    console.log('  evolutions.json 为空数据集（activeHash=' + (j.activeHash || '-') + '），跳过进化写入');
+    return;
+  }
+  const activeIds = new Set((Array.isArray(j.active) ? j.active : []).map(function (e) { return String(e && e.id); }));
+  const fetchedAt = j.fetchedAt || null;
+  const docs = all.map(function (e) {
+    return Object.assign({}, e, {
+      _id: String(e.id),
+      isActive: activeIds.has(String(e.id)),
+      isStale: false,
+      _fetchedAt: fetchedAt,
+    });
+  });
+
+  console.log('== 写入', col, '==');
+  await ensureCollection(col);
+  await upsertAll(col, docs, UPSERT_CONC, 'evolutions');
+
+  // 本次数据里没有的进化 → 标记为已下架（非破坏性；端上按 isStale 过滤）
+  try {
+    const existing = [];
+    for (let skip = 0; ; skip += 1000) {
+      const r = await db.collection(col).field({ _id: true }).skip(skip).limit(1000).get();
+      if (!r || !r.data || !r.data.length) break;
+      for (const d of r.data) existing.push(String(d._id));
+      if (r.data.length < 1000) break;
+    }
+    const stale = existing.filter(function (id) { return !docs.some(function (d) { return d._id === id; }); });
+    if (stale.length) {
+      console.log('  标记', stale.length, '条已下架进化（isStale=true，不删除）');
+      await runConc(stale, UPSERT_CONC, function (id) {
+        return db.collection(col).doc(String(id)).update({ isStale: true, isActive: false });
+      }, 'evolutions 下架标记');
+    }
+  } catch (e) {
+    // 标记失败不影响主流程（端上仍有 isActive 判定），但要显式暴露
+    console.warn('  ⚠ 下架标记步骤失败（不影响已写入数据）:', e.message);
+  }
+}
+
 (async () => {
   const pCol = `players_fc${VER}`;
   const dCol = `details_fc${VER}`;
@@ -235,9 +299,11 @@ async function writeFacets(facets, mCol) {
   const fFile = path.join(DIR, 'facets.json');
 
   if (MODE === 'auto') MODE = fs.existsSync(incFile) ? 'incremental' : 'full';
-  console.log(`落库模式: ${MODE} | 版本 FC${VER}`);
+  console.log(`落库模式: ${MODE} | 版本 FC${VER}${EVO_ONLY ? ' | 仅进化（--evolutions-only）' : ''}`);
 
-  if (MODE === 'incremental') {
+  if (EVO_ONLY) {
+    console.log('--evolutions-only：跳过球员 / 详情 / facets，只写进化集合');
+  } else if (MODE === 'incremental') {
     if (!fs.existsSync(incFile)) {
       console.error('缺少增量包，请先跑 fetch_futgg.js 生成：', incFile);
       process.exit(1);
@@ -309,6 +375,11 @@ async function writeFacets(facets, mCol) {
       console.log('未找到 facets.json，跳过（可重跑 fetch_futgg.js 生成）');
     }
   }
+
+  // 进化数据：与 mode 无关（scrape 步骤每天都会刷新 evolutions.json），两种模式都写。
+  // 放在最后 —— 它失败不该影响球员主数据的落库结果。
+  try { await uploadEvolutions(VER, DIR); }
+  catch (e) { console.warn('⚠ 进化数据写入失败（不影响球员数据）:', e.message); }
 
   console.log('数据库写入完成');
 })().catch(function (e) { console.error('写入失败:', e); process.exit(1); });
