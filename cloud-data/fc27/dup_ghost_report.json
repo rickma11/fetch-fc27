@@ -1,0 +1,7662 @@
+{
+ "generatedAt": "2026-09-17T16:45:06.532Z",
+ "ver": "27",
+ "apply": true,
+ "groups": 757,
+ "skippedGroups": [
+  {
+   "key": "Nicolás Fernández|77|Gold",
+   "why": "enriched 计数 2",
+   "ids": [
+    225289,
+    257866
+   ]
+  },
+  {
+   "key": "Jesús Angulo|73|Silver",
+   "why": "enriched 计数 2",
+   "ids": [
+    239738,
+    233606
+   ]
+  },
+  {
+   "key": "Víctor Guzmán|73|Silver",
+   "why": "enriched 计数 2",
+   "ids": [
+    229034,
+    255218
+   ]
+  },
+  {
+   "key": "Alan Rodríguez|71|Silver",
+   "why": "enriched 计数 2",
+   "ids": [
+    271501,
+    253233
+   ]
+  },
+  {
+   "key": "Diego Sánchez|69|Silver",
+   "why": "enriched 计数 2",
+   "ids": [
+    85745,
+    271805
+   ]
+  },
+  {
+   "key": "João Costa|69|Silver",
+   "why": "位置冲突 GK vs RM（身份信号不符=不同人）",
+   "ids": [
+    278567,
+    231474
+   ]
+  },
+  {
+   "key": "Pedro Santos|68|Silver",
+   "why": "enriched 计数 2",
+   "ids": [
+    273663,
+    74093
+   ]
+  },
+  {
+   "key": "Julián Fernández|68|Silver",
+   "why": "enriched 计数 2",
+   "ids": [
+    267866,
+    219452
+   ]
+  },
+  {
+   "key": "Lucas Monzón|68|Silver",
+   "why": "enriched 计数 2",
+   "ids": [
+    264002,
+    79424
+   ]
+  },
+  {
+   "key": "Liam Gordon|64|Bronze",
+   "why": "enriched 计数 2",
+   "ids": [
+    257776,
+    232668
+   ]
+  }
+ ],
+ "ghostIds": [
+  69986,
+  69992,
+  70020,
+  70049,
+  70069,
+  70114,
+  70162,
+  70192,
+  70252,
+  70298,
+  70333,
+  70344,
+  70448,
+  70479,
+  70480,
+  70689,
+  70725,
+  70948,
+  70952,
+  71166,
+  71634,
+  71730,
+  71973,
+  72061,
+  72137,
+  72159,
+  72374,
+  72423,
+  72634,
+  73004,
+  73083,
+  73098,
+  73171,
+  73196,
+  73235,
+  73296,
+  73298,
+  73423,
+  73430,
+  73503,
+  73636,
+  73767,
+  73884,
+  73895,
+  73943,
+  73956,
+  73973,
+  73995,
+  74087,
+  74095,
+  74134,
+  74145,
+  74242,
+  74448,
+  74449,
+  74475,
+  74480,
+  74483,
+  74502,
+  74566,
+  74674,
+  74862,
+  74892,
+  74931,
+  74963,
+  75056,
+  75068,
+  75093,
+  75148,
+  75156,
+  75186,
+  75198,
+  75236,
+  75252,
+  75260,
+  75299,
+  75437,
+  75566,
+  75632,
+  75654,
+  75736,
+  75746,
+  75767,
+  76111,
+  76196,
+  76244,
+  76289,
+  76410,
+  76429,
+  76739,
+  76756,
+  76968,
+  76975,
+  77079,
+  77080,
+  77104,
+  77169,
+  77270,
+  77354,
+  77540,
+  77561,
+  77633,
+  77638,
+  77743,
+  77791,
+  78106,
+  78113,
+  78123,
+  78314,
+  78343,
+  78367,
+  78400,
+  78661,
+  78714,
+  79114,
+  79165,
+  79216,
+  79300,
+  79390,
+  79432,
+  79513,
+  79552,
+  79623,
+  79624,
+  79769,
+  79823,
+  79860,
+  79956,
+  80075,
+  80096,
+  80122,
+  80145,
+  80352,
+  80380,
+  80428,
+  80486,
+  80505,
+  80659,
+  80816,
+  80852,
+  81231,
+  81276,
+  81297,
+  81340,
+  81413,
+  81538,
+  82681,
+  82814,
+  82834,
+  82862,
+  82934,
+  82937,
+  83028,
+  83078,
+  83205,
+  83381,
+  83491,
+  83510,
+  83629,
+  83661,
+  84290,
+  84670,
+  84690,
+  85094,
+  85120,
+  85136,
+  85271,
+  85291,
+  85425,
+  85567,
+  85704,
+  85803,
+  86350,
+  86492,
+  86691,
+  87551,
+  173004,
+  188400,
+  190592,
+  194018,
+  194149,
+  198009,
+  200727,
+  200746,
+  201153,
+  202811,
+  203535,
+  204412,
+  205255,
+  205569,
+  206075,
+  206517,
+  208461,
+  209315,
+  209402,
+  212814,
+  213565,
+  214682,
+  214877,
+  215546,
+  215645,
+  216320,
+  216460,
+  216730,
+  219693,
+  219814,
+  220820,
+  220933,
+  221697,
+  222104,
+  222352,
+  222598,
+  223231,
+  223933,
+  224158,
+  224163,
+  224389,
+  224508,
+  224763,
+  224970,
+  225263,
+  225293,
+  225439,
+  225782,
+  225783,
+  225922,
+  226157,
+  226229,
+  226380,
+  226507,
+  226510,
+  227370,
+  227558,
+  227764,
+  228332,
+  228383,
+  228413,
+  228454,
+  228514,
+  228789,
+  229391,
+  229448,
+  229851,
+  229906,
+  229925,
+  229942,
+  229974,
+  229984,
+  230666,
+  230670,
+  230708,
+  230829,
+  231005,
+  231360,
+  231448,
+  231521,
+  231580,
+  231612,
+  232144,
+  232411,
+  232519,
+  233795,
+  233804,
+  234242,
+  234683,
+  234686,
+  234894,
+  235304,
+  235526,
+  235658,
+  235728,
+  235840,
+  235842,
+  235889,
+  236295,
+  236487,
+  236498,
+  236535,
+  236610,
+  236662,
+  236791,
+  237205,
+  237213,
+  237612,
+  237646,
+  237704,
+  237895,
+  237930,
+  237943,
+  237985,
+  238004,
+  238043,
+  238058,
+  238167,
+  238277,
+  238717,
+  238792,
+  239125,
+  239373,
+  239513,
+  239679,
+  239894,
+  239901,
+  239977,
+  240373,
+  240452,
+  240654,
+  240784,
+  240788,
+  240833,
+  240859,
+  240925,
+  240950,
+  240988,
+  241042,
+  241049,
+  241224,
+  241585,
+  241671,
+  241689,
+  241721,
+  241852,
+  242062,
+  242264,
+  242380,
+  242794,
+  242815,
+  242835,
+  242914,
+  242916,
+  243048,
+  243134,
+  243165,
+  243294,
+  243349,
+  243388,
+  243481,
+  243530,
+  243585,
+  243630,
+  243666,
+  244034,
+  244068,
+  244108,
+  244274,
+  244296,
+  244369,
+  244472,
+  244601,
+  244871,
+  244985,
+  245152,
+  245212,
+  245388,
+  245420,
+  245563,
+  245630,
+  245741,
+  246113,
+  246169,
+  246174,
+  246184,
+  246242,
+  246243,
+  246267,
+  246289,
+  246291,
+  246296,
+  246340,
+  246457,
+  246763,
+  246873,
+  247025,
+  247042,
+  247090,
+  247328,
+  247368,
+  247407,
+  247612,
+  247729,
+  247888,
+  248188,
+  248328,
+  248473,
+  248603,
+  248692,
+  248784,
+  248820,
+  250766,
+  250789,
+  250913,
+  251288,
+  251311,
+  251380,
+  251464,
+  251566,
+  251806,
+  251884,
+  251892,
+  251961,
+  252137,
+  252143,
+  252162,
+  252416,
+  252435,
+  252526,
+  252793,
+  252859,
+  252870,
+  252897,
+  252931,
+  252937,
+  252964,
+  253019,
+  253036,
+  253052,
+  253074,
+  253152,
+  253167,
+  253257,
+  253403,
+  253433,
+  253464,
+  253473,
+  253970,
+  254022,
+  254083,
+  254247,
+  254501,
+  254529,
+  254548,
+  254556,
+  255069,
+  255125,
+  255150,
+  255333,
+  255339,
+  255742,
+  255900,
+  255976,
+  256008,
+  256127,
+  256287,
+  256420,
+  256427,
+  256476,
+  256620,
+  256675,
+  256716,
+  256741,
+  256874,
+  256894,
+  256958,
+  257083,
+  257105,
+  257111,
+  257208,
+  257278,
+  257307,
+  257320,
+  257406,
+  257896,
+  257920,
+  257959,
+  257972,
+  258208,
+  258230,
+  258500,
+  258505,
+  258683,
+  258708,
+  258753,
+  258763,
+  258769,
+  258771,
+  258906,
+  258910,
+  258924,
+  258930,
+  259031,
+  259163,
+  259185,
+  259197,
+  259423,
+  259478,
+  259747,
+  259868,
+  260083,
+  260140,
+  260144,
+  260145,
+  260192,
+  260193,
+  260290,
+  260398,
+  260407,
+  260432,
+  260478,
+  260479,
+  260558,
+  260561,
+  260570,
+  260601,
+  260653,
+  260692,
+  260779,
+  260814,
+  260815,
+  260876,
+  260942,
+  260951,
+  261025,
+  261141,
+  261160,
+  261188,
+  261264,
+  261307,
+  261456,
+  261495,
+  261530,
+  261647,
+  261652,
+  261670,
+  262135,
+  262361,
+  262397,
+  262473,
+  262479,
+  262513,
+  262576,
+  262657,
+  262659,
+  262714,
+  262745,
+  262881,
+  262898,
+  262930,
+  262988,
+  263056,
+  263077,
+  263110,
+  263193,
+  263230,
+  263312,
+  263376,
+  263387,
+  263421,
+  263853,
+  263914,
+  264022,
+  264168,
+  264200,
+  264219,
+  264221,
+  264223,
+  264263,
+  264372,
+  264445,
+  264512,
+  264652,
+  264683,
+  264697,
+  264702,
+  264790,
+  264825,
+  264877,
+  265034,
+  265116,
+  265185,
+  265390,
+  265396,
+  265405,
+  265658,
+  265733,
+  265738,
+  265762,
+  265788,
+  265856,
+  266049,
+  266095,
+  266118,
+  266236,
+  266467,
+  266500,
+  266501,
+  266609,
+  266653,
+  266676,
+  266728,
+  266933,
+  267467,
+  267744,
+  267783,
+  267849,
+  267941,
+  268067,
+  268106,
+  268300,
+  268402,
+  268414,
+  268439,
+  268443,
+  268511,
+  268550,
+  268583,
+  268622,
+  268674,
+  268683,
+  268740,
+  268751,
+  268802,
+  268875,
+  268896,
+  268920,
+  268934,
+  269047,
+  269120,
+  269151,
+  269156,
+  269398,
+  269420,
+  269472,
+  269728,
+  269859,
+  269951,
+  269962,
+  270131,
+  270339,
+  270341,
+  270409,
+  270465,
+  270518,
+  270536,
+  270597,
+  270657,
+  270676,
+  270686,
+  270756,
+  270812,
+  270840,
+  270905,
+  271013,
+  271019,
+  271061,
+  271090,
+  271147,
+  271150,
+  271191,
+  271265,
+  271306,
+  271563,
+  271572,
+  271577,
+  271637,
+  271661,
+  271666,
+  271669,
+  271743,
+  271756,
+  271807,
+  271916,
+  271975,
+  272317,
+  272332,
+  272346,
+  272497,
+  272500,
+  272596,
+  272599,
+  272600,
+  272725,
+  272853,
+  272862,
+  272968,
+  273598,
+  273616,
+  273693,
+  273711,
+  273827,
+  273931,
+  273936,
+  273948,
+  274082,
+  274107,
+  274209,
+  274463,
+  274630,
+  274915,
+  274929,
+  274999,
+  275017,
+  275028,
+  275208,
+  275238,
+  275261,
+  275353,
+  275507,
+  275517,
+  275714,
+  275739,
+  275912,
+  275978,
+  275986,
+  276048,
+  276052,
+  276167,
+  276252,
+  276314,
+  276356,
+  276372,
+  276528,
+  276544,
+  276680,
+  276743,
+  276827,
+  276880,
+  277121,
+  277144,
+  277178,
+  277211,
+  277309,
+  277343,
+  277465,
+  277512,
+  277532,
+  277552,
+  277593,
+  277657,
+  277665,
+  277689,
+  277922,
+  277975,
+  278012,
+  278098,
+  278105,
+  278207,
+  278351,
+  278454,
+  278557,
+  278571,
+  278587,
+  278759,
+  278789,
+  278813,
+  278901,
+  278911,
+  278923,
+  278957,
+  278964,
+  278976,
+  278986,
+  279058,
+  279130,
+  279203,
+  279220,
+  279569,
+  279841
+ ],
+ "pairs": [
+  {
+   "keep": 50534459,
+   "name": "Emiliano Martínez",
+   "overall": 85,
+   "rarity": "Gold",
+   "removed": [
+    202811
+   ]
+  },
+  {
+   "keep": 50596300,
+   "name": "Bradley Barcola",
+   "overall": 85,
+   "rarity": "Gold",
+   "removed": [
+    264652
+   ]
+  },
+  {
+   "keep": 50578738,
+   "name": "Enzo Fernández",
+   "overall": 86,
+   "rarity": "Gold",
+   "removed": [
+    247090
+   ]
+  },
+  {
+   "keep": 50573369,
+   "name": "Rafael Leão",
+   "overall": 83,
+   "rarity": "Gold",
+   "removed": [
+    241721
+   ]
+  },
+  {
+   "keep": 50598581,
+   "name": "Arianna Caruso",
+   "overall": 83,
+   "rarity": "Gold",
+   "removed": [
+    266933
+   ]
+  },
+  {
+   "keep": 50573500,
+   "name": "Moussa Diaby",
+   "overall": 82,
+   "rarity": "Gold",
+   "removed": [
+    241852
+   ]
+  },
+  {
+   "keep": 50588323,
+   "name": "Omar Marmoush",
+   "overall": 82,
+   "rarity": "Gold",
+   "removed": [
+    256675
+   ]
+  },
+  {
+   "keep": 50592836,
+   "name": "Iliman Ndiaye",
+   "overall": 82,
+   "rarity": "Gold",
+   "removed": [
+    261188
+   ]
+  },
+  {
+   "keep": 50553345,
+   "name": "Ollie Watkins",
+   "overall": 83,
+   "rarity": "Gold",
+   "removed": [
+    221697
+   ]
+  },
+  {
+   "keep": 50568258,
+   "name": "Moise Kean",
+   "overall": 82,
+   "rarity": "Gold",
+   "removed": [
+    236610
+   ]
+  },
+  {
+   "keep": 50538165,
+   "name": "Jack Grealish",
+   "overall": 82,
+   "rarity": "Gold",
+   "removed": [
+    206517
+   ]
+  },
+  {
+   "keep": 50560031,
+   "name": "Kamil Grabara",
+   "overall": 81,
+   "rarity": "Gold",
+   "removed": [
+    228383
+   ]
+  },
+  {
+   "keep": 50563169,
+   "name": "Exequiel Palacios",
+   "overall": 83,
+   "rarity": "Gold",
+   "removed": [
+    231521
+   ]
+  },
+  {
+   "keep": 67349814,
+   "name": "Pedro Gonçalves",
+   "overall": 82,
+   "rarity": "Gold",
+   "removed": [
+    240950
+   ]
+  },
+  {
+   "keep": 50561039,
+   "name": "Palhinha",
+   "overall": 82,
+   "rarity": "Gold",
+   "removed": [
+    229391
+   ]
+  },
+  {
+   "keep": 50548108,
+   "name": "José María Giménez",
+   "overall": 82,
+   "rarity": "Gold",
+   "removed": [
+    216460
+   ]
+  },
+  {
+   "keep": 50597504,
+   "name": "Anna Moorhouse",
+   "overall": 81,
+   "rarity": "Gold",
+   "removed": [
+    265856
+   ]
+  },
+  {
+   "keep": 50560437,
+   "name": "Robert Sánchez",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    228789
+   ]
+  },
+  {
+   "keep": 50583214,
+   "name": "Gabriel Martinelli",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    251566
+   ]
+  },
+  {
+   "keep": 50569294,
+   "name": "Daniel Muñoz",
+   "overall": 82,
+   "rarity": "Gold",
+   "removed": [
+    237646
+   ]
+  },
+  {
+   "keep": 67387765,
+   "name": "Ayyoub Bouaddi",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    278901
+   ]
+  },
+  {
+   "keep": 50586717,
+   "name": "Nico González",
+   "overall": 81,
+   "rarity": "Gold",
+   "removed": [
+    255069
+   ]
+  },
+  {
+   "keep": 50575278,
+   "name": "Jonathan David",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    243630
+   ]
+  },
+  {
+   "keep": 67379273,
+   "name": "Savinho",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    270409
+   ]
+  },
+  {
+   "keep": 50604148,
+   "name": "Carlos Baleba",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    272500
+   ]
+  },
+  {
+   "keep": 50567488,
+   "name": "Michele Di Gregorio",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    235840
+   ]
+  },
+  {
+   "keep": 50577278,
+   "name": "Youssouf Fofana",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    245630
+   ]
+  },
+  {
+   "keep": 50540109,
+   "name": "Marten de Roon",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    208461
+   ]
+  },
+  {
+   "keep": 50596345,
+   "name": "Mohamed Amoura",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    264697
+   ]
+  },
+  {
+   "keep": 50586773,
+   "name": "Azzedine Ounahi",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    255125
+   ]
+  },
+  {
+   "keep": 50583454,
+   "name": "Quinten Timber",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    251806
+   ]
+  },
+  {
+   "keep": 50564059,
+   "name": "Christopher Nkunku",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    232411
+   ]
+  },
+  {
+   "keep": 50585670,
+   "name": "Nick Woltemade",
+   "overall": 80,
+   "rarity": "Gold",
+   "removed": [
+    254022
+   ]
+  },
+  {
+   "keep": 50594307,
+   "name": "Noah Atubolu",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    262659
+   ]
+  },
+  {
+   "keep": 50562314,
+   "name": "Gabriel Jesus",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    230666
+   ]
+  },
+  {
+   "keep": 50560061,
+   "name": "Emil Audero",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    228413
+   ]
+  },
+  {
+   "keep": 50574483,
+   "name": "Leonardo Balerdi",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    242835
+   ]
+  },
+  {
+   "keep": 50555806,
+   "name": "Sofyan Amrabat",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    224158
+   ]
+  },
+  {
+   "keep": 50590845,
+   "name": "Nicolas Jackson",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    259197
+   ]
+  },
+  {
+   "keep": 50591516,
+   "name": "Pape Matar Sarr",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    259868
+   ]
+  },
+  {
+   "keep": 50607696,
+   "name": "Matias Fernandez-Pardo",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    276048
+   ]
+  },
+  {
+   "keep": 50594529,
+   "name": "Richard Ríos",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    262881
+   ]
+  },
+  {
+   "keep": 50569633,
+   "name": "Kevin Danso",
+   "overall": 79,
+   "rarity": "Gold",
+   "removed": [
+    237985
+   ]
+  },
+  {
+   "keep": 50607001,
+   "name": "Zakaria El Ouahdi",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    275353
+   ]
+  },
+  {
+   "keep": 50577890,
+   "name": "Boulaye Dia",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    246242
+   ]
+  },
+  {
+   "keep": 50576017,
+   "name": "Viktor Tsygankov",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    244369
+   ]
+  },
+  {
+   "keep": 50600544,
+   "name": "Hugo Larsson",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    268896
+   ]
+  },
+  {
+   "keep": 50569652,
+   "name": "Albert Guðmundsson",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    238004
+   ]
+  },
+  {
+   "keep": 50584585,
+   "name": "Yann Gboho",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    252937
+   ]
+  },
+  {
+   "keep": 67310017,
+   "name": "Morata",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    201153
+   ]
+  },
+  {
+   "keep": 50588068,
+   "name": "Malick Fofana",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    256420
+   ]
+  },
+  {
+   "keep": 50585121,
+   "name": "Samuele Ricci",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    253473
+   ]
+  },
+  {
+   "keep": 50573319,
+   "name": "Dominik Livaković",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    241671
+   ]
+  },
+  {
+   "keep": 50605857,
+   "name": "Carlos Álvarez",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    274209
+   ]
+  },
+  {
+   "keep": 50561554,
+   "name": "Leon Bailey",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    229906
+   ]
+  },
+  {
+   "keep": 50576800,
+   "name": "Santiago Giménez",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    245152
+   ]
+  },
+  {
+   "keep": 50588606,
+   "name": "Fábio Vieira",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    256958
+   ]
+  },
+  {
+   "keep": 50606563,
+   "name": "El Hadji Malick Diouf",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    274915
+   ]
+  },
+  {
+   "keep": 50603564,
+   "name": "Bryan Zaragoza",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    271916
+   ]
+  },
+  {
+   "keep": 50592463,
+   "name": "Arnau Martínez",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    260815
+   ]
+  },
+  {
+   "keep": 50583791,
+   "name": "Daniel Bragança",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    252143
+   ]
+  },
+  {
+   "keep": 50606856,
+   "name": "Guéla Doué",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    275208
+   ]
+  },
+  {
+   "keep": 50583810,
+   "name": "Ayase Ueda",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    252162
+   ]
+  },
+  {
+   "keep": 50604248,
+   "name": "Marc Casadó",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    272600
+   ]
+  },
+  {
+   "keep": 50551341,
+   "name": "Diego Carlos",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    219693
+   ]
+  },
+  {
+   "keep": 50572872,
+   "name": "Rebeca Bernal",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    241224
+   ]
+  },
+  {
+   "keep": 50590679,
+   "name": "Liam Delap",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    259031
+   ]
+  },
+  {
+   "keep": 50588926,
+   "name": "Arthur Theate",
+   "overall": 78,
+   "rarity": "Gold",
+   "removed": [
+    257278
+   ]
+  },
+  {
+   "keep": 50557430,
+   "name": "Ainsley Maitland-Niles",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    225782
+   ]
+  },
+  {
+   "keep": 50557877,
+   "name": "Thilo Kehrer",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    226229
+   ]
+  },
+  {
+   "keep": 50545213,
+   "name": "Thomas Lemar",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    213565
+   ]
+  },
+  {
+   "keep": 50577822,
+   "name": "Harvey Elliott",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    246174
+   ]
+  },
+  {
+   "keep": 50557087,
+   "name": "Rolando Mandragora",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    225439
+   ]
+  },
+  {
+   "keep": 50574782,
+   "name": "Largie Ramazani",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    243134
+   ]
+  },
+  {
+   "keep": 50574562,
+   "name": "Keito Nakamura",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    242914
+   ]
+  },
+  {
+   "keep": 50595867,
+   "name": "Ernest Poku",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    264219
+   ]
+  },
+  {
+   "keep": 50571625,
+   "name": "Nicolas Kühn",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    239977
+   ]
+  },
+  {
+   "keep": 50406097,
+   "name": "Ibrahim Mbaye",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    74449
+   ]
+  },
+  {
+   "keep": 50607155,
+   "name": "Mamadou Sarr",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    275507
+   ]
+  },
+  {
+   "keep": 50547968,
+   "name": "Seko Fofana",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    216320
+   ]
+  },
+  {
+   "keep": 50577036,
+   "name": "Jean-Clair Todibo",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    245388
+   ]
+  },
+  {
+   "keep": 50562318,
+   "name": "Lucas Perri",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    230670
+   ]
+  },
+  {
+   "keep": 50563260,
+   "name": "Romain Del Castillo",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    231612
+   ]
+  },
+  {
+   "keep": 50592912,
+   "name": "David Affengruber",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    261264
+   ]
+  },
+  {
+   "keep": 50592249,
+   "name": "Exequiel Zeballos",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    260601
+   ]
+  },
+  {
+   "keep": 50592427,
+   "name": "Simon Adingra",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    260779
+   ]
+  },
+  {
+   "keep": 50582437,
+   "name": "Dilane Bakwa",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    250789
+   ]
+  },
+  {
+   "keep": 50579536,
+   "name": "Sebastiano Esposito",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    247888
+   ]
+  },
+  {
+   "keep": 50592055,
+   "name": "Elye Wahi",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    260407
+   ]
+  },
+  {
+   "keep": 50598148,
+   "name": "Jonathan Rowe",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    266500
+   ]
+  },
+  {
+   "keep": 50561590,
+   "name": "Axel Disasi",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    229942
+   ]
+  },
+  {
+   "keep": 50601376,
+   "name": "Jean-Mattéo Bahoya",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    269728
+   ]
+  },
+  {
+   "keep": 50596682,
+   "name": "Carlotta Wamser",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    265034
+   ]
+  },
+  {
+   "keep": 50553752,
+   "name": "Tosin Adarabioyo",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    222104
+   ]
+  },
+  {
+   "keep": 50561632,
+   "name": "Ben Chilwell",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    229984
+   ]
+  },
+  {
+   "keep": 50583540,
+   "name": "Beto",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    251892
+   ]
+  },
+  {
+   "keep": 50594393,
+   "name": "Neil El Aynaoui",
+   "overall": 77,
+   "rarity": "Gold",
+   "removed": [
+    262745
+   ]
+  },
+  {
+   "keep": 50577988,
+   "name": "Mykhailo Mudryk",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    246340
+   ]
+  },
+  {
+   "keep": 50586196,
+   "name": "Melvin Bard",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    254548
+   ]
+  },
+  {
+   "keep": 50601068,
+   "name": "Leonardo Lelo",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    269420
+   ]
+  },
+  {
+   "keep": 50591793,
+   "name": "Omari Hutchinson",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    260145
+   ]
+  },
+  {
+   "keep": 50587390,
+   "name": "Reo Hatate",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    255742
+   ]
+  },
+  {
+   "keep": 50590554,
+   "name": "Wilfried Gnonto",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    258906
+   ]
+  },
+  {
+   "keep": 50556618,
+   "name": "Jean-Luc Dompé",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    224970
+   ]
+  },
+  {
+   "keep": 50592955,
+   "name": "Veljko Birmančević",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    261307
+   ]
+  },
+  {
+   "keep": 50603455,
+   "name": "Ethan Nwaneri",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    271807
+   ]
+  },
+  {
+   "keep": 50529657,
+   "name": "Mattia Perin",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    198009
+   ]
+  },
+  {
+   "keep": 50585081,
+   "name": "Femi Azeez",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    253433
+   ]
+  },
+  {
+   "keep": 50600450,
+   "name": "Fabio Miretti",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    268802
+   ]
+  },
+  {
+   "keep": 50592126,
+   "name": "Sorba Thomas",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    260478
+   ]
+  },
+  {
+   "keep": 50559018,
+   "name": "Michael Zetterer",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    227370
+   ]
+  },
+  {
+   "keep": 50584815,
+   "name": "Félix Correia",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    253167
+   ]
+  },
+  {
+   "keep": 50572697,
+   "name": "Gorosabel",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    241049
+   ]
+  },
+  {
+   "keep": 50572636,
+   "name": "Denis Vavro",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    240988
+   ]
+  },
+  {
+   "keep": 50571021,
+   "name": "Zian Flemming",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    239373
+   ]
+  },
+  {
+   "keep": 50575716,
+   "name": "Keven Schlotterbeck",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    244068
+   ]
+  },
+  {
+   "keep": 50552468,
+   "name": "Mory Diaw",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    220820
+   ]
+  },
+  {
+   "keep": 50609660,
+   "name": "Darío Osorio",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    278012
+   ]
+  },
+  {
+   "keep": 50592209,
+   "name": "Kevin Lomónaco",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    260561
+   ]
+  },
+  {
+   "keep": 50577761,
+   "name": "Adrià Pedrosa",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    246113
+   ]
+  },
+  {
+   "keep": 50406611,
+   "name": "Ousseynou Niang",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    74963
+   ]
+  },
+  {
+   "keep": 50597884,
+   "name": "Arijon Ibrahimović",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    266236
+   ]
+  },
+  {
+   "keep": 50609337,
+   "name": "Conrad Harder",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    277689
+   ]
+  },
+  {
+   "keep": 50593178,
+   "name": "Dário Essugo",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    261530
+   ]
+  },
+  {
+   "keep": 50577915,
+   "name": "Dominik Kotarski",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    246267
+   ]
+  },
+  {
+   "keep": 50537723,
+   "name": "Sam Johnstone",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    206075
+   ]
+  },
+  {
+   "keep": 50598257,
+   "name": "Tim Iroegbunam",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    266609
+   ]
+  },
+  {
+   "keep": 50600331,
+   "name": "Michael Folorunsho",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    268683
+   ]
+  },
+  {
+   "keep": 50402373,
+   "name": "Sami Ouaissa",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    70725
+   ]
+  },
+  {
+   "keep": 50608859,
+   "name": "Franculino",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    277211
+   ]
+  },
+  {
+   "keep": 50603994,
+   "name": "Rokas Pukštas",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    272346
+   ]
+  },
+  {
+   "keep": 50611489,
+   "name": "Maher Carrizo",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    279841
+   ]
+  },
+  {
+   "keep": 67378723,
+   "name": "Arthur Vermeeren",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    269859
+   ]
+  },
+  {
+   "keep": 50592218,
+   "name": "Jarne Steuckers",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    260570
+   ]
+  },
+  {
+   "keep": 50587548,
+   "name": "Noel Törnqvist",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    255900
+   ]
+  },
+  {
+   "keep": 50588124,
+   "name": "Mohamed-Ali Cho",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    256476
+   ]
+  },
+  {
+   "keep": 50583028,
+   "name": "Lilian Brassier",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    251380
+   ]
+  },
+  {
+   "keep": 50587935,
+   "name": "Facundo Farías",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    256287
+   ]
+  },
+  {
+   "keep": 50590401,
+   "name": "Couhaib Driouech",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    258753
+   ]
+  },
+  {
+   "keep": 50598376,
+   "name": "Daniel Bîrligea",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    266728
+   ]
+  },
+  {
+   "keep": 50556037,
+   "name": "Jordan Larsson",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    224389
+   ]
+  },
+  {
+   "keep": 50592524,
+   "name": "Maurits Kjaergaard",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    260876
+   ]
+  },
+  {
+   "keep": 50575129,
+   "name": "Marcus Pedersen",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    243481
+   ]
+  },
+  {
+   "keep": 50416919,
+   "name": "Monica Jusu Bah",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    85271
+   ]
+  },
+  {
+   "keep": 50594121,
+   "name": "Souffian El Karouani",
+   "overall": 76,
+   "rarity": "Gold",
+   "removed": [
+    262473
+   ]
+  },
+  {
+   "keep": 50406214,
+   "name": "Samuel Mbangula",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    74566
+   ]
+  },
+  {
+   "keep": 50584667,
+   "name": "Matteo Brunori",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    253019
+   ]
+  },
+  {
+   "keep": 50592301,
+   "name": "Brooke Norton-Cuffy",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    260653
+   ]
+  },
+  {
+   "keep": 50594305,
+   "name": "Lucas Stassin",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    262657
+   ]
+  },
+  {
+   "keep": 50593143,
+   "name": "Soumaïla Coulibaly",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    261495
+   ]
+  },
+  {
+   "keep": 50572573,
+   "name": "Liam Millar",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    240925
+   ]
+  },
+  {
+   "keep": 50403807,
+   "name": "Mikey Moore",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    72159
+   ]
+  },
+  {
+   "keep": 50569706,
+   "name": "Callum O'Hare",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    238058
+   ]
+  },
+  {
+   "keep": 50584684,
+   "name": "Nathanaël Mbuku",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    253036
+   ]
+  },
+  {
+   "keep": 50608176,
+   "name": "Claudio Echeverri",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    276528
+   ]
+  },
+  {
+   "keep": 50605359,
+   "name": "Santiago Solari",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    273711
+   ]
+  },
+  {
+   "keep": 50574028,
+   "name": "Stephen Eustáquio",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    242380
+   ]
+  },
+  {
+   "keep": 50544462,
+   "name": "João Mário",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    212814
+   ]
+  },
+  {
+   "keep": 50592590,
+   "name": "David Datro Fofana",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    260942
+   ]
+  },
+  {
+   "keep": 50563096,
+   "name": "Reiss Nelson",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    231448
+   ]
+  },
+  {
+   "keep": 50584905,
+   "name": "Sebastián Cáceres",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    253257
+   ]
+  },
+  {
+   "keep": 50557805,
+   "name": "Javi Muñoz",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    226157
+   ]
+  },
+  {
+   "keep": 50605596,
+   "name": "Kojo Peprah Oppong",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    273948
+   ]
+  },
+  {
+   "keep": 50597386,
+   "name": "Romeo Amane",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    265738
+   ]
+  },
+  {
+   "keep": 50597038,
+   "name": "Youri Regeer",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    265390
+   ]
+  },
+  {
+   "keep": 50590572,
+   "name": "Joël Almada Monteiro",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    258924
+   ]
+  },
+  {
+   "keep": 50584441,
+   "name": "Taylor Harwood-Bellis",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    252793
+   ]
+  },
+  {
+   "keep": 50590331,
+   "name": "Ivan Ilić",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    258683
+   ]
+  },
+  {
+   "keep": 50594841,
+   "name": "El Chadaille Bitshiabu",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    263193
+   ]
+  },
+  {
+   "keep": 50608020,
+   "name": "Ilyas Ansah",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    276372
+   ]
+  },
+  {
+   "keep": 50605475,
+   "name": "Gustavo Puerta",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    273827
+   ]
+  },
+  {
+   "keep": 50569925,
+   "name": "Dániel Gazdag",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    238277
+   ]
+  },
+  {
+   "keep": 50574442,
+   "name": "Imrân Louza",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    242794
+   ]
+  },
+  {
+   "keep": 50592206,
+   "name": "Reda Khadra",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    260558
+   ]
+  },
+  {
+   "keep": 50584700,
+   "name": "Issa Kaboré",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    253052
+   ]
+  },
+  {
+   "keep": 50572481,
+   "name": "Youssoufa Moukoko",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    240833
+   ]
+  },
+  {
+   "keep": 50574564,
+   "name": "Yukinari Sugawara",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    242916
+   ]
+  },
+  {
+   "keep": 50572100,
+   "name": "M'Bala Nzola",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    240452
+   ]
+  },
+  {
+   "keep": 50603211,
+   "name": "Moussa N'Diaye",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    271563
+   ]
+  },
+  {
+   "keep": 50576120,
+   "name": "Jens-Lys Cajuste",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    244472
+   ]
+  },
+  {
+   "keep": 50568146,
+   "name": "Sam Lammers",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    236498
+   ]
+  },
+  {
+   "keep": 50406908,
+   "name": "Orlando Gill",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    75260
+   ]
+  },
+  {
+   "keep": 50558028,
+   "name": "Hwang Hee Chan",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    226380
+   ]
+  },
+  {
+   "keep": 50579836,
+   "name": "Song Min Kyu",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    248188
+   ]
+  },
+  {
+   "keep": 50554879,
+   "name": "Florin Tănase",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    223231
+   ]
+  },
+  {
+   "keep": 50609623,
+   "name": "Parfait Guiagon",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    277975
+   ]
+  },
+  {
+   "keep": 50602113,
+   "name": "Badredine Bouanani",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    270465
+   ]
+  },
+  {
+   "keep": 50563008,
+   "name": "Jalil Elías",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    231360
+   ]
+  },
+  {
+   "keep": 50573233,
+   "name": "Igor Julio",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    241585
+   ]
+  },
+  {
+   "keep": 50575178,
+   "name": "Mujaid",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    243530
+   ]
+  },
+  {
+   "keep": 50409281,
+   "name": "Rayan Fofana",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    77633
+   ]
+  },
+  {
+   "keep": 50603225,
+   "name": "Ibrahim Sulemana",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    271577
+   ]
+  },
+  {
+   "keep": 50587775,
+   "name": "William Bøving",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    256127
+   ]
+  },
+  {
+   "keep": 50594127,
+   "name": "Rubén Sánchez",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    262479
+   ]
+  },
+  {
+   "keep": 50579377,
+   "name": "André Almeida",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    247729
+   ]
+  },
+  {
+   "keep": 50590578,
+   "name": "Cameron Archer",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    258930
+   ]
+  },
+  {
+   "keep": 50584579,
+   "name": "Luka Ivanušec",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    252931
+   ]
+  },
+  {
+   "keep": 50590811,
+   "name": "Mees Hilgers",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    259163
+   ]
+  },
+  {
+   "keep": 50577937,
+   "name": "César Huerta",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    246289
+   ]
+  },
+  {
+   "keep": 50585618,
+   "name": "Connor Barron",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    253970
+   ]
+  },
+  {
+   "keep": 50567537,
+   "name": "Cengiz Ünder",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    235889
+   ]
+  },
+  {
+   "keep": 50593295,
+   "name": "Andrew Omobamidele",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    261647
+   ]
+  },
+  {
+   "keep": 50563792,
+   "name": "Felix Uduokhai",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    232144
+   ]
+  },
+  {
+   "keep": 50568439,
+   "name": "Antonín Barák",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    236791
+   ]
+  },
+  {
+   "keep": 50583609,
+   "name": "Rayan Philippe",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    251961
+   ]
+  },
+  {
+   "keep": 50602245,
+   "name": "Antoine Makoumbou",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    270597
+   ]
+  },
+  {
+   "keep": 50561096,
+   "name": "Florian Ayé",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    229448
+   ]
+  },
+  {
+   "keep": 50610571,
+   "name": "Héctor Fort",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    278923
+   ]
+  },
+  {
+   "keep": 50589054,
+   "name": "Fodé Doucouré",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    257406
+   ]
+  },
+  {
+   "keep": 50582561,
+   "name": "Brian De Keersmaecker",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    250913
+   ]
+  },
+  {
+   "keep": 50405532,
+   "name": "Christos Mouzakitis",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    73884
+   ]
+  },
+  {
+   "keep": 50587656,
+   "name": "Morato",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    256008
+   ]
+  },
+  {
+   "keep": 50567490,
+   "name": "Andrea Pinamonti",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    235842
+   ]
+  },
+  {
+   "keep": 50570365,
+   "name": "Ethan Pinnock",
+   "overall": 75,
+   "rarity": "Gold",
+   "removed": [
+    238717
+   ]
+  },
+  {
+   "keep": 50578105,
+   "name": "Cyril Ngonge",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    246457
+   ]
+  },
+  {
+   "keep": 50575922,
+   "name": "Adrian Šemper",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    244274
+   ]
+  },
+  {
+   "keep": 50566952,
+   "name": "Bartosz Mrozek",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    235304
+   ]
+  },
+  {
+   "keep": 50594878,
+   "name": "Milutin Osmajić",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    263230
+   ]
+  },
+  {
+   "keep": 50537217,
+   "name": "James Ward-Prowse",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    205569
+   ]
+  },
+  {
+   "keep": 50592127,
+   "name": "Jack McGlynn",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    260479
+   ]
+  },
+  {
+   "keep": 50606676,
+   "name": "Arthur",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    275028
+   ]
+  },
+  {
+   "keep": 50577389,
+   "name": "Jesper Lindstrøm",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    245741
+   ]
+  },
+  {
+   "keep": 50584174,
+   "name": "Darian Males",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    252526
+   ]
+  },
+  {
+   "keep": 50569352,
+   "name": "João Virgínia",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    237704
+   ]
+  },
+  {
+   "keep": 50406131,
+   "name": "Honest Ahanor",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    74483
+   ]
+  },
+  {
+   "keep": 50406704,
+   "name": "Chema",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    75056
+   ]
+  },
+  {
+   "keep": 50572302,
+   "name": "Carles Pérez",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    240654
+   ]
+  },
+  {
+   "keep": 50600159,
+   "name": "Walid Cheddira",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    268511
+   ]
+  },
+  {
+   "keep": 50407085,
+   "name": "Kim Min Su",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    75437
+   ]
+  },
+  {
+   "keep": 50574942,
+   "name": "Tobe Leysen",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    243294
+   ]
+  },
+  {
+   "keep": 50607634,
+   "name": "Álex Sancris",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    275986
+   ]
+  },
+  {
+   "keep": 50401992,
+   "name": "Adama Boiro",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    70344
+   ]
+  },
+  {
+   "keep": 50556911,
+   "name": "Duje Ćaleta-Car",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    225263
+   ]
+  },
+  {
+   "keep": 50412879,
+   "name": "Matěj Šín",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    81231
+   ]
+  },
+  {
+   "keep": 50589620,
+   "name": "Oliver Sørensen",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    257972
+   ]
+  },
+  {
+   "keep": 50567306,
+   "name": "Victor Nelsson",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    235658
+   ]
+  },
+  {
+   "keep": 50567943,
+   "name": "Aarón Martín",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    236295
+   ]
+  },
+  {
+   "keep": 50588856,
+   "name": "Michel Ange Balikwisha",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    257208
+   ]
+  },
+  {
+   "keep": 50562653,
+   "name": "Chiedozie Ogbene",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    231005
+   ]
+  },
+  {
+   "keep": 50578976,
+   "name": "Unai Vencedor",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    247328
+   ]
+  },
+  {
+   "keep": 50590833,
+   "name": "Thelo Aasgaard",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    259185
+   ]
+  },
+  {
+   "keep": 50565443,
+   "name": "Ben Brereton Díaz",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    233795
+   ]
+  },
+  {
+   "keep": 50602667,
+   "name": "Giovanni Fabbian",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    271019
+   ]
+  },
+  {
+   "keep": 50410015,
+   "name": "Oso",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    78367
+   ]
+  },
+  {
+   "keep": 50571549,
+   "name": "Saša Kalajdžić",
+   "overall": 74,
+   "rarity": "Silver",
+   "removed": [
+    239901
+   ]
+  },
+  {
+   "keep": 50604373,
+   "name": "Matteo Prati",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    272725
+   ]
+  },
+  {
+   "keep": 50586798,
+   "name": "Niels Nkounkou",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    255150
+   ]
+  },
+  {
+   "keep": 50579016,
+   "name": "Juan Barinaga",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    247368
+   ]
+  },
+  {
+   "keep": 50603623,
+   "name": "Stefan Bajcetic",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    271975
+   ]
+  },
+  {
+   "keep": 50520048,
+   "name": "Thomas Kaminski",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    188400
+   ]
+  },
+  {
+   "keep": 50408058,
+   "name": "Robinio Vaz",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    76410
+   ]
+  },
+  {
+   "keep": 50591395,
+   "name": "Ibrahim Diabate",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    259747
+   ]
+  },
+  {
+   "keep": 50608826,
+   "name": "Oumar Diakité",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    277178
+   ]
+  },
+  {
+   "keep": 50595911,
+   "name": "Isak Jensen",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    264263
+   ]
+  },
+  {
+   "keep": 50568183,
+   "name": "Ahmed Touba",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    236535
+   ]
+  },
+  {
+   "keep": 50596764,
+   "name": "Lina Hausicke",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    265116
+   ]
+  },
+  {
+   "keep": 50411272,
+   "name": "Giovani Versini",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    79624
+   ]
+  },
+  {
+   "keep": 50546525,
+   "name": "Henrik Bjørdal",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    214877
+   ]
+  },
+  {
+   "keep": 50588522,
+   "name": "Jamie Roche",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    256874
+   ]
+  },
+  {
+   "keep": 50588731,
+   "name": "Junior Kadile",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    257083
+   ]
+  },
+  {
+   "keep": 50593783,
+   "name": "David Møller Wolfe",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    262135
+   ]
+  },
+  {
+   "keep": 50578521,
+   "name": "Liam Kitching",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    246873
+   ]
+  },
+  {
+   "keep": 50406796,
+   "name": "Juma Bah",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    75148
+   ]
+  },
+  {
+   "keep": 50401668,
+   "name": "Mathis Amougou",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    70020
+   ]
+  },
+  {
+   "keep": 50406123,
+   "name": "Bahereba Guirassy",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    74475
+   ]
+  },
+  {
+   "keep": 50602553,
+   "name": "Mohammed Fuseini",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    270905
+   ]
+  },
+  {
+   "keep": 50602913,
+   "name": "Edvin Austbø",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    271265
+   ]
+  },
+  {
+   "keep": 50578673,
+   "name": "Tobias Gulliksen",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    247025
+   ]
+  },
+  {
+   "keep": 50602166,
+   "name": "Enzo Tchato",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    270518
+   ]
+  },
+  {
+   "keep": 50602184,
+   "name": "Valdemar Byskov",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    270536
+   ]
+  },
+  {
+   "keep": 50566334,
+   "name": "Jordan Lotomba",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    234686
+   ]
+  },
+  {
+   "keep": 50584612,
+   "name": "Gabriele Zappa",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    252964
+   ]
+  },
+  {
+   "keep": 50569691,
+   "name": "Abdulrahman Al Obud",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    238043
+   ]
+  },
+  {
+   "keep": 50568310,
+   "name": "Pavle Vagić",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    236662
+   ]
+  },
+  {
+   "keep": 50588759,
+   "name": "Jérémy Le Douaron",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    257111
+   ]
+  },
+  {
+   "keep": 50575756,
+   "name": "Hong Hyun Seok",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    244108
+   ]
+  },
+  {
+   "keep": 50408387,
+   "name": "Pablo García",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    76739
+   ]
+  },
+  {
+   "keep": 50604145,
+   "name": "Joshua Quarshie",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    272497
+   ]
+  },
+  {
+   "keep": 50548378,
+   "name": "Stian Gregersen",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    216730
+   ]
+  },
+  {
+   "keep": 50584507,
+   "name": "Leon Flach",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    252859
+   ]
+  },
+  {
+   "keep": 50592046,
+   "name": "Nathan-Dylan Saliba",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    260398
+   ]
+  },
+  {
+   "keep": 50600270,
+   "name": "Jeanuël Belocian",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    268622
+   ]
+  },
+  {
+   "keep": 50610461,
+   "name": "Marc Guiu",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    278813
+   ]
+  },
+  {
+   "keep": 50589878,
+   "name": "Jaouen Hadjam",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    258230
+   ]
+  },
+  {
+   "keep": 50602798,
+   "name": "Kayne van Oevelen",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    271150
+   ]
+  },
+  {
+   "keep": 50602709,
+   "name": "Jacques Ekomié",
+   "overall": 73,
+   "rarity": "Silver",
+   "removed": [
+    271061
+   ]
+  },
+  {
+   "keep": 50535183,
+   "name": "Tonny Vilhena",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    203535
+   ]
+  },
+  {
+   "keep": 50580432,
+   "name": "Timothé Nkada",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    248784
+   ]
+  },
+  {
+   "keep": 50606886,
+   "name": "Niko Sigur",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    275238
+   ]
+  },
+  {
+   "keep": 50583112,
+   "name": "Ignace Van der Brempt",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    251464
+   ]
+  },
+  {
+   "keep": 50601610,
+   "name": "Daniel Elfadli",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    269962
+   ]
+  },
+  {
+   "keep": 50555581,
+   "name": "Gustaf Nilsson",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    223933
+   ]
+  },
+  {
+   "keep": 50570773,
+   "name": "Erik Botheim",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    239125
+   ]
+  },
+  {
+   "keep": 50610235,
+   "name": "Deniz Gül",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    278587
+   ]
+  },
+  {
+   "keep": 50575314,
+   "name": "Callum McCowatt",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    243666
+   ]
+  },
+  {
+   "keep": 50592599,
+   "name": "Johnny Kenny",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    260951
+   ]
+  },
+  {
+   "keep": 50532394,
+   "name": "John Lundstram",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    200746
+   ]
+  },
+  {
+   "keep": 50600062,
+   "name": "Willy Kambwala",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    268414
+   ]
+  },
+  {
+   "keep": 50603980,
+   "name": "Rofiat Imuran",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    272332
+   ]
+  },
+  {
+   "keep": 50575036,
+   "name": "Borna Sosa",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    243388
+   ]
+  },
+  {
+   "keep": 50603391,
+   "name": "Amario Cozier-Duberry",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    271743
+   ]
+  },
+  {
+   "keep": 50556156,
+   "name": "Leonardo Mancuso",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    224508
+   ]
+  },
+  {
+   "keep": 50607560,
+   "name": "Filippo Pittarello",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    275912
+   ]
+  },
+  {
+   "keep": 50557431,
+   "name": "Stephy Mavididi",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    225783
+   ]
+  },
+  {
+   "keep": 50541050,
+   "name": "Elton Acolatse",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    209402
+   ]
+  },
+  {
+   "keep": 50580468,
+   "name": "Mateu Morey",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    248820
+   ]
+  },
+  {
+   "keep": 50585895,
+   "name": "Mostafa Mohamed",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    254247
+   ]
+  },
+  {
+   "keep": 50571327,
+   "name": "Pasquale Mazzocchi",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    239679
+   ]
+  },
+  {
+   "keep": 50556941,
+   "name": "Habib Diallo",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    225293
+   ]
+  },
+  {
+   "keep": 50589568,
+   "name": "Casper Tengstedt",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    257920
+   ]
+  },
+  {
+   "keep": 50568135,
+   "name": "Davis Keillor-Dunn",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    236487
+   ]
+  },
+  {
+   "keep": 50582414,
+   "name": "Kastriot Imeri",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    250766
+   ]
+  },
+  {
+   "keep": 50602404,
+   "name": "Simone Ghidotti",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    270756
+   ]
+  },
+  {
+   "keep": 50605264,
+   "name": "Romain Esse",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    273616
+   ]
+  },
+  {
+   "keep": 50579055,
+   "name": "Kevin Mouanga",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    247407
+   ]
+  },
+  {
+   "keep": 50405543,
+   "name": "Justin Devenny",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    73895
+   ]
+  },
+  {
+   "keep": 50575944,
+   "name": "Emil Riis",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    244296
+   ]
+  },
+  {
+   "keep": 50559206,
+   "name": "Jordan Siebatcheu",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    227558
+   ]
+  },
+  {
+   "keep": 50578411,
+   "name": "Ki-Jana Hoever",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    246763
+   ]
+  },
+  {
+   "keep": 50413186,
+   "name": "Stephen Mfuni",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    81538
+   ]
+  },
+  {
+   "keep": 50603965,
+   "name": "David Martínez",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    272317
+   ]
+  },
+  {
+   "keep": 50607962,
+   "name": "Rafik Belghali",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    276314
+   ]
+  },
+  {
+   "keep": 50597044,
+   "name": "Carlos Martín",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    265396
+   ]
+  },
+  {
+   "keep": 50596350,
+   "name": "Kota Takai",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    264702
+   ]
+  },
+  {
+   "keep": 50591938,
+   "name": "Marvin Pieringer",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    260290
+   ]
+  },
+  {
+   "keep": 50595069,
+   "name": "Lasso Coulibaly",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    263421
+   ]
+  },
+  {
+   "keep": 50589544,
+   "name": "Nathan Patterson",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    257896
+   ]
+  },
+  {
+   "keep": 50588968,
+   "name": "Aïmen Moueffek",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    257320
+   ]
+  },
+  {
+   "keep": 50525797,
+   "name": "Fredrik Ulvestad",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    194149
+   ]
+  },
+  {
+   "keep": 50590153,
+   "name": "Matthias Braunöder",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    258505
+   ]
+  },
+  {
+   "keep": 50594009,
+   "name": "Lyall Cameron",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    262361
+   ]
+  },
+  {
+   "keep": 50577211,
+   "name": "Theo Bair",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    245563
+   ]
+  },
+  {
+   "keep": 50586177,
+   "name": "Cody Drameh",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    254529
+   ]
+  },
+  {
+   "keep": 50577939,
+   "name": "Leo Cornic",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    246291
+   ]
+  },
+  {
+   "keep": 50404022,
+   "name": "Yanis Zouaoui",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    72374
+   ]
+  },
+  {
+   "keep": 50562356,
+   "name": "Joe Worrall",
+   "overall": 72,
+   "rarity": "Silver",
+   "removed": [
+    230708
+   ]
+  },
+  {
+   "keep": 50584722,
+   "name": "Godson Kyeremeh",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    253074
+   ]
+  },
+  {
+   "keep": 50597381,
+   "name": "Dawda Camara",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    265733
+   ]
+  },
+  {
+   "keep": 50599115,
+   "name": "Taofeek Ismaheel",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    267467
+   ]
+  },
+  {
+   "keep": 50601989,
+   "name": "Yanis Massolin",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    270341
+   ]
+  },
+  {
+   "keep": 50567174,
+   "name": "Dennis Geiger",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    235526
+   ]
+  },
+  {
+   "keep": 50586987,
+   "name": "Jayden Nelson",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    255339
+   ]
+  },
+  {
+   "keep": 50562477,
+   "name": "Alan Mozo",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    230829
+   ]
+  },
+  {
+   "keep": 50572690,
+   "name": "Oliver Skipp",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    241042
+   ]
+  },
+  {
+   "keep": 50592080,
+   "name": "Atsuki Ito",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    260432
+   ]
+  },
+  {
+   "keep": 50561622,
+   "name": "Thomas Robinet",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    229974
+   ]
+  },
+  {
+   "keep": 50592789,
+   "name": "Malik Sellouki",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    261141
+   ]
+  },
+  {
+   "keep": 50591071,
+   "name": "Iván Azón",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    259423
+   ]
+  },
+  {
+   "keep": 50580121,
+   "name": "Pierre Ekwah",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    248473
+   ]
+  },
+  {
+   "keep": 50602954,
+   "name": "Khalil Fayad",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    271306
+   ]
+  },
+  {
+   "keep": 50586981,
+   "name": "Matías Pérez",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    255333
+   ]
+  },
+  {
+   "keep": 50596331,
+   "name": "Riccardo Ciervo",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    264683
+   ]
+  },
+  {
+   "keep": 50575233,
+   "name": "Gavin Bazunu",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    243585
+   ]
+  },
+  {
+   "keep": 50595562,
+   "name": "Eíran Cashin",
+   "overall": 71,
+   "rarity": "Silver",
+   "removed": [
+    263914
+   ]
+  },
+  {
+   "keep": 50589856,
+   "name": "Ondřej Lingr",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    258208
+   ]
+  },
+  {
+   "keep": 50610102,
+   "name": "Dylan Aquino",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    278454
+   ]
+  },
+  {
+   "keep": 50591788,
+   "name": "Ronaldo Martínez",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    260140
+   ]
+  },
+  {
+   "keep": 50605341,
+   "name": "David Ozoh",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    273693
+   ]
+  },
+  {
+   "keep": 50600087,
+   "name": "Toby Collyer",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    268439
+   ]
+  },
+  {
+   "keep": 50587624,
+   "name": "Oliver Dovin",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    255976
+   ]
+  },
+  {
+   "keep": 50593300,
+   "name": "Neraysho Kasanwirjo",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    261652
+   ]
+  },
+  {
+   "keep": 50608957,
+   "name": "Henrik Meister",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    277309
+   ]
+  },
+  {
+   "keep": 50411038,
+   "name": "Mário Sauer",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    79390
+   ]
+  },
+  {
+   "keep": 50600231,
+   "name": "Filip Marschall",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    268583
+   ]
+  },
+  {
+   "keep": 50554246,
+   "name": "Nélson Monte",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    222598
+   ]
+  },
+  {
+   "keep": 50403785,
+   "name": "Ryad Hachem",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    72137
+   ]
+  },
+  {
+   "keep": 50601987,
+   "name": "Diego Rosa",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    270339
+   ]
+  },
+  {
+   "keep": 50414482,
+   "name": "Kareem Tunde",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    82834
+   ]
+  },
+  {
+   "keep": 50588075,
+   "name": "Mayckel Lahdo",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    256427
+   ]
+  },
+  {
+   "keep": 50594704,
+   "name": "Emir Sahiti",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    263056
+   ]
+  },
+  {
+   "keep": 50598149,
+   "name": "Balthazar Pierret",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    266501
+   ]
+  },
+  {
+   "keep": 50409754,
+   "name": "Jeremy Monga",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    78106
+   ]
+  },
+  {
+   "keep": 50609241,
+   "name": "Srđan Kuzmić",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    277593
+   ]
+  },
+  {
+   "keep": 50588542,
+   "name": "Ángel Baena",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    256894
+   ]
+  },
+  {
+   "keep": 50590148,
+   "name": "Filip Krastev",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    258500
+   ]
+  },
+  {
+   "keep": 50555811,
+   "name": "Arno Verschueren",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    224163
+   ]
+  },
+  {
+   "keep": 50592340,
+   "name": "Iker Recio",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    260692
+   ]
+  },
+  {
+   "keep": 50415029,
+   "name": "Souza",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    83381
+   ]
+  },
+  {
+   "keep": 50607387,
+   "name": "Omar El Sawy",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    275739
+   ]
+  },
+  {
+   "keep": 50590411,
+   "name": "Maxime Delanghe",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    258763
+   ]
+  },
+  {
+   "keep": 50590419,
+   "name": "Aleksandar Ćirković",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    258771
+   ]
+  },
+  {
+   "keep": 50406150,
+   "name": "Owen Kouassi",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    74502
+   ]
+  },
+  {
+   "keep": 50558155,
+   "name": "Jerry Yates",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    226507
+   ]
+  },
+  {
+   "keep": 50547194,
+   "name": "Michael Brouwer",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    215546
+   ]
+  },
+  {
+   "keep": 50579260,
+   "name": "Dante Sealy",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    247612
+   ]
+  },
+  {
+   "keep": 50598301,
+   "name": "Brayann Pereira",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    266653
+   ]
+  },
+  {
+   "keep": 50604501,
+   "name": "Mileta Rajović",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    272853
+   ]
+  },
+  {
+   "keep": 50552581,
+   "name": "Alessandro Bellemo",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    220933
+   ]
+  },
+  {
+   "keep": 50603317,
+   "name": "Juan Larios",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    271669
+   ]
+  },
+  {
+   "keep": 50600322,
+   "name": "Alessandro Gabrielloni",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    268674
+   ]
+  },
+  {
+   "keep": 50404883,
+   "name": "Christian Gomis",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    73235
+   ]
+  },
+  {
+   "keep": 50582936,
+   "name": "Jakov Medić",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    251288
+   ]
+  },
+  {
+   "keep": 50401946,
+   "name": "João Lameira",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    70298
+   ]
+  },
+  {
+   "keep": 50408752,
+   "name": "Andrija Radulović",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    77104
+   ]
+  },
+  {
+   "keep": 50574463,
+   "name": "Dominik Fitz",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    242815
+   ]
+  },
+  {
+   "keep": 50569543,
+   "name": "Vito van Crooij",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    237895
+   ]
+  },
+  {
+   "keep": 50605730,
+   "name": "Alan Matturro",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    274082
+   ]
+  },
+  {
+   "keep": 50603314,
+   "name": "Jayden Wareham",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    271666
+   ]
+  },
+  {
+   "keep": 50600799,
+   "name": "Owen Wolff",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    269151
+   ]
+  },
+  {
+   "keep": 50609113,
+   "name": "Isaac Babadi",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    277465
+   ]
+  },
+  {
+   "keep": 50559980,
+   "name": "Hamza Choudhury",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    228332
+   ]
+  },
+  {
+   "keep": 50405735,
+   "name": "Mikel Goti",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    74087
+   ]
+  },
+  {
+   "keep": 50407844,
+   "name": "Ra'ees Bangura-Williams",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    76196
+   ]
+  },
+  {
+   "keep": 50573710,
+   "name": "Hampus Finndell",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    242062
+   ]
+  },
+  {
+   "keep": 50607815,
+   "name": "Marko Ivezić",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    276167
+   ]
+  },
+  {
+   "keep": 50591126,
+   "name": "Mathias Kjølø",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    259478
+   ]
+  },
+  {
+   "keep": 50600399,
+   "name": "Ilias Koutsoupias",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    268751
+   ]
+  },
+  {
+   "keep": 50603220,
+   "name": "Alessandro Fontanarosa",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    271572
+   ]
+  },
+  {
+   "keep": 50536060,
+   "name": "George Saville",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    204412
+   ]
+  },
+  {
+   "keep": 50607900,
+   "name": "Marko Farji",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    276252
+   ]
+  },
+  {
+   "keep": 50600091,
+   "name": "Daniel Gore",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    268443
+   ]
+  },
+  {
+   "keep": 50551462,
+   "name": "Sean Klaiber",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    219814
+   ]
+  },
+  {
+   "keep": 50575682,
+   "name": "David Kopacz",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    244034
+   ]
+  },
+  {
+   "keep": 50411471,
+   "name": "Ayoni Santos",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    79823
+   ]
+  },
+  {
+   "keep": 50609200,
+   "name": "Tyler Bindon",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    277552
+   ]
+  },
+  {
+   "keep": 50407302,
+   "name": "Alessandro Vogt",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    75654
+   ]
+  },
+  {
+   "keep": 50408728,
+   "name": "Oskar Øhlenschlæger",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    77080
+   ]
+  },
+  {
+   "keep": 50418140,
+   "name": "Nikolas Panagiotou",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    86492
+   ]
+  },
+  {
+   "keep": 50602324,
+   "name": "Stanley Mills",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    270676
+   ]
+  },
+  {
+   "keep": 50594758,
+   "name": "Ibrahima Baldé",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    263110
+   ]
+  },
+  {
+   "keep": 50599948,
+   "name": "Kevin Kelsy",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    268300
+   ]
+  },
+  {
+   "keep": 50576519,
+   "name": "Joel Randall",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    244871
+   ]
+  },
+  {
+   "keep": 50406510,
+   "name": "George Abbott",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    74862
+   ]
+  },
+  {
+   "keep": 50592462,
+   "name": "Edgar Sevikyan",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    260814
+   ]
+  },
+  {
+   "keep": 50556411,
+   "name": "Krystian Bielik",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    224763
+   ]
+  },
+  {
+   "keep": 50608328,
+   "name": "Jan Ziółkowski",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    276680
+   ]
+  },
+  {
+   "keep": 50406322,
+   "name": "Sebastian Clemmensen",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    74674
+   ]
+  },
+  {
+   "keep": 50588364,
+   "name": "Kristian Kirkegaard",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    256716
+   ]
+  },
+  {
+   "keep": 50405415,
+   "name": "Gady-Pierre Beyuku",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    73767
+   ]
+  },
+  {
+   "keep": 50572507,
+   "name": "Berrocal",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    240859
+   ]
+  },
+  {
+   "keep": 50609855,
+   "name": "Noah Edjouma",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    278207
+   ]
+  },
+  {
+   "keep": 50573337,
+   "name": "Roberto Massimo",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    241689
+   ]
+  },
+  {
+   "keep": 50602488,
+   "name": "Mohamed Salah El Boukammiri",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    270840
+   ]
+  },
+  {
+   "keep": 50586204,
+   "name": "Kélian Nsona",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    254556
+   ]
+  },
+  {
+   "keep": 50597697,
+   "name": "Amar Fatah",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    266049
+   ]
+  },
+  {
+   "keep": 50594546,
+   "name": "Jason Ceka",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    262898
+   ]
+  },
+  {
+   "keep": 50590356,
+   "name": "Botond Balogh",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    258708
+   ]
+  },
+  {
+   "keep": 50402337,
+   "name": "Mauricio Benítez",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    70689
+   ]
+  },
+  {
+   "keep": 50599715,
+   "name": "Christiaan Ravych",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    268067
+   ]
+  },
+  {
+   "keep": 50583785,
+   "name": "Marco Essimi",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    252137
+   ]
+  },
+  {
+   "keep": 50608792,
+   "name": "Ümit Akdağ",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    277144
+   ]
+  },
+  {
+   "keep": 50569260,
+   "name": "Filippo Delli Carri",
+   "overall": 70,
+   "rarity": "Silver",
+   "removed": [
+    237612
+   ]
+  },
+  {
+   "keep": 50588955,
+   "name": "Nick Bätzner",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    257307
+   ]
+  },
+  {
+   "keep": 50609999,
+   "name": "Kevin Zeroli",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    278351
+   ]
+  },
+  {
+   "keep": 50572432,
+   "name": "Josef Bursik",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    240784
+   ]
+  },
+  {
+   "keep": 50408404,
+   "name": "Tay Abed",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    76756
+   ]
+  },
+  {
+   "keep": 50589607,
+   "name": "David Min",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    257959
+   ]
+  },
+  {
+   "keep": 50608192,
+   "name": "Amin Cherni",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    276544
+   ]
+  },
+  {
+   "keep": 50588268,
+   "name": "Liam Gibbs",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    256620
+   ]
+  },
+  {
+   "keep": 50570440,
+   "name": "Leon Jensen",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    238792
+   ]
+  },
+  {
+   "keep": 50591731,
+   "name": "John Donald",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    260083
+   ]
+  },
+  {
+   "keep": 50594045,
+   "name": "Luuk Brouwers",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    262397
+   ]
+  },
+  {
+   "keep": 50596020,
+   "name": "Nicolas Galazzi",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    264372
+   ]
+  },
+  {
+   "keep": 50558158,
+   "name": "Daníel Leó Grétarsson",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    226510
+   ]
+  },
+  {
+   "keep": 50585731,
+   "name": "Casper Winther",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    254083
+   ]
+  },
+  {
+   "keep": 50401762,
+   "name": "Axel Henriksson",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    70114
+   ]
+  },
+  {
+   "keep": 50608391,
+   "name": "Rachid Kouda",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    276743
+   ]
+  },
+  {
+   "keep": 50401981,
+   "name": "Gonzalo Petit",
+   "overall": 69,
+   "rarity": "Silver",
+   "removed": [
+    70333
+   ]
+  },
+  {
+   "keep": 50405604,
+   "name": "Julian Pauli",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    73956
+   ]
+  },
+  {
+   "keep": 50600523,
+   "name": "Semuel Pizzignacco",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    268875
+   ]
+  },
+  {
+   "keep": 50536903,
+   "name": "Jamie Reid",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    205255
+   ]
+  },
+  {
+   "keep": 50574813,
+   "name": "Noah Christoffersson",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    243165
+   ]
+  },
+  {
+   "keep": 50602661,
+   "name": "Patrick Amoako Nuamah",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    271013
+   ]
+  },
+  {
+   "keep": 50579976,
+   "name": "Taylor Allen",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    248328
+   ]
+  },
+  {
+   "keep": 50590558,
+   "name": "Florian Bianchini",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    258910
+   ]
+  },
+  {
+   "keep": 50409962,
+   "name": "Valmir Matoshi",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    78314
+   ]
+  },
+  {
+   "keep": 50401717,
+   "name": "Cedric Hatenboer",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    70069
+   ]
+  },
+  {
+   "keep": 50604247,
+   "name": "Tuomas Ollila",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    272599
+   ]
+  },
+  {
+   "keep": 50609313,
+   "name": "Silvio Merkaj",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    277665
+   ]
+  },
+  {
+   "keep": 50574696,
+   "name": "Will Dennis",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    243048
+   ]
+  },
+  {
+   "keep": 50405284,
+   "name": "Levy Néné",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    73636
+   ]
+  },
+  {
+   "keep": 50610437,
+   "name": "Mahamadou Diawara",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    278789
+   ]
+  },
+  {
+   "keep": 50407384,
+   "name": "Axel Tape",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    75736
+   ]
+  },
+  {
+   "keep": 50404946,
+   "name": "Mads Agger",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    73298
+   ]
+  },
+  {
+   "keep": 50594636,
+   "name": "Göktan Gürpüz",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    262988
+   ]
+  },
+  {
+   "keep": 50572436,
+   "name": "Marco Olivieri",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    240788
+   ]
+  },
+  {
+   "keep": 50610605,
+   "name": "Jayden Meghoma",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    278957
+   ]
+  },
+  {
+   "keep": 50566542,
+   "name": "Emil Bohinen",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    234894
+   ]
+  },
+  {
+   "keep": 50602334,
+   "name": "Dani Silva",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    270686
+   ]
+  },
+  {
+   "keep": 50559412,
+   "name": "Jodi Jones",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    227764
+   ]
+  },
+  {
+   "keep": 50572021,
+   "name": "Tyrese Shade",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    240373
+   ]
+  },
+  {
+   "keep": 50594725,
+   "name": "Louis Breunig",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    263077
+   ]
+  },
+  {
+   "keep": 50406834,
+   "name": "Anna Csiki",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    75186
+   ]
+  },
+  {
+   "keep": 50401697,
+   "name": "Kingstone Mutandwa",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    70049
+   ]
+  },
+  {
+   "keep": 50402096,
+   "name": "Adam Aznou",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    70448
+   ]
+  },
+  {
+   "keep": 50402596,
+   "name": "Ruben Alte",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    70948
+   ]
+  },
+  {
+   "keep": 50609753,
+   "name": "Malik Mothersille",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    278105
+   ]
+  },
+  {
+   "keep": 50606647,
+   "name": "Kennedy Okpala",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    274999
+   ]
+  },
+  {
+   "keep": 50412464,
+   "name": "Bradley Burrowes",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    80816
+   ]
+  },
+  {
+   "keep": 50561573,
+   "name": "Erik Wekesser",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    229925
+   ]
+  },
+  {
+   "keep": 50594224,
+   "name": "Nikolas Koutsakos",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    262576
+   ]
+  },
+  {
+   "keep": 50404844,
+   "name": "Sidnei Tavares",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    73196
+   ]
+  },
+  {
+   "keep": 50597436,
+   "name": "Zidane Iqbal",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    265788
+   ]
+  },
+  {
+   "keep": 50405151,
+   "name": "Mikkel Ladefoged",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    73503
+   ]
+  },
+  {
+   "keep": 50601779,
+   "name": "Niccolò Corrado",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    270131
+   ]
+  },
+  {
+   "keep": 50595501,
+   "name": "Josh Campbell",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    263853
+   ]
+  },
+  {
+   "keep": 50604616,
+   "name": "Filip Ottosson",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    272968
+   ]
+  },
+  {
+   "keep": 50571542,
+   "name": "Rominigue Kouamé",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    239894
+   ]
+  },
+  {
+   "keep": 50573912,
+   "name": "Marco Imperiale",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    242264
+   ]
+  },
+  {
+   "keep": 50577817,
+   "name": "Roberto López",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    246169
+   ]
+  },
+  {
+   "keep": 50597766,
+   "name": "Jonathan Germán Gómez",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    266118
+   ]
+  },
+  {
+   "keep": 50594960,
+   "name": "Zidan Sertdemir",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    263312
+   ]
+  },
+  {
+   "keep": 50409188,
+   "name": "Shumaira Mheuka",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    77540
+   ]
+  },
+  {
+   "keep": 50603309,
+   "name": "Yann Lienard",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    271661
+   ]
+  },
+  {
+   "keep": 50592673,
+   "name": "Dane Scarlett",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    261025
+   ]
+  },
+  {
+   "keep": 50403378,
+   "name": "Agustín Albarracín",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    71730
+   ]
+  },
+  {
+   "keep": 50405071,
+   "name": "Gabriele Artistico",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    73423
+   ]
+  },
+  {
+   "keep": 50564167,
+   "name": "Glenn Middleton",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    232519
+   ]
+  },
+  {
+   "keep": 50404731,
+   "name": "Axel Drouhin",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    73083
+   ]
+  },
+  {
+   "keep": 50576249,
+   "name": "Sydney van Hooijdonk",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    244601
+   ]
+  },
+  {
+   "keep": 50610205,
+   "name": "Jamie Donley",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    278557
+   ]
+  },
+  {
+   "keep": 50596833,
+   "name": "Moritz Wels",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    265185
+   ]
+  },
+  {
+   "keep": 50610634,
+   "name": "Tom Iorpenda",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    278986
+   ]
+  },
+  {
+   "keep": 50571161,
+   "name": "Josh Earl",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    239513
+   ]
+  },
+  {
+   "keep": 50596438,
+   "name": "Adam Gabriel",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    264790
+   ]
+  },
+  {
+   "keep": 50593318,
+   "name": "Jonas Jensen-Abbew",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    261670
+   ]
+  },
+  {
+   "keep": 50600388,
+   "name": "Daniel Bassi",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    268740
+   ]
+  },
+  {
+   "keep": 50404282,
+   "name": "Benjamin Pauwels",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    72634
+   ]
+  },
+  {
+   "keep": 50565890,
+   "name": "Corey O'Keeffe",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    234242
+   ]
+  },
+  {
+   "keep": 50602795,
+   "name": "Billy van Duijl",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    271147
+   ]
+  },
+  {
+   "keep": 50608475,
+   "name": "Abdoulaye Kanté",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    276827
+   ]
+  },
+  {
+   "keep": 50554000,
+   "name": "Albian Ajeti",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    222352
+   ]
+  },
+  {
+   "keep": 50595024,
+   "name": "Ali Al Hamadi",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    263376
+   ]
+  },
+  {
+   "keep": 50601046,
+   "name": "Sanders Ngabo",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    269398
+   ]
+  },
+  {
+   "keep": 50596160,
+   "name": "Axel Camblan",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    264512
+   ]
+  },
+  {
+   "keep": 50610407,
+   "name": "Iker Almena",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    278759
+   ]
+  },
+  {
+   "keep": 50401640,
+   "name": "Miloš Luković",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    69992
+   ]
+  },
+  {
+   "keep": 50595848,
+   "name": "Cameron Humphreys",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    264200
+   ]
+  },
+  {
+   "keep": 50600804,
+   "name": "Owen Moxon",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    269156
+   ]
+  },
+  {
+   "keep": 50407759,
+   "name": "Patrice Čović",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    76111
+   ]
+  },
+  {
+   "keep": 50584800,
+   "name": "Vegard Erlien",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    253152
+   ]
+  },
+  {
+   "keep": 50594578,
+   "name": "Daniel Oyegoke",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    262930
+   ]
+  },
+  {
+   "keep": 50599497,
+   "name": "Tommi O'Reilly",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    267849
+   ]
+  },
+  {
+   "keep": 50574997,
+   "name": "Dylan Levitt",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    243349
+   ]
+  },
+  {
+   "keep": 50592808,
+   "name": "Bruno Sepúlveda",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    261160
+   ]
+  },
+  {
+   "keep": 50593104,
+   "name": "Sander Erik Kartum",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    261456
+   ]
+  },
+  {
+   "keep": 50406741,
+   "name": "Kieran Morgan",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    75093
+   ]
+  },
+  {
+   "keep": 50415277,
+   "name": "Ayodele Thomas",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    83629
+   ]
+  },
+  {
+   "keep": 50412000,
+   "name": "Joël van den Berg",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    80352
+   ]
+  },
+  {
+   "keep": 50602738,
+   "name": "Nino Žugelj",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    271090
+   ]
+  },
+  {
+   "keep": 50601120,
+   "name": "Nikolas Agrafiotis",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    269472
+   ]
+  },
+  {
+   "keep": 50591792,
+   "name": "Charlie Patiño",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    260144
+   ]
+  },
+  {
+   "keep": 50417451,
+   "name": "Ricardo Monreal",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    85803
+   ]
+  },
+  {
+   "keep": 50609570,
+   "name": "Kamari Doyle",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    277922
+   ]
+  },
+  {
+   "keep": 50595816,
+   "name": "Jonas Oehmichen",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    264168
+   ]
+  },
+  {
+   "keep": 50599589,
+   "name": "Daniel Kanu",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    267941
+   ]
+  },
+  {
+   "keep": 50404071,
+   "name": "Brau",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    72423
+   ]
+  },
+  {
+   "keep": 50414853,
+   "name": "Jaden Heskey",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    83205
+   ]
+  },
+  {
+   "keep": 50405621,
+   "name": "Jacopo Martini",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    73973
+   ]
+  },
+  {
+   "keep": 50415938,
+   "name": "Manuel Ángel",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    84290
+   ]
+  },
+  {
+   "keep": 50607626,
+   "name": "Petar Ratkov",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    275978
+   ]
+  },
+  {
+   "keep": 50580251,
+   "name": "Loïc Mbe Soh",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    248603
+   ]
+  },
+  {
+   "keep": 50600582,
+   "name": "Nicholas Bonfanti",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    268934
+   ]
+  },
+  {
+   "keep": 50602460,
+   "name": "Jandro Orellana",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    270812
+   ]
+  },
+  {
+   "keep": 50594161,
+   "name": "Karrikaburu",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    262513
+   ]
+  },
+  {
+   "keep": 50404944,
+   "name": "Nosa Edward Obaretin",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    73296
+   ]
+  },
+  {
+   "keep": 50401900,
+   "name": "Saba Goglichidze",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    70252
+   ]
+  },
+  {
+   "keep": 50412134,
+   "name": "Ebenezer Annan",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    80486
+   ]
+  },
+  {
+   "keep": 50406846,
+   "name": "Rufai Mohammed",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    75198
+   ]
+  },
+  {
+   "keep": 50407394,
+   "name": "Álvaro Cortés",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    75746
+   ]
+  },
+  {
+   "keep": 50590417,
+   "name": "Meseguer",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    258769
+   ]
+  },
+  {
+   "keep": 50566331,
+   "name": "Andi Zeqiri",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    234683
+   ]
+  },
+  {
+   "keep": 50595670,
+   "name": "Gonçalo Esteves",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    264022
+   ]
+  },
+  {
+   "keep": 50569815,
+   "name": "Pelle Boevink",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    238167
+   ]
+  },
+  {
+   "keep": 50402128,
+   "name": "Alieu Njie",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    70480
+   ]
+  },
+  {
+   "keep": 50408817,
+   "name": "Sem van Duijn",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    77169
+   ]
+  },
+  {
+   "keep": 50567376,
+   "name": "Warren O'Hora",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    235728
+   ]
+  },
+  {
+   "keep": 50401840,
+   "name": "Hayden Matthews",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    70192
+   ]
+  },
+  {
+   "keep": 50602839,
+   "name": "Joe Whitworth",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    271191
+   ]
+  },
+  {
+   "keep": 50405643,
+   "name": "Faton Ademi",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    73995
+   ]
+  },
+  {
+   "keep": 50569591,
+   "name": "Dan Scarr",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    237943
+   ]
+  },
+  {
+   "keep": 50407214,
+   "name": "Judit Pujols",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    75566
+   ]
+  },
+  {
+   "keep": 50597053,
+   "name": "Owono",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    265405
+   ]
+  },
+  {
+   "keep": 50568861,
+   "name": "Josh Knight",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    237213
+   ]
+  },
+  {
+   "keep": 50414726,
+   "name": "Youssoupha Niang",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    83078
+   ]
+  },
+  {
+   "keep": 50611217,
+   "name": "Rayane Belaid",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    279569
+   ]
+  },
+  {
+   "keep": 50591841,
+   "name": "Noel Milleskog",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    260193
+   ]
+  },
+  {
+   "keep": 50561499,
+   "name": "Ali Al Bulayhi",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    229851
+   ]
+  },
+  {
+   "keep": 50598115,
+   "name": "Jenson Seelt",
+   "overall": 68,
+   "rarity": "Silver",
+   "removed": [
+    266467
+   ]
+  },
+  {
+   "keep": 50525666,
+   "name": "James Collins",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    194018
+   ]
+  },
+  {
+   "keep": 50610559,
+   "name": "Tristan Gooijer",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    278911
+   ]
+  },
+  {
+   "keep": 50600695,
+   "name": "Zalán Vancsa",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    269047
+   ]
+  },
+  {
+   "keep": 50406579,
+   "name": "Marco Dalla Vecchia",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    74931
+   ]
+  },
+  {
+   "keep": 50414585,
+   "name": "Iker Luque",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    82937
+   ]
+  },
+  {
+   "keep": 50565452,
+   "name": "Tyreeq Bakinson",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    233804
+   ]
+  },
+  {
+   "keep": 50577832,
+   "name": "Marc-Olivier Doué",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    246184
+   ]
+  },
+  {
+   "keep": 50411161,
+   "name": "Bahmed Deuff",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    79513
+   ]
+  },
+  {
+   "keep": 50577944,
+   "name": "Kion Etete",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    246296
+   ]
+  },
+  {
+   "keep": 50407937,
+   "name": "Denzel De Roeve",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    76289
+   ]
+  },
+  {
+   "keep": 50599754,
+   "name": "Maxim Dekker",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    268106
+   ]
+  },
+  {
+   "keep": 50602305,
+   "name": "Edoardo Iannoni",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    270657
+   ]
+  },
+  {
+   "keep": 50417352,
+   "name": "Patricio Salas",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    85704
+   ]
+  },
+  {
+   "keep": 50585112,
+   "name": "Malthe Højholt",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    253464
+   ]
+  },
+  {
+   "keep": 50596525,
+   "name": "Moritz Oswald",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    264877
+   ]
+  },
+  {
+   "keep": 50584518,
+   "name": "Emre Demir",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    252870
+   ]
+  },
+  {
+   "keep": 50406804,
+   "name": "Toni Fernández",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    75156
+   ]
+  },
+  {
+   "keep": 50409761,
+   "name": "Triston Rowe",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    78113
+   ]
+  },
+  {
+   "keep": 50406884,
+   "name": "Luca Bombino",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    75236
+   ]
+  },
+  {
+   "keep": 50409286,
+   "name": "Robin Mirisola",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    77638
+   ]
+  },
+  {
+   "keep": 50417998,
+   "name": "Sam de Grand",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    86350
+   ]
+  },
+  {
+   "keep": 50597410,
+   "name": "Filippo Missori",
+   "overall": 67,
+   "rarity": "Silver",
+   "removed": [
+    265762
+   ]
+  },
+  {
+   "keep": 50406900,
+   "name": "Jérémy Hatchi",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    75252
+   ]
+  },
+  {
+   "keep": 50414676,
+   "name": "Oliver Irow",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    83028
+   ]
+  },
+  {
+   "keep": 50568853,
+   "name": "Ashley Maynard-Brewer",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    237205
+   ]
+  },
+  {
+   "keep": 50604244,
+   "name": "Benjamin Tahirović",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    272596
+   ]
+  },
+  {
+   "keep": 50546330,
+   "name": "Joe Wright",
+   "overall": 66,
+   "rarity": "Silver",
+   "removed": [
+    214682
+   ]
+  },
+  {
+   "keep": 50415158,
+   "name": "Kristian Lonebu",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    83510
+   ]
+  },
+  {
+   "keep": 50583532,
+   "name": "Bryan Fiabema",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    251884
+   ]
+  },
+  {
+   "keep": 50609180,
+   "name": "Maleace Asamoah",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    277532
+   ]
+  },
+  {
+   "keep": 50600568,
+   "name": "Mikkel Rakneberg",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    268920
+   ]
+  },
+  {
+   "keep": 50585051,
+   "name": "Raphael",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    253403
+   ]
+  },
+  {
+   "keep": 50584064,
+   "name": "Don Deedson Louicius",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    252416
+   ]
+  },
+  {
+   "keep": 50609160,
+   "name": "Caylan Vickers",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    277512
+   ]
+  },
+  {
+   "keep": 50576633,
+   "name": "Rosaire Longelo",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    244985
+   ]
+  },
+  {
+   "keep": 50607700,
+   "name": "Hendry Blank",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    276052
+   ]
+  },
+  {
+   "keep": 50409002,
+   "name": "Chido Obi",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    77354
+   ]
+  },
+  {
+   "keep": 50410948,
+   "name": "Lazar Jovanović",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    79300
+   ]
+  },
+  {
+   "keep": 50595869,
+   "name": "Ar'jany Martha",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    264221
+   ]
+  },
+  {
+   "keep": 50410309,
+   "name": "Brandon Bokangu",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    78661
+   ]
+  },
+  {
+   "keep": 50608528,
+   "name": "Esteban Lozano",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    276880
+   ]
+  },
+  {
+   "keep": 50608769,
+   "name": "Nökkvi Þórisson",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    277121
+   ]
+  },
+  {
+   "keep": 50594362,
+   "name": "Mamadou Jobe",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    262714
+   ]
+  },
+  {
+   "keep": 50403621,
+   "name": "Ethan Wheatley",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    71973
+   ]
+  },
+  {
+   "keep": 50409991,
+   "name": "Samuel Gueulette",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    78343
+   ]
+  },
+  {
+   "keep": 50563228,
+   "name": "Antony Evans",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    231580
+   ]
+  },
+  {
+   "keep": 50610219,
+   "name": "Yanis Issoufou",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    278571
+   ]
+  },
+  {
+   "keep": 50560102,
+   "name": "Mohamed Ofkir",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    228454
+   ]
+  },
+  {
+   "keep": 50591840,
+   "name": "Antwoine Hackford",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    260192
+   ]
+  },
+  {
+   "keep": 50608991,
+   "name": "Nathan Asiimwe",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    277343
+   ]
+  },
+  {
+   "keep": 50569578,
+   "name": "Sebastian Hausner",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    237930
+   ]
+  },
+  {
+   "keep": 50607362,
+   "name": "Evans Maurin",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    275714
+   ]
+  },
+  {
+   "keep": 50609305,
+   "name": "Kai Andrews",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    277657
+   ]
+  },
+  {
+   "keep": 50586149,
+   "name": "Pape Meïssa Ba",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    254501
+   ]
+  },
+  {
+   "keep": 50600768,
+   "name": "Nikolai Hopland",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    269120
+   ]
+  },
+  {
+   "keep": 50414329,
+   "name": "Javi Boñar",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    82681
+   ]
+  },
+  {
+   "keep": 50608004,
+   "name": "Gustav Christensen",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    276356
+   ]
+  },
+  {
+   "keep": 50406716,
+   "name": "Guille Fernández",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    75068
+   ]
+  },
+  {
+   "keep": 50599392,
+   "name": "Zech Obiero",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    267744
+   ]
+  },
+  {
+   "keep": 50610778,
+   "name": "Amady Camara",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    279130
+   ]
+  },
+  {
+   "keep": 50605584,
+   "name": "Ali Bina Dembélé",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    273936
+   ]
+  },
+  {
+   "keep": 50584545,
+   "name": "Calvin Ramsay",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    252897
+   ]
+  },
+  {
+   "keep": 50576860,
+   "name": "Roberts Uldriķis",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    245212
+   ]
+  },
+  {
+   "keep": 50412076,
+   "name": "Junior Nkeng",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    80428
+   ]
+  },
+  {
+   "keep": 50417215,
+   "name": "Ryan van de Pavert",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    85567
+   ]
+  },
+  {
+   "keep": 50406128,
+   "name": "Victor Orakpo",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    74480
+   ]
+  },
+  {
+   "keep": 50557570,
+   "name": "Mark Shelton",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    225922
+   ]
+  },
+  {
+   "keep": 50414462,
+   "name": "Felipe Chávez",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    82814
+   ]
+  },
+  {
+   "keep": 50588389,
+   "name": "Jakob Bonde",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    256741
+   ]
+  },
+  {
+   "keep": 50522240,
+   "name": "Michael Sollbauer",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    190592
+   ]
+  },
+  {
+   "keep": 50600198,
+   "name": "Josh Feeney",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    268550
+   ]
+  },
+  {
+   "keep": 50603285,
+   "name": "Hussain Al Sibyani",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    271637
+   ]
+  },
+  {
+   "keep": 50415309,
+   "name": "Alvin Obinna Okoro",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    83661
+   ]
+  },
+  {
+   "keep": 50410864,
+   "name": "Justin von der Hitz",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    79216
+   ]
+  },
+  {
+   "keep": 50412924,
+   "name": "Promise Meliga",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    81276
+   ]
+  },
+  {
+   "keep": 50416784,
+   "name": "Juan Riquelme Angulo",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    85136
+   ]
+  },
+  {
+   "keep": 50560162,
+   "name": "Samuele Massolo",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    228514
+   ]
+  },
+  {
+   "keep": 50599431,
+   "name": "Alexander Simmelhack",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    267783
+   ]
+  },
+  {
+   "keep": 50582959,
+   "name": "Klaidi Lolos",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    251311
+   ]
+  },
+  {
+   "keep": 50411417,
+   "name": "Dani Martín",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    79769
+   ]
+  },
+  {
+   "keep": 50604510,
+   "name": "Mark O'Mahony",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    272862
+   ]
+  },
+  {
+   "keep": 50408077,
+   "name": "Luka Topalovič",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    76429
+   ]
+  },
+  {
+   "keep": 50577891,
+   "name": "Jay Williams",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    246243
+   ]
+  },
+  {
+   "keep": 50404652,
+   "name": "Filimon Gerezgiher",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    73004
+   ]
+  },
+  {
+   "keep": 50408727,
+   "name": "Mikkel Bro Hansen",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    77079
+   ]
+  },
+  {
+   "keep": 50547293,
+   "name": "Sergio Llamas",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    215645
+   ]
+  },
+  {
+   "keep": 50596473,
+   "name": "Iyad Mohamed",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    264825
+   ]
+  },
+  {
+   "keep": 50401810,
+   "name": "Michael Golding",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    70162
+   ]
+  },
+  {
+   "keep": 50598324,
+   "name": "Miska Ylitolva",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    266676
+   ]
+  },
+  {
+   "keep": 50407892,
+   "name": "Djylian N'Guessan",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    76244
+   ]
+  },
+  {
+   "keep": 50412307,
+   "name": "Sergio Martínez",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    80659
+   ]
+  },
+  {
+   "keep": 50411080,
+   "name": "Moncef Zekri",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    79432
+   ]
+  },
+  {
+   "keep": 50411723,
+   "name": "Mattia Mannini",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    80075
+   ]
+  },
+  {
+   "keep": 50610851,
+   "name": "Oluwaseun Ogbemudia",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    279203
+   ]
+  },
+  {
+   "keep": 50406540,
+   "name": "Tommy Setford",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    74892
+   ]
+  },
+  {
+   "keep": 50584083,
+   "name": "Josh Austerfield",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    252435
+   ]
+  },
+  {
+   "keep": 50597743,
+   "name": "Connor O'Riordan",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    266095
+   ]
+  },
+  {
+   "keep": 50405078,
+   "name": "Pape Diong",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    73430
+   ]
+  },
+  {
+   "keep": 50607165,
+   "name": "Ben Hamed Touré",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    275517
+   ]
+  },
+  {
+   "keep": 50406096,
+   "name": "Francesco Folino",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    74448
+   ]
+  },
+  {
+   "keep": 50405793,
+   "name": "Sam Chambers",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    74145
+   ]
+  },
+  {
+   "keep": 50540963,
+   "name": "Dan Butler",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    209315
+   ]
+  },
+  {
+   "keep": 50405782,
+   "name": "Mathis Saka",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    74134
+   ]
+  },
+  {
+   "keep": 50610706,
+   "name": "Sander Kilen",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    279058
+   ]
+  },
+  {
+   "keep": 50605579,
+   "name": "Elias Bakatukanda",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    273931
+   ]
+  },
+  {
+   "keep": 50412028,
+   "name": "Branimir Mlačić",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    80380
+   ]
+  },
+  {
+   "keep": 50580340,
+   "name": "Matty Jacob",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    248692
+   ]
+  },
+  {
+   "keep": 50416742,
+   "name": "Charlie Rosenqvist",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    85094
+   ]
+  },
+  {
+   "keep": 50411200,
+   "name": "Joaquín González",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    79552
+   ]
+  },
+  {
+   "keep": 50588753,
+   "name": "Ziyad Larkeche",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    257105
+   ]
+  },
+  {
+   "keep": 50411770,
+   "name": "Basile Vroninks",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    80122
+   ]
+  },
+  {
+   "keep": 50606909,
+   "name": "George Nevett",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    275261
+   ]
+  },
+  {
+   "keep": 50606111,
+   "name": "Cheick Oumar Konaté",
+   "overall": 65,
+   "rarity": "Silver",
+   "removed": [
+    274463
+   ]
+  },
+  {
+   "keep": 50412988,
+   "name": "Elijah Odede",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    81340
+   ]
+  },
+  {
+   "keep": 50578690,
+   "name": "Jesper Löfgren",
+   "overall": 64,
+   "rarity": "Bronze",
+   "removed": [
+    247042
+   ]
+  },
+  {
+   "keep": 50417073,
+   "name": "Jules Ahoka",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    85425
+   ]
+  },
+  {
+   "keep": 50606278,
+   "name": "Jack Thomson",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    274630
+   ]
+  },
+  {
+   "keep": 50404746,
+   "name": "Dylan Leonard",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    73098
+   ]
+  },
+  {
+   "keep": 50414510,
+   "name": "Karl Steinmann",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    82862
+   ]
+  },
+  {
+   "keep": 50600050,
+   "name": "Dennis Gjengaar",
+   "overall": 60,
+   "rarity": "Bronze",
+   "removed": [
+    268402
+   ]
+  },
+  {
+   "keep": 50403282,
+   "name": "Eric da Silva Moreira",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    71634
+   ]
+  },
+  {
+   "keep": 50416939,
+   "name": "Idrissa Sabaly",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    85291
+   ]
+  },
+  {
+   "keep": 50596093,
+   "name": "Jovan Malcolm",
+   "overall": 59,
+   "rarity": "Bronze",
+   "removed": [
+    264445
+   ]
+  },
+  {
+   "keep": 50610612,
+   "name": "Albert Iustin Doicaru",
+   "overall": 60,
+   "rarity": "Bronze",
+   "removed": [
+    278964
+   ]
+  },
+  {
+   "keep": 50413061,
+   "name": "Fuka Tsunoda",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    81413
+   ]
+  },
+  {
+   "keep": 50410813,
+   "name": "Liam West",
+   "overall": 59,
+   "rarity": "Bronze",
+   "removed": [
+    79165
+   ]
+  },
+  {
+   "keep": 50410048,
+   "name": "Ibrahim Fullah",
+   "overall": 59,
+   "rarity": "Bronze",
+   "removed": [
+    78400
+   ]
+  },
+  {
+   "keep": 50409209,
+   "name": "Yousri Sbai",
+   "overall": 60,
+   "rarity": "Bronze",
+   "removed": [
+    77561
+   ]
+  },
+  {
+   "keep": 50595035,
+   "name": "Kylian Kouassi",
+   "overall": 60,
+   "rarity": "Bronze",
+   "removed": [
+    263387
+   ]
+  },
+  {
+   "keep": 50411271,
+   "name": "Mathieu Mion",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    79623
+   ]
+  },
+  {
+   "keep": 50504652,
+   "name": "Michał Rosiak",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    173004
+   ]
+  },
+  {
+   "keep": 50408623,
+   "name": "Leart Kabashi",
+   "overall": 59,
+   "rarity": "Bronze",
+   "removed": [
+    76975
+   ]
+  },
+  {
+   "keep": 50412153,
+   "name": "Eman Košpo",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    80505
+   ]
+  },
+  {
+   "keep": 50402127,
+   "name": "Côme Bianay Balcot",
+   "overall": 61,
+   "rarity": "Bronze",
+   "removed": [
+    70479
+   ]
+  },
+  {
+   "keep": 50414582,
+   "name": "Aidan Borland",
+   "overall": 59,
+   "rarity": "Bronze",
+   "removed": [
+    82934
+   ]
+  },
+  {
+   "keep": 50595871,
+   "name": "Noah König",
+   "overall": 62,
+   "rarity": "Bronze",
+   "removed": [
+    264223
+   ]
+  },
+  {
+   "keep": 50532375,
+   "name": "Carlos Delgado",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    200727
+   ]
+  },
+  {
+   "keep": 50407415,
+   "name": "Ben Broggio",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    75767
+   ]
+  },
+  {
+   "keep": 50405890,
+   "name": "Zach Abbott",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    74242
+   ]
+  },
+  {
+   "keep": 50418339,
+   "name": "Lukas Bornschein",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    86691
+   ]
+  },
+  {
+   "keep": 50597306,
+   "name": "Eli King",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    265658
+   ]
+  },
+  {
+   "keep": 50405743,
+   "name": "Isidoros Koutsidis",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    74095
+   ]
+  },
+  {
+   "keep": 50415139,
+   "name": "Ythallo",
+   "overall": 60,
+   "rarity": "Bronze",
+   "removed": [
+    83491
+   ]
+  },
+  {
+   "keep": 50409771,
+   "name": "George Pratt",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    78123
+   ]
+  },
+  {
+   "keep": 50408918,
+   "name": "Jasper Silva Torkildsen",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    77270
+   ]
+  },
+  {
+   "keep": 50605246,
+   "name": "Michael Adu-Poku",
+   "overall": 57,
+   "rarity": "Bronze",
+   "removed": [
+    273598
+   ]
+  },
+  {
+   "keep": 50411604,
+   "name": "Simon Stüker",
+   "overall": 60,
+   "rarity": "Bronze",
+   "removed": [
+    79956
+   ]
+  },
+  {
+   "keep": 50410362,
+   "name": "Osaze De Rosario",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    78714
+   ]
+  },
+  {
+   "keep": 50610868,
+   "name": "Marcus Müller",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    279220
+   ]
+  },
+  {
+   "keep": 50407280,
+   "name": "Diego Díaz",
+   "overall": 59,
+   "rarity": "Bronze",
+   "removed": [
+    75632
+   ]
+  },
+  {
+   "keep": 50409439,
+   "name": "Sean Neave",
+   "overall": 59,
+   "rarity": "Bronze",
+   "removed": [
+    77791
+   ]
+  },
+  {
+   "keep": 50402814,
+   "name": "Jack Taylor",
+   "overall": 59,
+   "rarity": "Bronze",
+   "removed": [
+    71166
+   ]
+  },
+  {
+   "keep": 50610624,
+   "name": "Peter Amoran",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    278976
+   ]
+  },
+  {
+   "keep": 50601599,
+   "name": "Thomas Kastanaras",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    269951
+   ]
+  },
+  {
+   "keep": 50609746,
+   "name": "Kaelan Casey",
+   "overall": 63,
+   "rarity": "Bronze",
+   "removed": [
+    278098
+   ]
+  },
+  {
+   "keep": 50406947,
+   "name": "David Kamara",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    75299
+   ]
+  },
+  {
+   "keep": 50606577,
+   "name": "MJ Kamson-Kamara",
+   "overall": 59,
+   "rarity": "Bronze",
+   "removed": [
+    274929
+   ]
+  },
+  {
+   "keep": 50577068,
+   "name": "Hussain Qasim",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    245420
+   ]
+  },
+  {
+   "keep": 50606665,
+   "name": "Lee Min Hyeok",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    275017
+   ]
+  },
+  {
+   "keep": 50410762,
+   "name": "Charlie Warren",
+   "overall": 57,
+   "rarity": "Bronze",
+   "removed": [
+    79114
+   ]
+  },
+  {
+   "keep": 50404819,
+   "name": "Yusuf Wardak",
+   "overall": 60,
+   "rarity": "Bronze",
+   "removed": [
+    73171
+   ]
+  },
+  {
+   "keep": 50605755,
+   "name": "CJ Fodrey",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    274107
+   ]
+  },
+  {
+   "keep": 50416768,
+   "name": "Marco Decherf",
+   "overall": 57,
+   "rarity": "Bronze",
+   "removed": [
+    85120
+   ]
+  },
+  {
+   "keep": 50411744,
+   "name": "Joyeux Masanka Bungi",
+   "overall": 60,
+   "rarity": "Bronze",
+   "removed": [
+    80096
+   ]
+  },
+  {
+   "keep": 50405591,
+   "name": "Harry Ashfield",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    73943
+   ]
+  },
+  {
+   "keep": 50409391,
+   "name": "Owen Eames",
+   "overall": 56,
+   "rarity": "Bronze",
+   "removed": [
+    77743
+   ]
+  },
+  {
+   "keep": 50403709,
+   "name": "Ajay Matthews",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    72061
+   ]
+  },
+  {
+   "keep": 50408616,
+   "name": "Eryk Grzywacz",
+   "overall": 60,
+   "rarity": "Bronze",
+   "removed": [
+    76968
+   ]
+  },
+  {
+   "keep": 50603404,
+   "name": "Matai Akinmboni",
+   "overall": 57,
+   "rarity": "Bronze",
+   "removed": [
+    271756
+   ]
+  },
+  {
+   "keep": 50412945,
+   "name": "Olivier Mambwa",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    81297
+   ]
+  },
+  {
+   "keep": 50412500,
+   "name": "Alex Williams",
+   "overall": 56,
+   "rarity": "Bronze",
+   "removed": [
+    80852
+   ]
+  },
+  {
+   "keep": 50402600,
+   "name": "Thamer Al Khaibari",
+   "overall": 57,
+   "rarity": "Bronze",
+   "removed": [
+    70952
+   ]
+  },
+  {
+   "keep": 50416318,
+   "name": "Cheikh Mbacke Diop",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    84670
+   ]
+  },
+  {
+   "keep": 50416338,
+   "name": "George Sebine",
+   "overall": 58,
+   "rarity": "Bronze",
+   "removed": [
+    84690
+   ]
+  },
+  {
+   "keep": 50411793,
+   "name": "Loris Giandomenico",
+   "overall": 55,
+   "rarity": "Bronze",
+   "removed": [
+    80145
+   ]
+  },
+  {
+   "keep": 50411508,
+   "name": "Owen Presthus",
+   "overall": 55,
+   "rarity": "Bronze",
+   "removed": [
+    79860
+   ]
+  },
+  {
+   "keep": 50401634,
+   "name": "Roald Mitchell",
+   "overall": 54,
+   "rarity": "Bronze",
+   "removed": [
+    69986
+   ]
+  },
+  {
+   "keep": 50419199,
+   "name": "Alieu Conateh",
+   "overall": 54,
+   "rarity": "Bronze",
+   "removed": [
+    87551
+   ]
+  }
+ ]
+}
