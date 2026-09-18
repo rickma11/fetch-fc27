@@ -2,8 +2,8 @@ name: Fetch FC27 Daily
 
 on:
   schedule:
-    # 19:00 UTC = 北京时间 03:00（GitHub cron 为尽力触发，可能延后数分钟）
-    - cron: '0 19 * * *'
+    # 18:20 UTC = 北京时间 02:20（每日：球员抓取 + 头像/卡面图片上传，以及 SBC/进化抓取）
+    - cron: '20 18 * * *'
   workflow_dispatch:
     inputs:
       mode:
@@ -185,6 +185,16 @@ jobs:
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/upload_images.js --ver 27
+
+      # 稀有度小卡面（筛选弹层用）：fetch_ci 阶段 4b 已按清单增量下载到 images_out/rarity_{id}.webp，
+      # 这里原样上传云存储 fc{ver}/images/。数量只有几~几十张、秒级完成；任何一张失败下次自动补。
+      - name: Upload rarity card faces to Cloud Storage
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/upload_rarity_images.js --ver 27
 
       # 无半身像卡面：fut.gg 没有半身像的球员（约 320 名）卡面照片区是空的，且 fut.gg 还多画了
       # 两处残留（左上角破图占位图标 + OVR 右侧一行多余姓名）。这里用「同稀有度无像卡逐像素中位数」
