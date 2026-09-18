@@ -17,6 +17,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 const { sigOfRaw, normFaceStats, normalizeRarity } = require('./sig');
+const imgLib = require('./images'); // rarityImgs 块需要 rarityFileKeyOf（commit de68f5a 漏引，run#43 崩溃根因）
 
 const ROOT = path.resolve(__dirname, '..');
 
