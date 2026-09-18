@@ -144,7 +144,6 @@ jobs:
 
       # SBC / Evolutions 抓取（与球员管线同一套真实浏览器过 CF 机制，独立步骤、独立浏览器）
       # 输出 cloud-data/fc27/sbcs.json + evolutions.json + sbc_evo_summary.json
-      # FC27 SBC 当前尚未上线 → 写出空数组，等上线后自动有数据；Evolution 同理。
       - name: Scrape SBC & Evolutions (real browser bypass Cloudflare)
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         continue-on-error: true
@@ -158,6 +157,17 @@ jobs:
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
           FC_MODE: ${{ steps.mode.outputs.db_mode }}
         run: node scripts/upload_db.js --ver 27
+
+      # SBC 上云（2026-09-19 补）：scrape 写出的 sbcs.json 此前没有任何步骤往云库传，
+      # 小程序 SBC 页读的是 sbcs_fc27 → 一直停在最后一次手动上传的旧数据。
+      - name: Upload SBC to CloudBase Database
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/upload_sbcs.js --ver 27
 
       # 译名自动对账（2026-09-16）：EA 每次数据更新都可能冒出新的联赛/俱乐部/国家。
       # 本步骤扫刚落库的全量数据，把「包内词典没收录」的取值补齐：
