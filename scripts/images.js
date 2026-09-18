@@ -26,6 +26,32 @@ const ALL_TYPES = [
   { key: 'simple', field: 'simpleCardImagePath', suffix: '_simple.webp' }
 ];
 
+// ---- 稀有度小卡面（筛选弹层用）----------------------------------------
+// 每档稀有度自带一张官方小卡面（rarityImagePath，如 2027/rarities-level-3-large/0.<hash>.png），
+// 每档一张、全库去重后只有几~几十张。走同样的 CDN 变换压成小图（展示宽度 ≤120rpx，240 足够 2x）。
+// 云存储命名：fc{ver}/images/rarity_{内容hash前16位}.webp —— ⚠️ 键必须取 imagePath 文件名里
+// EA 的内容 hash（EA 换图 = 换 hash = 换文件名，旧文件成孤儿可忽略）。**绝不能用 rarityId**：
+// 金/银/铜共用同一个占位「Rare」rarity 对象（id 718），按 id 命名三档会挤进同一个文件。
+// 同一 hash 键函数在 云函数 get_players/index.js#rarityFileKeyOf（建 roster 映射用）与
+// utils/dataLoader.js（本地样本兜底）各有一份镜像，改动必须三处同步。
+const RARITY_TRANSFORM = 'cdn-cgi/image/quality=85,format=webp,width=240/';
+const RARITY_SUFFIX = '.webp';
+
+// 基础三档（铜/银/金）在筛选弹层**不展示**小卡面（用户 2026-09-18 拍板：这三档不要图，
+// 其余活动稀有度才有专属小卡面）。⚠️ 同步三处：本文件 + get_players/index.js + utils/dataLoader.js。
+const RARITY_BASE_TIERS = []; // 现在所有档位（含铜/银/金）都出图；置空＝不排除任何档（2026-09-18 用户要求纳入基础三档）
+
+function rarityFileKeyOf(imagePath) {
+  const base = String(imagePath || '').split('/').pop();
+  const m = /\.([0-9a-f]{16,})\./i.exec(base);
+  return (m ? m[1] : '').slice(0, 16);
+}
+function rarityFileNameOf(imagePath) { return 'rarity_' + rarityFileKeyOf(imagePath) + RARITY_SUFFIX; }
+function raritySrcUrlOf(imagePath) { return CDN + RARITY_TRANSFORM + String(imagePath || ''); }
+function rarityManifestPath(ver) {
+  return require('path').resolve(__dirname, '..', 'cloud-data', `fc${ver || 27}`, 'rarity_images.json');
+}
+
 // 可用 FC_IMG_TYPES=portrait,card 缩小范围（simple 简约卡目前小程序未展示）
 function activeTypes() {
   const raw = String(process.env.FC_IMG_TYPES || '').trim();
@@ -93,6 +119,7 @@ function writeManifest(ver, obj) {
 
 module.exports = {
   CDN, TRANSFORM, ALL_TYPES,
+  RARITY_TRANSFORM, RARITY_BASE_TIERS, rarityFileKeyOf, rarityFileNameOf, raritySrcUrlOf, rarityManifestPath,
   activeTypes, typeByKey, relPathOf, srcUrlOf, fileNameOf, cloudPathOf,
   imgSigOf, readManifest, writeManifest
 };
