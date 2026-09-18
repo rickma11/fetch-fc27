@@ -118,5 +118,18 @@ t('无图片字段 → 签名为空（不会产生空任务）', function () {
   assert.strictEqual(img.imgSigOf({ eaId: 1 }), '');
 });
 
+
+console.log('增量 needSet 类型归一（2026-09-18 run#41/#42 回归）:')
+t('diffSigs 字符串 id 必须能匹配到数字 eaId 的列表项（String 归一化）', function () {
+  const { diffSigs } = require('../scripts/sig');
+  const snap = { '1001': 'a', '1002': 'b' };
+  const sigs = { 1001: 'a', 1002: 'c', 1003: 'd' };   // 模拟 fetch_ci: 对象键 → 字符串, 列表 eaId → 数字
+  const d = diffSigs(snap, sigs);
+  assert.ok(d.newIds.every(function (x) { return typeof x === 'string'; }));
+  const needSet = new Set(d.newIds.concat(d.changedIds).map(String));
+  assert.ok(needSet.has(String(1003)), '新增 id 必须命中');
+  assert.ok(needSet.has(String(1002)), '变化 id 必须命中');
+  assert.strictEqual(!needSet.has(String(1001)), true, '未变 id 不应重抓');
+});
 console.log('\n结果: 通过 ' + pass + ' / 失败 ' + fail);
 process.exit(fail ? 1 : 0);
