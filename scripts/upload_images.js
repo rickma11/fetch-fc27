@@ -93,18 +93,20 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
       } catch (e) {
         return;   // 无变化可提交 → 无需 push
       }
-      // ⚠️ 关键：工作区必然残留未暂存改动（players.json / details.json 等仍被 git 跟踪，
-      //    每次 run 本地重新生成 → 显示为 modified）。而 git rebase/pull --rebase 要求工作区
-      //    干净，否则报 "cannot rebase: You have unstaged changes" 并失败 —— 会让本轮续传进度
-      //    全部丢失。清单已在上一步 commit 进 HEAD，故此处可安全丢弃其余未暂存改动。
-      try { cp.execSync('git reset --hard HEAD', { cwd: ROOT, stdio: 'ignore' }); } catch (e) { }
+      // ⚠️ 工作区还残留其它步骤刚写好的文件（snapshot.json / changes.json / sbcs.json /
+      //    evolutions.json / facets.json…，最终 Commit version history 步骤要提交它们）。
+      //    2026-09-18 踩坑：这里曾用 `git reset --hard HEAD`「清场」，把同一次 run 里
+      //    scrape 出的 12 组 SBC、成型的 111 新球员快照全部丢弃 → 当天数据静默回退到前一天。
+      //    改用 stash 暂存 → push → pop 归位：既保 rebase/push 干净，又不丢别人的改动。
+      try { cp.execSync('git stash push -u -m "wip-img-checkpoint"', { cwd: ROOT, stdio: 'ignore' }); } catch (e) { }
       try {
         cp.execSync('git push origin HEAD:main', { cwd: ROOT, stdio: 'ignore' });
       } catch (e) {
         // 可能被 probe-futgg 并发推进 origin/main 导致 non-fast-forward，拉回再推一次
-        cp.execSync('git pull --rebase origin main', { cwd: ROOT, stdio: 'ignore' });
-        cp.execSync('git push origin HEAD:main', { cwd: ROOT, stdio: 'ignore' });
+        try { cp.execSync('git pull --rebase origin main', { cwd: ROOT, stdio: 'ignore' }); } catch (e2) { }
+        try { cp.execSync('git push origin HEAD:main', { cwd: ROOT, stdio: 'ignore' }); } catch (e3) { }
       }
+      try { cp.execSync('git stash pop', { cwd: ROOT, stdio: 'ignore' }); } catch (e) { }
     } catch (e) {
       // 兜底失败绝不拖累上传主流程
     }
