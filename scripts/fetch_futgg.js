@@ -61,12 +61,17 @@ function getJson(url) {
 }
 
 // 卡片来源（fut.gg item 上的标记字段）归一成单值，供小程序「卡片来源」筛选使用。
-// 优先级 SBC > 任务奖励(Objective) > 赛季通行证(Season Pass) > 卡池 —— 三者几乎互斥，
+// 优先级 SBC > 赛季通行证(Season Pass) > 任务奖励(Objective) > 卡池 —— 三者几乎互斥，
 // 万一将来出现同时命中的卡，取最"专属"的那个。isSpecial（活动特殊卡）与来源正交，不参与归一。
+// ⚠️ 2026-09-18：SEASON_PASS 提到 OBJECTIVE 之前。fut.gg 目前把 OTW 这类通行证卡标成
+//    isObjective=true、且列表接口**根本不回传 isSeasonPass**（实测全库 isSeasonPass 恒为 null），
+//    真正的通行证归属只能从**详情**接口的 premiumSeasonPassLevel / standardSeasonPassLevel 判定
+//    —— 见 buildDetail 的 seasonPass* 字段与 main() 里的回写。这里提前只是为了让将来列表若
+//    补上 isSeasonPass 时不再被 OBJECTIVE 抢先命中，本身不改变当前行为（列表值恒 null）。
 function cardSourceOf(item) {
   if (item.isSbc === true) return 'SBC';
-  if (item.isObjective === true) return 'OBJECTIVE';
   if (item.isSeasonPass === true) return 'SEASON_PASS';
+  if (item.isObjective === true) return 'OBJECTIVE';
   return 'POOL';
 }
 
@@ -161,6 +166,17 @@ function buildDetail(p, detRaw) {
     Object.keys(d).forEach(function (k) { if (k.indexOf('attribute') === 0 && typeof d[k] === 'number') attributes[k] = d[k]; });
   }
   const position = (typeof d.position === 'string' && d.position) ? d.position : p.position;
+  // ── 赛季通行证等级（只有详情接口有，列表接口完全不带）────────────────────────────
+  // fut.gg 用两个字段区分两档通行证，页面上表现为卡面挂的 SP 徽标：
+  //   premiumSeasonPassLevel  → 「Premium Season Pass: Level N」，金色 SP 徽标
+  //   standardSeasonPassLevel → 「Season Pass: Level N」，普通（紫）SP 徽标
+  // 实测（2026-09-18）：OTW 通行证卡两者必有其一（Anderson premium=3 / Tielemans standard=26），
+  //   而同批被 fut.gg 同样标成 isObjective 的 Squad Foundations 真·任务卡两者**皆为 null**
+  //   —— 这就是「赛季通行证 vs 任务奖励」唯一可靠的判别信号。
+  const spPremium = (typeof d.premiumSeasonPassLevel === 'number') ? d.premiumSeasonPassLevel : null;
+  const spStandard = (typeof d.standardSeasonPassLevel === 'number') ? d.standardSeasonPassLevel : null;
+  const spLevel = (spPremium != null) ? spPremium : spStandard;
+  const spTier = (spPremium != null) ? 'premium' : (spStandard != null ? 'standard' : null);
   return {
     ...p,
     position: position,
@@ -189,6 +205,12 @@ function buildDetail(p, detRaw) {
     // 实测（2026-09-14，抽样 60 人）只有 lengthy/explosive/controlled 三桶有值，
     // 其余四桶恒为空 —— 但这里按原样整存，EA 后续若启用不必再改数据结构。
     accelerateTypes: d.accelerateTypes || null,
+    // 赛季通行证（两档原始等级各存一份保真 + 归一后的 level/tier 供端上直接用）。
+    // tier: 'premium' | 'standard' | null —— 端上据此选图标（sp-gold / sp）与配色。
+    premiumSeasonPassLevel: spPremium,
+    standardSeasonPassLevel: spStandard,
+    seasonPassLevel: spLevel,
+    seasonPassTier: spTier,
     facePace: facePace != null ? facePace : p.facePace,
     faceShooting: faceShooting != null ? faceShooting : p.faceShooting,
     facePassing: facePassing != null ? facePassing : p.facePassing,
@@ -238,14 +260,17 @@ async function main() {
     if (dump.totalPages) console.log('接口总页数:', dump.totalPages);
 
     // 增量模式只成型「新增 + 变化」，其余保持数据库中已有的内容
+    // ⚠️ NEW_IDS/CHANGED_IDS 来自 diffSigs() 的 Object.keys()，是**字符串**；
+    //    而 p.eaId 是 fut.gg JSON 里的**数字** —— Set.has 不做类型转换，
+    //    不归一化的话增量模式一条都匹配不上（2026-09-18 run#41/#42 实锤：118 目标全 miss）。
     let needSet = null;
     if (DUMP_MODE !== 'full') {
-      needSet = new Set(NEW_IDS.concat(CHANGED_IDS));
+      needSet = new Set(NEW_IDS.concat(CHANGED_IDS).map(String));
       console.log('本次需要成型：新增', NEW_IDS.length, '| 变化', CHANGED_IDS.length, '| 下架', REMOVED_IDS.length);
     }
     for (let i = 0; i < listPlayers.length; i++) {
       const p = listPlayers[i];
-      if (needSet && !needSet.has(p.eaId)) continue;
+      if (needSet && !needSet.has(String(p.eaId))) continue;
       if (eaIdSet.has(p.eaId)) continue;
       eaIdSet.add(p.eaId);
       players.push(p);
@@ -254,11 +279,20 @@ async function main() {
       // SBC 积分只有详情接口有（gradingScore），回写到列表文档，
       // 否则 players_fc27 里没有该字段、端上列表/详情页读不到。
       if (_det.sbcPoints != null) p.sbcPoints = _det.sbcPoints;
+      // 赛季通行证同理：归属与等级都只有详情接口有 → 回写列表文档。
+      // 端上「卡片来源」筛选读的是单值 cardSource，详情页读 seasonPassLevel/Tier。
+      // SBC 优先级最高（SBC 卡不该被通行证覆盖），其余情况只要拿到等级就归通行证。
+      if (_det.seasonPassLevel != null && p.cardSource !== 'SBC') {
+        p.cardSource = 'SEASON_PASS';
+        p.isSeasonPass = true;
+        p.seasonPassLevel = _det.seasonPassLevel;
+        p.seasonPassTier = _det.seasonPassTier;
+      }
       if (players.length % 500 === 0) console.log('  成型', players.length, '/', needSet ? needSet.size : listPlayers.length);
     }
     if (needSet) {
       let missing = 0;
-      needSet.forEach(function (id) { if (!eaIdSet.has(id)) missing++; });
+      needSet.forEach(function (id) { if (!eaIdSet.has(Number(id))) missing++; });
       if (missing) console.warn('  ⚠️', missing, '个目标 eaId 未出现在列表中，已跳过');
     }
     console.log('本次成型球员数:', players.length);
@@ -291,6 +325,12 @@ async function main() {
         const _bd = buildDetail(p, det);
         details[p.eaId] = _bd;
         if (_bd.sbcPoints != null) p.sbcPoints = _bd.sbcPoints;   // 同 full 分支：回写列表文档
+        if (_bd.seasonPassLevel != null && p.cardSource !== 'SBC') {   // 同 full 分支：通行证回写
+          p.cardSource = 'SEASON_PASS';
+          p.isSeasonPass = true;
+          p.seasonPassLevel = _bd.seasonPassLevel;
+          p.seasonPassTier = _bd.seasonPassTier;
+        }
       } catch (e) {
         console.warn('    详情失败，使用列表数据兜底:', e.message);
         details[p.eaId] = p;
@@ -316,6 +356,19 @@ async function main() {
     clubs: uniqSorted(listPlayers.map(function (p) { return p.club && p.club.name; })),
     nations: uniqSorted(listPlayers.map(function (p) { return p.nation && p.nation.name; })),
     rarities: uniqSorted(listPlayers.map(function (p) { return p.rarity && p.rarity.name; })),
+    // 稀有度英文名 → 小卡面文件名（rarity_<内容hash>.webp，键与 images.js#rarityFileKeyOf 同口径）。
+    // 端上筛选弹层小卡面用；原 id 方案已废弃（金/银/铜共用占位 id 718，按 id 命名会张冠李戴）。
+    rarityImgs: (function () {
+      const m = {};
+      listPlayers.forEach(function (p) {
+        const r = p.rarity;
+        if (r && r.name && r.imagePath) {
+          const fk = imgLib.rarityFileKeyOf(r.imagePath);
+          if (fk && !m[r.name]) m[r.name] = 'rarity_' + fk + '.webp';
+        }
+      });
+      return m;
+    })(),
     accs: uniqSorted(listPlayers.map(function (p) { return p.accelerateType; })),
     updatedAt: new Date().toISOString()
   };
