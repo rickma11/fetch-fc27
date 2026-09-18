@@ -1,9 +1,8 @@
 name: Fetch FC27 Daily
 
 on:
-  schedule:
-    # 18:20 UTC = 北京时间 02:20（每日：球员抓取 + 头像/卡面图片上传，以及 SBC/进化抓取）
-    - cron: '20 18 * * *'
+  # 定时由 eafc-miniapp 云函数 trigger_github_action 卡点（每日 01:20 / 02:20 各 dispatch 一次），
+  # 不再使用 GitHub 原生 schedule（实测常延迟数小时，且会与云触发在 02:20 重复触发）。
   workflow_dispatch:
     inputs:
       mode:
