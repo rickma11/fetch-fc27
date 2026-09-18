@@ -1172,7 +1172,7 @@
       "name": "Gold Upgrade",
       "description": "Exchange Gold items for rewards.",
       "imagePath": "2027/sbcs/6.png",
-      "endTime": "2035-08-20T17:00:00.387081Z",
+      "endTime": "2035-08-20T17:00:00.672657Z",
       "createdAt": "2026-09-15T20:13:32.506330Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -1192,8 +1192,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 7350,
-      "costPc": 7250,
+      "cost": 7200,
+      "costPc": 7350,
       "pool": null,
       "awards": [
         {
@@ -1227,10 +1227,10 @@
           "imagePath": "2027/sbcs/challenges/18.png",
           "awardsIds": [],
           "cheapestSolutionId": 6370502,
-          "cheapestSolutionPrice": 7350,
+          "cheapestSolutionPrice": 7200,
           "cheapestSolutionUrl": "/27/squad-builder/a96cc131-23a8-4de8-8452-da773869eba5/",
           "cheapestSolutionPcId": 6370526,
-          "cheapestSolutionPricePc": 7250,
+          "cheapestSolutionPricePc": 7350,
           "cheapestSolutionPcUrl": "/27/squad-builder/09702417-255a-4e26-a864-82c05cd073a9/",
           "requirementsText": [
             "Player quality: Min. Gold"
@@ -1284,7 +1284,7 @@
       "name": "Silver Upgrade",
       "description": "Exchange Silver items for rewards.",
       "imagePath": "2027/sbcs/5.png",
-      "endTime": "2035-08-20T11:00:00.377735Z",
+      "endTime": "2035-08-20T11:00:00.783146Z",
       "createdAt": "2026-09-15T20:13:29.185429Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -1304,8 +1304,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 2950,
-      "costPc": 2400,
+      "cost": 3550,
+      "costPc": 2200,
       "pool": null,
       "awards": [
         {
@@ -1339,10 +1339,10 @@
           "imagePath": "2027/sbcs/challenges/42.png",
           "awardsIds": [],
           "cheapestSolutionId": 6356675,
-          "cheapestSolutionPrice": 2950,
+          "cheapestSolutionPrice": 3550,
           "cheapestSolutionUrl": "/27/squad-builder/70a197cd-fb29-4953-a519-0224f9623f96/",
           "cheapestSolutionPcId": 6360334,
-          "cheapestSolutionPricePc": 2400,
+          "cheapestSolutionPricePc": 2200,
           "cheapestSolutionPcUrl": "/27/squad-builder/a35a53b2-9648-4bc5-bb7f-cbecd3091a77/",
           "requirementsText": [
             "Exactly Silver Players"
@@ -1396,7 +1396,7 @@
       "name": "Bronze Upgrade",
       "description": "Exchange Bronze items for rewards.",
       "imagePath": "2027/sbcs/4.png",
-      "endTime": "2035-08-20T17:00:00.770750Z",
+      "endTime": "2035-08-20T17:00:01.285206Z",
       "createdAt": "2026-09-15T20:13:25.982246Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -1416,8 +1416,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 2150,
-      "costPc": 3200,
+      "cost": 2900,
+      "costPc": 2700,
       "pool": null,
       "awards": [
         {
@@ -1451,10 +1451,10 @@
           "imagePath": "2027/sbcs/challenges/16.png",
           "awardsIds": [],
           "cheapestSolutionId": 6357334,
-          "cheapestSolutionPrice": 2150,
+          "cheapestSolutionPrice": 2900,
           "cheapestSolutionUrl": "/27/squad-builder/8165f048-a531-469f-9d5e-12e304935d05/",
           "cheapestSolutionPcId": 6360519,
-          "cheapestSolutionPricePc": 3200,
+          "cheapestSolutionPricePc": 2700,
           "cheapestSolutionPcUrl": "/27/squad-builder/66b1673b-2c81-4623-a4b3-0b13e0e16f1c/",
           "requirementsText": [
             "Exactly Bronze Players"
@@ -2421,7 +2421,7 @@
       "name": "Intro to Upgrade SBCs",
       "description": "Complete these Upgrade-based challenges to earn rewards. ",
       "imagePath": "2027/sbcs/3.png",
-      "endTime": "2035-08-20T17:00:00.275397Z",
+      "endTime": "2035-08-20T17:00:00.561470Z",
       "createdAt": "2026-09-15T20:13:07.545947Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -2480,10 +2480,10 @@
             24459
           ],
           "cheapestSolutionId": 6357339,
-          "cheapestSolutionPrice": 2150,
+          "cheapestSolutionPrice": 2300,
           "cheapestSolutionUrl": "/27/squad-builder/bd763b91-a603-49cd-87ce-44d4781e5d82/",
           "cheapestSolutionPcId": 6360369,
-          "cheapestSolutionPricePc": 14700,
+          "cheapestSolutionPricePc": 15100,
           "cheapestSolutionPcUrl": "/27/squad-builder/17e15651-00b1-4fb6-8c21-4b3fb9eeb708/",
           "requirementsText": [
             "Min. 11 Players: Bronze",
@@ -2527,10 +2527,10 @@
             24460
           ],
           "cheapestSolutionId": 6370546,
-          "cheapestSolutionPrice": 13300,
+          "cheapestSolutionPrice": 9150,
           "cheapestSolutionUrl": "/27/squad-builder/0f88284e-377d-44f3-9b69-17bf20f32f79/",
           "cheapestSolutionPcId": 6370477,
-          "cheapestSolutionPricePc": 7250,
+          "cheapestSolutionPricePc": 6100,
           "cheapestSolutionPcUrl": "/27/squad-builder/c7b90014-5a18-4fdc-b290-4e7f6ea2cebb/",
           "requirementsText": [
             "Min. 11 Players: Silver"
@@ -2697,7 +2697,7 @@
       "name": "Intro to SBCs",
       "description": "Complete these OVR-based challenges to earn rewards. ",
       "imagePath": "2027/sbcs/1.png",
-      "endTime": "2035-08-20T17:00:00.259100Z",
+      "endTime": "2035-08-20T17:00:00.551521Z",
       "createdAt": "2026-09-15T20:13:01.726932Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -2720,7 +2720,7 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 6000,
+      "cost": 6100,
       "costPc": 6000,
       "pool": null,
       "awards": [
@@ -2804,10 +2804,10 @@
             24455
           ],
           "cheapestSolutionId": 6360533,
-          "cheapestSolutionPrice": 1100,
+          "cheapestSolutionPrice": 1750,
           "cheapestSolutionUrl": "/27/squad-builder/0cf8e76d-d7f1-4d12-bf06-e6a3b29e0ff8/",
           "cheapestSolutionPcId": 6369979,
-          "cheapestSolutionPricePc": 700,
+          "cheapestSolutionPricePc": 1000,
           "cheapestSolutionPcUrl": "/27/squad-builder/34a70334-1255-4c37-8cc0-44b013bcd247/",
           "requirementsText": [
             "Min. 2 player with minimum OVR of 65",
@@ -2852,10 +2852,10 @@
             24456
           ],
           "cheapestSolutionId": 6363348,
-          "cheapestSolutionPrice": 1950,
+          "cheapestSolutionPrice": 1450,
           "cheapestSolutionUrl": "/27/squad-builder/fb561a59-dbeb-4e37-b37b-47f4f66c5058/",
           "cheapestSolutionPcId": 6365773,
-          "cheapestSolutionPricePc": 2400,
+          "cheapestSolutionPricePc": 2150,
           "cheapestSolutionPcUrl": "/27/squad-builder/e7e990c7-da82-4610-90a5-d3b39952d5b7/",
           "requirementsText": [
             "Min. 3 player with minimum OVR of 65",
@@ -2900,10 +2900,10 @@
             24457
           ],
           "cheapestSolutionId": 6363350,
-          "cheapestSolutionPrice": 2750,
+          "cheapestSolutionPrice": 2700,
           "cheapestSolutionUrl": "/27/squad-builder/0397e1c6-2e4d-43fb-84c5-3ecd15dd2027/",
           "cheapestSolutionPcId": 6367997,
-          "cheapestSolutionPricePc": 2700,
+          "cheapestSolutionPricePc": 2650,
           "cheapestSolutionPcUrl": "/27/squad-builder/633edaef-5b5f-41d5-986f-09a080245c25/",
           "requirementsText": [
             "Min. 4 player with minimum OVR of 75",
@@ -3032,5 +3032,5 @@
       "repeatRefreshIntervalText": null
     }
   ],
-  "fetchedAt": "2026-09-18T18:03:27.331Z"
+  "fetchedAt": "2026-09-18T18:22:46.285Z"
 }
