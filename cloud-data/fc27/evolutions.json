@@ -42,33 +42,33 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 37127,
+      "numberOfPlayers": 37076,
       "trendingPlayersIds": [
         "235805_2488:1",
         "257470_2488:1",
         "251804_2488:1",
-        "272010_2488:1",
-        "223334_2488:2",
         "279604_2488:2",
         "271800_2488:2",
+        "67356819_2488:2",
+        "50579603_2488:2",
+        "50607696_2488:2",
         "254796_2488:2",
         "219732_2488:2",
-        "236920_2488:2",
-        "50607696_2488:2",
-        "244391_2488:2",
+        "67388405_2488:2",
+        "50611189_2488:2",
+        "67371770_2488:2",
+        "50594554_2488:2",
+        "67379423_2488:2",
+        "50602207_2488:2",
         "50583214_2488:1",
         "243702_2488:2",
         "242238_2488:2",
-        "203841_2488:1",
-        "250753_2488:1",
-        "228789_2488:1",
-        "50560437_2488:1",
-        "223952_2488:1"
+        "50560437_2488:1"
       ],
       "eligiblePlayerItemIds": [
-        "50577278",
-        "67379273",
-        "73562"
+        "67388037",
+        "67379423",
+        "67388405"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -435,10 +435,13 @@
           ]
         }
       ],
+      "bestPathChoices": [
+        2
+      ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
-          "value": "Game Changer",
+          "value": "Inventive",
           "maxValue": "(^4)"
         }
       ],
@@ -462,8 +465,8 @@
         "bestPosition": 23,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.4428970458981818,
-        "highestGgrBoost": 6.599999904632568,
+        "averageGgrBoost": 0.42404423568040156,
+        "highestGgrBoost": 6.300000190734863,
         "games": 1,
         "wins": 0,
         "cleanSheets": 0,
@@ -479,7 +482,7 @@
       "totalUpgrades": [
         {
           "upgrade": "play_style",
-          "value": 37,
+          "value": 38,
           "maxValue": 4,
           "guidAssetId": null
         }
@@ -508,33 +511,33 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 14789,
+      "numberOfPlayers": 13065,
       "trendingPlayersIds": [
         "216700_2489",
         "265600_2489",
         "228179_2489",
-        "235744_2489",
+        "224065_2489",
+        "239755_2489",
         "248564_2489",
+        "225478_2489",
         "263893_2489",
-        "198219_2489",
+        "238235_2489",
         "246070_2489",
+        "266395_2489",
         "223105_2489",
         "271716_2489",
         "240017_2489",
-        "247136_2489",
         "233520_2489",
         "242426_2489",
+        "50556037_2489",
         "256980_2489",
-        "229167_2489",
-        "226096_2489",
         "203362_2489",
-        "50556618_2489",
-        "238235_2489"
+        "50556618_2489"
       ],
       "eligiblePlayerItemIds": [
-        "86435",
-        "76098",
-        "79399"
+        "50609623",
+        "86183",
+        "76098"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -1244,6 +1247,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "SM",
@@ -1364,10 +1368,10 @@
       "analysis": {
         "id": 2489,
         "bestPosition": 23,
-        "statsBoost": 118,
+        "statsBoost": 117,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 9.393923405894899,
-        "highestGgrBoost": 32.599998474121094,
+        "averageGgrBoost": 8.8169316310359,
+        "highestGgrBoost": 30.799999237060547,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -1538,12 +1542,10 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 6495,
+      "numberOfPlayers": 6660,
       "trendingPlayersIds": [
-        "272009_2490",
         "256107_2490",
         "247832_2490",
-        "262937_2490",
         "278339_2490",
         "234171_2490",
         "265004_2490",
@@ -1551,20 +1553,22 @@
         "251626_2490",
         "245235_2490",
         "80170_2490",
+        "224841_2490",
         "245597_2490",
         "248165_2490",
         "272010_2490",
         "253163_2490",
         "254088_2490",
         "230965_2490",
+        "227137_2490",
         "255874_2490",
         "251804_2490",
         "240709_2490"
       ],
       "eligiblePlayerItemIds": [
-        "80170",
-        "272009",
-        "267247"
+        "67379423",
+        "50585117",
+        "266970"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -1882,6 +1886,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Role+",
@@ -1909,8 +1914,8 @@
         "bestPosition": 3,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 2.046905602002717,
-        "highestGgrBoost": 13.300000190734863,
+        "averageGgrBoost": 0.949286144718086,
+        "highestGgrBoost": 8.899999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -1955,19 +1960,18 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3608,
+      "numberOfPlayers": 3802,
       "trendingPlayersIds": [
+        "216532_2491",
         "193254_2491",
-        "243756_2491",
-        "233396_2491",
-        "77163_2491",
-        "244471_2491",
-        "74310_2491",
-        "223877_2491",
-        "261312_2491",
-        "208618_2491",
+        "229087_2491",
+        "272276_2491",
+        "200689_2491",
+        "276070_2491",
+        "269579_2491",
         "257072_2491",
         "200309_2491",
+        "266071_2491",
         "248266_2491",
         "252440_2491",
         "247782_2491",
@@ -1976,12 +1980,13 @@
         "232185_2491",
         "256080_2491",
         "251942_2491",
+        "265897_2491",
         "251025_2491"
       ],
       "eligiblePlayerItemIds": [
-        "268312",
-        "77163",
-        "264975"
+        "264975",
+        "276505",
+        "277264"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -2641,6 +2646,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Role+",
@@ -2751,10 +2757,10 @@
       "analysis": {
         "id": 2491,
         "bestPosition": 3,
-        "statsBoost": 249,
+        "statsBoost": 242,
         "completionDifficulty": "medium",
-        "averageGgrBoost": 20.479863015919516,
-        "highestGgrBoost": 48.599998474121094,
+        "averageGgrBoost": 17.84576041724092,
+        "highestGgrBoost": 51.29999923706055,
         "games": 7,
         "wins": 0,
         "cleanSheets": 0,
@@ -2917,7 +2923,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 20517,
+      "numberOfPlayers": 18320,
       "trendingPlayersIds": [
         "258015_2492",
         "272159_2492",
@@ -2936,14 +2942,14 @@
         "234505_2492",
         "210930_2492",
         "216594_2492",
-        "237034_2492",
         "70004_2492",
+        "237034_2492",
         "50562314_2492"
       ],
       "eligiblePlayerItemIds": [
+        "267674",
         "86398",
-        "50590845",
-        "267318"
+        "78357"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -3436,6 +3442,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Overall",
@@ -3506,10 +3513,10 @@
       "analysis": {
         "id": 2492,
         "bestPosition": 25,
-        "statsBoost": 31,
+        "statsBoost": 30,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.4711365655366064,
-        "highestGgrBoost": 9.399999618530273,
+        "averageGgrBoost": 1.384420729913625,
+        "highestGgrBoost": 8.300000190734863,
         "games": 3,
         "wins": 0,
         "cleanSheets": 0,
@@ -3604,15 +3611,15 @@
       "id": 2493,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2493-midfield-polish/",
-      "slug": "2493-midfield-polish",
+      "url": "/evolutions/2493-midfield-polish-sp-1/",
+      "slug": "2493-midfield-polish-sp-1",
       "name": "Midfield Polish [SP+ 1]",
       "description": "Unlocked by reaching level 1 in the Premium Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4221,
+      "numberOfPlayers": 3736,
       "trendingPlayersIds": [
         "245055_2493",
         "253177_2493",
@@ -3636,8 +3643,8 @@
         "270964_2493"
       ],
       "eligiblePlayerItemIds": [
+        "266939",
         "50586773",
-        "265459",
         "271739"
       ],
       "eligiblePathHashes": [],
@@ -3993,6 +4000,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Overall",
@@ -4030,8 +4038,8 @@
         "bestPosition": 5,
         "statsBoost": 10,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.5576285230760586,
-        "highestGgrBoost": 5.949999809265137,
+        "averageGgrBoost": 0.5432949668071702,
+        "highestGgrBoost": 5.699999809265137,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -4084,22 +4092,22 @@
       "id": 2494,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2494-striker-glow-up/",
-      "slug": "2494-striker-glow-up",
+      "url": "/evolutions/2494-striker-glow-up-sp-7/",
+      "slug": "2494-striker-glow-up-sp-7",
       "name": "Striker Glow Up [SP 7]",
       "description": "Unlocked by reaching level 7 in the Standard Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2312,
+      "numberOfPlayers": 1898,
       "trendingPlayersIds": [
         "223994_2494",
         "250961_2494",
-        "240833_2494",
         "272145_2494",
         "50572481_2494",
         "227527_2494",
+        "244723_2494",
         "267674_2494",
         "253327_2494",
         "216531_2494",
@@ -4116,8 +4124,8 @@
         "254551_2494"
       ],
       "eligiblePlayerItemIds": [
-        "267674",
-        "259197",
+        "86398",
+        "265059",
         "273748"
       ],
       "eligiblePathHashes": [],
@@ -4856,6 +4864,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -4986,10 +4995,10 @@
       "analysis": {
         "id": 2494,
         "bestPosition": 25,
-        "statsBoost": 186,
+        "statsBoost": 183,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 12.737685977200941,
-        "highestGgrBoost": 35,
+        "averageGgrBoost": 12.042471007282037,
+        "highestGgrBoost": 34.400001525878906,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -5168,15 +5177,15 @@
       "id": 2495,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2495-relentless/",
-      "slug": "2495-relentless",
+      "url": "/evolutions/2495-relentless-sp-11/",
+      "slug": "2495-relentless-sp-11",
       "name": "Relentless [SP 11]",
       "description": "Unlocked by reaching level 11 in the Standard Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19104,
+      "numberOfPlayers": 16627,
       "trendingPlayersIds": [
         "255009_2495",
         "266436_2495",
@@ -5187,22 +5196,22 @@
         "245055_2495",
         "224656_2495",
         "258168_2495",
-        "50571625_2495",
         "236920_2495",
+        "50571625_2495",
         "75605_2495",
         "264348_2495",
         "212188_2495",
-        "254088_2495",
         "238581_2495",
+        "254088_2495",
         "219732_2495",
         "266032_2495",
         "205186_2495",
         "239254_2495"
       ],
       "eligiblePlayerItemIds": [
+        "50590845",
         "50562314",
-        "50594307",
-        "50591516"
+        "50574483"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -5514,6 +5523,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -5541,8 +5551,8 @@
         "bestPosition": 14,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.37029313201631125,
-        "highestGgrBoost": 12.880000114440918,
+        "averageGgrBoost": 0.3546508688264797,
+        "highestGgrBoost": 7.199999809265137,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -5579,15 +5589,15 @@
       "id": 2496,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2496-tactical-ascent/",
-      "slug": "2496-tactical-ascent",
+      "url": "/evolutions/2496-tactical-ascent-sp-14/",
+      "slug": "2496-tactical-ascent-sp-14",
       "name": "Tactical Ascent [SP+ 14]",
       "description": "Unlocked by reaching level 14 in the Premium Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19323,
+      "numberOfPlayers": 16832,
       "trendingPlayersIds": [
         "267367_2496:2:1",
         "241436_2496:2:1",
@@ -5595,24 +5605,24 @@
         "253177_2496:2:1",
         "258168_2496:2:1",
         "224656_2496:2:1",
-        "259583_2496:2:1",
+        "259583_2496:1:1",
         "266160_2496:1:1",
         "278339_2496:2:1",
         "75605_2496:2:1",
         "245055_2496:2:1",
+        "229752_2496:2:1",
         "258432_2496:1:1",
         "240709_2496:2:1",
         "254088_2496:1:2",
         "213666_2496:2:1",
         "224574_2496:2:1",
         "236920_2496:1:1",
-        "205186_2496:1:1",
         "219732_2496:1:1",
         "239254_2496:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "78357",
-        "50562314",
+        "50594307",
+        "74462",
         "50590845"
       ],
       "eligiblePathHashes": [],
@@ -6064,10 +6074,14 @@
           ]
         }
       ],
+      "bestPathChoices": [
+        2,
+        1
+      ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
-          "value": "Anticipate",
+          "value": "Intercept",
           "maxValue": "(^3)"
         },
         {
@@ -6096,8 +6110,8 @@
         "bestPosition": 5,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 2.270991046966419,
-        "highestGgrBoost": 19.18000030517578,
+        "averageGgrBoost": 2.171901735169291,
+        "highestGgrBoost": 15.699999809265137,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -6113,7 +6127,7 @@
       "totalUpgrades": [
         {
           "upgrade": "play_style",
-          "value": 13,
+          "value": 12,
           "maxValue": 3,
           "guidAssetId": null
         },
@@ -6140,15 +6154,15 @@
       "id": 2497,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2497-winger-glow-up/",
-      "slug": "2497-winger-glow-up",
+      "url": "/evolutions/2497-winger-glow-up-sp-26/",
+      "slug": "2497-winger-glow-up-sp-26",
       "name": "Winger Glow Up [SP+ 26]",
       "description": "Unlocked by reaching level 26 in the Premium Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 614,
+      "numberOfPlayers": 490,
       "trendingPlayersIds": [
         "213814_2497",
         "268703_2497",
@@ -6172,9 +6186,9 @@
         "258378_2497"
       ],
       "eligiblePlayerItemIds": [
-        "259913",
-        "76332",
-        "258378"
+        "239380",
+        "258378",
+        "260952"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -6950,6 +6964,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "SM",
@@ -7090,10 +7105,10 @@
       "analysis": {
         "id": 2497,
         "bestPosition": 27,
-        "statsBoost": 217,
+        "statsBoost": 214,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 16.416384382046008,
-        "highestGgrBoost": 38.70000076293945,
+        "averageGgrBoost": 15.47895919887387,
+        "highestGgrBoost": 37.79999923706055,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -7288,26 +7303,26 @@
       "id": 2498,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2498-creative-or-composed/",
-      "slug": "2498-creative-or-composed",
+      "url": "/evolutions/2498-creative-or-composed-sp-27/",
+      "slug": "2498-creative-or-composed-sp-27",
       "name": "Creative or Composed? [SP 27]",
       "description": "Unlocked by reaching level 27 in the Standard Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19323,
+      "numberOfPlayers": 16832,
       "trendingPlayersIds": [
         "229752_2498:1:1",
-        "237034_2498:1:2",
         "224574_2498:1:1",
+        "237034_2498:1:2",
         "278339_2498:2:1",
+        "240709_2498:1:1",
         "245055_2498:2:1",
-        "240709_2498:2:1",
         "254088_2498:1:2",
         "258168_2498:2:1",
-        "50571625_2498:1:2",
         "236920_2498:1:2",
+        "50571625_2498:1:2",
         "213666_2498:1:1",
         "264348_2498:1:1",
         "224656_2498:1:1",
@@ -7320,8 +7335,8 @@
         "75605_2498:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "74462",
-        "86398",
+        "70004",
+        "50594307",
         "70145"
       ],
       "eligiblePathHashes": [],
@@ -7773,6 +7788,10 @@
           ]
         }
       ],
+      "bestPathChoices": [
+        1,
+        1
+      ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -7805,8 +7824,8 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.625920404823943,
-        "highestGgrBoost": 14.579999923706055,
+        "averageGgrBoost": 1.5518565816183294,
+        "highestGgrBoost": 13.539999961853027,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -7849,30 +7868,30 @@
       "id": 2499,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2499-shooting-practice/",
-      "slug": "2499-shooting-practice",
+      "url": "/evolutions/2499-shooting-practice-sp-28/",
+      "slug": "2499-shooting-practice-sp-28",
       "name": "Shooting Practice [SP+ 28]",
       "description": "Unlocked by reaching level 28 in the Premium Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 7507,
+      "numberOfPlayers": 6481,
       "trendingPlayersIds": [
-        "264348_2499:1:1",
-        "215590_2499:1:1",
+        "67382428_2499:1:1",
+        "50605212_2499:1:1",
         "236920_2499:1:2",
-        "212188_2499:1:1",
         "271800_2499:1:1",
         "219732_2499:1:1",
-        "235659_2499:1:1",
-        "50575254_2499:1:1",
-        "254796_2499:1:1",
-        "245155_2499:1:2",
-        "246630_2499:1:1",
-        "244391_2499:1:1",
         "50607696_2499:1:1",
+        "254796_2499:1:1",
+        "67388405_2499:1:1",
+        "50611189_2499:1:1",
+        "246630_2499:1:1",
         "257470_2499:1:1",
+        "67388037_2499:1:1",
+        "67356819_2499:1:1",
+        "50579603_2499:1:1",
         "236632_2499:1:1",
         "238616_2499:1:1",
         "227255_2499:2:2",
@@ -7881,9 +7900,9 @@
         "226110_2499:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "272204",
         "80028",
-        "264862"
+        "276552",
+        "50591364"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -8346,6 +8365,10 @@
           ]
         }
       ],
+      "bestPathChoices": [
+        1,
+        1
+      ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -8378,8 +8401,8 @@
         "bestPosition": 25,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.8668016507612242,
-        "highestGgrBoost": 13.779999732971191,
+        "averageGgrBoost": 1.7764881952804992,
+        "highestGgrBoost": 13.600000381469727,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -8438,32 +8461,32 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4164,
+      "numberOfPlayers": 3574,
       "trendingPlayersIds": [
-        "247972_2500",
-        "231677_2500",
         "272076_2500",
         "251852_2500",
+        "231677_2500",
         "50596345_2500",
         "71178_2500",
         "246321_2500",
         "242964_2500",
         "262545_2500",
-        "235805_2500",
-        "208418_2500",
+        "67356819_2500",
+        "50579603_2500",
         "263205_2500",
         "243580_2500",
-        "50588323_2500",
-        "241023_2500",
-        "225951_2500",
-        "259334_2500",
-        "233959_2500",
         "272001_2500",
-        "208722_2500"
+        "50588323_2500",
+        "233959_2500",
+        "241023_2500",
+        "259334_2500",
+        "208722_2500",
+        "67302212_2500",
+        "50524996_2500"
       ],
       "eligiblePlayerItemIds": [
-        "274780",
-        "279812",
+        "50588323",
+        "266254",
         "50574680"
       ],
       "eligiblePathHashes": [],
@@ -8812,6 +8835,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Overall",
@@ -8849,8 +8873,8 @@
         "bestPosition": 18,
         "statsBoost": 6,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.5572742545797412,
-        "highestGgrBoost": 10.279999732971191,
+        "averageGgrBoost": 0.5394404021185047,
+        "highestGgrBoost": 4.230000019073486,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -8907,12 +8931,12 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19247,
+      "numberOfPlayers": 16763,
       "trendingPlayersIds": [
         "266436_2501",
         "224574_2501",
-        "261222_2501",
         "276602_2501",
+        "261222_2501",
         "213666_2501",
         "245055_2501",
         "238581_2501",
@@ -8923,17 +8947,17 @@
         "219732_2501",
         "266032_2501",
         "50594307_2501",
-        "50571625_2501",
         "236920_2501",
+        "50571625_2501",
         "239254_2501",
         "75605_2501",
         "264348_2501",
         "212188_2501"
       ],
       "eligiblePlayerItemIds": [
-        "74462",
         "86398",
-        "50562314"
+        "50574483",
+        "50591516"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -9245,6 +9269,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -9272,8 +9297,8 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.9328123855852579,
-        "highestGgrBoost": 13.680000305175781,
+        "averageGgrBoost": 0.8974294568968866,
+        "highestGgrBoost": 9.5,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -9305,6 +9330,1016 @@
         }
       ],
       "isRewardEvolution": true
+    },
+    {
+      "id": 2502,
+      "game": "27",
+      "eaId": 2710,
+      "url": "/evolutions/2502-fullback-fork/",
+      "slug": "2502-fullback-fork",
+      "name": "Fullback Fork",
+      "description": "Sharpen your outer defender’s key attributes, culminating in a choice to tailor their game toward attacking width or defensive stability",
+      "coinsCost": 0,
+      "pointsCost": 0,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 9133,
+      "trendingPlayersIds": [
+        "211688_2502:1:1:2",
+        "265252_2502:1:1:1",
+        "268940_2502:1:1:2",
+        "271121_2502:1:1:2",
+        "272053_2502:1:1:1",
+        "265072_2502:1:1:2",
+        "265879_2502:1:1:1",
+        "266939_2502:1:1:2",
+        "264807_2502:1:1:1",
+        "261262_2502:1:1:2",
+        "271444_2502:1:1:2",
+        "234730_2502:1:1:2",
+        "229880_2502:1:1:2",
+        "262402_2502:1:1:2",
+        "256107_2502:1:1:1",
+        "245597_2502:1:1:2",
+        "234171_2502:1:1:2",
+        "239093_2502:1:1:1",
+        "267240_2502:1:1:2",
+        "254088_2502:1:1:1"
+      ],
+      "eligiblePlayerItemIds": [
+        "264298",
+        "267343",
+        "267240"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": false,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-18T17:00:11.124228Z",
+      "endTime": "2026-09-28T17:00:00Z",
+      "endSubmissionTime": "2026-10-05T17:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": 79,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": [
+          7,
+          3
+        ],
+        "excludedPositions": [
+          5,
+          14,
+          0
+        ],
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": 7,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": 83,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": [
+          {
+            "label": "Overall",
+            "value": "Max. 79"
+          },
+          {
+            "label": "Position",
+            "value": "LB, RB"
+          },
+          {
+            "label": "Excluded Position",
+            "value": "CB, CM"
+          },
+          {
+            "label": "Max PS",
+            "value": "7"
+          },
+          {
+            "label": "Pace",
+            "value": "Max. 83"
+          }
+        ]
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "overall",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sprint_speed",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_defensive_awareness",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sliding_tackle",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Overall",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Sprint Speed",
+              "value": "+5",
+              "maxValue": "(^82)"
+            },
+            {
+              "label": "Defensive Awareness",
+              "value": "+5",
+              "maxValue": "(^79)"
+            },
+            {
+              "label": "Sliding Tackle",
+              "value": "+5",
+              "maxValue": "(^80)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "overall",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sprint_speed",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_defensive_awareness",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sliding_tackle",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            }
+          ]
+        },
+        {
+          "idx": 2,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "attribute_acceleration",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_interceptions",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_standing_tackle",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_stamina",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Acceleration",
+              "value": "+5",
+              "maxValue": "(^82)"
+            },
+            {
+              "label": "Interceptions",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Standing Tackle",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Stamina",
+              "value": "+5",
+              "maxValue": "(^76)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "attribute_acceleration",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_interceptions",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_standing_tackle",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_stamina",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            }
+          ]
+        },
+        {
+          "idx": 3,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "attribute_finishing",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_shot_power",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_crossing",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_short_passing",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 6,
+              "maxValue": 3,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [
+            {
+              "idx": 1,
+              "upgrades": [
+                {
+                  "upgrade": "attribute_finishing",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_shot_power",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_crossing",
+                  "value": 5,
+                  "maxValue": 82,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_short_passing",
+                  "value": 5,
+                  "maxValue": 79,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "play_style",
+                  "value": 6,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                }
+              ],
+              "totalUpgradesText": [
+                {
+                  "label": "PlayStyle",
+                  "value": "Pinged Pass",
+                  "maxValue": "(^3)"
+                },
+                {
+                  "label": "Finishing",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Shot Power",
+                  "value": "+5",
+                  "maxValue": "(^76)"
+                },
+                {
+                  "label": "Crossing",
+                  "value": "+5",
+                  "maxValue": "(^82)"
+                },
+                {
+                  "label": "Short Passing",
+                  "value": "+5",
+                  "maxValue": "(^79)"
+                }
+              ],
+              "totalUpgrades": [
+                {
+                  "upgrade": "play_style",
+                  "value": 6,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_finishing",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_shot_power",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_crossing",
+                  "value": 5,
+                  "maxValue": 82,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_short_passing",
+                  "value": 5,
+                  "maxValue": 79,
+                  "guidAssetId": null
+                }
+              ]
+            },
+            {
+              "idx": 2,
+              "upgrades": [
+                {
+                  "upgrade": "attribute_heading_accuracy",
+                  "value": 5,
+                  "maxValue": 75,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_jumping",
+                  "value": 5,
+                  "maxValue": 75,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_strength",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_aggression",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "play_style",
+                  "value": 10,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                }
+              ],
+              "totalUpgradesText": [
+                {
+                  "label": "PlayStyle",
+                  "value": "Jockey",
+                  "maxValue": "(^3)"
+                },
+                {
+                  "label": "Heading Accuracy",
+                  "value": "+5",
+                  "maxValue": "(^75)"
+                },
+                {
+                  "label": "Jumping",
+                  "value": "+5",
+                  "maxValue": "(^75)"
+                },
+                {
+                  "label": "Strength",
+                  "value": "+5",
+                  "maxValue": "(^77)"
+                },
+                {
+                  "label": "Aggression",
+                  "value": "+5",
+                  "maxValue": "(^76)"
+                }
+              ],
+              "totalUpgrades": [
+                {
+                  "upgrade": "play_style",
+                  "value": 10,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_heading_accuracy",
+                  "value": 5,
+                  "maxValue": 75,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_jumping",
+                  "value": 5,
+                  "maxValue": 75,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_strength",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_aggression",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                }
+              ]
+            }
+          ],
+          "totalUpgradesText": [
+            {
+              "label": "PlayStyle",
+              "value": "Pinged Pass",
+              "maxValue": "(^3)"
+            },
+            {
+              "label": "Finishing",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Shot Power",
+              "value": "+5",
+              "maxValue": "(^76)"
+            },
+            {
+              "label": "Crossing",
+              "value": "+5",
+              "maxValue": "(^82)"
+            },
+            {
+              "label": "Short Passing",
+              "value": "+5",
+              "maxValue": "(^79)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": true,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "play_style",
+              "value": 6,
+              "maxValue": 3,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_finishing",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_shot_power",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_crossing",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_short_passing",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [
+        1,
+        1,
+        2
+      ],
+      "totalUpgradesText": [
+        {
+          "label": "PlayStyle",
+          "value": "Jockey",
+          "maxValue": "(^3)"
+        },
+        {
+          "label": "Overall",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Sprint Speed",
+          "value": "+5",
+          "maxValue": "(^82)"
+        },
+        {
+          "label": "Defensive Awareness",
+          "value": "+5",
+          "maxValue": "(^79)"
+        },
+        {
+          "label": "Sliding Tackle",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Acceleration",
+          "value": "+5",
+          "maxValue": "(^82)"
+        },
+        {
+          "label": "Interceptions",
+          "value": "+5",
+          "maxValue": "(^78)"
+        },
+        {
+          "label": "Standing Tackle",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Stamina",
+          "value": "+5",
+          "maxValue": "(^76)"
+        },
+        {
+          "label": "Heading Accuracy",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Jumping",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Strength",
+          "value": "+5",
+          "maxValue": "(^77)"
+        },
+        {
+          "label": "Aggression",
+          "value": "+5",
+          "maxValue": "(^76)"
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": false,
+      "analysis": {
+        "id": 2502,
+        "bestPosition": 3,
+        "statsBoost": 49,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 6.383103293704463,
+        "highestGgrBoost": 21.899999618530273,
+        "games": 3,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": true,
+      "minTime": 1790614800000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "play_style",
+          "value": 10,
+          "maxValue": 3,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "overall",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_sprint_speed",
+          "value": 5,
+          "maxValue": 82,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_defensive_awareness",
+          "value": 5,
+          "maxValue": 79,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_sliding_tackle",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_acceleration",
+          "value": 5,
+          "maxValue": 82,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_interceptions",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_standing_tackle",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_stamina",
+          "value": 5,
+          "maxValue": 76,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_heading_accuracy",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_jumping",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_strength",
+          "value": 5,
+          "maxValue": 77,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_aggression",
+          "value": 5,
+          "maxValue": 76,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [
+        {
+          "label": "Overall",
+          "value": "Max. 79"
+        },
+        {
+          "label": "Position",
+          "value": "LB, RB"
+        },
+        {
+          "label": "Excluded Position",
+          "value": "CB, CM"
+        },
+        {
+          "label": "Max PS",
+          "value": "7"
+        },
+        {
+          "label": "Pace",
+          "value": "Max. 83"
+        }
+      ],
+      "isRewardEvolution": false
     }
   ],
   "all": [
@@ -9320,33 +10355,33 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 37127,
+      "numberOfPlayers": 37076,
       "trendingPlayersIds": [
         "235805_2488:1",
         "257470_2488:1",
         "251804_2488:1",
-        "272010_2488:1",
-        "223334_2488:2",
         "279604_2488:2",
         "271800_2488:2",
+        "67356819_2488:2",
+        "50579603_2488:2",
+        "50607696_2488:2",
         "254796_2488:2",
         "219732_2488:2",
-        "236920_2488:2",
-        "50607696_2488:2",
-        "244391_2488:2",
+        "67388405_2488:2",
+        "50611189_2488:2",
+        "67371770_2488:2",
+        "50594554_2488:2",
+        "67379423_2488:2",
+        "50602207_2488:2",
         "50583214_2488:1",
         "243702_2488:2",
         "242238_2488:2",
-        "203841_2488:1",
-        "250753_2488:1",
-        "228789_2488:1",
-        "50560437_2488:1",
-        "223952_2488:1"
+        "50560437_2488:1"
       ],
       "eligiblePlayerItemIds": [
-        "50577278",
-        "67379273",
-        "73562"
+        "67388037",
+        "67379423",
+        "67388405"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -9713,10 +10748,13 @@
           ]
         }
       ],
+      "bestPathChoices": [
+        2
+      ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
-          "value": "Game Changer",
+          "value": "Inventive",
           "maxValue": "(^4)"
         }
       ],
@@ -9740,8 +10778,8 @@
         "bestPosition": 23,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.4428970458981818,
-        "highestGgrBoost": 6.599999904632568,
+        "averageGgrBoost": 0.42404423568040156,
+        "highestGgrBoost": 6.300000190734863,
         "games": 1,
         "wins": 0,
         "cleanSheets": 0,
@@ -9757,7 +10795,7 @@
       "totalUpgrades": [
         {
           "upgrade": "play_style",
-          "value": 37,
+          "value": 38,
           "maxValue": 4,
           "guidAssetId": null
         }
@@ -9786,33 +10824,33 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 14789,
+      "numberOfPlayers": 13065,
       "trendingPlayersIds": [
         "216700_2489",
         "265600_2489",
         "228179_2489",
-        "235744_2489",
+        "224065_2489",
+        "239755_2489",
         "248564_2489",
+        "225478_2489",
         "263893_2489",
-        "198219_2489",
+        "238235_2489",
         "246070_2489",
+        "266395_2489",
         "223105_2489",
         "271716_2489",
         "240017_2489",
-        "247136_2489",
         "233520_2489",
         "242426_2489",
+        "50556037_2489",
         "256980_2489",
-        "229167_2489",
-        "226096_2489",
         "203362_2489",
-        "50556618_2489",
-        "238235_2489"
+        "50556618_2489"
       ],
       "eligiblePlayerItemIds": [
-        "86435",
-        "76098",
-        "79399"
+        "50609623",
+        "86183",
+        "76098"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -10522,6 +11560,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "SM",
@@ -10642,10 +11681,10 @@
       "analysis": {
         "id": 2489,
         "bestPosition": 23,
-        "statsBoost": 118,
+        "statsBoost": 117,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 9.393923405894899,
-        "highestGgrBoost": 32.599998474121094,
+        "averageGgrBoost": 8.8169316310359,
+        "highestGgrBoost": 30.799999237060547,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -10816,12 +11855,10 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 6495,
+      "numberOfPlayers": 6660,
       "trendingPlayersIds": [
-        "272009_2490",
         "256107_2490",
         "247832_2490",
-        "262937_2490",
         "278339_2490",
         "234171_2490",
         "265004_2490",
@@ -10829,20 +11866,22 @@
         "251626_2490",
         "245235_2490",
         "80170_2490",
+        "224841_2490",
         "245597_2490",
         "248165_2490",
         "272010_2490",
         "253163_2490",
         "254088_2490",
         "230965_2490",
+        "227137_2490",
         "255874_2490",
         "251804_2490",
         "240709_2490"
       ],
       "eligiblePlayerItemIds": [
-        "80170",
-        "272009",
-        "267247"
+        "67379423",
+        "50585117",
+        "266970"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -11160,6 +12199,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Role+",
@@ -11187,8 +12227,8 @@
         "bestPosition": 3,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 2.046905602002717,
-        "highestGgrBoost": 13.300000190734863,
+        "averageGgrBoost": 0.949286144718086,
+        "highestGgrBoost": 8.899999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -11233,19 +12273,18 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3608,
+      "numberOfPlayers": 3802,
       "trendingPlayersIds": [
+        "216532_2491",
         "193254_2491",
-        "243756_2491",
-        "233396_2491",
-        "77163_2491",
-        "244471_2491",
-        "74310_2491",
-        "223877_2491",
-        "261312_2491",
-        "208618_2491",
+        "229087_2491",
+        "272276_2491",
+        "200689_2491",
+        "276070_2491",
+        "269579_2491",
         "257072_2491",
         "200309_2491",
+        "266071_2491",
         "248266_2491",
         "252440_2491",
         "247782_2491",
@@ -11254,12 +12293,13 @@
         "232185_2491",
         "256080_2491",
         "251942_2491",
+        "265897_2491",
         "251025_2491"
       ],
       "eligiblePlayerItemIds": [
-        "268312",
-        "77163",
-        "264975"
+        "264975",
+        "276505",
+        "277264"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -11919,6 +12959,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Role+",
@@ -12029,10 +13070,10 @@
       "analysis": {
         "id": 2491,
         "bestPosition": 3,
-        "statsBoost": 249,
+        "statsBoost": 242,
         "completionDifficulty": "medium",
-        "averageGgrBoost": 20.479863015919516,
-        "highestGgrBoost": 48.599998474121094,
+        "averageGgrBoost": 17.84576041724092,
+        "highestGgrBoost": 51.29999923706055,
         "games": 7,
         "wins": 0,
         "cleanSheets": 0,
@@ -12195,7 +13236,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 20517,
+      "numberOfPlayers": 18320,
       "trendingPlayersIds": [
         "258015_2492",
         "272159_2492",
@@ -12214,14 +13255,14 @@
         "234505_2492",
         "210930_2492",
         "216594_2492",
-        "237034_2492",
         "70004_2492",
+        "237034_2492",
         "50562314_2492"
       ],
       "eligiblePlayerItemIds": [
+        "267674",
         "86398",
-        "50590845",
-        "267318"
+        "78357"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -12714,6 +13755,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Overall",
@@ -12784,10 +13826,10 @@
       "analysis": {
         "id": 2492,
         "bestPosition": 25,
-        "statsBoost": 31,
+        "statsBoost": 30,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.4711365655366064,
-        "highestGgrBoost": 9.399999618530273,
+        "averageGgrBoost": 1.384420729913625,
+        "highestGgrBoost": 8.300000190734863,
         "games": 3,
         "wins": 0,
         "cleanSheets": 0,
@@ -12882,15 +13924,15 @@
       "id": 2493,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2493-midfield-polish/",
-      "slug": "2493-midfield-polish",
+      "url": "/evolutions/2493-midfield-polish-sp-1/",
+      "slug": "2493-midfield-polish-sp-1",
       "name": "Midfield Polish [SP+ 1]",
       "description": "Unlocked by reaching level 1 in the Premium Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4221,
+      "numberOfPlayers": 3736,
       "trendingPlayersIds": [
         "245055_2493",
         "253177_2493",
@@ -12914,8 +13956,8 @@
         "270964_2493"
       ],
       "eligiblePlayerItemIds": [
+        "266939",
         "50586773",
-        "265459",
         "271739"
       ],
       "eligiblePathHashes": [],
@@ -13271,6 +14313,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Overall",
@@ -13308,8 +14351,8 @@
         "bestPosition": 5,
         "statsBoost": 10,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.5576285230760586,
-        "highestGgrBoost": 5.949999809265137,
+        "averageGgrBoost": 0.5432949668071702,
+        "highestGgrBoost": 5.699999809265137,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -13362,22 +14405,22 @@
       "id": 2494,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2494-striker-glow-up/",
-      "slug": "2494-striker-glow-up",
+      "url": "/evolutions/2494-striker-glow-up-sp-7/",
+      "slug": "2494-striker-glow-up-sp-7",
       "name": "Striker Glow Up [SP 7]",
       "description": "Unlocked by reaching level 7 in the Standard Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2312,
+      "numberOfPlayers": 1898,
       "trendingPlayersIds": [
         "223994_2494",
         "250961_2494",
-        "240833_2494",
         "272145_2494",
         "50572481_2494",
         "227527_2494",
+        "244723_2494",
         "267674_2494",
         "253327_2494",
         "216531_2494",
@@ -13394,8 +14437,8 @@
         "254551_2494"
       ],
       "eligiblePlayerItemIds": [
-        "267674",
-        "259197",
+        "86398",
+        "265059",
         "273748"
       ],
       "eligiblePathHashes": [],
@@ -14134,6 +15177,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -14264,10 +15308,10 @@
       "analysis": {
         "id": 2494,
         "bestPosition": 25,
-        "statsBoost": 186,
+        "statsBoost": 183,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 12.737685977200941,
-        "highestGgrBoost": 35,
+        "averageGgrBoost": 12.042471007282037,
+        "highestGgrBoost": 34.400001525878906,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -14446,15 +15490,15 @@
       "id": 2495,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2495-relentless/",
-      "slug": "2495-relentless",
+      "url": "/evolutions/2495-relentless-sp-11/",
+      "slug": "2495-relentless-sp-11",
       "name": "Relentless [SP 11]",
       "description": "Unlocked by reaching level 11 in the Standard Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19104,
+      "numberOfPlayers": 16627,
       "trendingPlayersIds": [
         "255009_2495",
         "266436_2495",
@@ -14465,22 +15509,22 @@
         "245055_2495",
         "224656_2495",
         "258168_2495",
-        "50571625_2495",
         "236920_2495",
+        "50571625_2495",
         "75605_2495",
         "264348_2495",
         "212188_2495",
-        "254088_2495",
         "238581_2495",
+        "254088_2495",
         "219732_2495",
         "266032_2495",
         "205186_2495",
         "239254_2495"
       ],
       "eligiblePlayerItemIds": [
+        "50590845",
         "50562314",
-        "50594307",
-        "50591516"
+        "50574483"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -14792,6 +15836,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -14819,8 +15864,8 @@
         "bestPosition": 14,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.37029313201631125,
-        "highestGgrBoost": 12.880000114440918,
+        "averageGgrBoost": 0.3546508688264797,
+        "highestGgrBoost": 7.199999809265137,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -14857,15 +15902,15 @@
       "id": 2496,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2496-tactical-ascent/",
-      "slug": "2496-tactical-ascent",
+      "url": "/evolutions/2496-tactical-ascent-sp-14/",
+      "slug": "2496-tactical-ascent-sp-14",
       "name": "Tactical Ascent [SP+ 14]",
       "description": "Unlocked by reaching level 14 in the Premium Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19323,
+      "numberOfPlayers": 16832,
       "trendingPlayersIds": [
         "267367_2496:2:1",
         "241436_2496:2:1",
@@ -14873,24 +15918,24 @@
         "253177_2496:2:1",
         "258168_2496:2:1",
         "224656_2496:2:1",
-        "259583_2496:2:1",
+        "259583_2496:1:1",
         "266160_2496:1:1",
         "278339_2496:2:1",
         "75605_2496:2:1",
         "245055_2496:2:1",
+        "229752_2496:2:1",
         "258432_2496:1:1",
         "240709_2496:2:1",
         "254088_2496:1:2",
         "213666_2496:2:1",
         "224574_2496:2:1",
         "236920_2496:1:1",
-        "205186_2496:1:1",
         "219732_2496:1:1",
         "239254_2496:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "78357",
-        "50562314",
+        "50594307",
+        "74462",
         "50590845"
       ],
       "eligiblePathHashes": [],
@@ -15342,10 +16387,14 @@
           ]
         }
       ],
+      "bestPathChoices": [
+        2,
+        1
+      ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
-          "value": "Anticipate",
+          "value": "Intercept",
           "maxValue": "(^3)"
         },
         {
@@ -15374,8 +16423,8 @@
         "bestPosition": 5,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 2.270991046966419,
-        "highestGgrBoost": 19.18000030517578,
+        "averageGgrBoost": 2.171901735169291,
+        "highestGgrBoost": 15.699999809265137,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -15391,7 +16440,7 @@
       "totalUpgrades": [
         {
           "upgrade": "play_style",
-          "value": 13,
+          "value": 12,
           "maxValue": 3,
           "guidAssetId": null
         },
@@ -15418,15 +16467,15 @@
       "id": 2497,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2497-winger-glow-up/",
-      "slug": "2497-winger-glow-up",
+      "url": "/evolutions/2497-winger-glow-up-sp-26/",
+      "slug": "2497-winger-glow-up-sp-26",
       "name": "Winger Glow Up [SP+ 26]",
       "description": "Unlocked by reaching level 26 in the Premium Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 614,
+      "numberOfPlayers": 490,
       "trendingPlayersIds": [
         "213814_2497",
         "268703_2497",
@@ -15450,9 +16499,9 @@
         "258378_2497"
       ],
       "eligiblePlayerItemIds": [
-        "259913",
-        "76332",
-        "258378"
+        "239380",
+        "258378",
+        "260952"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -16228,6 +17277,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "SM",
@@ -16368,10 +17418,10 @@
       "analysis": {
         "id": 2497,
         "bestPosition": 27,
-        "statsBoost": 217,
+        "statsBoost": 214,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 16.416384382046008,
-        "highestGgrBoost": 38.70000076293945,
+        "averageGgrBoost": 15.47895919887387,
+        "highestGgrBoost": 37.79999923706055,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -16566,26 +17616,26 @@
       "id": 2498,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2498-creative-or-composed/",
-      "slug": "2498-creative-or-composed",
+      "url": "/evolutions/2498-creative-or-composed-sp-27/",
+      "slug": "2498-creative-or-composed-sp-27",
       "name": "Creative or Composed? [SP 27]",
       "description": "Unlocked by reaching level 27 in the Standard Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19323,
+      "numberOfPlayers": 16832,
       "trendingPlayersIds": [
         "229752_2498:1:1",
-        "237034_2498:1:2",
         "224574_2498:1:1",
+        "237034_2498:1:2",
         "278339_2498:2:1",
+        "240709_2498:1:1",
         "245055_2498:2:1",
-        "240709_2498:2:1",
         "254088_2498:1:2",
         "258168_2498:2:1",
-        "50571625_2498:1:2",
         "236920_2498:1:2",
+        "50571625_2498:1:2",
         "213666_2498:1:1",
         "264348_2498:1:1",
         "224656_2498:1:1",
@@ -16598,8 +17648,8 @@
         "75605_2498:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "74462",
-        "86398",
+        "70004",
+        "50594307",
         "70145"
       ],
       "eligiblePathHashes": [],
@@ -17051,6 +18101,10 @@
           ]
         }
       ],
+      "bestPathChoices": [
+        1,
+        1
+      ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -17083,8 +18137,8 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.625920404823943,
-        "highestGgrBoost": 14.579999923706055,
+        "averageGgrBoost": 1.5518565816183294,
+        "highestGgrBoost": 13.539999961853027,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -17127,30 +18181,30 @@
       "id": 2499,
       "game": "27",
       "eaId": 999999,
-      "url": "/evolutions/2499-shooting-practice/",
-      "slug": "2499-shooting-practice",
+      "url": "/evolutions/2499-shooting-practice-sp-28/",
+      "slug": "2499-shooting-practice-sp-28",
       "name": "Shooting Practice [SP+ 28]",
       "description": "Unlocked by reaching level 28 in the Premium Season Pass.",
       "coinsCost": 0,
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 7507,
+      "numberOfPlayers": 6481,
       "trendingPlayersIds": [
-        "264348_2499:1:1",
-        "215590_2499:1:1",
+        "67382428_2499:1:1",
+        "50605212_2499:1:1",
         "236920_2499:1:2",
-        "212188_2499:1:1",
         "271800_2499:1:1",
         "219732_2499:1:1",
-        "235659_2499:1:1",
-        "50575254_2499:1:1",
-        "254796_2499:1:1",
-        "245155_2499:1:2",
-        "246630_2499:1:1",
-        "244391_2499:1:1",
         "50607696_2499:1:1",
+        "254796_2499:1:1",
+        "67388405_2499:1:1",
+        "50611189_2499:1:1",
+        "246630_2499:1:1",
         "257470_2499:1:1",
+        "67388037_2499:1:1",
+        "67356819_2499:1:1",
+        "50579603_2499:1:1",
         "236632_2499:1:1",
         "238616_2499:1:1",
         "227255_2499:2:2",
@@ -17159,9 +18213,9 @@
         "226110_2499:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "272204",
         "80028",
-        "264862"
+        "276552",
+        "50591364"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -17624,6 +18678,10 @@
           ]
         }
       ],
+      "bestPathChoices": [
+        1,
+        1
+      ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -17656,8 +18714,8 @@
         "bestPosition": 25,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.8668016507612242,
-        "highestGgrBoost": 13.779999732971191,
+        "averageGgrBoost": 1.7764881952804992,
+        "highestGgrBoost": 13.600000381469727,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -17716,32 +18774,32 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4164,
+      "numberOfPlayers": 3574,
       "trendingPlayersIds": [
-        "247972_2500",
-        "231677_2500",
         "272076_2500",
         "251852_2500",
+        "231677_2500",
         "50596345_2500",
         "71178_2500",
         "246321_2500",
         "242964_2500",
         "262545_2500",
-        "235805_2500",
-        "208418_2500",
+        "67356819_2500",
+        "50579603_2500",
         "263205_2500",
         "243580_2500",
-        "50588323_2500",
-        "241023_2500",
-        "225951_2500",
-        "259334_2500",
-        "233959_2500",
         "272001_2500",
-        "208722_2500"
+        "50588323_2500",
+        "233959_2500",
+        "241023_2500",
+        "259334_2500",
+        "208722_2500",
+        "67302212_2500",
+        "50524996_2500"
       ],
       "eligiblePlayerItemIds": [
-        "274780",
-        "279812",
+        "50588323",
+        "266254",
         "50574680"
       ],
       "eligiblePathHashes": [],
@@ -18090,6 +19148,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "Overall",
@@ -18127,8 +19186,8 @@
         "bestPosition": 18,
         "statsBoost": 6,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.5572742545797412,
-        "highestGgrBoost": 10.279999732971191,
+        "averageGgrBoost": 0.5394404021185047,
+        "highestGgrBoost": 4.230000019073486,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -18185,12 +19244,12 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19247,
+      "numberOfPlayers": 16763,
       "trendingPlayersIds": [
         "266436_2501",
         "224574_2501",
-        "261222_2501",
         "276602_2501",
+        "261222_2501",
         "213666_2501",
         "245055_2501",
         "238581_2501",
@@ -18201,17 +19260,17 @@
         "219732_2501",
         "266032_2501",
         "50594307_2501",
-        "50571625_2501",
         "236920_2501",
+        "50571625_2501",
         "239254_2501",
         "75605_2501",
         "264348_2501",
         "212188_2501"
       ],
       "eligiblePlayerItemIds": [
-        "74462",
         "86398",
-        "50562314"
+        "50574483",
+        "50591516"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -18523,6 +19582,7 @@
           ]
         }
       ],
+      "bestPathChoices": [],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
@@ -18550,8 +19610,8 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.9328123855852579,
-        "highestGgrBoost": 13.680000305175781,
+        "averageGgrBoost": 0.8974294568968866,
+        "highestGgrBoost": 9.5,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -18583,9 +19643,1019 @@
         }
       ],
       "isRewardEvolution": true
+    },
+    {
+      "id": 2502,
+      "game": "27",
+      "eaId": 2710,
+      "url": "/evolutions/2502-fullback-fork/",
+      "slug": "2502-fullback-fork",
+      "name": "Fullback Fork",
+      "description": "Sharpen your outer defender’s key attributes, culminating in a choice to tailor their game toward attacking width or defensive stability",
+      "coinsCost": 0,
+      "pointsCost": 0,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 9133,
+      "trendingPlayersIds": [
+        "211688_2502:1:1:2",
+        "265252_2502:1:1:1",
+        "268940_2502:1:1:2",
+        "271121_2502:1:1:2",
+        "272053_2502:1:1:1",
+        "265072_2502:1:1:2",
+        "265879_2502:1:1:1",
+        "266939_2502:1:1:2",
+        "264807_2502:1:1:1",
+        "261262_2502:1:1:2",
+        "271444_2502:1:1:2",
+        "234730_2502:1:1:2",
+        "229880_2502:1:1:2",
+        "262402_2502:1:1:2",
+        "256107_2502:1:1:1",
+        "245597_2502:1:1:2",
+        "234171_2502:1:1:2",
+        "239093_2502:1:1:1",
+        "267240_2502:1:1:2",
+        "254088_2502:1:1:1"
+      ],
+      "eligiblePlayerItemIds": [
+        "264298",
+        "267343",
+        "267240"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": false,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-18T17:00:11.124228Z",
+      "endTime": "2026-09-28T17:00:00Z",
+      "endSubmissionTime": "2026-10-05T17:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": 79,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": [
+          7,
+          3
+        ],
+        "excludedPositions": [
+          5,
+          14,
+          0
+        ],
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": 7,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": 83,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": [
+          {
+            "label": "Overall",
+            "value": "Max. 79"
+          },
+          {
+            "label": "Position",
+            "value": "LB, RB"
+          },
+          {
+            "label": "Excluded Position",
+            "value": "CB, CM"
+          },
+          {
+            "label": "Max PS",
+            "value": "7"
+          },
+          {
+            "label": "Pace",
+            "value": "Max. 83"
+          }
+        ]
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "overall",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sprint_speed",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_defensive_awareness",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sliding_tackle",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Overall",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Sprint Speed",
+              "value": "+5",
+              "maxValue": "(^82)"
+            },
+            {
+              "label": "Defensive Awareness",
+              "value": "+5",
+              "maxValue": "(^79)"
+            },
+            {
+              "label": "Sliding Tackle",
+              "value": "+5",
+              "maxValue": "(^80)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "overall",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sprint_speed",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_defensive_awareness",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sliding_tackle",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            }
+          ]
+        },
+        {
+          "idx": 2,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "attribute_acceleration",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_interceptions",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_standing_tackle",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_stamina",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Acceleration",
+              "value": "+5",
+              "maxValue": "(^82)"
+            },
+            {
+              "label": "Interceptions",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Standing Tackle",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Stamina",
+              "value": "+5",
+              "maxValue": "(^76)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "attribute_acceleration",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_interceptions",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_standing_tackle",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_stamina",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            }
+          ]
+        },
+        {
+          "idx": 3,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "attribute_finishing",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_shot_power",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_crossing",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_short_passing",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 6,
+              "maxValue": 3,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [
+            {
+              "idx": 1,
+              "upgrades": [
+                {
+                  "upgrade": "attribute_finishing",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_shot_power",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_crossing",
+                  "value": 5,
+                  "maxValue": 82,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_short_passing",
+                  "value": 5,
+                  "maxValue": 79,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "play_style",
+                  "value": 6,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                }
+              ],
+              "totalUpgradesText": [
+                {
+                  "label": "PlayStyle",
+                  "value": "Pinged Pass",
+                  "maxValue": "(^3)"
+                },
+                {
+                  "label": "Finishing",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Shot Power",
+                  "value": "+5",
+                  "maxValue": "(^76)"
+                },
+                {
+                  "label": "Crossing",
+                  "value": "+5",
+                  "maxValue": "(^82)"
+                },
+                {
+                  "label": "Short Passing",
+                  "value": "+5",
+                  "maxValue": "(^79)"
+                }
+              ],
+              "totalUpgrades": [
+                {
+                  "upgrade": "play_style",
+                  "value": 6,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_finishing",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_shot_power",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_crossing",
+                  "value": 5,
+                  "maxValue": 82,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_short_passing",
+                  "value": 5,
+                  "maxValue": 79,
+                  "guidAssetId": null
+                }
+              ]
+            },
+            {
+              "idx": 2,
+              "upgrades": [
+                {
+                  "upgrade": "attribute_heading_accuracy",
+                  "value": 5,
+                  "maxValue": 75,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_jumping",
+                  "value": 5,
+                  "maxValue": 75,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_strength",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_aggression",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "play_style",
+                  "value": 10,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                }
+              ],
+              "totalUpgradesText": [
+                {
+                  "label": "PlayStyle",
+                  "value": "Jockey",
+                  "maxValue": "(^3)"
+                },
+                {
+                  "label": "Heading Accuracy",
+                  "value": "+5",
+                  "maxValue": "(^75)"
+                },
+                {
+                  "label": "Jumping",
+                  "value": "+5",
+                  "maxValue": "(^75)"
+                },
+                {
+                  "label": "Strength",
+                  "value": "+5",
+                  "maxValue": "(^77)"
+                },
+                {
+                  "label": "Aggression",
+                  "value": "+5",
+                  "maxValue": "(^76)"
+                }
+              ],
+              "totalUpgrades": [
+                {
+                  "upgrade": "play_style",
+                  "value": 10,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_heading_accuracy",
+                  "value": 5,
+                  "maxValue": 75,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_jumping",
+                  "value": 5,
+                  "maxValue": 75,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_strength",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_aggression",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                }
+              ]
+            }
+          ],
+          "totalUpgradesText": [
+            {
+              "label": "PlayStyle",
+              "value": "Pinged Pass",
+              "maxValue": "(^3)"
+            },
+            {
+              "label": "Finishing",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Shot Power",
+              "value": "+5",
+              "maxValue": "(^76)"
+            },
+            {
+              "label": "Crossing",
+              "value": "+5",
+              "maxValue": "(^82)"
+            },
+            {
+              "label": "Short Passing",
+              "value": "+5",
+              "maxValue": "(^79)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": true,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "play_style",
+              "value": 6,
+              "maxValue": 3,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_finishing",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_shot_power",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_crossing",
+              "value": 5,
+              "maxValue": 82,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_short_passing",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [
+        1,
+        1,
+        2
+      ],
+      "totalUpgradesText": [
+        {
+          "label": "PlayStyle",
+          "value": "Jockey",
+          "maxValue": "(^3)"
+        },
+        {
+          "label": "Overall",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Sprint Speed",
+          "value": "+5",
+          "maxValue": "(^82)"
+        },
+        {
+          "label": "Defensive Awareness",
+          "value": "+5",
+          "maxValue": "(^79)"
+        },
+        {
+          "label": "Sliding Tackle",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Acceleration",
+          "value": "+5",
+          "maxValue": "(^82)"
+        },
+        {
+          "label": "Interceptions",
+          "value": "+5",
+          "maxValue": "(^78)"
+        },
+        {
+          "label": "Standing Tackle",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Stamina",
+          "value": "+5",
+          "maxValue": "(^76)"
+        },
+        {
+          "label": "Heading Accuracy",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Jumping",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Strength",
+          "value": "+5",
+          "maxValue": "(^77)"
+        },
+        {
+          "label": "Aggression",
+          "value": "+5",
+          "maxValue": "(^76)"
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": false,
+      "analysis": {
+        "id": 2502,
+        "bestPosition": 3,
+        "statsBoost": 49,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 6.383103293704463,
+        "highestGgrBoost": 21.899999618530273,
+        "games": 3,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": true,
+      "minTime": 1790614800000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "play_style",
+          "value": 10,
+          "maxValue": 3,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "overall",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_sprint_speed",
+          "value": 5,
+          "maxValue": 82,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_defensive_awareness",
+          "value": 5,
+          "maxValue": 79,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_sliding_tackle",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_acceleration",
+          "value": 5,
+          "maxValue": 82,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_interceptions",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_standing_tackle",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_stamina",
+          "value": 5,
+          "maxValue": 76,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_heading_accuracy",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_jumping",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_strength",
+          "value": 5,
+          "maxValue": 77,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_aggression",
+          "value": 5,
+          "maxValue": 76,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [
+        {
+          "label": "Overall",
+          "value": "Max. 79"
+        },
+        {
+          "label": "Position",
+          "value": "LB, RB"
+        },
+        {
+          "label": "Excluded Position",
+          "value": "CB, CM"
+        },
+        {
+          "label": "Max PS",
+          "value": "7"
+        },
+        {
+          "label": "Pace",
+          "value": "Max. 83"
+        }
+      ],
+      "isRewardEvolution": false
     }
   ],
-  "activeHash": "1494d656",
-  "allHash": "1494d656",
-  "fetchedAt": "2026-09-17T21:55:07.877Z"
+  "activeHash": "4456ab03",
+  "allHash": "4456ab03",
+  "fetchedAt": "2026-09-18T18:03:27.331Z"
 }

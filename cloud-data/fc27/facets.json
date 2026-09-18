@@ -1,6 +1,6 @@
 {
   "version": "27",
-  "total": 19676,
+  "total": 19793,
   "positions": [
     "CAM",
     "CB",
@@ -946,7 +946,6 @@
     "Zimbabwe"
   ],
   "rarities": [
-    "Ads & Sponsorships",
     "Base Hall of FUT",
     "Base Hero",
     "Base Icon",
@@ -954,14 +953,28 @@
     "Debut International Icon",
     "Gold",
     "Ones to Watch",
+    "Partnerships",
     "Silver",
     "Squad Foundations",
     "Team of the week"
   ],
+  "rarityImgs": {
+    "Base Icon": "rarity_bfcdcd3305884da9.webp",
+    "Gold": "rarity_2bc4206d6031a959.webp",
+    "Team of the week": "rarity_8d10186879dd5b45.webp",
+    "Base Hero": "rarity_d77e4f522b688dfc.webp",
+    "Debut International Icon": "rarity_8cc9029ef3661521.webp",
+    "Base Hall of FUT": "rarity_a0d3e794f46c3808.webp",
+    "Ones to Watch": "rarity_a1b6faa80553d8c0.webp",
+    "Partnerships": "rarity_b65cddba238717ab.webp",
+    "Squad Foundations": "rarity_ac798fa823433611.webp",
+    "Silver": "rarity_c17401f46193bac8.webp",
+    "Bronze": "rarity_79b2a5aa3902a8b0.webp"
+  },
   "accs": [
     "CONTROLLED",
     "EXPLOSIVE",
     "LENGTHY"
   ],
-  "updatedAt": "2026-09-17T21:55:06.768Z"
+  "updatedAt": "2026-09-18T18:03:25.838Z"
 }
