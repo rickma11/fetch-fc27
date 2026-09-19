@@ -35,7 +35,7 @@ async function methodA(ctx, url, file, ua) {
 async function methodB(page, url, file) {
   const b64 = await page.evaluate(async (u) => {
     const r = await fetch(u, { credentials: 'omit' });
-    if (!r.ok) throw new Error('status ' + r.status());
+    if (!r.ok) throw new Error('status ' + r.status);   // ⚠️ status 是属性不是方法（2026-09-19 修）
     const buf = await r.arrayBuffer();
     const bytes = new Uint8Array(buf);
     let bin = '';
