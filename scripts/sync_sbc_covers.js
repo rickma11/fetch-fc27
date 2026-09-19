@@ -37,9 +37,10 @@ const FACES_JSON = path.join(ROOT, 'cloud-data', `fc${VER}`, 'sbc_faces.json');
 const MINI_FACES = path.resolve(ROOT, '..', 'eafc-miniapp', 'data', 'sbcFaces.js');
 
 const CDN = 'https://game-assets.fut.gg/';
-// 合成实色底 #151a23（与小程序卡片同色）：fut.gg SBC set 图带透明底，微信 <image> 会把透明区渲染成黑色
-// → 表现为「底部黑框」。加 background= 让 cf 把透明区填成卡片底色，真机不再出现黑边。
-const TRANSFORM = 'cdn-cgi/image/quality=85,format=webp,width=400,background=151a23/';
+// 2026-09-19：改用原始图路径。此前拼 cdn-cgi/image/...background=151a23 转换路由，当天起该路由
+// 对本站返回 400（实锤：同会话 raw 200 / transform 400）→ 三通道全挂。透明底改由端上深色卡面
+// 背景色兜住（.sb-cover/.hd-cover 均有深色 background，视觉一致），不再依赖 CDN 合成底色。
+const TRANSFORM = '';
 const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
 
 // 从 imagePath（如 2026/sbcs/1434.png 或 2027/sbcs/1234.png）提取 set 数字 id
@@ -73,18 +74,28 @@ function setIdOf(imagePath) {
 
   // ---- 下载：真实 Chromium 过 Cloudflare ----
   fs.mkdirSync(COVER_DIR, { recursive: true });
-  // 浏览器选择：本机用 Edge（channel: msedge，过 CF 更稳）；CI 只有 Playwright Chromium → 自动回退
+  // 全部封面已在本地（如外部抓好放进 COVER_DIR）→ 跳过浏览器探测，直接走上传 + 映射
+  const allLocal = tasks.every(t => {
+    const f = path.join(COVER_DIR, t.fileName);
+    return fs.existsSync(f) && fs.statSync(f).size > 0;
+  });
+  if (allLocal) {
+    console.log(`全部 ${tasks.length} 张封面已在本地，跳过下载，直接上传`);
+  } else {
+  // 浏览器选择：本机用 Edge（channel: msedge，过 CF 更稳）；CI 只有 Playwright Chromium → 自动回退。
+  // SBC_COVERS_HEADED=1：本地有头模式跑（headless 过不了 CF 时的手动兜底；CI 不设此变量不受影响）
+  const HEADLESS = !(process.env.SBC_COVERS_HEADED === '1');
   async function launchBrowser() {
     try {
       return await chromium.launch({
         channel: 'msedge',
-        headless: true,
+        headless: HEADLESS,
         args: ['--disable-blink-features=AutomationControlled', '--no-sandbox', '--disable-dev-shm-usage']
       });
     } catch (e) {
       console.log('msedge 不可用（CI 环境？），回退 Playwright Chromium:', (e && e.message) || e);
       return chromium.launch({
-        headless: true,
+        headless: HEADLESS,
         args: ['--disable-blink-features=AutomationControlled', '--no-sandbox', '--disable-dev-shm-usage']
       });
     }
@@ -109,6 +120,24 @@ function setIdOf(imagePath) {
     await page.waitForTimeout(3000);
   }
   if (!passed) { await browser.close(); console.error('未能通过 Cloudflare，退出'); process.exit(1); }
+
+  // 预热 game-assets 子域：cf_clearance 按域隔离，只过 www.fut.gg 不代表过了 game-assets。
+  // 直接导航到 CDN 让 Managed Challenge 自解并种下该域的 cookie，否则三通道全部 403/挂起（2026-09-19 实锤）。
+  console.log('预热 game-assets.fut.gg（过该子域的 Cloudflare）...');
+  for (let i = 0; i < 10; i++) {
+    let ok = false;
+    try {
+      await page.goto(CDN + TRANSFORM + String(tasks[0].imagePath).replace(/^\/+/, ''), { waitUntil: 'domcontentloaded', timeout: 30000 });
+      // 挑战页不是图片：导航后若拿到的是图片响应，title 不会是 Just a moment
+      const title = await page.title().catch(() => '');
+      ok = /just a moment|attention required/i.test(title) === false;
+      if (!ok) await page.waitForTimeout(4000);   // 停在挑战页等自解，再刷新
+    } catch (e) { await page.waitForTimeout(3000); }
+    if (ok) { console.log(`game-assets 已通过（第 ${i + 1} 次尝试）`); break; }
+    if (i === 9) { await browser.close(); console.error('game-assets 子域未通过 Cloudflare，退出'); process.exit(1); }
+  }
+  // 导航走了页面，回到 fut.gg 上下文（C 通道的 <img> 与 B 通道的 fetch 都从页面发起）
+  await page.goto('https://www.fut.gg/', { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(() => {});
 
   const sink = new dl.ImgSink(page);
   const probeFile = path.join(COVER_DIR, '_probe_sbc.bin');
@@ -137,6 +166,7 @@ function setIdOf(imagePath) {
   }
   await browser.close();
   console.log(`SBC 封面下载完成: 成功 ${dlDone} | 失败 ${dlFail}`);
+  } // end: 非全本地时的下载分支
 
   // ---- 上传到云存储 ----
   if (NO_UPLOAD) {
