@@ -2,6 +2,7 @@
   "_note": "eafc-miniapp/utils/i18n.js 的词典快照（联赛/俱乐部/国家）。fetch-fc27 的 CI 只 checkout 本仓库、拿不到 miniapp 源码，scripts/sync_i18n.js 靠本文件生成云端 dicts/names。改了 miniapp 词典务必重跑 eafc-miniapp/scripts/gen_cloud_i18n.js。",
   "_usage": "本文件由脚本生成、请勿手动修改；人工补充的新译名写 fetch-fc27/data/i18n-names.json（优先级高于本文件）。",
   "LEAGUE_ZH": {
+    "Partners League": "合作伙伴联盟",
     "Premier League": "英格兰超级联赛",
     "EFL Championship": "英格兰冠军联赛",
     "EFL League One": "英格兰甲级联赛",
@@ -75,6 +76,7 @@
     "Scottish Women’s League": "苏格兰女足联赛"
   },
   "LEAGUE_SHORT_ZH": {
+    "Partners League": "合作联盟",
     "Premier League": "英超",
     "EFL Championship": "英冠",
     "EFL League One": "英甲",
@@ -148,6 +150,7 @@
     "Scottish Women’s League": "苏女足"
   },
   "CLUB_ZH": {
+    "Club 113307": "113307俱乐部",
     "Arsenal": "阿森纳",
     "Chelsea": "切尔西",
     "Liverpool": "利物浦",
@@ -969,6 +972,7 @@
     "China PR": "中国",
     "Chinese Taipei": "中国台湾",
     "Hong Kong": "中国香港",
+    "Macao": "中国澳门",
     "Saudi Arabia": "沙特阿拉伯",
     "United Arab Emirates": "阿联酋",
     "Qatar": "卡塔尔",
