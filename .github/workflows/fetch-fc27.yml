@@ -195,6 +195,20 @@ jobs:
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/sync_i18n.js --ver 27
 
+      # roster 预热（2026-09-19 补）：get_players 云函数对 >1000 条拒绝现场生成（3s 超时保护），
+      # meta_fc27/roster 一旦缺失，小程序 preloadRoster 永远拿 code=1 → 本地无 roster 缓存，
+      # 列表页「数据更新于」与本地快速筛选全部失效。本步骤在每日落库后重建 roster payload
+      # （上传云存储 + 写 meta 文档，投影与 get_players schema 9 一致），ts = 当日数据时间。
+      # 必须放在 upload_db 之后（要用当天最新数据构建）。
+      - name: Warm up roster payload (rebuild after daily upload)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/warm_roster.js
+
       # 图片上传放在落库之后：图片失败不该拖累每天的数据同步。
       # 允许失败（continue-on-error）——脚本会把「已成功」的部分写进 images.json，
       # 下次运行按清单续传，不会重复也不会漏。
