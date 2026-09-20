@@ -60,24 +60,25 @@ function dump(name, obj) {
   for (const pool of SAMPLE_POOLS) {
     console.log(`\n===== 探测 pool id=${pool.id} slug=${pool.slug} =====`);
 
-    // 路径 A：JSON API 猜测
+    // 路径 A：JSON API 猜测（evaluation 多参在旧版 Playwright 会报 Too many arguments，统一用对象传参）
     try {
-      const api = await page.evaluate(async (ver, id) => {
+      const api = await page.evaluate(async ({ ver, id }) => {
         const r = await fetch(`https://www.fut.gg/api/fut/pools/${ver}/${id}`, { headers: { Accept: 'application/json' } });
         const text = await r.text();
         let json = null; try { json = JSON.parse(text); } catch (e) {}
         return { status: r.status, head: text.slice(0, 2000), json: json };
-      }, VER, pool.id);
+      }, { ver: VER, id: pool.id });
       dump(`pool_r13_api_${pool.id}.json`, api);
       console.log(`  [A] API status=${api.status} json?=${!!api.json} head=${api.head.replace(/\n/g, ' ').slice(0, 120)}`);
     } catch (e) {
       console.log(`  [A] API 探测异常: ${e.message}`);
     }
 
-    // 路径 B：HTML 页
+    // 路径 B：HTML 页（fut.gg 永不 networkidle，改用 domcontentloaded + 等待球员链接出现）
     const htmlUrl = `https://www.fut.gg/pools/${pool.slug}/`;
     try {
-      await page.goto(htmlUrl, { waitUntil: 'networkidle', timeout: 60000 });
+      await page.goto(htmlUrl, { waitUntil: 'domcontentloaded', timeout: 60000 });
+      try { await page.waitForSelector('a[href*="/players/"]', { timeout: 30000 }); } catch (e) { /* 超时也继续，下面仍读 HTML */ }
       const html = await page.content();
       dump(`pool_r13_html_${pool.id}.html`, html);
       // 内嵌 JSON（SSR/RSC payload）
