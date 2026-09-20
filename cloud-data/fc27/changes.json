@@ -1,12 +1,12 @@
 {
-  "date": "2026-09-20T16:03:08.162Z",
+  "date": "2026-09-20T17:23:13.867Z",
   "ver": 27,
-  "mode": "full",
-  "listTotal": 19797,
-  "upserted": 19797,
-  "added": 19797,
-  "changed": 0,
+  "mode": "incremental",
+  "listTotal": 19798,
+  "upserted": 329,
+  "added": 2,
+  "changed": 328,
   "removed": 757,
   "detailFailed": 0,
-  "apiCount": 19798
+  "apiCount": 19799
 }
