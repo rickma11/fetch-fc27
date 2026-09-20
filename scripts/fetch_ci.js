@@ -12,7 +12,7 @@
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
-const { sigOfRaw, diffSigs } = require('./sig');
+const { sigOfRaw, diffSigs, isGenericRarityName } = require('./sig');
 const imgLib = require('./images');
 const dl = require('./imgdl');
 
@@ -265,6 +265,39 @@ function readSnapshot() {
     newIds.length = 0; newIds.push.apply(newIds, curIds);
     changedIds.length = 0; removedIds.length = 0;
   }
+  // ---------- 卡片来源自愈（2026-09-18）----------
+  // 赛季通行证 / 任务奖励的**归属只能从详情接口判定**：列表只给 isObjective，拿不到
+  // premiumSeasonPassLevel / standardSeasonPassLevel（实测列表接口根本没有这两个字段，
+  // 全库 isSeasonPass 也恒为 null）。所以带来源标记的卡必须每次重抓详情，否则一张已入库的
+  // 通行证卡会永远停在「任务奖励」下（增量模式靠签名比对，它的列表内容不变 → 永不重抓）。
+  // 计入 changedIds（而不是单独一个数组）：让 fetch_futgg 的增量 needSet 也包含它们，
+  //   从而走到 buildDetail 之后的「详情回写 cardSource」那一步。
+  // ⚠️ 必须放在 targets 计算之前 —— targets 是 changedIds 的快照拼接。
+  // 代价可控：这类卡常年只有几十张（2026-09-18 实测 21 张）。全量模式本就抓全部，无需处理。
+  if (mode !== 'full') {
+    const known = new Set(newIds.concat(changedIds).map(String));
+    let flagged = 0;
+    let special = 0;
+    for (const it of listRes.items) {
+      if ((it.isObjective === true || it.isSeasonPass === true) && !known.has(String(it.eaId))) {
+        changedIds.push(it.eaId);
+        known.add(String(it.eaId));
+        flagged++;
+      }
+      // SBC 积分自愈（2026-09-20）：特殊活动卡的 gradingScore 可能晚于卡片上线才出现在 fut.gg
+      // 详情接口（实测 Hulk 上线数日后才出分）。这种变化不改变列表内容 → 签名不变 →
+      // 增量模式永不重抓 → 云库 sbcPoints 停在 null。特殊稀有度卡（非 Rare/Non-Rare/Common
+      // 占位名）每日强制重抓详情，保证后补评分最迟 24h 落地。代价可控：约 330 张/天。
+      if (!isGenericRarityName(it.rarityName) && !known.has(String(it.eaId))) {
+        changedIds.push(it.eaId);
+        known.add(String(it.eaId));
+        special++;
+      }
+    }
+    if (flagged) console.log('卡片来源自愈：来源标记卡强制重抓详情', flagged, '条（通行证/任务奖励归属需详情判定）');
+    if (special) console.log('SBC积分自愈：特殊稀有度卡强制重抓详情', special, '条（gradingScore 可能晚于上线出现）');
+  }
+
   const targets = (mode === 'full') ? curIds : newIds.concat(changedIds);
 
   console.log('--- 差异统计 ---');
@@ -432,6 +465,85 @@ function readSnapshot() {
   } else {
     console.log('图片下载已关闭（FC_IMG=0）');
   }
+
+  // ---------- 阶段 4b：稀有度小卡面（筛选弹层展示用）----------
+  // 每档稀有度一张官方小卡面（rarityImagePath），全库去重只有几~几十张 → **不受 FC_IMG 开关约束**，
+  // data-only 模式也保持更新（体积极小）。复用上方探测好的下载通道；增量判据＝imagePath（含内容
+  // hash，EA 换图即变）。清单 cloud-data/fc{ver}/rarity_images.json 记「每档已下到哪个 imagePath」。
+  // 上传由 upload_rarity_images.js 负责（与球员图片上传同权限、同通道），云端命名固定为
+  // fc{ver}/images/rarity_<内容hash>.webp（键取 imagePath 文件名的 EA 内容指纹，与 images.js 同口径）。
+  // 所有档位（含铜/银/金）均下载出图（RARITY_BASE_TIERS 已置空＝不排除任何档；2026-09-18 用户要求纳入基础三档）。
+  async function runRarityStage() {
+    const st = { planned: 0, done: 0, skipped: 0, failed: 0 };
+    try {
+      const seen = {};
+      for (const it of listRes.items) {
+        const rp = it.rarityImagePath;
+        const name = String(it.rarityName || '');
+        if (!rp || imgLib.RARITY_BASE_TIERS.indexOf(name) >= 0) continue;
+        const fk = imgLib.rarityFileKeyOf(rp);
+        if (!fk || seen[fk]) continue;
+        seen[fk] = { name: name, imagePath: String(rp), file: imgLib.rarityFileNameOf(rp) };
+      }
+      const all = Object.keys(seen).map(k => seen[k]);
+      if (!all.length) return st;
+      const manPath = imgLib.rarityManifestPath(VER);
+      let man = {};
+      try { man = JSON.parse(fs.readFileSync(manPath, 'utf8')); } catch (e) { /* 首跑无清单 */ }
+      const tasks = all.filter(r =>
+        !man[r.file] || man[r.file].imagePath !== r.imagePath ||
+        !fs.existsSync(path.join(IMG_DIR, r.file)));
+      st.planned = tasks.length;
+      st.skipped = all.length - tasks.length;
+      if (tasks.length) {
+        fs.mkdirSync(IMG_DIR, { recursive: true });
+        const sink = new dl.ImgSink(page);
+        const probeFile = path.join(IMG_DIR, '_probe_rarity.bin');
+        const url0 = imgLib.raritySrcUrlOf(tasks[0].imagePath);
+        let channel = await dl.probe(ctx, page, sink, url0, probeFile, UA);
+        try { fs.unlinkSync(probeFile); } catch (e) { }
+        if (!channel) {
+          console.error('稀有度卡面下载通道不可用，跳过本次更新（数据同步不受影响）');
+          st.failed = tasks.length;
+          return st;
+        }
+        const order = channel === 'A' ? ['A', 'B', 'C'] : channel === 'B' ? ['B', 'C', 'A'] : ['C', 'B', 'A'];
+        const pick = (ch, url, file, tmo) =>
+          ch === 'A' ? dl.methodA(ctx, url, file, UA)
+            : ch === 'B' ? dl.methodB(page, url, file)
+              : sink.fetch(url, file, tmo);
+        let cursor = 0;
+        async function worker() {
+          while (true) {
+            const i = cursor++;
+            if (i >= tasks.length) return;
+            const r = tasks[i];
+            const file = path.join(IMG_DIR, r.file);
+            let ok = false, lastErr = null;
+            for (const ch of order) {
+              try { await pick(ch, imgLib.raritySrcUrlOf(r.imagePath), file, 60000); ok = true; break; }
+              catch (e) { lastErr = e; }
+            }
+            if (ok) { st.done++; man[r.file] = { name: r.name, imagePath: r.imagePath }; }
+            else {
+              st.failed++;
+              if (st.failed <= 5) console.log('[rarity] 下载失败', r.name, r.file, (lastErr && lastErr.message) || lastErr);
+            }
+          }
+        }
+        await Promise.all(Array.from({ length: Math.min(4, tasks.length) }, worker));
+        fs.mkdirSync(path.dirname(manPath), { recursive: true });
+        fs.writeFileSync(manPath, JSON.stringify(man));
+      }
+      console.log(`稀有度卡面: 共 ${all.length} 档(已排除铜银金) | 待下载 ${st.planned} | 未变跳过 ${st.skipped} | 失败 ${st.failed}`);
+    } catch (e) {
+      // 稀有度卡面是纯增量装饰资源：任何失败都不允许拖垮每日数据同步
+      console.error('稀有度卡面阶段失败（不影响主流程）:', (e && e.message) || e);
+    }
+    return st;
+  }
+  const rarityStats = await runRarityStage();
+
   return imgStats;
   }
   const imgStats = await runImageStage();
