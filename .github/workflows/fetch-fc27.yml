@@ -238,6 +238,21 @@ jobs:
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/warm_roster.js
 
+      # 阵型战术「化学数据链」（2026-09-21 补）：把 players_fc{ver} 的 club/league/nation **eaId**
+      # 抽成一个列式小文件（~300KB）传云存储 squad/chem_v1_{ver}.json + 写 meta_fc{ver}/squad_chem，
+      # 供小程序「阵型战术」页按 eaId 查表算化学（roster 投影里只有 club.name 这类名字、没有 eaId）。
+      # 独立步骤 + continue-on-error ⇒ 它挂了 roster 照旧（与 enrich_sbc_pools 同一设计思路）。
+      # 顺序约束：必须在 Warm up roster **之后** —— 两份文件取自同一份 DB 快照，永不错位。
+      # 只读云库，不与 upload_db 抢。⚠️ 端上要能取到还需部署 cloudfunctions/squad_meta（整目录上传）。
+      - name: Gen squad chem (eaIds for squad/tactics module)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_squad_chem.js
+
       # 图片上传放在落库之后：图片失败不该拖累每天的数据同步。
       # 允许失败（continue-on-error）——脚本会把「已成功」的部分写进 images.json，
       # 下次运行按清单续传，不会重复也不会漏。
