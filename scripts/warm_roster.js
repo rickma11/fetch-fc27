@@ -9,7 +9,7 @@ process.chdir(path.resolve(__dirname));
 const { resolve } = require('./tcb_env');
 
 const VER = 27;
-const ROSTER_SCHEMA_VERSION = 9;   // 与 get_players/index.js 保持一致（当前 v9）
+const ROSTER_SCHEMA_VERSION = 13;   // 与 get_players/index.js 保持一致（当前 v13）
 const COL = 'players_fc' + VER;
 const M_COL = 'meta_fc' + VER;
 
@@ -53,6 +53,13 @@ function rarityFileKeyOf(imagePath) {
     cardSource: true,
     rolesPlus: true, rolesPlusPlus: true,
     seasonPassLevel: true, seasonPassTier: true,
+    gender: true,                      // v10：性别筛选（1=男 / 2=女）+ 详情页首屏信息行
+    bodytypeCode: true,                // v11：详情页 hero「身高 · 惯用脚 · 模型」的「模型」
+    // v12：SBC 积分（gradingScore）+ SBC 积分兑换（scoreRequirement 回写）进投影，详情页首屏直显
+    sbcPoints: true,
+    sbcCost: true,
+    // v13：收藏室代币兑换价（sync_token_store.js 从 r2 token-store 数据集回写），详情页「收藏室兑换」条首屏直显
+    tokenStoreCost: true,
     attributes: true,
     'rarity.imagePath': true,
     'rarity.name': true, 'rarity.rarityGroupName': true,

@@ -64,24 +64,20 @@ const RECLAIM_ALL = process.argv.includes('--reclaim-all');
 const REG = { x0: 96, y0: 96, x1: 434, y1: 180 };          // 建底板用的观察区
 const ICON = { x0: 112, x1: 150, y0: 114, y1: 150 };        // 破图图标（整块抹掉）
 const NAME = { x0: 141, x1: 430, y0: 100, y1: 178 };        // 顶部多余姓名行
-// 剪影版式：以「fut.gg 通用人像」为基准 —— 实测人像 x[144,415]、y[156,442]，底边 442 就是
-// 照片区底边（443 起是姓名带）。剪影取 宽 340 / 底边 442，**中心 267**：
-//   ① 底边与人像裁剪线重合、横向比人像宽，能把它完全盖住；
-//   ② 素材（assets/noportrait/silhouette.png）的**右肩已裁掉一块缺口**（用户手工裁的），
-//      缺口正好让开卡面右侧的逆足标签列 —— 标签左边界实测 ≈410（脚 R/L、星级 1★2 等）。
-//      中心 267 时剪影右边界 436、缺口右缘落在 ≈406，标签整体完整；
-//      中心 279 时右肩会压住标签左下角（Fekir 的 L 标签实测被压 5~8px）。
-//   ③ 左右都不越出卡面轮廓（卡面实体 x47~453；剪影实绘 x97~436）。
-// 中心可调：--sil-cx N
-const SIL_CX = Number((() => { const i = process.argv.indexOf('--sil-cx'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '275'; })());
-const SIL_BOT = 442;
-const INK_REL = 35;          // 「比该像素背景中位暗 35 以上」判为字迹
+// 位置徽章版式（2026-09-19 重设计）：照片区盖一块统一深灰面板，居中放大号位置码，
+// 颜色按位置分组（GK 蓝 / DF 绿 / MF 黄 / FW 红，沿用 list.js 的 fw/mf/df 口径）。
+// 不再叠灰色人形剪影。照片区矩形对齐原剪影 footprint：中心 x=275、底 442。
+const PHOTO = { x0: 100, y0: 152, x1: 450, y1: 452 };   // 照片区窗口（卡面 500x698 基准）
+const INK_REL = 35;          // 「比该像素背景中位暗 35 以上」判为字迹（仅用于抹 ICON/NAME 残留）
 const DILATE_SAMPLE = 3;     // 建底板时，把字迹及其 3px 邻域从样本里剔除（躲开 WebP 的过冲亮环）
 const DILATE_FILL = 2;       // 抹除时，把字迹膨胀 2px 一起填（连抗锯齿边一起去掉）
 const W = 500, H = 698;
 const RW = REG.x1 - REG.x0, RH = REG.y1 - REG.y0;
-const NP_PARAMS = 'np-v5|icon:' + [ICON.x0, ICON.x1, ICON.y0, ICON.y1].join(',') + '|name:' + [NAME.x0, NAME.x1, NAME.y0, NAME.y1].join(',') +
-  '|sil:' + [SIL_WIDTH, SIL_CX, SIL_BOT].join(',');
+// 位置 → 分组（GK 单独配蓝；其余沿用 list.js 的 df/mf/fw）
+const POS_GROUP = { GK: 'gk', LB: 'df', CB: 'df', RB: 'df', LWB: 'df', RWB: 'df', CDM: 'mf', CM: 'mf', CAM: 'mf', LM: 'mf', RM: 'mf', LW: 'fw', ST: 'fw', RW: 'fw', LF: 'fw', RF: 'fw', CF: 'fw' };
+const GROUP_COLOR = { gk: '#3b82f6', df: '#22c55e', mf: '#eab308', fw: '#ef4444' };
+const PANEL_FILL = { r: 22, g: 27, b: 38, alpha: 1 };   // #161b26 照片区面板
+const NP_PARAMS = 'np-v2|panel161b26|poscolor|photo:' + [PHOTO.x0, PHOTO.y0, PHOTO.x1, PHOTO.y1].join(',');
 
 const CACHE = path.join(os.tmpdir(), 'fc_np_cache');
 const PLATE_DIR = path.join(CACHE, 'plates');
@@ -146,7 +142,7 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
     const hasCard = rows.filter(d => d.cardImagePath);
     target = hasCard
       .filter(d => !curImg[String(d._id)])
-      .map(d => ({ eaId: d._id, commonName: d.commonName, imagePath: d.imagePath, cardImagePath: d.cardImagePath, rarity: d.rarity }));
+      .map(d => ({ eaId: d._id, commonName: d.commonName, imagePath: d.imagePath, cardImagePath: d.cardImagePath, rarity: d.rarity, position: d.position }));
     console.log('--all：云库 imagePath 为空且有卡面 ' + hasCard.length + ' 人，扣掉已获半身像后剩 ' + target.length + ' 人');
   } else {
     target = players.filter(p => p.cardImagePath && !p.imagePath && !curImg[String(p.eaId)]);
@@ -162,16 +158,25 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
     return [...m.values()];
   })();
 
-  const silPath = path.join(ROOT, 'assets', 'noportrait', 'silhouette.png');
-  if (!fs.existsSync(silPath)) {
-    console.error('缺少剪影素材 assets/noportrait/silhouette.png，先跑：node scripts/make_noportrait_silhouette.js --plain --src <剪影图>');
-    process.exit(1);
-  }
-  const silMeta = await sharp(silPath).metadata();
-  const silBufFull = fs.readFileSync(silPath);
-  // 剪影文件内容也进签名：换了剪影形状/灰阶后，所有已生成的卡会自动判为过期并重做
-  const PARAMS = NP_PARAMS + '|silfile:' +
-    crypto.createHash('sha1').update(silBufFull).digest('hex').slice(0, 8);
+  // 位置徽章：按位置预生成（每个位置一张，缓存复用）。SVG 栅格化 → PNG，只含位置码文字、
+  // 透明底，直接叠在照片区面板上。位置码是拉丁字母（CB/ST/GK…），不依赖 CJK 字体。
+  const PW = PHOTO.x1 - PHOTO.x0, PH = PHOTO.y1 - PHOTO.y0;
+  const badgeCache = {};
+  const posBadge = async function (pos) {
+    if (badgeCache[pos]) return badgeCache[pos];
+    const grp = POS_GROUP[pos] || 'df';
+    const color = GROUP_COLOR[grp];
+    const code = (pos && /^[A-Za-z0-9]{1,3}$/.test(pos)) ? pos : '—';
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + PW + '" height="' + PH + '">' +
+      '<text x="' + (PW / 2) + '" y="' + (PH / 2 + 52) + '" font-family="Arial, Helvetica, sans-serif" ' +
+      'font-size="150" font-weight="700" fill="' + color + '" text-anchor="middle">' + code + '</text></svg>';
+    const buf = await sharp(Buffer.from(svg)).png().toBuffer();
+    badgeCache[pos] = buf;
+    return buf;
+  };
+  // 本设计不再依赖外部素材，签名固定（改 PHOTO / PANEL_FILL / GROUP_COLOR 时必须同步改 NP_PARAMS）
+  const PARAMS = NP_PARAMS;
+  console.log('位置徽章：照片区 ' + PW + 'x' + PH + ' @ (' + PHOTO.x0 + ',' + PHOTO.y0 + ')，面板 #161b26');
 
   // ---- Phase 0 前置校验：portrait 文件是否真的已落到云存储 ----
   // ⚠️ 「云库 imagePath 非空」**不等于**「半身像文件已就绪」。实测退化链（Nabil Fekir 216594）：
@@ -262,8 +267,8 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
       const flip = async function (id, inManifest) {
         const imgPath = curImg[id];
         try {
-          await db.collection('players_fc' + VER).doc(id).update({ data: { imagePath: imgPath } });
-          await db.collection('details_fc' + VER).doc(id).update({ data: { imagePath: imgPath } });
+          await db.collection('players_fc' + VER).doc(id).update({ imagePath: imgPath });
+          await db.collection('details_fc' + VER).doc(id).update({ imagePath: imgPath });
           okDb++;
         } catch (e) { console.warn('  [reconcile] 更新 DB ' + id + ' 失败: ' + ((e && e.message) || e)); }
         try { await app.deleteFile({ fileList: [PREFIX + id + '_np.webp'] }); okDel++; }
@@ -304,8 +309,8 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
       if (!hasNp) { rNoNp++; console.warn('  ⚠️ ' + id + ' imagePath 非空但 portrait 缺失，且 _np.webp 也不存在 → 不动（回退会变空白）'); continue; }
       if (DRY) { console.log('  [dry] ' + id + ' 将清空 imagePath（portrait 缺失、_np 完好）→ 端上回退 _np.webp'); rOk++; continue; }
       try {
-        await db.collection('players_fc' + VER).doc(id).update({ data: { imagePath: '' } });
-        await db.collection('details_fc' + VER).doc(id).update({ data: { imagePath: '' } });
+        await db.collection('players_fc' + VER).doc(id).update({ imagePath: '' });
+        await db.collection('details_fc' + VER).doc(id).update({ imagePath: '' });
         rOk++;
       } catch (e) { console.warn('  [reclaim] 清空 ' + id + ' 失败: ' + ((e && e.message) || e)); }
     }
@@ -440,14 +445,10 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   console.log('建立背景底板（每个稀有度一块）…');
   for (const lv of levels) if (platePool.some(p => lvlOf(p) === lv)) plates[lv] = await buildPlate(lv);
 
-  // ---------- 2) 剪影 ----------
-  // 素材已裁到人形包围盒 → 只定「宽」，高按素材比例走（不做非等比拉伸）；
-  // 底边贴住 SIL_BOT（= fut.gg 通用人像的裁剪线 = 照片区底边 442），中心对齐 SIL_CX。
-  const silH = Math.round(SIL_WIDTH * silMeta.height / silMeta.width);
-  const silTop = SIL_BOT - silH;
-  const silScaled = await sharp(silBufFull).resize({ width: SIL_WIDTH, height: silH, kernel: 'lanczos3' }).png().toBuffer();
-  const silLeft = Math.round(SIL_CX - SIL_WIDTH / 2);
-  console.log('剪影 ' + SIL_WIDTH + 'x' + silH + ' @ (' + silLeft + ',' + silTop + ')，底边 ' + SIL_BOT + '，素材 ' + silMeta.width + 'x' + silMeta.height);
+  // ---------- 2) 照片区面板 + 位置徽章 ----------
+  // 底板（plate）已抹掉「破图图标 + 多余姓名行」；此处再在照片区盖一块统一深灰面板，
+  // 居中叠放大号位置码（按位置分组着色）。面板/徽章都不越出卡面轮廓（PHOTO 在卡面实体内部）。
+  const panelBuf = await sharp({ create: { width: PW, height: PH, channels: 4, background: PANEL_FILL } }).png().toBuffer();
 
   // ---------- 3) 逐人生成 ----------
   // manifest / manifestPath 已在上方 Phase 0 对账阶段声明并加载（已移除已获半身像的球员）
@@ -496,8 +497,14 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
       card[o] = plate[po]; card[o + 1] = plate[po + 1]; card[o + 2] = plate[po + 2]; card[o + 3] = 255; filled++;
     }
     const base = await sharp(card, { raw: { width: W, height: H, channels: 4 } }).png().toBuffer();
+    // 照片区盖统一深灰面板（#161b26），再居中叠位置徽章（按分组着色）。
+    const posCode = (p.position && /^[A-Za-z0-9]{1,3}$/.test(p.position)) ? p.position : '—';
+    const badge = await posBadge(posCode);
     const webp = await sharp(base)
-      .composite([{ input: silScaled, left: silLeft, top: silTop }])
+      .composite([
+        { input: panelBuf, left: PHOTO.x0, top: PHOTO.y0 },
+        { input: badge, left: PHOTO.x0, top: PHOTO.y0 }
+      ])
       .webp({ quality: 82, effort: 4 })
       .toBuffer();
     // 回归自检（每张跑一次，几十毫秒）：**卡面轮廓外绝不能被填成不透明**。

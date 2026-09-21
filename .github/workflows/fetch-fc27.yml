@@ -148,6 +148,19 @@ jobs:
         continue-on-error: true
         run: node scripts/scrape_sbc_evolutions.js --ver 27
 
+      # Player Pick 类 SBC 选择球员富集（2026-09-20 补）：scrape 只写出 set.pool.id/slug，
+      # 不含选择球员。本步骤遍历带 pool 的 set，用同一套真实浏览器过 CF 抓 pool 页选择球员，
+      # 回填 choicePlayers 进 sbcs.json。失败不致命（continue-on-error），不影响 SBC 列表上云。
+      # 独立步骤：与 scrape 解耦，可单独重跑，不碰已稳定的生产管线。
+      - name: Enrich SBC Player Pick choices (real browser bypass Cloudflare)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/enrich_sbc_pools.js --ver 27
+
       - name: Upload to CloudBase Database
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         env:
@@ -156,6 +169,22 @@ jobs:
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
           FC_MODE: ${{ steps.mode.outputs.db_mode }}
         run: node scripts/upload_db.js --ver 27
+
+      # 收藏室代币兑换价（2026-09-21 补）：fut.gg 球员详情接口不含该数值，权威来源是
+      # r2 静态数据集 token-store（manifest 引 hash，商店轮换 hash 会变）。本步骤抓数据集
+      # （真实浏览器过 CF）→ 把 itemType=player 条目的 tokenCost 按 player.eaId 局部 update
+      # 回写 players_fc{ver}+details_fc{ver} 的 tokenStoreCost。
+      # 顺序约束：必须在 Upload to CloudBase 之后（doc.set 抹平非 pickPlayer 字段，本步重补＝自愈）、
+      # Warm up roster 之前（当天 roster payload 就带上该字段，详情页首屏直显）。
+      - name: Sync Token Store costs to CloudBase
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          CF_HEADLESS: 'true'
+        run: node scripts/sync_token_store.js --ver 27
 
       # SBC 上云（2026-09-19 补）：scrape 写出的 sbcs.json 此前没有任何步骤往云库传，
       # 小程序 SBC 页读的是 sbcs_fc27 → 一直停在最后一次手动上传的旧数据。
@@ -265,6 +294,8 @@ jobs:
           git add cloud-data/fc27/sbcs.json cloud-data/fc27/evolutions.json cloud-data/fc27/sbc_evo_summary.json || true
           # SBC set 封面映射清单（sync_sbc_covers 产出，小文件）
           git add cloud-data/fc27/sbc_faces.json || true
+          # 收藏室代币价映射清单（sync_token_store 产出，小文件）
+          git add cloud-data/fc27/token_store.json || true
           # ⚠️ 不再提交 players.json / details.json：全量数据单文件常超 GitHub 100MB 硬限，
           # pre-receive 会确定性拒绝且整次 push（含小清单）一起失败。全量真源是云库，无需在 git 留版本快照。
           git commit -m "chore: FC27 ${{ steps.mode.outputs.mode }} sync $(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M')" || echo "no changes"

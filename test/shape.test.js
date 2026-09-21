@@ -4,7 +4,7 @@
 // 更糟的是同一处错误也存在于 sig.js 的签名里 → 即使 EA 改了卡，增量也判「无变化」。
 // 所以这里必须直接断言 pickPlayer 的产物，不能只测 sig.js。
 const assert = require('assert');
-const { pickPlayer } = require('../scripts/fetch_futgg');
+const { pickPlayer, buildDetail, pickArr } = require('../scripts/fetch_futgg');
 
 let pass = 0, fail = 0;
 function t(name, fn) {
@@ -97,6 +97,47 @@ t('eaId / overall / 名称透传', function () {
   assert.strictEqual(pArr.eaId, 1002);
   assert.strictEqual(pArr.overall, 88);
   assert.strictEqual(pArr.commonName, 'FC27 Array Guy');
+});
+
+// 男女足（2026-09-20）：fut.gg 列表接口带 gender（1=男足 / 2=女足），端上详情页+对比页展示。
+// 当初漏抓 → 端上没法显示；这里钉住「列表侧必须透传 gender」。
+console.log('男女足字段:');
+t('gender 透传（1 / 2 都保住）', function () {
+  assert.strictEqual(pickPlayer({ eaId: 1, gender: 1 }).gender, 1);
+  assert.strictEqual(pickPlayer({ eaId: 2, gender: 2 }).gender, 2);
+});
+t('gender 缺失 → null（不写成 undefined，端上 genderText 返回 "-"）', function () {
+  assert.strictEqual(pickPlayer({ eaId: 3 }).gender, null);
+});
+t('buildDetail 带上 gender（详情覆盖列表）', function () {
+  const p = pickPlayer({ eaId: 4, gender: 1 });
+  assert.strictEqual(buildDetail(p, { data: { gender: 2 } }).gender, 2);
+  assert.strictEqual(buildDetail(p, { data: {} }).gender, 1);
+});
+
+// ⚠️ 回归（2026-09-20 C 类隐患）：`d.playstyles || p.playstyles` 里 `[]` 是真值，
+//    一旦详情返回空数组而列表有值，列表值会被空数组短路丢光。改成 pickArr 后必须忠于「非空优先」。
+console.log('详情空数组不得覆盖列表值（pickArr）:');
+t('pickArr 取第一个非空数组', function () {
+  assert.deepStrictEqual(pickArr([], [7], [9]), [7]);
+  assert.deepStrictEqual(pickArr([], [], [9]), [9]);
+  assert.deepStrictEqual(pickArr([1], [7]), [1]);
+});
+t('pickArr 全空 → 保留最靠前那个（详情优先，维持原语义）', function () {
+  assert.deepStrictEqual(pickArr([], [], []), []);
+  assert.deepStrictEqual(pickArr([], undefined, undefined), []);
+  assert.deepStrictEqual(pickArr(undefined, undefined), []);
+});
+t('buildDetail：详情 playstyles=[] 时不得丢列表已有花式', function () {
+  const p = pickPlayer({ eaId: 5, playStyleEaIds: [11, 12], rolesPlus: [42] });
+  const d = buildDetail(p, { data: { playstyles: [], playStyleEaIds: [], rolesPlus: [] } });
+  assert.deepStrictEqual(d.playstyles, [11, 12], '实际 ' + JSON.stringify(d.playstyles));
+  assert.deepStrictEqual(d.rolesPlus, [42], '实际 ' + JSON.stringify(d.rolesPlus));
+});
+t('buildDetail：详情有值时仍以详情为准', function () {
+  const p = pickPlayer({ eaId: 6, playStyleEaIds: [11] });
+  const d = buildDetail(p, { data: { playStyleEaIds: [99, 98] } });
+  assert.deepStrictEqual(d.playstyles, [99, 98]);
 });
 
 console.log('图片命名与签名（必须与小程序 utils/format.js 的 IMG_SUFFIX 一致）:');

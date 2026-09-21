@@ -90,6 +90,21 @@ function realImagePath(v) {
   return (typeof v === 'string' && v && !PLACEHOLDER_IMG_RE.test(v)) ? v : '';
 }
 
+// 数组字段「详情 + 列表」合并：取**第一个非空数组**。
+// ⚠️ 旧写法 `d.playstyles || p.playstyles` 有致命隐患：JS 里 `[]` 是真值 —— 一旦「详情返回空数组、
+//    列表却有值」，列表那侧的花式/角色会被详情空数组短路丢光（实测 2026-09-19 全库 0 例，
+//    列表↔详情同空或同有值，但写法脆弱；规则 15「字段空洞体检」就是为这类问题准备的）。
+//    全为空数组时保留最靠前那个（详情优先），维持原有语义、不改变当前落库结果。
+function pickArr() {
+  for (let i = 0; i < arguments.length; i++) {
+    if (Array.isArray(arguments[i]) && arguments[i].length) return arguments[i];
+  }
+  for (let i = 0; i < arguments.length; i++) {
+    if (Array.isArray(arguments[i])) return arguments[i];
+  }
+  return [];
+}
+
 function pickPlayer(item) {
   // 六维的形态差异（FC26 对象 / FC27 扁平对象 / FC27 对象数组）统一在 sig.js 里归一化，
   // 保证「列表文档里的六维」与「签名里参与比对的六维」永远取自同一处，不会再分叉。
@@ -100,6 +115,9 @@ function pickPlayer(item) {
     commonName: item.commonName,
     overall: item.overall,
     position: item.position,
+    // 男女足：fut.gg 的 **列表**接口就带 gender（数值 1=男足 / 2=女足），无需抓详情。
+    //   端上详情页信息行「性别」+ 对比页「性别」格都用它（见 utils/format.js#genderText）。
+    gender: (item.gender != null) ? item.gender : null,
     dateOfBirth: item.dateOfBirth || '',
     height: item.height,
     weight: item.weight,
@@ -181,16 +199,19 @@ function buildDetail(p, detRaw) {
   return {
     ...p,
     position: position,
+    // 男女足：列表已带（pickPlayer）；详情若也返回则以详情为准（两处实测一致）
+    gender: d.gender != null ? d.gender : p.gender,
     weight: d.weight != null ? d.weight : p.weight,
     bodytypeCode: d.bodytypeCode != null ? d.bodytypeCode : p.bodytypeCode,
     isRealFace: d.isRealFace != null ? d.isRealFace : p.isRealFace,
     dateOfBirth: d.dateOfBirth || p.dateOfBirth,
     attributes: attributes,
-    playstyles: d.playStyleEaIds || d.playstyles || p.playstyles,
-    playstylesPlus: d.playStylePlusEaIds || d.playstylesPlus || p.playstylesPlus,
-    rolesPlus: d.rolesPlus || d.chemistryRolesPlusEaIds || p.rolesPlus,
-    rolesPlusPlus: d.rolesPlusPlus || d.chemistryRolesPlusPlusEaIds || p.rolesPlusPlus,
-    alternativePositionIds: d.alternativePositionIds || p.alternativePositionIds,
+    // ⚠️ 下面 5 个数组字段一律走 pickArr（空数组不算「有值」）—— 见 pickArr 注释
+    playstyles: pickArr(d.playStyleEaIds, d.playstyles, p.playstyles),
+    playstylesPlus: pickArr(d.playStylePlusEaIds, d.playstylesPlus, p.playstylesPlus),
+    rolesPlus: pickArr(d.rolesPlus, d.chemistryRolesPlusEaIds, p.rolesPlus),
+    rolesPlusPlus: pickArr(d.rolesPlusPlus, d.chemistryRolesPlusPlusEaIds, p.rolesPlusPlus),
+    alternativePositionIds: pickArr(d.alternativePositionIds, p.alternativePositionIds),
     // SBC 积分（fut.gg 页面那个绿钻数值）＝详情接口的 gradingScore。
     //   实测 Mbappé(231747) gradingScore=19000，与页面「SBC 19,000」完全吻合。
     // ⚠️ 早期误把 gradingScore 当成 GG 评分排除掉了 —— GG 评分是 ggRating / ggr（不采集），
@@ -289,6 +310,15 @@ async function main() {
         p.seasonPassLevel = _det.seasonPassLevel;
         p.seasonPassTier = _det.seasonPassTier;
       }
+      // 体型码（bodytypeCode）与出生日期同理：**列表接口都不返回**，只有详情接口有 → 回写列表文档。
+      //   ⚠️ 必须在这里回写：players_fc27 是 upload_db 用 doc(id).set()「整文档替换」写入的，
+      //   凡是 pickPlayer 产不出来的字段，只要靠 off-line 回填补进去，就会被
+      //   每日增量（签名变化的那批）与每周 full（全量重写）**连根抹掉**。2026-09-20 实锤：
+      //   players_fc27.dateOfBirth 键存在但 19797/19797 全是空串（backfill_dob.js 的回填已被抹平），
+      //   而「年龄」筛选正是比 dateOfBirth（birthFrom/birthTo）→ 该筛选恒返回空列表。
+      //     · bodytypeCode 空 → 端上 hero /「球员信息」的「模型」无值
+      if (_det.bodytypeCode != null) p.bodytypeCode = _det.bodytypeCode;
+      if (_det.dateOfBirth) p.dateOfBirth = _det.dateOfBirth;
       if (players.length % 500 === 0) console.log('  成型', players.length, '/', needSet ? needSet.size : listPlayers.length);
     }
     if (needSet) {
@@ -332,6 +362,10 @@ async function main() {
           p.seasonPassLevel = _bd.seasonPassLevel;
           p.seasonPassTier = _bd.seasonPassTier;
         }
+        // 同 full 分支：体型码 / 出生日期只有详情接口有 → 必须回写列表文档，
+        // 否则被 upload_db 的 doc(id).set() 整文档替换抹掉（见上面 DUMP 分支的详细说明）。
+        if (_bd.bodytypeCode != null) p.bodytypeCode = _bd.bodytypeCode;
+        if (_bd.dateOfBirth) p.dateOfBirth = _bd.dateOfBirth;
       } catch (e) {
         console.warn('    详情失败，使用列表数据兜底:', e.message);
         details[p.eaId] = p;
@@ -443,4 +477,5 @@ if (require.main === module) {
 
 // 单测入口：pickPlayer 是「列表文档字段」的唯一来源，
 // 之前它缺了 sig.js 的归一化函数导入，CI 全量跑完才发现六维全 0 —— 必须有单测兜住。
-module.exports = { pickPlayer };
+// buildDetail / pickArr 也一并导出，供「详情空数组不得覆盖列表值」的回归断言直接调用。
+module.exports = { pickPlayer, buildDetail, pickArr };
