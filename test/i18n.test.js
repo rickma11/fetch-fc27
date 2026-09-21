@@ -58,19 +58,36 @@ t('联赛：<国家> League 型不再自动推导（Korean League 不在包内�
 });
 
 // ---------- Gitee basic 集成 ----------
-t('parseGiteeBasic：basic 段 {name:{webpagedata}} 提取', function () {
+t('parseGiteeBasic：basic 段 {name:{webpagedata}} 提取全称', function () {
   const m = S.parseGiteeBasic({ basic: { 'China': { webpagedata: '中国' }, 'Hengda FC': { webpagedata: '恒大' } } });
-  assert.strictEqual(m['China'], '中国');
-  assert.strictEqual(m['Hengda FC'], '恒大');
+  assert.strictEqual(m.zh['China'], '中国');
+  assert.strictEqual(m.zh['Hengda FC'], '恒大');
 });
-t('parseGiteeBasic：兼容值为纯字符串', function () {
+t('parseGiteeBasic：兼容值为纯字符串（仅全称）', function () {
   const m = S.parseGiteeBasic({ basic: { 'USA': '美国' } });
-  assert.strictEqual(m['USA'], '美国');
+  assert.strictEqual(m.zh['USA'], '美国');
+  assert.strictEqual(Object.keys(m.short).length, 0);
+});
+t('parseGiteeBasic：basic 段 {name:{webpagedata, short}} 提取简称', function () {
+  const m = S.parseGiteeBasic({ basic: { 'League 2273': { webpagedata: '冰女超', short: '冰女超' }, 'Icelandic Super Cup': { webpagedata: '冰超杯', short: '冰超杯' } } });
+  assert.strictEqual(m.zh['League 2273'], '冰女超');
+  assert.strictEqual(m.short['League 2273'], '冰女超');
+  assert.strictEqual(m.short['Icelandic Super Cup'], '冰超杯');
 });
 t('buildMaps：Gitee basic 仅填未翻译（不覆盖包内）', function () {
   const maps = S.buildMaps({ 'Korean League': '韩国联赛', 'China PR': '错误' });
   assert.strictEqual(maps.leagueZh['Korean League'], '韩国联赛'); // 未翻译被补齐
   assert.strictEqual(maps.nationZh['China PR'], '中国');          // 包内优先，不覆盖
+});
+t('buildMaps：Gitee basic short 仅填 leagueShort 缺口', function () {
+  const maps = S.buildMaps({ zh: {}, short: { 'League 2273': '冰女超' } });
+  assert.strictEqual(maps.leagueShort['League 2273'], '冰女超');
+});
+t('buildMaps：Gitee basic short 不覆盖增长层/包内 leagueShort', function () {
+  // Premier League 在包内表 LEAGUE_SHORT_ZH 已有简称「英超」，Gitee short 不能覆盖
+  const maps = S.buildMaps({ zh: {}, short: { 'Premier League': '英超XX' } });
+  assert.notStrictEqual(maps.leagueShort['Premier League'], '英超XX');
+  assert.ok(maps.leagueShort['Premier League']);
 });
 t('resolve：Gitee basic 命中即出中文（Korean League）', function () {
   const maps = S.buildMaps({ 'Korean League': '韩国联赛' });

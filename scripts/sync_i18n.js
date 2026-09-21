@@ -110,10 +110,20 @@ function buildMaps(giteeBasic) {
   Object.keys(SUPP.nation || {}).forEach(function (en) { if (SUPP.nation[en]) nationZh[en] = SUPP.nation[en]; });
 
   // ③ Gitee basic：只补「包内表 + 增长层」都查不到的取值（gap-fill，不覆盖已有）
-  Object.keys(giteeBasic || {}).forEach(function (en) {
-    if (!leagueZh[en]) leagueZh[en] = giteeBasic[en];
-    if (!clubZh[en]) clubZh[en] = giteeBasic[en];
-    if (!nationZh[en]) nationZh[en] = giteeBasic[en];
+  //    兼容旧调用（传扁平全称 map）与新结构（{ zh, short }）。
+  let gZh = giteeBasic, gShort = {};
+  if (giteeBasic && typeof giteeBasic === 'object' && !Array.isArray(giteeBasic) && ('zh' in giteeBasic || 'short' in giteeBasic)) {
+    gZh = giteeBasic.zh || {};
+    gShort = giteeBasic.short || {};
+  }
+  Object.keys(gZh || {}).forEach(function (en) {
+    if (!leagueZh[en]) leagueZh[en] = gZh[en];
+    if (!clubZh[en]) clubZh[en] = gZh[en];
+    if (!nationZh[en]) nationZh[en] = gZh[en];
+  });
+  // 联赛简称：同样只做 gap-fill（不覆盖包内表 / 增长层已有简称）
+  Object.keys(gShort || {}).forEach(function (en) {
+    if (!leagueShort[en]) leagueShort[en] = gShort[en];
   });
 
   return { leagueZh: leagueZh, leagueShort: leagueShort, clubZh: clubZh, nationZh: nationZh };
@@ -192,26 +202,29 @@ function httpsGet(url, redirectsLeft) {
   });
 }
 
-// 把 Gitee 文件的 basic 段抽成 { name: 中文 }。basic 形如 { "China": {"webpagedata":"中国"} }，
-// 兼容值为纯字符串的情况。
+// 把 Gitee 文件的 basic 段抽成 { zh: {name:全称中文}, short: {name:简称中文} }。
+// basic 形如 { "League 2273": {"webpagedata":"冰女超", "short":"冰女超"} }，兼容值为纯字符串（仅全称）。
 function parseGiteeBasic(obj) {
   const basic = (obj && obj.basic) || {};
-  const map = {};
+  const zh = {};
+  const shortMap = {};
   Object.keys(basic).forEach(function (k) {
     const v = basic[k];
-    const zh = (v && typeof v === 'object' && v.webpagedata)
-      ? v.webpagedata
-      : (typeof v === 'string' ? v : '');
-    if (zh) map[k] = zh;
+    if (v && typeof v === 'object') {
+      if (v.webpagedata) zh[k] = v.webpagedata;
+      if (v.short) shortMap[k] = v.short;   // 简称：只展示在窄位（如联赛简称），无则回落全称
+    } else if (typeof v === 'string') {
+      if (v) zh[k] = v;
+    }
   });
-  return map;
+  return { zh: zh, short: shortMap };
 }
 
 async function fetchGiteeBasic() {
   try {
     const body = await httpsGet(GITEE_BASIC_URL, 5);
     const map = parseGiteeBasic(JSON.parse(body));
-    console.log('[sync_i18n] 已从 Gitee basic 拉取 ' + Object.keys(map).length + ' 条译名');
+    console.log('[sync_i18n] 已从 Gitee basic 拉取 ' + Object.keys(map.zh).length + ' 条全称译名（含简称 ' + Object.keys(map.short).length + ' 条）');
     return map;
   } catch (e) {
     console.warn('[sync_i18n] ⚠️ 拉取 Gitee basic 失败（' + e.message + '），本次不补齐；未翻译项仍走英文/pending');
