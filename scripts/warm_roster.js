@@ -104,7 +104,21 @@ function rarityFileKeyOf(imagePath) {
   const buf = Buffer.from(JSON.stringify(payload));
   console.log('payload size:', (buf.length / 1024 / 1024).toFixed(2) + 'MB');
   const cloudPath = 'roster/roster_v1_' + VER + '.json';
-  const up = await app.uploadFile({ cloudPath: cloudPath, fileContent: buf });
+  // ⚠️ CI runner → COS 传 ~16MB 大 payload 偶发 UserNetworkTooSlow（2026-09-21 run#52 实锤：
+  //    传了 19 分钟后被 COS SDK 判「网络过慢」中止 → roster 缓存停在旧数据）。这里重试 3 次、
+  //    间隔递增；UserNetworkTooSlow 多为瞬时慢网，等待后重试通常可过。
+  let up = null, lastErr = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      up = await app.uploadFile({ cloudPath: cloudPath, fileContent: buf });
+      break;
+    } catch (e) {
+      lastErr = e;
+      console.log('uploadFile 第' + attempt + '/3 次失败:', String(e && e.message || e));
+      if (attempt < 3) await new Promise(r => setTimeout(r, 30000 * attempt));
+    }
+  }
+  if (!up) throw lastErr;
   console.log('uploaded fileID =', up.fileID);
   await db.collection(M_COL).doc('roster').set({ fileID: up.fileID, ts: ts, count: all.length, schemaVersion: ROSTER_SCHEMA_VERSION });
   console.log('meta doc written:', M_COL + '/roster', 'ts=' + ts, '(' + new Date(ts).toISOString() + ')');
