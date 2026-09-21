@@ -4,7 +4,7 @@
 // 更糟的是同一处错误也存在于 sig.js 的签名里 → 即使 EA 改了卡，增量也判「无变化」。
 // 所以这里必须直接断言 pickPlayer 的产物，不能只测 sig.js。
 const assert = require('assert');
-const { pickPlayer, buildDetail, pickArr } = require('../scripts/fetch_futgg');
+const { pickPlayer, buildDetail, pickArr, chemArrayOf } = require('../scripts/fetch_futgg');
 
 let pass = 0, fail = 0;
 function t(name, fn) {
@@ -172,5 +172,40 @@ t('diffSigs 字符串 id 必须能匹配到数字 eaId 的列表项（String 归
   assert.ok(needSet.has(String(1002)), '变化 id 必须命中');
   assert.strictEqual(!needSet.has(String(1001)), true, '未变 id 不应重抓');
 });
+// 化学档案（2026-09-21）：阵型战术模块的化学靠这几个 fut.gg 列表层字段，**不抓详情**。
+// 实测（每个稀有度抽 3~5 张，见 docs/18 §3.6.4）：
+//   Base Icon / Debut International Icon → full + extraSquadLeague
+//   Base Hero → 只 full
+//   Partnerships（既非 Icon/Hero/名宿）→ 只 extraSquadLeague  ← 写死稀有度名单必漏
+//   Base Hall of FUT → 两条皆 false（fut.gg 数据缺口，EA 公告说等同英雄）
+//   Gold/Silver/Bronze/Rare/TOTW/OTW/Squad Foundations → 皆 false
+// ⚠️ 这些字段**没有**进 sig.js 的签名（避免全库重抓）；首次上线靠一次 full 跑回填，
+//    兜底走 facets.json#rarityChem（每次 run 都从完整列表重算）。
+console.log('化学档案（阵型战术）:');
+t('7 元压缩 [full, exC, exL, exN, sqC, sqL, sqN] 顺序正确', function () {
+  assert.deepStrictEqual(chemArrayOf({ isFullChemistry: true, extraSquadLeagueChemistry: true }), [1, 0, 0, 0, 0, 1, 0]);
+  assert.deepStrictEqual(chemArrayOf({ isFullChemistry: true }), [1, 0, 0, 0, 0, 0, 0]);
+  assert.deepStrictEqual(chemArrayOf({ extraSquadLeagueChemistry: true }), [0, 0, 0, 0, 0, 1, 0]);
+  assert.deepStrictEqual(chemArrayOf({ extraClubChemistry: 2 }), [0, 2, 0, 0, 0, 0, 0]);
+});
+t('全 0 / 空对象 → null（不写字段，省库容）', function () {
+  assert.strictEqual(chemArrayOf({ isFullChemistry: false, extraSquadLeagueChemistry: false }), null);
+  assert.strictEqual(chemArrayOf({}), null);
+  assert.strictEqual(chemArrayOf({ isFullChemistry: 0, extraNationChemistry: 0 }), null);
+});
+t('布尔 true 归成 1（列表层 extraSquad* 是布尔，不是数字）', function () {
+  assert.deepStrictEqual(chemArrayOf({ extraSquadNationChemistry: true }), [0, 0, 0, 0, 0, 0, 1]);
+});
+t('pickPlayer 带出 chem；普通卡**不带**这个键', function () {
+  const icon = pickPlayer({ eaId: 101, commonName: 'Icon Guy', rarity: { name: 'Base Icon', eaId: 12 }, isFullChemistry: true, extraSquadLeagueChemistry: true });
+  assert.deepStrictEqual(icon.chem, [1, 0, 0, 0, 0, 1, 0]);
+  const gold = pickPlayer({ eaId: 102, commonName: 'Gold Guy', rarity: { name: 'Gold', eaId: 1 }, isFullChemistry: false });
+  assert.strictEqual('chem' in JSON.parse(JSON.stringify(gold)), false, 'JSON 里不该出现 chem 键');
+});
+t('Partnerships 型：不满化学但有 extraSquadLeague', function () {
+  const p = pickPlayer({ eaId: 103, commonName: 'Partner Guy', isFullChemistry: false, extraSquadLeagueChemistry: true });
+  assert.deepStrictEqual(p.chem, [0, 0, 0, 0, 0, 1, 0]);
+});
+
 console.log('\n结果: 通过 ' + pass + ' / 失败 ' + fail);
 process.exit(fail ? 1 : 0);

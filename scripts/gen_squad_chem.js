@@ -3,10 +3,14 @@
 // 产出：云存储 `squad/chem_v1_{VER}.json` + meta 文档 `meta_fc{VER}/squad_chem`
 //
 // 形态（列式，四条数组等长，缺值一律 0）：
-//   { ver, ts, count, eaIds:[...], club:[...], league:[...], nation:[...] }
+//   { ver, ts, count, eaIds:[...], club:[...], league:[...], nation:[...], chem:{ "<eaId>":[7元] } }
 //   · 每人只要 **3 个数字**：`league.eaId` 在云库 19798/19798 全覆盖 ⇒ 不需要 club.leagueEaId；
 //     `league.nationEaId` 也进全局表（data/managerOptions.js），不 per-player 存。
 //   · 键名短、列式而非对象数组 —— 省的是 19798 次重复键名。
+//   · `chem` = **稀疏对象**（只有约 500 张特殊卡有档案，约 20KB）：键 eaId，值 =
+//     [full, exClub, exLeague, exNation, sqClub, sqLeague, sqNation]（见 chemEngine.js 顶部 ⚠️③）。
+//     来源：优先 roster 的球员级 `chem` 字段；缺失时用 `facets.json#rarityChem[rarity.eaId]` 兜底
+//     （roster 的 chem 要靠一次 full 全量跑才回填，facets 每次 run 都从完整列表重算 ⇒ 立刻可用）。
 //
 // ⚠️ 为什么独立成文件而不并进 roster：见 docs/18 §3.6.1。一句话 —— roster 15.81MB 刚被判过
 //    UserNetworkTooSlow，不该让不下阵型战术的人也白吃 +1.1MB，且化学字段当前云库 0/19798 还没成形。
@@ -36,11 +40,22 @@ const MIN_COUNT = 19000;   // 安全闸：疑似拉取不完整就拒绝写库�
   const app = cloudbase.init({ env: cred.ENV_ID, secretId: cred.SECRET_ID, secretKey: cred.SECRET_KEY, timeout: 120000 });
   const db = app.database();
 
-  // 1) 只读四个字段（eaId + 三个 eaId），分页与 warm_roster.js 同法同坑（100/页）
-  const proj = { eaId: true, 'club.eaId': true, 'league.eaId': true, 'nation.eaId': true };
-  const eaIds = [], club = [], league = [], nation = [];
-  let skip = 0, nClub = 0, nLeague = 0, nNation = 0;
+  // 1) 只读需要的字段（eaId + 三个 eaId + rarity.eaId + chem），分页与 warm_roster.js 同法同坑（100/页）
+  const proj = { eaId: true, 'club.eaId': true, 'league.eaId': true, 'nation.eaId': true, 'rarity.eaId': true, chem: true };
+  const eaIds = [], club = [], league = [], nation = [], chem = {};
+  let skip = 0, nClub = 0, nLeague = 0, nNation = 0, nChem = 0, nChemFallback = 0;
   const t0 = Date.now();
+  // 兜底表：facets.json 每次 run 都从**完整列表**重算并提交 git（CI 与本脚本同一工作区）。
+  // 缺它时（老快照 / 本地手动跑且没生成过 facets）降级为「不做稀有度兜底」，不影响主数据。
+  let rarityChem = {};
+  try {
+    const fp = path.join(__dirname, '..', 'cloud-data', 'fc' + VER, 'facets.json');
+    const fx = JSON.parse(require('fs').readFileSync(fp, 'utf8'));
+    if (fx && fx.rarityChem && typeof fx.rarityChem === 'object') rarityChem = fx.rarityChem;
+    console.log('rarity 化学兜底表：facets.json 命中', Object.keys(rarityChem).length, '个稀有度');
+  } catch (e) {
+    console.log('rarity 化学兜底表：facets.json 不可用（' + String((e && e.message) || e).slice(0, 60) + '）→ 仅用 roster 球员级 chem');
+  }
   while (true) {
     const r = await db.collection(COL).field(proj).skip(skip).limit(100).get();
     const d = (r && r.data) || [];
@@ -56,15 +71,28 @@ const MIN_COUNT = 19000;   // 安全闸：疑似拉取不完整就拒绝写库�
       if (c) nClub++;
       if (l) nLeague++;
       if (nt) nNation++;
+      // 化学档案：球员级优先，缺则按 rarity.eaId 查兜底表
+      let prof = Array.isArray(p.chem) ? p.chem : null;
+      if (!prof) {
+        const rid = p.rarity && p.rarity.eaId;
+        if (rid != null && rarityChem[rid]) { prof = rarityChem[rid]; nChemFallback++; }
+      }
+      if (prof) {
+        let any = false;
+        const v = [];
+        for (let k = 0; k < 7; k++) { const x = Number(prof[k]) || 0; v.push(x); if (x) any = true; }
+        if (any) { chem[id] = v; nChem++; }
+      }
     }
     if (d.length < 100) break;
     skip += 100;
   }
   const count = eaIds.length;
   console.log('fetched', count, 'players in', ((Date.now() - t0) / 1000).toFixed(1) + 's');
-  console.log('  有 club.eaId  :', nClub, '（无 = 无俱乐部，典型是 Icon/Hero 卡）');
+  console.log('  有 club.eaId  :', nClub, '（无 = 无俱乐部；Icon/Hero 列表层不带 club ⇒ 恒 0）');
   console.log('  有 league.eaId:', nLeague);
   console.log('  有 nation.eaId:', nNation);
+  console.log('  有化学档案    :', nChem, '（其中来自 facets 兜底 ' + nChemFallback + '）');
   if (count < MIN_COUNT) {
     console.error('安全闸：球员数 ' + count + ' < ' + MIN_COUNT + '，疑似拉取不完整，拒绝写库（避免半截数据覆盖好数据）');
     process.exit(1);
@@ -74,11 +102,14 @@ const MIN_COUNT = 19000;   // 安全闸：疑似拉取不完整就拒绝写库�
     process.exit(1);
   }
 
-  // 2) 拼列式 → 上传云存储（3 次重试；文件仅 ~300KB，不会踩 UserNetworkTooSlow）
+  // 2) 拼列式 → 上传云存储（3 次重试；文件仅 ~380KB，不会踩 UserNetworkTooSlow）
+  //    化学档案软闸：今日应有约 500 张特殊卡有档案（Icon 272 + Hero 174 + HoF 21 + Partnerships 5 …）。
+  //    为 0 说明上游 chem 采集/落库断了 —— 不 abort（chem 只是附加信息，文件本身仍可用），但必须吼出来。
+  if (!nChem) console.warn('⚠️ 化学档案条数为 0 —— 上游 pickPlayer#chem / facets#rarityChem 可能断了（端上会全部走稀有度兜底表）');
   const ts = Date.now();
-  const payload = { ver: String(VER), ts: ts, count: count, eaIds: eaIds, club: club, league: league, nation: nation };
+  const payload = { ver: String(VER), ts: ts, count: count, eaIds: eaIds, club: club, league: league, nation: nation, chem: chem };
   const buf = Buffer.from(JSON.stringify(payload));
-  console.log('payload size:', (buf.length / 1024).toFixed(1) + 'KB', '(uncompressed)');
+  console.log('payload size:', (buf.length / 1024).toFixed(1) + 'KB', '(uncompressed)', '| chem', nChem, '条');
 
   let up = null, lastErr = null;
   for (let attempt = 1; attempt <= 3; attempt++) {

@@ -76,6 +76,32 @@ function cardSourceOf(item) {
   return 'POOL';
 }
 
+// ── 化学档案（阵型战术模块用，见 docs/18 §3.6.4）────────────────────────────────
+// fut.gg 把「特殊卡化学」做成**球员级**三组开关，**列表接口就回传**（不必抓详情）：
+//   isFullChemistry                        本人化学直接置 3
+//   extra{Nation,League,Club}Chemistry     加到**自己所在**那一组计数（实测全部为 0）
+//   extraSquad{Nation,League,Club}Chemistry 加到**其他**已存在的组（实测只有 League 会出现）
+// 实测对照（2026-09-21，`players/v2/27` 列表层，每个稀有度抽 3~5 张）：
+//   Base Icon / Debut International Icon : full=true + extraSquadLeague=true
+//   Base Hero                            : full=true
+//   Partnerships（**既非 Icon/Hero/名宿**）: extraSquadLeague=true  ← 写死稀有度名单必漏
+//   Base Hall of FUT                     : 两条皆 false（fut.gg 数据缺口；EA 公告：等同英雄）
+//   Gold/Silver/Bronze/Rare/TOTW/OTW/Squad Foundations : 皆 false
+// ⚠️ 另有一个**同名但恒 0 的假字段**：`rarity.chemistryProfile.*`（详情层）实测对所有稀有度
+//    都是全 0 —— 不是真源，别拿它算。
+// 压缩成 7 元数组 [full, exC, exL, exN, sqC, sqL, sqN]；**全 0 时返回 null**（不写字段，
+// 因为 99% 的卡无档案，写 7 个 0 会无谓放大 players_fc27 体积）。
+function chemArrayOf(item) {
+  function n(v) { const x = Number(v); return (isFinite(x) && x > 0) ? x : 0; }
+  const a = [
+    item.isFullChemistry ? 1 : 0,
+    n(item.extraClubChemistry), n(item.extraLeagueChemistry), n(item.extraNationChemistry),
+    n(item.extraSquadClubChemistry), n(item.extraSquadLeagueChemistry), n(item.extraSquadNationChemistry)
+  ];
+  for (let i = 0; i < a.length; i++) if (a[i]) return a;
+  return null;
+}
+
 // 半身像路径归一：fut.gg 对「真实照片尚未就绪」的球员会返回**占位图**路径
 // （实测 `27/players/prelaunch-photos-v2/{eaId}.webp`）—— 它非空，但根本不是真实半身像。
 // 若当成真图写库会连坏两处：
@@ -159,6 +185,9 @@ function pickPlayer(item) {
     isSeasonPass: (typeof item.isSeasonPass === 'boolean') ? item.isSeasonPass : null,
     isSpecial: (typeof item.isSpecial === 'boolean') ? item.isSpecial : null,
     cardSource: cardSourceOf(item),
+    // 化学档案（7 元数组或 undefined）—— 见 chemArrayOf 顶部说明。
+    // ⚠️ 全 0 时为 undefined（JSON.stringify 直接丢键），保证绝大多数卡不带这个键、不涨库容。
+    chem: chemArrayOf(item) || undefined,
     facePace: f.pace || 0,
     faceShooting: f.shooting || 0,
     facePassing: f.passing || 0,
@@ -404,6 +433,25 @@ async function main() {
       });
       return m;
     })(),
+    // 稀有度化学档案聚合（rarityEaId → 7 元档案）：给 gen_squad_chem.js 在「球员级 chem 字段
+    // 尚未回填」时兜底（例如某天只跑了增量、roster 里那批卡还没带上 chem）。取各字段最大值（并集）。
+    // 全 0 的稀有度不入表 —— 「不在表里」= 无化学加成。键是 rarityEaId（数字结构键，不是名字）。
+    rarityChem: (function () {
+      const m = {};
+      listPlayers.forEach(function (p) {
+        const id = p.rarity && p.rarity.eaId;
+        if (id == null || !p.chem) return;
+        const cur = m[id];
+        if (!cur) { m[id] = p.chem.slice(); return; }
+        for (let i = 0; i < 7; i++) if (p.chem[i] > cur[i]) cur[i] = p.chem[i];
+      });
+      Object.keys(m).forEach(function (k) {
+        let any = false;
+        for (let i = 0; i < 7; i++) if (m[k][i]) any = true;
+        if (!any) delete m[k];
+      });
+      return m;
+    })(),
     accs: uniqSorted(listPlayers.map(function (p) { return p.accelerateType; })),
     updatedAt: new Date().toISOString()
   };
@@ -477,5 +525,6 @@ if (require.main === module) {
 
 // 单测入口：pickPlayer 是「列表文档字段」的唯一来源，
 // 之前它缺了 sig.js 的归一化函数导入，CI 全量跑完才发现六维全 0 —— 必须有单测兜住。
-// buildDetail / pickArr 也一并导出，供「详情空数组不得覆盖列表值」的回归断言直接调用。
-module.exports = { pickPlayer, buildDetail, pickArr };
+// buildDetail / pickArr / chemArrayOf 也一并导出，供「详情空数组不得覆盖列表值」与
+// 「化学档案采集」的回归断言直接调用。
+module.exports = { pickPlayer, buildDetail, pickArr, chemArrayOf };
