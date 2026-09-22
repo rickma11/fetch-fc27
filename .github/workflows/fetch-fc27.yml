@@ -315,6 +315,9 @@ jobs:
           git add cloud-data/fc27/sbcs.json cloud-data/fc27/evolutions.json cloud-data/fc27/sbc_evo_summary.json || true
           # SBC set 封面映射清单（sync_sbc_covers 产出，小文件）
           git add cloud-data/fc27/sbc_faces.json || true
+          # SBC set 封面内容指纹清单（未变则跳过重复上传）。⚠️ 必须提交：runner 工作区每轮从零开始，
+          # 不落盘 → 指纹恒为空 → 每天把十几张封面重复 PUT 一遍（方案 A，2026-09-22）。
+          git add cloud-data/fc27/sbc_covers_sig.json || true
           # 收藏室代币价映射清单（sync_token_store 产出，小文件）
           git add cloud-data/fc27/token_store.json || true
           # ⚠️ 不再提交 players.json / details.json：全量数据单文件常超 GitHub 100MB 硬限，

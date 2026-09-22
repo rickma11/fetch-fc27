@@ -7,6 +7,13 @@
 //   ③ 用 @cloudbase/node-sdk 上传到云存储 fc{ver}/images/sbc_<id>.webp；
 //   ④ 产出映射 sbc_faces.json（imagePath -> 文件名），并同步生成小程序 data/sbcFaces.js。
 //
+// 增量上传（2026-09-22 加，方案 A｜最小）：再落一份内容指纹清单 sbc_covers_sig.json
+//   （imagePath -> 本地字节 sha1）。上传前比指纹，一致即 `SKIP(未变)` 跳过 PUT。
+//   此前**完全没有跳过分支** → 每天把十几张封面无脑重传（实测 0.8~7.7min，随网络波动）。
+//   ⚠️ 只要「下载」还在，这里省的只是上传；想连浏览器/Cloudflare 那段也省掉，须把 webp 提交进
+//      git 命中 allLocal 短路（方案 B，未采纳）。指纹清单必须进 workflow 的 git add 白名单，
+//      否则 runner 工作区恒空 → 指纹为空 → 每天照旧全量重传（同规则 17 ⑤ 的「清单兜底」教训）。
+//
 // 命名：确定性命名 sbc_<set.eaId>.webp（从 imagePath 文件名提取数字 id，与球员卡 _card.webp 同原则），
 //       小程序端 format.cloudFile('fc{ver}/images/sbc_<id>.webp') 可直接拼出 fileID，无需查表。
 //
@@ -18,6 +25,9 @@ const path = require('path');
 const { chromium } = require('playwright');
 const dl = require('./imgdl');
 const { resolve } = require('./tcb_env');
+// 内容指纹 + 「是否需要上传」判定：抽到 sbc_cover_sig.js
+// （本文件是 IIFE，require 即执行，逻辑留在里面没法被单测直接调用）
+const coverSig = require('./sbc_cover_sig');
 
 function argVer() {
   const a = process.argv.find(x => x.startsWith('--ver='));
@@ -33,6 +43,11 @@ const ROOT = path.resolve(__dirname, '..');
 const SBC_JSON = path.join(ROOT, 'cloud-data', `fc${VER}`, 'sbcs.json');
 const COVER_DIR = path.join(ROOT, 'sbc_covers_out');
 const FACES_JSON = path.join(ROOT, 'cloud-data', `fc${VER}`, 'sbc_faces.json');
+// 内容指纹清单（2026-09-22 加，方案 A｜最小）：imagePath -> 本地文件内容 sha1。
+// 上传前比指纹：一致说明云上已是最新 → 直接跳过上传（省掉每天 5~6 分钟的重复 PUT）。
+// ⚠️ 必须**提交进 git**（workflow 的 git add 白名单）：runner 工作区每轮从零开始，
+//    不落盘的话指纹恒为空 → 每天照旧全量重传（同规则 17 ⑤ 的「清单兜底」教训）。
+const SIG_JSON = path.join(ROOT, 'cloud-data', `fc${VER}`, 'sbc_covers_sig.json');
 // 小程序静态映射文件（跨目录生成，便于端上直接 require；与 data/rarityFaces.js 同定位）
 const MINI_FACES = path.resolve(ROOT, '..', 'eafc-miniapp', 'data', 'sbcFaces.js');
 
@@ -179,20 +194,30 @@ function setIdOf(imagePath) {
     }
     const cloudbase = require('@cloudbase/node-sdk');
     const app = cloudbase.init({ env: cred.ENV_ID, secretId: cred.SECRET_ID, secretKey: cred.SECRET_KEY, timeout: 120000 });
-    let upDone = 0, upFail = 0;
+    const oldSig = coverSig.readSigs(SIG_JSON);
+    let upDone = 0, upFail = 0, upSkip = 0;
+    // 新指纹表：只记「云上确认已是最新」的条目（上传成功 或 指纹一致跳过）。
+    // ⚠️ 上传失败 / 无本地文件的**不记**（否则下次会被误判为「已同步」而永久漏传）。
+    const newSig = {};
     for (const t of tasks) {
       const local = path.join(COVER_DIR, t.fileName);
       if (!fs.existsSync(local) || fs.statSync(local).size === 0) { upFail++; console.error('  SKIP(无本地文件)', t.fileName); continue; }
       const cloudPath = `fc${VER}/images/${t.fileName}`;
+      const buf = fs.readFileSync(local);
+      // 指纹一致 ⇒ 云上已是最新的同一份内容，跳过上传（省掉每天几十分钟的重复 PUT）
+      const d = coverSig.decideUpload(t.imagePath, buf, oldSig);
+      if (!d.need) { upSkip++; if (d.sig) newSig[t.imagePath] = d.sig; console.log('  SKIP(未变)', cloudPath); continue; }
       let ok = false, lastErr = null;
       for (let k = 1; k <= 3 && !ok; k++) {
-        try { await app.uploadFile({ cloudPath, fileContent: fs.readFileSync(local) }); ok = true; }
+        try { await app.uploadFile({ cloudPath, fileContent: buf }); ok = true; }
         catch (e) { lastErr = e; await new Promise(r => setTimeout(r, 1000 * k)); }
       }
-      if (ok) { upDone++; console.log('  UP', cloudPath); }
+      if (ok) { upDone++; newSig[t.imagePath] = d.sig; console.log('  UP', cloudPath); }
       else { upFail++; console.error('  UP-FAIL', t.fileName, (lastErr && lastErr.message) || lastErr); }
     }
-    console.log(`SBC 封面上传完成: 成功 ${upDone} | 失败 ${upFail}`);
+    console.log(`SBC 封面上传完成: 上传 ${upDone} | 跳过(未变) ${upSkip} | 失败 ${upFail}`);
+    fs.writeFileSync(SIG_JSON, JSON.stringify(newSig, null, 2) + '\n');
+    console.log('已写出内容指纹', path.relative(ROOT, SIG_JSON), '（', Object.keys(newSig).length, '条 ）');
   }
 
   // ---- 映射：imagePath -> 文件名 ----
