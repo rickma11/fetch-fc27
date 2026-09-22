@@ -155,16 +155,21 @@ function buildPacks(all, rarityImgs, ts) {
   console.log('roster 分片: ' + packs.parts + ' 片 | 原始 ' + (packs.rawTotal / 1048576).toFixed(2) +
     'MB → 压缩 ' + (packs.zipTotal / 1048576).toFixed(2) + 'MB（最大单片 ' + Math.round(packs.maxZip / 1024) + 'KB）');
 
-  // 上一代文件（上传成功后清理，避免云存储堆积）
-  let oldIDs = [];
-  try {
-    const o = await db.collection(M_COL).doc('roster').get();
-    const od = o && o.data;
-    if (od) {
-      if (Array.isArray(od.fileIDs)) oldIDs = oldIDs.concat(od.fileIDs);
-      if (od.fileID) oldIDs.push(od.fileID);
-    }
-  } catch (e) { /* 首次运行无 meta */ }
+// 上一代文件（上传成功后清理，避免云存储堆积）
+// ⚠️ @cloudbase/node-sdk 的 doc().get() 可能返回 {data: doc} **也可能**返回 {data: [doc]}——
+//    两种形状都要兜（同类坑见规则 29：SDK 返回形状不统一，直接读 .data.xxx 会静默拿到 undefined）。
+function docOf(r) {
+  const d = r && r.data;
+  return Array.isArray(d) ? d[0] : d;
+}
+let oldIDs = [];
+try {
+  const o = docOf(await db.collection(M_COL).doc('roster').get());
+  if (o) {
+    if (Array.isArray(o.fileIDs)) oldIDs = oldIDs.concat(o.fileIDs);
+    if (o.fileID) oldIDs.push(o.fileID);
+  }
+} catch (e) { /* 首次运行无 meta */ }
 
   const upOne = async function (p) {
     const cloudPath = 'roster/roster_v1_' + VER + '.' + ts + '.p' + p.i + '.zip';
@@ -197,8 +202,7 @@ function buildPacks(all, rarityImgs, ts) {
   console.log('meta doc written:', M_COL + '/roster', 'parts=' + packs.parts, 'ts=' + ts, '(' + new Date(ts).toISOString() + ')');
 
   // 上传后读回断言（规则 31）：① meta 字段一致 ② 第一片确实是 zip（前 4 字节 PK\x03\x04）
-  const rb = await db.collection(M_COL).doc('roster').get();
-  const rm = (rb && rb.data) || {};
+  const rm = docOf(await db.collection(M_COL).doc('roster').get()) || {};
   if (!Array.isArray(rm.fileIDs) || rm.fileIDs.length !== packs.parts || rm.ts !== ts) {
     throw new Error('meta 回读断言失败: parts=' + (rm.fileIDs && rm.fileIDs.length) + ' ts=' + rm.ts + '（期望 parts=' + packs.parts + ' ts=' + ts + '）');
   }
