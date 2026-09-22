@@ -10,9 +10,9 @@ const { resolve } = require('./tcb_env');
 const ziplite = require('./ziplite');   // 极简 zip 写入器（roster 压缩分片上传用，见第 3 步）
 
 const VER = 27;
-// 与 get_players/index.js 保持一致（v15：全息卡官方卡面 holographicType + holoCardImagePath，
-// 并**移除**错误的 holoVariants/standardItemEaId 模型 —— 见 fetch_futgg.js#buildDetail 说明）
-const ROSTER_SCHEMA_VERSION = 15;
+// 与 get_players/index.js 保持一致（v16：全息卡改为 **pristine 变体**模型 ——
+// holographicType / holoVariantEaId / holoCardImagePath 三件套，采集来源见 scripts/holo.js）
+const ROSTER_SCHEMA_VERSION = 16;
 const COL = 'players_fc' + VER;
 const M_COL = 'meta_fc' + VER;
 
@@ -97,10 +97,12 @@ function buildPacks(all, rarityImgs, ts) {
     sbcCost: true,
     // v13：收藏室代币兑换价（sync_token_store.js 从 r2 token-store 数据集回写），详情页「收藏室兑换」条首屏直显
     tokenStoreCost: true,
-    // v15：全息卡（官方卡面）。holographicType 非空 ⇒ 端上显示「全息卡」pill；
-    //      holoCardImagePath ⇒ 详情页「版本」区2 的 {eaId}_holo.webp（EA 官方全息卡面）。
-    // ⚠️ 旧的 standardItemEaId / holoVariants 是**错误模型**，已移除（全库恒 null/空，见 fetch_futgg.js）。
+    // v16：全息卡（pristine 版本，2026-09-22 改版）。holographicType 非空（恒 "pristine"）
+    //      ⇒ 端上显示「全息卡」pill；holoCardImagePath ⇒ 详情页「版本」区2 的 {eaId}_holo.webp
+    //      （EA 官方卡面，取自带全息光效的**变体条目**）；holoVariantEaId ⇒ 该变体 item 的 eaId。
+    // ⚠️ 旧的 standardItemEaId / holoVariants 是**错误模型**（全库恒 null/空），已移除。
     holographicType: true,
+    holoVariantEaId: true,
     holoCardImagePath: true,
     attributes: true,
     'rarity.imagePath': true,

@@ -14,6 +14,7 @@ const path = require('path');
 const { chromium } = require('playwright');
 const { sigOfRaw, diffSigs, isGenericRarityName } = require('./sig');
 const imgLib = require('./images');
+const holoLib = require('./holo');
 const dl = require('./imgdl');
 
 const VER = 27;
@@ -216,16 +217,26 @@ function readSnapshot() {
     process.exit(1);
   }
 
+  // ---------- 全息卡采集结果的跨阶段传递（阶段 3.5 产出 → 图片阶段 / dump 消费）----------
+  // 数据模型与抓取路径见 scripts/holo.js 头部。三个关键事实：
+  //   · 全息变体**不在列表里**（19797 人里 164 人有 pristine 全息版本，变体全是独立 item）；
+  //   · 详情接口的 itemVariants **恒为 []**（已实锤）⇒ 只能走 definition-data 批量端点；
+  //   · 全量查很便宜（396 批 + 变体补查，并发 8 约 2 分钟）⇒ 每轮全量查，答案完整。
+  // holoMap      —— { 基础eaId: 变体卡面相对路径 }，图片阶段据此下载 {基础eaId}_holo.webp 并算进签名
+  // holoDump     —— { 基础eaId: {type, variantEaId, path} }，写进 dump 供 fetch_futgg 离线回写数据库
+  // holoComplete —— 全部批次成功才为 true（决定清单能否删幽灵条目、fetch_futgg 能否动库字段）
+  // ⚠️ images-only 模式抢在阶段 3.5 之前跑，这里保持空 ⇒ 该模式改用上一轮落盘的清单兜底。
+  let holoMap = {};
+  let holoDump = {};
+  let holoComplete = false;
+
   // ---------- FC_IMG_ONLY：只下图片、不抓详情/不落库（images-only 模式）----------
   // 图片下载只需要列表里的 imagePath（阶段 1 已拿到），不依赖详情（阶段 3）。
   // 因此 images-only 在阶段 1 抓列表后直接跑图片并退出，省掉最慢的详情抓取与数据落库。
   //
-  // ⚠️ 唯一例外是**全息卡官方面**：它只存在于详情接口（列表的 cardImagePath 是 fut.gg 自绘平版），
-  //    见 images.js#HOLO_TYPE。故详情阶段跑完后把 details 塞进这个变量供图片阶段叠加；
-  //    images-only 模式抢在详情之前跑，这里保持 null ⇒ 该模式不处理全息卡（可接受：
-  //    全息卡是极稀疏的少量球员，日常 incremental/full 都会覆盖到）。
-  let detForImg = null;
-
+  // ⚠️ 全息卡面走的是独立的 definition-data 批量阶段（阶段 3.5），本模式抢在它之前跑 ⇒
+  //    这里用上一轮落盘的 holo.json 清单兜底（见 runImageStage 顶部）。日常 incremental/full
+  //    都会正经跑阶段 3.5，全息信息每轮刷新。
   if (String(process.env.FC_IMG_ONLY || '') === '1') {
     if (String(process.env.FC_IMG || '1') !== '0') {
       console.log('[images-only] 仅下载球员图片（跳过详情抓取与数据落库）');
@@ -347,39 +358,103 @@ function readSnapshot() {
   }, { DET, ids: targets, DET_CONC });
 
   console.log('详情抓取完成:', Object.keys(detRes.details).length, '条，失败', detRes.failed, '条');
-  detForImg = detRes.details;   // 供图片阶段叠加全息官方面（见 runImageStage 顶部说明）
+
+  // ---------- 阶段 3.5：全息卡采集（批量 definition-data）----------
+  // 见 scripts/holo.js 头部的模型说明。为什么不复用详情：
+  //   全息变体是**独立 item 且不在列表里**（263/264），详情接口的 itemVariants 又恒为 []，
+  //   所以「基础球员 → 全息变体」这层关系只能从这个批量端点拿。
+  // 为什么每次 run 都全量查：便宜（19797 人 = 396 批 × 50，加变体补查并发 8 约 2 分钟），
+  //   且与「详情只抓变化球员」的增量策略解耦 ⇒ 每轮答案完整 ⇒ 签名在 full/incremental 天然一致。
+  // 实测覆盖（2026-09-22）：19797 人里 264 人带全息面 —— 100 个 holographic + 164 个 pristine，
+  //   其中仅 1 个是「自身即全息卡」（Corona 50524813），其余 263 个都是独立变体。
+  {
+    const t0 = Date.now();
+    const q = (ids) => page.evaluate(async ({ DD, ids, BATCH, CONC }) => {
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      const cs = [];
+      for (let i = 0; i < ids.length; i += BATCH) cs.push(ids.slice(i, i + BATCH));
+      const out = {};
+      let failed = 0, cursor = 0, done = 0;
+      async function one(c) {
+        for (let a = 0; a < 3; a++) {
+          try {
+            const r = await fetch(DD + '?game=27&slugs=' + c.map(x => '27-' + x).join(','), { headers: { Accept: 'application/json' } });
+            if (r.ok) return await r.json();
+            await sleep(400 * (a + 1));
+          } catch (e) { await sleep(400 * (a + 1)); }
+        }
+        return null;
+      }
+      async function w() {
+        while (true) {
+          const i = cursor++;
+          if (i >= cs.length) return;
+          const j = await one(cs[i]);
+          if (!j) failed++;
+          else { const arr = Array.isArray(j.data) ? j.data : []; for (const it of arr) if (it && it.eaId != null) out[String(it.eaId)] = it; }
+          done++;
+          if (done % 120 === 0 || done === cs.length) console.log('全息进度', done, '/', cs.length, failed ? ('| 失败 ' + failed) : '');
+          await sleep(25);
+        }
+      }
+      if (cs.length) await Promise.all(Array.from({ length: CONC }, w));
+      return { items: out, failed, batches: cs.length };
+    }, { DD: holoLib.DD, ids: ids, BATCH: holoLib.BATCH, CONC: 8 });
+
+    // 第一轮：全量基础球员 → 解出「谁有 pristine 全息版本」以及变体 eaId
+    const r1 = await q(curIds);
+    const items = r1.items;
+    const holoOf = {};
+    const needVar = [];
+    const seenVar = new Set();
+    for (const id of curIds) {
+      const hv = holoLib.pickHoloVariant(items[String(id)]);
+      if (!hv) continue;
+      holoOf[String(id)] = hv;
+      // 变体条目不在列表里（第一轮查不到）⇒ 必须补查；万一它自己也在列表里则省一次查询。
+      if (!items[String(hv.variantEaId)] && !seenVar.has(hv.variantEaId)) {
+        seenVar.add(hv.variantEaId);
+        needVar.push(hv.variantEaId);
+      }
+    }
+    // 第二轮：补查变体条目（只为拿它的 cardImagePath）
+    let r2 = { items: {}, failed: 0, batches: 0 };
+    if (needVar.length) r2 = await q(needVar);
+    Object.assign(items, r2.items);
+
+    // 生成清单（基础球员 eaId → 变体卡面路径）与 dump 段
+    const newMap = {};
+    Object.keys(holoOf).forEach(function (id) {
+      const hv = holoOf[id];
+      const p = holoLib.cardPathOf(items[String(hv.variantEaId)]);
+      if (p) newMap[id] = p;
+      holoDump[id] = { type: hv.type, variantEaId: hv.variantEaId, path: p };
+    });
+    holoComplete = (r1.failed === 0 && r2.failed === 0);
+
+    const oldMap = holoLib.readMap(VER);
+    const merged = holoLib.mergeMap(oldMap, newMap, holoComplete);
+    holoMap = merged;
+    holoLib.writeMap(VER, merged);
+    const beforeN = Object.keys(oldMap).length;
+    console.log('全息卡采集完成: 基础球员', Object.keys(holoOf).length, '人 | 有卡面', Object.keys(newMap).length,
+      '张 | 请求', r1.batches + (r2.batches || 0), '批', holoComplete ? '全部成功' : ('失败 ' + (r1.failed + r2.failed) + '（清单只增不减）'),
+      '| 耗时', ((Date.now() - t0) / 1000).toFixed(1) + 's');
+    if (Object.keys(merged).length !== beforeN) {
+      console.log('全息卡清单已更新: ' + Object.keys(merged).length + ' 人（本轮前 ' + beforeN + ' 人）');
+    }
+  }
 
   // ---------- 阶段 4：下载球员图片（按签名增量，全量模式也跳过未变的）----------
   // 抽成 runImageStage()：images-only 模式（FC_IMG_ONLY=1）在阶段 1 抓列表后直接调用并退出，
   //           正常 / data-only 模式在此原位调用。函数体内只看列表的 imagePath，不依赖详情
-  //           （唯一例外：全息官方面 holoCardImagePath 由 detForImg 叠加，见 images.js#HOLO_TYPE）。
+  //           （唯一例外：全息卡面 holoCardImagePath 由阶段 3.5 的 holoMap 叠加）。
   async function runImageStage() {
   const imgStats = { planned: 0, done: 0, failed: 0, skipped: 0, bytes: 0, channel: '' };
 
-  // 全息官方面清单预热（缘由详见 images.js#holoManifestPath / resolveHoloPath）。
-  // ⚠️ 刻意放在 FC_IMG 开关**之外**：data-only（FC_IMG=0）同样会抓详情，清单也要跟着刷新。
-  // ⚠️ detForImg 为空（images-only 模式不抓详情）时整段跳过 —— 否则会把整份清单误清空。
-  let holoMap = {};
-  if (detForImg) {
-    const oldHolo = imgLib.readHoloMap(VER);
-    const nextHolo = {};
-    const aliveIds = new Set(listRes.items.map(x => String(x.eaId)));
-    Object.keys(oldHolo).forEach(k => { if (aliveIds.has(String(k))) nextHolo[k] = oldHolo[k]; });  // 下架球员顺手清掉
-    let dropped = 0;
-    Object.keys(detForImg).forEach(id => {
-      const dd = detForImg[id] && detForImg[id].data;
-      const hp = imgLib.resolveHoloPath(dd, id, oldHolo);
-      if (hp) nextHolo[id] = hp;
-      else if (nextHolo[id]) { delete nextHolo[id]; dropped++; }   // 详情说不再是全息 → 清幽灵条目
-    });
-    const beforeN = Object.keys(oldHolo).length;
-    const afterRaw = JSON.stringify(imgLib.writeHoloMap(VER, nextHolo));   // 写盘（排序，保证 diff 稳定）
-    holoMap = nextHolo;
-    if (afterRaw !== JSON.stringify(oldHolo)) {
-      console.log('全息官方面清单已更新: ' + Object.keys(nextHolo).length + ' 人（本轮前 ' + beforeN + ' 人' +
-        (dropped ? '，其中 ' + dropped + ' 人已不再带全息面' : '') + '）');
-    }
-  }
+  // 全息卡清单：正常 / data-only 模式已由阶段 3.5 算好（含「批次失败则只增不减」的兜底）；
+  // images-only 模式抢在阶段 3.5 之前跑 ⇒ 这里回落到上一轮落盘的清单（随仓库提交，内容完整）。
+  if (!Object.keys(holoMap).length) holoMap = holoLib.readMap(VER);
 
   if (String(process.env.FC_IMG || '1') !== '0') {
     const manifest = imgLib.readManifest(VER);
@@ -399,11 +474,10 @@ function readSnapshot() {
     types.forEach((t, i) => { typeOrder[t.key] = i; });
     for (const it of listRes.items) {
       const eaId = it.eaId;
-      // 全息卡官方面叠加：列表接口的 cardImagePath 是 fut.gg 自绘平版，**EA 官方卡面只在详情里**。
-      // 只有 holographicType 非空的球员才有（官方面那张才带全息光效）——见 images.js#HOLO_TYPE。
-      // 路径取自上方预热好的 holoMap：本轮抓到详情就用详情，没抓到就用上一轮落盘的路径
-      // （不这么做的话，增量模式算出的签名会比全量少一段 `|H|…` → 每天重下这些人的图，见 images.js#holoManifestPath）。
+      // 全息卡面叠加：路径来自阶段 3.5 的批量采集（基础球员 → 全息变体的 cardImagePath，
+      // 见 scripts/holo.js）。列表接口的 cardImagePath 是 fut.gg 自绘平版，**变体那张才有全息光效**。
       // ⚠️ 必须在 imgSigOf 之前叠加：签名要吃进这个字段，否则官方面换了内容不会触发重传。
+      //    非全息球员不叠（holoMap 里没有），其签名逐字节不变 ⇒ 不会触发全库重下。
       if (holoMap[eaId]) it.holoCardImagePath = String(holoMap[eaId]);
       const sig = imgLib.imgSigOf(it);
       if (!sig) continue;                                   // 该球员没有图片字段
@@ -618,7 +692,11 @@ function readSnapshot() {
     totalPages: listRes.totalPages,
     count: listRes.count,
     detailFailed: detRes.failed,
-    images: imgStats
+    images: imgStats,
+    // 全息卡（阶段 3.5 产出）：基础球员 eaId → { type, variantEaId, path }，供 fetch_futgg 离线回写。
+    // holoComplete=false（有批次失败）时 fetch_futgg 一律不动库里的全息字段 —— 残缺结果不能当「不是全息」。
+    holo: holoDump,
+    holoComplete: holoComplete
   };
   fs.writeFileSync(OUT, JSON.stringify(dump));
   console.log('写入', OUT, '| 列表', dump.list.length, '| 详情', Object.keys(dump.details).length);
