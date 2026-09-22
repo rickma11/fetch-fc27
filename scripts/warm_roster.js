@@ -9,7 +9,7 @@ process.chdir(path.resolve(__dirname));
 const { resolve } = require('./tcb_env');
 
 const VER = 27;
-const ROSTER_SCHEMA_VERSION = 13;   // 与 get_players/index.js 保持一致（当前 v13）
+const ROSTER_SCHEMA_VERSION = 14;   // 与 get_players/index.js 保持一致（v14：新增 holoVariants 全息变体链接）
 const COL = 'players_fc' + VER;
 const M_COL = 'meta_fc' + VER;
 
@@ -60,6 +60,10 @@ function rarityFileKeyOf(imagePath) {
     sbcCost: true,
     // v13：收藏室代币兑换价（sync_token_store.js 从 r2 token-store 数据集回写），详情页「收藏室兑换」条首屏直显
     tokenStoreCost: true,
+    // v14：全息变体卡原始字段（Pristine Holographic 等）。standardItemEaId 回链基础卡、
+    // holographicType 标记变体类型；warm_roster 据此把变体聚到基础卡的 holoVariants。
+    standardItemEaId: true,
+    holographicType: true,
     attributes: true,
     'rarity.imagePath': true,
     'rarity.name': true, 'rarity.rarityGroupName': true,
@@ -97,6 +101,24 @@ function rarityFileKeyOf(imagePath) {
     return out;
   });
   console.log('rarityImgs entries:', Object.keys(rarityImgs).length);
+
+  // 2.5) 全息变体卡链接：fut.gg 把全息卡作为独立 item 下发（holographicType 非空 + standardItemEaId 回链基础卡）。
+  //   这里在全量基础上反向链接，把变体聚到基础卡的 holoVariants（仅用于详情页「版本」tab 全息卡版本区展示卡面）。
+  //   变体卡的卡面图走现有 images.js（cardImagePath 字段），按 holo 自有 eaId 上传为 {eaId}_card.webp，无需新增下载逻辑。
+  {
+    const byEa = new Map();
+    all.forEach(function (p) { if (p && p.eaId != null) byEa.set(p.eaId, p); });
+    let linked = 0;
+    all.forEach(function (p) {
+      if (p && p.standardItemEaId != null && byEa.has(p.standardItemEaId)) {
+        const base = byEa.get(p.standardItemEaId);
+        base.holoVariants = base.holoVariants || [];
+        base.holoVariants.push({ type: p.holographicType || 'Holographic', eaId: p.eaId });
+        linked++;
+      }
+    });
+    if (linked) console.log('linked holo variants:', linked);
+  }
 
   // 3) 上传云存储 + 写 meta 文档
   const ts = Date.now();

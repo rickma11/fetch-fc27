@@ -166,6 +166,12 @@ function pickPlayer(item) {
     imagePath: item.imagePath || '',
     cardImagePath: item.cardImagePath || '',
     simpleCardImagePath: item.simpleCardImagePath || '',
+    // 全息变体卡（Pristine Holographic 等官方卡面）：fut.gg 把这类卡作为「独立 item」下发，
+    // 通过 standardItemEaId 回链基础卡、holographicType 标记变体类型（如 "Pristine"）。
+    // 原始字段原样保留即可，真正的 holoVariants 链接在 warm_roster 全量阶段建
+    // （增量批次看不到 base，不宜在此处建链接，否则会被每日 full 重写连根抹掉）。
+    holographicType: (typeof item.holographicType === 'string' && item.holographicType) ? item.holographicType : null,
+    standardItemEaId: (typeof item.standardItemEaId === 'number') ? item.standardItemEaId : null,
     socialImagePath: item.socialImagePath || '',
     createdAt: item.createdAt || '',
     playstyles: item.playStyleEaIds || [],
