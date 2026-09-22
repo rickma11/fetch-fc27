@@ -26,6 +26,17 @@ const ALL_TYPES = [
   { key: 'simple', field: 'simpleCardImagePath', suffix: '_simple.webp' }
 ];
 
+// ---- 全息卡官方卡面（2026-09-22 实锤）----------------------------------------
+// fut.gg 同一个 eaId 有两套卡面，而且**按端点分叉**：
+//   · 列表接口 cardImagePath = 2027/futgg-player-item-card/…  fut.gg 自绘「平版」（我们一直存的）
+//   · 详情接口 cardImagePath = 2027/player-item-card/…        EA 官方卡面
+// 只有 holographicType 非空的球员，其**官方面**才带全息光效（同一 eaId 两图渲染对照确认）。
+// ⚠️ 列表接口**不给**官方面路径 → 只能从详情取，故 fetch_ci.js 在图片阶段把详情里的
+//    cardImagePath 叠进临时字段 holoCardImagePath，再由本表把它下载成 {eaId}_holo.webp。
+// ⚠️ 刻意**不进 ALL_TYPES**：进了会让 activeTypes()（进而 imgSigOf）对所有球员多算一段，
+//    全库签名集体变化 → 触发上万张图片重下。全息路径只在真有值时追加进签名（见 imgSigOf）。
+const HOLO_TYPE = { key: 'holo', field: 'holoCardImagePath', suffix: '_holo.webp' };
+
 // ---- 稀有度小卡面（筛选弹层用）----------------------------------------
 // 每档稀有度自带一张官方小卡面（rarityImagePath，如 2027/rarities-level-3-large/0.<hash>.png），
 // 每档一张、全库去重后只有几~几十张。走同样的 CDN 变换压成小图（展示宽度 ≤120rpx，240 足够 2x）。
@@ -62,7 +73,7 @@ function activeTypes() {
 }
 
 function typeByKey(key) {
-  return ALL_TYPES.find(t => t.key === key) || null;
+  return ALL_TYPES.concat([HOLO_TYPE]).find(t => t.key === key) || null;
 }
 
 // 相对路径（接口原样返回），空表示该球员没有这种图
@@ -91,10 +102,14 @@ function cloudPathOf(fileName, ver) {
 
 // 图片签名：由「实际下载地址」算出。地址里含内容 hash，
 // 所以 EA 换了卡面/换了尺寸参数都能被识别出来并触发重传。
+// ⚠️ 全息官方面（holo）**只在真有值时**追加：否则给全库每个球员都多拼一段空值，
+//    签名集体变化 → 触发上万张图片重下（完全没有必要）。非全息球员的签名逐字节不变。
 function imgSigOf(item) {
   const parts = activeTypes().map(t => srcUrlOf(item, t, false) || '');
-  if (!parts.some(Boolean)) return '';
-  return crypto.createHash('sha1').update(parts.join('|')).digest('hex').slice(0, 16);
+  const holo = srcUrlOf(item, HOLO_TYPE, false) || '';
+  if (!parts.some(Boolean) && !holo) return '';
+  const s = parts.join('|') + (holo ? '|H|' + holo : '');
+  return crypto.createHash('sha1').update(s).digest('hex').slice(0, 16);
 }
 
 const MANIFEST = (ver) => require('path').resolve(__dirname, '..', 'cloud-data', `fc${ver || 27}`, 'images.json');
@@ -118,7 +133,7 @@ function writeManifest(ver, obj) {
 }
 
 module.exports = {
-  CDN, TRANSFORM, ALL_TYPES,
+  CDN, TRANSFORM, ALL_TYPES, HOLO_TYPE,
   RARITY_TRANSFORM, RARITY_BASE_TIERS, rarityFileKeyOf, rarityFileNameOf, raritySrcUrlOf, rarityManifestPath,
   activeTypes, typeByKey, relPathOf, srcUrlOf, fileNameOf, cloudPathOf,
   imgSigOf, readManifest, writeManifest

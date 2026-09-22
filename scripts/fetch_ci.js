@@ -219,6 +219,13 @@ function readSnapshot() {
   // ---------- FC_IMG_ONLY：只下图片、不抓详情/不落库（images-only 模式）----------
   // 图片下载只需要列表里的 imagePath（阶段 1 已拿到），不依赖详情（阶段 3）。
   // 因此 images-only 在阶段 1 抓列表后直接跑图片并退出，省掉最慢的详情抓取与数据落库。
+  //
+  // ⚠️ 唯一例外是**全息卡官方面**：它只存在于详情接口（列表的 cardImagePath 是 fut.gg 自绘平版），
+  //    见 images.js#HOLO_TYPE。故详情阶段跑完后把 details 塞进这个变量供图片阶段叠加；
+  //    images-only 模式抢在详情之前跑，这里保持 null ⇒ 该模式不处理全息卡（可接受：
+  //    全息卡是极稀疏的少量球员，日常 incremental/full 都会覆盖到）。
+  let detForImg = null;
+
   if (String(process.env.FC_IMG_ONLY || '') === '1') {
     if (String(process.env.FC_IMG || '1') !== '0') {
       console.log('[images-only] 仅下载球员图片（跳过详情抓取与数据落库）');
@@ -340,10 +347,12 @@ function readSnapshot() {
   }, { DET, ids: targets, DET_CONC });
 
   console.log('详情抓取完成:', Object.keys(detRes.details).length, '条，失败', detRes.failed, '条');
+  detForImg = detRes.details;   // 供图片阶段叠加全息官方面（见 runImageStage 顶部说明）
 
   // ---------- 阶段 4：下载球员图片（按签名增量，全量模式也跳过未变的）----------
   // 抽成 runImageStage()：images-only 模式（FC_IMG_ONLY=1）在阶段 1 抓列表后直接调用并退出，
-  //           正常 / data-only 模式在此原位调用。函数体内只看列表的 imagePath，不依赖详情。
+  //           正常 / data-only 模式在此原位调用。函数体内只看列表的 imagePath，不依赖详情
+  //           （唯一例外：全息官方面 holoCardImagePath 由 detForImg 叠加，见 images.js#HOLO_TYPE）。
   async function runImageStage() {
   const imgStats = { planned: 0, done: 0, failed: 0, skipped: 0, bytes: 0, channel: '' };
   if (String(process.env.FC_IMG || '1') !== '0') {
@@ -364,6 +373,11 @@ function readSnapshot() {
     types.forEach((t, i) => { typeOrder[t.key] = i; });
     for (const it of listRes.items) {
       const eaId = it.eaId;
+      // 全息卡官方面叠加：列表接口的 cardImagePath 是 fut.gg 自绘平版，**EA 官方卡面只在详情里**。
+      // 只有 holographicType 非空的球员才叠（官方面才有全息光效）——见 images.js#HOLO_TYPE。
+      // ⚠️ 必须在 imgSigOf 之前叠加：签名要吃进这个字段，否则官方面换了内容不会触发重传。
+      const _dd = detForImg && detForImg[eaId] && detForImg[eaId].data;
+      if (_dd && _dd.holographicType && _dd.cardImagePath) it.holoCardImagePath = String(_dd.cardImagePath);
       const sig = imgLib.imgSigOf(it);
       if (!sig) continue;                                   // 该球员没有图片字段
       if (!FORCE_IMG && manifest[eaId] === sig) { imgStats.skipped++; continue; }
@@ -382,6 +396,20 @@ function readSnapshot() {
           pri: ((!it.imagePath && it.cardImagePath) || npManifest.has(String(it.eaId))) ? 1 : 0,
           // 置顶组内顺序：card 先于 portrait（_np 建底板只需 card；补头像时两者都抓）
           typePri: t.key === 'card' ? 0 : (t.key === 'portrait' ? 1 : 2)
+        });
+      }
+      // 全息卡官方面（{eaId}_holo.webp）：类型不在 activeTypes() 内，单独补一个任务
+      const holoUrl = imgLib.srcUrlOf(it, imgLib.HOLO_TYPE, false);
+      if (holoUrl) {
+        const hName = imgLib.fileNameOf(eaId, imgLib.HOLO_TYPE);
+        files.holo = hName;
+        tasks.push({
+          eaId, type: 'holo', url: holoUrl,
+          rawUrl: imgLib.srcUrlOf(it, imgLib.HOLO_TYPE, true),
+          file: path.join(IMG_DIR, hName),
+          ovr: Number(it.overall) || 0,
+          pri: 1,          // 稀疏且必须拿到 → 与「无头像」同优先级，避免被 FC_IMG_MAX 上限饿死
+          typePri: 3
         });
       }
       if (Object.keys(files).length) taskMeta[eaId] = { sig, files };

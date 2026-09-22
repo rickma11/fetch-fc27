@@ -166,12 +166,13 @@ function pickPlayer(item) {
     imagePath: item.imagePath || '',
     cardImagePath: item.cardImagePath || '',
     simpleCardImagePath: item.simpleCardImagePath || '',
-    // 全息变体卡（Pristine Holographic 等官方卡面）：fut.gg 把这类卡作为「独立 item」下发，
-    // 通过 standardItemEaId 回链基础卡、holographicType 标记变体类型（如 "Pristine"）。
-    // 原始字段原样保留即可，真正的 holoVariants 链接在 warm_roster 全量阶段建
-    // （增量批次看不到 base，不宜在此处建链接，否则会被每日 full 重写连根抹掉）。
-    holographicType: (typeof item.holographicType === 'string' && item.holographicType) ? item.holographicType : null,
-    standardItemEaId: (typeof item.standardItemEaId === 'number') ? item.standardItemEaId : null,
+    // 全息卡（2026-09-22 实锤，**旧的「独立 item 回链基础卡」模型是错的**）：
+    //   holographicType 是**球员身上的标志**（值 "holographic"），不是另一张独立卡；
+    //   standardItemEaId / itemVariants 实测全库全为 null / []，没有「回链基础卡」这回事。
+    //   ⇒ 故不再采集 standardItemEaId（也省掉 2 万条 null 键的库容）。
+    //   真正的全息卡面路径（holoCardImagePath）只在**详情**接口，由 buildDetail 采集。
+    // ⚠️ 无值写 undefined（JSON.stringify 直接丢键）：99.9% 的卡不是全息卡，写 2 万个 null 会无谓放大文档。
+    holographicType: (typeof item.holographicType === 'string' && item.holographicType) ? item.holographicType : undefined,
     socialImagePath: item.socialImagePath || '',
     createdAt: item.createdAt || '',
     playstyles: item.playStyleEaIds || [],
@@ -231,6 +232,20 @@ function buildDetail(p, detRaw) {
   const spStandard = (typeof d.standardSeasonPassLevel === 'number') ? d.standardSeasonPassLevel : null;
   const spLevel = (spPremium != null) ? spPremium : spStandard;
   const spTier = (spPremium != null) ? 'premium' : (spStandard != null ? 'standard' : null);
+  // ── 全息卡（2026-09-22 实锤）──────────────────────────────────────────────────
+  // fut.gg 同一个 eaId 有**两套卡面**，而且按端点分叉：
+  //   · 列表接口 cardImagePath = 2027/futgg-player-item-card/…  fut.gg 自绘「平版」（pickPlayer 存的就是它）
+  //   · 详情接口 cardImagePath = 2027/player-item-card/…        EA 官方卡面
+  // 只有 holographicType 非空的球员，其**官方面**才带全息光效（同一 eaId 两图渲染对照确认）。
+  // ⚠️ 列表接口**不返回**官方面路径 → 想拿全息卡面只能从详情取，故在此采集。
+  // ⚠️ standardItemEaId / itemVariants 全库恒为 null / []，「独立 item 回链基础卡」的旧模型不成立。
+  // hasDet：区分「详情真说不是全息卡」与「本次没抓到详情（detailFailed）」——后者保留列表/旧值，
+  //   免得一次详情抓取抖动把已采集到的卡面路径抹掉。
+  const hasDet = !!(d && Object.keys(d).length);
+  const dHolo = (typeof d.holographicType === 'string' && d.holographicType) ? d.holographicType
+              : (hasDet ? null : (p.holographicType || null));
+  const dHoloPath = (dHolo && d.cardImagePath) ? String(d.cardImagePath)
+                  : (hasDet ? null : (p.holoCardImagePath || null));
   return {
     ...p,
     position: position,
@@ -268,6 +283,9 @@ function buildDetail(p, detRaw) {
     standardSeasonPassLevel: spStandard,
     seasonPassLevel: spLevel,
     seasonPassTier: spTier,
+    // 全息卡：标记 + 官方卡面相对路径（无值写 undefined ⇒ 不占库容）。见上方说明。
+    holographicType: dHolo || undefined,
+    holoCardImagePath: dHoloPath || undefined,
     facePace: facePace != null ? facePace : p.facePace,
     faceShooting: faceShooting != null ? faceShooting : p.faceShooting,
     facePassing: facePassing != null ? facePassing : p.facePassing,
@@ -354,6 +372,21 @@ async function main() {
       //     · bodytypeCode 空 → 端上 hero /「球员信息」的「模型」无值
       if (_det.bodytypeCode != null) p.bodytypeCode = _det.bodytypeCode;
       if (_det.dateOfBirth) p.dateOfBirth = _det.dateOfBirth;
+      // 全息卡（v15）：标记与**官方卡面路径**都必须在这里回写列表文档 ——
+      // 列表接口的 cardImagePath 是 fut.gg 自绘平版，官方面（含全息光效）**只有详情接口有**；
+      // 不回写 → players_fc27 缺字段 → 端上点不出「全息卡」pill、图片管线也拿不到下载依据。
+      // ⚠️ 与 bodytypeCode 同理：players_fc27 是 upload_db 用 doc(id).set() 整文档替换写入的，
+      //    靠离线脚本补的字段会被下一次写入连根抹掉（dateOfBirth 就是这么被抹平过一次）。
+      if (_det.holographicType) {
+        p.holographicType = _det.holographicType;
+        if (_det.holoCardImagePath) p.holoCardImagePath = _det.holoCardImagePath;
+      } else if (dump.details && dump.details[p.eaId]) {
+        // 详情**明确**回答「不是全息卡」（EA 撤掉了全息版）→ 清掉旧值，免得端上留个幽灵 pill。
+        // ⚠️ 判据用「本次是否真抓到该球员的详情」，**不能**用 `_det.holographicType == null`：
+        //    详情抓取失败（detailFailed）时它同样是空，那样会据「没抓到」当成「不是」而误删。
+        delete p.holographicType;
+        delete p.holoCardImagePath;
+      }
       if (players.length % 500 === 0) console.log('  成型', players.length, '/', needSet ? needSet.size : listPlayers.length);
     }
     if (needSet) {
