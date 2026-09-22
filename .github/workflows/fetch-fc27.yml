@@ -303,6 +303,12 @@ jobs:
           git add data/i18n-names.json cloud-data/fc27/i18n_pending.json || true
           # 图片清单：记录每个球员的图已上传到哪个内容签名，驱动图片增量
           git add cloud-data/fc27/images.json || true
+          # 全息官方面清单（eaId → 官方卡面路径）。⚠️ 必须提交：全息路径只在详情接口里，
+          # 而增量模式只抓变化球员的详情 → 不落盘的话未变球员算出的签名会比全量少一段，
+          # 与 images.json 不符 → 每天重下这些人的图，且签名在 full/incremental 间来回翻。
+          git add cloud-data/fc27/holo.json || true
+          # 稀有度小卡面清单（此前漏提交 → 每 run 从零开始，等于每天重下全部稀有度小卡面）
+          git add cloud-data/fc27/rarity_images.json || true
           # 无半身像卡面清单（内容签名，未变则下次跳过重新生成）
           git add cloud-data/fc27/noportrait.json || true
           # SBC / Evolutions 抓取结果（每日更新，小文件，每次都提交）

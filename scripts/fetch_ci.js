@@ -355,6 +355,32 @@ function readSnapshot() {
   //           （唯一例外：全息官方面 holoCardImagePath 由 detForImg 叠加，见 images.js#HOLO_TYPE）。
   async function runImageStage() {
   const imgStats = { planned: 0, done: 0, failed: 0, skipped: 0, bytes: 0, channel: '' };
+
+  // 全息官方面清单预热（缘由详见 images.js#holoManifestPath / resolveHoloPath）。
+  // ⚠️ 刻意放在 FC_IMG 开关**之外**：data-only（FC_IMG=0）同样会抓详情，清单也要跟着刷新。
+  // ⚠️ detForImg 为空（images-only 模式不抓详情）时整段跳过 —— 否则会把整份清单误清空。
+  let holoMap = {};
+  if (detForImg) {
+    const oldHolo = imgLib.readHoloMap(VER);
+    const nextHolo = {};
+    const aliveIds = new Set(listRes.items.map(x => String(x.eaId)));
+    Object.keys(oldHolo).forEach(k => { if (aliveIds.has(String(k))) nextHolo[k] = oldHolo[k]; });  // 下架球员顺手清掉
+    let dropped = 0;
+    Object.keys(detForImg).forEach(id => {
+      const dd = detForImg[id] && detForImg[id].data;
+      const hp = imgLib.resolveHoloPath(dd, id, oldHolo);
+      if (hp) nextHolo[id] = hp;
+      else if (nextHolo[id]) { delete nextHolo[id]; dropped++; }   // 详情说不再是全息 → 清幽灵条目
+    });
+    const beforeN = Object.keys(oldHolo).length;
+    const afterRaw = JSON.stringify(imgLib.writeHoloMap(VER, nextHolo));   // 写盘（排序，保证 diff 稳定）
+    holoMap = nextHolo;
+    if (afterRaw !== JSON.stringify(oldHolo)) {
+      console.log('全息官方面清单已更新: ' + Object.keys(nextHolo).length + ' 人（本轮前 ' + beforeN + ' 人' +
+        (dropped ? '，其中 ' + dropped + ' 人已不再带全息面' : '') + '）');
+    }
+  }
+
   if (String(process.env.FC_IMG || '1') !== '0') {
     const manifest = imgLib.readManifest(VER);
     const types = imgLib.activeTypes();
@@ -374,10 +400,11 @@ function readSnapshot() {
     for (const it of listRes.items) {
       const eaId = it.eaId;
       // 全息卡官方面叠加：列表接口的 cardImagePath 是 fut.gg 自绘平版，**EA 官方卡面只在详情里**。
-      // 只有 holographicType 非空的球员才叠（官方面才有全息光效）——见 images.js#HOLO_TYPE。
+      // 只有 holographicType 非空的球员才有（官方面那张才带全息光效）——见 images.js#HOLO_TYPE。
+      // 路径取自上方预热好的 holoMap：本轮抓到详情就用详情，没抓到就用上一轮落盘的路径
+      // （不这么做的话，增量模式算出的签名会比全量少一段 `|H|…` → 每天重下这些人的图，见 images.js#holoManifestPath）。
       // ⚠️ 必须在 imgSigOf 之前叠加：签名要吃进这个字段，否则官方面换了内容不会触发重传。
-      const _dd = detForImg && detForImg[eaId] && detForImg[eaId].data;
-      if (_dd && _dd.holographicType && _dd.cardImagePath) it.holoCardImagePath = String(_dd.cardImagePath);
+      if (holoMap[eaId]) it.holoCardImagePath = String(holoMap[eaId]);
       const sig = imgLib.imgSigOf(it);
       if (!sig) continue;                                   // 该球员没有图片字段
       if (!FORCE_IMG && manifest[eaId] === sig) { imgStats.skipped++; continue; }

@@ -63,6 +63,46 @@ function rarityManifestPath(ver) {
   return require('path').resolve(__dirname, '..', 'cloud-data', `fc${ver || 27}`, 'rarity_images.json');
 }
 
+// ---- 全息官方面清单（cloud-data/fc{ver}/holo.json）------------------------------
+// 形如 { "50524813": "2027/player-item-card/27-50524813.<sha>.webp" }，只收全息球员。
+//
+// ⚠️ 这份清单**必须随仓库提交**（.github/workflows/fetch-fc27.yml 的 Commit version history
+//    步骤里 git add），否则每次 run 都是从零开始，会退化成「每天把全息面重下一遍」。
+//
+// 为什么需要它：全息路径只在**详情接口**里，而 fetch_ci 的增量模式只抓发生变化的球员详情
+// （targets = newIds + changedIds）→ 未变球员本轮拿不到 holoCardImagePath → imgSigOf 算出的签名
+// 比全量模式少 `|H|…` 一段 → 与 images.json 里记的签名不符 → **每天把这些球员的图重下一遍**，
+// 而且签名在 full / incremental 之间来回翻（乒乓）。所以本轮没抓到详情时，用本清单里上一轮的
+// 路径回填（见 resolveHoloPath），签名才跨模式稳定；fut.gg 真换了官方面时路径变化 → 签名变化 →
+// 自然触发重下。全量模式（每周日 auto）本来就会抓全部详情，顺带把清单刷新。
+function holoManifestPath(ver) {
+  return require('path').resolve(__dirname, '..', 'cloud-data', `fc${ver || 27}`, 'holo.json');
+}
+function readHoloMap(ver) {
+  try {
+    const j = JSON.parse(require('fs').readFileSync(holoManifestPath(ver), 'utf8'));
+    return (j && typeof j === 'object' && !Array.isArray(j)) ? j : {};
+  } catch (e) { return {}; }
+}
+function writeHoloMap(ver, obj) {
+  const p = holoManifestPath(ver);
+  require('fs').mkdirSync(require('path').dirname(p), { recursive: true });
+  const out = {};
+  Object.keys(obj || {}).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b)
+    .forEach(n => { out[n] = obj[n]; });
+  require('fs').writeFileSync(p, JSON.stringify(out));
+  return out;
+}
+// 某球员本轮应使用的全息官方面路径（纯函数，便于单测）：
+//   · 本轮抓到了详情（detailData 非空）→ **以详情为准**：不是全息 / 没有官方面就返回空串，
+//     从而把清单里的旧值清掉（不然球员被 fut.gg 摘掉全息后这里会永远留着幽灵条目）；
+//   · 本轮没抓详情（detailData 为空）→ 沿用清单里上一轮的路径，保证签名稳定不被误判为「要重下」。
+// ⚠️ detailData 传的是详情响应里的 .data（404 时为 null），不要传整个响应对象。
+function resolveHoloPath(detailData, eaId, holoMap) {
+  if (detailData) return (detailData.holographicType && detailData.cardImagePath) ? String(detailData.cardImagePath) : '';
+  return String((holoMap && holoMap[eaId]) || '');
+}
+
 // 可用 FC_IMG_TYPES=portrait,card 缩小范围（simple 简约卡目前小程序未展示）
 function activeTypes() {
   const raw = String(process.env.FC_IMG_TYPES || '').trim();
@@ -135,6 +175,7 @@ function writeManifest(ver, obj) {
 module.exports = {
   CDN, TRANSFORM, ALL_TYPES, HOLO_TYPE,
   RARITY_TRANSFORM, RARITY_BASE_TIERS, rarityFileKeyOf, rarityFileNameOf, raritySrcUrlOf, rarityManifestPath,
+  holoManifestPath, readHoloMap, writeHoloMap, resolveHoloPath,
   activeTypes, typeByKey, relPathOf, srcUrlOf, fileNameOf, cloudPathOf,
   imgSigOf, readManifest, writeManifest
 };
