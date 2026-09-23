@@ -242,7 +242,7 @@
       "name": "2x 79+ Upgrade",
       "description": "Earn a pack containing 2 Gold Player Items, rated 79 or higher.",
       "imagePath": "2027/sbcs/11.png",
-      "endTime": "2026-09-28T17:00:00.711491Z",
+      "endTime": "2026-09-28T17:00:01.059960Z",
       "createdAt": "2026-09-21T17:00:26.030627Z",
       "isRepeatable": true,
       "numberOfRepeats": 3,
@@ -262,8 +262,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 8150,
-      "costPc": 27400,
+      "cost": 9150,
+      "costPc": 20000,
       "pool": null,
       "awards": [
         {
@@ -297,10 +297,10 @@
           "imagePath": "2027/sbcs/challenges/28.png",
           "awardsIds": [],
           "cheapestSolutionId": 6444550,
-          "cheapestSolutionPrice": 8150,
+          "cheapestSolutionPrice": 9150,
           "cheapestSolutionUrl": "/27/squad-builder/db5695fb-8f42-4f3e-9627-376ea5cd22f5/",
           "cheapestSolutionPcId": 6444314,
-          "cheapestSolutionPricePc": 27400,
+          "cheapestSolutionPricePc": 20000,
           "cheapestSolutionPcUrl": "/27/squad-builder/c87e5fc8-d0bf-446a-80c1-383d899b5d95/",
           "requirementsText": [
             "Exactly Gold Players",
@@ -355,7 +355,7 @@
       "name": "Ones to Watch Duo Pick 1",
       "description": "Earn a Ones to Watch Player Pick between Rodrigo Mora and Pedro Gonçalves. Which player will you choose? (see Reward Details)",
       "imagePath": "2027/sbcs/18.png",
-      "endTime": "2026-09-26T17:00:00.175632Z",
+      "endTime": "2026-09-26T17:00:00.744265Z",
       "createdAt": "2026-09-19T17:00:21.989040Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -496,7 +496,7 @@
       "name": "Ayyoub Bouaddi",
       "description": "Earn a special Ones to Watch Ayyoub Bouaddi.",
       "imagePath": "2027/sbcs/17.png",
-      "endTime": "2026-09-25T17:00:00.581701Z",
+      "endTime": "2026-09-25T17:00:00.968859Z",
       "createdAt": "2026-09-18T17:00:26.666905Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -1350,7 +1350,7 @@
       "name": "Marquee Matchups",
       "description": "Complete challenges themed around this week's key matchups.",
       "imagePath": "2027/sbcs/16.png",
-      "endTime": "2026-09-24T17:00:00.485666Z",
+      "endTime": "2026-09-24T17:00:00.884633Z",
       "createdAt": "2026-09-17T17:00:17.241833Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -1705,7 +1705,7 @@
       "name": "Gold Upgrade",
       "description": "Exchange Gold items for rewards.",
       "imagePath": "2027/sbcs/6.png",
-      "endTime": "2035-08-20T17:00:00.702910Z",
+      "endTime": "2035-08-20T17:00:01.050529Z",
       "createdAt": "2026-09-15T20:13:32.506330Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -1725,8 +1725,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 12300,
-      "costPc": 8050,
+      "cost": 19400,
+      "costPc": 8350,
       "pool": null,
       "awards": [
         {
@@ -1760,10 +1760,10 @@
           "imagePath": "2027/sbcs/challenges/18.png",
           "awardsIds": [],
           "cheapestSolutionId": 6370502,
-          "cheapestSolutionPrice": 12300,
+          "cheapestSolutionPrice": 19400,
           "cheapestSolutionUrl": "/27/squad-builder/a96cc131-23a8-4de8-8452-da773869eba5/",
           "cheapestSolutionPcId": 6370526,
-          "cheapestSolutionPricePc": 8050,
+          "cheapestSolutionPricePc": 8350,
           "cheapestSolutionPcUrl": "/27/squad-builder/09702417-255a-4e26-a864-82c05cd073a9/",
           "requirementsText": [
             "Player quality: Min. Gold"
@@ -1929,7 +1929,7 @@
       "name": "Bronze Upgrade",
       "description": "Exchange Bronze items for rewards.",
       "imagePath": "2027/sbcs/4.png",
-      "endTime": "2035-08-20T17:00:00.685449Z",
+      "endTime": "2035-08-20T17:00:01.061667Z",
       "createdAt": "2026-09-15T20:13:25.982246Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -1949,7 +1949,7 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 4000,
+      "cost": 6000,
       "costPc": 2200,
       "pool": null,
       "awards": [
@@ -1984,7 +1984,7 @@
           "imagePath": "2027/sbcs/challenges/16.png",
           "awardsIds": [],
           "cheapestSolutionId": 6357334,
-          "cheapestSolutionPrice": 4000,
+          "cheapestSolutionPrice": 6000,
           "cheapestSolutionUrl": "/27/squad-builder/8165f048-a531-469f-9d5e-12e304935d05/",
           "cheapestSolutionPcId": 6360519,
           "cheapestSolutionPricePc": 2200,
@@ -2585,7 +2585,7 @@
       "name": "Intro to Streamlined SBCs",
       "description": "Submit any players from your collection to earn rewards",
       "imagePath": "2027/sbcs/7.png",
-      "endTime": "2035-08-20T17:00:00.431779Z",
+      "endTime": "2035-08-20T17:00:00.811666Z",
       "createdAt": "2026-09-15T20:13:11.895287Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -2954,7 +2954,7 @@
       "name": "Intro to Upgrade SBCs",
       "description": "Complete these Upgrade-based challenges to earn rewards. ",
       "imagePath": "2027/sbcs/3.png",
-      "endTime": "2035-08-20T17:00:00.551478Z",
+      "endTime": "2035-08-20T17:00:00.746150Z",
       "createdAt": "2026-09-15T20:13:07.545947Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -3060,10 +3060,10 @@
             24460
           ],
           "cheapestSolutionId": 6370546,
-          "cheapestSolutionPrice": 5550,
+          "cheapestSolutionPrice": 5300,
           "cheapestSolutionUrl": "/27/squad-builder/0f88284e-377d-44f3-9b69-17bf20f32f79/",
           "cheapestSolutionPcId": 6370477,
-          "cheapestSolutionPricePc": 11200,
+          "cheapestSolutionPricePc": 12350,
           "cheapestSolutionPcUrl": "/27/squad-builder/c7b90014-5a18-4fdc-b290-4e7f6ea2cebb/",
           "requirementsText": [
             "Min. 11 Players: Silver"
@@ -3230,7 +3230,7 @@
       "name": "Intro to SBCs",
       "description": "Complete these OVR-based challenges to earn rewards. ",
       "imagePath": "2027/sbcs/1.png",
-      "endTime": "2035-08-20T17:00:00.537994Z",
+      "endTime": "2035-08-20T17:00:00.703512Z",
       "createdAt": "2026-09-15T20:13:01.726932Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -3253,8 +3253,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 9750,
-      "costPc": 5050,
+      "cost": 9400,
+      "costPc": 6150,
       "pool": null,
       "awards": [
         {
@@ -3337,10 +3337,10 @@
             24455
           ],
           "cheapestSolutionId": 6360533,
-          "cheapestSolutionPrice": 4500,
+          "cheapestSolutionPrice": 4200,
           "cheapestSolutionUrl": "/27/squad-builder/0cf8e76d-d7f1-4d12-bf06-e6a3b29e0ff8/",
           "cheapestSolutionPcId": 6369979,
-          "cheapestSolutionPricePc": 750,
+          "cheapestSolutionPricePc": 800,
           "cheapestSolutionPcUrl": "/27/squad-builder/34a70334-1255-4c37-8cc0-44b013bcd247/",
           "requirementsText": [
             "Min. 2 player with minimum OVR of 65",
@@ -3385,10 +3385,10 @@
             24456
           ],
           "cheapestSolutionId": 6363348,
-          "cheapestSolutionPrice": 1450,
+          "cheapestSolutionPrice": 1400,
           "cheapestSolutionUrl": "/27/squad-builder/fb561a59-dbeb-4e37-b37b-47f4f66c5058/",
           "cheapestSolutionPcId": 6365773,
-          "cheapestSolutionPricePc": 1400,
+          "cheapestSolutionPricePc": 1150,
           "cheapestSolutionPcUrl": "/27/squad-builder/e7e990c7-da82-4610-90a5-d3b39952d5b7/",
           "requirementsText": [
             "Min. 3 player with minimum OVR of 65",
@@ -3436,7 +3436,7 @@
           "cheapestSolutionPrice": 3100,
           "cheapestSolutionUrl": "/27/squad-builder/0397e1c6-2e4d-43fb-84c5-3ecd15dd2027/",
           "cheapestSolutionPcId": 6367997,
-          "cheapestSolutionPricePc": 2700,
+          "cheapestSolutionPricePc": 4000,
           "cheapestSolutionPcUrl": "/27/squad-builder/633edaef-5b5f-41d5-986f-09a080245c25/",
           "requirementsText": [
             "Min. 4 player with minimum OVR of 75",
@@ -3565,5 +3565,5 @@
       "repeatRefreshIntervalText": null
     }
   ],
-  "fetchedAt": "2026-09-23T17:35:24.140Z"
+  "fetchedAt": "2026-09-23T18:26:52.827Z"
 }
