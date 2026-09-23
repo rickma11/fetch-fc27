@@ -58,22 +58,19 @@ const docs = sets.map(s => Object.assign({}, s, { _id: String(s.id), _fetchedAt:
   }
   console.log('SBC 上云完成: ' + col + ' 成功 ' + ok + ' | 失败 ' + fail + ' | fetchedAt=' + fetchedAt);
 
-  // ── SBC 积分兑换回写（2026-09-20）──────────────────────────────────────────
+  // ── SBC 积分兑换回写（2026-09-20；2026-09-23 扩 Player Pick）────────────────
   // 从 sbcs.json 反查「奖励球员 → 该 SBC 的 scoreRequirement」：只有 streamlined SBC 有 scoreRequirement
   // （如 Bouaddi 20000 / Gold Re-Roll 1250 / Bronze+Silver 500），包兑换类恒为 null → 不回写。
+  // 反查两路（buildSbcCostMap，见 sbc_cost_map.js）：
+  //   ① awards[].playerEaId（单人 SBC，Bouaddi 类）；
+  //   ② choicePlayers 全量（Player Pick 类如 Duo Pick 5258：awards 只有 other 文案、
+  //      playerEaId=null —— 旧逻辑反查不到人，导致候选球员详情页「SBC兑换」整行不渲染）。
   // 回写到 players_fc27 + details_fc27 两集合（与 sbcPoints 同口径），局部 update 不抹其他字段。
   // 管线每天顺序是 upload_db（doc.set 全量替换，抹平此字段）→ upload_sbcs（本段重补），天然自愈。
   const _ = db.command;
-  const costMap = {};  // eaId(number) -> scoreRequirement(number)
-  const dup = [];
-  sets.forEach(function (s) {
-    if (!s.scoreRequirement) return;               // 仅 streamlined SBC
-    const ea = (s.awards || []).map(function (a) { return a && a.playerEaId != null ? Number(a.playerEaId) : null; })
-      .filter(function (x) { return x != null; })[0];
-    if (!ea) return;                                // 包 / 金币类奖励无球员 → 跳过
-    if (costMap[ea] != null && costMap[ea] !== Number(s.scoreRequirement)) dup.push(ea);
-    costMap[ea] = Number(s.scoreRequirement);
-  });
+  const built = require('./sbc_cost_map').buildSbcCostMap(sets);
+  const costMap = built.map;   // eaId(number) -> scoreRequirement(number)
+  const dup = built.dup;
   const eaIds = Object.keys(costMap).map(Number);
   console.log('[sbcCost] 命中球员 ' + eaIds.length + ' 人，冲突 ' + (dup.length ? dup.join(',') : '无'));
   if (eaIds.length) {
