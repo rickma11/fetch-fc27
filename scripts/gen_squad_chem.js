@@ -1,6 +1,16 @@
 // gen_squad_chem.js —— 生成阵型战术的「化学数据链」小文件（docs/18 §3.6.5）
 //
-// 产出：云存储 `squad/chem_v1_{VER}.json` + meta 文档 `meta_fc{VER}/squad_chem`
+// 产出：云存储 `squad/chem_v1_{VER}.{ts}.json` + meta 文档 `meta_fc{VER}/squad_chem`
+//
+// ⚠️⚠️ 为什么文件名必须带 ts（2026-09-21 实测发现，务必别改回固定名）：
+//   云存储**按路径做了 CDN 缓存** —— 往**同一个** cloudPath 覆盖写入后，读回来的仍是旧内容。
+//   实测（`scripts/_probe_m.js`，多进程 + 不同时间点复现）：
+//     put v1 → get = v1 → put v2（同路径）→ 独立进程再 get **仍是 v1**；换一个新的路径 → 立刻拿到新内容。
+//   本机复现细节：chem 文件 21:21 写入 → 22:14 用新内容覆盖 → 22:14/22:15/22:17 三次独立读取
+//     拿到的都还是 21:21 的旧内容（`chem` 列 0 条、内嵌 ts 未变），而 meta 文档里的 ts 已是新的。
+//   ⇒ 后果：端上 `wx.cloud.downloadFile` 走同一个存储域，**也会拿到旧文件**（且是静默的）。
+//   ⇒ 解法：每次写入换一个新路径（ts 后缀），meta 文档指过去；旧路径再删掉（见文件末尾清理段）。
+//     代价 = 每天多一个 ~370KB 文件（由一个 `meta_fc27` 保留 2 代的策略兜住，不会无限涨）。
 //
 // 形态（列式，四条数组等长，缺值一律 0）：
 //   { ver, ts, count, eaIds:[...], club:[...], league:[...], nation:[...], chem:{ "<eaId>":[7元] } }
@@ -27,7 +37,8 @@ const VER = 27;
 const COL = 'players_fc' + VER;
 const M_COL = 'meta_fc' + VER;
 const M_DOC = 'squad_chem';
-const CLOUD_PATH = 'squad/chem_v1_' + VER + '.json';
+// ⚠️ 只有「前缀」是固定的；真正的 cloudPath 每次带 ts（见文件头 ⚠️⚠️：云存储按路径缓存，同路径覆盖读不到新内容）
+const CLOUD_PATH_BASE = 'squad/chem_v1_' + VER;
 const MIN_COUNT = 19000;   // 安全闸：疑似拉取不完整就拒绝写库（对齐 warm_roster.js）
 
 (async () => {
@@ -106,15 +117,27 @@ const MIN_COUNT = 19000;   // 安全闸：疑似拉取不完整就拒绝写库�
   //    化学档案软闸：今日应有约 500 张特殊卡有档案（Icon 272 + Hero 174 + HoF 21 + Partnerships 5 …）。
   //    为 0 说明上游 chem 采集/落库断了 —— 不 abort（chem 只是附加信息，文件本身仍可用），但必须吼出来。
   if (!nChem) console.warn('⚠️ 化学档案条数为 0 —— 上游 pickPlayer#chem / facets#rarityChem 可能断了（端上会全部走稀有度兜底表）');
+
+  // 1.5) 先读旧 meta，记下上一代的 fileID —— 新版写完后删它（保持「最多 2 代」）
+  let prevFileID = null;
+  try {
+    const old = await db.collection(M_COL).doc(M_DOC).get();
+    const od = Array.isArray(old && old.data) ? old.data[0] : (old && old.data);
+    if (od && od.fileID) prevFileID = od.fileID;
+  } catch (e) { /* 首次运行没有旧文档，正常 */ }
+
   const ts = Date.now();
   const payload = { ver: String(VER), ts: ts, count: count, eaIds: eaIds, club: club, league: league, nation: nation, chem: chem };
   const buf = Buffer.from(JSON.stringify(payload));
+  // ⚠️ 路径必须带 ts：云存储按路径缓存，同路径覆盖读不到新内容（见文件头 ⚠️⚠️）
+  const cloudPath = CLOUD_PATH_BASE + '.' + ts + '.json';
   console.log('payload size:', (buf.length / 1024).toFixed(1) + 'KB', '(uncompressed)', '| chem', nChem, '条');
+  console.log('cloudPath =', cloudPath, prevFileID ? '(将替换上一代)' : '(首次)');
 
   let up = null, lastErr = null;
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
-      up = await app.uploadFile({ cloudPath: CLOUD_PATH, fileContent: buf });
+      up = await app.uploadFile({ cloudPath: cloudPath, fileContent: buf });
       break;
     } catch (e) {
       lastErr = e;
@@ -126,8 +149,20 @@ const MIN_COUNT = 19000;   // 安全闸：疑似拉取不完整就拒绝写库�
   console.log('uploaded fileID =', up.fileID);
 
   // 3) 写元文档（单文档整替换 → set 是对的；update({data:...}) 才是假成功写法）
-  await db.collection(M_COL).doc(M_DOC).set({ fileID: up.fileID, ts: ts, count: count, ver: String(VER) });
+  await db.collection(M_COL).doc(M_DOC).set({ fileID: up.fileID, ts: ts, count: count, ver: String(VER), prevFileID: prevFileID });
   console.log('meta doc written:', M_COL + '/' + M_DOC, 'ts=' + ts, '(' + new Date(ts).toISOString() + ')');
+
+  // 3.5) 删掉上一代文件（meta 已切到新路径 ⇒ 端上不会再取它）。
+  //      留「当前 + 上一代」两代：万一刚切完就有客户端拿着旧 meta 下载，也还有一份在。
+  //      注意必须在 meta 写成功之后删，顺序反了会留下指向已删文件的 meta。
+  if (prevFileID && prevFileID !== up.fileID) {
+    try {
+      await app.deleteFile({ fileList: [prevFileID] });
+      console.log('已清理上一代文件:', prevFileID.split('/').slice(-1)[0]);
+    } catch (e) {
+      console.log('清理上一代失败（不致命，最多多留一个文件）:', String((e && e.message) || e).slice(0, 120));
+    }
+  }
 
   // 4) 端到端验证：读回 meta 文档 + 调线上 squad_meta，确认端上能拿到同一个 fileID
   try {
@@ -143,6 +178,23 @@ const MIN_COUNT = 19000;   // 安全闸：疑似拉取不完整就拒绝写库�
     console.error('READ-BACK FAIL:', String((e && e.message) || e));
     process.exit(1);
   }
+  // 4.5) 内容级校验：真把刚上传的文件下回来，核对 ts 与 chem 条数。
+  //      ⚠️ 这一条专治「写进去但读出来还是旧的」（云存储按路径缓存；即便改了 ts 路径，也要有断言兜底）。
+  try {
+    const dl = await app.downloadFile({ fileID: up.fileID });
+    const got = JSON.parse(dl.fileContent.toString('utf8'));
+    const gotChem = got.chem ? Object.keys(got.chem).length : 0;
+    if (got.ts !== ts || got.count !== count || gotChem !== nChem) {
+      console.error('CONTENT FAIL: 回读内容与新写不符 → 内嵌 ts=' + got.ts + '(期望 ' + ts + ') count=' + got.count +
+        '(期望 ' + count + ') chem=' + gotChem + '(期望 ' + nChem + ')。多半是路径缓存问题。');
+      process.exit(1);
+    }
+    console.log('CONTENT OK: 回读 ' + (dl.fileContent.length / 1024).toFixed(1) + 'KB，ts/count/chem(' + gotChem + ') 全一致');
+  } catch (e) {
+    console.error('CONTENT FAIL:', String((e && e.message) || e).slice(0, 160));
+    process.exit(1);
+  }
+
   try {
     const rf = await app.callFunction({ name: 'squad_meta', data: { version: String(VER) } });
     const res = (rf && (rf.result || rf.data)) || null;

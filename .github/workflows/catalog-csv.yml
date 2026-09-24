@@ -1,0 +1,86 @@
+name: FC Catalog CSV (SBC/OBJ/EVO, last N days)
+
+# 抓取 fut.gg 的 SBC / Objectives / Evolutions 目录，过滤「最近 N 天」，输出英文目录 CSV。
+# 与 fetch-fc27.yml 完全解耦：独立 workflow、独立脚本、独立输出目录(catalog/)，不碰每日球员管线。
+#
+# 触发：
+#   - 手动 dispatch（可调 days）
+#   - 定时：北京时间每日 02:30（= UTC 18:30），EA 内容日伦敦 18:00 之后，避免漏掉当天新内容
+#
+# 输出（可在 Actions 运行页下载 Artifact）：
+#   catalog/ea_catalog_en_<YYYY-MM-DD>.csv   （与 _fodder_rev/merge_catalog_csv.js 同格式）
+#   catalog/ea_catalog_en_<YYYY-MM-DD>.json  （原始抓取，便于排错）
+#
+# ⚠️ 中文列：fut.gg 只有英文。要中英对照，请在【你自己已登录的 EA 网页版】里跑
+#    _fodder_rev/ea_catalog_fetch.user.js 导出 ea_catalog_zh_<date>.csv，再用 merge_catalog_csv.js 合并。
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: '抓取最近多少天的目录（按 createdAt 过滤）'
+        type: string
+        default: '3'
+      ver:
+        description: 'FC 版本号'
+        type: string
+        default: '27'
+  schedule:
+    # UTC 18:30 = 北京时间 02:30（夏令时伦敦 18:00 换内容；冬令时伦敦 18:00 = 北京 02:00，02:30 仍安全覆盖）
+    - cron: '30 18 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalog-csv
+  cancel-in-progress: false
+
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Scrape catalog -> CSV (real browser bypass Cloudflare)
+        env:
+          FC_VER: ${{ github.event.inputs.ver || '27' }}
+        run: node scripts/scrape_catalog_csv.js --ver ${{ github.event.inputs.ver || '27' }} --days ${{ github.event.inputs.days || '3' }}
+
+      - name: Upload CSV artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ea-catalog-en-${{ github.run_id }}
+          path: catalog/*.csv
+          if-no-files-found: warn
+
+      - name: Commit latest catalog (stable path for direct download)
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add catalog/ea_catalog_en_*.csv catalog/ea_catalog_en_*.json || true
+          git commit -m "chore: catalog en $(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M')" || echo "no changes"
+          for i in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main && git push; then echo "push 成功"; exit 0; fi
+            git rebase --abort 2>/dev/null || true
+            echo "push 第 $i 次被拒，重试..."; sleep 5
+          done
+          echo "::error::push 重试失败"

@@ -10,8 +10,7 @@ const { resolve } = require('./tcb_env');
 const ziplite = require('./ziplite');   // 极简 zip 写入器（roster 压缩分片上传用，见第 3 步）
 
 const VER = 27;
-// 与 get_players/index.js 保持一致（v16：全息卡改为 **pristine 变体**模型 ——
-// holographicType / holoVariantEaId / holoCardImagePath 三件套，采集来源见 scripts/holo.js）
+// 与 get_players/index.js 保持一致（v16：全息卡 pristine 变体三字段 + roster 压缩分片传输）
 const ROSTER_SCHEMA_VERSION = 16;
 const COL = 'players_fc' + VER;
 const M_COL = 'meta_fc' + VER;
