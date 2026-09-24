@@ -89,6 +89,14 @@ async function fetchTokenStore() {
   try { man = JSON.parse(manTxt); } catch (e) { try { await ctx.close(); } catch (e2) {} throw new Error('manifest 解析失败: ' + manTxt.slice(0, 120)); }
   const hash = man['token-store'];
   if (!hash) { try { await ctx.close(); } catch (e) {} throw new Error('manifest 无 token-store 键'); }
+  // 商店未变短路：hash 与上次提交一致 → 不抓全量、不解析、不回写
+  let prevHash = null;
+  try { prevHash = JSON.parse(fs.readFileSync(OUT_FILE, 'utf8')).hash; } catch (e) {}
+  if (prevHash && prevHash === hash) {
+    console.log('token-store hash 未变（' + hash + '）→ 商店未轮换，跳过抓取与回写');
+    try { await ctx.close(); } catch (e) {}
+    return { unchanged: true, hash: hash };
+  }
   const url = `https://r2.fut.gg/${VER}/token-store.v1.${hash}.json`;
   console.log('token-store url:', url);
 
@@ -187,6 +195,7 @@ async function enrichCloud(data) {
   } else {
     data = await fetchTokenStore();
   }
+  if (data && data.unchanged) { console.log('token-store 未变化，跳过云库回写'); process.exit(0); }
   if (ARGS.dry) { console.log('--dry：跳过云库回写'); process.exit(0); }
   await enrichCloud(data);
   process.exit(0);

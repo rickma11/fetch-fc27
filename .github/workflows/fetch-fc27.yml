@@ -320,6 +320,8 @@ jobs:
           git add cloud-data/fc27/sbc_covers_sig.json || true
           # 收藏室代币价映射清单（sync_token_store 产出，小文件）
           git add cloud-data/fc27/token_store.json || true
+          # 卡片来源 / SBC积分 已解析记录（fetch_ci self-heal 豁免用）
+          git add cloud-data/fc27/source_resolved.json || true
           # ⚠️ 不再提交 players.json / details.json：全量数据单文件常超 GitHub 100MB 硬限，
           # pre-receive 会确定性拒绝且整次 push（含小清单）一起失败。全量真源是云库，无需在 git 留版本快照。
           git commit -m "chore: FC27 ${{ steps.mode.outputs.mode }} sync $(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M')" || echo "no changes"

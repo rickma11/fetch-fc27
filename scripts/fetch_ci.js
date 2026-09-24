@@ -22,6 +22,7 @@ const BASE = `https://www.fut.gg/api/fut/players/v2/${VER}/`;
 const DET = `https://www.fut.gg/api/fut/player-item-definitions/${VER}/`;
 const OUT = path.resolve(__dirname, '..', 'fc27_dump.json');
 const SNAP = path.resolve(__dirname, '..', 'cloud-data', `fc${VER}`, 'snapshot.json');
+const RESOLVED = path.resolve(__dirname, '..', 'cloud-data', `fc${VER}`, 'source_resolved.json');
 const IMG_DIR = path.resolve(__dirname, '..', 'images_out');
 const IMG_CONC = Number(process.env.FC_IMG_CONC || 10);
 const FORCE_IMG = String(process.env.FC_IMG_FORCE || '') === '1';
@@ -49,6 +50,13 @@ function readSnapshot() {
     const j = JSON.parse(fs.readFileSync(SNAP, 'utf8'));
     return (j && j.sigs && typeof j.sigs === 'object') ? j.sigs : null;
   } catch (e) { return null; }
+}
+
+function readResolved() {
+  try {
+    const j = JSON.parse(fs.readFileSync(RESOLVED, 'utf8'));
+    return (j && j.map && typeof j.map === 'object') ? j.map : {};
+  } catch (e) { return {}; }
 }
 
 (async () => {
@@ -294,26 +302,30 @@ function readSnapshot() {
   // 代价可控：这类卡常年只有几十张（2026-09-18 实测 21 张）。全量模式本就抓全部，无需处理。
   if (mode !== 'full') {
     const known = new Set(newIds.concat(changedIds).map(String));
+    const resolved = readResolved();
     let flagged = 0;
     let special = 0;
     for (const it of listRes.items) {
-      if ((it.isObjective === true || it.isSeasonPass === true) && !known.has(String(it.eaId))) {
+      const id = String(it.eaId);
+      if (known.has(id)) continue;
+      const r = resolved[id] || {};
+      // 卡片来源自愈：来源标记卡只有「归属未解析」才强制重抓详情；
+      // 解析后（有 seasonPassLevel 或确认是 objective）不再每日重抓，周日 full 兜底任何迟到归属。
+      if ((it.isObjective === true || it.isSeasonPass === true) && !r.sp) {
         changedIds.push(it.eaId);
-        known.add(String(it.eaId));
+        known.add(id);
         flagged++;
       }
-      // SBC 积分自愈（2026-09-20）：特殊活动卡的 gradingScore 可能晚于卡片上线才出现在 fut.gg
-      // 详情接口（实测 Hulk 上线数日后才出分）。这种变化不改变列表内容 → 签名不变 →
-      // 增量模式永不重抓 → 云库 sbcPoints 停在 null。特殊稀有度卡（非 Rare/Non-Rare/Common
-      // 占位名）每日强制重抓详情，保证后补评分最迟 24h 落地。代价可控：约 330 张/天。
-      if (!isGenericRarityName(it.rarityName) && !known.has(String(it.eaId))) {
+      // SBC 积分自愈：特殊稀有度卡只有「还没拿到 gradingScore」才强制重抓详情；
+      // 已解析的卡跳过，极晚才到的评分由周日 full 兜底。这省掉约 330 张/天的重复请求。
+      if (!isGenericRarityName(it.rarityName) && !r.sbc && !known.has(id)) {
         changedIds.push(it.eaId);
-        known.add(String(it.eaId));
+        known.add(id);
         special++;
       }
     }
-    if (flagged) console.log('卡片来源自愈：来源标记卡强制重抓详情', flagged, '条（通行证/任务奖励归属需详情判定）');
-    if (special) console.log('SBC积分自愈：特殊稀有度卡强制重抓详情', special, '条（gradingScore 可能晚于上线出现）');
+    if (flagged) console.log('卡片来源自愈：未解析归属卡强制重抓详情', flagged, '条');
+    if (special) console.log('SBC积分自愈：未拿到 sbcPoints 的特殊稀有度卡强制重抓详情', special, '条');
   }
 
   const targets = (mode === 'full') ? curIds : newIds.concat(changedIds);
@@ -358,6 +370,35 @@ function readSnapshot() {
   }, { DET, ids: targets, DET_CONC });
 
   console.log('详情抓取完成:', Object.keys(detRes.details).length, '条，失败', detRes.failed, '条');
+
+  // ---------- 阶段 3.1：已解析记录维护（支撑 self-heal 豁免）----------
+  // 把「已经拿到 sbcPoints / 已经判定卡片来源归属」的 eaId 记下来，增量模式 self-heal
+  // 不再对它们每日强制重抓详情。周日 full 全量抓取兜底任何极晚才到的变化。
+  {
+    const prev = readResolved();
+    const map = {};
+    for (const k of Object.keys(prev)) map[k] = prev[k];
+    for (const id of Object.keys(detRes.details)) {
+      const raw = detRes.details[id] || {};
+      const d = (raw && raw.data) ? raw.data : (raw || {});
+      const r = map[id] || {};
+      if (d.gradingScore != null) r.sbc = true;
+      if (typeof d.premiumSeasonPassLevel === 'number' || typeof d.standardSeasonPassLevel === 'number') r.sp = true;
+      map[id] = r;
+    }
+    // 列表已标 isObjective 且本次抓了详情的卡 = 任务奖励归属已解析
+    for (const it of listRes.items) {
+      const id = String(it.eaId);
+      if (it.isObjective === true && detRes.details[id] != null) {
+        const r = map[id] || {};
+        r.sp = true;
+        map[id] = r;
+      }
+    }
+    fs.mkdirSync(path.dirname(RESOLVED), { recursive: true });
+    fs.writeFileSync(RESOLVED, JSON.stringify({ ver: VER, updatedAt: new Date().toISOString(), map }, null, 2));
+    console.log('已解析记录：', Object.keys(map).length, '人（本轮新增详情', Object.keys(detRes.details).length, '）');
+  }
 
   // ---------- 阶段 3.5：全息卡采集（批量 definition-data）----------
   // 见 scripts/holo.js 头部的模型说明。为什么不复用详情：
