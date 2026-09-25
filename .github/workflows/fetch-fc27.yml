@@ -11,9 +11,9 @@ on:
         default: auto
         options: [auto, incremental, full, data-only, images-only, no-portrait-only]
       img_max:
-        description: '本次最多下载多少张图片，0=不限（首次全量背图填 0）'
+        description: '本次最多下载多少张图片，0=不限（默认不限，日常增量全量背图）'
         type: string
-        default: '1500'
+        default: '0'
 
 permissions:
   contents: write
@@ -81,7 +81,7 @@ jobs:
             IMG=0
           else
             IMG='${{ github.event.inputs.img_max }}'
-            if [ -z "$IMG" ]; then IMG=1500; fi
+            if [ -z "$IMG" ]; then IMG=0; fi
           fi
           echo "img_max=$IMG" >> "$GITHUB_OUTPUT"
           echo "图片单次上限: $IMG（0=不限）"

@@ -241,6 +241,15 @@ async function writeFacets(facets, mCol) {
 //    故对「云库有、本次数据没有」的文档只打标记 isStale=true + isActive=false，绝不 remove。
 // 注意：dataset 可能为空（hash = 空串 MD5 d7517139）→ 此时不写库、也不打 stale，
 //      避免「抓取失败写出空数据集」把云库整批标脏。判据＝本次 all 长度为 0 直接跳过。
+function isRoleOnlyOf(e) {
+  const lv = Array.isArray(e.levels) ? e.levels : [];
+  if (!lv.length) return false;
+  return lv.every(function (L) {
+    const ups = (L && Array.isArray(L.upgrades)) ? L.upgrades : [];
+    return ups.length > 0 && ups.every(function (u) { return u && String(u.upgrade).startsWith('role_plus'); });
+  });
+}
+
 async function uploadEvolutions(ver, dir) {
   const f = path.join(dir, 'evolutions.json');
   const col = `evolutions_fc${ver}`;
@@ -262,6 +271,7 @@ async function uploadEvolutions(ver, dir) {
       isActive: activeIds.has(String(e.id)),
       isStale: false,
       _fetchedAt: fetchedAt,
+      roleOnly: isRoleOnlyOf(e)
     });
   });
 
