@@ -51,19 +51,17 @@ const SIG_JSON = path.join(ROOT, 'cloud-data', `fc${VER}`, 'sbc_covers_sig.json'
 // 小程序静态映射文件（跨目录生成，便于端上直接 require；与 data/rarityFaces.js 同定位）
 const MINI_FACES = path.resolve(ROOT, '..', 'eafc-miniapp', 'data', 'sbcFaces.js');
 
-const CDN = 'https://game-assets.fut.gg/';
 // 2026-09-19：改用原始图路径。此前拼 cdn-cgi/image/...background=151a23 转换路由，当天起该路由
 // 对本站返回 400（实锤：同会话 raw 200 / transform 400）→ 三通道全挂。透明底改由端上深色卡面
 // 背景色兜住（.sb-cover/.hd-cover 均有深色 background，视觉一致），不再依赖 CDN 合成底色。
-const TRANSFORM = '';
+// ⚠️ CDN / TRANSFORM / setIdOf 已迁至 scripts/sbc_cover_tasks.js（纯函数、可单测），此处不再重抄一份。
 const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
 
-// 从 imagePath（如 2026/sbcs/1434.png 或 2027/sbcs/1234.png）提取 set 数字 id
-function setIdOf(imagePath) {
-  const base = String(imagePath || '').split('/').pop();
-  const m = /(\d+)\.png$/i.exec(base);
-  return m ? m[1] : '';
-}
+// 任务表构建（含 imagePath 缺失的兜底）在抽出的纯函数里，本文件只负责下载/上传/写映射。
+const coverTasks = require('./sbc_cover_tasks');
+const CDN = coverTasks.CDN;
+const TRANSFORM = coverTasks.TRANSFORM;   // 现为空串，保留拼接形态以免回退到转换路由
+const setIdOf = coverTasks.setIdOf;
 
 (async () => {
   if (!fs.existsSync(SBC_JSON)) {
@@ -74,16 +72,9 @@ function setIdOf(imagePath) {
   const sets = Array.isArray(sbc.sets) ? sbc.sets : [];
 
   // 仅 set 封面（challenge 图后续）：去重 imagePath -> fileName
-  const seen = {};
-  const tasks = [];
-  sets.forEach(s => {
-    const ip = s && s.imagePath;
-    if (!ip) return;
-    const id = setIdOf(ip);
-    if (!id || seen[id]) return;
-    seen[id] = 1;
-    tasks.push({ id, imagePath: String(ip), fileName: 'sbc_' + id + '.webp', srcUrl: CDN + TRANSFORM + String(ip).replace(/^\/+/, '') });
-  });
+  //   含 2026-09-26 兜底（imagePath 缺失的球员类 / 升级类 set，见 sbc_cover_tasks.js#buildCoverTasks）
+  const tasks = coverTasks.buildCoverTasks(sets);
+  tasks.filter(t => t.fallback).forEach(t => console.log(`  兜底来源 set id=${t.id} ← ${t.srcUrl}`));
   console.log(`SBC set 封面去重后 ${tasks.length} 张（仅 set，不含 challenge）`);
   if (!tasks.length) { console.log('无 set 封面可处理，退出'); process.exit(0); }
 
