@@ -45,7 +45,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 46948,
+      "numberOfPlayers": 54654,
       "trendingPlayersIds": [
         "235805_2488:1",
         "257470_2488:1",
@@ -69,9 +69,9 @@
         "50560437_2488:1"
       ],
       "eligiblePlayerItemIds": [
-        "77050",
-        "73562",
-        "67383910"
+        "71494",
+        "80170",
+        "67379423"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -463,6 +463,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -518,7 +519,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 14862,
+      "numberOfPlayers": 15436,
       "trendingPlayersIds": [
         "216700_2489",
         "265600_2489",
@@ -542,8 +543,8 @@
         "50556618_2489"
       ],
       "eligiblePlayerItemIds": [
-        "73355",
-        "50602113",
+        "76098",
+        "50609623",
         "77593"
       ],
       "eligiblePathHashes": [],
@@ -1372,6 +1373,7 @@
       "isTimed": true,
       "totalTrainingTime": 86400,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -1553,7 +1555,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 7157,
+      "numberOfPlayers": 8178,
       "trendingPlayersIds": [
         "247832_2490",
         "278339_2490",
@@ -1577,9 +1579,9 @@
         "253163_2490"
       ],
       "eligiblePlayerItemIds": [
-        "50585117",
         "50569719",
-        "279811"
+        "279811",
+        "265004"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -1920,6 +1922,7 @@
       "isTimed": true,
       "totalTrainingTime": 3600,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -1975,7 +1978,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3837,
+      "numberOfPlayers": 3969,
       "trendingPlayersIds": [
         "216532_2491",
         "193254_2491",
@@ -1999,9 +2002,9 @@
         "251025_2491"
       ],
       "eligiblePlayerItemIds": [
-        "74310",
-        "265252",
-        "276505"
+        "80327",
+        "277264",
+        "268312"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -2769,6 +2772,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -2966,9 +2970,9 @@
         "50562314_2492"
       ],
       "eligiblePlayerItemIds": [
-        "50590845",
+        "267318",
         "86398",
-        "78357"
+        "70004"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -3529,6 +3533,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -3633,7 +3638,7 @@
     {
       "id": 2493,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2706,
       "url": "/evolutions/2493-midfield-polish-sp-1/",
       "slug": "2493-midfield-polish-sp-1",
       "name": "Midfield Polish [SP+ 1]",
@@ -3666,9 +3671,9 @@
         "270964_2493"
       ],
       "eligiblePlayerItemIds": [
-        "267199",
-        "265459",
-        "50591516"
+        "50591516",
+        "266939",
+        "271739"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -4056,6 +4061,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -4118,7 +4124,7 @@
     {
       "id": 2494,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2704,
       "url": "/evolutions/2494-striker-glow-up-sp-7/",
       "slug": "2494-striker-glow-up-sp-7",
       "name": "Striker Glow Up [SP 7]",
@@ -4151,9 +4157,9 @@
         "254551_2494"
       ],
       "eligiblePlayerItemIds": [
-        "242458",
-        "265020",
-        "256612"
+        "50590845",
+        "267674",
+        "265059"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -5019,6 +5025,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -5207,7 +5214,7 @@
     {
       "id": 2495,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2670,
       "url": "/evolutions/2495-relentless-sp-11/",
       "slug": "2495-relentless-sp-11",
       "name": "Relentless [SP 11]",
@@ -5241,8 +5248,8 @@
       ],
       "eligiblePlayerItemIds": [
         "50562314",
-        "74462",
-        "50574483"
+        "78357",
+        "50591516"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -5577,6 +5584,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -5623,7 +5631,7 @@
     {
       "id": 2496,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2693,
       "url": "/evolutions/2496-tactical-ascent-sp-14/",
       "slug": "2496-tactical-ascent-sp-14",
       "name": "Tactical Ascent [SP+ 14]",
@@ -5657,8 +5665,8 @@
       ],
       "eligiblePlayerItemIds": [
         "86398",
-        "70145",
-        "50562314"
+        "50562314",
+        "50590845"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -6140,6 +6148,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -6192,7 +6201,7 @@
     {
       "id": 2497,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2705,
       "url": "/evolutions/2497-winger-glow-up-sp-26/",
       "slug": "2497-winger-glow-up-sp-26",
       "name": "Winger Glow Up [SP+ 26]",
@@ -6225,9 +6234,9 @@
         "258378_2497"
       ],
       "eligiblePlayerItemIds": [
+        "260952",
         "212096",
-        "239380",
-        "265057"
+        "259913"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -7141,6 +7150,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -7345,7 +7355,7 @@
     {
       "id": 2498,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2671,
       "url": "/evolutions/2498-creative-or-composed-sp-27/",
       "slug": "2498-creative-or-composed-sp-27",
       "name": "Creative or Composed? [SP 27]",
@@ -7378,8 +7388,8 @@
         "75605_2498:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "70145",
-        "74462",
+        "50590845",
+        "70004",
         "50591516"
       ],
       "eligiblePathHashes": [],
@@ -7862,6 +7872,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -7914,7 +7925,7 @@
     {
       "id": 2499,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2685,
       "url": "/evolutions/2499-shooting-practice-sp-28/",
       "slug": "2499-shooting-practice-sp-28",
       "name": "Shooting Practice [SP+ 28]",
@@ -7947,9 +7958,9 @@
         "226110_2499:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "264933",
-        "50561297",
-        "50591364"
+        "50591364",
+        "80028",
+        "50561297"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -8443,6 +8454,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -8503,7 +8515,7 @@
     {
       "id": 2500,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2708,
       "url": "/evolutions/2500-believe/",
       "slug": "2500-believe",
       "name": "Believe",
@@ -8536,9 +8548,9 @@
         "50524996_2500"
       ],
       "eligiblePlayerItemIds": [
-        "50568258",
-        "275771",
-        "274780"
+        "50574680",
+        "50405533",
+        "275771"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -8919,6 +8931,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -8977,7 +8990,7 @@
     {
       "id": 2501,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2696,
       "url": "/evolutions/2501-pinged-pass/",
       "slug": "2501-pinged-pass",
       "name": "Pinged Pass",
@@ -9010,8 +9023,8 @@
         "212188_2501"
       ],
       "eligiblePlayerItemIds": [
-        "50562314",
-        "50574483",
+        "86398",
+        "70145",
         "50594307"
       ],
       "eligiblePathHashes": [],
@@ -9347,6 +9360,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -9402,7 +9416,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 9428,
+      "numberOfPlayers": 9758,
       "trendingPlayersIds": [
         "211688_2502:1:1:2",
         "268940_2502:1:1:2",
@@ -9426,9 +9440,9 @@
         "254088_2502:1:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "267343",
-        "254088",
-        "271945"
+        "267240",
+        "266939",
+        "259716"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -10277,6 +10291,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -10440,9 +10455,9 @@
         "239053_2503"
       ],
       "eligiblePlayerItemIds": [
-        "37576",
         "247553",
-        "190045"
+        "190042",
+        "37576"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -10768,6 +10783,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -10839,8 +10855,8 @@
       ],
       "eligiblePlayerItemIds": [
         "168473",
-        "275243",
-        "247553"
+        "237067",
+        "1397"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -11166,6 +11182,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -11236,9 +11253,9 @@
         "239053_2505"
       ],
       "eligiblePlayerItemIds": [
-        "237067",
         "190042",
-        "190045"
+        "168473",
+        "28130"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -11564,6 +11581,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -11634,9 +11652,9 @@
         "258923_2506:1:1:2"
       ],
       "eligiblePlayerItemIds": [
-        "265333",
+        "225201",
         "239892",
-        "70145"
+        "259633"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -12628,6 +12646,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -12797,7 +12816,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 5588,
+      "numberOfPlayers": 11415,
       "trendingPlayersIds": [
         "183540_2507",
         "219605_2507",
@@ -12821,9 +12840,9 @@
         "278096_2507"
       ],
       "eligiblePlayerItemIds": [
+        "50574442",
         "50605475",
-        "50592127",
-        "78070"
+        "71259"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -13651,6 +13670,7 @@
       "isTimed": true,
       "totalTrainingTime": 86400,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -13856,9 +13876,9 @@
         "255185_2508:1:1:2"
       ],
       "eligiblePlayerItemIds": [
+        "86398",
         "50562314",
-        "267674",
-        "265577"
+        "256612"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -14918,6 +14938,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -15099,9 +15120,9 @@
         "180175_2509"
       ],
       "eligiblePlayerItemIds": [
-        "202126",
-        "67374762",
-        "252371"
+        "50595660",
+        "239085",
+        "67374762"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -15509,6 +15530,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -15607,8 +15629,8 @@
       ],
       "eligiblePlayerItemIds": [
         "50590935",
-        "247827",
-        "227102"
+        "158023",
+        "277643"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -15994,6 +16016,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -16085,8 +16108,8 @@
         "278219_2511"
       ],
       "eligiblePlayerItemIds": [
-        "50595660",
         "252371",
+        "247827",
         "50579475"
       ],
       "eligiblePathHashes": [],
@@ -16495,6 +16518,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -16592,8 +16616,8 @@
         "239053_2512"
       ],
       "eligiblePlayerItemIds": [
-        "237288",
         "265898",
+        "252371",
         "212198"
       ],
       "eligiblePathHashes": [],
@@ -17024,6 +17048,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -17127,9 +17152,9 @@
         "215698_2513"
       ],
       "eligiblePlayerItemIds": [
-        "212831",
-        "263009",
-        "258310"
+        "258310",
+        "235073",
+        "67329765"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -17513,6 +17538,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -17604,8 +17630,8 @@
         "241084_2514"
       ],
       "eligiblePlayerItemIds": [
-        "279799",
-        "238794",
+        "252371",
+        "50563395",
         "247635"
       ],
       "eligiblePathHashes": [],
@@ -17992,6 +18018,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -18083,7 +18110,7 @@
         "251854_2515"
       ],
       "eligiblePlayerItemIds": [
-        "231866",
+        "251854",
         "237289",
         "234378"
       ],
@@ -18515,6 +18542,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -18618,9 +18646,9 @@
         "265249_2516"
       ],
       "eligiblePlayerItemIds": [
-        "252145",
+        "262531",
         "252371",
-        "262531"
+        "279799"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -19028,6 +19056,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -19125,9 +19154,9 @@
         "180175_2517"
       ],
       "eligiblePlayerItemIds": [
-        "227102",
-        "50565067",
-        "158023"
+        "50579475",
+        "67386507",
+        "247827"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -19535,6 +19564,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -19632,9 +19662,9 @@
         "239053_2518"
       ],
       "eligiblePlayerItemIds": [
-        "239053",
-        "235212",
-        "264875"
+        "50579813",
+        "67359754",
+        "236772"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -20064,6 +20094,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -20167,9 +20198,9 @@
         "272007_2519"
       ],
       "eligiblePlayerItemIds": [
-        "239818",
         "247819",
-        "232580"
+        "203376",
+        "50539513"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -20577,6 +20608,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -20674,8 +20706,8 @@
         "264453_2520"
       ],
       "eligiblePlayerItemIds": [
-        "265674",
-        "67376394",
+        "252145",
+        "226268",
         "50583793"
       ],
       "eligiblePathHashes": [],
@@ -21106,6 +21138,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -21169,6 +21202,2337 @@
         {
           "label": "Position",
           "value": "LB"
+        }
+      ],
+      "isRewardEvolution": false
+    },
+    {
+      "id": 2521,
+      "game": "27",
+      "eaId": 2711,
+      "url": "/evolutions/2521-ones-to-watch-retro-19/",
+      "slug": "2521-ones-to-watch-retro-19",
+      "name": "Ones to Watch Retro 19",
+      "description": "Turn back the clock and apply the exclusive Ones to Watch Retro 19 rarity to any qualified player.",
+      "coinsCost": 25000,
+      "pointsCost": 200,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 19680,
+      "trendingPlayersIds": [
+        "67340611_2521",
+        "50563395_2521",
+        "67374762_2521",
+        "50597546_2521",
+        "231443_2521",
+        "192119_2521",
+        "262531_2521",
+        "67361009_2521",
+        "50583793_2521",
+        "265898_2521",
+        "233662_2521",
+        "252371_2521",
+        "231747_2521",
+        "238794_2521",
+        "67342283_2521",
+        "50565067_2521",
+        "237288_2521",
+        "251854_2521",
+        "227203_2521",
+        "239053_2521"
+      ],
+      "eligiblePlayerItemIds": [
+        "168473",
+        "275243",
+        "1397"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": true,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-26T05:45:11.974061Z",
+      "endTime": "2026-10-22T07:00:00Z",
+      "endSubmissionTime": "2026-10-22T07:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "showHolographics": null,
+        "holographicTypes": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": null,
+        "minGradingScore": null,
+        "maxGradingScore": null,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": null,
+        "excludedPositions": null,
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": null,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": null,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": []
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [],
+          "upgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 130,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Rarity",
+              "value": "Ones to Watch Retro 19",
+              "maxValue": null
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": null,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": null,
+          "totalUpgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 130,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [],
+      "totalUpgradesText": [
+        {
+          "label": "Rarity",
+          "value": "Ones to Watch Retro 19",
+          "maxValue": null
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "hideFromListings": true,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": true,
+      "analysis": {
+        "id": 2521,
+        "bestPosition": 12,
+        "statsBoost": 0,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 0.0006941057102777427,
+        "highestGgrBoost": 0.05000000074505806,
+        "games": 0,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": false,
+      "minTime": 1792652400000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "rarity_id",
+          "value": 130,
+          "maxValue": null,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [],
+      "isRewardEvolution": false
+    },
+    {
+      "id": 2522,
+      "game": "27",
+      "eaId": 2712,
+      "url": "/evolutions/2522-ones-to-watch-retro-18/",
+      "slug": "2522-ones-to-watch-retro-18",
+      "name": "Ones to Watch Retro 18",
+      "description": "Turn back the clock and apply the exclusive Ones to Watch Retro 18 rarity to any qualified player.",
+      "coinsCost": 25000,
+      "pointsCost": 200,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 19680,
+      "trendingPlayersIds": [
+        "67340611_2522",
+        "50563395_2522",
+        "67374762_2522",
+        "50597546_2522",
+        "231443_2522",
+        "192119_2522",
+        "262531_2522",
+        "67361009_2522",
+        "50583793_2522",
+        "265898_2522",
+        "233662_2522",
+        "252371_2522",
+        "231747_2522",
+        "238794_2522",
+        "67342283_2522",
+        "50565067_2522",
+        "237288_2522",
+        "251854_2522",
+        "227203_2522",
+        "239053_2522"
+      ],
+      "eligiblePlayerItemIds": [
+        "275243",
+        "247553",
+        "190042"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": true,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-26T05:45:12.026397Z",
+      "endTime": "2026-10-22T07:00:00Z",
+      "endSubmissionTime": "2026-10-22T07:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "showHolographics": null,
+        "holographicTypes": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": null,
+        "minGradingScore": null,
+        "maxGradingScore": null,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": null,
+        "excludedPositions": null,
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": null,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": null,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": []
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [],
+          "upgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 129,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Rarity",
+              "value": "Ones to Watch Retro 18",
+              "maxValue": null
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": null,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": null,
+          "totalUpgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 129,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [],
+      "totalUpgradesText": [
+        {
+          "label": "Rarity",
+          "value": "Ones to Watch Retro 18",
+          "maxValue": null
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "hideFromListings": true,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": true,
+      "analysis": {
+        "id": 2522,
+        "bestPosition": 12,
+        "statsBoost": 0,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 0.0006941057102777427,
+        "highestGgrBoost": 0.05000000074505806,
+        "games": 0,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": false,
+      "minTime": 1792652400000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "rarity_id",
+          "value": 129,
+          "maxValue": null,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [],
+      "isRewardEvolution": false
+    },
+    {
+      "id": 2523,
+      "game": "27",
+      "eaId": 2714,
+      "url": "/evolutions/2523-ones-to-watch-retro-20/",
+      "slug": "2523-ones-to-watch-retro-20",
+      "name": "Ones to Watch Retro 20",
+      "description": "Turn back the clock and apply the exclusive Ones to Watch Retro 20 rarity to any qualified player.",
+      "coinsCost": 25000,
+      "pointsCost": 200,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 19680,
+      "trendingPlayersIds": [
+        "67340611_2523",
+        "50563395_2523",
+        "67374762_2523",
+        "50597546_2523",
+        "231443_2523",
+        "192119_2523",
+        "262531_2523",
+        "67361009_2523",
+        "50583793_2523",
+        "265898_2523",
+        "233662_2523",
+        "252371_2523",
+        "231747_2523",
+        "238794_2523",
+        "67342283_2523",
+        "50565067_2523",
+        "237288_2523",
+        "251854_2523",
+        "227203_2523",
+        "239053_2523"
+      ],
+      "eligiblePlayerItemIds": [
+        "37576",
+        "28130",
+        "168473"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": true,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-26T05:45:12.038984Z",
+      "endTime": "2026-10-22T07:00:00Z",
+      "endSubmissionTime": "2026-10-22T07:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "showHolographics": null,
+        "holographicTypes": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": null,
+        "minGradingScore": null,
+        "maxGradingScore": null,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": null,
+        "excludedPositions": null,
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": null,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": null,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": []
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [],
+          "upgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 131,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Rarity",
+              "value": "Ones to Watch Retro 20",
+              "maxValue": null
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": null,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": null,
+          "totalUpgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 131,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [],
+      "totalUpgradesText": [
+        {
+          "label": "Rarity",
+          "value": "Ones to Watch Retro 20",
+          "maxValue": null
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "hideFromListings": true,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": true,
+      "analysis": {
+        "id": 2523,
+        "bestPosition": 12,
+        "statsBoost": 0,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 0.0006941057102777427,
+        "highestGgrBoost": 0.05000000074505806,
+        "games": 0,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": false,
+      "minTime": 1792652400000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "rarity_id",
+          "value": 131,
+          "maxValue": null,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [],
+      "isRewardEvolution": false
+    },
+    {
+      "id": 2524,
+      "game": "27",
+      "eaId": 2732,
+      "url": "/evolutions/2524-pivot-shift/",
+      "slug": "2524-pivot-shift",
+      "name": "Pivot Shift",
+      "description": "Sharpen your midfielder's ability to control the tempo, concluding with a decision that steers them toward forward progression or defensive coverage.",
+      "coinsCost": 0,
+      "pointsCost": 0,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 14347,
+      "trendingPlayersIds": [
+        "242534_2524:1:1:1",
+        "270964_2524:1:1:1",
+        "229752_2524:1:1:1",
+        "255009_2524:1:1:2",
+        "50600544_2524:1:1:2",
+        "245055_2524:1:1:1",
+        "242087_2524:1:1:1",
+        "264330_2524:1:1:2",
+        "70729_2524:1:1:2",
+        "240709_2524:1:1:1",
+        "276278_2524:1:1:2",
+        "211093_2524:1:1:2",
+        "257919_2524:1:1:1",
+        "273106_2524:1:1:1",
+        "232244_2524:1:1:2",
+        "239810_2524:1:1:2",
+        "259233_2524:1:1:1",
+        "50586773_2524:1:1:2",
+        "235522_2524:1:1:1",
+        "279604_2524:1:1:1"
+      ],
+      "eligiblePlayerItemIds": [
+        "267199",
+        "266939",
+        "276969"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": false,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-26T17:00:31.474182Z",
+      "endTime": "2026-10-06T17:00:00Z",
+      "endSubmissionTime": "2026-10-13T17:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "showHolographics": null,
+        "holographicTypes": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": 79,
+        "minGradingScore": null,
+        "maxGradingScore": null,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": [
+          10,
+          14
+        ],
+        "excludedPositions": [
+          25,
+          18,
+          5,
+          0
+        ],
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": 7,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": 83,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": [
+          {
+            "label": "Overall",
+            "value": "Max. 79"
+          },
+          {
+            "label": "Position",
+            "value": "CDM, CM"
+          },
+          {
+            "label": "Excluded Position",
+            "value": "ST, CAM, CB"
+          },
+          {
+            "label": "Max PS",
+            "value": "7"
+          },
+          {
+            "label": "Pace",
+            "value": "Max. 83"
+          }
+        ]
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "overall",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sprint_speed",
+              "value": 3,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_crossing",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_long_passing",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_agility",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Overall",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Sprint Speed",
+              "value": "+3",
+              "maxValue": "(^75)"
+            },
+            {
+              "label": "Crossing",
+              "value": "+5",
+              "maxValue": "(^76)"
+            },
+            {
+              "label": "Long Passing",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Agility",
+              "value": "+5",
+              "maxValue": "(^75)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "overall",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sprint_speed",
+              "value": 3,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_crossing",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_long_passing",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_agility",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            }
+          ]
+        },
+        {
+          "idx": 2,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "attribute_acceleration",
+              "value": 3,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_vision",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_short_passing",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_curve",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_balance",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Acceleration",
+              "value": "+3",
+              "maxValue": "(^75)"
+            },
+            {
+              "label": "Vision",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Short Passing",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Curve",
+              "value": "+5",
+              "maxValue": "(^75)"
+            },
+            {
+              "label": "Balance",
+              "value": "+5",
+              "maxValue": "(^75)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "attribute_acceleration",
+              "value": 3,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_vision",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_short_passing",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_curve",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_balance",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            }
+          ]
+        },
+        {
+          "idx": 3,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "attribute_finishing",
+              "value": 5,
+              "maxValue": 77,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_shot_power",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_long_shots",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_reactions",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_ball_control",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 8,
+              "maxValue": 3,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [
+            {
+              "idx": 1,
+              "upgrades": [
+                {
+                  "upgrade": "attribute_finishing",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_shot_power",
+                  "value": 5,
+                  "maxValue": 79,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_long_shots",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_reactions",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_ball_control",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "play_style",
+                  "value": 8,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                }
+              ],
+              "totalUpgradesText": [
+                {
+                  "label": "PlayStyle",
+                  "value": "Tiki Taka",
+                  "maxValue": "(^3)"
+                },
+                {
+                  "label": "Finishing",
+                  "value": "+5",
+                  "maxValue": "(^77)"
+                },
+                {
+                  "label": "Shot Power",
+                  "value": "+5",
+                  "maxValue": "(^79)"
+                },
+                {
+                  "label": "Long Shots",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Reactions",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Ball Control",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                }
+              ],
+              "totalUpgrades": [
+                {
+                  "upgrade": "play_style",
+                  "value": 8,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_finishing",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_shot_power",
+                  "value": 5,
+                  "maxValue": 79,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_long_shots",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_reactions",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_ball_control",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                }
+              ]
+            },
+            {
+              "idx": 2,
+              "upgrades": [
+                {
+                  "upgrade": "attribute_interceptions",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_standing_tackle",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_sliding_tackle",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_strength",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_aggression",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "play_style",
+                  "value": 10,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                }
+              ],
+              "totalUpgradesText": [
+                {
+                  "label": "PlayStyle",
+                  "value": "Jockey",
+                  "maxValue": "(^3)"
+                },
+                {
+                  "label": "Interceptions",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Standing Tackle",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Sliding Tackle",
+                  "value": "+5",
+                  "maxValue": "(^77)"
+                },
+                {
+                  "label": "Strength",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Aggression",
+                  "value": "+5",
+                  "maxValue": "(^76)"
+                }
+              ],
+              "totalUpgrades": [
+                {
+                  "upgrade": "play_style",
+                  "value": 10,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_interceptions",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_standing_tackle",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_sliding_tackle",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_strength",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_aggression",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                }
+              ]
+            }
+          ],
+          "totalUpgradesText": [
+            {
+              "label": "PlayStyle",
+              "value": "Tiki Taka",
+              "maxValue": "(^3)"
+            },
+            {
+              "label": "Finishing",
+              "value": "+5",
+              "maxValue": "(^77)"
+            },
+            {
+              "label": "Shot Power",
+              "value": "+5",
+              "maxValue": "(^79)"
+            },
+            {
+              "label": "Long Shots",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Reactions",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Ball Control",
+              "value": "+5",
+              "maxValue": "(^78)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": true,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "play_style",
+              "value": 8,
+              "maxValue": 3,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_finishing",
+              "value": 5,
+              "maxValue": 77,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_shot_power",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_long_shots",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_reactions",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_ball_control",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [
+        1,
+        1,
+        1
+      ],
+      "totalUpgradesText": [
+        {
+          "label": "PlayStyle",
+          "value": "Tiki Taka",
+          "maxValue": "(^3)"
+        },
+        {
+          "label": "Overall",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Sprint Speed",
+          "value": "+3",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Acceleration",
+          "value": "+3",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Crossing",
+          "value": "+5",
+          "maxValue": "(^76)"
+        },
+        {
+          "label": "Long Passing",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Agility",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Vision",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Short Passing",
+          "value": "+5",
+          "maxValue": "(^78)"
+        },
+        {
+          "label": "Curve",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Balance",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Finishing",
+          "value": "+5",
+          "maxValue": "(^77)"
+        },
+        {
+          "label": "Shot Power",
+          "value": "+5",
+          "maxValue": "(^79)"
+        },
+        {
+          "label": "Long Shots",
+          "value": "+5",
+          "maxValue": "(^78)"
+        },
+        {
+          "label": "Reactions",
+          "value": "+5",
+          "maxValue": "(^78)"
+        },
+        {
+          "label": "Ball Control",
+          "value": "+5",
+          "maxValue": "(^78)"
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "hideFromListings": false,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": false,
+      "analysis": {
+        "id": 2524,
+        "bestPosition": 10,
+        "statsBoost": 58,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 4.818271196910251,
+        "highestGgrBoost": 19.899999618530273,
+        "games": 3,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": true,
+      "minTime": 1791306000000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "play_style",
+          "value": 8,
+          "maxValue": 3,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "overall",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_sprint_speed",
+          "value": 3,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_crossing",
+          "value": 5,
+          "maxValue": 76,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_long_passing",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_agility",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_acceleration",
+          "value": 3,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_vision",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_short_passing",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_curve",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_balance",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_finishing",
+          "value": 5,
+          "maxValue": 77,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_shot_power",
+          "value": 5,
+          "maxValue": 79,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_long_shots",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_reactions",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_ball_control",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [
+        {
+          "label": "Overall",
+          "value": "Max. 79"
+        },
+        {
+          "label": "Position",
+          "value": "CDM, CM"
+        },
+        {
+          "label": "Excluded Position",
+          "value": "ST, CAM, CB"
+        },
+        {
+          "label": "Max PS",
+          "value": "7"
+        },
+        {
+          "label": "Pace",
+          "value": "Max. 83"
         }
       ],
       "isRewardEvolution": false
@@ -21187,7 +23551,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 46948,
+      "numberOfPlayers": 54654,
       "trendingPlayersIds": [
         "235805_2488:1",
         "257470_2488:1",
@@ -21211,9 +23575,9 @@
         "50560437_2488:1"
       ],
       "eligiblePlayerItemIds": [
-        "77050",
-        "73562",
-        "67383910"
+        "71494",
+        "80170",
+        "67379423"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -21605,6 +23969,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -21660,7 +24025,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 14862,
+      "numberOfPlayers": 15436,
       "trendingPlayersIds": [
         "216700_2489",
         "265600_2489",
@@ -21684,8 +24049,8 @@
         "50556618_2489"
       ],
       "eligiblePlayerItemIds": [
-        "73355",
-        "50602113",
+        "76098",
+        "50609623",
         "77593"
       ],
       "eligiblePathHashes": [],
@@ -22514,6 +24879,7 @@
       "isTimed": true,
       "totalTrainingTime": 86400,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -22695,7 +25061,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 7157,
+      "numberOfPlayers": 8178,
       "trendingPlayersIds": [
         "247832_2490",
         "278339_2490",
@@ -22719,9 +25085,9 @@
         "253163_2490"
       ],
       "eligiblePlayerItemIds": [
-        "50585117",
         "50569719",
-        "279811"
+        "279811",
+        "265004"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -23062,6 +25428,7 @@
       "isTimed": true,
       "totalTrainingTime": 3600,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -23117,7 +25484,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3837,
+      "numberOfPlayers": 3969,
       "trendingPlayersIds": [
         "216532_2491",
         "193254_2491",
@@ -23141,9 +25508,9 @@
         "251025_2491"
       ],
       "eligiblePlayerItemIds": [
-        "74310",
-        "265252",
-        "276505"
+        "80327",
+        "277264",
+        "268312"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -23911,6 +26278,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -24108,9 +26476,9 @@
         "50562314_2492"
       ],
       "eligiblePlayerItemIds": [
-        "50590845",
+        "267318",
         "86398",
-        "78357"
+        "70004"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -24671,6 +27039,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -24775,7 +27144,7 @@
     {
       "id": 2493,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2706,
       "url": "/evolutions/2493-midfield-polish-sp-1/",
       "slug": "2493-midfield-polish-sp-1",
       "name": "Midfield Polish [SP+ 1]",
@@ -24808,9 +27177,9 @@
         "270964_2493"
       ],
       "eligiblePlayerItemIds": [
-        "267199",
-        "265459",
-        "50591516"
+        "50591516",
+        "266939",
+        "271739"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -25198,6 +27567,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -25260,7 +27630,7 @@
     {
       "id": 2494,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2704,
       "url": "/evolutions/2494-striker-glow-up-sp-7/",
       "slug": "2494-striker-glow-up-sp-7",
       "name": "Striker Glow Up [SP 7]",
@@ -25293,9 +27663,9 @@
         "254551_2494"
       ],
       "eligiblePlayerItemIds": [
-        "242458",
-        "265020",
-        "256612"
+        "50590845",
+        "267674",
+        "265059"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -26161,6 +28531,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -26349,7 +28720,7 @@
     {
       "id": 2495,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2670,
       "url": "/evolutions/2495-relentless-sp-11/",
       "slug": "2495-relentless-sp-11",
       "name": "Relentless [SP 11]",
@@ -26383,8 +28754,8 @@
       ],
       "eligiblePlayerItemIds": [
         "50562314",
-        "74462",
-        "50574483"
+        "78357",
+        "50591516"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -26719,6 +29090,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -26765,7 +29137,7 @@
     {
       "id": 2496,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2693,
       "url": "/evolutions/2496-tactical-ascent-sp-14/",
       "slug": "2496-tactical-ascent-sp-14",
       "name": "Tactical Ascent [SP+ 14]",
@@ -26799,8 +29171,8 @@
       ],
       "eligiblePlayerItemIds": [
         "86398",
-        "70145",
-        "50562314"
+        "50562314",
+        "50590845"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -27282,6 +29654,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -27334,7 +29707,7 @@
     {
       "id": 2497,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2705,
       "url": "/evolutions/2497-winger-glow-up-sp-26/",
       "slug": "2497-winger-glow-up-sp-26",
       "name": "Winger Glow Up [SP+ 26]",
@@ -27367,9 +29740,9 @@
         "258378_2497"
       ],
       "eligiblePlayerItemIds": [
+        "260952",
         "212096",
-        "239380",
-        "265057"
+        "259913"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -28283,6 +30656,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -28487,7 +30861,7 @@
     {
       "id": 2498,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2671,
       "url": "/evolutions/2498-creative-or-composed-sp-27/",
       "slug": "2498-creative-or-composed-sp-27",
       "name": "Creative or Composed? [SP 27]",
@@ -28520,8 +30894,8 @@
         "75605_2498:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "70145",
-        "74462",
+        "50590845",
+        "70004",
         "50591516"
       ],
       "eligiblePathHashes": [],
@@ -29004,6 +31378,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -29056,7 +31431,7 @@
     {
       "id": 2499,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2685,
       "url": "/evolutions/2499-shooting-practice-sp-28/",
       "slug": "2499-shooting-practice-sp-28",
       "name": "Shooting Practice [SP+ 28]",
@@ -29089,9 +31464,9 @@
         "226110_2499:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "264933",
-        "50561297",
-        "50591364"
+        "50591364",
+        "80028",
+        "50561297"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -29585,6 +31960,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -29645,7 +32021,7 @@
     {
       "id": 2500,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2708,
       "url": "/evolutions/2500-believe/",
       "slug": "2500-believe",
       "name": "Believe",
@@ -29678,9 +32054,9 @@
         "50524996_2500"
       ],
       "eligiblePlayerItemIds": [
-        "50568258",
-        "275771",
-        "274780"
+        "50574680",
+        "50405533",
+        "275771"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -30061,6 +32437,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -30119,7 +32496,7 @@
     {
       "id": 2501,
       "game": "27",
-      "eaId": 999999,
+      "eaId": 2696,
       "url": "/evolutions/2501-pinged-pass/",
       "slug": "2501-pinged-pass",
       "name": "Pinged Pass",
@@ -30152,8 +32529,8 @@
         "212188_2501"
       ],
       "eligiblePlayerItemIds": [
-        "50562314",
-        "50574483",
+        "86398",
+        "70145",
         "50594307"
       ],
       "eligiblePathHashes": [],
@@ -30489,6 +32866,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -30544,7 +32922,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 9428,
+      "numberOfPlayers": 9758,
       "trendingPlayersIds": [
         "211688_2502:1:1:2",
         "268940_2502:1:1:2",
@@ -30568,9 +32946,9 @@
         "254088_2502:1:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "267343",
-        "254088",
-        "271945"
+        "267240",
+        "266939",
+        "259716"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -31419,6 +33797,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -31582,9 +33961,9 @@
         "239053_2503"
       ],
       "eligiblePlayerItemIds": [
-        "37576",
         "247553",
-        "190045"
+        "190042",
+        "37576"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -31910,6 +34289,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -31981,8 +34361,8 @@
       ],
       "eligiblePlayerItemIds": [
         "168473",
-        "275243",
-        "247553"
+        "237067",
+        "1397"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -32308,6 +34688,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -32378,9 +34759,9 @@
         "239053_2505"
       ],
       "eligiblePlayerItemIds": [
-        "237067",
         "190042",
-        "190045"
+        "168473",
+        "28130"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -32706,6 +35087,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": true,
+      "hideFromListings": false,
       "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -32776,9 +35158,9 @@
         "258923_2506:1:1:2"
       ],
       "eligiblePlayerItemIds": [
-        "265333",
+        "225201",
         "239892",
-        "70145"
+        "259633"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -33770,6 +36152,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -33939,7 +36322,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 5588,
+      "numberOfPlayers": 11415,
       "trendingPlayersIds": [
         "183540_2507",
         "219605_2507",
@@ -33963,9 +36346,9 @@
         "278096_2507"
       ],
       "eligiblePlayerItemIds": [
+        "50574442",
         "50605475",
-        "50592127",
-        "78070"
+        "71259"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -34793,6 +37176,7 @@
       "isTimed": true,
       "totalTrainingTime": 86400,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -34998,9 +37382,9 @@
         "255185_2508:1:1:2"
       ],
       "eligiblePlayerItemIds": [
+        "86398",
         "50562314",
-        "267674",
-        "265577"
+        "256612"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -36060,6 +38444,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -36241,9 +38626,9 @@
         "180175_2509"
       ],
       "eligiblePlayerItemIds": [
-        "202126",
-        "67374762",
-        "252371"
+        "50595660",
+        "239085",
+        "67374762"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -36651,6 +39036,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -36749,8 +39135,8 @@
       ],
       "eligiblePlayerItemIds": [
         "50590935",
-        "247827",
-        "227102"
+        "158023",
+        "277643"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -37136,6 +39522,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -37227,8 +39614,8 @@
         "278219_2511"
       ],
       "eligiblePlayerItemIds": [
-        "50595660",
         "252371",
+        "247827",
         "50579475"
       ],
       "eligiblePathHashes": [],
@@ -37637,6 +40024,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -37734,8 +40122,8 @@
         "239053_2512"
       ],
       "eligiblePlayerItemIds": [
-        "237288",
         "265898",
+        "252371",
         "212198"
       ],
       "eligiblePathHashes": [],
@@ -38166,6 +40554,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -38269,9 +40658,9 @@
         "215698_2513"
       ],
       "eligiblePlayerItemIds": [
-        "212831",
-        "263009",
-        "258310"
+        "258310",
+        "235073",
+        "67329765"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -38655,6 +41044,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -38746,8 +41136,8 @@
         "241084_2514"
       ],
       "eligiblePlayerItemIds": [
-        "279799",
-        "238794",
+        "252371",
+        "50563395",
         "247635"
       ],
       "eligiblePathHashes": [],
@@ -39134,6 +41524,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -39225,7 +41616,7 @@
         "251854_2515"
       ],
       "eligiblePlayerItemIds": [
-        "231866",
+        "251854",
         "237289",
         "234378"
       ],
@@ -39657,6 +42048,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -39760,9 +42152,9 @@
         "265249_2516"
       ],
       "eligiblePlayerItemIds": [
-        "252145",
+        "262531",
         "252371",
-        "262531"
+        "279799"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -40170,6 +42562,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -40267,9 +42660,9 @@
         "180175_2517"
       ],
       "eligiblePlayerItemIds": [
-        "227102",
-        "50565067",
-        "158023"
+        "50579475",
+        "67386507",
+        "247827"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -40677,6 +43070,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -40774,9 +43168,9 @@
         "239053_2518"
       ],
       "eligiblePlayerItemIds": [
-        "239053",
-        "235212",
-        "264875"
+        "50579813",
+        "67359754",
+        "236772"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -41206,6 +43600,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -41309,9 +43704,9 @@
         "272007_2519"
       ],
       "eligiblePlayerItemIds": [
-        "239818",
         "247819",
-        "232580"
+        "203376",
+        "50539513"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -41719,6 +44114,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -41816,8 +44212,8 @@
         "264453_2520"
       ],
       "eligiblePlayerItemIds": [
-        "265674",
-        "67376394",
+        "252145",
+        "226268",
         "50583793"
       ],
       "eligiblePathHashes": [],
@@ -42248,6 +44644,7 @@
       "isTimed": false,
       "totalTrainingTime": null,
       "hideFromFilters": false,
+      "hideFromListings": false,
       "excludeFromActivePaths": false,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
@@ -42314,9 +44711,2340 @@
         }
       ],
       "isRewardEvolution": false
+    },
+    {
+      "id": 2521,
+      "game": "27",
+      "eaId": 2711,
+      "url": "/evolutions/2521-ones-to-watch-retro-19/",
+      "slug": "2521-ones-to-watch-retro-19",
+      "name": "Ones to Watch Retro 19",
+      "description": "Turn back the clock and apply the exclusive Ones to Watch Retro 19 rarity to any qualified player.",
+      "coinsCost": 25000,
+      "pointsCost": 200,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 19680,
+      "trendingPlayersIds": [
+        "67340611_2521",
+        "50563395_2521",
+        "67374762_2521",
+        "50597546_2521",
+        "231443_2521",
+        "192119_2521",
+        "262531_2521",
+        "67361009_2521",
+        "50583793_2521",
+        "265898_2521",
+        "233662_2521",
+        "252371_2521",
+        "231747_2521",
+        "238794_2521",
+        "67342283_2521",
+        "50565067_2521",
+        "237288_2521",
+        "251854_2521",
+        "227203_2521",
+        "239053_2521"
+      ],
+      "eligiblePlayerItemIds": [
+        "168473",
+        "275243",
+        "1397"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": true,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-26T05:45:11.974061Z",
+      "endTime": "2026-10-22T07:00:00Z",
+      "endSubmissionTime": "2026-10-22T07:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "showHolographics": null,
+        "holographicTypes": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": null,
+        "minGradingScore": null,
+        "maxGradingScore": null,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": null,
+        "excludedPositions": null,
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": null,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": null,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": []
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [],
+          "upgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 130,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Rarity",
+              "value": "Ones to Watch Retro 19",
+              "maxValue": null
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": null,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": null,
+          "totalUpgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 130,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [],
+      "totalUpgradesText": [
+        {
+          "label": "Rarity",
+          "value": "Ones to Watch Retro 19",
+          "maxValue": null
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "hideFromListings": true,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": true,
+      "analysis": {
+        "id": 2521,
+        "bestPosition": 12,
+        "statsBoost": 0,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 0.0006941057102777427,
+        "highestGgrBoost": 0.05000000074505806,
+        "games": 0,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": false,
+      "minTime": 1792652400000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "rarity_id",
+          "value": 130,
+          "maxValue": null,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [],
+      "isRewardEvolution": false
+    },
+    {
+      "id": 2522,
+      "game": "27",
+      "eaId": 2712,
+      "url": "/evolutions/2522-ones-to-watch-retro-18/",
+      "slug": "2522-ones-to-watch-retro-18",
+      "name": "Ones to Watch Retro 18",
+      "description": "Turn back the clock and apply the exclusive Ones to Watch Retro 18 rarity to any qualified player.",
+      "coinsCost": 25000,
+      "pointsCost": 200,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 19680,
+      "trendingPlayersIds": [
+        "67340611_2522",
+        "50563395_2522",
+        "67374762_2522",
+        "50597546_2522",
+        "231443_2522",
+        "192119_2522",
+        "262531_2522",
+        "67361009_2522",
+        "50583793_2522",
+        "265898_2522",
+        "233662_2522",
+        "252371_2522",
+        "231747_2522",
+        "238794_2522",
+        "67342283_2522",
+        "50565067_2522",
+        "237288_2522",
+        "251854_2522",
+        "227203_2522",
+        "239053_2522"
+      ],
+      "eligiblePlayerItemIds": [
+        "275243",
+        "247553",
+        "190042"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": true,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-26T05:45:12.026397Z",
+      "endTime": "2026-10-22T07:00:00Z",
+      "endSubmissionTime": "2026-10-22T07:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "showHolographics": null,
+        "holographicTypes": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": null,
+        "minGradingScore": null,
+        "maxGradingScore": null,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": null,
+        "excludedPositions": null,
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": null,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": null,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": []
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [],
+          "upgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 129,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Rarity",
+              "value": "Ones to Watch Retro 18",
+              "maxValue": null
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": null,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": null,
+          "totalUpgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 129,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [],
+      "totalUpgradesText": [
+        {
+          "label": "Rarity",
+          "value": "Ones to Watch Retro 18",
+          "maxValue": null
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "hideFromListings": true,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": true,
+      "analysis": {
+        "id": 2522,
+        "bestPosition": 12,
+        "statsBoost": 0,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 0.0006941057102777427,
+        "highestGgrBoost": 0.05000000074505806,
+        "games": 0,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": false,
+      "minTime": 1792652400000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "rarity_id",
+          "value": 129,
+          "maxValue": null,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [],
+      "isRewardEvolution": false
+    },
+    {
+      "id": 2523,
+      "game": "27",
+      "eaId": 2714,
+      "url": "/evolutions/2523-ones-to-watch-retro-20/",
+      "slug": "2523-ones-to-watch-retro-20",
+      "name": "Ones to Watch Retro 20",
+      "description": "Turn back the clock and apply the exclusive Ones to Watch Retro 20 rarity to any qualified player.",
+      "coinsCost": 25000,
+      "pointsCost": 200,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 19680,
+      "trendingPlayersIds": [
+        "67340611_2523",
+        "50563395_2523",
+        "67374762_2523",
+        "50597546_2523",
+        "231443_2523",
+        "192119_2523",
+        "262531_2523",
+        "67361009_2523",
+        "50583793_2523",
+        "265898_2523",
+        "233662_2523",
+        "252371_2523",
+        "231747_2523",
+        "238794_2523",
+        "67342283_2523",
+        "50565067_2523",
+        "237288_2523",
+        "251854_2523",
+        "227203_2523",
+        "239053_2523"
+      ],
+      "eligiblePlayerItemIds": [
+        "37576",
+        "28130",
+        "168473"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": true,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-26T05:45:12.038984Z",
+      "endTime": "2026-10-22T07:00:00Z",
+      "endSubmissionTime": "2026-10-22T07:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "showHolographics": null,
+        "holographicTypes": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": null,
+        "minGradingScore": null,
+        "maxGradingScore": null,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": null,
+        "excludedPositions": null,
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": null,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": null,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": []
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [],
+          "upgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 131,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Rarity",
+              "value": "Ones to Watch Retro 20",
+              "maxValue": null
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": null,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": null,
+          "totalUpgrades": [
+            {
+              "upgrade": "rarity_id",
+              "value": 131,
+              "maxValue": null,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [],
+      "totalUpgradesText": [
+        {
+          "label": "Rarity",
+          "value": "Ones to Watch Retro 20",
+          "maxValue": null
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "hideFromListings": true,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": true,
+      "analysis": {
+        "id": 2523,
+        "bestPosition": 12,
+        "statsBoost": 0,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 0.0006941057102777427,
+        "highestGgrBoost": 0.05000000074505806,
+        "games": 0,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": false,
+      "minTime": 1792652400000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "rarity_id",
+          "value": 131,
+          "maxValue": null,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [],
+      "isRewardEvolution": false
+    },
+    {
+      "id": 2524,
+      "game": "27",
+      "eaId": 2732,
+      "url": "/evolutions/2524-pivot-shift/",
+      "slug": "2524-pivot-shift",
+      "name": "Pivot Shift",
+      "description": "Sharpen your midfielder's ability to control the tempo, concluding with a decision that steers them toward forward progression or defensive coverage.",
+      "coinsCost": 0,
+      "pointsCost": 0,
+      "tokenCost": 0,
+      "eventTokenId": null,
+      "numberOfPlayers": 14347,
+      "trendingPlayersIds": [
+        "242534_2524:1:1:1",
+        "270964_2524:1:1:1",
+        "229752_2524:1:1:1",
+        "255009_2524:1:1:2",
+        "50600544_2524:1:1:2",
+        "245055_2524:1:1:1",
+        "242087_2524:1:1:1",
+        "264330_2524:1:1:2",
+        "70729_2524:1:1:2",
+        "240709_2524:1:1:1",
+        "276278_2524:1:1:2",
+        "211093_2524:1:1:2",
+        "257919_2524:1:1:1",
+        "273106_2524:1:1:1",
+        "232244_2524:1:1:2",
+        "239810_2524:1:1:2",
+        "259233_2524:1:1:1",
+        "50586773_2524:1:1:2",
+        "235522_2524:1:1:1",
+        "279604_2524:1:1:1"
+      ],
+      "eligiblePlayerItemIds": [
+        "267199",
+        "266939",
+        "276969"
+      ],
+      "eligiblePathHashes": [],
+      "repeatabilityCount": 1,
+      "doNotGenerate": false,
+      "allowedPriorEvolutionIds": [],
+      "createdAt": "2026-09-26T17:00:31.474182Z",
+      "endTime": "2026-10-06T17:00:00Z",
+      "endSubmissionTime": "2026-10-13T17:00:00Z",
+      "requirements": {
+        "includeHiddenRarities": false,
+        "game": "27",
+        "name": null,
+        "basePlayerEaIds": null,
+        "excludedBasePlayerEaIds": null,
+        "collapseByBasePlayer": false,
+        "eaIds": null,
+        "excludedEaIds": null,
+        "forcedEaIds": null,
+        "forceIncludeIcons": false,
+        "forceIncludeHeroes": false,
+        "preserveOrder": false,
+        "hasDynamic": null,
+        "showHolographics": null,
+        "holographicTypes": null,
+        "rarities": null,
+        "excludedRarities": null,
+        "raritySquads": null,
+        "excludedRaritySquads": null,
+        "nations": null,
+        "excludedNations": null,
+        "leagues": null,
+        "excludedLeagues": null,
+        "leagueNationForcedIds": null,
+        "leagueNationSearchMode": "AND",
+        "clubs": null,
+        "uniqueClubs": null,
+        "excludedClubs": null,
+        "pastAndPresentClubs": null,
+        "minOverall": null,
+        "maxOverall": 79,
+        "minGradingScore": null,
+        "maxGradingScore": null,
+        "minOverallDelta": null,
+        "maxOverallDelta": null,
+        "clubChanged": null,
+        "hasPreviousOverall": null,
+        "qualities": null,
+        "excludedQualities": null,
+        "positions": [
+          10,
+          14
+        ],
+        "excludedPositions": [
+          25,
+          18,
+          5,
+          0
+        ],
+        "ggrPosition": null,
+        "positionsSearchMode": "OR",
+        "onlySearchMainPosition": false,
+        "minNumberOfPositions": null,
+        "maxNumberOfPositions": null,
+        "numberOfPositions": null,
+        "totalNumberOfPositions": null,
+        "skillMoves": null,
+        "excludedSkillMoves": null,
+        "minSkillMoves": null,
+        "maxSkillMoves": null,
+        "weakFoot": null,
+        "excludedWeakFoot": null,
+        "minWeakFoot": null,
+        "maxWeakFoot": null,
+        "accelerateTypes": null,
+        "excludedAccelerateTypes": null,
+        "strongFoot": null,
+        "excludedStrongFoot": null,
+        "defensiveWorkrates": null,
+        "excludedDefensiveWorkrates": null,
+        "attackingWorkrates": null,
+        "excludedAttackingWorkrates": null,
+        "genders": null,
+        "minHeight": null,
+        "maxHeight": null,
+        "minWeight": null,
+        "maxWeight": null,
+        "minAge": null,
+        "maxAge": null,
+        "minBirthDate": null,
+        "maxBirthDate": null,
+        "minCreatedAt": null,
+        "maxCreatedAt": null,
+        "bodyTypes": null,
+        "isRealFace": null,
+        "playstyles": null,
+        "excludedPlaystyles": null,
+        "regularPlaystyles": null,
+        "excludedRegularPlaystyles": null,
+        "playstylesPlus": null,
+        "excludedPlaystylesPlus": null,
+        "playstylesSearchMode": "AND",
+        "onlySearchPlaystylesPlus": false,
+        "minPlaystyles": null,
+        "maxPlaystyles": 7,
+        "minPlaystylesPlus": null,
+        "maxPlaystylesPlus": null,
+        "rolesPlus": null,
+        "rolesPlusPlus": null,
+        "excludedRolesPlus": null,
+        "excludedRolesPlusPlus": null,
+        "minRolesPlus": null,
+        "maxRolesPlus": null,
+        "minRolesPlusPlus": null,
+        "maxRolesPlusPlus": null,
+        "minPrice": null,
+        "maxPrice": null,
+        "minPcPrice": null,
+        "maxPcPrice": null,
+        "onlyMarketPlayers": false,
+        "onlyChallengePlayers": false,
+        "isSbc": null,
+        "isObjective": null,
+        "isSeasonPass": null,
+        "isActiveSbc": null,
+        "isActiveObjective": null,
+        "isActiveSeasonPass": null,
+        "poolId": null,
+        "excludedPoolId": null,
+        "attributeAcceleration": null,
+        "minAttributeAcceleration": null,
+        "maxAttributeAcceleration": null,
+        "attributeSprintSpeed": null,
+        "minAttributeSprintSpeed": null,
+        "maxAttributeSprintSpeed": null,
+        "attributeAgility": null,
+        "minAttributeAgility": null,
+        "maxAttributeAgility": null,
+        "attributeBalance": null,
+        "minAttributeBalance": null,
+        "maxAttributeBalance": null,
+        "attributeJumping": null,
+        "minAttributeJumping": null,
+        "maxAttributeJumping": null,
+        "attributeStamina": null,
+        "minAttributeStamina": null,
+        "maxAttributeStamina": null,
+        "attributeStrength": null,
+        "minAttributeStrength": null,
+        "maxAttributeStrength": null,
+        "attributeReactions": null,
+        "minAttributeReactions": null,
+        "maxAttributeReactions": null,
+        "attributeAggression": null,
+        "minAttributeAggression": null,
+        "maxAttributeAggression": null,
+        "attributeComposure": null,
+        "minAttributeComposure": null,
+        "maxAttributeComposure": null,
+        "attributeInterceptions": null,
+        "minAttributeInterceptions": null,
+        "maxAttributeInterceptions": null,
+        "attributePositioning": null,
+        "minAttributePositioning": null,
+        "maxAttributePositioning": null,
+        "attributeVision": null,
+        "minAttributeVision": null,
+        "maxAttributeVision": null,
+        "attributeBallControl": null,
+        "minAttributeBallControl": null,
+        "maxAttributeBallControl": null,
+        "attributeCrossing": null,
+        "minAttributeCrossing": null,
+        "maxAttributeCrossing": null,
+        "attributeDribbling": null,
+        "minAttributeDribbling": null,
+        "maxAttributeDribbling": null,
+        "attributeFinishing": null,
+        "minAttributeFinishing": null,
+        "maxAttributeFinishing": null,
+        "attributeFkAccuracy": null,
+        "minAttributeFkAccuracy": null,
+        "maxAttributeFkAccuracy": null,
+        "attributeHeadingAccuracy": null,
+        "minAttributeHeadingAccuracy": null,
+        "maxAttributeHeadingAccuracy": null,
+        "attributeLongPassing": null,
+        "minAttributeLongPassing": null,
+        "maxAttributeLongPassing": null,
+        "attributeShortPassing": null,
+        "minAttributeShortPassing": null,
+        "maxAttributeShortPassing": null,
+        "attributeDefensiveAwareness": null,
+        "minAttributeDefensiveAwareness": null,
+        "maxAttributeDefensiveAwareness": null,
+        "attributeShotPower": null,
+        "minAttributeShotPower": null,
+        "maxAttributeShotPower": null,
+        "attributeLongShots": null,
+        "minAttributeLongShots": null,
+        "maxAttributeLongShots": null,
+        "attributeStandingTackle": null,
+        "minAttributeStandingTackle": null,
+        "maxAttributeStandingTackle": null,
+        "attributeSlidingTackle": null,
+        "minAttributeSlidingTackle": null,
+        "maxAttributeSlidingTackle": null,
+        "attributeVolleys": null,
+        "minAttributeVolleys": null,
+        "maxAttributeVolleys": null,
+        "attributeCurve": null,
+        "minAttributeCurve": null,
+        "maxAttributeCurve": null,
+        "attributePenalties": null,
+        "minAttributePenalties": null,
+        "maxAttributePenalties": null,
+        "attributeGkDiving": null,
+        "minAttributeGkDiving": null,
+        "maxAttributeGkDiving": null,
+        "attributeGkHandling": null,
+        "minAttributeGkHandling": null,
+        "maxAttributeGkHandling": null,
+        "attributeGkKicking": null,
+        "minAttributeGkKicking": null,
+        "maxAttributeGkKicking": null,
+        "attributeGkReflexes": null,
+        "minAttributeGkReflexes": null,
+        "maxAttributeGkReflexes": null,
+        "attributeGkPositioning": null,
+        "minAttributeGkPositioning": null,
+        "maxAttributeGkPositioning": null,
+        "facePace": null,
+        "minFacePace": null,
+        "maxFacePace": 83,
+        "faceShooting": null,
+        "minFaceShooting": null,
+        "maxFaceShooting": null,
+        "facePassing": null,
+        "minFacePassing": null,
+        "maxFacePassing": null,
+        "faceDribbling": null,
+        "minFaceDribbling": null,
+        "maxFaceDribbling": null,
+        "faceDefending": null,
+        "minFaceDefending": null,
+        "maxFaceDefending": null,
+        "facePhysicality": null,
+        "minFacePhysicality": null,
+        "maxFacePhysicality": null,
+        "gkFaceDiving": null,
+        "minGkFaceDiving": null,
+        "maxGkFaceDiving": null,
+        "gkFaceHandling": null,
+        "minGkFaceHandling": null,
+        "maxGkFaceHandling": null,
+        "gkFaceKicking": null,
+        "minGkFaceKicking": null,
+        "maxGkFaceKicking": null,
+        "gkFaceReflexes": null,
+        "minGkFaceReflexes": null,
+        "maxGkFaceReflexes": null,
+        "gkFaceSpeed": null,
+        "minGkFaceSpeed": null,
+        "maxGkFaceSpeed": null,
+        "gkFacePositioning": null,
+        "minGkFacePositioning": null,
+        "maxGkFacePositioning": null,
+        "trackerIds": null,
+        "hasTracker": false,
+        "excludeIsNotInSearch": true,
+        "minGgrPos": null,
+        "minGgrRole": null,
+        "isNotExpired": false,
+        "includeObjectives": false,
+        "sorts": null,
+        "count": null,
+        "page": null,
+        "readableSchemas": [
+          {
+            "label": "Overall",
+            "value": "Max. 79"
+          },
+          {
+            "label": "Position",
+            "value": "CDM, CM"
+          },
+          {
+            "label": "Excluded Position",
+            "value": "ST, CAM, CB"
+          },
+          {
+            "label": "Max PS",
+            "value": "7"
+          },
+          {
+            "label": "Pace",
+            "value": "Max. 83"
+          }
+        ]
+      },
+      "generatorRequirements": null,
+      "levels": [
+        {
+          "idx": 1,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "overall",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sprint_speed",
+              "value": 3,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_crossing",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_long_passing",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_agility",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Overall",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Sprint Speed",
+              "value": "+3",
+              "maxValue": "(^75)"
+            },
+            {
+              "label": "Crossing",
+              "value": "+5",
+              "maxValue": "(^76)"
+            },
+            {
+              "label": "Long Passing",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Agility",
+              "value": "+5",
+              "maxValue": "(^75)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "overall",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_sprint_speed",
+              "value": 3,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_crossing",
+              "value": 5,
+              "maxValue": 76,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_long_passing",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_agility",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            }
+          ]
+        },
+        {
+          "idx": 2,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "attribute_acceleration",
+              "value": 3,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_vision",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_short_passing",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_curve",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_balance",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [],
+          "totalUpgradesText": [
+            {
+              "label": "Acceleration",
+              "value": "+3",
+              "maxValue": "(^75)"
+            },
+            {
+              "label": "Vision",
+              "value": "+5",
+              "maxValue": "(^80)"
+            },
+            {
+              "label": "Short Passing",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Curve",
+              "value": "+5",
+              "maxValue": "(^75)"
+            },
+            {
+              "label": "Balance",
+              "value": "+5",
+              "maxValue": "(^75)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": false,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "attribute_acceleration",
+              "value": 3,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_vision",
+              "value": 5,
+              "maxValue": 80,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_short_passing",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_curve",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_balance",
+              "value": 5,
+              "maxValue": 75,
+              "guidAssetId": null
+            }
+          ]
+        },
+        {
+          "idx": 3,
+          "game": "27",
+          "challenges": [
+            "Play 1 match in Squad Battles on min Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events) using your active EVO player in game."
+          ],
+          "upgrades": [
+            {
+              "upgrade": "attribute_finishing",
+              "value": 5,
+              "maxValue": 77,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_shot_power",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_long_shots",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_reactions",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_ball_control",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 8,
+              "maxValue": 3,
+              "guidAssetId": null
+            }
+          ],
+          "upgradeOptions": [
+            {
+              "idx": 1,
+              "upgrades": [
+                {
+                  "upgrade": "attribute_finishing",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_shot_power",
+                  "value": 5,
+                  "maxValue": 79,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_long_shots",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_reactions",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_ball_control",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "play_style",
+                  "value": 8,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                }
+              ],
+              "totalUpgradesText": [
+                {
+                  "label": "PlayStyle",
+                  "value": "Tiki Taka",
+                  "maxValue": "(^3)"
+                },
+                {
+                  "label": "Finishing",
+                  "value": "+5",
+                  "maxValue": "(^77)"
+                },
+                {
+                  "label": "Shot Power",
+                  "value": "+5",
+                  "maxValue": "(^79)"
+                },
+                {
+                  "label": "Long Shots",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Reactions",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Ball Control",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                }
+              ],
+              "totalUpgrades": [
+                {
+                  "upgrade": "play_style",
+                  "value": 8,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_finishing",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_shot_power",
+                  "value": 5,
+                  "maxValue": 79,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_long_shots",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_reactions",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_ball_control",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                }
+              ]
+            },
+            {
+              "idx": 2,
+              "upgrades": [
+                {
+                  "upgrade": "attribute_interceptions",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_standing_tackle",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_sliding_tackle",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_strength",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_aggression",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "play_style",
+                  "value": 10,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                }
+              ],
+              "totalUpgradesText": [
+                {
+                  "label": "PlayStyle",
+                  "value": "Jockey",
+                  "maxValue": "(^3)"
+                },
+                {
+                  "label": "Interceptions",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Standing Tackle",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Sliding Tackle",
+                  "value": "+5",
+                  "maxValue": "(^77)"
+                },
+                {
+                  "label": "Strength",
+                  "value": "+5",
+                  "maxValue": "(^78)"
+                },
+                {
+                  "label": "Aggression",
+                  "value": "+5",
+                  "maxValue": "(^76)"
+                }
+              ],
+              "totalUpgrades": [
+                {
+                  "upgrade": "play_style",
+                  "value": 10,
+                  "maxValue": 3,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_interceptions",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_standing_tackle",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_sliding_tackle",
+                  "value": 5,
+                  "maxValue": 77,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_strength",
+                  "value": 5,
+                  "maxValue": 78,
+                  "guidAssetId": null
+                },
+                {
+                  "upgrade": "attribute_aggression",
+                  "value": 5,
+                  "maxValue": 76,
+                  "guidAssetId": null
+                }
+              ]
+            }
+          ],
+          "totalUpgradesText": [
+            {
+              "label": "PlayStyle",
+              "value": "Tiki Taka",
+              "maxValue": "(^3)"
+            },
+            {
+              "label": "Finishing",
+              "value": "+5",
+              "maxValue": "(^77)"
+            },
+            {
+              "label": "Shot Power",
+              "value": "+5",
+              "maxValue": "(^79)"
+            },
+            {
+              "label": "Long Shots",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Reactions",
+              "value": "+5",
+              "maxValue": "(^78)"
+            },
+            {
+              "label": "Ball Control",
+              "value": "+5",
+              "maxValue": "(^78)"
+            }
+          ],
+          "timedCustom": null,
+          "multiplier": 1,
+          "hasUpgradeChoices": true,
+          "readableTrainingTime": "1 seconds",
+          "totalUpgrades": [
+            {
+              "upgrade": "play_style",
+              "value": 8,
+              "maxValue": 3,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_finishing",
+              "value": 5,
+              "maxValue": 77,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_shot_power",
+              "value": 5,
+              "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_long_shots",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_reactions",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "attribute_ball_control",
+              "value": 5,
+              "maxValue": 78,
+              "guidAssetId": null
+            }
+          ]
+        }
+      ],
+      "bestPathChoices": [
+        1,
+        1,
+        1
+      ],
+      "totalUpgradesText": [
+        {
+          "label": "PlayStyle",
+          "value": "Tiki Taka",
+          "maxValue": "(^3)"
+        },
+        {
+          "label": "Overall",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Sprint Speed",
+          "value": "+3",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Acceleration",
+          "value": "+3",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Crossing",
+          "value": "+5",
+          "maxValue": "(^76)"
+        },
+        {
+          "label": "Long Passing",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Agility",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Vision",
+          "value": "+5",
+          "maxValue": "(^80)"
+        },
+        {
+          "label": "Short Passing",
+          "value": "+5",
+          "maxValue": "(^78)"
+        },
+        {
+          "label": "Curve",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Balance",
+          "value": "+5",
+          "maxValue": "(^75)"
+        },
+        {
+          "label": "Finishing",
+          "value": "+5",
+          "maxValue": "(^77)"
+        },
+        {
+          "label": "Shot Power",
+          "value": "+5",
+          "maxValue": "(^79)"
+        },
+        {
+          "label": "Long Shots",
+          "value": "+5",
+          "maxValue": "(^78)"
+        },
+        {
+          "label": "Reactions",
+          "value": "+5",
+          "maxValue": "(^78)"
+        },
+        {
+          "label": "Ball Control",
+          "value": "+5",
+          "maxValue": "(^78)"
+        }
+      ],
+      "sbcName": null,
+      "sbcUrl": null,
+      "sbcSlug": null,
+      "objectiveGroupName": null,
+      "objectiveGroupUrl": null,
+      "objectiveGroupSlug": null,
+      "timedCustom": null,
+      "customUnlockable": null,
+      "isTimed": false,
+      "totalTrainingTime": null,
+      "hideFromFilters": false,
+      "hideFromListings": false,
+      "excludeFromActivePaths": false,
+      "isGkEvolution": false,
+      "isNotInEvoLab": false,
+      "doesNotUpgradePlayer": false,
+      "analysis": {
+        "id": 2524,
+        "bestPosition": 10,
+        "statsBoost": 58,
+        "completionDifficulty": "easy",
+        "averageGgrBoost": 4.818271196910251,
+        "highestGgrBoost": 19.899999618530273,
+        "games": 3,
+        "wins": 0,
+        "cleanSheets": 0,
+        "isOnlineRequired": false
+      },
+      "categoryId": null,
+      "categoryName": null,
+      "categorySlug": null,
+      "hasUpgradeChoices": true,
+      "minTime": 1791306000000,
+      "isExpired": false,
+      "readableTrainingTime": null,
+      "totalUpgrades": [
+        {
+          "upgrade": "play_style",
+          "value": 8,
+          "maxValue": 3,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "overall",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_sprint_speed",
+          "value": 3,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_crossing",
+          "value": 5,
+          "maxValue": 76,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_long_passing",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_agility",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_acceleration",
+          "value": 3,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_vision",
+          "value": 5,
+          "maxValue": 80,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_short_passing",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_curve",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_balance",
+          "value": 5,
+          "maxValue": 75,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_finishing",
+          "value": 5,
+          "maxValue": 77,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_shot_power",
+          "value": 5,
+          "maxValue": 79,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_long_shots",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_reactions",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        },
+        {
+          "upgrade": "attribute_ball_control",
+          "value": 5,
+          "maxValue": 78,
+          "guidAssetId": null
+        }
+      ],
+      "requirementsText": [
+        {
+          "label": "Overall",
+          "value": "Max. 79"
+        },
+        {
+          "label": "Position",
+          "value": "CDM, CM"
+        },
+        {
+          "label": "Excluded Position",
+          "value": "ST, CAM, CB"
+        },
+        {
+          "label": "Max PS",
+          "value": "7"
+        },
+        {
+          "label": "Pace",
+          "value": "Max. 83"
+        }
+      ],
+      "isRewardEvolution": false
     }
   ],
-  "activeHash": "4c79bde7",
-  "allHash": "4c79bde7",
-  "fetchedAt": "2026-09-25T20:10:33.555Z"
+  "activeHash": "64925748",
+  "allHash": "64925748",
+  "fetchedAt": "2026-09-26T17:30:20.493Z"
 }
