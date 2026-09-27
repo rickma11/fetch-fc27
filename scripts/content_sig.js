@@ -27,7 +27,12 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const CACHE_FILE = path.join(ROOT, 'cloud-data', 'fc27', '_sig_cache.json');
+// ⚠️ 单测必须能把它指到临时目录，否则测试跑完会把**真实基线**删掉（2026-09-27 实锤：
+//    验证脚本刚落盘的 19,860 条签名表，被随后的「跑全量测试确认」unlink 掉了，白跑一次 19,900 读）。
+//    生产路径不受影响；CI 不跑单测，但本地一旦两者交替就会静默丢基线。
+const CACHE_FILE = process.env.R29K_SIG_CACHE
+  ? path.resolve(process.env.R29K_SIG_CACHE)
+  : path.join(ROOT, 'cloud-data', 'fc27', '_sig_cache.json');
 
 // 这些字段不参与内容签名：`_id` 是主键、`_sig` 是签名本身、其余是云开发自增/托管字段。
 const SKIP_KEYS = new Set(['_id', '_sig', '_openid', '_createTime', '_updateTime']);
