@@ -61,9 +61,17 @@ function readResolved() {
 
 (async () => {
   let mode = MODE_IN === 'full' ? 'full' : 'incremental';
-  const snap = (mode === 'incremental') ? readSnapshot() : null;
-  if (mode === 'incremental' && !snap) {
-    console.log('未找到快照 cloud-data/fc' + VER + '/snapshot.json，自动降级为 full 全量抓取');
+  // ⚠️ R29k（2026-09-27）：full 也不再「无视快照全抓」—— 快照可用时，full 与 incremental
+  //    走同一条 diff 路径（见下方 diffSigs / targets），未变的卡不再重抓详情。
+  //    唯一保留 full 真全量的场合是「快照不可用/损坏」= fullFallback，那是安全网不是默认行为。
+  //    此前周日 full 每次重抓 19,860 条详情（实测 42min），改造后周日与平日同一量级。
+  const snap = readSnapshot();
+  // fullFallback = true 表示「拿不到基线，本次必须全抓」；dump.mode 也据此置 full，
+  // fetch_futgg 侧看到 full 才会成型全部球员（见 fetch_futgg.js#DUMP_MODE）。
+  let fullFallback = false;
+  if (!snap) {
+    console.log('未找到快照 cloud-data/fc' + VER + '/snapshot.json，本次退化为 full 全量抓取');
+    fullFallback = true;
     mode = 'full';
   }
   console.log(`抓取模式: ${mode}${snap ? `（快照基准 ${Object.keys(snap).length} 条）` : ''}`);
@@ -214,11 +222,15 @@ function readResolved() {
     return { items, meta, pageSize, totalPages: null, count: items.length };
   }, { BASE, LIST_CONC, OVR_MIN });
 
-  // ---------- 安全闸：全量模式下列表抓取异常偏少，阻断后续（含清空云库），避免把云库写成残缺数据 ----------
+  // ---------- 安全闸：列表抓取异常偏少，一律阻断，避免把云库写成残缺数据 ----------
   // 正常全量名单约 21000 人；若中段 OVR 桶被限流/遗漏，listRes.items 会远小于此。
-  // 此时若继续走 full 落库（clearDocs + 全量重插），会把云库中幸存的 2 万中段球员删除，造成不可逆损坏。
-  // 因此宁可中断本次 run，也比写成残缺数据强（下次重跑即可恢复）。阈值取 19000 留出合理余量。
-  if (mode === 'full' && listRes.items.length < 19000) {
+  // 此时若继续落库，会把云库中「本次没抓到的」球员当作不存在 ⇒ 不可逆损坏。
+  //   ① full：old 是 clearDocs + 全量重插，幸存的中段球员会被删；
+  //   ② 增量（R29k 之后 full 也走 diff）：这不足 19000 条会被**全部判成新增**并写库，
+  //      云库里其余两万条同样没人 revis ⇒ 同样残缺。
+  // 因此判据不再看 mode，而是无条件看条数。宁可中断本次 run，也比写成残缺数据强（下次重跑即可恢复）。
+  // 阈值取 19000 留出合理余量。
+  if (listRes.items.length < 19000) {
     console.error('⚠️ 列表抓取异常偏少（' + listRes.items.length + ' 人，预期 ~21000）——疑似中段 OVR 桶被限流/遗漏。');
     console.error('⚠️ 已阻断全量落库，防止云库被清空成残缺数据。请检查网络/限流后重跑（韧性重试已记录失败桶）。');
     await browser.close();
@@ -262,7 +274,8 @@ function readResolved() {
   for (const it of listRes.items) sigs[it.eaId] = sigOfRaw(it);
 
   const curIds = Object.keys(sigs);
-  const diff = (mode === 'full') ? diffSigs(null, sigs) : diffSigs(snap, sigs);
+  // R29k：不再按 mode 分叉 —— full 也走 diff（snap 为 null 时 diffSigs 内部返回全量 + fullFallback）
+  const diff = diffSigs(snap, sigs);
   const newIds = diff.newIds, changedIds = diff.changedIds, removedIds = diff.removedIds;
 
   // ---------- 幽灵孪生卡黑名单（cleanup_ghost_dups.js 产出，dup_ghost_ids.json）----------
@@ -285,8 +298,8 @@ function readResolved() {
     for (const id of ghostIds) { if (!curRemoved.has(String(id))) { removedIds.push(Number(id)); curRemoved.add(String(id)); added++; } }
     if (added) console.log('幽灵黑名单并入 removedIds:', added, '条');
   }
-  // 增量模式但快照被判定不可用 → 已在上方降级为 full，这里再兜一层
-  if (mode !== 'full' && diff.fullFallback) {
+  // 快照被判定不可用 → 已在上方把 mode 置为 full，这里再兜一层（newIds 此时已是 curIds，幂等）
+  if (diff.fullFallback) {
     console.log('快照不可用，本次按全量处理');
     newIds.length = 0; newIds.push.apply(newIds, curIds);
     changedIds.length = 0; removedIds.length = 0;
@@ -299,8 +312,11 @@ function readResolved() {
   // 计入 changedIds（而不是单独一个数组）：让 fetch_futgg 的增量 needSet 也包含它们，
   //   从而走到 buildDetail 之后的「详情回写 cardSource」那一步。
   // ⚠️ 必须放在 targets 计算之前 —— targets 是 changedIds 的快照拼接。
-  // 代价可控：这类卡常年只有几十张（2026-09-18 实测 21 张）。全量模式本就抓全部，无需处理。
-  if (mode !== 'full') {
+  // 代价可控：这类卡常年只有几十张（2026-09-18 实测 21 张）。
+  // ⚠️ R29k：判据从 `mode !== 'full'` 改成 `!fullFallback`。原先靠「周日 full 抓全部」顺带兜住
+  //    这些迟到归属；full 也走增量后周日不再抓全部，兜底角色必须改由这段自愈承担（仍然更省：
+  //    只抓几十~几百条，而不是 19,860 条）。快照不可用时 fullFallback=true ⇒ 本段跳过（本就全抓）。
+  if (!fullFallback) {
     const known = new Set(newIds.concat(changedIds).map(String));
     const resolved = readResolved();
     let flagged = 0;
@@ -310,14 +326,15 @@ function readResolved() {
       if (known.has(id)) continue;
       const r = resolved[id] || {};
       // 卡片来源自愈：来源标记卡只有「归属未解析」才强制重抓详情；
-      // 解析后（有 seasonPassLevel 或确认是 objective）不再每日重抓，周日 full 兜底任何迟到归属。
+      // 解析后（有 seasonPassLevel 或确认是 objective）不再每日重抓。
       if ((it.isObjective === true || it.isSeasonPass === true) && !r.sp) {
         changedIds.push(it.eaId);
         known.add(id);
         flagged++;
       }
       // SBC 积分自愈：特殊稀有度卡只有「还没拿到 gradingScore」才强制重抓详情；
-      // 已解析的卡跳过，极晚才到的评分由周日 full 兜底。这省掉约 330 张/天的重复请求。
+      // 已解析的卡跳过，极晚才到的评分同样由本段兜（周日 full 抓全部的那层兜底已取消）。
+      // 这省掉约 330 张/天的重复请求。
       if (!isGenericRarityName(it.rarityName) && !r.sbc && !known.has(id)) {
         changedIds.push(it.eaId);
         known.add(id);
@@ -328,11 +345,12 @@ function readResolved() {
     if (special) console.log('SBC积分自愈：未拿到 sbcPoints 的特殊稀有度卡强制重抓详情', special, '条');
   }
 
-  const targets = (mode === 'full') ? curIds : newIds.concat(changedIds);
+  // R29k：full 也不再全抓 —— 未变的卡直接跳过详情（原先周日 19,860 条全抓 ≈42min）
+  const targets = newIds.concat(changedIds);
 
   console.log('--- 差异统计 ---');
   console.log('列表总数:', curIds.length);
-  if (mode === 'full') console.log('全量模式: 需抓详情', targets.length, '条');
+  if (fullFallback) console.log('全量模式(快照不可用兜底): 需抓详情', targets.length, '条');
   else console.log('新增:', newIds.length, '| 变化:', changedIds.length, '| 未变(跳过详情):', curIds.length - targets.length, '| 下架:', removedIds.length);
 
   // ---------- 阶段 3：抓详情（只抓需要的）----------
@@ -719,7 +737,9 @@ function readResolved() {
   const imgStats = await runImageStage();
 
   const dump = {
-    mode: mode,
+    // R29k：mode 只在这一刻表示「本次是否真全量」。快照可用时 full 也走增量 ⇒ 必须报 incremental，
+    // 否则 fetch_futgg 会按 full 成型全部 19,860 条（抓取省了、成型又全跑一遍，白费）。
+    mode: fullFallback ? 'full' : 'incremental',
     ver: Number(VER),
     generatedAt: new Date().toISOString(),
     list: listRes.items,
