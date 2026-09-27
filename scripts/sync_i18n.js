@@ -42,6 +42,11 @@ let scanCache = null;
 try { scanCache = require('./scan_cache.js'); } catch (e) {
   console.warn('[sync_i18n] 未能加载 scan_cache.js（' + String((e && e.message) || e).slice(0, 80) + '）→ 本步不写共享缓存，消费方各自扫');
 }
+// R29k-P1：写前签名表。同样软加载——加载失败只影响「下次落库能不能跳过未变文档」，不该拖垮本步。
+let contentSig = null;
+try { contentSig = require('./content_sig.js'); } catch (e) {
+  console.warn('[sync_i18n] 未能加载 content_sig.js（' + String((e && e.message) || e).slice(0, 80) + '）→ 本步不落签名表');
+}
 const BUNDLE_FILE = path.join(ROOT, 'data', 'i18n-bundle.json');
 const SUPP_FILE = path.join(ROOT, 'data', 'i18n-names.json');
 
@@ -173,6 +178,10 @@ async function collectFromCloud() {
 //    ⚠️ 缓存写入失败**绝不阻断**本脚本主流程（写缓存失败只告警，消费方会各自退化为自己扫）。
 async function scan(db) {
   const leagues = {}, clubs = {}, nations = {};
+  // 写前签名表：{eaId: _sig}。扫描本身已经全表读过一遍，顺手投影 _sig ⇒ 落库侧可以拿它做
+  // 「内容没变就不写」的比对，**不额外增加任何一次云库读**。
+  // 内容签名跨天有效（内容不变 ⇒ 签名不变），所以这份表由本次落库后产出、给下一次落库消费。
+  const sigMap = {};
   let total = 0;
   const rows = [];
   for (let skip = 0; ; skip += 1000) {
@@ -199,7 +208,9 @@ async function scan(db) {
         'club.name': true, 'league.name': true, 'nation.name': true,
         // ② gen_squad_chem 额外要的子字段 eaId（①里只有 *_name）
         'club.eaId': true, 'league.eaId': true, 'nation.eaId': true, 'rarity.eaId': true,
-        chem: true
+        chem: true,
+        // 写前签名比对用的内容签名（放在最后，纯附加字段，不影响上面任何既有投影）
+        _sig: true
       })
       .skip(skip).limit(1000).get();
     const batch = r.data || [];
@@ -208,11 +219,17 @@ async function scan(db) {
       bump(clubs, p.club && p.club.name);
       bump(nations, p.nation && p.nation.name);
       total++;
+      if (p._sig !== undefined && p._sig !== null) sigMap[String(p.eaId)] = p._sig;
     }
     rows.push(...batch);
     if (batch.length < 1000) break;
   }
   if (scanCache && typeof scanCache.write === 'function') scanCache.write(VER, rows);
+  // 顺手落签名表：本次扫描已把 _sig 投影出来，落盘给下一次 upload_db 做「写前比对」用。
+  // 全程没有多花一次云库读。
+  if (contentSig && typeof contentSig.saveSigMap === 'function') {
+    contentSig.saveSigMap(VER, sigMap);
+  }
   return { leagues, clubs, nations, total };
 }
 

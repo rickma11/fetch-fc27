@@ -24,6 +24,12 @@ const fs = require('fs');
 const path = require('path');
 const cloudbase = require('@cloudbase/node-sdk');
 const { resolve } = require('./tcb_env');
+// R29k-P1：写前内容签名。软加载——加载失败只影响「能不能跳过未变文档」，不该拖垮落库本身。
+// 签名表由 sync_i18n 顺手落盘（见 content_sig.js#saveSigMap），本脚本读上一份做比对。
+let contentSig = null;
+try { contentSig = require('./content_sig.js'); } catch (e) {
+  console.warn('[upload_db] 未能加载 content_sig.js（' + String((e && e.message) || e).slice(0, 80) + '）→ 退化为全量写');
+}
 
 // 凭证来源见 scripts/tcb_env.js（CI 走环境变量，本地可写 .env.local）
 const cred = resolve();
@@ -203,9 +209,36 @@ function bodyOf(doc) {
   return body;
 }
 
-async function upsertAll(name, docs, conc, label) {
+// 写前内容签名比对（R29k-P1，治周日全量重写）：
+//   sigMap 由 sync_i18n 那次全表扫描顺手投影出 `_sig` 后落盘（见 content_sig.js），
+//   **不额外花一次云库读**。内容是内容签名 ⇒ 跨天有效，所以本脚本读的是「上一次落库时」的表。
+//   · 签名一致 ⇒ 0 读 0 写，直接跳过
+//   · 不一致或缺失（首次上线建立基线）⇒ 写，并把新的 `_sig` 随文档一起落进云库
+// ⚠️ 不做「写失败就回退签名」：签名是随文档一起写的，写失败时旧 `_sig` 还在，
+//    下次会再写一次——安全方向退化，不会漏写。
+// ⚠️ details 集合不启用（它和 players 是 1:1，计费口径 1 读↔1 写，加了净收益为零，只会多一次扫描）。
+async function upsertAll(name, docs, conc, label, sigMap) {
   if (!docs.length) { console.log('  ' + label + ': 无变化，跳过'); return; }
-  await runConc(docs, conc, function (d) {
+  let pending = docs;
+  if (sigMap && typeof sigMap === 'object') {
+    const need = [];
+    let same = 0;
+    for (let i = 0; i < docs.length; i++) {
+      const d = docs[i];
+      const s = contentSig.sigOf(d);
+      const old = sigMap[String(d._id)];
+      if (old && old === s) { same++; continue; }
+      d._sig = s;                       // 随文档一起写，供下一次比对
+      need.push(d);
+    }
+    console.log(`  ${label}: 共 ${docs.length} 条，内容未变 ${same} 条 ⇒ 跳过；实际写 ${need.length} 条`);
+    pending = need;
+  }
+  if (!pending.length) {
+    console.log(`  ${label}: ${docs.length} 条内容全部未变 ⇒ 0 写入`);
+    return;
+  }
+  await runConc(pending, conc, function (d) {
     return db.collection(name).doc(String(d._id)).set(bodyOf(d));
   }, label);
 }
@@ -311,6 +344,13 @@ async function uploadEvolutions(ver, dir) {
   if (MODE === 'auto') MODE = fs.existsSync(incFile) ? 'incremental' : 'full';
   console.log(`落库模式: ${MODE} | 版本 FC${VER}${EVO_ONLY ? ' | 仅进化（--evolutions-only）' : ''}`);
 
+  // 上一次全表扫描顺手落的内容签名表（{_id: sig}）。拿不到 ⇒ null ⇒ 退化为全量写（安全方向）。
+  // 注意它天然带一天延迟：本步在 sync_i18n 之前跑，读的是「上一次落库时」的表。
+  // 内容签名跨天有效，所以延迟一天不影响正确性，只会让「当天刚改内容」的那几张卡多写一次。
+  const sigMap = (contentSig && typeof contentSig.loadSigMap === 'function')
+    ? contentSig.loadSigMap() : null;
+  if (sigMap) console.log(`[写前签名比对] 载入 ${Object.keys(sigMap).length} 条既有签名，未命中者正常写入`);
+
   if (EVO_ONLY) {
     console.log('--evolutions-only：跳过球员 / 详情 / facets，只写进化集合');
   } else if (MODE === 'incremental') {
@@ -325,7 +365,7 @@ async function uploadEvolutions(ver, dir) {
 
     console.log('== 增量写入', pCol, '==');
     await ensureCollection(pCol);
-    await upsertAll(pCol, players, UPSERT_CONC, 'players');
+    await upsertAll(pCol, players, UPSERT_CONC, 'players', sigMap);
 
     console.log('== 增量写入', dCol, '==');
     await ensureCollection(dCol);
@@ -370,7 +410,7 @@ async function uploadEvolutions(ver, dir) {
     } else {
       console.log('== 全量增量覆盖（不删除）', pCol, '==');
       await ensureCollection(pCol);
-      await upsertAll(pCol, pDocs, FULL_UPSERT_CONC, 'players');
+      await upsertAll(pCol, pDocs, FULL_UPSERT_CONC, 'players', sigMap);
 
       console.log('== 全量增量覆盖（不删除）', dCol, '==');
       await ensureCollection(dCol);

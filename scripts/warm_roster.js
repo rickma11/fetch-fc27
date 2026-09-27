@@ -146,6 +146,9 @@ function buildPacks(all, rarityImgs, ts) {
     const k = computeKeyAttrs(p);
     const out = Object.assign({}, p);
     delete out.attributes;
+    // R29k-P1：写前内容签名，扫描时顺带投影进来的。它只服务于「落库前比对」，
+    // 跟端上无关 —— 带进 roster payload 会让每片多出 ~800KB（40 hex × 19,860），必须摘掉。
+    delete out._sig;
     out.keyAttrs = k;
     if (out.rarity) {
       const rn = out.rarity.name;

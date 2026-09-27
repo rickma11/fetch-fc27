@@ -38,3 +38,5 @@ data/*
 #   体积 ≈19,860 条 × 469 B ≈ 8.9MB —— **必须忽略**，否则被 git 跟踪 ⇒ 仓库爆炸、每次 commit 都拖 9MB。
 #   它只是「同一次 CI job 内的中转产物」，删了不影响任何东西（消费方会自动退化成自己扫）。
 cloud-data/fc27/_scan_cache.json
+# R29k-P1：写前内容签名表（由 sync_i18n 顺手落盘，upload_db 读上一份做「内容未变就跳过」的比对）
+cloud-data/fc27/_sig_cache.json

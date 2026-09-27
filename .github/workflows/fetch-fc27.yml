@@ -161,6 +161,20 @@ jobs:
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/enrich_sbc_pools.js --ver 27
 
+      # ⚠️ R29k-P1：把「写前内容签名表」跨 run 保留，否则本机制等于不存在。
+      #    CI 每次都是全新 runner，落盘在 cloud-data/fc27/_sig_cache.json 的文件跑完即焚；
+      #    而 upload_db 必须在 sync_i18n **之前**跑（i18n 要拿「落库后」的云库做 diff，不能提前），
+      #    所以落库读到的必然是「上一次运行留下的」那份签名表 —— 只能靠 Actions Cache 跨 run 传。
+      #    内容签名跨天有效（内容不变 ⇒ 签名不变），延迟一天不影响正确性，只会让当天刚改的卡多写一次。
+      #    key 固定不带 run 号 ⇒ 每次都命中同一份；首次上线必然 miss ⇒ upload_db 全量写、顺带建立基线。
+      - name: Restore write-guard signature table
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        uses: actions/cache/restore@v4
+        with:
+          path: cloud-data/fc27/_sig_cache.json
+          key: fc27-content-sig-v1
+          fail-on-cache-miss: 'false'
+
       - name: Upload to CloudBase Database
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         env:
@@ -223,6 +237,15 @@ jobs:
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/sync_i18n.js --ver 27
+
+      # 扫描刚产出签名表，落进 Actions Cache 供**下一次** upload_db 用（restore/save 的 key 必须一致）。
+      # 放这里而不是用 cache 默认的 post 钩子：确保文件确实存在才存，避免把空文件固化成基线。
+      - name: Save write-guard signature table
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: cloud-data/fc27/_sig_cache.json
+          key: fc27-content-sig-v1
 
       # ⚠️ R29k（2026-09-27）：本步是三个脚本里**唯一扫全表**的（players_fc27 19,860 条 = 19,860 次数据库读，
       #    套餐「调用次数」里数据库读占 92%，是 04:00 尖峰的大头）。它顺手把并集投影落盘成
