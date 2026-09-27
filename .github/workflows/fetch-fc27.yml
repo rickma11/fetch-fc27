@@ -181,7 +181,14 @@ jobs:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
-          FC_MODE: ${{ steps.mode.outputs.db_mode }}
+          # ⚠️ R29k（2026-09-27 事故补）：这里**故意不传 steps.mode.outputs.db_mode**。
+          #   落库模式必须由「成型到底产出什么」决定，不能由「今天星期几」决定：
+          #   旧的 db_mode 在周日恒为 full，而 fetch_ci 在快照可用时 dump.mode=incremental ⇒
+          #   fetch_futgg 只写 incremental.json 不写 players.json/details.json ⇒ upload_db 的 full
+          #   分支会去读 git 里的旧成型文件（9-12 那版，恰好 10000 条）⇒ 全量写回陈旧数据。
+          #   auto 语义 = incremental.json 存在⇒incremental；不存在⇒full。真兜底（快照不可用、
+          #   成型真产出了 players.json）时自然走 full，两端永远对得上。
+          FC_MODE: auto
         run: node scripts/upload_db.js --ver 27
 
       # 收藏室代币兑换价（2026-09-21 补）：fut.gg 球员详情接口不含该数值，权威来源是

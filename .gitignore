@@ -12,6 +12,15 @@ _np_out/
 # 增量落库包（每次运行重新生成，仅供 upload_db.js 读取）
 cloud-data/fc*/incremental.json
 
+# ⚠️ 全量成型产物（2026-09-27 事故补）：fetch_futgg.js **只在 full 成型时**产出这两个文件，
+#   增量模式下根本不写（写的是 incremental.json）。但它们曾被 git 跟踪，git 里那版还停在
+#   9-12（当时列表抓取被 fut.gg max_result_window=10000 截断 ⇒ 恰好 10000 条）。
+#   2026-09-27 事故：新代码改走增量 ⇒ 成型文件无人产出 ⇒ upload_db 的 FC_MODE=full 读到了
+#   git 里的 9-12 旧文件，把 19,860 条 9-27 真值中的 1 万个 eaId 覆盖成 15 天前的旧数据。
+#   「仅 full 模式产出」的文件绝不能进 git，否则会复活成陈旧真源。
+cloud-data/fc*/players.json
+cloud-data/fc*/details.json
+
 # 旧版「小程序本地兜底」文件：现在是数据库架构，CI 不再生成（--no-local）
 data/*
 # 例外：译名对照表是 CI 的 sync_i18n.js 输入，必须入库（否则 CI 翻不出新译名）
