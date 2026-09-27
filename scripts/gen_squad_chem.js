@@ -34,6 +34,12 @@ process.chdir(path.resolve(__dirname));
 const { resolve } = require('./tcb_env');
 
 const VER = 27;
+// R29k：共享扫描缓存（sync_i18n.js 扫全表时落盘，本脚本与 warm_roster 用 --from-cache 读）。
+// require 失败不阻断 ⇒ 置 null，下面会退化成自己扫。
+let scanCache = null;
+try { scanCache = require('./scan_cache.js'); } catch (e) {
+  console.warn('[gen_squad_chem] 未能加载 scan_cache.js（' + String((e && e.message) || e).slice(0, 80) + '）→ 本步自己扫全表');
+}
 const COL = 'players_fc' + VER;
 const M_COL = 'meta_fc' + VER;
 const M_DOC = 'squad_chem';
@@ -67,37 +73,49 @@ const MIN_COUNT = 19000;   // 安全闸：疑似拉取不完整就拒绝写库�
   } catch (e) {
     console.log('rarity 化学兜底表：facets.json 不可用（' + String((e && e.message) || e).slice(0, 60) + '）→ 仅用 roster 球员级 chem');
   }
+  //
+  // ⚠️ R29k（2026-09-27）：与 warm_roster 同一套降量逻辑 —— 加了 `--from-cache` 且缓存命中 ⇒ 吃
+  //    sync_i18n 落盘的并集投影（**0 云库读**）；守卫不过（文件不在/过期/版本不符/条数 < 19000）
+  //    ⇒ 退化成下面这段自己扫，**行为与改之前完全一致**。
+  // ⚠️ 单行的归类逻辑：**全文件只此一份**，缓存分支与自扫分支共用（禁止内联第二份，见规则 52）。
+  //    早期版本两个分支各抄了一遍，改一头忘一头就会算出两套化学数。
+  function consumeRow(p) {
+    const id = Number(p && p.eaId) || 0;
+    if (!id) return;                           // 无主键的脏数据直接丢（不进表）
+    const c = (p.club && Number(p.club.eaId)) || 0;
+    const l = (p.league && Number(p.league.eaId)) || 0;
+    const nt = (p.nation && Number(p.nation.eaId)) || 0;
+    eaIds.push(id); club.push(c); league.push(l); nation.push(nt);
+    if (c) nClub++;
+    if (l) nLeague++;
+    if (nt) nNation++;
+    // 化学档案：球员级优先，缺则按 rarity.eaId 查兜底表
+    let prof = Array.isArray(p.chem) ? p.chem : null;
+    if (!prof) {
+      const rid = p.rarity && p.rarity.eaId;
+      if (rid != null && rarityChem[rid]) { prof = rarityChem[rid]; nChemFallback++; }
+    }
+    if (prof) {
+      let any = false;
+      const v = [];
+      for (let k = 0; k < 7; k++) { const x = Number(prof[k]) || 0; v.push(x); if (x) any = true; }
+      if (any) { chem[id] = v; nChem++; }
+    }
+  }
+
+  const hit = (scanCache && typeof scanCache.read === 'function') ? scanCache.read(VER) : null;
+  if (hit && hit.rows && hit.rows.length) {
+    scanCache.forEachRow(hit.rows, consumeRow);
+  } else {
   while (true) {
     const r = await db.collection(COL).field(proj).skip(skip).limit(100).get();
     const d = (r && r.data) || [];
     if (!d.length) break;
-    for (let i = 0; i < d.length; i++) {
-      const p = d[i];
-      const id = Number(p.eaId) || 0;
-      if (!id) continue;                       // 无主键的脏数据直接丢（不进表）
-      const c = (p.club && Number(p.club.eaId)) || 0;
-      const l = (p.league && Number(p.league.eaId)) || 0;
-      const nt = (p.nation && Number(p.nation.eaId)) || 0;
-      eaIds.push(id); club.push(c); league.push(l); nation.push(nt);
-      if (c) nClub++;
-      if (l) nLeague++;
-      if (nt) nNation++;
-      // 化学档案：球员级优先，缺则按 rarity.eaId 查兜底表
-      let prof = Array.isArray(p.chem) ? p.chem : null;
-      if (!prof) {
-        const rid = p.rarity && p.rarity.eaId;
-        if (rid != null && rarityChem[rid]) { prof = rarityChem[rid]; nChemFallback++; }
-      }
-      if (prof) {
-        let any = false;
-        const v = [];
-        for (let k = 0; k < 7; k++) { const x = Number(prof[k]) || 0; v.push(x); if (x) any = true; }
-        if (any) { chem[id] = v; nChem++; }
-      }
-    }
+    for (let i = 0; i < d.length; i++) consumeRow(d[i]);
     if (d.length < 100) break;
     skip += 100;
   }
+  }   // ← else（未命中缓存，自己扫）分支结束
   const count = eaIds.length;
   console.log('fetched', count, 'players in', ((Date.now() - t0) / 1000).toFixed(1) + 's');
   console.log('  有 club.eaId  :', nClub, '（无 = 无俱乐部；Icon/Hero 列表层不带 club ⇒ 恒 0）');

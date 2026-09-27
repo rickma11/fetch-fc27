@@ -32,3 +32,9 @@ data/*
 .gh_token
 .gh_token.txt
 *.gh_token
+
+# ⚠️ R29k 共享扫描缓存（2026-09-27）：sync_i18n 扫全表时落盘，warm_roster / gen_squad_chem
+#   用 --from-cache 读，把「三个脚本各扫一遍」变成「只扫一遍」（59,580 → 19,860 数据库读/天）。
+#   体积 ≈19,860 条 × 469 B ≈ 8.9MB —— **必须忽略**，否则被 git 跟踪 ⇒ 仓库爆炸、每次 commit 都拖 9MB。
+#   它只是「同一次 CI job 内的中转产物」，删了不影响任何东西（消费方会自动退化成自己扫）。
+cloud-data/fc27/_scan_cache.json

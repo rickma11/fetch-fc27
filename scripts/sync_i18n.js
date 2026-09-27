@@ -36,6 +36,12 @@ const https = require('https');
 
 const ROOT = path.resolve(__dirname, '..');
 const MINI = path.resolve(ROOT, '..', 'eafc-miniapp');   // 仅本地开发存在，用来提醒「快照过期」；CI 里没有
+// R29k：共享扫描缓存的中转层（本脚本负责 write，warm_roster / gen_squad_chem 负责 read）。
+// 放在这里而不是函数内 ⇒ 路径解析一次即可；require 失败不该拖垮对账，故用 try/catch 兜底置 null。
+let scanCache = null;
+try { scanCache = require('./scan_cache.js'); } catch (e) {
+  console.warn('[sync_i18n] 未能加载 scan_cache.js（' + String((e && e.message) || e).slice(0, 80) + '）→ 本步不写共享缓存，消费方各自扫');
+}
 const BUNDLE_FILE = path.join(ROOT, 'data', 'i18n-bundle.json');
 const SUPP_FILE = path.join(ROOT, 'data', 'i18n-names.json');
 
@@ -158,22 +164,55 @@ async function collectFromCloud() {
   return { db: app.database(), cloudbase: cloudbase, cred: cred };
 }
 
+// ⚠️ R29k（2026-09-27）：本函数是三个 CI 脚本里**唯一扫全表**的一步，
+//    扫完顺手把结果落盘成共享缓存，warm_roster / gen_squad_chem 用 `--from-cache` 读取，
+//    于是「三个脚本各扫一遍」变成「只扫一遍」——数据库读从 19,860×3 降到 19,860（省 67%）。
+//    ⚠️ 投影必须是三个消费方的**并集**：本脚本只吃 club/league/nation.name，
+//       但 warm_roster 还要 attributes / rarity / holographic* / *_name，
+//       gen_squad_chem 还要 chem 与 club/league/nation.**eaId**；只扫自己的字段会让消费方拿到空数据。
+//    ⚠️ 缓存写入失败**绝不阻断**本脚本主流程（写缓存失败只告警，消费方会各自退化为自己扫）。
 async function scan(db) {
   const leagues = {}, clubs = {}, nations = {};
   let total = 0;
+  const rows = [];
   for (let skip = 0; ; skip += 1000) {
     const r = await db.collection('players_fc' + VER)
-      .field({ 'club.name': true, 'league.name': true, 'nation.name': true })
+      .field({
+        // ===== 并集投影：warm_roster ∪ gen_squad_chem ∪ 本脚本自身 =====
+        // 少任何一个，对应的消费方读缓存就会拿到残缺数据（warm_roster 会直接写出不完整的 roster）。
+        // ① warm_roster 那份（本脚本只吃 club/league/nation.name，其余全是喂它的）
+        eaId: true, commonName: true, overall: true, position: true, imagePath: true,
+        facePace: true, faceShooting: true, facePassing: true, faceDribbling: true,
+        faceDefending: true, facePhysicality: true,
+        height: true, createdAt: true, accelerateType: true,
+        foot: true, skillMoves: true, weakFoot: true, dateOfBirth: true,
+        playstyles: true, playstylesPlus: true,
+        alternativePositionIds: true,
+        cardSource: true,
+        rolesPlus: true, rolesPlusPlus: true,
+        seasonPassLevel: true, seasonPassTier: true,
+        gender: true, bodytypeCode: true,
+        sbcPoints: true, sbcCost: true, tokenStoreCost: true,
+        holographicType: true, holoVariantEaId: true, holoCardImagePath: true,
+        attributes: true,
+        'rarity.imagePath': true, 'rarity.name': true, 'rarity.rarityGroupName': true,
+        'club.name': true, 'league.name': true, 'nation.name': true,
+        // ② gen_squad_chem 额外要的子字段 eaId（①里只有 *_name）
+        'club.eaId': true, 'league.eaId': true, 'nation.eaId': true, 'rarity.eaId': true,
+        chem: true
+      })
       .skip(skip).limit(1000).get();
-    const rows = r.data || [];
-    for (const p of rows) {
+    const batch = r.data || [];
+    for (const p of batch) {
       bump(leagues, p.league && p.league.name);
       bump(clubs, p.club && p.club.name);
       bump(nations, p.nation && p.nation.name);
       total++;
     }
-    if (rows.length < 1000) break;
+    rows.push(...batch);
+    if (batch.length < 1000) break;
   }
+  if (scanCache && typeof scanCache.write === 'function') scanCache.write(VER, rows);
   return { leagues, clubs, nations, total };
 }
 

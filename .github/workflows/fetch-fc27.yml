@@ -224,6 +224,13 @@ jobs:
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/sync_i18n.js --ver 27
 
+      # ⚠️ R29k（2026-09-27）：本步是三个脚本里**唯一扫全表**的（players_fc27 19,860 条 = 19,860 次数据库读，
+      #    套餐「调用次数」里数据库读占 92%，是 04:00 尖峰的大头）。它顺手把并集投影落盘成
+      #    cloud-data/fc27/_scan_cache.json（~8.9MB，已进 .gitignore），下面两步用 `--from-cache` 读，
+      #    于是「三个脚本各扫一遍」变成「只扫一遍」⇒ 数据库读 59,580 → 19,860（省 67%）。
+      #    缓存不在/过期/版本不符/条数 <19000 ⇒ 两个消费方各自退化为自己扫，**行为与改之前完全一致**。
+      #    顺序约束：本步**必须**排在 Warm up roster / Gen squad chem **之前**（同一次 job 内传中转文件）。
+
       # roster 预热（2026-09-19 补）：get_players 云函数对 >1000 条拒绝现场生成（3s 超时保护），
       # meta_fc27/roster 一旦缺失，小程序 preloadRoster 永远拿 code=1 → 本地无 roster 缓存，
       # 列表页「数据更新于」与本地快速筛选全部失效。本步骤在每日落库后重建 roster payload
@@ -236,7 +243,8 @@ jobs:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
-        run: node scripts/warm_roster.js
+        # --from-cache：吃上一步 sync_i18n 落盘的扫描缓存（0 云库读）；守卫不过自动自己扫
+        run: node scripts/warm_roster.js --from-cache
 
       # 阵型战术「化学数据链」（2026-09-21 补）：把 players_fc{ver} 的 club/league/nation **eaId**
       # 抽成一个列式小文件（~300KB）传云存储 squad/chem_v1_{ver}.json + 写 meta_fc{ver}/squad_chem，
@@ -251,7 +259,8 @@ jobs:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
-        run: node scripts/gen_squad_chem.js
+        # --from-cache：与 warm_roster 同一份缓存（0 云库读）；守卫不过自动自己扫
+        run: node scripts/gen_squad_chem.js --from-cache
 
       # 图片上传放在落库之后：图片失败不该拖累每天的数据同步。
       # 允许失败（continue-on-error）——脚本会把「已成功」的部分写进 images.json，

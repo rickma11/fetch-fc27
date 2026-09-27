@@ -10,6 +10,12 @@ const { resolve } = require('./tcb_env');
 const ziplite = require('./ziplite');   // 极简 zip 写入器（roster 压缩分片上传用，见第 3 步）
 
 const VER = 27;
+// R29k：共享扫描缓存（由 sync_i18n.js 在扫全表时 write，本脚本与 gen_squad_chem 用 --from-cache 读）。
+// require 失败不能直接拖垮预热 ⇒ 置 null，下面会退化成自己扫。
+let scanCache = null;
+try { scanCache = require('./scan_cache.js'); } catch (e) {
+  console.warn('[warm_roster] 未能加载 scan_cache.js（' + String((e && e.message) || e).slice(0, 80) + '）→ 本步自己扫全表');
+}
 // 与 get_players/index.js 保持一致（v16：全息卡 pristine 变体三字段 + roster 压缩分片传输）
 const ROSTER_SCHEMA_VERSION = 16;
 const COL = 'players_fc' + VER;
@@ -108,18 +114,30 @@ function buildPacks(all, rarityImgs, ts) {
     'rarity.name': true, 'rarity.rarityGroupName': true,
     'club.name': true, 'league.name': true, 'nation.name': true
   };
-  let all = [];
-  let skip = 0;
+  //
+  // ⚠️ R29k（2026-09-27）：本段原来是「每次都把 players_fc27 全表扫一遍」（19,860 条 = 19,860 次数据库读）。
+  //    CI 一天里 warm_roster / gen_squad_chem / sync_i18n 各扫一遍 = 59,580 读，占了 04:00 尖峰的大头。
+  //    改为：加了 `--from-cache` 且缓存命中 ⇒ 直接吃 sync_i18n 顺手落盘的并集投影（**0 云库读**）；
+  //        缓存不在 / 过期 / 版本不符 / 条数不足（scan_cache.js 的三重守卫）⇒ **退化成自己扫**，
+  //        行为与改之前完全一致 —— 这是本改动的安全底线。
   const t0 = Date.now();
-  while (true) {
-    const r = await db.collection(COL).field(proj).skip(skip).limit(100).get();
-    const d = r.data || [];
-    if (!d.length) break;
-    all = all.concat(d);
-    if (d.length < 100) break;
-    skip += 100;
+  let all = [];
+  const hit = (scanCache && typeof scanCache.read === 'function') ? scanCache.read(VER) : null;
+  if (hit && hit.rows && hit.rows.length) {
+    all = hit.rows;
+    console.log('fetched', all.length, 'players from scan cache in', ((Date.now() - t0) / 1000).toFixed(1) + 's（0 云库读）');
+  } else {
+    let skip = 0;
+    while (true) {
+      const r = await db.collection(COL).field(proj).skip(skip).limit(100).get();
+      const d = r.data || [];
+      if (!d.length) break;
+      all = all.concat(d);
+      if (d.length < 100) break;
+      skip += 100;
+    }
+    console.log('fetched', all.length, 'players in', ((Date.now() - t0) / 1000).toFixed(1) + 's（未命中缓存 ⇒ 自己扫）');
   }
-  console.log('fetched', all.length, 'players in', ((Date.now() - t0) / 1000).toFixed(1) + 's');
   if (all.length < 19000) { console.error('安全闸：球员数 <19000，疑似拉取不完整，拒绝写库'); process.exit(1); }
 
   // 2) 预计算 keyAttrs + rarityImgs（与云函数同逻辑）
