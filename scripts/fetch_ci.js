@@ -348,31 +348,6 @@ function readResolved() {
   // R29k：full 也不再全抓 —— 未变的卡直接跳过详情（原先周日 19,860 条全抓 ≈42min）
   const targets = newIds.concat(changedIds);
 
-  // ---------- 一次性回补钩子：FC_FORCE_DET_IDS ----------
-  // 指向一个 eaId 名单文件（JSON 数组 或 { ids: [...] }）。命中的 id 无条件进入
-  // 「抓详情」(targets) 与「成型/落库」(newIds —— fetch_futgg 的 needSet 读的就是它)
-  // 两套集合，即按当前最新数据把这些卡整体重跑一遍。
-  // 用途：误用旧数据覆盖云库后的定点修复。生产管线不设该变量 ⇒ 行为完全不变。
-  if (process.env.FC_FORCE_DET_IDS) {
-    // 一次性回补只关心数据：图片阶段整段跳过（省时间；图片增量另有签名机制管，不受影响）。
-    // yml 侧刻意不写这个开关 —— 免得为了一个一次性用途把 workflow 的 env 表达式堆成嵌套三元。
-    if (!process.env.FC_IMG_FORCE) process.env.FC_IMG = '0';
-    const fp = path.resolve(__dirname, '..', process.env.FC_FORCE_DET_IDS);
-    const j = JSON.parse(fs.readFileSync(fp, 'utf8'));
-    const ids = (Array.isArray(j) ? j : (j.ids || [])).map(String);
-    const has = new Set(targets.map(String));
-    let add = 0;
-    for (const id of ids) {
-      if (has.has(id)) continue;
-      const n = Number(id);
-      targets.push(n);
-      newIds.push(n);
-      has.add(id);
-      add++;
-    }
-    console.log(`[强制详情名单] ${fp} | 名单 ${ids.length} 条，追加 ${add} 条进 targets+newIds`);
-  }
-
   console.log('--- 差异统计 ---');
   console.log('列表总数:', curIds.length);
   if (fullFallback) console.log('全量模式(快照不可用兜底): 需抓详情', targets.length, '条');

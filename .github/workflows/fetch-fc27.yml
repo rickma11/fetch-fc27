@@ -14,14 +14,6 @@ on:
         description: '本次最多下载多少张图片，0=不限（默认不限，日常增量全量背图）'
         type: string
         default: '0'
-      # R29k-一次性回补：仓库内相对路径，指向一个 eaId 名单文件。命中的卡按当前最新数据
-      # 重抓详情并重跑成型/落库（见 scripts/fetch_ci.js 的 FC_FORCE_DET_IDS 钩子）。
-      # 用例：误用旧数据覆盖云库后的定点修复。定时触发时该 input 为空 ⇒ env 不设 ⇒ 行为完全不变。
-      force_det_ids:
-        description: '一次性回补：eaId 名单文件路径（仓库相对路径），留空=不启用'
-        type: string
-        default: ''
-
 permissions:
   contents: write
 
@@ -133,12 +125,8 @@ jobs:
         if: ${{ steps.mode.outputs.skip_fetch != 'true' }}
         env:
           FC_MODE: ${{ steps.mode.outputs.db_mode }}
-          # R29k 一次性回补：名单文件里这批卡无条件重抓详情。定时触发时为空 ⇒ 不设该变量。
-          FC_FORCE_DET_IDS: ${{ github.event.inputs.force_det_ids }}
           # data-only 时 FC_IMG=0：fetch_ci.js 跳过阶段 4 图片下载（数据 dump 不受影响）
           # images-only 时 FC_IMG_ONLY=1：fetch_ci.js 抓列表后只下图片并退出，不抓详情/不落库
-          # ⚠️ 带回补名单（force_det_ids）时同样只回补数据，不重跑图片阶段 —— 但这一层不在这里写，
-          #    改由 fetch_ci.js 内部兜（见 FC_FORCE_DET_IDS 钩子），免得 yml 里堆嵌套三元表达式。
           FC_IMG: ${{ steps.mode.outputs.skip_images == 'true' && '0' || '1' }}
           FC_IMG_ONLY: ${{ steps.mode.outputs.fc_img_only }}
           # 只下载/上传两种图：portrait(半身像) + card(FUT 卡面)。
