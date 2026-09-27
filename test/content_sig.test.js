@@ -98,6 +98,40 @@ section('⑥ 签名表落盘 / 读取往返');
   cs.saveSigMap('27', map);
 }
 
+// ---------------------------------------------------------------- ⑦ 首建基线（2026-09-27 命坑回归）
+// 背景：签名表缺失 ⇒ upload_db 走全量写分支。若这条路径不把 `_sig` 种进文档，
+//       云库永远不会有 `_sig` ⇒ sync_i18n 投影恒空 ⇒ 下次落库读到的还是空表 ⇒ 机制**永久失效**。
+section('⑦ 首建基线：stampSigs 把签名种进文档');
+{
+  const docs = [
+    { _id: '1', eaId: 1, name: 'A', nested: { b: 2, a: [3, 4] } },
+    { _id: '2', eaId: 2, name: 'B' }
+  ];
+  const before = docs.map(function (d) { return Object.assign({}, d); });
+
+  cs.stampSigs(docs);
+  ok(docs[0]._sig && docs[1]._sig, '两条都补上了 _sig');
+  ok(docs[0]._sig === cs.sigOf(before[0]), '补上的 _sig 等于「原文」的签名');
+  ok(docs[0]._id === '1' && docs[0].eaId === 1 && docs[0].name === 'A', '就地补签不破坏原有字段');
+
+  // 幂等：再种一次不能改变已有签名，否则「内容没变」也会被判成变过 ⇒ 每次都重写
+  const first = docs[0]._sig;
+  cs.stampSigs(docs);
+  ok(docs[0]._sig === first, '二次 stamp 不改变已有签名（sigOf 排除 _sig 自身）');
+
+  // 反例自检：内容变了必须换签名（否则基线一但错，写库会永久漏更）
+  const mutated = Object.assign({}, docs[0]);
+  delete mutated._sig;
+  mutated.name = 'A2';
+  ok(cs.sigOf(mutated) !== first, '内容变了 ⇒ 签名必须不同');
+
+  // 反例自检：脏输入不能把落库拖挂
+  let threw = false;
+  try { cs.stampSigs([]); cs.stampSigs(null); cs.stampSigs([null, undefined, 'x']); }
+  catch (e) { threw = true; }
+  ok(!threw, '空/脏输入不抛异常');
+}
+
 // ---------------------------------------------------------------- 清理
 try {
   if (fs.existsSync(cs.CACHE_FILE)) fs.unlinkSync(cs.CACHE_FILE);

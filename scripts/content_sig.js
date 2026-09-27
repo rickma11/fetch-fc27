@@ -72,6 +72,23 @@ function withSig(doc) {
   return doc;
 }
 
+/**
+ * 给整批待写文档**就地**补上内容签名（供后续随文档一起写入云库）。
+ *
+ * ⚠️ 只应该在「首建基线」时调用，也就是**签名表缺失、本次必然全量写**的那条路径。
+ *    它是整套机制的种子：文档一旦有了 `_sig`，下次全表扫描投影才能投影出内容，
+ *    落进签名表给下一次落库比对。少了这一步 ⇒ 云库永远不会有 `_sig` ⇒ 签名表恒空 ⇒ 机制永久失效
+ *    （2026-09-27 实测推演出的致命坑，已加 `test/content_sig.test.js` 回归）。
+ */
+function stampSigs(docs) {
+  for (let i = 0; i < (docs || []).length; i++) {
+    const d = docs[i];
+    if (!d || typeof d !== 'object') continue;
+    d._sig = sigOf(d);
+  }
+  return docs;
+}
+
 /** 读签名表 { "eaId": "sig..." }；文件不在/损坏 ⇒ 返回 null（调用方退化成全量写）。 */
 function loadSigMap() {
   try {
@@ -108,5 +125,6 @@ module.exports = {
   stable: stable,
   loadSigMap: loadSigMap,
   saveSigMap: saveSigMap,
+  stampSigs: stampSigs,
   CACHE_FILE: CACHE_FILE
 };

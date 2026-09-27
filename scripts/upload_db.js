@@ -233,6 +233,13 @@ async function upsertAll(name, docs, conc, label, sigMap) {
     }
     console.log(`  ${label}: 共 ${docs.length} 条，内容未变 ${same} 条 ⇒ 跳过；实际写 ${need.length} 条`);
     pending = need;
+  } else if (sigMap === null) {
+    // ⚠️ 首次上线建基线（2026-09-27 实测推演出的致命坑）：
+    //    签名表缺失 ⇒ 走全量写 ⇒ **必须在这里把 `_sig` 写进文档**。
+    //    少了这几行，云库文档永远不会有 `_sig` ⇒ sync_i18n 投影出的签名表恒为空
+    //    ⇒ 下次落库读到的仍是空表 ⇒ 本机制**永久失效**（不是慢，是从来没生效过）。
+    //    顺序上落库在扫描之前，所以第一份 `_sig` 只能由这一分支种进云库。
+    contentSig.stampSigs(docs);
   }
   if (!pending.length) {
     console.log(`  ${label}: ${docs.length} 条内容全部未变 ⇒ 0 写入`);
