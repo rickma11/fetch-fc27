@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-09-28T14:22:11.101Z",
+  "lh_baseline": {
+    "url": "https://www.fut.gg/api/fut/live-hub/27/",
+    "status": "200",
+    "info": {
+      "kind": "array",
+      "count": 6,
+      "sampleEaIds": [
+        50590935,
+        50593503,
+        50611252,
+        50596673,
+        50596595
+      ]
+    },
+    "first300": "{\"data\":{\"game\":\"27\",\"upcomingFixtures\":[{\"game\":\"27\",\"id\":8215,\"competitionId\":35,\"competitionName\":\"LaLiga\",\"competitionSlug\":\"laliga\",\"competitionImageUrl\":\"https://game-assets.fut.gg/live-hub-competition/laliga.9eec4cacb8a3a6fe36e76c2c0606a3ca2bacc7e2d350b51360a7c0c1fb452ef8.png\",\"date\":\"2026-09"
+  },
+  "lh_all": {
+    "url": "https://www.fut.gg/api/fut/live-hub/27/?all=1",
+    "status": "200",
+    "info": {
+      "kind": "array",
+      "count": 6,
+      "sampleEaIds": [
+        50590935,
+        50593503,
+        50611252,
+        50596673,
+        50596595
+      ]
+    },
+    "first300": "{\"data\":{\"game\":\"27\",\"upcomingFixtures\":[{\"game\":\"27\",\"id\":8215,\"competitionId\":35,\"competitionName\":\"LaLiga\",\"competitionSlug\":\"laliga\",\"competitionImageUrl\":\"https://game-assets.fut.gg/live-hub-competition/laliga.9eec4cacb8a3a6fe36e76c2c0606a3ca2bacc7e2d350b51360a7c0c1fb452ef8.png\",\"date\":\"2026-09"
+  },
+  "lh_limit": {
+    "url": "https://www.fut.gg/api/fut/live-hub/27/?limit=9999",
+    "status": "200",
+    "info": {
+      "kind": "array",
+      "count": 6,
+      "sampleEaIds": [
+        50590935,
+        50593503,
+        50611252,
+        50596673,
+        50596595
+      ]
+    },
+    "first300": "{\"data\":{\"game\":\"27\",\"upcomingFixtures\":[{\"game\":\"27\",\"id\":8215,\"competitionId\":35,\"competitionName\":\"LaLiga\",\"competitionSlug\":\"laliga\",\"competitionImageUrl\":\"https://game-assets.fut.gg/live-hub-competition/laliga.9eec4cacb8a3a6fe36e76c2c0606a3ca2bacc7e2d350b51360a7c0c1fb452ef8.png\",\"date\":\"2026-09"
+  },
+  "lh_detailed": {
+    "url": "https://www.fut.gg/api/fut/live-hub/27/?detailed=1",
+    "status": "200",
+    "info": {
+      "kind": "array",
+      "count": 6,
+      "sampleEaIds": [
+        50590935,
+        50593503,
+        50611252,
+        50596673,
+        50596595
+      ]
+    },
+    "first300": "{\"data\":{\"game\":\"27\",\"upcomingFixtures\":[{\"game\":\"27\",\"id\":8215,\"competitionId\":35,\"competitionName\":\"LaLiga\",\"competitionSlug\":\"laliga\",\"competitionImageUrl\":\"https://game-assets.fut.gg/live-hub-competition/laliga.9eec4cacb8a3a6fe36e76c2c0606a3ca2bacc7e2d350b51360a7c0c1fb452ef8.png\",\"date\":\"2026-09"
+  },
+  "lh_player": {
+    "url": "https://www.fut.gg/api/fut/live-hub/27/?player_ea_id=50583500",
+    "status": "200",
+    "info": {
+      "kind": "array",
+      "count": 6,
+      "sampleEaIds": [
+        50590935,
+        50593503,
+        50611252,
+        50596673,
+        50596595
+      ]
+    },
+    "first300": "{\"data\":{\"game\":\"27\",\"upcomingFixtures\":[{\"game\":\"27\",\"id\":8215,\"competitionId\":35,\"competitionName\":\"LaLiga\",\"competitionSlug\":\"laliga\",\"competitionImageUrl\":\"https://game-assets.fut.gg/live-hub-competition/laliga.9eec4cacb8a3a6fe36e76c2c0606a3ca2bacc7e2d350b51360a7c0c1fb452ef8.png\",\"date\":\"2026-09"
+  },
+  "lh_path": {
+    "url": "https://www.fut.gg/api/fut/live-hub/27/50583500",
+    "status": "fail",
+    "info": {
+      "null": true
+    },
+    "first300": null
+  },
+  "obj_campaign": {
+    "url": "https://www.fut.gg/api/fut/objective-campaign-levels/2249",
+    "status": "fail",
+    "info": {
+      "null": true
+    },
+    "first300": null
+  },
+  "obj_campaign2": {
+    "url": "https://www.fut.gg/api/fut/objective-campaigns/2249",
+    "status": "fail",
+    "info": {
+      "null": true
+    },
+    "first300": null
+  }
+}
