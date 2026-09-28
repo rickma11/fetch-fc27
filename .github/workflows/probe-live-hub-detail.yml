@@ -1,0 +1,51 @@
+name: Probe fut.gg player detail #tracker
+
+# 只读诊断：验证能否用 CI 真实浏览器（过 CF 后 page.request.get）抓取「被追踪球员详情页」的
+# #tracker 区块，拿到**逐球员真实升级规则 + 真实进度**（绿条段数）。
+# 待验证：① 详情页 URL 格式（/player/<slug>/ 还是 /players/<slug>/）
+#        ② 原始 HTML 是否服务端直出 id="tracker"
+#        ③ 同活动不同球员绿条段数是否不同（确认是逐球员进度而非共享指示）
+#        ④ tid34（Veiga 等）详情页是否也有 #tracker（能否复活此前跳过的 6 张卡）
+# 结果提交回 main（probe/live_hub/detail_probe.json）供本地读回。不碰 fetch-fc27 管线。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-live-hub-detail
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Probe player detail #tracker
+        env:
+          FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
+          PROBE_TIMEOUT_MS: '720000'
+        run: node scripts/probe_live_hub_detail.js ${{ github.event.inputs.fc_ver || '27' }}
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add probe/live_hub/detail_probe.json || true
+          git commit -m "probe player detail #tracker: $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
+          git push || echo "push failed"
