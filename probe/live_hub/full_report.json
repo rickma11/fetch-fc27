@@ -1,0 +1,75 @@
+{
+  "liveHubCount": 6,
+  "liveHubBaseEaIds": [
+    "50590935",
+    "50593503",
+    "50596595",
+    "50596673",
+    "50596683",
+    "50611252"
+  ],
+  "dynamicCount": 0,
+  "trackedCount": 0,
+  "trackerDist": {},
+  "missingFromLiveHub": [],
+  "perPlayer": {
+    "50583500": {
+      "def": {
+        "liveHubTrackerId": 32,
+        "trackerKeys": [
+          "objectiveGroupEaId",
+          "objectiveGroupObjectiveEaId",
+          "objectiveCampaignLevelId",
+          "upgrades",
+          "trackerId",
+          "liveHubTrackerId",
+          "isObjectiveItem"
+        ]
+      },
+      "liveHubQuery": {
+        "count": 6,
+        "sample": [
+          {
+            "ea": 50590935,
+            "tid": 33,
+            "objs": 4
+          },
+          {
+            "ea": 50593503,
+            "tid": 33,
+            "objs": 4
+          }
+        ]
+      }
+    },
+    "50605554": {
+      "def": {
+        "liveHubTrackerId": 34,
+        "trackerKeys": [
+          "objectiveGroupEaId",
+          "objectiveGroupObjectiveEaId",
+          "objectiveCampaignLevelId",
+          "upgrades",
+          "trackerId",
+          "liveHubTrackerId",
+          "isObjectiveItem"
+        ]
+      },
+      "liveHubQuery": {
+        "count": 6,
+        "sample": [
+          {
+            "ea": 50590935,
+            "tid": 33,
+            "objs": 4
+          },
+          {
+            "ea": 50593503,
+            "tid": 33,
+            "objs": 4
+          }
+        ]
+      }
+    }
+  }
+}
