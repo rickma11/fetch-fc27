@@ -1,0 +1,49 @@
+name: Probe fut.gg live-hub campaign pages
+
+# 只读诊断：验证 fut.gg Live Hub **活动内页** /live-hub/campaigns/<slug>/players/
+# 能否拿到「该活动全量被追踪球员 + 真实升级进度」，并探同路径 JSON API 变体。
+# 背景：球员详情页 /players/<slug>/ 渲染后无 #tracker（R3/R4 实锤），详情页路线已证伪；
+#       /api/fut/live-hub/{ver}/ 只返精选 6 人（子集）。活动内页是用户提供的线索。
+# 结果提交回 main（probe/live_hub/campaign_probe.json）供本地读回。不碰 fetch-fc27 管线。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-live-hub-campaign
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Probe live-hub campaign pages
+        env:
+          FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
+          PROBE_TIMEOUT_MS: '720000'
+        run: node scripts/probe_live_hub_campaign.js ${{ github.event.inputs.fc_ver || '27' }}
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add probe/live_hub/campaign_probe.json || true
+          git commit -m "probe live-hub campaign pages: $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
+          git push || echo "push failed"
