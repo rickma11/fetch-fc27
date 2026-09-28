@@ -1,0 +1,75 @@
+name: Probe fut.gg Live Hub (upgrade progress)
+
+# 只读探查：用真实 Chromium 过 Cloudflare，抓 live-hub 全量 JSON 并提取「被追踪球员的升级进度」。
+# ⚠️ 与 fetch-fc27.yml 完全隔离：独立 concurrency 组（probe-live-hub）、输出只落 probe/live_hub/，
+#    不碰 cloud-data/fc27、不落库、不改每日同步管线。
+# 机制同 probe-futgg.yml / fetch-fc27.yml：headless Chromium 过 CF → 浏览器内 fetch + 提炼。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27；脚本会额外抓 26）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-live-hub
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 浏览器内核交给下一步单独装
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Probe Live Hub (real browser bypass Cloudflare)
+        env:
+          FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
+        run: node scripts/probe_live_hub.js ${{ github.event.inputs.fc_ver || '27' }}
+
+      - name: Upload probe result (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-hub-progress
+          path: probe/live_hub/
+          if-no-files-found: warn
+
+      - name: Commit probe result
+        if: always()
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 只提交本探针的产物（精简进度 + 汇总），不碰 cloud-data / 每日同步文件
+          git add probe/live_hub/ || true
+          git commit -m "probe live-hub: fut.gg FC${{ github.event.inputs.fc_ver || '27' }} 升级进度 $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
+          # 远端可能被 fetch-fc27 daily 的版本快照提交推进过（并发组不同），先变基再推
+          for i in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main; then
+              if git push; then exit 0; fi
+            else
+              git rebase --abort
+            fi
+            sleep 5
+          done
+          echo "::warning::push 重试 3 次后仍失败（结果仍在 artifact 里，不影响探查结论）"
