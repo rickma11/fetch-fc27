@@ -1,0 +1,158 @@
+{
+  "generatedAt": "2026-09-28T15:56:44.100Z",
+  "VER": 27,
+  "note": "",
+  "urlPattern": "https://www.fut.gg/players/<slug>/",
+  "samples": [
+    {
+      "eaId": 50404645,
+      "tid": 32,
+      "slug": "27-50404645",
+      "url": "https://www.fut.gg/players/27-50404645/",
+      "rawStatus": 200,
+      "rawHasTracker": false,
+      "renderedHasTracker": false,
+      "hasLiveHubLink": true,
+      "err": "wait #tracker: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('#tracker') to be visible\n",
+      "renderedBytes": 512624,
+      "campaign": "",
+      "club": "",
+      "objectives": []
+    },
+    {
+      "eaId": 50409660,
+      "tid": 32,
+      "slug": "27-50409660",
+      "url": "https://www.fut.gg/players/27-50409660/",
+      "rawStatus": 200,
+      "rawHasTracker": false,
+      "renderedHasTracker": false,
+      "hasLiveHubLink": true,
+      "err": "wait #tracker: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('#tracker') to be visible\n",
+      "renderedBytes": 510064,
+      "campaign": "",
+      "club": "",
+      "objectives": []
+    },
+    {
+      "eaId": 50520215,
+      "tid": 33,
+      "slug": "27-50520215",
+      "url": "https://www.fut.gg/players/27-50520215/",
+      "rawStatus": 200,
+      "rawHasTracker": false,
+      "renderedHasTracker": false,
+      "hasLiveHubLink": true,
+      "err": "wait #tracker: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('#tracker') to be visible\n",
+      "renderedBytes": 510064,
+      "campaign": "",
+      "club": "",
+      "objectives": []
+    },
+    {
+      "eaId": 50563395,
+      "tid": 33,
+      "slug": "27-50563395",
+      "url": "https://www.fut.gg/players/27-50563395/",
+      "rawStatus": 200,
+      "rawHasTracker": false,
+      "renderedHasTracker": false,
+      "hasLiveHubLink": true,
+      "err": "wait #tracker: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('#tracker') to be visible\n",
+      "renderedBytes": 510064,
+      "campaign": "",
+      "club": "",
+      "objectives": []
+    },
+    {
+      "eaId": 50559326,
+      "tid": 34,
+      "slug": "27-50559326",
+      "url": "https://www.fut.gg/players/27-50559326/",
+      "rawStatus": 200,
+      "rawHasTracker": false,
+      "renderedHasTracker": false,
+      "hasLiveHubLink": true,
+      "err": "wait #tracker: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('#tracker') to be visible\n",
+      "renderedBytes": 510063,
+      "campaign": "",
+      "club": "",
+      "objectives": []
+    },
+    {
+      "eaId": 50573384,
+      "tid": 34,
+      "slug": "27-50573384",
+      "url": "https://www.fut.gg/players/27-50573384/",
+      "rawStatus": 200,
+      "rawHasTracker": false,
+      "renderedHasTracker": false,
+      "hasLiveHubLink": true,
+      "err": "wait #tracker: page.waitForSelector: Timeout 15000ms exceeded.\nCall log:\n  - waiting for locator('#tracker') to be visible\n",
+      "renderedBytes": 510063,
+      "campaign": "",
+      "club": "",
+      "objectives": []
+    }
+  ],
+  "dynCount": 122,
+  "sampleSlugs": [
+    {
+      "eaId": "50402374",
+      "slug": "27-50402374"
+    },
+    {
+      "eaId": "50404645",
+      "slug": "27-50404645"
+    },
+    {
+      "eaId": "50405533",
+      "slug": "27-50405533"
+    },
+    {
+      "eaId": "50406968",
+      "slug": "27-50406968"
+    },
+    {
+      "eaId": "50408064",
+      "slug": "27-50408064"
+    }
+  ],
+  "trackerIdDist": {
+    "32": 21,
+    "33": 11,
+    "34": 6
+  },
+  "picks": [
+    {
+      "eaId": 50404645,
+      "tid": 32,
+      "slug": "27-50404645"
+    },
+    {
+      "eaId": 50409660,
+      "tid": 32,
+      "slug": "27-50409660"
+    },
+    {
+      "eaId": 50520215,
+      "tid": 33,
+      "slug": "27-50520215"
+    },
+    {
+      "eaId": 50563395,
+      "tid": 33,
+      "slug": "27-50563395"
+    },
+    {
+      "eaId": 50559326,
+      "tid": 34,
+      "slug": "27-50559326"
+    },
+    {
+      "eaId": 50573384,
+      "tid": 34,
+      "slug": "27-50573384"
+    }
+  ]
+}
