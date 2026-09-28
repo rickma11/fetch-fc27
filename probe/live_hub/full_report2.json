@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-09-28T14:18:12.437Z",
+  "has_dynamic": {
+    "rawLen": 282840,
+    "first800": "{\"data\":[{\"upgrade\":null,\"chemistry\":0,\"metarank\":null,\"ggRatingRoles\":null,\"momentumPercentage\":null,\"currentDbPrice\":null,\"showIgsBlob\":false,\"id\":170878,\"eaId\":50563395,\"overall\":91,\"commonName\":\"Kylian Mbapp\\u00e9\",\"cardName\":\"Mbapp\\u00e9\",\"rarityName\":\"Destined for Glory\",\"textColor\":\"fff3cf\",\"overallColor\":\"fff3cf\",\"lineColor\":\"005256\",\"url\":\"/players/231747-kylian-mbappe/27-50563395/\",\"cardImageUrl\":\"https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50563395.a77bd964e31244641e0d0d3bcde2baaa354f147784cb62f1e4ac1099cdfb0ced.webp\",\"isEvolutionPlayerItem\":false,\"isProvisional\":false,\"holographicType\":null,\"standardItemEaId\":null,\"gradingScore\":23750,\"hasCompleteFaceStats\":true,\"slug\":\"27-50563395\",\"basePlayerSlug\":\"231747-kylian-mba",
+    "playersLen": 0
+  },
+  "list_keys": null,
+  "def": {
+    "50583500": {
+      "liveHubTrackerId": 32,
+      "picked": {
+        "objectiveGroupEaId": "null",
+        "objectiveGroupObjectiveEaId": "null",
+        "objectiveCampaignLevelId": 2249,
+        "campaignProps": "null",
+        "upgrades": "null",
+        "trackerId": "null",
+        "liveHubTrackerId": 32,
+        "isObjectiveItem": true
+      }
+    },
+    "50605554": {
+      "liveHubTrackerId": 34,
+      "picked": {
+        "objectiveGroupEaId": "null",
+        "objectiveGroupObjectiveEaId": "null",
+        "objectiveCampaignLevelId": "null",
+        "campaignProps": "null",
+        "upgrades": "null",
+        "trackerId": "null",
+        "liveHubTrackerId": 34,
+        "isObjectiveItem": false
+      }
+    }
+  }
+}
