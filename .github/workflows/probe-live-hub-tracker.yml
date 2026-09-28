@@ -1,0 +1,45 @@
+name: Probe fut.gg Live Hub tracker_id filter
+
+# 只读诊断：试探 live-hub/{ver}/?tracker_id=N 能否按 tracker 过滤出该类卡的真实 objectives 模板。
+# 结果提交回 main（probe/live_hub/tracker_probe.json）供本地读回。不碰 fetch-fc27 管线。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-live-hub-tracker
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Probe tracker_id filter
+        env:
+          FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
+        run: node scripts/probe_live_hub_tracker.js ${{ github.event.inputs.fc_ver || '27' }}
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add probe/live_hub/tracker_probe.json || true
+          git commit -m "probe tracker_id filter: $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
+          git push || echo "push failed"
