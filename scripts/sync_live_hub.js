@@ -103,6 +103,16 @@ function buildPayload(players) {
   return { byEaId: byEaId, keyed: keyed, unkeyed: unkeyed };
 }
 
+// 剥离 fut.gg label 末尾/中间的插值进度，如 "Win 3 of next 6 matches (2/6)" → "Win 3 of next 6 matches"。
+// 模板复用场景专用：非精选球员不能继承精选球员的进度插值（否则人人显示 2/6，用户 2026-09-28 截图反馈）。
+function stripLabelProgress(label) {
+  return String(label == null ? '' : label)
+    .replace(/\s*\(\s*\d+\s*\/\s*\d+\s*\)\s*$/, '')   // 尾部 "(2/6)"
+    .replace(/\s*\(\s*\d+\s*\/\s*\d+\s*\)/g, '')      // 任意位置 "(2/6)"
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
 // 由三部分建模「综合性被追踪全集」：
 //   liveHubPlayers：live-hub 聚合球员（含真实 objectives + 进度）
 //   defMap：{ eaId: liveHubTrackerId }（definition-data 反查，综合性被追踪信号）
@@ -154,19 +164,25 @@ function buildFullPayload(liveHubPlayers, defMap, dynMeta) {
     };
   }
 
-  // 2) 由 live-hub 同 trackerId 抽「模板」（去进度）
+  // 2) 由 live-hub 同 trackerId 抽「模板」（去进度 + 剥离 label 里的插值进度）
+  //    ⚠️ 关键坑（2026-09-28 用户截图实证）：fut.gg 会把精选球员的进度插值进 label，
+  //    如 "Win 3 of next 6 matches (2/6)" 里的 "(2/6)" 是该精选人的进度。若原样当模板，
+  //    所有非精选球员都会顶着 "(2/6)" —— 看起来人人都是 2/6（统计错误）。故模板 label 必须剥离 " (N/M)"。
   const templateByTrackerId = {};
   for (const k of Object.keys(byEaId)) {
     const r = byEaId[k];
     if (r.trackerId != null && !templateByTrackerId[r.trackerId] && r.objectives.length) {
       templateByTrackerId[r.trackerId] = r.objectives.map(function (o) {
-        return { key: o.key, label: o.label, requirement: o.requirement, value: o.value, upgrades: o.upgrades };
+        return { key: o.key, label: stripLabelProgress(o.label), requirement: o.requirement, value: o.value, upgrades: o.upgrades };
       });
     }
   }
 
   // 3) 综合集：defMap 中 liveHubTrackerId != null 的，全部补进 byEaId（live-hub 已有则保留真实进度）
-  let keyed = Object.keys(byEaId).length, unkeyed = 0;
+  //    ⚠️ 无模板（该 trackerId 在 live-hub 里没有任何精选样本 → 拿不到升级条件）的卡**不补进**，
+  //    避免端上出现「动态」标签 + 空「升级规则」页签（2026-09-28：trackerId 34 的 6 张即此类，
+  //    fut.gg live-hub 当前无 34 号活动样本；等其出现精选样本后自动纳入）。
+  let keyed = Object.keys(byEaId).length, unkeyed = 0, skippedNoTemplate = 0;
   for (const eaStr of Object.keys(defMap)) {
     const tid = defMap[eaStr];
     if (tid == null) continue;
@@ -174,6 +190,7 @@ function buildFullPayload(liveHubPlayers, defMap, dynMeta) {
     if (byEaId[String(ea)]) continue; // 已有真实进度
     const meta = dynMeta[ea] || {};
     const tpl = templateByTrackerId[tid] || [];
+    if (!tpl.length) { skippedNoTemplate++; continue; } // 无升级条件模板 → 不展示（避免空页签）
     byEaId[String(ea)] = {
       eaId: ea,
       itemEaId: null,
@@ -183,7 +200,7 @@ function buildFullPayload(liveHubPlayers, defMap, dynMeta) {
       clubName: meta.clubName || '',
       nationName: meta.nationName || '',
       startDate: '',
-      // 模板复用：playerValue=null → 端上标「追踪中」（不臆造 0/X）
+      // 模板复用：playerValue=null（无逐球员进度；端上「升级规则」页只列条件，不显进度/次数）
       objectives: tpl.map(function (o) {
         return { key: o.key, label: o.label, requirement: o.requirement, value: o.value, playerValue: null, isCompleted: false, isNotPossible: false, upgrades: o.upgrades };
       }),
@@ -192,7 +209,7 @@ function buildFullPayload(liveHubPlayers, defMap, dynMeta) {
     keyed++;
   }
 
-  return { byEaId: byEaId, keyed: keyed, unkeyed: unkeyed, templateByTrackerId: templateByTrackerId };
+  return { byEaId: byEaId, keyed: keyed, unkeyed: unkeyed, skippedNoTemplate: skippedNoTemplate, templateByTrackerId: templateByTrackerId };
 }
 
 // —— 通用 API fetch（Node 侧，共享 cf_clearance）——
@@ -306,6 +323,7 @@ async function runSync() {
     generatedAt: new Date().toISOString(),
     count: built.keyed,
     unkeyed: built.unkeyed,
+    skippedNoTemplate: built.skippedNoTemplate,
     byEaId: built.byEaId
   };
   const jsonStr = JSON.stringify(payload);
@@ -318,7 +336,8 @@ async function runSync() {
 
   // 统计被追踪但无逐球员进度的（模板复用）
   const noProgress = Object.keys(built.byEaId).filter(function (k) { return !built.byEaId[k].hasProgress; });
-  console.log(`  其中「无逐球员进度（模板复用）」${noProgress.length} 人：${noProgress.slice(0, 12).join(',')}${noProgress.length > 12 ? '…' : ''}`);
+  console.log(`  其中「无逐球员进度（模板复用/仅升级条件）」${noProgress.length} 人`);
+  console.log(`  跳过「无升级条件模板」的被追踪卡 ${built.skippedNoTemplate} 张（如 trackerId 34 当前无 live-hub 精选样本）`);
 
   if (NO_UPLOAD) {
     console.log('（--no-upload，仅本地验证，未写云存储 / 未写元文档）');
@@ -358,4 +377,4 @@ if (require.main === module) {
   runSync().catch(function (e) { console.error('同步失败:', e); process.exit(1); });
 }
 
-module.exports = { buildPayload: buildPayload, buildFullPayload: buildFullPayload };
+module.exports = { buildPayload: buildPayload, buildFullPayload: buildFullPayload, stripLabelProgress: stripLabelProgress };
