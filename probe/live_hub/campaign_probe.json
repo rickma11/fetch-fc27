@@ -1,0 +1,428 @@
+{
+  "generatedAt": "2026-09-28T16:27:47.767Z",
+  "VER": 27,
+  "round": 5,
+  "note": "MISS: 活动内页无球员链接",
+  "campaigns": [
+    {
+      "url": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/players/",
+      "err": "",
+      "first": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/players/",
+        "title": "Players - Destined for Glory Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "playerHrefs": 27,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 11,
+        "graySeg": 353,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 333055
+      },
+      "afterScroll": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/players/",
+        "title": "Players - Destined for Glory Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "playerHrefs": 27,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 11,
+        "graySeg": 353,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 337237
+      },
+      "snippet": "<main class=\"min-h-[calc(100vh-61px)]\"><div class=\"fixed top-3 left-3 z-[9999] hidden\"><button data-slot=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-gray-800 text-white hover:bg-gray h-9 px-4 py-2 has-[&gt;svg]:px-3\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button></div><div class=\"sticky top-0 z-[9999]\"><div class=\"bg-gray-800 h-13 flex items-center border-b border-b-gray relative\"><div class=\"container mx-auto flex flex-row justify-between gap-4 md:gap-6 h-full\"><div class=\"flex flex-row items-center gap-2 md:gap-6 shrink-0\"><div class=\"flex flex-row items-center gap-2 shrink-0 h-full\"><button type=\"button\" class=\"shrink-0 cursor-pointer text-white hover:text-orange transition-all h-full -ml-2 px-2 md:-ml-4 md:px-4 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-orange\" aria-expanded=\"false\" aria-label=\"Open menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button><a href=\"https://www.fut.gg\" class=\"transition-all duration-300 hover:opacity-70 shrink-0\"><img src=\"/public-assets/logo.png\" alt=\"Logo\" class=\"w-[90px] md:w-[94px] md:h-[20px]\"></a></div><a href=\"https://www.fut.gg/players/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Players</a><a href=\"https://www.fut.gg/sbc/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">SBC</a><a href=\"https://www.fut.gg/squad-builder/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Squad Builder</a><a href=\"https://www.fut.gg/evolutions/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Evolutions</a><a href=\"https://www.fut.gg/objectives/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Objectives</a><a href=\"https://www.fut.gg/evo-lab/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">Evo Lab</a><a href=\"https://www.fut.gg/gg-club/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">GG Club</a></div><div class=\"flex flex-row items-center gap-4 flex-grow\"><div class=\"h-full flex-grow hidden md:flex\"><div class=\"w-full flex items-center cursor-pointer\"><div class=\"flex flex-row items-center justify-end gap-2 relative h-full flex-grow py-[5px]\"><div class=\"r",
+      "summary": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/players/",
+        "title": "Players - Destined for Glory Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "playerHrefs": 27,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 11,
+        "graySeg": 353,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 337237
+      },
+      "slug": "destined-for-glory",
+      "text": "Destined for Glory"
+    },
+    {
+      "url": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/players/",
+      "err": "",
+      "first": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/players/",
+        "title": "Players - Ones to Watch Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "playerHrefs": 31,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 11,
+        "graySeg": 116,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 365410
+      },
+      "afterScroll": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/players/",
+        "title": "Players - Ones to Watch Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "playerHrefs": 31,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 11,
+        "graySeg": 116,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 375778
+      },
+      "snippet": "<main class=\"min-h-[calc(100vh-61px)]\"><div class=\"fixed top-3 left-3 z-[9999] hidden\"><button data-slot=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-gray-800 text-white hover:bg-gray h-9 px-4 py-2 has-[&gt;svg]:px-3\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button></div><div class=\"sticky top-0 z-[9999]\"><div class=\"bg-gray-800 h-13 flex items-center border-b border-b-gray relative\"><div class=\"container mx-auto flex flex-row justify-between gap-4 md:gap-6 h-full\"><div class=\"flex flex-row items-center gap-2 md:gap-6 shrink-0\"><div class=\"flex flex-row items-center gap-2 shrink-0 h-full\"><button type=\"button\" class=\"shrink-0 cursor-pointer text-white hover:text-orange transition-all h-full -ml-2 px-2 md:-ml-4 md:px-4 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-orange\" aria-expanded=\"false\" aria-label=\"Open menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button><a href=\"https://www.fut.gg\" class=\"transition-all duration-300 hover:opacity-70 shrink-0\"><img src=\"/public-assets/logo.png\" alt=\"Logo\" class=\"w-[90px] md:w-[94px] md:h-[20px]\"></a></div><a href=\"https://www.fut.gg/players/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Players</a><a href=\"https://www.fut.gg/sbc/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">SBC</a><a href=\"https://www.fut.gg/squad-builder/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Squad Builder</a><a href=\"https://www.fut.gg/evolutions/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Evolutions</a><a href=\"https://www.fut.gg/objectives/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Objectives</a><a href=\"https://www.fut.gg/evo-lab/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">Evo Lab</a><a href=\"https://www.fut.gg/gg-club/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">GG Club</a></div><div class=\"flex flex-row items-center gap-4 flex-grow\"><div class=\"h-full flex-grow hidden md:flex\"><div class=\"w-full flex items-center cursor-pointer\"><div class=\"flex flex-row items-center justify-end gap-2 relative h-full flex-grow py-[5px]\"><div class=\"r",
+      "summary": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/players/",
+        "title": "Players - Ones to Watch Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "playerHrefs": 31,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 11,
+        "graySeg": 116,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 375778
+      },
+      "slug": "ones-to-watch",
+      "text": "Ones to Watch"
+    },
+    {
+      "url": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/players/",
+      "err": "",
+      "first": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/players/",
+        "title": "Players - Fantasy FC Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 10,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 0,
+        "graySeg": 1,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 260505
+      },
+      "afterScroll": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/players/",
+        "title": "Players - Fantasy FC Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 115,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 217,
+        "graySeg": 18,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 937965
+      },
+      "snippet": "<main class=\"min-h-[calc(100vh-61px)]\"><div class=\"fixed top-3 left-3 z-[9999] hidden\"><button data-slot=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-gray-800 text-white hover:bg-gray h-9 px-4 py-2 has-[&gt;svg]:px-3\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button></div><div class=\"sticky top-0 z-[9999]\"><div class=\"bg-gray-800 h-13 flex items-center border-b border-b-gray relative\"><div class=\"container mx-auto flex flex-row justify-between gap-4 md:gap-6 h-full\"><div class=\"flex flex-row items-center gap-2 md:gap-6 shrink-0\"><div class=\"flex flex-row items-center gap-2 shrink-0 h-full\"><button type=\"button\" class=\"shrink-0 cursor-pointer text-white hover:text-orange transition-all h-full -ml-2 px-2 md:-ml-4 md:px-4 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-orange\" aria-expanded=\"false\" aria-label=\"Open menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button><a href=\"https://www.fut.gg\" class=\"transition-all duration-300 hover:opacity-70 shrink-0\"><img src=\"/public-assets/logo.png\" alt=\"Logo\" class=\"w-[90px] md:w-[94px] md:h-[20px]\"></a></div><a href=\"https://www.fut.gg/players/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Players</a><a href=\"https://www.fut.gg/sbc/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">SBC</a><a href=\"https://www.fut.gg/squad-builder/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Squad Builder</a><a href=\"https://www.fut.gg/evolutions/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Evolutions</a><a href=\"https://www.fut.gg/objectives/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Objectives</a><a href=\"https://www.fut.gg/evo-lab/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">Evo Lab</a><a href=\"https://www.fut.gg/gg-club/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">GG Club</a></div><div class=\"flex flex-row items-center gap-4 flex-grow\"><div class=\"h-full flex-grow hidden md:flex\"><div class=\"w-full flex items-center cursor-pointer\"><div class=\"flex flex-row items-center justify-end gap-2 relative h-full flex-grow py-[5px]\"><div class=\"r",
+      "summary": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/players/",
+        "title": "Players - Fantasy FC Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 115,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 217,
+        "graySeg": 18,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 937965
+      },
+      "slug": "fantasy-fc",
+      "text": "Fantasy FC"
+    },
+    {
+      "url": "https://www.fut.gg/live-hub/campaigns/thunderstruck/players/",
+      "err": "",
+      "first": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/thunderstruck/players/",
+        "title": "Players - Thunderstruck Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 10,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 0,
+        "graySeg": 1,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 260577
+      },
+      "afterScroll": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/thunderstruck/players/",
+        "title": "Players - Thunderstruck Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 81,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 433,
+        "graySeg": 215,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 559610
+      },
+      "snippet": "<main class=\"min-h-[calc(100vh-61px)]\"><div class=\"fixed top-3 left-3 z-[9999] hidden\"><button data-slot=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-gray-800 text-white hover:bg-gray h-9 px-4 py-2 has-[&gt;svg]:px-3\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button></div><div class=\"sticky top-0 z-[9999]\"><div class=\"bg-gray-800 h-13 flex items-center border-b border-b-gray relative\"><div class=\"container mx-auto flex flex-row justify-between gap-4 md:gap-6 h-full\"><div class=\"flex flex-row items-center gap-2 md:gap-6 shrink-0\"><div class=\"flex flex-row items-center gap-2 shrink-0 h-full\"><button type=\"button\" class=\"shrink-0 cursor-pointer text-white hover:text-orange transition-all h-full -ml-2 px-2 md:-ml-4 md:px-4 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-orange\" aria-expanded=\"false\" aria-label=\"Open menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button><a href=\"https://www.fut.gg\" class=\"transition-all duration-300 hover:opacity-70 shrink-0\"><img src=\"/public-assets/logo.png\" alt=\"Logo\" class=\"w-[90px] md:w-[94px] md:h-[20px]\"></a></div><a href=\"https://www.fut.gg/players/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Players</a><a href=\"https://www.fut.gg/sbc/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">SBC</a><a href=\"https://www.fut.gg/squad-builder/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Squad Builder</a><a href=\"https://www.fut.gg/evolutions/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Evolutions</a><a href=\"https://www.fut.gg/objectives/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Objectives</a><a href=\"https://www.fut.gg/evo-lab/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">Evo Lab</a><a href=\"https://www.fut.gg/gg-club/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">GG Club</a></div><div class=\"flex flex-row items-center gap-4 flex-grow\"><div class=\"h-full flex-grow hidden md:flex\"><div class=\"w-full flex items-center cursor-pointer\"><div class=\"flex flex-row items-center justify-end gap-2 relative h-full flex-grow py-[5px]\"><div class=\"r",
+      "summary": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/thunderstruck/players/",
+        "title": "Players - Thunderstruck Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 81,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 433,
+        "graySeg": 215,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 559610
+      },
+      "slug": "thunderstruck",
+      "text": "Thunderstruck"
+    },
+    {
+      "url": "https://www.fut.gg/live-hub/campaigns/primetime/players/",
+      "err": "",
+      "first": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/primetime/players/",
+        "title": "Players - Primetime Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 66,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 258,
+        "graySeg": 280,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 509410
+      },
+      "afterScroll": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/primetime/players/",
+        "title": "Players - Primetime Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 66,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 258,
+        "graySeg": 280,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 513070
+      },
+      "snippet": "<main class=\"min-h-[calc(100vh-61px)]\"><div class=\"fixed top-3 left-3 z-[9999] hidden\"><button data-slot=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-gray-800 text-white hover:bg-gray h-9 px-4 py-2 has-[&gt;svg]:px-3\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button></div><div class=\"sticky top-0 z-[9999]\"><div class=\"bg-gray-800 h-13 flex items-center border-b border-b-gray relative\"><div class=\"container mx-auto flex flex-row justify-between gap-4 md:gap-6 h-full\"><div class=\"flex flex-row items-center gap-2 md:gap-6 shrink-0\"><div class=\"flex flex-row items-center gap-2 shrink-0 h-full\"><button type=\"button\" class=\"shrink-0 cursor-pointer text-white hover:text-orange transition-all h-full -ml-2 px-2 md:-ml-4 md:px-4 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-orange\" aria-expanded=\"false\" aria-label=\"Open menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button><a href=\"https://www.fut.gg\" class=\"transition-all duration-300 hover:opacity-70 shrink-0\"><img src=\"/public-assets/logo.png\" alt=\"Logo\" class=\"w-[90px] md:w-[94px] md:h-[20px]\"></a></div><a href=\"https://www.fut.gg/players/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Players</a><a href=\"https://www.fut.gg/sbc/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">SBC</a><a href=\"https://www.fut.gg/squad-builder/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Squad Builder</a><a href=\"https://www.fut.gg/evolutions/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Evolutions</a><a href=\"https://www.fut.gg/objectives/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Objectives</a><a href=\"https://www.fut.gg/evo-lab/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">Evo Lab</a><a href=\"https://www.fut.gg/gg-club/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">GG Club</a></div><div class=\"flex flex-row items-center gap-4 flex-grow\"><div class=\"h-full flex-grow hidden md:flex\"><div class=\"w-full flex items-center cursor-pointer\"><div class=\"flex flex-row items-center justify-end gap-2 relative h-full flex-grow py-[5px]\"><div class=\"r",
+      "summary": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/primetime/players/",
+        "title": "Players - Primetime Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 66,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 258,
+        "graySeg": 280,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 513070
+      },
+      "slug": "primetime",
+      "text": "Primetime"
+    },
+    {
+      "url": "https://www.fut.gg/live-hub/campaigns/fc-pro/players/",
+      "err": "",
+      "first": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fc-pro/players/",
+        "title": "Players - FC Pro Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 34,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 73,
+        "graySeg": 313,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 369608
+      },
+      "afterScroll": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fc-pro/players/",
+        "title": "Players - FC Pro Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 34,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 73,
+        "graySeg": 313,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 382881
+      },
+      "snippet": "<main class=\"min-h-[calc(100vh-61px)]\"><div class=\"fixed top-3 left-3 z-[9999] hidden\"><button data-slot=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-gray-800 text-white hover:bg-gray h-9 px-4 py-2 has-[&gt;svg]:px-3\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button></div><div class=\"sticky top-0 z-[9999]\"><div class=\"bg-gray-800 h-13 flex items-center border-b border-b-gray relative\"><div class=\"container mx-auto flex flex-row justify-between gap-4 md:gap-6 h-full\"><div class=\"flex flex-row items-center gap-2 md:gap-6 shrink-0\"><div class=\"flex flex-row items-center gap-2 shrink-0 h-full\"><button type=\"button\" class=\"shrink-0 cursor-pointer text-white hover:text-orange transition-all h-full -ml-2 px-2 md:-ml-4 md:px-4 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-orange\" aria-expanded=\"false\" aria-label=\"Open menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button><a href=\"https://www.fut.gg\" class=\"transition-all duration-300 hover:opacity-70 shrink-0\"><img src=\"/public-assets/logo.png\" alt=\"Logo\" class=\"w-[90px] md:w-[94px] md:h-[20px]\"></a></div><a href=\"https://www.fut.gg/players/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Players</a><a href=\"https://www.fut.gg/sbc/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">SBC</a><a href=\"https://www.fut.gg/squad-builder/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Squad Builder</a><a href=\"https://www.fut.gg/evolutions/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Evolutions</a><a href=\"https://www.fut.gg/objectives/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Objectives</a><a href=\"https://www.fut.gg/evo-lab/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">Evo Lab</a><a href=\"https://www.fut.gg/gg-club/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">GG Club</a></div><div class=\"flex flex-row items-center gap-4 flex-grow\"><div class=\"h-full flex-grow hidden md:flex\"><div class=\"w-full flex items-center cursor-pointer\"><div class=\"flex flex-row items-center justify-end gap-2 relative h-full flex-grow py-[5px]\"><div class=\"r",
+      "summary": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fc-pro/players/",
+        "title": "Players - FC Pro Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 34,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 73,
+        "graySeg": 313,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 382881
+      },
+      "slug": "fc-pro",
+      "text": "FC Pro"
+    },
+    {
+      "url": "https://www.fut.gg/live-hub/campaigns/path-to-glory/players/",
+      "err": "",
+      "first": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/path-to-glory/players/",
+        "title": "Players - Path to Glory Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 105,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 257,
+        "graySeg": 1,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 1078651
+      },
+      "afterScroll": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/path-to-glory/players/",
+        "title": "Players - Path to Glory Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 105,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 257,
+        "graySeg": 1,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 1089792
+      },
+      "snippet": "<main class=\"min-h-[calc(100vh-61px)]\"><div class=\"fixed top-3 left-3 z-[9999] hidden\"><button data-slot=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-gray-800 text-white hover:bg-gray h-9 px-4 py-2 has-[&gt;svg]:px-3\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button></div><div class=\"sticky top-0 z-[9999]\"><div class=\"bg-gray-800 h-13 flex items-center border-b border-b-gray relative\"><div class=\"container mx-auto flex flex-row justify-between gap-4 md:gap-6 h-full\"><div class=\"flex flex-row items-center gap-2 md:gap-6 shrink-0\"><div class=\"flex flex-row items-center gap-2 shrink-0 h-full\"><button type=\"button\" class=\"shrink-0 cursor-pointer text-white hover:text-orange transition-all h-full -ml-2 px-2 md:-ml-4 md:px-4 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-orange\" aria-expanded=\"false\" aria-label=\"Open menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button><a href=\"https://www.fut.gg\" class=\"transition-all duration-300 hover:opacity-70 shrink-0\"><img src=\"/public-assets/logo.png\" alt=\"Logo\" class=\"w-[90px] md:w-[94px] md:h-[20px]\"></a></div><a href=\"https://www.fut.gg/players/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Players</a><a href=\"https://www.fut.gg/sbc/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">SBC</a><a href=\"https://www.fut.gg/squad-builder/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Squad Builder</a><a href=\"https://www.fut.gg/evolutions/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Evolutions</a><a href=\"https://www.fut.gg/objectives/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Objectives</a><a href=\"https://www.fut.gg/evo-lab/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">Evo Lab</a><a href=\"https://www.fut.gg/gg-club/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">GG Club</a></div><div class=\"flex flex-row items-center gap-4 flex-grow\"><div class=\"h-full flex-grow hidden md:flex\"><div class=\"w-full flex items-center cursor-pointer\"><div class=\"flex flex-row items-center justify-end gap-2 relative h-full flex-grow py-[5px]\"><div class=\"r",
+      "summary": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/path-to-glory/players/",
+        "title": "Players - Path to Glory Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 105,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 257,
+        "graySeg": 1,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 1089792
+      },
+      "slug": "path-to-glory",
+      "text": "Path to Glory"
+    },
+    {
+      "url": "https://www.fut.gg/live-hub/campaigns/road-to-the-final/players/",
+      "err": "",
+      "first": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/road-to-the-final/players/",
+        "title": "Players - Road to the Final Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 118,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 148,
+        "graySeg": 379,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 835495
+      },
+      "afterScroll": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/road-to-the-final/players/",
+        "title": "Players - Road to the Final Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 118,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 148,
+        "graySeg": 379,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 845694
+      },
+      "snippet": "<main class=\"min-h-[calc(100vh-61px)]\"><div class=\"fixed top-3 left-3 z-[9999] hidden\"><button data-slot=\"button\" class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-xs font-medium transition-all disabled:cursor-not-allowed disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 shrink-0 [&amp;_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer bg-gray-800 text-white hover:bg-gray h-9 px-4 py-2 has-[&gt;svg]:px-3\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button></div><div class=\"sticky top-0 z-[9999]\"><div class=\"bg-gray-800 h-13 flex items-center border-b border-b-gray relative\"><div class=\"container mx-auto flex flex-row justify-between gap-4 md:gap-6 h-full\"><div class=\"flex flex-row items-center gap-2 md:gap-6 shrink-0\"><div class=\"flex flex-row items-center gap-2 shrink-0 h-full\"><button type=\"button\" class=\"shrink-0 cursor-pointer text-white hover:text-orange transition-all h-full -ml-2 px-2 md:-ml-4 md:px-4 flex items-center justify-center focus-visible:outline-2 focus-visible:outline-orange\" aria-expanded=\"false\" aria-label=\"Open menu\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-text-align-justify\" aria-hidden=\"true\"><path d=\"M3 5h18\"></path><path d=\"M3 12h18\"></path><path d=\"M3 19h18\"></path></svg></button><a href=\"https://www.fut.gg\" class=\"transition-all duration-300 hover:opacity-70 shrink-0\"><img src=\"/public-assets/logo.png\" alt=\"Logo\" class=\"w-[90px] md:w-[94px] md:h-[20px]\"></a></div><a href=\"https://www.fut.gg/players/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Players</a><a href=\"https://www.fut.gg/sbc/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">SBC</a><a href=\"https://www.fut.gg/squad-builder/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Squad Builder</a><a href=\"https://www.fut.gg/evolutions/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Evolutions</a><a href=\"https://www.fut.gg/objectives/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0\">Objectives</a><a href=\"https://www.fut.gg/evo-lab/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">Evo Lab</a><a href=\"https://www.fut.gg/gg-club/\" class=\"text-white text-sm font-medium h-full hidden lg:flex items-center border-b-2 border-b-transparent hover:border-b-orange hover:text-orange transition-all shrink-0 max-xl:!hidden\">GG Club</a></div><div class=\"flex flex-row items-center gap-4 flex-grow\"><div class=\"h-full flex-grow hidden md:flex\"><div class=\"w-full flex items-center cursor-pointer\"><div class=\"flex flex-row items-center justify-end gap-2 relative h-full flex-grow py-[5px]\"><div class=\"r",
+      "summary": {
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/road-to-the-final/players/",
+        "title": "Players - Road to the Final Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerHrefs": 118,
+        "eaCount": 0,
+        "eaSample": [],
+        "greenSeg": 148,
+        "graySeg": 379,
+        "hasTracker": false,
+        "trackerWord": 5,
+        "htmlBytes": 845694
+      },
+      "slug": "road-to-the-final",
+      "text": "Road to the Final"
+    }
+  ],
+  "apiTries": [
+    {
+      "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/",
+      "status": 200,
+      "bytes": 58629,
+      "head": "{\"data\":[{\"game\":\"27\",\"id\":22,\"name\":\"Destined for Glory\",\"secondaryName\":\"DFG\",\"slug\":\"destined-for-glory\",\"description\":\"Track every EA SPORTS FC 27 Destined "
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/live-hub/campaigns/",
+      "status": 200,
+      "bytes": 58629,
+      "head": "{\"data\":[{\"game\":\"27\",\"id\":22,\"name\":\"Destined for Glory\",\"secondaryName\":\"DFG\",\"slug\":\"destined-for-glory\",\"description\":\"Track every EA SPORTS FC 27 Destined "
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/ones-to-watch/players/",
+      "status": 404,
+      "bytes": 887,
+      "head": "<!doctype html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Page Not "
+    },
+    {
+      "url": "https://www.fut.gg/api/fut/live-hub/campaigns/ones-to-watch/players/",
+      "status": 404,
+      "bytes": 887,
+      "head": "<!doctype html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>Page Not "
+    }
+  ],
+  "index": {
+    "url": "https://www.fut.gg/live-hub/campaigns/",
+    "err": "",
+    "summary": {
+      "finalUrl": "https://www.fut.gg/live-hub/campaigns/",
+      "title": "Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG",
+      "playerHrefs": 8,
+      "eaCount": 0,
+      "eaSample": [],
+      "greenSeg": 0,
+      "graySeg": 1,
+      "hasTracker": false,
+      "trackerWord": 0,
+      "htmlBytes": 259612
+    }
+  },
+  "campaignLinks": [
+    {
+      "slug": "destined-for-glory",
+      "text": "Destined for Glory"
+    },
+    {
+      "slug": "ones-to-watch",
+      "text": "Ones to Watch"
+    },
+    {
+      "slug": "fantasy-fc",
+      "text": "Fantasy FC"
+    },
+    {
+      "slug": "thunderstruck",
+      "text": "Thunderstruck"
+    },
+    {
+      "slug": "primetime",
+      "text": "Primetime"
+    },
+    {
+      "slug": "fc-pro",
+      "text": "FC Pro"
+    },
+    {
+      "slug": "path-to-glory",
+      "text": "Path to Glory"
+    },
+    {
+      "slug": "road-to-the-final",
+      "text": "Road to the Final"
+    }
+  ]
+}
