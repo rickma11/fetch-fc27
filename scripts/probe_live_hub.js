@@ -2,8 +2,9 @@
 //
 // 设计要点：
 //   - 完全沿用 fetch-fc27.yml / probe-futgg.yml 的过 CF 机制（headless chromium + 首页导航 + 轮询）。
-//   - 取数与「提炼」都在浏览器内完成（page.evaluate 里 fetch + 解析 + 抽取），只把**精简后的进度**
-//     回传 Node 落盘 —— 避免把 ~30MB 原始 JSON 走 CDP 回传导致协议包过大。
+//   - 取数改用 Playwright 的 page.request（Node 侧 fetch，自动共享浏览器上下文的 cf_clearance cookie），
+//     比 page.evaluate 内 fetch 更可靠：能拿到真实 HTTP status 与错误文案，且不在 CDP 里回传 ~30MB 原始 JSON。
+//   - 提炼在 Node 本地完成（解析 + 抽取精简进度），只落盘精简文件。
 //   - 纯探查：输出到 probe/live_hub/，不碰 cloud-data/fc27、不落库、不改 fetch-fc27 管线。
 //
 // 用法：node scripts/probe_live_hub.js [ver]   （ver 默认 27；只抓指定版本，目前仅 FC27）
@@ -28,29 +29,24 @@ const VER = Number(process.argv[2] || process.env.FC_VER || 27);
     userAgent: UA, locale: 'en-US', viewport: { width: 1280, height: 800 }, timezoneId: 'America/New_York'
   });
   const page = await ctx.newPage();
-  page.on('console', m => { const t = m.text(); if (/error|fail|denied|challenge/i.test(t)) console.log('[browser]', t); });
+  page.on('console', m => { const t = m.text(); if (/error|fail|denied|challenge|redirect/i.test(t)) console.log('[browser]', t); });
 
   console.log('打开 fut.gg 过 Cloudflare ...');
   await page.goto('https://www.fut.gg/', { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-  // 用轻量 players API 探 CF 是否放行（与 fetch_ci.js 同口径）
-  // ⚠️ 不只看 status==200，还要确认响应是真的 JSON（CF 有时会回 200 但带挑战页）
+  // 用轻量 players API 探 CF 是否放行（与 fetch_ci.js 同口径）；page.request 共享 cookie
   const LIGHT = `https://www.fut.gg/api/fut/players/v2/${VER}/?page=1`;
   let passed = false;
   for (let i = 0; i < 40; i++) {
-    let probe = { status: 0, ok: false };
+    let status = 0, ok = false;
     try {
-      probe = await page.evaluate(async (u) => {
-        try {
-          const r = await fetch(u, { headers: { Accept: 'application/json' } });
-          let ok = false;
-          try { const t = await r.text(); ok = t.trim().startsWith('{') || t.trim().startsWith('['); } catch (_) {}
-          return { status: r.status, ok };
-        } catch (e) { return { status: -1, ok: false, err: String(e) }; }
-      }, LIGHT);
-    } catch (e) { probe = { status: -2, ok: false, err: e.message }; }
-    if (probe.status === 200 && probe.ok) { passed = true; console.log(`Cloudflare 已通过（第 ${i + 1} 次）`); break; }
-    console.log(`等待 CF 解除... status=${probe.status} ok=${probe.ok} (${i + 1}/40)`);
+      const r = await page.request.get(LIGHT, { headers: { Accept: 'application/json' }, timeout: 20000 });
+      status = r.status();
+      const t = await r.text();
+      ok = t.trim().startsWith('{') || t.trim().startsWith('[');
+    } catch (e) { status = -1; console.log(`  LIGHT 异常: ${e.message}`); }
+    if (status === 200 && ok) { passed = true; console.log(`Cloudflare 已通过（第 ${i + 1} 次）`); break; }
+    console.log(`等待 CF 解除... status=${status} ok=${ok} (${i + 1}/40)`);
     await page.waitForTimeout(3000);
   }
   if (!passed) { await browser.close(); console.error('未能过 Cloudflare（轻量 API 持续非 200 / 非 JSON）'); process.exit(2); }
@@ -61,60 +57,61 @@ const VER = Number(process.argv[2] || process.env.FC_VER || 27);
 
   for (const ver of versions) {
     const url = `https://www.fut.gg/api/fut/live-hub/${ver}/`;
-    console.log(`\n抓取 live-hub/${ver} 全量并在浏览器内提炼 ...`);
-    // 浏览器内 fetch + 解析 + 抽取（只回传精简进度，避免 ~30MB 原始 JSON 走 CDP）
-    // 加重试：live-hub 端点更动态，偶发 CF 二次挑战，最多试 4 次、每次间隔 5s
-    let compact = null;
+    console.log(`\n抓取 live-hub/${ver} 全量（page.request，Node 侧解析）...`);
+    let text = null, status = 0;
     for (let attempt = 1; attempt <= 4; attempt++) {
       try {
-        compact = await page.evaluate(async (u) => {
-          const r = await fetch(u, { headers: { Accept: 'application/json' } });
-          const ct = r.headers.get('content-type') || '';
-          const text = await r.text();
-          if (!r.ok) return { error: 'HTTP ' + r.status, status: r.status, contentType: ct, bodyPreview: text.slice(0, 500) };
-          let j;
-          try { j = JSON.parse(text); } catch (e) {
-            return { error: 'NOT_JSON', status: r.status, contentType: ct, bodyPreview: text.slice(0, 500) };
-          }
-          const players = (j && j.data && Array.isArray(j.data.players)) ? j.data.players : [];
-          const camps = {};
-          const out = [];
-          for (const p of players) {
-            const tid = (p.trackerId != null) ? p.trackerId : null;
-            const camp = p.campaignName || '?';
-            const key = `${camp}#${tid}`;
-            if (!camps[key]) camps[key] = { campaignName: camp, trackerId: tid, count: 0, sample: [] };
-            camps[key].count++;
-            if (camps[key].sample.length < 8) camps[key].sample.push(p.playerItemEaId);
-            const card = p.card || {};
-            const tracker = p.tracker || {};
-            const objectives = Array.isArray(tracker.objectives)
-              ? tracker.objectives.map(o => ({
-                  req: o.requirement, label: o.label, value: o.value,
-                  playerValue: o.playerValue, isCompleted: o.isCompleted, isNotPossible: o.isNotPossible,
-                  upgrades: Array.isArray(o.upgrades) ? o.upgrades.map(u2 => ({ upgrade: u2.upgrade, label: u2.label })) : []
-                }))
-              : [];
-            out.push({
-              campaignName: camp, trackerId: tid, playerItemEaId: p.playerItemEaId,
-              name: card.commonName || null, overall: card.overall || null,
-              objectives, data: p.data || {}
-            });
-          }
-          return {
-            version: ver, totalPlayers: players.length,
-            campaigns: Object.values(camps).sort((a, b) => b.count - a.count),
-            players: out
-          };
-        }, url);
-      } catch (e) { compact = { error: 'EVAL_THROW', msg: e.message }; }
-
-      if (compact && !compact.error) break;
-      console.log(`  第 ${attempt} 次抓取失败:`, JSON.stringify({ error: compact && compact.error, status: compact && compact.status, ct: compact && compact.contentType, preview: compact && compact.bodyPreview }));
+        const r = await page.request.get(url, { headers: { Accept: 'application/json' }, timeout: 60000 });
+        status = r.status();
+        const ct = r.headers()['content-type'] || '';
+        text = await r.text();
+        if (status === 200 && (text.trim().startsWith('{') || text.trim().startsWith('['))) {
+          console.log(`  第 ${attempt} 次成功：status=${status} content-type=${ct} bytes=${text.length}`);
+          break;
+        } else {
+          console.log(`  第 ${attempt} 次非预期：status=${status} ct=${ct} preview=${text.slice(0, 300)}`);
+        }
+      } catch (e) {
+        console.log(`  第 ${attempt} 次异常: ${e.message}`);
+      }
       if (attempt < 4) await page.waitForTimeout(5000);
     }
 
-    if (!compact || compact.error) { console.log('  live-hub 抓取最终失败，跳过 FC' + ver); continue; }
+    if (!text || status !== 200) { console.log('  live-hub 抓取最终失败，跳过 FC' + ver); continue; }
+
+    // Node 本地解析 + 提炼（无需走 CDP）
+    let j;
+    try { j = JSON.parse(text); } catch (e) { console.log('  JSON 解析失败:', e.message); continue; }
+    const players = (j && j.data && Array.isArray(j.data.players)) ? j.data.players : [];
+    const camps = {};
+    const out = [];
+    for (const p of players) {
+      const tid = (p.trackerId != null) ? p.trackerId : null;
+      const camp = p.campaignName || '?';
+      const key = `${camp}#${tid}`;
+      if (!camps[key]) camps[key] = { campaignName: camp, trackerId: tid, count: 0, sample: [] };
+      camps[key].count++;
+      if (camps[key].sample.length < 8) camps[key].sample.push(p.playerItemEaId);
+      const card = p.card || {};
+      const tracker = p.tracker || {};
+      const objectives = Array.isArray(tracker.objectives)
+        ? tracker.objectives.map(o => ({
+            req: o.requirement, label: o.label, value: o.value,
+            playerValue: o.playerValue, isCompleted: o.isCompleted, isNotPossible: o.isNotPossible,
+            upgrades: Array.isArray(o.upgrades) ? o.upgrades.map(u2 => ({ upgrade: u2.upgrade, label: u2.label })) : []
+          }))
+        : [];
+      out.push({
+        campaignName: camp, trackerId: tid, playerItemEaId: p.playerItemEaId,
+        name: card.commonName || null, overall: card.overall || null,
+        objectives, data: p.data || {}
+      });
+    }
+    const compact = {
+      version: ver, totalPlayers: players.length,
+      campaigns: Object.values(camps).sort((a, b) => b.count - a.count),
+      players: out
+    };
 
     const progFile = path.join(OUT_DIR, `fc${ver}_progress.json`);
     fs.writeFileSync(progFile, JSON.stringify(compact, null, 2));
