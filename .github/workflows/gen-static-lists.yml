@@ -1,0 +1,49 @@
+name: Gen static lists (SBC/Evolutions JSON to CloudBase storage)
+
+# SBC/进化 列表静态 JSON 生成（独立于 fetch-fc27 管线）：
+#   读 cloud-data/fc27/sbcs.json + evolutions.json（现有每日 CI 已提交的产物，本流程只读不写）
+#   → 哈希命名 JSON 上传云存储 fc27/data/<name>/
+#   + 写 meta_fc27/<name> 元文档 {fetchedAt,count,fileID,hash,ts}
+#   （端上 utils/cloudJson.js 直读，list/meta 零云函数调用，见 eafc-miniapp Phase 1）。
+# ⚠️ 与 fetch-fc27.yml 完全隔离：独立 concurrency 组（gen-static-lists），
+#   不碰抓取管线、不写数据库业务集合、不提交 git（产物只在云存储）。
+# 触发：仅 workflow_dispatch 手动跑。验证 OK 后如需每日自动，可在 on: 下加 schedule（当前先手动）。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gen-static-lists
+  cancel-in-progress: false
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 本流程无浏览器抓取，跳过 Chromium 下载省时间
+        run: npm install
+
+      - name: Gen static lists (upload to CloudBase storage + write meta docs)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_static_lists.js ${{ github.event.inputs.fc_ver || '27' }}
