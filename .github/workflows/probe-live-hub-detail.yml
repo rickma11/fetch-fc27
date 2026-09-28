@@ -42,10 +42,19 @@ jobs:
           FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
           PROBE_TIMEOUT_MS: '720000'
         run: node scripts/probe_live_hub_detail.js ${{ github.event.inputs.fc_ver || '27' }}
+      # ⚠️ 产物主通道改成 artifact：git push 会被拒（本机用 API 推过 → 远端领先，非快进），
+      #    R5 就是这么丢的产物（commit 成功、push rejected）。artifact 不受分叉影响。
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-hub-detail-probe
+          path: probe/live_hub/detail_probe.json
+          if-no-files-found: warn
       - name: Commit report
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add probe/live_hub/detail_probe.json || true
           git commit -m "probe player detail #tracker: $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
-          git push || echo "push failed"
+          git pull --rebase -X theirs origin main || echo "rebase failed"
+          git push || echo "push failed（产物以上面的 artifact 为准）"
