@@ -1,18 +1,12 @@
 {
-  "generatedAt": "2026-09-28T16:40:02.711Z",
+  "generatedAt": "2026-09-28T16:47:05.693Z",
   "VER": 27,
-  "round": 6,
-  "note": "HIT: campaign 页共提取 49 张球员卡",
+  "round": 7,
+  "note": "HIT: 2 个子页同时含 FC27 球员链接与绿条（如 ones-to-watch/players）",
   "sections": {
-    "index": {
-      "url": "https://www.fut.gg/live-hub/campaigns/",
-      "title": "Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG",
-      "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\nCampaigns\nBrowse all live campaigns in EA SPORTS FC 27\nOVERVIEW\nUPGRADES\nCAMPAIGNS\nCOMPETITIONS\nCLUBS\nDestined for Glory\nOnes to Watch\nFC 26 campaigns archive\nLook back at last season's live items, campaign rules and results.\nFantasy FC\nThunderstruck\nPrimetime\nFC Pro\nPath to Glory\nRoad to the Final\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage"
-    },
     "campaigns": [
-      "campaigns",
-      "destined-for-glory",
       "ones-to-watch",
+      "destined-for-glory",
       "fantasy-fc",
       "thunderstruck",
       "primetime",
@@ -22,402 +16,868 @@
     ],
     "pages": [
       {
-        "url": "https://www.fut.gg/live-hub/campaigns/campaigns/",
+        "url": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/players/",
         "err": "",
-        "cards": [
-          {
-            "href": "https://www.fut.gg/players/",
-            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/momentum/",
-            "text": "Momentum Trends",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/in-packs/",
-            "text": "In Packs",
-            "greens": 0,
-            "grays": 0
-          }
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/players/",
+        "title": "Players - Ones to Watch Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "itemLinkCount": 21,
+        "verLinkCount": 21,
+        "links27": [
+          "/players/216393-youri-tielemans/27-50548041/",
+          "/players/265025-selina-cerci/27-50596673/",
+          "/players/264947-nicole-anyomi/27-50596595/",
+          "/players/254243-elliot-anderson/27-50585891/",
+          "/players/241461-ferran-torres/27-50573109/",
+          "/players/78012-yan-diomande/27-50409660/",
+          "/players/278901-ayyoub-bouaddi/27-50610549/",
+          "/players/275192-luka-vuskovic/27-50606840/",
+          "/players/270531-ousmane-diomande/27-50602179/",
+          "/players/270409-savio/27-50602057/",
+          "/players/266160-mika-marmol/27-50597808/",
+          "/players/265035-elisa-senss/27-50596683/",
+          "/players/256948-christos-tzolis/27-50588596/",
+          "/players/251954-crysencio-summerville/27-50583602/",
+          "/players/251852-karim-adeyemi/27-50583500/",
+          "/players/251377-rodrigo-zalazar/27-50583025/",
+          "/players/244067-maxence-lacroix/27-50575715/",
+          "/players/243780-lee-kang-in/27-50575428/",
+          "/players/243702-djed-spence/27-50575350/",
+          "/players/240950-pedro-goncalves/27-50572598/",
+          "/players/72997-rodrigo-mora-de-carvalho-rodrigo-mora/27-50404645/"
         ],
-        "finalUrl": "https://www.fut.gg/live-hub/campaigns/campaigns/",
-        "title": "FUT.GG - EASPORTS FC 27 Ultimate Team Database",
-        "playerValueHits": 0,
-        "objectivesHits": 4,
-        "htmlBytes": 247816,
-        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\n404\nPage not found\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
-        "campaign": "campaigns"
-      },
-      {
-        "url": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/",
-        "err": "",
+        "greensTotal": 11,
         "cards": [
-          {
-            "href": "https://www.fut.gg/players/",
-            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/momentum/",
-            "text": "Momentum Trends",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/in-packs/",
-            "text": "In Packs",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/live-hub/campaigns/destined-for-glory/players/",
-            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/players/279604-mikel-jauregizar-alboniga-jauregizar/27-50611252/",
-            "text": "",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/players/259287-pernille-harder/27-50590935/",
-            "text": "",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/players/231747-kylian-mbappe/27-50563395/",
-            "text": "",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/players/252145-nuno-mendes/27-50583793/",
-            "text": "",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/players/233731-alexander-isak/27-50565379/",
-            "text": "",
-            "greens": 0,
-            "grays": 0
-          }
-        ],
-        "finalUrl": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/",
-        "title": "Destined for Glory Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
-        "playerValueHits": 0,
-        "objectivesHits": 4,
-        "htmlBytes": 296308,
-        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nDestined for Glory\nDestined for Glory Tracker\nTrack every EA SPORTS FC 27 Destined for Glory player. See the goals, assists and clean sheets they have built up since the promo launched, which upgrades they have unlocked and the matches still to come.\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nUpcoming Fixtures\nView All\n16th Sep 15:30\nLaLiga\nLevante UD\nvs\nAthletic Club\nShow Trackers\n3rd Oct 11:55\nFrauen-Bundesliga\nFrankfurt\nvs\nFC Bayern München\nShow Trackers\nPlayers\nView All\nDestined for Glory\nReal Madrid\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nPSG\n2 clean sheets\n+1 Defending & Physical\n4 clean sheets\n+1 PS\n6 clean sheets\n+1 OVR\n10 clean sheets\n+1 OVR\nView Fixtures\nDestined for Glory\nFC Bayern München\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nLiverpool\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nFAQ\nHow do Destined for Glory players get upgraded?\nWhich matches count?\nDo the upgrades stack?\nPremier League\nLaLiga\nSerie A\nBundesliga\nLigue 1\nWSL\nLiga F\nSerie A Femminile\nFrauen-Bundesliga\nPremiere Ligue\nEredivisie\nSaudi Pro League\nLiga Portugal\nSuperlig\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
-        "campaign": "destined-for-glory"
-      },
-      {
-        "url": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/",
-        "err": "",
-        "cards": [
-          {
-            "href": "https://www.fut.gg/players/",
-            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/momentum/",
-            "text": "Momentum Trends",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/in-packs/",
-            "text": "In Packs",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/live-hub/campaigns/ones-to-watch/players/",
-            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/players/264947-nicole-anyomi/27-50596595/",
-            "text": "",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/players/265035-elisa-senss/27-50596683/",
-            "text": "",
-            "greens": 0,
-            "grays": 0
-          },
           {
             "href": "/players/216393-youri-tielemans/27-50548041/",
-            "text": "",
+            "text": "Ones to Watch | Man Utd",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/265025-selina-cerci/27-50596673/",
-            "text": "",
+            "text": "Ones to Watch | Arsenal",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/264947-nicole-anyomi/27-50596595/",
+            "text": "Ones to Watch | London City",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/254243-elliot-anderson/27-50585891/",
-            "text": "",
+            "text": "Ones to Watch | Manchester City",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/241461-ferran-torres/27-50573109/",
+            "text": "Ones to Watch | PSG",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/78012-yan-diomande/27-50409660/",
+            "text": "Ones to Watch | Real Madrid",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/278901-ayyoub-bouaddi/27-50610549/",
+            "text": "Ones to Watch | Manchester City",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/275192-luka-vuskovic/27-50606840/",
+            "text": "Ones to Watch | Brighton",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/270531-ousmane-diomande/27-50602179/",
+            "text": "Ones to Watch | Nott'm Forest",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/270409-savio/27-50602057/",
+            "text": "Ones to Watch | Spurs",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/266160-mika-marmol/27-50597808/",
+            "text": "Ones to Watch | Feyenoord",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/265035-elisa-senss/27-50596683/",
+            "text": "Ones to Watch | Real Madrid",
             "greens": 0,
             "grays": 0
           }
         ],
-        "finalUrl": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/",
-        "title": "Ones to Watch Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
-        "playerValueHits": 0,
-        "objectivesHits": 4,
-        "htmlBytes": 297621,
-        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nOnes to Watch\nOnes to Watch Tracker\nTrack every EA SPORTS FC 27 Ones to Watch player. See which upgrades they have earned, the domestic matches that count towards the win bonus, and the fixtures still to come.\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nUpcoming Fixtures\nView All\n4th Oct 09:00\nWSL\nSpurs\nvs\nLondon City\nShow Trackers\n4th Oct 11:00\nLiga F\nFC Barcelona\nvs\nReal Madrid\nShow Trackers\nPlayers\nView All\nOnes to Watch\nMan Utd\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nArsenal\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (2/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nLondon City\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (2/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nManchester City\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nFAQ\nHow do Ones to Watch players get upgraded?\nDo the upgrades stack?\nWhich matches count for the wins upgrade?\nPremier League\nLaLiga\nSerie A\nBundesliga\nLigue 1\nWSL\nLiga F\nSerie A Femminile\nFrauen-Bundesliga\nPremiere Ligue\nEredivisie\nSaudi Pro League\nLiga Portugal\nSuperlig\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
-        "campaign": "ones-to-watch"
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nOnes to Watch\n>\nPlayers\nOnes to Watch Tracker - Players\nView all players in the Ones to Watch campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nOnes to Watch\nMan Utd\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nArsenal\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (2/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nLondon City\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (2/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nManchester City\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nPSG\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nReal Madrid\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nManchester City\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nBrighton\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nNott'm Forest\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nSpurs\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nFeyenoord\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nReal Madrid\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (2/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nArsenal\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nAl Hilal\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (0/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nFC Barcelona\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nSporting CP\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nChelsea\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nAtlético de Madrid\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nLombardia FC\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nAC",
+        "htmlBytes": 367906,
+        "campaign": "ones-to-watch",
+        "sub": "players"
       },
       {
-        "url": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/",
+        "url": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/upgrades/",
         "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/upgrades/",
+        "title": "Upgrades - Ones to Watch Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "itemLinkCount": 0,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 0,
+        "cards": [],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nOnes to Watch\n>\nUpgrades\nOnes to Watch Tracker - Upgrades\nView player upgrades for the Ones to Watch campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nNo upgrades found for this campaign\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "htmlBytes": 251375,
+        "campaign": "ones-to-watch",
+        "sub": "upgrades"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/players/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/players/",
+        "title": "Players - Destined for Glory Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "itemLinkCount": 17,
+        "verLinkCount": 17,
+        "links27": [
+          "/players/231747-kylian-mbappe/27-50563395/",
+          "/players/252145-nuno-mendes/27-50583793/",
+          "/players/259287-pernille-harder/27-50590935/",
+          "/players/233731-alexander-isak/27-50565379/",
+          "/players/260247-morgan-rogers/27-50591895/",
+          "/players/244176-deniz-undav/27-50575824/",
+          "/players/261855-kika-nazareth/27-50593503/",
+          "/players/243245-orkun-kokcu/27-50574893/",
+          "/players/227678-ezri-konsa/27-50559326/",
+          "/players/188567-pierre-emerick-aubameyang/27-50520215/",
+          "/players/279604-mikel-jauregizar-alboniga-jauregizar/27-50611252/",
+          "/players/262863-antonio-nusa/27-50594511/",
+          "/players/253109-joey-veerman/27-50584757/",
+          "/players/248165-andrei-ratiu/27-50579813/",
+          "/players/246688-saud-abdulhamid/27-50578336/",
+          "/players/241736-yann-aurel-bisseck/27-50573384/",
+          "/players/273906-renato-palma-veiga-renato-veiga/27-50605554/"
+        ],
+        "greensTotal": 11,
         "cards": [
           {
-            "href": "https://www.fut.gg/players/",
-            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
+            "href": "/players/231747-kylian-mbappe/27-50563395/",
+            "text": "Destined for Glory | Real Madrid",
             "greens": 0,
             "grays": 0
           },
           {
-            "href": "https://www.fut.gg/players/momentum/",
-            "text": "Momentum Trends",
+            "href": "/players/252145-nuno-mendes/27-50583793/",
+            "text": "Destined for Glory | PSG",
             "greens": 0,
             "grays": 0
           },
           {
-            "href": "https://www.fut.gg/players/in-packs/",
-            "text": "In Packs",
+            "href": "/players/259287-pernille-harder/27-50590935/",
+            "text": "Destined for Glory | FC Bayern München",
             "greens": 0,
             "grays": 0
           },
           {
-            "href": "/live-hub/campaigns/fantasy-fc/players/",
-            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
+            "href": "/players/233731-alexander-isak/27-50565379/",
+            "text": "Destined for Glory | Liverpool",
             "greens": 0,
             "grays": 0
           },
           {
-            "href": "/players/236496-matteo-guendouzi/26-67345360/",
-            "text": "",
+            "href": "/players/260247-morgan-rogers/27-50591895/",
+            "text": "Destined for Glory | Chelsea",
             "greens": 0,
             "grays": 0
           },
           {
-            "href": "/players/243245-orkun-kokcu/26-67352109/",
-            "text": "",
+            "href": "/players/244176-deniz-undav/27-50575824/",
+            "text": "Destined for Glory | VfB Stuttgart",
             "greens": 0,
             "grays": 0
           },
+          {
+            "href": "/players/261855-kika-nazareth/27-50593503/",
+            "text": "Destined for Glory | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/243245-orkun-kokcu/27-50574893/",
+            "text": "Destined for Glory | Beşiktaş",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/227678-ezri-konsa/27-50559326/",
+            "text": "Destined for Glory | Arsenal",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/188567-pierre-emerick-aubameyang/27-50520215/",
+            "text": "Destined for Glory | RC Deportivo",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/279604-mikel-jauregizar-alboniga-jauregizar/27-50611252/",
+            "text": "Destined for Glory | Athletic Club",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/262863-antonio-nusa/27-50594511/",
+            "text": "Destined for Glory | RB Leipzig",
+            "greens": 0,
+            "grays": 0
+          }
+        ],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nDestined for Glory\n>\nPlayers\nDestined for Glory Tracker - Players\nView all players in the Destined for Glory campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nDestined for Glory\nReal Madrid\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nPSG\n2 clean sheets\n+1 Defending & Physical\n4 clean sheets\n+1 PS\n6 clean sheets\n+1 OVR\n10 clean sheets\n+1 OVR\nView Fixtures\nDestined for Glory\nFC Bayern München\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nLiverpool\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nChelsea\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nVfB Stuttgart\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nFC Barcelona\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nBeşiktaş\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nArsenal\n2 clean sheets\n+1 Defending & Physical\n4 clean sheets\n+1 PS\n6 clean sheets\n+1 OVR\n10 clean sheets\n+1 OVR\nView Fixtures\nDestined for Glory\nRC Deportivo\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nAthletic Club\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nRB Leipzig\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nBorussia Dortmund\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nRayo Vallecano\n2 clean sheets\n+1 Defending & Physical\n4 clean sheets\n+1 PS\n6 clean sheets\n+1 OVR\n10 clean sheets\n+1 OVR\nView Fixtures\nDestined for Glory\nRC Lens\n2 clean sheets\n+1 Defending & Physical\n4 clean sheets\n+1 PS\n6 clean sheets\n+1 OVR\n10 clean sheets\n+1 OVR\nView Fixtures\nDestined for Glory\nLombardia FC\n2 clean sheets\n+1 Defending & Physical\n4 clean sheets\n+1 PS\n6 clean sheets\n+1 OVR\n10 clean sheets\n+1 OVR\nView Fixtures\nDestined for Glory\nVillarreal CF\n2 clean sheets\n+1 Defending & Physical\n4 clean sheets\n+1 PS\n6 clean sheets\n+1 OVR\n10 clean sheets\n+1 OVR\nView Fixtures\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "htmlBytes": 335902,
+        "campaign": "destined-for-glory",
+        "sub": "players"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/upgrades/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/upgrades/",
+        "title": "Upgrades - Destined for Glory Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "itemLinkCount": 0,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 0,
+        "cards": [],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nDestined for Glory\n>\nUpgrades\nDestined for Glory Tracker - Upgrades\nView player upgrades for the Destined for Glory campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nNo upgrades found for this campaign\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "htmlBytes": 251486,
+        "campaign": "destined-for-glory",
+        "sub": "upgrades"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/players/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/players/",
+        "title": "Players - Fantasy FC Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 105,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 217,
+        "cards": [
           {
             "href": "/players/241651-viktor-gyokeres/26-67350515/",
-            "text": "",
+            "text": "Fantasy FC | Arsenal",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/26709-rafael-marquez/26-50358357/",
-            "text": "",
+            "text": "Fantasy FC | FC Barcelona",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/242444-joao-felix/26-84128524/",
-            "text": "",
+            "text": "Fantasy FC | Al Nassr",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/241721-rafael-leao/26-84127801/",
-            "text": "",
+            "text": "Fantasy FC | Milano FC",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/240638-tijjani-reijnders/26-84126718/",
+            "text": "Fantasy FC | Manchester City",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/212198-bruno-fernandes/26-84098278/",
+            "text": "Fantasy FC | Man Utd",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/188545-robert-lewandowski/26-84074625/",
+            "text": "Fantasy FC | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/274750-wesley-sneijder/26-67383614/",
+            "text": "Fantasy FC | Lombardia FC",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/269404-salma-paralluelo/26-67378268/",
+            "text": "Fantasy FC | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/264309-arda-guler/26-67373173/",
+            "text": "Fantasy FC | Real Madrid",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/20289-yaya-toure/26-67129153/",
+            "text": "Fantasy FC | Manchester City",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/270673-warren-zaire-emery/26-50602321/",
+            "text": "Fantasy FC | Paris SG",
             "greens": 0,
             "grays": 0
           }
         ],
-        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/",
-        "title": "Fantasy FC Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
-        "playerValueHits": 0,
-        "objectivesHits": 4,
-        "htmlBytes": 312135,
-        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nFantasy FC\nFantasy FC Tracker\nTrack the progress of the live EA SPORTS FC 26 Fantasy FC players in their upcoming head-to-head matchups. Check the upgrades, fixtures, standings, and more...\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Fantasy FC from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Fantasy FC details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nUpcoming Fixtures\nView All\n9th Aug 14:30\nSuperlig\nFenerbahçe\nvs\nAlanyaspor\nShow Trackers\n10th Aug 14:30\nSuperlig\nKayserispor\nvs\nBeşiktaş\nShow Trackers\nRecently Upgraded\nView All\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nPlayers\nView All\nFantasy FC\nArsenal\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nFantasy FC\nFC Barcelona\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\nWin Domestic Cup\n+1 PS+ · +1 PS\nWin Domestic League\n+1 OVR\nFantasy FC\nAl Nassr\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nView Fixtures\nFantasy FC\nMilano FC\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nView Fixtures\nPremier League\nLaLiga\nSerie A\nBundesliga\nLigue 1\nWSL\nLiga F\nFrauen Bundesliga\nPremiere Ligue\nEredivisie\nSaudi Pro League\nLiga Portugal\nSuperlig\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
-        "campaign": "fantasy-fc"
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nFantasy FC\n>\nPlayers\nFantasy FC Tracker - Players\nView all players in the Fantasy FC campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Fantasy FC from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Fantasy FC details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nFantasy FC\nArsenal\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nFantasy FC\nFC Barcelona\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\nWin Domestic Cup\n+1 PS+ · +1 PS\nWin Domestic League\n+1 OVR\nFantasy FC\nAl Nassr\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nView Fixtures\nFantasy FC\nMilano FC\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nView Fixtures\nFantasy FC\nManchester City\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nView Fixtures\nFantasy FC\nMan Utd\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nFantasy FC\nFC Barcelona\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nFantasy FC\nLombardia FC\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\nWin Domestic Cup\n+1 PS+ · +1 PS\nWin Domestic League\n+1 OVR\nView Fixtures\nFantasy FC\nFC Barcelona\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nView Fixtures\nFantasy FC\nReal Madrid\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nFantasy FC\nManchester City\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\nWin Domestic Cup\n+1 PS+ · +1 PS\nWin Domestic League\n+1 OVR\nView Fixtures\nFantasy FC\nParis SG\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nView Fixtures\nFantasy FC\nChelsea\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in",
+        "htmlBytes": 930744,
+        "campaign": "fantasy-fc",
+        "sub": "players"
       },
       {
-        "url": "https://www.fut.gg/live-hub/campaigns/thunderstruck/",
+        "url": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/upgrades/",
         "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/upgrades/",
+        "title": "Upgrades - Fantasy FC Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 0,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 0,
+        "cards": [],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nFantasy FC\n>\nUpgrades\nFantasy FC Tracker - Upgrades\nView player upgrades for the Fantasy FC campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Fantasy FC from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Fantasy FC details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "htmlBytes": 277728,
+        "campaign": "fantasy-fc",
+        "sub": "upgrades"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/thunderstruck/players/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/thunderstruck/players/",
+        "title": "Players - Thunderstruck Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 71,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 433,
         "cards": [
           {
-            "href": "https://www.fut.gg/players/",
-            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/momentum/",
-            "text": "Momentum Trends",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/in-packs/",
-            "text": "In Packs",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/live-hub/campaigns/thunderstruck/players/",
-            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/players/220834-marco-asensio/26-67329698/",
-            "text": "",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/players/246800-tajon-buchanan/26-50578448/",
-            "text": "",
-            "greens": 0,
-            "grays": 0
-          },
-          {
             "href": "/players/190042-diego-maradona/26-50521690/",
-            "text": "",
+            "text": "Thunderstruck | SSC Napoli",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/168473-franz-beckenbauer/26-67277337/",
-            "text": "",
+            "text": "Thunderstruck | FC Bayern München",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/275276-birgit-prinz/26-50606924/",
-            "text": "",
+            "text": "Thunderstruck | Frankfurt",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/238439-paolo-maldini/26-50570087/",
-            "text": "",
+            "text": "Thunderstruck | Milano FC",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/252371-jude-bellingham/26-67361235/",
+            "text": "Thunderstruck | Real Madrid",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/242519-eusebio/26-67351383/",
+            "text": "Thunderstruck | SL Benfica",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/227203-alexia-putellas/26-67336067/",
+            "text": "Thunderstruck | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/10535-xavi/26-50342183/",
+            "text": "Thunderstruck | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/238430-roberto-carlos/26-50570078/",
+            "text": "Thunderstruck | Real Madrid",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/238388-dennis-bergkamp/26-50570036/",
+            "text": "Thunderstruck | Ajax",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/231866-rodri/26-50563514/",
+            "text": "Thunderstruck | Manchester City",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/227324-camille-abily/26-50558972/",
+            "text": "Thunderstruck | OL",
             "greens": 0,
             "grays": 0
           }
         ],
-        "finalUrl": "https://www.fut.gg/live-hub/campaigns/thunderstruck/",
-        "title": "Thunderstruck Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
-        "playerValueHits": 0,
-        "objectivesHits": 4,
-        "htmlBytes": 306419,
-        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nThunderstruck\nThunderstruck Tracker\nTrack the progress of the live EA SPORTS FC 26 Thunderstruck players in their upcoming head-to-head matchups. Check the upgrades, fixtures, standings, and more...\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Thunderstruck from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Thunderstruck details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nUpcoming Fixtures\nView All\n9th Aug 14:30\nSuperlig\nFenerbahçe\nvs\nAlanyaspor\nShow Trackers\n14th Dec 12:30\nLaLiga\nLevante UD\nvs\nVillarreal CF\nShow Trackers\nRecently Upgraded\nView All\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nPlayers\nView All\nThunderstruck\nSSC Napoli\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nFC Bayern München\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (4/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nFrankfurt\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (4/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nMilano FC\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nPremier League\nLaLiga\nSerie A\nBundesliga\nLigue 1\nWSL\nLiga F\nSerie A Femminile\nFrauen Bundesliga\nPremiere Ligue\nEredivisie\nSaudi Pro League\nLiga Portugal\nSuperlig\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
-        "campaign": "thunderstruck"
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nThunderstruck\n>\nPlayers\nThunderstruck Tracker - Players\nView all players in the Thunderstruck campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Thunderstruck from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Thunderstruck details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nThunderstruck\nSSC Napoli\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nFC Bayern München\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (4/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nFrankfurt\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (4/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nMilano FC\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nReal Madrid\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nSL Benfica\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nFC Barcelona\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (2/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nFC Barcelona\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nReal Madrid\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nAjax\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (4/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nManchester City\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nOL\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (3/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nOL\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (3/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nFC Barcelona\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nArsenal\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (2/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nFC Barcelona\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nAl Ittihad\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (3/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nFC Bayern München\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (4/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nOL\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (3/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nAtlético de Madrid\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nPSV\n2 wins/draws in ne",
+        "htmlBytes": 552391,
+        "campaign": "thunderstruck",
+        "sub": "players"
       },
       {
-        "url": "https://www.fut.gg/live-hub/campaigns/primetime/",
+        "url": "https://www.fut.gg/live-hub/campaigns/thunderstruck/upgrades/",
         "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/thunderstruck/upgrades/",
+        "title": "Upgrades - Thunderstruck Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 0,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 0,
+        "cards": [],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nThunderstruck\n>\nUpgrades\nThunderstruck Tracker - Upgrades\nView player upgrades for the Thunderstruck campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Thunderstruck from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Thunderstruck details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "htmlBytes": 277799,
+        "campaign": "thunderstruck",
+        "sub": "upgrades"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/primetime/players/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/primetime/players/",
+        "title": "Players - Primetime Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 56,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 258,
         "cards": [
           {
-            "href": "https://www.fut.gg/players/",
-            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/momentum/",
-            "text": "Momentum Trends",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "https://www.fut.gg/players/in-packs/",
-            "text": "In Packs",
-            "greens": 0,
-            "grays": 0
-          },
-          {
-            "href": "/live-hub/campaigns/primetime/players/",
-            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
-            "greens": 0,
-            "grays": 0
-          },
-          {
             "href": "/players/239085-erling-haaland/26-84125165/",
-            "text": "",
+            "text": "Primetime | Manchester City",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/227102-caroline-graham-hansen/26-50558750/",
-            "text": "",
+            "text": "Primetime | FC Barcelona",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/277643-lamine-yamal-lamine-yamal/26-50609291/",
-            "text": "",
+            "text": "Primetime | FC Barcelona",
             "greens": 0,
             "grays": 0
           },
           {
             "href": "/players/243715-william-saliba/26-50575363/",
-            "text": "",
+            "text": "Primetime | Arsenal",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/226307-simone-laudehr/26-50557955/",
+            "text": "Primetime | FC Bayern München",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/183277-eden-hazard/26-50514925/",
+            "text": "Primetime | Chelsea",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/242516-cody-gakpo/26-67351380/",
+            "text": "Primetime | Liverpool",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/275298-aleksandar-pavlovic/26-50606946/",
+            "text": "Primetime | FC Bayern München",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/248465-ian-maatsen/26-50580113/",
+            "text": "Primetime | Aston Villa",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/227562-lukas-haraslin/26-50559210/",
+            "text": "Primetime | Sparta Praha",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/227315-laura-georges/26-50558963/",
+            "text": "Primetime | OL | 2 wins in next 4 matches | +1 OVR | 4 club goals in next 4 matches | +2 PS · +1 Role+",
+            "greens": 2,
+            "grays": 0
+          },
+          {
+            "href": "/players/8348-miguel-angel-salgado-fernandez/26-50339996/",
+            "text": "Primetime | Real Madrid",
             "greens": 0,
             "grays": 0
           }
         ],
-        "finalUrl": "https://www.fut.gg/live-hub/campaigns/primetime/",
-        "title": "Primetime Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
-        "playerValueHits": 0,
-        "objectivesHits": 4,
-        "htmlBytes": 292972,
-        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nPrimetime\nPrimetime Tracker\nTrack the progress of the live EA SPORTS FC 26 Primetime players in their upcoming head-to-head matchups. Check the upgrades, fixtures, standings, and more...\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Primetime from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Primetime details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nUpcoming Fixtures\nView All\nNo upcoming fixtures with tracked players\nRecently Upgraded\nView All\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nPlayers\nView All\nPrimetime\nManchester City\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nFC Barcelona\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 4 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nFC Barcelona\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nArsenal\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 CS & no cards in 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nUEFA Champions League\nUEFA Europa League\nUEFA Conference League\nUEFA Women's Champions League\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
-        "campaign": "primetime"
-      }
-    ],
-    "apiTries": [
-      {
-        "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/campaigns/",
-        "status": 404,
-        "bytes": 887,
-        "head": ""
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nPrimetime\n>\nPlayers\nPrimetime Tracker - Players\nView all players in the Primetime campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Primetime from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Primetime details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nPrimetime\nManchester City\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nFC Barcelona\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 4 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nFC Barcelona\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nArsenal\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 CS & no cards in 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nFC Bayern München\n2 wins in next 4 matches\n+1 OVR\n4 club goals in next 4 matches\n+2 PS · +1 Role+\nPrimetime\nChelsea\n2 wins in next 4 matches\n+1 OVR\n4 club goals in next 4 matches\n+2 PS · +1 Role+\nPrimetime\nLiverpool\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nFC Bayern München\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 CS & no cards in 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nAston Villa\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 CS & no cards in 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nSparta Praha\n4 points in next 3 matches\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 3 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 3 separate matches\n+1 OVR\nPrimetime\nOL\n2 wins in next 4 matches\n+1 OVR\n4 club goals in next 4 matches\n+2 PS · +1 Role+\nPrimetime\nReal Madrid\n2 wins in next 4 matches\n+1 OVR\n4 club goals in next 4 matches\n+2 PS · +1 Role+\nPrimetime\nSpurs\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nReal Madrid\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 CS & no cards in 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nChelsea\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 4 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nMan Utd\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 CS & no cards in 4 matches\n+1 PS · +1 Role+\nTop 4 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nSL Benfica\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nAtlético de Madrid\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nAS Roma\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n",
+        "htmlBytes": 512387,
+        "campaign": "primetime",
+        "sub": "players"
       },
       {
-        "url": "https://www.fut.gg/api/fut/live-hub/campaigns/campaigns/?game=27",
-        "status": 404,
-        "bytes": 887,
-        "head": ""
+        "url": "https://www.fut.gg/live-hub/campaigns/primetime/upgrades/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/primetime/upgrades/",
+        "title": "Upgrades - Primetime Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 0,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 0,
+        "cards": [],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nPrimetime\n>\nUpgrades\nPrimetime Tracker - Upgrades\nView player upgrades for the Primetime campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Primetime from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Primetime details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "htmlBytes": 277056,
+        "campaign": "primetime",
+        "sub": "upgrades"
       },
       {
-        "url": "https://www.fut.gg/api/fut/live-hub/27/?campaign=campaigns",
-        "status": 200,
-        "bytes": 250020,
-        "head": "{\"data\":{\"game\":\"27\",\"upcomingFixtures\":[{\"game\":\"27\",\"id\":8215,\"competitionId\":35,\"competitionName\":\"LaLiga\",\"competitionSlug\":\"laliga\",\"competitionImageUrl\":\"https://game-assets.fut.gg/live-hub-competition/laliga.9eec4cacb8a3a6fe36e76c2c0606a3ca2bacc7e2d350b51360a7c0c1fb452ef8.png\",\"date\":\"2026-09"
+        "url": "https://www.fut.gg/live-hub/campaigns/fc-pro/players/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fc-pro/players/",
+        "title": "Players - FC Pro Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 24,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 73,
+        "cards": [
+          {
+            "href": "/players/253072-darwin-nunez/26-50584720/",
+            "text": "FC Pro | Al Hilal | Get 3 FC Pro Points | +1 SM or WF | Get 10 FC Pro Points | +1 OVR | Get 16 FC Pro Points | 15/16 | +1 OVR | Qualify for Knockouts | +1 PS+ | Reach Top 4 | +1 Alt Pos · +1 Role++ | Win FC Pro | +1 OVR · +1 SM or WF",
+            "greens": 3,
+            "grays": 4
+          },
+          {
+            "href": "/players/268438-alejandro-garnacho/26-67377302/",
+            "text": "FC Pro | Chelsea | Get 3 FC Pro Points | +1 SM or WF | Get 10 FC Pro Points | +1 OVR | Get 16 FC Pro Points | 0/16 | +1 OVR | Qualify for Knockouts | +1 PS+ | Reach Top 4 | +1 Alt Pos · +1 Role++ | Win FC Pro | +1 OVR · +1 SM or WF",
+            "greens": 1,
+            "grays": 17
+          },
+          {
+            "href": "/players/241096-sandro-tonali/26-50572744/",
+            "text": "FC Pro | Newcastle Utd",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/239580-bremer/26-50571228/",
+            "text": "FC Pro | Juventus | Get 3 FC Pro Points | +1 SM or WF | Get 10 FC Pro Points | +1 OVR | Get 16 FC Pro Points | 0/16 | +1 OVR | Qualify for Knockouts | +1 PS+ | Reach Top 4 | +1 Alt Pos · +1 Role++ | Win FC Pro | +1 OVR · +1 SM or WF",
+            "greens": 1,
+            "grays": 17
+          },
+          {
+            "href": "/players/226271-fabian/26-50557919/",
+            "text": "FC Pro | Paris SG | Get 3 FC Pro Points | +1 SM or WF | Get 10 FC Pro Points | +1 OVR | Get 16 FC Pro Points | 0/16 | +1 OVR | Qualify for Knockouts | +1 PS+ | Reach Top 4 | +1 Alt Pos · +1 Role++ | Win FC Pro | +1 OVR · +1 SM or WF",
+            "greens": 1,
+            "grays": 17
+          },
+          {
+            "href": "/players/222331-lukas-klostermann/26-50553979/",
+            "text": "FC Pro | RB Leipzig",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/207862-matthias-ginter/26-50539510/",
+            "text": "FC Pro | SC Freiburg",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/190813-stephan-el-shaarawy/26-50522461/",
+            "text": "FC Pro | AS Roma | Get 3 FC Pro Points | +1 SM or WF | Get 10 FC Pro Points | +1 OVR | Get 16 FC Pro Points | 5/16 | +1 OVR | Qualify for Knockouts | +1 PS+ | Reach Top 4 | +1 Alt Pos · +1 Role++ | Win FC Pro | +1 OVR · +1 SM or WF",
+            "greens": 7,
+            "grays": 9
+          },
+          {
+            "href": "/players/178509-olivier-giroud/26-50510157/",
+            "text": "FC Pro | LOSC Lille",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/256958-fabio-vieira/26-67365822/",
+            "text": "FC Pro | Hamburger SV",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/270409-savio/26-50602057/",
+            "text": "FC Pro | Manchester City",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/251530-nuno-tavares/26-50583178/",
+            "text": "FC Pro | Latium | Get 3 FC Pro Points | +1 SM or WF | Get 10 FC Pro Points | +1 OVR | Get 16 FC Pro Points | 9/16 | +1 OVR | Qualify for Knockouts | +1 PS+ | Reach Top 4 | +1 Alt Pos · +1 Role++ | Win FC Pro | +1 OVR · +1 SM or WF",
+            "greens": 11,
+            "grays": 5
+          }
+        ],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nFC Pro\n>\nPlayers\nFC Pro Tracker - Players\nView all players in the FC Pro campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore FC Pro from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 FC Pro details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nFC Pro\nAl Hilal\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n15/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nChelsea\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nNewcastle Utd\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nJuventus\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nParis SG\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nRB Leipzig\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nSC Freiburg\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nAS Roma\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n5/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nLOSC Lille\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nHamburger SV\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n4/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nManchester City\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nLatium\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n9/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nMan Utd\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n6/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nSSC Napoli\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nAS Monaco\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nLeeds United\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n6/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · +1 Role++\nWin FC Pro\n+1 OVR · +1 SM or WF\nFC Pro\nRB Leipzig\nGet 3 FC Pro Points\n+1 SM or WF\nGet 10 FC Pro Points\n+1 OVR\nGet 16 FC Pro Points\n0/16\n+1 OVR\nQualify for Knockouts\n+1 PS+\nReach Top 4\n+1 Alt Pos · ",
+        "htmlBytes": 371887,
+        "campaign": "fc-pro",
+        "sub": "players"
       },
       {
-        "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/",
-        "status": 200,
-        "bytes": 58629,
-        "head": "{\"data\":[{\"game\":\"27\",\"id\":22,\"name\":\"Destined for Glory\",\"secondaryName\":\"DFG\",\"slug\":\"destined-for-glory\",\"description\":\"Track every EA SPORTS FC 27 Destined for Glory player. See the goals, assists and clean sheets they have built up since the promo launched, which upgrades they have unlocked and"
+        "url": "https://www.fut.gg/live-hub/campaigns/fc-pro/upgrades/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fc-pro/upgrades/",
+        "title": "Upgrades - FC Pro Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 0,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 0,
+        "cards": [],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nFC Pro\n>\nUpgrades\nFC Pro Tracker - Upgrades\nView player upgrades for the FC Pro campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore FC Pro from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 FC Pro details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "htmlBytes": 277632,
+        "campaign": "fc-pro",
+        "sub": "upgrades"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/path-to-glory/players/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/path-to-glory/players/",
+        "title": "Players - Path to Glory Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 95,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 257,
+        "cards": [
+          {
+            "href": "/players/231866-rodri/26-84117946/",
+            "text": "Path to Glory | Spain",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/212218-aymeric-laporte/26-84098298/",
+            "text": "Path to Glory | Spain",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/241461-ferran-torres/26-67350325/",
+            "text": "Path to Glory | Spain",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/241486-jules-kounde/26-84127566/",
+            "text": "Path to Glory | France",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/252371-jude-bellingham/26-100915667/",
+            "text": "Path to Glory | England",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/246669-bukayo-saka/26-100909965/",
+            "text": "Path to Glory | England",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/239837-alexis-mac-allister/26-84125917/",
+            "text": "Path to Glory | Argentina",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/233731-alexander-isak/26-84119811/",
+            "text": "Path to Glory | Sweden",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/228702-frenkie-de-jong/26-84114782/",
+            "text": "Path to Glory | Netherlands",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/216201-inaki-williams/26-84102281/",
+            "text": "Path to Glory | Ghana",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/238794-vinicius-jr/26-151233738/",
+            "text": "Path to Glory | Brazil",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/256630-florian-wirtz/26-117697142/",
+            "text": "Path to Glory | Germany",
+            "greens": 0,
+            "grays": 0
+          }
+        ],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nPath to Glory\n>\nPlayers\nPath to Glory Tracker - Players\nView all players in the Path to Glory campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Path to Glory from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Path to Glory details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nPath to Glory\nSpain\nWin 1 group stage match\n+1 99 Sub Attribute\nWin 3 group stage matches\n+1 99 Sub Attribute\nQualify for round of 32\n+1 OVR\nQualify for round of 16\n+1 PS+ (+1 PS if 4x PS+)\nQualify for quarter finals\n5/5 SM/WF (or +1 99 Sub Attribute if already 5/5)\nQualify for semi finals\n+1 OVR\nQualify for final\nFace stat to 99\nWin the final\nOVR 99 · +1 PS+\nTeam wins in extra-time\n99 Composure · 99 Stamina\nTeam wins a penalty shootout\n99 Composure · 99 Penalties · 99 Stamina\nView Fixtures\nPath to Glory\nSpain\nWin 1 group stage match\n+1 99 Sub Attribute\nWin 3 group stage matches\n+1 99 Sub Attribute\nQualify for round of 32\n+1 OVR\nQualify for round of 16\n+1 PS+ (+1 PS if 4x PS+)\nQualify for quarter finals\n5/5 SM/WF (or +1 99 Sub Attribute if already 5/5)\nQualify for semi finals\n+1 OVR\nQualify for final\nFace stat to 99\nWin the final\nOVR 99 · +1 PS+\nTeam wins in extra-time\n99 Composure · 99 Stamina\nTeam wins a penalty shootout\n99 Composure · 99 Penalties · 99 Stamina\nView Fixtures\nPath to Glory\nSpain\nWin 1 group stage match\n+1 99 Sub Attribute\nWin 3 group stage matches\n+1 99 Sub Attribute\nQualify for round of 32\n+1 OVR\nQualify for round of 16\n+1 PS+ (+1 PS if 4x PS+)\nQualify for quarter finals\n5/5 SM/WF (or +1 99 Sub Attribute if already 5/5)\nQualify for semi finals\n+1 OVR\nQualify for final\nFace stat to 99\nWin the final\nOVR 99 · +1 PS+\nTeam wins in extra-time\n99 Composure · 99 Stamina\nTeam wins a penalty shootout\n99 Composure · 99 Penalties · 99 Stamina\nView Fixtures\nPath to Glory\nFrance\nWin 1 group stage match\n+1 99 Sub Attribute\nWin 3 group stage matches\n+1 99 Sub Attribute\nQualify for round of 32\n+1 OVR\nQualify for round of 16\n+1 PS+ (+1 PS if 4x PS+)\nQualify for quarter finals\n5/5 SM/WF (or +1 99 Sub Attribute if already 5/5)\nQualify for semi finals\n+1 OVR\nQualify for final\nFace stat to 99\nWin the final\nOVR 99 · +1 PS+\nTeam wins in extra-time\n99 Composure · 99 Stamina\nTeam wins a penalty shootout\n99 Composure · 99 Penalties · 99 Stamina\nView Fixtures\nPath to Glory\nEngland\nWin 1 group stage match\n+1 99 Sub Attribute\nWin 3 group stage matches\n+1 99 Sub Attribute\nQualify for round of 32\n+1 OVR\nQualify for round of 16\n+1 PS+ (+1 PS if 4x PS+)\nQualify for quarter finals\n5/5 SM/WF (or +1 99 Sub Attribute if already 5/5)\nQualify for semi finals\n+1 OVR\nQualify for final\nFace stat to 99\nWin the final\nOVR 99 · +1 PS+\nTeam wins in extra-time\n99 Composure · 99 Stamina\nTeam wins a penalty shootout\n99 Composure · 99 Penalties · 99 Stamina\nView Fixtures\nPath to Glory\nEngland\nWin 1 group stage match\n+1 99 Sub Attribute\nWin 3 group stage matches\n+1 99 Sub Attribute\nQualify for round of 32\n+1 OVR\nQualify for round of 16\n+1 PS+ (+1 PS if 4x PS+)\nQualify for quarter finals\n5/5 SM/WF (or +1 99 Sub Attribute if already 5/5)\nQualify for semi finals\n+1 OVR\nQualify for final\nFace stat to 99\nWin the final\nOVR 99 · +1 PS+\nTeam wins in extra-time\n99 Composure · 99 Stamina\nTeam wins a penalty shootout\n99 Composure · 99 Penalties · 99 Stamina\nView Fixtures\nPath to Glory\nArgentina\nWin 1 group stage match\n+1 99 Sub Attribute\nWin 3 group stage matches\n+1 99 Sub Attribute\nQualify for round of 32\n+1 OVR\nQualify for round of 16\n+1 PS+ (+1 PS if 4x PS+)\nQualify for quarter finals\n5/5 SM/WF (or +1 99 Sub Attribute if already 5/5)\nQualify for semi finals\n+1 OVR\nQualify for final\nFace stat to 99\nWin the final\nOVR 99 · +1 PS+\nTeam wins in extra-time\n99 Composure · 99 Stamina\nTeam wins a penalty shootout\n99 Composu",
+        "htmlBytes": 1070652,
+        "campaign": "path-to-glory",
+        "sub": "players"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/path-to-glory/upgrades/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/path-to-glory/upgrades/",
+        "title": "Upgrades - Path to Glory Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 0,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 0,
+        "cards": [],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nPath to Glory\n>\nUpgrades\nPath to Glory Tracker - Upgrades\nView player upgrades for the Path to Glory campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Path to Glory from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Path to Glory details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "htmlBytes": 277800,
+        "campaign": "path-to-glory",
+        "sub": "upgrades"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/road-to-the-final/players/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/road-to-the-final/players/",
+        "title": "Players - Road to the Final Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 108,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 148,
+        "cards": [
+          {
+            "href": "/players/269404-salma-paralluelo/26-84155484/",
+            "text": "Road to the Final | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/261855-kika-nazareth/26-84147935/",
+            "text": "Road to the Final | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/260247-morgan-rogers/26-84146327/",
+            "text": "Road to the Final | Aston Villa",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/259240-adam-wharton/26-84145320/",
+            "text": "Road to the Final | Crystal Palace",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/241667-aitana-bonmati/26-84127747/",
+            "text": "Road to the Final | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/238756-jorgen-strand-larsen/26-84124836/",
+            "text": "Road to the Final | Crystal Palace",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/236499-douglas-luiz/26-84122579/",
+            "text": "Road to the Final | Aston Villa",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/236479-mapi-leon/26-84122559/",
+            "text": "Road to the Final | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/226271-fabian/26-84112351/",
+            "text": "Road to the Final | Paris SG",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/221697-ollie-watkins/26-84107777/",
+            "text": "Road to the Final | Aston Villa",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/271446-vicky-lopez/26-67380310/",
+            "text": "Road to the Final | FC Barcelona",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/258781-illia-zabarnyi/26-67367645/",
+            "text": "Road to the Final | Paris SG",
+            "greens": 0,
+            "grays": 0
+          }
+        ],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nRoad to the Final\n>\nPlayers\nRoad to the Final Tracker - Players\nView all players in the Road to the Final campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Road to the Final from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Road to the Final details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nRoad to the Final\nFC Barcelona\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nFC Barcelona\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nAston Villa\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nCrystal Palace\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nFC Barcelona\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nCrystal Palace\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nAston Villa\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nFC Barcelona\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nParis SG\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nAston Villa\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nFC Barcelona\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nParis SG\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nCrystal Palace\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+1 PS\nQualify for semi finals\n+1 SM or WF · All Roles++\nWin or draw SF 1st leg\n+1 OVR\nWin or draw SF 2nd leg\n+1 OVR\nQualify for final\n+1 PS+\nWin the final\n96 OVR · 5/5 SM/WF\nRoad to the Final\nParis SG\nWin or draw QF 1st leg\n+1 PS\nWin or draw QF 2nd leg\n+",
+        "htmlBytes": 838474,
+        "campaign": "road-to-the-final",
+        "sub": "players"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/road-to-the-final/upgrades/",
+        "err": "",
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/road-to-the-final/upgrades/",
+        "title": "Upgrades - Road to the Final Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "itemLinkCount": 0,
+        "verLinkCount": 0,
+        "links27": [],
+        "greensTotal": 0,
+        "cards": [],
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nRoad to the Final\n>\nUpgrades\nRoad to the Final Tracker - Upgrades\nView player upgrades for the Road to the Final campaign\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Road to the Final from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Road to the Final details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "htmlBytes": 277895,
+        "campaign": "road-to-the-final",
+        "sub": "upgrades"
       }
     ]
   }
