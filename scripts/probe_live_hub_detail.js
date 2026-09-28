@@ -176,8 +176,11 @@ async function visit(page, url, opts) {
   const lh = await apiGet(page, `${BASE}/live-hub/${VER}/`);
   const featured = [];
   if (lh && lh.status === 200) {
+    // ⚠️ 形状是 data.players（sync_live_hub.js 同口径），不是直数组也不是 data[] —— R4 首跑就是栽在这（rows is not iterable）
     const j = jget(lh.body);
-    const rows = Array.isArray(j) ? j : (j && (j.data || j.players) ? (j.data || j.players) : []);
+    const rows = (j && j.data && Array.isArray(j.data.players)) ? j.data.players
+      : (Array.isArray(j) ? j : (j && Array.isArray(j.players) ? j.players : []));
+    out.sections.lhShape = j ? Object.keys(j).slice(0, 8) : null;
     for (const p of rows) {
       const ea = p.eaId != null ? Number(p.eaId) : null;
       if (ea) featured.push({ eaId: ea, slug: p.slug || `27-${ea}`, name: p.name || p.commonName || '' });
