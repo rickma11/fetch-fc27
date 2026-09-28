@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-09-28T14:54:23.750Z",
+  "VER": 27,
+  "tid_32": {
+    "status": "200",
+    "count": 6,
+    "sampleEaIds": [
+      50590935,
+      50593503,
+      50611252,
+      50596673,
+      50596595,
+      50596683
+    ],
+    "sampleObjectives": [
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 3,
+        "label": "3 goals or assists"
+      },
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 6,
+        "label": "6 goals or assists"
+      },
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 10,
+        "label": "10 goals or assists"
+      },
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 20,
+        "label": "20 goals or assists"
+      }
+    ]
+  },
+  "tid_33": {
+    "status": "200",
+    "count": 6,
+    "sampleEaIds": [
+      50590935,
+      50593503,
+      50611252,
+      50596673,
+      50596595,
+      50596683
+    ],
+    "sampleObjectives": [
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 3,
+        "label": "3 goals or assists"
+      },
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 6,
+        "label": "6 goals or assists"
+      },
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 10,
+        "label": "10 goals or assists"
+      },
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 20,
+        "label": "20 goals or assists"
+      }
+    ]
+  },
+  "tid_34": {
+    "status": "200",
+    "count": 6,
+    "sampleEaIds": [
+      50590935,
+      50593503,
+      50611252,
+      50596673,
+      50596595,
+      50596683
+    ],
+    "sampleObjectives": [
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 3,
+        "label": "3 goals or assists"
+      },
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 6,
+        "label": "6 goals or assists"
+      },
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 10,
+        "label": "10 goals or assists"
+      },
+      {
+        "req": "GOALS_AND_ASSISTS",
+        "value": 20,
+        "label": "20 goals or assists"
+      }
+    ]
+  }
+}
