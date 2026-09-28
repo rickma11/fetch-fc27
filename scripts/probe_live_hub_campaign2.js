@@ -106,7 +106,9 @@ function shapeOf(node, depth) {
   for (let i = 0; i < slugs.length; i += 50) {
     const r = await apiGet(page, `${BASE}/players/v2/definition-data/?game=${VER}&slugs=${encodeURIComponent(slugs.slice(i, i + 50).join(','))}`);
     if (!r || r.status !== 200) continue;
-    const list = jget(r.body) || [];
+    // ⚠️ 形状可能是**直数组**也可能是 {data:[...]}（R7 首跑 "list is not iterable" 就是栽在这）
+    const jj = jget(r.body);
+    const list = Array.isArray(jj) ? jj : (jj && Array.isArray(jj.data) ? jj.data : []);
     for (const d of list) {
       let ea = d.eaId != null ? Number(d.eaId) : null;
       if (ea == null && d.slug) { const mm = /(\d+)$/.exec(d.slug); if (mm) ea = Number(mm[1]); }
