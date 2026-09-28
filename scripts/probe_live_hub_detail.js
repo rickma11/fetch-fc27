@@ -165,49 +165,59 @@ function parseTracker(html) {
   console.log('  取样', picks.map(p => `${p.eaId}/tid${p.tid}/${p.slug}`).join(' | '));
   out.picks = picks.map(p => ({ eaId: p.eaId, tid: p.tid, slug: p.slug }));
 
-  // ④ 试探详情页 URL 格式（对第一张取样卡试 2~3 种）
-  const patterns = [
-    s => `${SITE}/player/${s}/`,
-    s => `${SITE}/players/${s}/`,
-    s => `${SITE}/player/${s}`,
-  ];
-  let usePattern = null;
-  if (picks.length) {
-    const p0 = picks[0];
-    for (const pf of patterns) {
-      const url = pf(p0.slug);
-      const r = await apiGet(page, url, 'text/html,application/xhtml+xml');
-      if (r && r.status === 200) {
-        const has = r.body.indexOf('id="tracker"') >= 0;
-        console.log(`  试探 ${url} → 200, #tracker=${has}`);
-        out.urlTries = (out.urlTries || []).concat([{ url, status: 200, hasTracker: has }]);
-        if (has) { usePattern = pf; out.urlPattern = url.replace(p0.slug, '<slug>'); break; }
-      } else if (r) {
-        console.log(`  试探 ${url} → status ${r.status}`);
-        out.urlTries = (out.urlTries || []).concat([{ url, status: r.status, hasTracker: false }]);
-      }
+  // ④ 详情页 URL 格式已知（上一轮探针结论）：
+  //    /player/<slug>/  → 404
+  //    /players/<slug>/ → 200（正确）
+  //    ⚠️ 但 200 的原始 HTML 里**没有** id="tracker" ⇒ #tracker 是**客户端 JS 渲染**，
+  //       故必须 page.goto 渲染后等 #tracker 出现，再取 page.content() 解析（不能只 request.get）。
+  const usePattern = s => `${SITE}/players/${s}/`;
+  out.urlPattern = `${SITE}/players/<slug>/`;
+
+  // 抓一张卡：先拿原始 HTML（判断 SSR 直出），再渲染（page.goto + 等 #tracker）
+  async function fetchAndParse(url) {
+    const rec = { url, rawStatus: null, rawHasTracker: false, renderedHasTracker: false, err: '' };
+    const raw = await apiGet(page, url, 'text/html,application/xhtml+xml');
+    if (raw && raw.status === 200) {
+      rec.rawStatus = 200;
+      rec.rawBytes = raw.body.length;
+      rec.rawHasTracker = raw.body.indexOf('id="tracker"') >= 0;
+    } else if (raw) {
+      rec.rawStatus = raw.status;
     }
-  }
-  if (!usePattern) {
-    out.note = '未找到含 #tracker 的详情页 URL 格式';
-    dump(); await browser.close(); process.exit(4);
+    try {
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 40000 });
+      try {
+        await page.waitForSelector('#tracker', { timeout: 15000 });
+        rec.renderedHasTracker = true;
+      } catch (e) { rec.err = 'wait #tracker: ' + e.message; }
+      const html = await page.content();
+      rec.renderedBytes = html.length;
+      rec.tracker = rec.renderedHasTracker ? parseTracker(html) : null;
+      if (!rec.renderedHasTracker && !rec.err) rec.err = 'no selector but content ok';
+      // 诊断：渲染后是否出现 live-hub 相关线索（说明 JS 跑起来了但没 tracker）
+      rec.hasLiveHubLink = /\/live-hub\//.test(html);
+    } catch (e) { rec.err = 'goto: ' + e.message; }
+    return rec;
   }
 
-  // ⑤ 对每张取样卡抓详情页并解析 #tracker
+  // ⑤ 对每张取样卡抓详情页（渲染后）并解析 #tracker
   for (const p of picks) {
     const url = usePattern(p.slug);
-    const r = await apiGet(page, url, 'text/html,application/xhtml+xml');
-    if (!r || r.status !== 200) { out.samples.push({ eaId: p.eaId, tid: p.tid, slug: p.slug, url, status: r ? r.status : 'err' }); continue; }
-    const tr = parseTracker(r.body);
+    const rec = await fetchAndParse(url);
+    const tr = rec.tracker;
     out.samples.push({
-      eaId: p.eaId, tid: p.tid, slug: p.slug, url, status: 200,
-      htmlBytes: r.body.length,
-      hasTracker: !!tr,
+      eaId: p.eaId, tid: p.tid, slug: p.slug,
+      url: rec.url,
+      rawStatus: rec.rawStatus, rawHasTracker: rec.rawHasTracker,
+      renderedHasTracker: rec.renderedHasTracker,
+      hasLiveHubLink: !!rec.hasLiveHubLink,
+      err: rec.err,
+      renderedBytes: rec.renderedBytes || 0,
       campaign: tr ? tr.campaign : '',
-      club: tr ? tr.club : dyn[p.eaId].clubName,
+      club: tr ? tr.club : (dyn[p.eaId] ? dyn[p.eaId].clubName : ''),
       objectives: tr ? tr.objectives : []
     });
-    console.log(`  ${p.eaId} tid${p.tid} → tracker=${!!tr} objs=${tr ? tr.objectives.length : 0} bytes=${r.body.length}`);
+    console.log(`  ${p.eaId} tid${p.tid} → raw#tracker=${rec.rawHasTracker} 渲染后#tracker=${rec.renderedHasTracker} objs=${tr ? tr.objectives.length : 0} ${rec.err || ''}`);
   }
 
   clearTimeout(watchdog);
