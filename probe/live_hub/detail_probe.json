@@ -1,448 +1,210 @@
 {
-  "generatedAt": "2026-09-28T16:54:44.082Z",
+  "generatedAt": "2026-09-28T17:00:05.170Z",
   "VER": 27,
-  "round": 8,
-  "note": "HIT: 找到 campaign 级球员端点（见 sections.apiHit）",
+  "round": 9,
+  "note": "MISS: campaign API 未找到可用球员数组",
   "sections": {
-    "campaignsApi": {
-      "status": 200,
-      "bytes": 58629,
-      "keys": [
-        "game",
-        "id",
-        "name",
-        "secondaryName",
-        "slug",
-        "description",
-        "rarityEaId",
-        "imageUrl",
-        "competitionIds",
-        "fixtureIds",
-        "trackerIds",
-        "faqs",
-        "competitions",
-        "rarity"
-      ],
-      "list": [
-        {
-          "id": 22,
-          "name": "Destined for Glory",
-          "slug": "destined-for-glory",
-          "trackerId": null,
-          "playerCount": null
-        },
-        {
+    "campaigns": [
+      {
+        "id": 21,
+        "status": 200,
+        "bytes": 10645695,
+        "note": "",
+        "dataKeys": [
+          "game",
+          "id",
+          "campaign",
+          "fixtures"
+        ],
+        "campaign": {
           "id": 21,
           "name": "Ones to Watch",
           "slug": "ones-to-watch",
-          "trackerId": null,
-          "playerCount": null
-        }
-      ],
-      "hasPlayersField": false,
-      "head": "{\"data\":[{\"game\":\"27\",\"id\":22,\"name\":\"Destined for Glory\",\"secondaryName\":\"DFG\",\"slug\":\"destined-for-glory\",\"description\":\"Track every EA SPORTS FC 27 Destined for Glory player. See the goals, assists and clean sheets they have built up since the promo launched, which upgrades they have unlocked and the matches still to come.\",\"rarityEaId\":22,\"imageUrl\":\"https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/rarities-level-0-large/22.681f8cc0c0b8263923c06b809a35aae08e8aa8935c006526c7a62f9e318da13d.png\",\"competitionIds\":[34,35,36,37,38,39,40,41,42,43,44,45,46,47],\"fixtureIds\":[],\"trackerIds\":[33,34],\"faqs\":[{\"question\":\"How do Destined for Glory players get upgraded?\",\"answer\":\"Midfielders and attackers (CM, CAM, LM, LW, RM, RW, ST) upgrade on combined goals and assi",
-      "count": 2
-    },
-    "apiTries": [
+          "trackerIds": [
+            32
+          ]
+        },
+        "arrays": [
+          {
+            "path": "fixtures",
+            "len": 3849,
+            "itemKeys": [
+              "game",
+              "id",
+              "competitionId",
+              "competitionName",
+              "competitionSlug",
+              "competitionImageUrl",
+              "date",
+              "homeClubName",
+              "homeClubEaId",
+              "awayClubName",
+              "awayClubEaId",
+              "homeScore",
+              "awayScore",
+              "isFinished",
+              "isPostponed",
+              "isOngoing",
+              "gameTime",
+              "isHalftime",
+              "roundIdx",
+              "isNationCompetition",
+              "homeClub",
+              "awayClub"
+            ]
+          },
+          {
+            "path": "campaign.competitions[0].fixtureIds",
+            "len": 380,
+            "itemKeys": "number"
+          },
+          {
+            "path": "fixtures[0].homeClub.fixtureIds",
+            "len": 38,
+            "itemKeys": "number"
+          },
+          {
+            "path": "fixtures[0].awayClub.fixtureIds",
+            "len": 38,
+            "itemKeys": "number"
+          },
+          {
+            "path": "campaign.competitions[0].participantIds",
+            "len": 20,
+            "itemKeys": "number"
+          },
+          {
+            "path": "campaign.competitionIds",
+            "len": 14,
+            "itemKeys": "number"
+          },
+          {
+            "path": "campaign.competitions",
+            "len": 14,
+            "itemKeys": [
+              "game",
+              "id",
+              "name",
+              "description",
+              "slug",
+              "imageUrl",
+              "hasGroups",
+              "hasTable",
+              "hasKnockout",
+              "hasRounds",
+              "isActive",
+              "participantIds",
+              "fixtureIds",
+              "isNationCompetition"
+            ]
+          }
+        ],
+        "playersArrayPath": null,
+        "playersLen": 0,
+        "playerKeys": [],
+        "playerValueHits": 0,
+        "objectiveHits": 0
+      },
       {
-        "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/22/",
+        "id": 22,
         "status": 200,
         "bytes": 10645666,
-        "head": "{\"data\":{\"game\":\"27\",\"id\":22,\"campaign\":{\"game\":\"27\",\"id\":22,\"name\":\"Destined for Glory\",\"secondaryName\":\"DFG\",\"slug\":\"destined-for-glory\",\"description\":\"Track every EA SPORTS FC 27 Destined for Glory player. See the goals, assists and clean sheets they have built up since the promo launched, which upgrades they have unlocked and the matches still to come.\",\"rarityEaId\":22,\"imageUrl\":\"https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/rarities-level-0-large/22.681f8cc0c0b8263923c06b809a35aae08e8aa8935c006526c7a62f9e318da13d.png\",\"competitionIds\":[34,35,36,37,38,39,4"
-      },
-      {
-        "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/22/players/",
-        "status": 404,
-        "bytes": 200,
-        "head": ""
-      },
-      {
-        "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/destined-for-glory/",
-        "status": 404,
-        "bytes": 200,
-        "head": ""
-      },
-      {
-        "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/destined-for-glory/players/",
-        "status": 404,
-        "bytes": 200,
-        "head": ""
-      },
-      {
-        "url": "https://www.fut.gg/api/fut/live-hub/27/?campaign_id=22",
-        "status": 200,
-        "bytes": 250020,
-        "head": "{\"data\":{\"game\":\"27\",\"upcomingFixtures\":[{\"game\":\"27\",\"id\":8215,\"competitionId\":35,\"competitionName\":\"LaLiga\",\"competitionSlug\":\"laliga\",\"competitionImageUrl\":\"https://game-assets.fut.gg/live-hub-competition/laliga.9eec4cacb8a3a6fe36e76c2c0606a3ca2bacc7e2d350b51360a7c0c1fb452ef8.png\",\"date\":\"2026-09-16T19:30:00Z\",\"homeClubName\":\"Levante UD\",\"homeClubEaId\":1853,\"awayClubName\":\"Athletic Club\",\"awayClubEaId\":448,\"homeScore\":null,\"awayScore\":null,\"isFinished\":false,\"isPostponed\":true,\"isOngoing\":false,\"gameTime\":null,\"isHalftime\":false,\"roundIdx\":6,\"isNationCompetition\":false,\"homeClub\":{\"id\":5100"
-      }
-    ],
-    "apiHit": {
-      "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/22/",
-      "bytes": 10645666,
-      "head": "{\"data\":{\"game\":\"27\",\"id\":22,\"campaign\":{\"game\":\"27\",\"id\":22,\"name\":\"Destined for Glory\",\"secondaryName\":\"DFG\",\"slug\":\"destined-for-glory\",\"description\":\"Track every EA SPORTS FC 27 Destined for Glory player. See the goals, assists and clean sheets they have built up since the promo launched, which upgrades they have unlocked and the matches still to come.\",\"rarityEaId\":22,\"imageUrl\":\"https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/rarities-level-0-large/22.681f8cc0c0b8263923c06b809a35aae08e8aa8935c006526c7a62f9e318da13d.png\",\"competitionIds\":[34,35,36,37,38,39,40,41,42,43,44,45,46,47],\"fixtureIds\":[],\"trackerIds\":[33,34],\"faqs\":[{\"question\":\"How do Destined for Glory players get upgraded?\",\"answer\":\"Midfielders and attackers (CM, CAM, LM, LW, RM, RW, ST) upgrade on combined goals and assists:\\n- 3: +1 Shooting and +1 Passing\\n- 6: +1 PlayStyle\\n- 10: +1 OVR\\n- 20: +1 OVR\\n\\nDefensive midfielders and defenders (CDM, CB, LB, RB) upgrade on clean sheets:\\n- 2: +1 Defending and +1 Physical\\n- 4: +1 PlayStyle\\n- 6: +1 OVR\\n- 10: +1 OVR\"},{\"question\":\"Which matches count?\",\"answer\":\"Domestic league matches from 25 September 2026 onwards. Totals build up across the season, so there is no fixed window of matches.\"},{\"question\":\"Do the upgrades stack?\",\"answer\":\"Yes. Each tier is a separate upgrade, so a player who reaches the top tier earns all four.\"}],\"competitions\":[{\"game\":\"27\",\"id\":34,\"name\":\"Premier League\",\"description\":\"\",\"slug\":\"premier-league\",\"imageUrl\":\"https://game-assets.fut.gg/live-hub-competition/premier-league.05dac67c405666b206c65fead5bcf7b75ff31c37af645e4dda37de692da19763.png\",\"hasGroups\":false,\"hasTable\":true,\"hasKnockout\":false,\"hasRounds\":true,\"isActive\":true,\"participantIds\":[1064,1063,1062,1061,1060,1059,1058,1057,1056,1055,1054,1053,1052,1051,1050,1049,1048,1047,1046,1045],\"fixtureIds\":[8949,8948,8947,8946,8945,8944,8943,8942,8941,8940,8939,8938,8937,8936,8935,8934,8933,8932,8931,8930,8929,8928,8927,8926,8925,8924,892",
-      "playerValueHits": 0
-    },
-    "pages": [
-      {
-        "url": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/players/",
-        "err": "",
-        "cards": [
+        "note": "",
+        "dataKeys": [
+          "game",
+          "id",
+          "campaign",
+          "fixtures"
+        ],
+        "campaign": {
+          "id": 22,
+          "name": "Destined for Glory",
+          "slug": "destined-for-glory",
+          "trackerIds": [
+            33,
+            34
+          ]
+        },
+        "arrays": [
           {
-            "baseId": "27",
-            "eaId": 50548041,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Man Utd | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
+            "path": "fixtures",
+            "len": 3849,
+            "itemKeys": [
+              "game",
+              "id",
+              "competitionId",
+              "competitionName",
+              "competitionSlug",
+              "competitionImageUrl",
+              "date",
+              "homeClubName",
+              "homeClubEaId",
+              "awayClubName",
+              "awayClubEaId",
+              "homeScore",
+              "awayScore",
+              "isFinished",
+              "isPostponed",
+              "isOngoing",
+              "gameTime",
+              "isHalftime",
+              "roundIdx",
+              "isNationCompetition",
+              "homeClub",
+              "awayClub"
+            ]
           },
           {
-            "baseId": "27",
-            "eaId": 50596673,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Arsenal | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (2/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
+            "path": "campaign.competitions[0].fixtureIds",
+            "len": 380,
+            "itemKeys": "number"
           },
           {
-            "baseId": "27",
-            "eaId": 50596595,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | London City | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (2/6) | +1 OVR | View Fixtures",
-            "greens": 2,
-            "grays": 4
+            "path": "fixtures[0].homeClub.fixtureIds",
+            "len": 38,
+            "itemKeys": "number"
           },
           {
-            "baseId": "27",
-            "eaId": 50585891,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Manchester City | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 5
+            "path": "fixtures[0].awayClub.fixtureIds",
+            "len": 38,
+            "itemKeys": "number"
           },
           {
-            "baseId": "27",
-            "eaId": 50573109,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | PSG | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 5
+            "path": "campaign.competitions[0].participantIds",
+            "len": 20,
+            "itemKeys": "number"
           },
           {
-            "baseId": "27",
-            "eaId": 50409660,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Real Madrid | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
+            "path": "campaign.competitionIds",
+            "len": 14,
+            "itemKeys": "number"
           },
           {
-            "baseId": "27",
-            "eaId": 50610549,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Manchester City | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 5
-          },
-          {
-            "baseId": "27",
-            "eaId": 50606840,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Brighton | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 5
-          },
-          {
-            "baseId": "27",
-            "eaId": 50602179,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Nott'm Forest | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
-          },
-          {
-            "baseId": "27",
-            "eaId": 50602057,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Spurs | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
-          },
-          {
-            "baseId": "27",
-            "eaId": 50597808,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Feyenoord | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 5
-          },
-          {
-            "baseId": "27",
-            "eaId": 50596683,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Real Madrid | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (2/6) | +1 OVR | View Fixtures",
-            "greens": 2,
-            "grays": 4
-          },
-          {
-            "baseId": "27",
-            "eaId": 50588596,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Arsenal | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
-          },
-          {
-            "baseId": "27",
-            "eaId": 50583602,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Al Hilal | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (0/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
-          },
-          {
-            "baseId": "27",
-            "eaId": 50583500,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | FC Barcelona | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 5
-          },
-          {
-            "baseId": "27",
-            "eaId": 50583025,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Sporting CP | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
-          },
-          {
-            "baseId": "27",
-            "eaId": 50575715,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Chelsea | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
-          },
-          {
-            "baseId": "27",
-            "eaId": 50575428,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Atlético de Madrid | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 5
-          },
-          {
-            "baseId": "27",
-            "eaId": 50575350,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | Lombardia FC | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
-          },
-          {
-            "baseId": "27",
-            "eaId": 50572598,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | ACF Fiorentina | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
-          },
-          {
-            "baseId": "27",
-            "eaId": 50404645,
-            "ver": 27,
-            "is27": true,
-            "text": "Ones to Watch | AS Roma | Gets Team of the Week | Repeatable | +1 OVR | Gets Star Performer | Repeatable | +1 OVR | Gets Player of the Month | Repeatable | +1 OVR | Win 3 of next 6 matches (1/6) | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 6
+            "path": "campaign.competitions",
+            "len": 14,
+            "itemKeys": [
+              "game",
+              "id",
+              "name",
+              "description",
+              "slug",
+              "imageUrl",
+              "hasGroups",
+              "hasTable",
+              "hasKnockout",
+              "hasRounds",
+              "isActive",
+              "participantIds",
+              "fixtureIds",
+              "isNationCompetition"
+            ]
           }
         ],
-        "finalUrl": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/players/",
-        "title": "Players - Ones to Watch Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
-        "htmlBytes": 364698,
-        "campaign": "ones-to-watch"
-      },
-      {
-        "url": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/players/",
-        "err": "",
-        "cards": [
-          {
-            "baseId": "27",
-            "eaId": 50563395,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Real Madrid | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50583793,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | PSG | 2 clean sheets | +1 Defending & Physical | 4 clean sheets | +1 PS | 6 clean sheets | +1 OVR | 10 clean sheets | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 22
-          },
-          {
-            "baseId": "27",
-            "eaId": 50590935,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | FC Bayern München | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50565379,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Liverpool | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50591895,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Chelsea | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50575824,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | VfB Stuttgart | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50593503,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | FC Barcelona | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50574893,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Beşiktaş | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50559326,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Arsenal | 2 clean sheets | +1 Defending & Physical | 4 clean sheets | +1 PS | 6 clean sheets | +1 OVR | 10 clean sheets | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 22
-          },
-          {
-            "baseId": "27",
-            "eaId": 50520215,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | RC Deportivo | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50611252,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Athletic Club | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50594511,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | RB Leipzig | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50584757,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Borussia Dortmund | 3 goals or assists | +1 Shooting & Passing | 6 goals or assists | +1 PS | 10 goals or assists | +1 OVR | 20 goals or assists | 0/20 | +1 OVR | View Fixtures",
-            "greens": 1,
-            "grays": 20
-          },
-          {
-            "baseId": "27",
-            "eaId": 50579813,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Rayo Vallecano | 2 clean sheets | +1 Defending & Physical | 4 clean sheets | +1 PS | 6 clean sheets | +1 OVR | 10 clean sheets | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 22
-          },
-          {
-            "baseId": "27",
-            "eaId": 50578336,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | RC Lens | 2 clean sheets | +1 Defending & Physical | 4 clean sheets | +1 PS | 6 clean sheets | +1 OVR | 10 clean sheets | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 22
-          },
-          {
-            "baseId": "27",
-            "eaId": 50573384,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Lombardia FC | 2 clean sheets | +1 Defending & Physical | 4 clean sheets | +1 PS | 6 clean sheets | +1 OVR | 10 clean sheets | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 22
-          },
-          {
-            "baseId": "27",
-            "eaId": 50605554,
-            "ver": 27,
-            "is27": true,
-            "text": "Destined for Glory | Villarreal CF | 2 clean sheets | +1 Defending & Physical | 4 clean sheets | +1 PS | 6 clean sheets | +1 OVR | 10 clean sheets | +1 OVR | View Fixtures",
-            "greens": 0,
-            "grays": 22
-          }
-        ],
-        "finalUrl": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/players/",
-        "title": "Players - Destined for Glory Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
-        "htmlBytes": 336782,
-        "campaign": "destined-for-glory"
+        "playersArrayPath": null,
+        "playersLen": 0,
+        "playerKeys": [],
+        "playerValueHits": 0,
+        "objectiveHits": 0
       }
     ]
   }
