@@ -1,4 +1,30 @@
 {
-  "generatedAt": "2026-09-28T09:58:18.023Z",
-  "versions": {}
+  "generatedAt": "2026-09-28T10:04:23.055Z",
+  "versions": {
+    "27": {
+      "totalPlayers": 6,
+      "campaigns": [
+        {
+          "campaignName": "Destined for Glory",
+          "trackerId": 33,
+          "count": 3,
+          "sample": [
+            50590935,
+            50593503,
+            50611252
+          ]
+        },
+        {
+          "campaignName": "Ones to Watch",
+          "trackerId": 32,
+          "count": 3,
+          "sample": [
+            50596673,
+            50596595,
+            50596683
+          ]
+        }
+      ]
+    }
+  }
 }

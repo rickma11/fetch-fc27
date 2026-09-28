@@ -1,0 +1,814 @@
+{
+  "version": 27,
+  "totalPlayers": 6,
+  "campaigns": [
+    {
+      "campaignName": "Destined for Glory",
+      "trackerId": 33,
+      "count": 3,
+      "sample": [
+        50590935,
+        50593503,
+        50611252
+      ]
+    },
+    {
+      "campaignName": "Ones to Watch",
+      "trackerId": 32,
+      "count": 3,
+      "sample": [
+        50596673,
+        50596595,
+        50596683
+      ]
+    }
+  ],
+  "players": [
+    {
+      "campaignName": "Destined for Glory",
+      "trackerId": 33,
+      "playerItemEaId": 50590935,
+      "name": "Pernille Harder",
+      "overall": 88,
+      "objectives": [
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "3 goals or assists",
+          "value": 3,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "CUSTOM",
+              "label": "+1 Shooting & Passing"
+            }
+          ]
+        },
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "6 goals or assists",
+          "value": 6,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "PLAYSTYLE",
+              "label": "+1 PS"
+            }
+          ]
+        },
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "10 goals or assists",
+          "value": 10,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "20 goals or assists",
+          "value": 20,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        }
+      ],
+      "data": {
+        "numberOfWins": 0,
+        "goalsInDifferentMatches": 0,
+        "clubGoalsInDifferentMatches": 0,
+        "isFinishTop3InLeague": false,
+        "isFinishTop2InLeague": false,
+        "isFinishTop1InLeague": false,
+        "winMatch": false,
+        "drawMatch": false,
+        "clubName": null,
+        "fcProPoints": 0,
+        "fcProQualifiedToKnockout": false,
+        "fcProEliminated": false,
+        "winsIn5Games": 0,
+        "clubGoalsIn5Games": 0,
+        "gamesPlayed": 0,
+        "cleanSheetsIn4Games": 0,
+        "winsIn4Games": 0,
+        "avoidYellowOrRedCardsIn4Games": null,
+        "winDomesticCup": null,
+        "winDomesticLeague": null,
+        "clubGoalsIn4Games": 0,
+        "goalsOrAssistsIn4Games": 0,
+        "winOrDrawRoundOf16": null,
+        "winOrDrawQuarterFinals": null,
+        "winOrDrawSemiFinals": null,
+        "qualifyForQuarterFinals": null,
+        "qualifyForSemiFinals": null,
+        "qualifyForFinal": null,
+        "winTheFinal": null,
+        "winOrDrawQf1stLeg": null,
+        "winOrDrawQf2ndLeg": null,
+        "winOrDrawSf1stLeg": null,
+        "winOrDrawSf2ndLeg": null,
+        "winMatchEprem": null,
+        "finishTop4Eprem": null,
+        "nationScoreGroupStage": 0,
+        "nationScore": 0,
+        "appearancesInWinMatch": 0,
+        "clubGoalsInNext4Matches": 0,
+        "clubGoalsInNext3Matches": 0,
+        "pointsInNext4Matches": 0,
+        "pointsInNext3Matches": 0,
+        "winsInNext4Matches": 0,
+        "gaInNext4Matches": 0,
+        "gaInNext3Matches": 0,
+        "winOrDrawNext5Domestic": 0,
+        "clubGoalsNext5Domestic": 0,
+        "clubGoalsIn4SeparateMatches": 0,
+        "clubGoalsIn3SeparateMatches": 0,
+        "attackingContributionsIn4Games": 0,
+        "defensiveContributionsIn4Games": 0,
+        "groupStageWins": 0,
+        "qualifyForRoundOf32": null,
+        "qualifyForRoundOf16": null,
+        "winInExtraTime": null,
+        "winPenaltyShootout": null,
+        "winsIn6Games": 0,
+        "totwInclusions": 0,
+        "starPerformerInclusions": 0,
+        "potmInclusions": 0,
+        "goalsAndAssists": 0,
+        "cleanSheets": 0,
+        "startDate": "2026-09-25",
+        "manualNotPossible": []
+      }
+    },
+    {
+      "campaignName": "Destined for Glory",
+      "trackerId": 33,
+      "playerItemEaId": 50593503,
+      "name": "Kika Nazareth",
+      "overall": 86,
+      "objectives": [
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "3 goals or assists",
+          "value": 3,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "CUSTOM",
+              "label": "+1 Shooting & Passing"
+            }
+          ]
+        },
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "6 goals or assists",
+          "value": 6,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "PLAYSTYLE",
+              "label": "+1 PS"
+            }
+          ]
+        },
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "10 goals or assists",
+          "value": 10,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "20 goals or assists",
+          "value": 20,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        }
+      ],
+      "data": {
+        "numberOfWins": 1,
+        "goalsInDifferentMatches": 0,
+        "clubGoalsInDifferentMatches": 1,
+        "isFinishTop3InLeague": false,
+        "isFinishTop2InLeague": false,
+        "isFinishTop1InLeague": false,
+        "winMatch": false,
+        "drawMatch": false,
+        "clubName": null,
+        "fcProPoints": 0,
+        "fcProQualifiedToKnockout": false,
+        "fcProEliminated": false,
+        "winsIn5Games": 1,
+        "clubGoalsIn5Games": 2,
+        "gamesPlayed": 1,
+        "cleanSheetsIn4Games": 1,
+        "winsIn4Games": 1,
+        "avoidYellowOrRedCardsIn4Games": null,
+        "winDomesticCup": null,
+        "winDomesticLeague": null,
+        "clubGoalsIn4Games": 2,
+        "goalsOrAssistsIn4Games": 0,
+        "winOrDrawRoundOf16": null,
+        "winOrDrawQuarterFinals": null,
+        "winOrDrawSemiFinals": null,
+        "qualifyForQuarterFinals": null,
+        "qualifyForSemiFinals": null,
+        "qualifyForFinal": null,
+        "winTheFinal": null,
+        "winOrDrawQf1stLeg": null,
+        "winOrDrawQf2ndLeg": null,
+        "winOrDrawSf1stLeg": null,
+        "winOrDrawSf2ndLeg": null,
+        "winMatchEprem": null,
+        "finishTop4Eprem": null,
+        "nationScoreGroupStage": 0,
+        "nationScore": 0,
+        "appearancesInWinMatch": 0,
+        "clubGoalsInNext4Matches": 0,
+        "clubGoalsInNext3Matches": 0,
+        "pointsInNext4Matches": 0,
+        "pointsInNext3Matches": 0,
+        "winsInNext4Matches": 0,
+        "gaInNext4Matches": 0,
+        "gaInNext3Matches": 0,
+        "winOrDrawNext5Domestic": 1,
+        "clubGoalsNext5Domestic": 2,
+        "clubGoalsIn4SeparateMatches": 0,
+        "clubGoalsIn3SeparateMatches": 0,
+        "attackingContributionsIn4Games": 0,
+        "defensiveContributionsIn4Games": 0,
+        "groupStageWins": 0,
+        "qualifyForRoundOf32": null,
+        "qualifyForRoundOf16": null,
+        "winInExtraTime": null,
+        "winPenaltyShootout": null,
+        "winsIn6Games": 1,
+        "totwInclusions": 0,
+        "starPerformerInclusions": 0,
+        "potmInclusions": 0,
+        "goalsAndAssists": 0,
+        "cleanSheets": 1,
+        "startDate": "2026-09-25",
+        "manualNotPossible": []
+      }
+    },
+    {
+      "campaignName": "Destined for Glory",
+      "trackerId": 33,
+      "playerItemEaId": 50611252,
+      "name": "Jauregizar",
+      "overall": 85,
+      "objectives": [
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "3 goals or assists",
+          "value": 3,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "CUSTOM",
+              "label": "+1 Shooting & Passing"
+            }
+          ]
+        },
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "6 goals or assists",
+          "value": 6,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "PLAYSTYLE",
+              "label": "+1 PS"
+            }
+          ]
+        },
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "10 goals or assists",
+          "value": 10,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "GOALS_AND_ASSISTS",
+          "label": "20 goals or assists",
+          "value": 20,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        }
+      ],
+      "data": {
+        "numberOfWins": 0,
+        "goalsInDifferentMatches": 0,
+        "clubGoalsInDifferentMatches": 0,
+        "isFinishTop3InLeague": false,
+        "isFinishTop2InLeague": false,
+        "isFinishTop1InLeague": false,
+        "winMatch": false,
+        "drawMatch": false,
+        "clubName": null,
+        "fcProPoints": 0,
+        "fcProQualifiedToKnockout": false,
+        "fcProEliminated": false,
+        "winsIn5Games": 0,
+        "clubGoalsIn5Games": 0,
+        "gamesPlayed": 0,
+        "cleanSheetsIn4Games": 0,
+        "winsIn4Games": 0,
+        "avoidYellowOrRedCardsIn4Games": null,
+        "winDomesticCup": null,
+        "winDomesticLeague": null,
+        "clubGoalsIn4Games": 0,
+        "goalsOrAssistsIn4Games": 0,
+        "winOrDrawRoundOf16": null,
+        "winOrDrawQuarterFinals": null,
+        "winOrDrawSemiFinals": null,
+        "qualifyForQuarterFinals": null,
+        "qualifyForSemiFinals": null,
+        "qualifyForFinal": null,
+        "winTheFinal": null,
+        "winOrDrawQf1stLeg": null,
+        "winOrDrawQf2ndLeg": null,
+        "winOrDrawSf1stLeg": null,
+        "winOrDrawSf2ndLeg": null,
+        "winMatchEprem": null,
+        "finishTop4Eprem": null,
+        "nationScoreGroupStage": 0,
+        "nationScore": 0,
+        "appearancesInWinMatch": 0,
+        "clubGoalsInNext4Matches": 0,
+        "clubGoalsInNext3Matches": 0,
+        "pointsInNext4Matches": 0,
+        "pointsInNext3Matches": 0,
+        "winsInNext4Matches": 0,
+        "gaInNext4Matches": 0,
+        "gaInNext3Matches": 0,
+        "winOrDrawNext5Domestic": 0,
+        "clubGoalsNext5Domestic": 0,
+        "clubGoalsIn4SeparateMatches": 0,
+        "clubGoalsIn3SeparateMatches": 0,
+        "attackingContributionsIn4Games": 0,
+        "defensiveContributionsIn4Games": 0,
+        "groupStageWins": 0,
+        "qualifyForRoundOf32": null,
+        "qualifyForRoundOf16": null,
+        "winInExtraTime": null,
+        "winPenaltyShootout": null,
+        "winsIn6Games": 0,
+        "totwInclusions": 0,
+        "starPerformerInclusions": 0,
+        "potmInclusions": 0,
+        "goalsAndAssists": 0,
+        "cleanSheets": 0,
+        "startDate": "2026-09-25",
+        "manualNotPossible": []
+      }
+    },
+    {
+      "campaignName": "Ones to Watch",
+      "trackerId": 32,
+      "playerItemEaId": 50596673,
+      "name": "Selina Cerci",
+      "overall": 84,
+      "objectives": [
+        {
+          "req": "TOTW_INCLUSION",
+          "label": "Gets Team of the Week",
+          "value": null,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "STAR_PERFORMER_INCLUSION",
+          "label": "Gets Star Performer",
+          "value": null,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "POTM_INCLUSION",
+          "label": "Gets Player of the Month",
+          "value": null,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "WIN_OUT_OF_NEXT_6_DOMESTIC",
+          "label": "Win 3 of next 6 matches (2/6)",
+          "value": 3,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        }
+      ],
+      "data": {
+        "numberOfWins": 0,
+        "goalsInDifferentMatches": 0,
+        "clubGoalsInDifferentMatches": 1,
+        "isFinishTop3InLeague": false,
+        "isFinishTop2InLeague": false,
+        "isFinishTop1InLeague": false,
+        "winMatch": false,
+        "drawMatch": false,
+        "clubName": null,
+        "fcProPoints": 0,
+        "fcProQualifiedToKnockout": false,
+        "fcProEliminated": false,
+        "winsIn5Games": 0,
+        "clubGoalsIn5Games": 1,
+        "gamesPlayed": 2,
+        "cleanSheetsIn4Games": 0,
+        "winsIn4Games": 0,
+        "avoidYellowOrRedCardsIn4Games": null,
+        "winDomesticCup": null,
+        "winDomesticLeague": null,
+        "clubGoalsIn4Games": 1,
+        "goalsOrAssistsIn4Games": 0,
+        "winOrDrawRoundOf16": null,
+        "winOrDrawQuarterFinals": null,
+        "winOrDrawSemiFinals": null,
+        "qualifyForQuarterFinals": null,
+        "qualifyForSemiFinals": null,
+        "qualifyForFinal": null,
+        "winTheFinal": null,
+        "winOrDrawQf1stLeg": null,
+        "winOrDrawQf2ndLeg": null,
+        "winOrDrawSf1stLeg": null,
+        "winOrDrawSf2ndLeg": null,
+        "winMatchEprem": null,
+        "finishTop4Eprem": null,
+        "nationScoreGroupStage": 0,
+        "nationScore": 0,
+        "appearancesInWinMatch": 0,
+        "clubGoalsInNext4Matches": 0,
+        "clubGoalsInNext3Matches": 0,
+        "pointsInNext4Matches": 0,
+        "pointsInNext3Matches": 0,
+        "winsInNext4Matches": 0,
+        "gaInNext4Matches": 0,
+        "gaInNext3Matches": 0,
+        "winOrDrawNext5Domestic": 1,
+        "clubGoalsNext5Domestic": 1,
+        "clubGoalsIn4SeparateMatches": 0,
+        "clubGoalsIn3SeparateMatches": 0,
+        "attackingContributionsIn4Games": 0,
+        "defensiveContributionsIn4Games": 0,
+        "groupStageWins": 0,
+        "qualifyForRoundOf32": null,
+        "qualifyForRoundOf16": null,
+        "winInExtraTime": null,
+        "winPenaltyShootout": null,
+        "winsIn6Games": 0,
+        "totwInclusions": 0,
+        "starPerformerInclusions": 0,
+        "potmInclusions": 0,
+        "goalsAndAssists": 0,
+        "cleanSheets": 0,
+        "startDate": "2026-09-18",
+        "manualNotPossible": []
+      }
+    },
+    {
+      "campaignName": "Ones to Watch",
+      "trackerId": 32,
+      "playerItemEaId": 50596595,
+      "name": "Nicole Anyomi",
+      "overall": 84,
+      "objectives": [
+        {
+          "req": "TOTW_INCLUSION",
+          "label": "Gets Team of the Week",
+          "value": null,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "STAR_PERFORMER_INCLUSION",
+          "label": "Gets Star Performer",
+          "value": null,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "POTM_INCLUSION",
+          "label": "Gets Player of the Month",
+          "value": null,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "WIN_OUT_OF_NEXT_6_DOMESTIC",
+          "label": "Win 3 of next 6 matches (2/6)",
+          "value": 3,
+          "playerValue": 2,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        }
+      ],
+      "data": {
+        "numberOfWins": 2,
+        "goalsInDifferentMatches": 0,
+        "clubGoalsInDifferentMatches": 2,
+        "isFinishTop3InLeague": false,
+        "isFinishTop2InLeague": false,
+        "isFinishTop1InLeague": false,
+        "winMatch": false,
+        "drawMatch": false,
+        "clubName": null,
+        "fcProPoints": 0,
+        "fcProQualifiedToKnockout": false,
+        "fcProEliminated": false,
+        "winsIn5Games": 2,
+        "clubGoalsIn5Games": 6,
+        "gamesPlayed": 2,
+        "cleanSheetsIn4Games": 1,
+        "winsIn4Games": 2,
+        "avoidYellowOrRedCardsIn4Games": null,
+        "winDomesticCup": null,
+        "winDomesticLeague": null,
+        "clubGoalsIn4Games": 6,
+        "goalsOrAssistsIn4Games": 0,
+        "winOrDrawRoundOf16": null,
+        "winOrDrawQuarterFinals": null,
+        "winOrDrawSemiFinals": null,
+        "qualifyForQuarterFinals": null,
+        "qualifyForSemiFinals": null,
+        "qualifyForFinal": null,
+        "winTheFinal": null,
+        "winOrDrawQf1stLeg": null,
+        "winOrDrawQf2ndLeg": null,
+        "winOrDrawSf1stLeg": null,
+        "winOrDrawSf2ndLeg": null,
+        "winMatchEprem": null,
+        "finishTop4Eprem": null,
+        "nationScoreGroupStage": 0,
+        "nationScore": 0,
+        "appearancesInWinMatch": 0,
+        "clubGoalsInNext4Matches": 0,
+        "clubGoalsInNext3Matches": 0,
+        "pointsInNext4Matches": 0,
+        "pointsInNext3Matches": 0,
+        "winsInNext4Matches": 0,
+        "gaInNext4Matches": 0,
+        "gaInNext3Matches": 0,
+        "winOrDrawNext5Domestic": 2,
+        "clubGoalsNext5Domestic": 6,
+        "clubGoalsIn4SeparateMatches": 0,
+        "clubGoalsIn3SeparateMatches": 0,
+        "attackingContributionsIn4Games": 0,
+        "defensiveContributionsIn4Games": 0,
+        "groupStageWins": 0,
+        "qualifyForRoundOf32": null,
+        "qualifyForRoundOf16": null,
+        "winInExtraTime": null,
+        "winPenaltyShootout": null,
+        "winsIn6Games": 2,
+        "totwInclusions": 0,
+        "starPerformerInclusions": 0,
+        "potmInclusions": 0,
+        "goalsAndAssists": 0,
+        "cleanSheets": 1,
+        "startDate": "2026-09-18",
+        "manualNotPossible": []
+      }
+    },
+    {
+      "campaignName": "Ones to Watch",
+      "trackerId": 32,
+      "playerItemEaId": 50596683,
+      "name": "Elisa Senß",
+      "overall": 83,
+      "objectives": [
+        {
+          "req": "TOTW_INCLUSION",
+          "label": "Gets Team of the Week",
+          "value": null,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "STAR_PERFORMER_INCLUSION",
+          "label": "Gets Star Performer",
+          "value": null,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "POTM_INCLUSION",
+          "label": "Gets Player of the Month",
+          "value": null,
+          "playerValue": 0,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        },
+        {
+          "req": "WIN_OUT_OF_NEXT_6_DOMESTIC",
+          "label": "Win 3 of next 6 matches (2/6)",
+          "value": 3,
+          "playerValue": 2,
+          "isCompleted": false,
+          "isNotPossible": false,
+          "upgrades": [
+            {
+              "upgrade": "OVERALL",
+              "label": "+1 OVR"
+            }
+          ]
+        }
+      ],
+      "data": {
+        "numberOfWins": 2,
+        "goalsInDifferentMatches": 0,
+        "clubGoalsInDifferentMatches": 2,
+        "isFinishTop3InLeague": false,
+        "isFinishTop2InLeague": false,
+        "isFinishTop1InLeague": false,
+        "winMatch": false,
+        "drawMatch": false,
+        "clubName": null,
+        "fcProPoints": 0,
+        "fcProQualifiedToKnockout": false,
+        "fcProEliminated": false,
+        "winsIn5Games": 2,
+        "clubGoalsIn5Games": 8,
+        "gamesPlayed": 2,
+        "cleanSheetsIn4Games": 0,
+        "winsIn4Games": 2,
+        "avoidYellowOrRedCardsIn4Games": null,
+        "winDomesticCup": null,
+        "winDomesticLeague": null,
+        "clubGoalsIn4Games": 8,
+        "goalsOrAssistsIn4Games": 0,
+        "winOrDrawRoundOf16": null,
+        "winOrDrawQuarterFinals": null,
+        "winOrDrawSemiFinals": null,
+        "qualifyForQuarterFinals": null,
+        "qualifyForSemiFinals": null,
+        "qualifyForFinal": null,
+        "winTheFinal": null,
+        "winOrDrawQf1stLeg": null,
+        "winOrDrawQf2ndLeg": null,
+        "winOrDrawSf1stLeg": null,
+        "winOrDrawSf2ndLeg": null,
+        "winMatchEprem": null,
+        "finishTop4Eprem": null,
+        "nationScoreGroupStage": 0,
+        "nationScore": 0,
+        "appearancesInWinMatch": 0,
+        "clubGoalsInNext4Matches": 0,
+        "clubGoalsInNext3Matches": 0,
+        "pointsInNext4Matches": 0,
+        "pointsInNext3Matches": 0,
+        "winsInNext4Matches": 0,
+        "gaInNext4Matches": 0,
+        "gaInNext3Matches": 0,
+        "winOrDrawNext5Domestic": 2,
+        "clubGoalsNext5Domestic": 8,
+        "clubGoalsIn4SeparateMatches": 0,
+        "clubGoalsIn3SeparateMatches": 0,
+        "attackingContributionsIn4Games": 0,
+        "defensiveContributionsIn4Games": 0,
+        "groupStageWins": 0,
+        "qualifyForRoundOf32": null,
+        "qualifyForRoundOf16": null,
+        "winInExtraTime": null,
+        "winPenaltyShootout": null,
+        "winsIn6Games": 2,
+        "totwInclusions": 0,
+        "starPerformerInclusions": 0,
+        "potmInclusions": 0,
+        "goalsAndAssists": 0,
+        "cleanSheets": 0,
+        "startDate": "2026-09-18",
+        "manualNotPossible": []
+      }
+    }
+  ]
+}
