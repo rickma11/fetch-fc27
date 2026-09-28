@@ -1,0 +1,53 @@
+name: Probe fut.gg Live Hub (full tracked-set comparison)
+
+# 只读探查：对比 live-hub 聚合 vs definition-data 综合「被追踪」信号，定位逐球员进度来源。
+# 与 fetch-fc27.yml / sync-live-hub.yml / probe-live-hub.yml 完全隔离（独立 concurrency 组）。
+# 不落库、不改每日同步管线、不提交 git（产物只在 artifact + 本机落盘）。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: probe-live-hub-full
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Probe (real browser bypass Cloudflare)
+        env:
+          FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
+        run: node scripts/probe_live_hub_full.js ${{ github.event.inputs.fc_ver || '27' }}
+
+      - name: Upload probe result (artifact)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-hub-full-report
+          path: probe/live_hub/full_report.json
+          if-no-files-found: warn
