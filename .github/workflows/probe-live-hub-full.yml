@@ -42,7 +42,7 @@ jobs:
       - name: Probe (real browser bypass Cloudflare)
         env:
           FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
-        run: node scripts/probe_live_hub_full2.js ${{ github.event.inputs.fc_ver || '27' }}
+        run: node scripts/probe_live_hub_full3.js ${{ github.event.inputs.fc_ver || '27' }}
 
       - name: Commit probe result
         if: always()
