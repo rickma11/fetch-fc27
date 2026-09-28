@@ -1,626 +1,423 @@
 {
-  "generatedAt": "2026-09-28T16:22:43.920Z",
+  "generatedAt": "2026-09-28T16:40:02.711Z",
   "VER": 27,
-  "round": 4,
-  "note": "MISS: 本轮所有页面渲染后均无 #tracker",
+  "round": 6,
+  "note": "HIT: campaign 页共提取 49 张球员卡",
   "sections": {
-    "lhShape": [
-      "data"
-    ],
-    "featured": [],
-    "dynCount": 122,
-    "trackerIdDist": {
-      "32": 21,
-      "33": 11,
-      "34": 6
+    "index": {
+      "url": "https://www.fut.gg/live-hub/campaigns/",
+      "title": "Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG",
+      "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\nCampaigns\nBrowse all live campaigns in EA SPORTS FC 27\nOVERVIEW\nUPGRADES\nCAMPAIGNS\nCOMPETITIONS\nCLUBS\nDestined for Glory\nOnes to Watch\nFC 26 campaigns archive\nLook back at last season's live items, campaign rules and results.\nFantasy FC\nThunderstruck\nPrimetime\nFC Pro\nPath to Glory\nRoad to the Final\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage"
     },
-    "liveHubPages": [
+    "campaigns": [
+      "campaigns",
+      "destined-for-glory",
+      "ones-to-watch",
+      "fantasy-fc",
+      "thunderstruck",
+      "primetime",
+      "fc-pro",
+      "path-to-glory",
+      "road-to-the-final"
+    ],
+    "pages": [
       {
-        "url": "https://www.fut.gg/live-hub/",
+        "url": "https://www.fut.gg/live-hub/campaigns/campaigns/",
         "err": "",
-        "phases": {
-          "first": {
-            "finalUrl": "https://www.fut.gg/live-hub/",
-            "title": "Live Hub - EA SPORTS FC 27 - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 3,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "/live-hub/",
-                "text": "Overview"
-              },
-              {
-                "href": "/live-hub/upgrades/",
-                "text": "Upgrades"
-              },
-              {
-                "href": "/live-hub/campaigns/",
-                "text": "Campaigns"
-              },
-              {
-                "href": "/live-hub/competitions/",
-                "text": "Competitions"
-              },
-              {
-                "href": "/live-hub/clubs/",
-                "text": "Clubs"
-              }
-            ],
-            "playerLinkCount": 14,
-            "htmlBytes": 345859,
-            "snippet": "ial-transform,100%),0,0)}}</style><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/LiveHubFixtureCardSkeleton-DrCK7bbb.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/PlayerCardImageFromCardDef-B1HP51DF.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/LiveHubPlayerTrackerSkeleton-D6KWoPl7.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/UpgradeHubPlayerSkeleton-DmgeG-9z.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/UpgradeHubDifferenceChips-CzJ3qZ4J.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/UpgradeHubDifferenceIcon-Baf1hceP.js\"><script id=\"lumiere-ad-loader\" src=\"https://cdn.lumiere.gg/futgg/loader.js\" async=\"\"></script><link rel=\"preload\" as=\"fetch\" crossorigin=\"anonymous\" href=\"https://cdn.lumiere.gg/shaping/v1/futgg/current.json\"><script src=\"https://securepubads.g.doubleclick.net/tag/js/gpt.js\" async=\"\"></script><script src=\"https://cdn.lumiere.gg/futgg/prebid.js\" async=\"\"></script><meta http-equiv=\"origin-trial\" content=\"AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhP"
+        "cards": [
+          {
+            "href": "https://www.fut.gg/players/",
+            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
+            "greens": 0,
+            "grays": 0
           },
-          "afterScroll": {
-            "finalUrl": "https://www.fut.gg/live-hub/",
-            "title": "Live Hub - EA SPORTS FC 27 - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 3,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "/live-hub/",
-                "text": "Overview"
-              },
-              {
-                "href": "/live-hub/upgrades/",
-                "text": "Upgrades"
-              },
-              {
-                "href": "/live-hub/campaigns/",
-                "text": "Campaigns"
-              },
-              {
-                "href": "/live-hub/competitions/",
-                "text": "Competitions"
-              },
-              {
-                "href": "/live-hub/clubs/",
-                "text": "Clubs"
-              }
-            ],
-            "playerLinkCount": 14,
-            "htmlBytes": 349002,
-            "snippet": "ial-transform,100%),0,0)}}</style><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/LiveHubFixtureCardSkeleton-DrCK7bbb.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/PlayerCardImageFromCardDef-B1HP51DF.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/LiveHubPlayerTrackerSkeleton-D6KWoPl7.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/UpgradeHubPlayerSkeleton-DmgeG-9z.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/UpgradeHubDifferenceChips-CzJ3qZ4J.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/UpgradeHubDifferenceIcon-Baf1hceP.js\"><script id=\"lumiere-ad-loader\" src=\"https://cdn.lumiere.gg/futgg/loader.js\" async=\"\"></script><link rel=\"preload\" as=\"fetch\" crossorigin=\"anonymous\" href=\"https://cdn.lumiere.gg/shaping/v1/futgg/current.json\"><script src=\"https://securepubads.g.doubleclick.net/tag/js/gpt.js\" async=\"\"></script><script src=\"https://cdn.lumiere.gg/futgg/prebid.js\" async=\"\"></script><meta http-equiv=\"origin-trial\" content=\"AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhP"
+          {
+            "href": "https://www.fut.gg/players/momentum/",
+            "text": "Momentum Trends",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "https://www.fut.gg/players/in-packs/",
+            "text": "In Packs",
+            "greens": 0,
+            "grays": 0
           }
-        },
-        "htmlBytes": 349017,
-        "tracker": null,
-        "summary": {
-          "finalUrl": "https://www.fut.gg/live-hub/",
-          "status": "NO_TRACKER",
-          "trackerIdCount": 0,
-          "trackerWordHits": 3,
-          "playerLinkCount": 14,
-          "liveHubAnchors": [
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "/live-hub/",
-              "text": "Overview"
-            }
-          ],
-          "objectives": 0,
-          "title": "Live Hub - EA SPORTS FC 27 - FUT.GG"
-        },
-        "snippet": "ial-transform,100%),0,0)}}</style><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/LiveHubFixtureCardSkeleton-DrCK7bbb.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/PlayerCardImageFromCardDef-B1HP51DF.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/LiveHubPlayerTrackerSkeleton-D6KWoPl7.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/UpgradeHubPlayerSkeleton-DmgeG-9z.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/UpgradeHubDifferenceChips-CzJ3qZ4J.js\"><link rel=\"modulepreload\" as=\"script\" crossorigin=\"\" href=\"https://assets.fut.gg/ts/assets/UpgradeHubDifferenceIcon-Baf1hceP.js\"><script id=\"lumiere-ad-loader\" src=\"https://cdn.lumiere.gg/futgg/loader.js\" async=\"\"></script><link rel=\"preload\" as=\"fetch\" crossorigin=\"anonymous\" href=\"https://cdn.lumiere.gg/shaping/v1/futgg/current.json\"><script src=\"https://securepubads.g.doubleclick.net/tag/js/gpt.js\" async=\"\"></script><script src=\"https://cdn.lumiere.gg/futgg/prebid.js\" async=\"\"></script><meta http-equiv=\"origin-trial\" content=\"AlK2UR5SkAlj8jjdEc9p3F3xuFYlF6LYjAML3EOqw1g26eCwWPjdmecULvBH5MVPoqKYrOfPhYVL71xAXI1IBQoAAAB8eyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiV2ViVmlld1hSZXF1ZXN0ZWRXaXRoRGVwcmVjYXRpb24iLCJleHBpcnkiOjE3NTgwNjcxOTksImlzU3ViZG9tYWluIjp0cnVlfQ==\"><meta http-equiv=\"origin-trial\" content=\"Amm8/NmvvQfhwCib6I7ZsmUxiSCfOxWxHayJwyU1r3gRIItzr7bNQid6O8ZYaE1GSQTa69WwhP",
-        "page": "/live-hub/"
+        ],
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/campaigns/",
+        "title": "FUT.GG - EASPORTS FC 27 Ultimate Team Database",
+        "playerValueHits": 0,
+        "objectivesHits": 4,
+        "htmlBytes": 247816,
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\n404\nPage not found\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "campaign": "campaigns"
       },
       {
-        "url": "https://www.fut.gg/live-hub/27/",
+        "url": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/",
         "err": "",
-        "phases": {
-          "first": {
-            "finalUrl": "https://www.fut.gg/live-hub/27/",
-            "title": "FUT.GG - EASPORTS FC 27 Ultimate Team Database",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              }
-            ],
-            "playerLinkCount": 0,
-            "htmlBytes": 243520,
-            "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove"
+        "cards": [
+          {
+            "href": "https://www.fut.gg/players/",
+            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
+            "greens": 0,
+            "grays": 0
           },
-          "afterScroll": {
-            "finalUrl": "https://www.fut.gg/live-hub/27/",
-            "title": "FUT.GG - EASPORTS FC 27 Ultimate Team Database",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              }
-            ],
-            "playerLinkCount": 0,
-            "htmlBytes": 246548,
-            "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove"
+          {
+            "href": "https://www.fut.gg/players/momentum/",
+            "text": "Momentum Trends",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "https://www.fut.gg/players/in-packs/",
+            "text": "In Packs",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/live-hub/campaigns/destined-for-glory/players/",
+            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/279604-mikel-jauregizar-alboniga-jauregizar/27-50611252/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/259287-pernille-harder/27-50590935/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/231747-kylian-mbappe/27-50563395/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/252145-nuno-mendes/27-50583793/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/233731-alexander-isak/27-50565379/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
           }
-        },
-        "htmlBytes": 246563,
-        "tracker": null,
-        "summary": {
-          "finalUrl": "https://www.fut.gg/live-hub/27/",
-          "status": "NO_TRACKER",
-          "trackerIdCount": 0,
-          "trackerWordHits": 0,
-          "playerLinkCount": 0,
-          "liveHubAnchors": [
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            }
-          ],
-          "objectives": 0,
-          "title": "FUT.GG - EASPORTS FC 27 Ultimate Team Database"
-        },
-        "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove",
-        "page": "/live-hub/27/"
+        ],
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/destined-for-glory/",
+        "title": "Destined for Glory Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "playerValueHits": 0,
+        "objectivesHits": 4,
+        "htmlBytes": 296308,
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nDestined for Glory\nDestined for Glory Tracker\nTrack every EA SPORTS FC 27 Destined for Glory player. See the goals, assists and clean sheets they have built up since the promo launched, which upgrades they have unlocked and the matches still to come.\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nUpcoming Fixtures\nView All\n16th Sep 15:30\nLaLiga\nLevante UD\nvs\nAthletic Club\nShow Trackers\n3rd Oct 11:55\nFrauen-Bundesliga\nFrankfurt\nvs\nFC Bayern München\nShow Trackers\nPlayers\nView All\nDestined for Glory\nReal Madrid\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nPSG\n2 clean sheets\n+1 Defending & Physical\n4 clean sheets\n+1 PS\n6 clean sheets\n+1 OVR\n10 clean sheets\n+1 OVR\nView Fixtures\nDestined for Glory\nFC Bayern München\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nDestined for Glory\nLiverpool\n3 goals or assists\n+1 Shooting & Passing\n6 goals or assists\n+1 PS\n10 goals or assists\n+1 OVR\n20 goals or assists\n0/20\n+1 OVR\nView Fixtures\nFAQ\nHow do Destined for Glory players get upgraded?\nWhich matches count?\nDo the upgrades stack?\nPremier League\nLaLiga\nSerie A\nBundesliga\nLigue 1\nWSL\nLiga F\nSerie A Femminile\nFrauen-Bundesliga\nPremiere Ligue\nEredivisie\nSaudi Pro League\nLiga Portugal\nSuperlig\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "campaign": "destined-for-glory"
       },
       {
-        "url": "https://www.fut.gg/live-hub/campaigns/",
+        "url": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/",
         "err": "",
-        "phases": {
-          "first": {
-            "finalUrl": "https://www.fut.gg/live-hub/campaigns/",
-            "title": "Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/campaigns/",
-                "text": "Campaigns"
-              },
-              {
-                "href": "/live-hub/",
-                "text": "Overview"
-              },
-              {
-                "href": "/live-hub/upgrades/",
-                "text": "Upgrades"
-              },
-              {
-                "href": "/live-hub/campaigns/",
-                "text": "Campaigns"
-              },
-              {
-                "href": "/live-hub/competitions/",
-                "text": "Competitions"
-              }
-            ],
-            "playerLinkCount": 0,
-            "htmlBytes": 251253,
-            "snippet": "ack player upgrades, fixture results, and real-time progress for each campaign.\"><meta property=\"og:title\" content=\"Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG\"><meta property=\"og:description\" content=\"Browse all live campaigns in EA SPORTS FC 27 Ultimate Team. Track player upgrades, fixture results, and real-time progress for each campaign.\"><meta property=\"og:url\" content=\"https://www.fut.gg/live-hub/campaigns/\"><meta property=\"og:image\" content=\"https://assets.fut.gg/frontend/site-images/site/fut-social.jpg\"><meta property=\"twitter:url\" content=\"https://www.fut.gg/live-hub/campaigns/\"><meta property=\"twitter:card\" content=\"summary_large_image\"><meta property=\"twitter:image\" content=\"https://assets.fut.gg/frontend/site-images/site/fut-social.jpg\"><meta property=\"twitter:title\" content=\"Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG\"><meta property=\"twitter:description\" content=\"Browse all live campaigns in EA SPORTS FC 27 Ultimate Team. Track player upgrades, fixture results, and real-time progress for each campaign.\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/index-zwPbyqyI.js\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/campaigns-oggz6_sM.js\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/LiveHubCampaignButton-DxmxEdHH.js\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/SeasonEmptyState-CWZsuKuB.js\"><link rel=\"preconnect\" href=\"https://assets.fut.gg\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"><link rel=\"icon\" href=\"https:"
+        "cards": [
+          {
+            "href": "https://www.fut.gg/players/",
+            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
+            "greens": 0,
+            "grays": 0
           },
-          "afterScroll": {
-            "finalUrl": "https://www.fut.gg/live-hub/campaigns/",
-            "title": "Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/campaigns/",
-                "text": "Campaigns"
-              },
-              {
-                "href": "/live-hub/",
-                "text": "Overview"
-              },
-              {
-                "href": "/live-hub/upgrades/",
-                "text": "Upgrades"
-              },
-              {
-                "href": "/live-hub/campaigns/",
-                "text": "Campaigns"
-              },
-              {
-                "href": "/live-hub/competitions/",
-                "text": "Competitions"
-              }
-            ],
-            "playerLinkCount": 0,
-            "htmlBytes": 259951,
-            "snippet": "ack player upgrades, fixture results, and real-time progress for each campaign.\"><meta property=\"og:title\" content=\"Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG\"><meta property=\"og:description\" content=\"Browse all live campaigns in EA SPORTS FC 27 Ultimate Team. Track player upgrades, fixture results, and real-time progress for each campaign.\"><meta property=\"og:url\" content=\"https://www.fut.gg/live-hub/campaigns/\"><meta property=\"og:image\" content=\"https://assets.fut.gg/frontend/site-images/site/fut-social.jpg\"><meta property=\"twitter:url\" content=\"https://www.fut.gg/live-hub/campaigns/\"><meta property=\"twitter:card\" content=\"summary_large_image\"><meta property=\"twitter:image\" content=\"https://assets.fut.gg/frontend/site-images/site/fut-social.jpg\"><meta property=\"twitter:title\" content=\"Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG\"><meta property=\"twitter:description\" content=\"Browse all live campaigns in EA SPORTS FC 27 Ultimate Team. Track player upgrades, fixture results, and real-time progress for each campaign.\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/index-zwPbyqyI.js\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/campaigns-oggz6_sM.js\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/LiveHubCampaignButton-DxmxEdHH.js\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/SeasonEmptyState-CWZsuKuB.js\"><link rel=\"preconnect\" href=\"https://assets.fut.gg\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"><link rel=\"icon\" href=\"https:"
+          {
+            "href": "https://www.fut.gg/players/momentum/",
+            "text": "Momentum Trends",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "https://www.fut.gg/players/in-packs/",
+            "text": "In Packs",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/live-hub/campaigns/ones-to-watch/players/",
+            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/264947-nicole-anyomi/27-50596595/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/265035-elisa-senss/27-50596683/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/216393-youri-tielemans/27-50548041/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/265025-selina-cerci/27-50596673/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/254243-elliot-anderson/27-50585891/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
           }
-        },
-        "htmlBytes": 259966,
-        "tracker": null,
-        "summary": {
-          "finalUrl": "https://www.fut.gg/live-hub/campaigns/",
-          "status": "NO_TRACKER",
-          "trackerIdCount": 0,
-          "trackerWordHits": 0,
-          "playerLinkCount": 0,
-          "liveHubAnchors": [
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/campaigns/",
-              "text": "Campaigns"
-            }
-          ],
-          "objectives": 0,
-          "title": "Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG"
-        },
-        "snippet": "ack player upgrades, fixture results, and real-time progress for each campaign.\"><meta property=\"og:title\" content=\"Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG\"><meta property=\"og:description\" content=\"Browse all live campaigns in EA SPORTS FC 27 Ultimate Team. Track player upgrades, fixture results, and real-time progress for each campaign.\"><meta property=\"og:url\" content=\"https://www.fut.gg/live-hub/campaigns/\"><meta property=\"og:image\" content=\"https://assets.fut.gg/frontend/site-images/site/fut-social.jpg\"><meta property=\"twitter:url\" content=\"https://www.fut.gg/live-hub/campaigns/\"><meta property=\"twitter:card\" content=\"summary_large_image\"><meta property=\"twitter:image\" content=\"https://assets.fut.gg/frontend/site-images/site/fut-social.jpg\"><meta property=\"twitter:title\" content=\"Campaigns - Live Hub - EA SPORTS FC 27 - FUT.GG\"><meta property=\"twitter:description\" content=\"Browse all live campaigns in EA SPORTS FC 27 Ultimate Team. Track player upgrades, fixture results, and real-time progress for each campaign.\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/index-zwPbyqyI.js\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/campaigns-oggz6_sM.js\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/LiveHubCampaignButton-DxmxEdHH.js\"><link rel=\"modulepreload\" href=\"https://assets.fut.gg/ts/assets/SeasonEmptyState-CWZsuKuB.js\"><link rel=\"preconnect\" href=\"https://assets.fut.gg\"><link rel=\"preconnect\" href=\"https://fonts.googleapis.com\"><link rel=\"preconnect\" href=\"https://fonts.gstatic.com\"><link rel=\"icon\" href=\"https:",
-        "page": "/live-hub/campaigns/"
+        ],
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/ones-to-watch/",
+        "title": "Ones to Watch Tracker - Live Hub - EA SPORTS FC 27 - FUT.GG",
+        "playerValueHits": 0,
+        "objectivesHits": 4,
+        "htmlBytes": 297621,
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nOnes to Watch\nOnes to Watch Tracker\nTrack every EA SPORTS FC 27 Ones to Watch player. See which upgrades they have earned, the domestic matches that count towards the win bonus, and the fixtures still to come.\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nUpcoming Fixtures\nView All\n4th Oct 09:00\nWSL\nSpurs\nvs\nLondon City\nShow Trackers\n4th Oct 11:00\nLiga F\nFC Barcelona\nvs\nReal Madrid\nShow Trackers\nPlayers\nView All\nOnes to Watch\nMan Utd\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nArsenal\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (2/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nLondon City\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (2/6)\n+1 OVR\nView Fixtures\nOnes to Watch\nManchester City\nGets Team of the Week\nRepeatable\n+1 OVR\nGets Star Performer\nRepeatable\n+1 OVR\nGets Player of the Month\nRepeatable\n+1 OVR\nWin 3 of next 6 matches (1/6)\n+1 OVR\nView Fixtures\nFAQ\nHow do Ones to Watch players get upgraded?\nDo the upgrades stack?\nWhich matches count for the wins upgrade?\nPremier League\nLaLiga\nSerie A\nBundesliga\nLigue 1\nWSL\nLiga F\nSerie A Femminile\nFrauen-Bundesliga\nPremiere Ligue\nEredivisie\nSaudi Pro League\nLiga Portugal\nSuperlig\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "campaign": "ones-to-watch"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/",
+        "err": "",
+        "cards": [
+          {
+            "href": "https://www.fut.gg/players/",
+            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "https://www.fut.gg/players/momentum/",
+            "text": "Momentum Trends",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "https://www.fut.gg/players/in-packs/",
+            "text": "In Packs",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/live-hub/campaigns/fantasy-fc/players/",
+            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/236496-matteo-guendouzi/26-67345360/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/243245-orkun-kokcu/26-67352109/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/241651-viktor-gyokeres/26-67350515/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/26709-rafael-marquez/26-50358357/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/242444-joao-felix/26-84128524/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/241721-rafael-leao/26-84127801/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          }
+        ],
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/fantasy-fc/",
+        "title": "Fantasy FC Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerValueHits": 0,
+        "objectivesHits": 4,
+        "htmlBytes": 312135,
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nFantasy FC\nFantasy FC Tracker\nTrack the progress of the live EA SPORTS FC 26 Fantasy FC players in their upcoming head-to-head matchups. Check the upgrades, fixtures, standings, and more...\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Fantasy FC from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Fantasy FC details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nUpcoming Fixtures\nView All\n9th Aug 14:30\nSuperlig\nFenerbahçe\nvs\nAlanyaspor\nShow Trackers\n10th Aug 14:30\nSuperlig\nKayserispor\nvs\nBeşiktaş\nShow Trackers\nRecently Upgraded\nView All\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nPlayers\nView All\nFantasy FC\nArsenal\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nFantasy FC\nFC Barcelona\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\nWin Domestic Cup\n+1 PS+ · +1 PS\nWin Domestic League\n+1 OVR\nFantasy FC\nAl Nassr\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nView Fixtures\nFantasy FC\nMilano FC\n6 points in next 4\n+1 OVR · All Roles++\n10 club goals in next 4 matches\nFace stat to 99\n1 goal or assist in 4 matches (4/4)\n+1 PS+ (+1 PS if 2x PS+) · +1 PS\n6 attacking contributions in 4 matches (4/4)\n5★ WF or 5★ SM\nWin Domestic Cup\n+1 PS+ · +2 PS\nWin Domestic League\n+1 PS+ · +1 OVR\nView Fixtures\nPremier League\nLaLiga\nSerie A\nBundesliga\nLigue 1\nWSL\nLiga F\nFrauen Bundesliga\nPremiere Ligue\nEredivisie\nSaudi Pro League\nLiga Portugal\nSuperlig\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "campaign": "fantasy-fc"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/thunderstruck/",
+        "err": "",
+        "cards": [
+          {
+            "href": "https://www.fut.gg/players/",
+            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "https://www.fut.gg/players/momentum/",
+            "text": "Momentum Trends",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "https://www.fut.gg/players/in-packs/",
+            "text": "In Packs",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/live-hub/campaigns/thunderstruck/players/",
+            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/220834-marco-asensio/26-67329698/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/246800-tajon-buchanan/26-50578448/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/190042-diego-maradona/26-50521690/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/168473-franz-beckenbauer/26-67277337/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/275276-birgit-prinz/26-50606924/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/238439-paolo-maldini/26-50570087/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          }
+        ],
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/thunderstruck/",
+        "title": "Thunderstruck Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerValueHits": 0,
+        "objectivesHits": 4,
+        "htmlBytes": 306419,
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nThunderstruck\nThunderstruck Tracker\nTrack the progress of the live EA SPORTS FC 26 Thunderstruck players in their upcoming head-to-head matchups. Check the upgrades, fixtures, standings, and more...\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Thunderstruck from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Thunderstruck details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nUpcoming Fixtures\nView All\n9th Aug 14:30\nSuperlig\nFenerbahçe\nvs\nAlanyaspor\nShow Trackers\n14th Dec 12:30\nLaLiga\nLevante UD\nvs\nVillarreal CF\nShow Trackers\nRecently Upgraded\nView All\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nPlayers\nView All\nThunderstruck\nSSC Napoli\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nFC Bayern München\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (4/5)\n+1 PS+ (PS if 1x PS+)\nThunderstruck\nFrankfurt\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (4/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nThunderstruck\nMilano FC\n2 wins/draws in next 5 matches\n+1 PS\n3 wins/draws in next 5 matches\nAll Roles++\n10 club goals in next 5 matches (5/5)\n+1 PS+ (PS if 1x PS+)\nView Fixtures\nPremier League\nLaLiga\nSerie A\nBundesliga\nLigue 1\nWSL\nLiga F\nSerie A Femminile\nFrauen Bundesliga\nPremiere Ligue\nEredivisie\nSaudi Pro League\nLiga Portugal\nSuperlig\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "campaign": "thunderstruck"
+      },
+      {
+        "url": "https://www.fut.gg/live-hub/campaigns/primetime/",
+        "err": "",
+        "cards": [
+          {
+            "href": "https://www.fut.gg/players/",
+            "text": "Players | SBC | Squad Builder | Evolutions | Objectives | Evo Lab | GG Club",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "https://www.fut.gg/players/momentum/",
+            "text": "Momentum Trends",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "https://www.fut.gg/players/in-packs/",
+            "text": "In Packs",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/live-hub/campaigns/primetime/players/",
+            "text": "OVERVIEW | PLAYERS | FIXTURES | UPGRADES",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/239085-erling-haaland/26-84125165/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/227102-caroline-graham-hansen/26-50558750/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/277643-lamine-yamal-lamine-yamal/26-50609291/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          },
+          {
+            "href": "/players/243715-william-saliba/26-50575363/",
+            "text": "",
+            "greens": 0,
+            "grays": 0
+          }
+        ],
+        "finalUrl": "https://www.fut.gg/live-hub/campaigns/primetime/",
+        "title": "Primetime Tracker - Live Hub - EA SPORTS FC 26 - FUT.GG",
+        "playerValueHits": 0,
+        "objectivesHits": 4,
+        "htmlBytes": 292972,
+        "text": "Players\nSBC\nSquad Builder\nEvolutions\nObjectives\nEvo Lab\nGG Club\nLog In\nFUT.GG\n>\nLive Hub\n>\nCampaigns\n>\nPrimetime\nPrimetime Tracker\nTrack the progress of the live EA SPORTS FC 26 Primetime players in their upcoming head-to-head matchups. Check the upgrades, fixtures, standings, and more...\nOVERVIEW\nPLAYERS\nFIXTURES\nUPGRADES\nFC 26 FLASHBACK\nExplore Primetime from FC 26\nThis is our FC 26 archive. The players, rewards and rules below belong to that season; time-limited challenges and rewards may have expired. FC 27 Primetime details are not available here yet.\nExplore the FC 26 hub\nExplore FC 27 player ratings\nLatest Ultimate Team news\nUpcoming Fixtures\nView All\nNo upcoming fixtures with tracked players\nRecently Upgraded\nView All\nCompare\nCompare\nCompare\nCompare\nCompare\nCompare\nPlayers\nView All\nPrimetime\nManchester City\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nFC Barcelona\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 4 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nFC Barcelona\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 G/A in next 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nPrimetime\nArsenal\n7 points in next 4\n+1 OVR\n1 appearance in wins\n+1 PS · +1 Role+\n1 CS & no cards in 4 matches\n+1 PS · +1 Role+\nTop 8 in league\n+1 PS+ (PS if 1x PS+)\n1 club goal in 4 separate matches\n+1 OVR\nUEFA Champions League\nUEFA Europa League\nUEFA Conference League\nUEFA Women's Champions League\n© 2026 Stormstrike Inc. All rights reserved.\nYour Privacy Choices\nAbout\n|\nEditorial Policy\n|\nPrivacy Policy\n|\nTerms of Service\n|\nBusiness Inquiries\n|\nFIFAIndex\n|\nMUT.GG\n|\nCFB.FAN\n|\nForzaGarage",
+        "campaign": "primetime"
       }
     ],
-    "picks": [
+    "apiTries": [
       {
-        "eaId": 50404645,
-        "slug": "27-50404645",
-        "tag": "tid32"
+        "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/campaigns/",
+        "status": 404,
+        "bytes": 887,
+        "head": ""
       },
       {
-        "eaId": 50520215,
-        "slug": "27-50520215",
-        "tag": "tid33"
+        "url": "https://www.fut.gg/api/fut/live-hub/campaigns/campaigns/?game=27",
+        "status": 404,
+        "bytes": 887,
+        "head": ""
       },
       {
-        "eaId": 50559326,
-        "slug": "27-50559326",
-        "tag": "tid34"
-      }
-    ],
-    "playerPages": [
-      {
-        "url": "https://www.fut.gg/players/27-50404645/",
-        "err": "",
-        "phases": {
-          "first": {
-            "finalUrl": "https://www.fut.gg/players/27-50404645/",
-            "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              }
-            ],
-            "playerLinkCount": 11,
-            "htmlBytes": 534864,
-            "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove"
-          },
-          "afterScroll": {
-            "finalUrl": "https://www.fut.gg/players/27-50404645/",
-            "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              }
-            ],
-            "playerLinkCount": 11,
-            "htmlBytes": 538230,
-            "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove"
-          }
-        },
-        "htmlBytes": 538245,
-        "tracker": null,
-        "summary": {
-          "finalUrl": "https://www.fut.gg/players/27-50404645/",
-          "status": "NO_TRACKER",
-          "trackerIdCount": 0,
-          "trackerWordHits": 0,
-          "playerLinkCount": 11,
-          "liveHubAnchors": [
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            }
-          ],
-          "objectives": 0,
-          "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG"
-        },
-        "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove",
-        "eaId": 50404645,
-        "tag": "tid32"
+        "url": "https://www.fut.gg/api/fut/live-hub/27/?campaign=campaigns",
+        "status": 200,
+        "bytes": 250020,
+        "head": "{\"data\":{\"game\":\"27\",\"upcomingFixtures\":[{\"game\":\"27\",\"id\":8215,\"competitionId\":35,\"competitionName\":\"LaLiga\",\"competitionSlug\":\"laliga\",\"competitionImageUrl\":\"https://game-assets.fut.gg/live-hub-competition/laliga.9eec4cacb8a3a6fe36e76c2c0606a3ca2bacc7e2d350b51360a7c0c1fb452ef8.png\",\"date\":\"2026-09"
       },
       {
-        "url": "https://www.fut.gg/players/27-50520215/",
-        "err": "",
-        "phases": {
-          "first": {
-            "finalUrl": "https://www.fut.gg/players/27-50520215/",
-            "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              }
-            ],
-            "playerLinkCount": 11,
-            "htmlBytes": 528936,
-            "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove"
-          },
-          "afterScroll": {
-            "finalUrl": "https://www.fut.gg/players/27-50520215/",
-            "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              }
-            ],
-            "playerLinkCount": 11,
-            "htmlBytes": 531964,
-            "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove"
-          }
-        },
-        "htmlBytes": 531979,
-        "tracker": null,
-        "summary": {
-          "finalUrl": "https://www.fut.gg/players/27-50520215/",
-          "status": "NO_TRACKER",
-          "trackerIdCount": 0,
-          "trackerWordHits": 0,
-          "playerLinkCount": 11,
-          "liveHubAnchors": [
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            }
-          ],
-          "objectives": 0,
-          "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG"
-        },
-        "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove",
-        "eaId": 50520215,
-        "tag": "tid33"
-      },
-      {
-        "url": "https://www.fut.gg/players/27-50559326/",
-        "err": "",
-        "phases": {
-          "first": {
-            "finalUrl": "https://www.fut.gg/players/27-50559326/",
-            "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              }
-            ],
-            "playerLinkCount": 11,
-            "htmlBytes": 528938,
-            "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove"
-          },
-          "afterScroll": {
-            "finalUrl": "https://www.fut.gg/players/27-50559326/",
-            "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG",
-            "trackerIdCount": 0,
-            "trackerWordHits": 0,
-            "liveHubAnchors": [
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              },
-              {
-                "href": "https://www.fut.gg/live-hub/",
-                "text": "Live Hub"
-              }
-            ],
-            "playerLinkCount": 11,
-            "htmlBytes": 531966,
-            "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove"
-          }
-        },
-        "htmlBytes": 531981,
-        "tracker": null,
-        "summary": {
-          "finalUrl": "https://www.fut.gg/players/27-50559326/",
-          "status": "NO_TRACKER",
-          "trackerIdCount": 0,
-          "trackerWordHits": 0,
-          "playerLinkCount": 11,
-          "liveHubAnchors": [
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            }
-          ],
-          "objectives": 0,
-          "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG"
-        },
-        "snippet": " height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"></path><path d=\"M7 17 17 7\"></path></svg></a></li><li><a href=\"https://www.fut.gg/live-hub/\" class=\"group flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-sm leading-snug font-medium text-gray-300 transition-colors hover:bg-white/[0.03] hover:text-white focus-visible:outline-2 focus-visible:outline-orange lg:min-h-9 lg:px-2\"><span aria-hidden=\"true\" class=\"flex size-[18px] shrink-0 items-center justify-center text-gray-400 has-[.game-hub-logo]:w-8\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-radio text-gray-500\" aria-hidden=\"true\"><path d=\"M16.247 7.761a6 6 0 0 1 0 8.478\"></path><path d=\"M19.075 4.933a10 10 0 0 1 0 14.134\"></path><path d=\"M4.925 19.067a10 10 0 0 1 0-14.134\"></path><path d=\"M7.753 16.239a6 6 0 0 1 0-8.478\"></path><circle cx=\"12\" cy=\"12\" r=\"2\"></circle></svg></span><span class=\"min-w-0\">Live Hub</span><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-arrow-up-right ml-auto hidden shrink-0 text-orange opacity-0 group-hove",
-        "eaId": 50559326,
-        "tag": "tid34"
-      }
-    ],
-    "urlVariants": [
-      {
-        "url": "https://www.fut.gg/players/27-50404645/27/",
-        "summary": {
-          "finalUrl": "https://www.fut.gg/players/27-50404645/27/",
-          "status": "NO_TRACKER",
-          "trackerIdCount": 0,
-          "trackerWordHits": 1,
-          "playerLinkCount": 0,
-          "liveHubAnchors": [
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            }
-          ],
-          "objectives": 0,
-          "title": "FUT.GG - EASPORTS FC 27 Ultimate Team Database"
-        },
-        "err": ""
-      },
-      {
-        "url": "https://www.fut.gg/players/27-50404645/?game=27",
-        "summary": {
-          "finalUrl": "https://www.fut.gg/players/27-50404645/?game=27",
-          "status": "NO_TRACKER",
-          "trackerIdCount": 0,
-          "trackerWordHits": 0,
-          "playerLinkCount": 11,
-          "liveHubAnchors": [
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            }
-          ],
-          "objectives": 0,
-          "title": "Joe Cole EA FC 27 Ratings, Prices & Cards - FUT.GG"
-        },
-        "err": ""
-      },
-      {
-        "url": "https://www.fut.gg/players/27-50404645/tracking/",
-        "summary": {
-          "finalUrl": "https://www.fut.gg/players/27-50404645/tracking/",
-          "status": "NO_TRACKER",
-          "trackerIdCount": 0,
-          "trackerWordHits": 1,
-          "playerLinkCount": 0,
-          "liveHubAnchors": [
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            },
-            {
-              "href": "https://www.fut.gg/live-hub/",
-              "text": "Live Hub"
-            }
-          ],
-          "objectives": 0,
-          "title": "FUT.GG - EASPORTS FC 27 Ultimate Team Database"
-        },
-        "err": ""
+        "url": "https://www.fut.gg/api/fut/live-hub/27/campaigns/",
+        "status": 200,
+        "bytes": 58629,
+        "head": "{\"data\":[{\"game\":\"27\",\"id\":22,\"name\":\"Destined for Glory\",\"secondaryName\":\"DFG\",\"slug\":\"destined-for-glory\",\"description\":\"Track every EA SPORTS FC 27 Destined for Glory player. See the goals, assists and clean sheets they have built up since the promo launched, which upgrades they have unlocked and"
       }
     ]
   }
