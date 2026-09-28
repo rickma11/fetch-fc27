@@ -1,19 +1,16 @@
-// 只读诊断探针（第 8 轮）：**找 campaign 级「球员+进度」端点**（API 优先，HTML 兜底）。
+// 只读诊断探针（第 9 轮）：摸清 **campaign 详情 API**（10.6MB）的结构 —— 决定落地走 JSON 还是 HTML。
 //
-// 前 7 轮结论（关键）：
-//   R6: `/api/fut/live-hub/27/campaigns/` → 200 / 58KB，data = campaign 列表（id/name/slug/description）
-//   R7: ★ `/live-hub/campaigns/<slug>/players/` 子页有 **FC27 全部被追踪球员**：
-//        · ones-to-watch/players      → 21 张 27- 前缀（＝tid32 的 21 人）
-//        · destined-for-glory/players → 17 张 27- 前缀（tid33 11 + tid34 6 = 17 ✅ 完美对上）
-//        · 卡片文本样例（fc-pro）：「FC Pro | Al Hilal | Get 3 FC Pro Points | +1 SM or WF | … | 15/16 | +1 OVR | …」
-//          ⇒ 卡片内**含真实进度数字（15/16）与绿条段数**，且同活动不同球员进度不同（Nunez 15/16 vs Garnacho 0/16）
-//   R7 提取缺陷：卡片容器停得太浅（走到「有文本」就停）→ OTW/DFG 卡只拿到 "Ones to Watch | Man Utd"
+// R8 成果（两条真源都已实证）：
+//   ① API：`/api/fut/live-hub/27/campaigns/<id>/` → 200 / **10.6MB**；`data.campaign.trackerIds=[33,34]`
+//      （坐实 DFG campaign 同时覆盖 trackerId 33 与 34 —— 即此前「跳过」的 6 张 tid34 卡属于 DFG）
+//      campaigns 列表只有 2 条：id22 Destined for Glory / id21 Ones to Watch（FC27 当前活动）
+//   ② HTML：`/live-hub/campaigns/<slug>/players/` 逐卡含「条件 + 奖励 + 进度」：
+//      · OTW 21 张：`Win 3 of next 6 matches (1/6)` + 绿条 g=0/6、g=1/6、g=2/6 各不相同
+//        ⇒ 绿条＝真实达成数（赢了几场），(N/M)＝窗口场次（已打 N / 共 M），两者都要
+//      · DFG 17 张（tid33 11 + tid34 6 ✅）：`3 goals or assists | +1 Shooting & Passing | … | 20 goals or assists | 0/20 | +1 OVR`
 //
-// 本轮：
-//   ① dump campaigns API 全量结构（含每项键名、是否有 players/trackerId 字段）
-//   ② 试 campaign 级球员端点（按 id / slug × 带不带 players/）
-//   ③ API 不通则 HTML 兜底：用「一路向上直到父级含多张卡」的算法取**完整单卡容器**，
-//      输出 每张卡的 eaId + 完整文本 + 绿/灰段数
+// 本轮：只做结构分析（不 dump 大 JSON），自动在 data 树里找「最长的数组」定位球员列表，
+//       并报告球员对象 / 升级条件对象的键名，判断能否直接 JSON 消费。
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
@@ -26,17 +23,15 @@ const SITE = 'https://www.fut.gg';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
 
 const HARD_TIMEOUT_MS = Number(process.env.PROBE_TIMEOUT_MS || 12 * 60 * 1000);
-const out = { generatedAt: new Date().toISOString(), VER, round: 8, note: '', sections: {} };
-function dump() {
-  try { fs.mkdirSync(OUT, { recursive: true }); fs.writeFileSync(path.join(OUT, 'detail_probe.json'), JSON.stringify(out, null, 2)); } catch (e) { console.log('dump err', e.message); }
-}
+const out = { generatedAt: new Date().toISOString(), VER, round: 9, note: '', sections: {} };
+function dump() { try { fs.mkdirSync(OUT, { recursive: true }); fs.writeFileSync(path.join(OUT, 'detail_probe.json'), JSON.stringify(out, null, 2)); } catch (e) { console.log('dump err', e.message); } }
 const watchdog = setTimeout(() => { out.note = 'WATCHDOG TIMEOUT（部分结果）'; dump(); console.error('WATCHDOG TIMEOUT'); process.exit(5); }, HARD_TIMEOUT_MS);
 
 function jget(t) { try { return JSON.parse(t); } catch (e) { return null; } }
-async function apiGet(page, url, accept) {
+async function apiGet(page, url) {
   for (let a = 1; a <= 3; a++) {
     try {
-      const r = await page.request.get(url, { headers: { Accept: accept || 'application/json' }, timeout: 60000 });
+      const r = await page.request.get(url, { headers: { Accept: 'application/json' }, timeout: 120000 });
       const t = await r.text();
       if (r.status() === 200) return { status: 200, body: t };
       return { status: r.status(), body: t.slice(0, 200) };
@@ -46,46 +41,61 @@ async function apiGet(page, url, accept) {
   return null;
 }
 
-// HTML 兜底：取「完整单卡容器」（一路向上直到父级含 ≥2 张球员卡）
-async function extractPlayers(page, url) {
-  const rec = { url, err: '', cards: [] };
+// 在对象树里找所有数组（深度 ≤4），返回路径/长度/首元素键名
+function findArrays(node, prefix, depth, acc) {
+  if (depth > 4 || node == null || typeof node !== 'object') return acc;
+  if (Array.isArray(node)) {
+    if (node.length > 3) {
+      const first = node[0];
+      acc.push({ path: prefix, len: node.length, itemKeys: (first && typeof first === 'object') ? Object.keys(first).slice(0, 25) : typeof first });
+    }
+    if (node.length && typeof node[0] === 'object') findArrays(node[0], prefix + '[0]', depth + 1, acc);
+    return acc;
+  }
+  for (const k of Object.keys(node)) findArrays(node[k], prefix ? prefix + '.' + k : k, depth + 1, acc);
+  return acc;
+}
+
+function summarize(id, r) {
+  const s = { id, status: r ? r.status : null, bytes: r ? r.body.length : 0, note: '' };
+  if (!r || r.status !== 200) { s.note = 'non-200'; return s; }
+  const j = jget(r.body);
+  if (!j) { s.note = 'JSON 解析失败'; return s; }
+  const data = j.data || j;
+  s.dataKeys = Object.keys(data).slice(0, 30);
+  s.campaign = data.campaign ? { id: data.campaign.id, name: data.campaign.name, slug: data.campaign.slug, trackerIds: data.campaign.trackerIds || [] } : null;
+  const arrs = findArrays(data, '', 0, []).sort((a, b) => b.len - a.len).slice(0, 12);
+  s.arrays = arrs;
+  // 找「球员列表」：路径含 player 且长度 >5 的最长数组
+  const playersArr = arrs.filter(a => /player/i.test(a.path)).sort((a, b) => b.len - a.len)[0];
+  s.playersArrayPath = playersArr ? playersArr.path : null;
+  s.playersLen = playersArr ? playersArr.len : 0;
+  s.playerKeys = playersArr ? playersArr.itemKeys : [];
+  // 抽样：取第一个球员（按路径取不到就跳过）
   try {
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 40000 });
-    await page.waitForTimeout(2500);
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await page.waitForTimeout(3000);
-    await page.evaluate(() => window.scrollTo(0, 0));
-    await page.waitForTimeout(800);
-    const info = await page.evaluate(VERJS => {
-      const PSEL = 'a[href*="/players/"]';
-      const cards = [];
-      const seen = new Set();
-      for (const a of [...document.querySelectorAll(PSEL)]) {
-        const href = a.getAttribute('href') || '';
-        if (!/\/\d+-\d+\//.test(href)) continue;      // 只要具体球员 item 链接
-        if (seen.has(href)) continue;
-        seen.add(href);
-        // 一路向上：直到父级含 ≥2 张卡（说明当前层就是「单卡根」）
-        let el = a;
-        for (let i = 0; i < 12 && el.parentElement; i++) {
-          const p = el.parentElement;
-          if (p.querySelectorAll(PSEL).length > 1) break;
-          el = p;
-        }
-        const mm = /\/(\d+)-(\d+)\//.exec(href);
-        cards.push({
-          baseId: mm ? mm[1] : null, eaId: mm ? Number(mm[2]) : null, ver: mm ? Number(mm[1]) : null,
-          is27: mm ? Number(mm[1]) === Number(VERJS) : false,
-          text: (el.innerText || '').trim().replace(/\s*\n+\s*/g, ' | ').slice(0, 900),
-          greens: el.querySelectorAll('[class*="bg-green-500"]').length,
-          grays: el.querySelectorAll('[class*="bg-gray-900"]').length
-        });
+    let node = data;
+    const parts = (playersArr ? playersArr.path : '').split('.');
+    for (const p of parts) { if (p === '') continue; node = node[p]; }
+    if (Array.isArray(node) && node.length) {
+      const p0 = node[0];
+      s.sample = {
+        eaId: p0.eaId || (p0.card && p0.card.eaId) || null,
+        name: p0.name || p0.commonName || (p0.card && (p0.card.name || p0.card.commonName)) || null,
+        keys: Object.keys(p0).slice(0, 30)
+      };
+      // objectives 抽样
+      const objKey = Object.keys(p0).find(k => /objective|upgrade|tracker/i.test(k));
+      if (objKey && Array.isArray(p0[objKey]) && p0[objKey].length) {
+        const o0 = p0[objKey][0];
+        s.objectiveKey = objKey;
+        s.objectiveKeys = Object.keys(o0).slice(0, 30);
+        s.objectiveSample = { label: o0.label || o0.name || null, value: o0.value != null ? o0.value : null, playerValue: o0.playerValue != null ? o0.playerValue : null, isCompleted: o0.isCompleted != null ? o0.isCompleted : null, target: o0.target != null ? o0.target : null, requirement: o0.requirement || null, upgrades: o0.upgrades || null };
       }
-      return { finalUrl: location.href, title: (document.title || '').slice(0, 120), cards, htmlBytes: document.documentElement.outerHTML.length };
-    }, VER);
-    Object.assign(rec, info);
-  } catch (e) { rec.err = 'goto: ' + e.message; }
-  return rec;
+    }
+  } catch (e) { s.sampleErr = e.message; }
+  s.playerValueHits = (r.body.match(/playerValue/g) || []).length;
+  s.objectiveHits = (r.body.match(/objectives/g) || []).length;
+  return s;
 }
 
 (async () => {
@@ -103,55 +113,25 @@ async function extractPlayers(page, url) {
   }
   if (!passed) { out.note = 'CF 未通过'; dump(); await browser.close(); process.exit(2); }
 
-  // ① campaigns 全量结构
-  console.log('\n① campaigns API 结构 ...');
-  const r0 = await apiGet(page, `${BASE}/live-hub/${VER}/campaigns/`);
-  const A = { status: r0 ? r0.status : null, bytes: r0 ? r0.body.length : 0, keys: [], list: [], hasPlayersField: false, head: '' };
-  if (r0 && r0.status === 200) {
-    A.head = r0.body.slice(0, 800);
-    const j = jget(r0.body);
-    const arr = (j && Array.isArray(j.data)) ? j.data : [];
-    A.count = arr.length;
-    A.keys = arr[0] ? Object.keys(arr[0]) : [];
-    A.hasPlayersField = arr.some(c => Array.isArray(c.players));
-    A.list = arr.map(c => ({ id: c.id, name: c.name, slug: c.slug, trackerId: c.trackerId != null ? c.trackerId : null, playerCount: Array.isArray(c.players) ? c.players.length : null }));
-  }
-  out.sections.campaignsApi = A;
-  console.log('  count', A.count, 'keys', JSON.stringify(A.keys), 'hasPlayers', A.hasPlayersField);
-  console.log('  list:', JSON.stringify(A.list));
-
-  // ② campaign 级球员端点候选（拿第一个 FC27 campaign 试）
-  console.log('\n② campaign 球员端点 ...');
-  const fc27 = (A.list || []).filter(c => c.slug && /ones-to-watch|destined/.test(c.slug));
-  const target = fc27[0] || (A.list || [])[0] || { id: 22, slug: 'destined-for-glory' };
-  const cands = [];
-  if (target.id) cands.push(`${BASE}/live-hub/${VER}/campaigns/${target.id}/`, `${BASE}/live-hub/${VER}/campaigns/${target.id}/players/`);
-  if (target.slug) cands.push(`${BASE}/live-hub/${VER}/campaigns/${target.slug}/`, `${BASE}/live-hub/${VER}/campaigns/${target.slug}/players/`);
-  cands.push(`${BASE}/live-hub/${VER}/?campaign_id=${target.id}`);
-  out.sections.apiTries = [];
-  let apiHit = null;
-  for (const u of cands) {
-    const r = await apiGet(page, u);
-    const ok = r && r.status === 200 && r.body.length > 500;
-    out.sections.apiTries.push({ url: u, status: r ? r.status : null, bytes: r ? r.body.length : 0, head: ok ? r.body.slice(0, 600) : '' });
-    console.log(`  ${u} → ${r ? r.status : 'null'} ${r ? r.body.length : 0}B`);
-    if (ok && !apiHit) apiHit = { url: u, body: r.body };
-  }
-  out.sections.apiHit = apiHit ? { url: apiHit.url, bytes: apiHit.body.length, head: apiHit.body.slice(0, 2000), playerValueHits: (apiHit.body.match(/playerValue/g) || []).length } : null;
-
-  // ③ HTML 兜底：OTW / DFG 的 players 子页完整卡片
-  console.log('\n③ HTML 兜底 ...');
-  out.sections.pages = [];
-  for (const slug of ['ones-to-watch', 'destined-for-glory']) {
-    const rec = await extractPlayers(page, `${SITE}/live-hub/campaigns/${slug}/players/`);
-    rec.campaign = slug;
-    const c27 = (rec.cards || []).filter(c => c.is27);
-    out.sections.pages.push(rec);
-    console.log(`  ${slug} → cards=${(rec.cards || []).length} 27x=${c27.length} ${rec.err || ''}`);
-    for (const c of c27.slice(0, 4)) console.log(`      · ${c.eaId} g=${c.greens}/${c.greens + c.grays} :: ${c.text.slice(0, 260)}`);
+  out.sections.campaigns = [];
+  for (const id of [21, 22]) {
+    console.log(`\n=== campaign ${id} ===`);
+    const r = await apiGet(page, `${BASE}/live-hub/${VER}/campaigns/${id}/`);
+    const s = summarize(id, r);
+    out.sections.campaigns.push(s);
+    console.log(`  status=${s.status} bytes=${s.bytes} dataKeys=${JSON.stringify(s.dataKeys)}`);
+    console.log(`  campaign=${JSON.stringify(s.campaign)}`);
+    console.log(`  arrays(前6): ${JSON.stringify((s.arrays || []).slice(0, 6))}`);
+    console.log(`  playersArray=${s.playersArrayPath} len=${s.playersLen}`);
+    console.log(`  playerKeys=${JSON.stringify(s.playerKeys)}`);
+    console.log(`  sample=${JSON.stringify(s.sample)}`);
+    console.log(`  objectiveKey=${s.objectiveKey} objectiveKeys=${JSON.stringify(s.objectiveKeys)}`);
+    console.log(`  objectiveSample=${JSON.stringify(s.objectiveSample)}`);
+    console.log(`  playerValueHits=${s.playerValueHits} objectiveHits=${s.objectiveHits}`);
   }
 
-  out.note = out.sections.apiHit ? 'HIT: 找到 campaign 级球员端点（见 sections.apiHit）' : 'API 未命中，走 HTML 兜底（见 sections.pages）';
+  const usable = out.sections.campaigns.filter(s => s.playersLen > 5 && s.playerKeys.length > 0);
+  out.note = usable.length ? `HIT: campaign API 可直接消费（players 数组 ${usable.map(u => u.id + ':' + u.playersLen).join(', ')}）` : 'MISS: campaign API 未找到可用球员数组';
   clearTimeout(watchdog);
   await browser.close();
   dump();
