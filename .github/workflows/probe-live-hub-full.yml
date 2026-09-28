@@ -2,7 +2,7 @@ name: Probe fut.gg Live Hub (full tracked-set comparison)
 
 # 只读探查：对比 live-hub 聚合 vs definition-data 综合「被追踪」信号，定位逐球员进度来源。
 # 与 fetch-fc27.yml / sync-live-hub.yml / probe-live-hub.yml 完全隔离（独立 concurrency 组）。
-# 不落库、不改每日同步管线、不提交 git（产物只在 artifact + 本机落盘）。
+# 不落库、不改每日同步管线。产物提交回 main（probe/live_hub/full_report.json），便于本地读回。
 on:
   workflow_dispatch:
     inputs:
@@ -12,7 +12,7 @@ on:
         default: '27'
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: probe-live-hub-full
@@ -44,10 +44,21 @@ jobs:
           FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
         run: node scripts/probe_live_hub_full.js ${{ github.event.inputs.fc_ver || '27' }}
 
-      - name: Upload probe result (artifact)
+      - name: Commit probe result
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: live-hub-full-report
-          path: probe/live_hub/full_report.json
-          if-no-files-found: warn
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add probe/live_hub/full_report.json || true
+          git commit -m "probe live-hub-full: tracked-set 对比 $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
+          for i in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main; then
+              if git push; then exit 0; fi
+            else
+              git rebase --abort
+            fi
+            sleep 5
+          done
+          echo "::warning::push 重试 3 次后仍失败"
