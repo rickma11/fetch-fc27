@@ -1,0 +1,1488 @@
+{
+  "generatedAt": "2026-09-28T16:44:18.926Z",
+  "VER": 27,
+  "round": 8,
+  "note": "HIT: 抓到含球员数据的 XHR",
+  "requests": [
+    {
+      "url": "/api/fut/live-hub/27/players/?campaign_id=21",
+      "status": 200,
+      "size": 833950,
+      "hasEaId": true,
+      "hasPlayerValue": true,
+      "hasObjective": true
+    },
+    {
+      "url": "/api/fut/live-hub/27/players/?campaign_id=22",
+      "status": 200,
+      "size": 673555,
+      "hasEaId": true,
+      "hasPlayerValue": true,
+      "hasObjective": true
+    },
+    {
+      "url": "/api/fut/players/v2/27/?sorts=-pageviews",
+      "status": 200,
+      "size": 298278,
+      "hasEaId": true,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "/api/fut/upgrade-hub/27/?page=1",
+      "status": 200,
+      "size": 251856,
+      "hasEaId": true,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "/api/fut/live-hub/27/",
+      "status": 200,
+      "size": 250020,
+      "hasEaId": true,
+      "hasPlayerValue": true,
+      "hasObjective": true
+    },
+    {
+      "url": "/api/discovery/whats-hot/",
+      "status": 200,
+      "size": 215009,
+      "hasEaId": true,
+      "hasPlayerValue": false,
+      "hasObjective": true
+    },
+    {
+      "url": "https://r2.fut.gg/27/player-gg-ratings.v1.c537c895.json",
+      "status": 200,
+      "size": 198047,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "/api/fut/live-hub/27/campaigns/",
+      "status": 200,
+      "size": 58629,
+      "hasEaId": true,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://r2.fut.gg/27/player-prices-index.v1.7de64922.json",
+      "status": 200,
+      "size": 46031,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "/api/fut/live-hub/27/competitions/",
+      "status": 200,
+      "size": 25202,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ep1.adtrafficquality.google/getconfig/sodar?sv=200&tid=gpt&tv=m202609240101&st=env&sjk=1599256443035391",
+      "status": 200,
+      "size": 18682,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ep1.adtrafficquality.google/getconfig/sodar?sv=200&tid=gpt&tv=m202609240101&st=env&sjk=3683596980477515",
+      "status": 200,
+      "size": 18390,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ep1.adtrafficquality.google/getconfig/sodar?sv=200&tid=gpt&tv=m202609240101&st=env&sjk=2917840491282660",
+      "status": 200,
+      "size": 18342,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/user/html/pbs_sync?gdpr=0&gdpr_consent=&us_privacy=1YNN&redirect=https%3A%2F%2Fpbs.lumiere.gg%2Fsetuid%3Fbidder%3Dvidazoo%26gdpr%3D0%26gdpr_consent%3D%26us_privacy%3D1YNN%26gpp%3DDBABTA~1YNN%26gpp_sid%3D6%26f%3Db%26uid%3D%24%7BuserId%7D&gpp=DBABTA~1YNN&gpp_sid=6",
+      "status": 200,
+      "size": 4465,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "/api/fut/games/grid/2026-09-28/?game=27",
+      "status": 200,
+      "size": 2633,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://pbs.lumiere.gg/cookie_sync",
+      "status": 200,
+      "size": 2106,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://r2.fut.gg/27/config-web.v1.f8178eee.json",
+      "status": 200,
+      "size": 1744,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://r2.fut.gg/27/manifest.json",
+      "status": 200,
+      "size": 1010,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://securepubads.g.doubleclick.net/gampad/ads?pvsid=3683596980477515&correlator=4385915227351610&eid=95397228%2C122881176%2C122881257&output=ldjh&gdfp_req=1&vrg=202609240101&ptt=17&impl=fif&gdpr=0&addtl_consent=2~~dv.&us_privacy=1YNN&gpp=DBABTA~1YNN&gpp_sid=6&iu_parts=23358177982%2Clumiere-sticky-footer%2Cfutgg&enc_prev_ius=%2F0%2F1%2F2&prev_iu_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&ifi=1&dids=lumiere-sticky-footer&adfs=4151019234&sfv=1-0-45&eri=1&sc=1&cookie_enabled=1&abxe=1&dt=1790613870491&lmt=1790628261&adxs=148&adys=855&biw=1280&bih=900&scr_x=0&scr_y=0&btvi=0&ucis=1&oid=2&u_his=3&u_h=900&u_w=1280&u_ah=900&u_aw=1280&u_cd=24&u_sd=1&u_tz=-240&dmc=16&bc=31&nvt=1&uach=WyJXaW5kb3dzIiwiMTAuMCIsIng4NiIsIiIsIjE1My4wLjgwMTAuMTIiLG51bGwsMCxudWxsLCI2NCIsW1siSGVhZGxlc3NDaHJvbWUiLCIxNTMuMC44MDEwLjEyIl0sWyJOb3RfQSBCcmFuZCIsIjguMC4wLjAiXSxbIkNocm9taXVtIiwiMTUzLjAuODAxMC4xMiJdXSwwXQ..&url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&vis=1&psz=1265x-1&msz=1265x-1&fws=512&ohw=0&a3p=EjQKCnB1YmNpZC5vcmcSJGU2MWJhZjUxLTZhMjktNDQ3Yi04MmE2LTY3MjYzODI3NTAyY1gBErABCgpjcml0ZW8uY29tEp8Bcm5xQ1NsOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSR2FFaHBOMDVLVWlVeVFsaHlWbE5WTlZOS1dVZHlkalFsTTBRWAESWgoNY3J3ZGNudHJsLm5ldBJAODVkNDRkZDA0YThiNmZhYWM2MzZkMjcwN2ZmYTE4NWNhMDJjNGU3MjE5YWZlNDE1YzRiZTEwYWRmNzhkM2NmZBi255zHjjRIABIdCg5lc3AuY3JpdGVvLmNvbRjN5pzHjjRIAFICCGQSPAoLbm92YXRpcS5jb20SJGIxM2E3NmJmLTViM2ItNGVlMC04NjgyLWUwMzM2MGU2YTllMxjZp53HjjRIABIxChJpbnRpbWF0ZW1lcmdlci5jb20SEmIuZjY4MWYxOTViMTFlZjhmORj96JzHjjRIABIYCgl5YWhvby5jb20Yxeecx440SABSAghvEhcKCG15Z2FydUlEGInrnMeONEgAUgIIahIdChBlc3AucHVibWF0aWMuY29tEgAYs-ecx440SAASGwoMaWQ1LXN5bmMuY29tGM3mnMeONEgAUgIIZBI-CgVvcGVueBIsZXlKcElqb2lZMmxEZDBwVlN6ZFJha3RUTUZNd1JVUXdVblpJVVQwOUluMD0Ysuicx440SAASFwoIcnRiaG91c2UYleicx440SABSAghq&dlt=1790613861784&idt=7627&prev_scp=flr%3D0.50&cust_params=site%3Dfutgg&adks=3837945450&frm=20&cpu=2&eoidce=1&gblpids=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&pb_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&pgls=CAk.&pbbce=1",
+      "status": 200,
+      "size": 968,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://prebid.media.net/rtb/prebid?cid=8CAX5EKR2",
+      "status": 200,
+      "size": 878,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ssbsync.smartadserver.com/api/sync?callerId=73&gdpr=0&gdpr_consent=",
+      "status": 200,
+      "size": 797,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1790613881056&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=1&fpc=USD&itype=site&clang=en&t=udp6qdqx&pi=2&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=925b4f1b-8fa1-4e42-974d-d522d2e25b6c&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 721,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1790613869634&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=1&fpc=USD&itype=site&clang=en&t=udp6qdqx&pi=2&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=3e8a6492-6549-46d8-9292-c4cc49b154a5&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 716,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1790613890055&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=1&fpc=USD&itype=site&clang=en&t=udp6qdqx&pi=2&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=f66c74c4-cb27-4f92-94a7-1b07994b5bce&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 684,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://securepubads.g.doubleclick.net/gampad/ads?pvsid=1599256443035391&correlator=1097831503081570&eid=31099901%2C122880664%2C122881257&output=ldjh&gdfp_req=1&vrg=202609240101&ptt=17&impl=fif&gdpr=0&addtl_consent=2~~dv.&us_privacy=1YNN&gpp=DBABTA~1YNN&gpp_sid=6&iu_parts=23358177982%2Clumiere-sticky-footer%2Cfutgg&enc_prev_ius=%2F0%2F1%2F2&prev_iu_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&ifi=1&dids=lumiere-sticky-footer&adfs=4151019234&sfv=1-0-45&eri=1&sc=1&cookie=ID%3D820b80551d768abb%3AT%3D1790613870%3ART%3D1790613870%3AS%3DALNI_MYM5NaR1waJPaczDMTQVXFom77lZw&gpic=UID%3D000015743dc083ab%3AT%3D1790613870%3ART%3D1790613870%3AS%3DALNI_MZLn65d9ZqIK0tylT3GZwl7UI9vMA&abxe=1&dt=1790613881732&lmt=1790628278&adxs=148&adys=855&biw=1280&bih=900&scr_x=0&scr_y=0&btvi=0&ucis=1&oid=2&u_his=4&u_h=900&u_w=1280&u_ah=900&u_aw=1280&u_cd=24&u_sd=1&u_tz=-240&dmc=16&bc=31&nvt=1&uach=WyJXaW5kb3dzIiwiMTAuMCIsIng4NiIsIiIsIjE1My4wLjgwMTAuMTIiLG51bGwsMCxudWxsLCI2NCIsW1siSGVhZGxlc3NDaHJvbWUiLCIxNTMuMC44MDEwLjEyIl0sWyJOb3RfQSBCcmFuZCIsIjguMC4wLjAiXSxbIkNocm9taXVtIiwiMTUzLjAuODAxMC4xMiJdXSwwXQ..&url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&vis=1&psz=1265x-1&msz=1265x-1&fws=512&ohw=0&a3p=EjQKCnB1YmNpZC5vcmcSJGU2MWJhZjUxLTZhMjktNDQ3Yi04MmE2LTY3MjYzODI3NTAyY1gBEq0BCgpjcml0ZW8uY29tEpwBWEJKbkdGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSTk9GRjJNRTVYWjA5dVowSjFjWEpPWmxOd1Z6YzRKVE5FWAESWgoNY3J3ZGNudHJsLm5ldBJAODVkNDRkZDA0YThiNmZhYWM2MzZkMjcwN2ZmYTE4NWNhMDJjNGU3MjE5YWZlNDE1YzRiZTEwYWRmNzhkM2NmZBi255zHjjRIABIdCg5lc3AuY3JpdGVvLmNvbRjN5pzHjjRIAFICCGQSPAoLbm92YXRpcS5jb20SJGU1YTA2MWNmLTA2MmQtNGE1ZC1hY2YzLTkxY2YyM2U2MmUwMxi5_53HjjRIABIxChJpbnRpbWF0ZW1lcmdlci5jb20SEmIuZjY4MWYxOTViMTFlZjhmORj96JzHjjRIABIYCgl5YWhvby5jb20Yxeecx440SABSAghvEhcKCG15Z2FydUlEGInrnMeONEgAUgIIahIdChBlc3AucHVibWF0aWMuY29tEgAYs-ecx440SAASGwoMaWQ1LXN5bmMuY29tGM3mnMeONEgAUgIIZBI-CgVvcGVueBIsZXlKcElqb2lZMmxEZDBwVlN6ZFJha3RUTUZNd1JVUXdVblpJVVQwOUluMD0Ysuicx440SAASFwoIcnRiaG91c2UYleicx440SABSAghq&dlt=1790613879360&idt=1324&prev_scp=flr%3D0.50&cust_params=site%3Dfutgg&adks=3837945450&frm=20&cpu=2&eo_id_str=ID%3Daa3858b4db1142e4%3AT%3D1790613870%3ART%3D1790613870%3AS%3DAA-AfjZYJd0p2PdAzf1JWaDj4Uam&gblpids=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&pb_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&pgls=CAk.&pbbce=1",
+      "status": 200,
+      "size": 645,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://pbs.lumiere.gg/openrtb2/auction?gzip=1",
+      "status": 200,
+      "size": 643,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://securepubads.g.doubleclick.net/gampad/ads?pvsid=2917840491282660&correlator=3258604699076353&eid=122881118%2C122881257&output=ldjh&gdfp_req=1&vrg=202609240101&ptt=17&impl=fif&gdpr=0&addtl_consent=2~~dv.&us_privacy=1YNN&gpp=DBABTA~1YNN&gpp_sid=6&iu_parts=23358177982%2Clumiere-sticky-footer%2Cfutgg&enc_prev_ius=%2F0%2F1%2F2&prev_iu_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&ifi=1&dids=lumiere-sticky-footer&adfs=4151019234&sfv=1-0-45&eri=1&sc=1&cookie=ID%3D820b80551d768abb%3AT%3D1790613870%3ART%3D1790613870%3AS%3DALNI_MYM5NaR1waJPaczDMTQVXFom77lZw&gpic=UID%3D000015743dc083ab%3AT%3D1790613870%3ART%3D1790613870%3AS%3DALNI_MZLn65d9ZqIK0tylT3GZwl7UI9vMA&abxe=1&dt=1790613890403&lmt=1790627592&adxs=148&adys=855&biw=1280&bih=900&scr_x=0&scr_y=0&btvi=0&ucis=1&oid=2&u_his=5&u_h=900&u_w=1280&u_ah=900&u_aw=1280&u_cd=24&u_sd=1&u_tz=-240&dmc=16&bc=31&nvt=1&uach=WyJXaW5kb3dzIiwiMTAuMCIsIng4NiIsIiIsIjE1My4wLjgwMTAuMTIiLG51bGwsMCxudWxsLCI2NCIsW1siSGVhZGxlc3NDaHJvbWUiLCIxNTMuMC44MDEwLjEyIl0sWyJOb3RfQSBCcmFuZCIsIjguMC4wLjAiXSxbIkNocm9taXVtIiwiMTUzLjAuODAxMC4xMiJdXSwwXQ..&url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&vis=1&psz=1265x-1&msz=1265x-1&fws=512&ohw=0&a3p=EjQKCnB1YmNpZC5vcmcSJGU2MWJhZjUxLTZhMjktNDQ3Yi04MmE2LTY3MjYzODI3NTAyY1gBEq0BCgpjcml0ZW8uY29tEpwBaDB0SUNGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSQ1NrZHJjRFpoT1ZOaVJGZENTM2xHU0ZCclZ6TlJKVE5FWAESWgoNY3J3ZGNudHJsLm5ldBJAODVkNDRkZDA0YThiNmZhYWM2MzZkMjcwN2ZmYTE4NWNhMDJjNGU3MjE5YWZlNDE1YzRiZTEwYWRmNzhkM2NmZBi255zHjjRIABIdCg5lc3AuY3JpdGVvLmNvbRjN5pzHjjRIAFICCGQSPAoLbm92YXRpcS5jb20SJDRkOTBlN2UwLTYxYTItNDcwYi1iZjdiLTg4ZGZhNTQ4NmRiZhiHx57HjjRIABIxChJpbnRpbWF0ZW1lcmdlci5jb20SEmIuZjY4MWYxOTViMTFlZjhmORj96JzHjjRIABIYCgl5YWhvby5jb20Yxeecx440SABSAghvEhcKCG15Z2FydUlEGInrnMeONEgAUgIIahIdChBlc3AucHVibWF0aWMuY29tEgAYs-ecx440SAASGwoMaWQ1LXN5bmMuY29tGM3mnMeONEgAUgIIZBI-CgVvcGVueBIsZXlKcElqb2lZMmxEZDBwVlN6ZFJha3RUTUZNd1JVUXdVblpJVVQwOUluMD0Ysuicx440SAASFwoIcnRiaG91c2UYleicx440SABSAghq&dlt=1790613889336&idt=513&prev_scp=flr%3D0.50&cust_params=site%3Dfutgg&adks=3837945450&frm=20&cpu=2&eo_id_str=ID%3Daa3858b4db1142e4%3AT%3D1790613870%3ART%3D1790613870%3AS%3DAA-AfjZYJd0p2PdAzf1JWaDj4Uam&gblpids=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&pb_szs=970x90%7C728x90%7C468x60%7C320x50%7C300x50&pgls=CAk.&pbbce=1",
+      "status": 200,
+      "size": 596,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=7b3c0020-51fc-40c5-9bc2-a5ecc6da4ea0&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=01c9e092-dd09-420b-b6a7-28f7210799c7&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 576,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://fastlane.rubiconproject.com/a/api/fastlane.json?account_id=28421&site_id=644825&zone_id=4168975&size_id=2&alt_size_ids=1%2C43%2C44%2C55&p_pos=atf&gdpr=0&us_privacy=1YNN&gpp=DBABTA~1YNN&gpp_sid=6&eid_criteo.com=XBJnGF95WkNKejZlSlZENW8xRTVKS2l4NFlnYmk3a3YySGdqT3JkaWRSUUlaTnJjMnpCWEFlY000NHElMkY2TWN3eHZOMVV5MUZrQkI3WHZEZ2w1M1FZUWtrMzRNOFF2ME5XZ09uZ0J1cXJOZlNwVzc4JTNE%5E1%5E%5E%5E%5E%5E&eid_pubcid.org=e61baf51-6a29-447b-82a6-67263827502c%5E1%5E%5E%5E%5E%5E&rf=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&kw=FIFA%2CFUT%2CFIFA%20Ultimate%20Team%2CEAFC%2CEA%20FC%2CEA%20SPORTS%20FC&tg_i.domain=fut.gg&tg_i.page=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&tg_i.name=FUT.gg&tg_i.cattax=1&tg_i.cat=IAB17&tg_i.sectioncat=IAB17-44&tg_i.documentLang=en&tg_i.dfp_ad_unit_code=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&tk_flint=pbjs_lite_v11.31.0&x_source.tid=bfe701bf-2360-4582-9db6-212a7684da9f&l_pb_bid_id=758abad8-afb2-4188-8f55-c20ef4e56f1a&p_screen_res=1280x900&rp_secure=1&x_imp.ext.tid=925b4f1b-8fa1-4e42-974d-d522d2e25b6c&rp_hard_floor=0.5&p_gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&m_ch_ua=%22HeadlessChrome%22%7Cv%3D%22153%22%2C%22Not_A%20Brand%22%7Cv%3D%228%22%2C%22Chromium%22%7Cv%3D%22153%22&m_ch_mobile=%3F0&m_ch_platform=Windows&slots=1&rand=0.8820471710705189",
+      "status": 200,
+      "size": 522,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://fastlane.rubiconproject.com/a/api/fastlane.json?account_id=28421&site_id=644825&zone_id=4168975&size_id=2&alt_size_ids=1%2C43%2C44%2C55&p_pos=atf&gdpr=0&us_privacy=1YNN&gpp=DBABTA~1YNN&gpp_sid=6&eid_criteo.com=rnqCSl95WkNKejZlSlZENW8xRTVKS2l4NFlnYmk3a3YySGdqT3JkaWRSUUlaTnJjMnpCWEFlY000NHElMkY2TWN3eHZOMVV5MUZrQkI3WHZEZ2w1M1FZUWtrMzRGaEhpN05KUiUyQlhyVlNVNVNKWUdydjQlM0Q%5E1%5E%5E%5E%5E%5E&eid_pubcid.org=e61baf51-6a29-447b-82a6-67263827502c%5E1%5E%5E%5E%5E%5E&rf=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&kw=FIFA%2CFUT%2CFIFA%20Ultimate%20Team%2CEAFC%2CEA%20FC%2CEA%20SPORTS%20FC&tg_i.domain=fut.gg&tg_i.page=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&tg_i.name=FUT.gg&tg_i.cattax=1&tg_i.cat=IAB17&tg_i.sectioncat=IAB17-44&tg_i.documentLang=en&tg_i.dfp_ad_unit_code=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&tk_flint=pbjs_lite_v11.31.0&x_source.tid=da341b63-3d4e-4325-98b0-ca36a0f6e959&l_pb_bid_id=7a1acdc1-2375-40f5-9acf-64a73293120b&p_screen_res=1280x900&rp_secure=1&x_imp.ext.tid=3e8a6492-6549-46d8-9292-c4cc49b154a5&rp_hard_floor=0.5&p_gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&m_ch_ua=%22HeadlessChrome%22%7Cv%3D%22153%22%2C%22Not_A%20Brand%22%7Cv%3D%228%22%2C%22Chromium%22%7Cv%3D%22153%22&m_ch_mobile=%3F0&m_ch_platform=Windows&slots=1&rand=0.7066805126726248",
+      "status": 200,
+      "size": 517,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1790613881056&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=0almgsqa&pi=3&maxw=970&maxh=90&si=1446336&bf=970x90%2C728x90%2C468x60%2C320x50%2C300x50&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=925b4f1b-8fa1-4e42-974d-d522d2e25b6c&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 517,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1790613869634&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=0almgsqa&pi=3&maxw=970&maxh=90&si=1446336&bf=970x90%2C728x90%2C468x60%2C320x50%2C300x50&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=3e8a6492-6549-46d8-9292-c4cc49b154a5&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 512,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=6b0e7f05-3add-4ea7-9a1c-29b090c244e5&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=45ad3a5d-9288-479a-b8f9-05130305879b&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 501,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=6b0e7f05-3add-4ea7-9a1c-29b090c244e5&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=7ce65d00-a945-42b5-8ed2-6e0f825f0ded&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 501,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=6b0e7f05-3add-4ea7-9a1c-29b090c244e5&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=b178e3ca-5c93-42b7-a27b-c4b9d8851df2&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 501,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=7b3c0020-51fc-40c5-9bc2-a5ecc6da4ea0&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=ff8a1f73-ed5b-4e04-9a71-77b5b93aeec9&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 496,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=7b3c0020-51fc-40c5-9bc2-a5ecc6da4ea0&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=7ba73c68-3be1-401c-a09f-b12da0b0c516&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 496,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://fastlane.rubiconproject.com/a/api/fastlane.json?account_id=28421&site_id=644825&zone_id=4168975&size_id=2&alt_size_ids=1%2C43%2C44%2C55&p_pos=atf&gdpr=0&us_privacy=1YNN&gpp=DBABTA~1YNN&gpp_sid=6&eid_criteo.com=h0tICF95WkNKejZlSlZENW8xRTVKS2l4NFlnYmk3a3YySGdqT3JkaWRSUUlaTnJjMnpCWEFlY000NHElMkY2TWN3eHZOMVV5MUZrQkI3WHZEZ2w1M1FZUWtrMzRCSkdrcDZhOVNiRFdCS3lGSFBrVzNRJTNE%5E1%5E%5E%5E%5E%5E&eid_pubcid.org=e61baf51-6a29-447b-82a6-67263827502c%5E1%5E%5E%5E%5E%5E&rf=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&kw=FIFA%2CFUT%2CFIFA%20Ultimate%20Team%2CEAFC%2CEA%20FC%2CEA%20SPORTS%20FC&tg_i.domain=fut.gg&tg_i.page=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&tg_i.name=FUT.gg&tg_i.cattax=1&tg_i.cat=IAB17&tg_i.sectioncat=IAB17-44&tg_i.documentLang=en&tg_i.dfp_ad_unit_code=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&tk_flint=pbjs_lite_v11.31.0&x_source.tid=c86b85d6-87c6-486e-b0a1-4a2b3039b6c4&l_pb_bid_id=e3c4b08e-76e7-45be-b870-0798e00f66bb&p_screen_res=1280x900&rp_secure=1&x_imp.ext.tid=f66c74c4-cb27-4f92-94a7-1b07994b5bce&rp_hard_floor=0.5&p_gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&m_ch_ua=%22HeadlessChrome%22%7Cv%3D%22153%22%2C%22Not_A%20Brand%22%7Cv%3D%228%22%2C%22Chromium%22%7Cv%3D%22153%22&m_ch_mobile=%3F0&m_ch_platform=Windows&slots=1&rand=0.12589631042146943",
+      "status": 200,
+      "size": 482,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?displaymanager=Prebid.js%20-%20gumgum&displaymanagerver=11.31.0&lt=1790613890055&to=240&aun=lumiere-sticky-footer&gpid=%2F23358177982%2Flumiere-sticky-footer%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=0almgsqa&pi=3&maxw=970&maxh=90&si=1446336&bf=970x90%2C728x90%2C468x60%2C320x50%2C300x50&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=f66c74c4-cb27-4f92-94a7-1b07994b5bce&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 480,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=d4f8cecc-a1fb-41c5-be9f-a66b51b62975&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=bff7e931-2e93-4fd2-8d2d-22544f76ec79&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 464,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=d4f8cecc-a1fb-41c5-be9f-a66b51b62975&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=7c5e529d-d500-4706-9998-edfee6254f3b&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 464,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&pv=d4f8cecc-a1fb-41c5-be9f-a66b51b62975&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=247a6790-3ee5-47c0-92f6-8a517ac00d0f&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 464,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=a86ff2f0-f777-41d9-9c1e-8455d6ee6ebe&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 455,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=11594c15-ff57-446d-9312-dedb8df72757&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 450,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://gum.criteo.com/sid/json?origin=prebid&topUrl=https%3A%2F%2Fwww.fut.gg%2F&domain=www.fut.gg&bundle=MBRk119UUmptTGRMRFVhREFZZ0glMkYzUWhRY3BGdnVhOUY5dVBYQVZodkYxRHZrZFRDUlR3dEdHeVJaR2d1JTJGRWFrUXZWa1Q5dW4ybFFJckZTd0V1SzEybSUyRlhQU1pXMmp2MGFTQ25DYUIlMkZ2NFJkeWY0JTNE&cw=1&lsw=1&us_privacy=1YNN&gdpr=0&gpp=DBABTA~1YNN&gpp_sid=6",
+      "status": 200,
+      "size": 431,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://gum.criteo.com/sid/json?origin=prebid&topUrl=https%3A%2F%2Fwww.fut.gg%2F&domain=www.fut.gg&bundle=91m6i19UUmptTGRMRFVhREFZZ0glMkYzUWhRY29KUUJaR29WeGYyZ0IwbjRtRGlBVmhNRVlOMVhaVlZMc2puclBEam9QeFdCRTVrcTZVdzY2UW5mQklqQ0F0YjZuOGxxVWNxeWdHMzlXbmlIY3dtTzZPM1Yya2VVVlhhQWdlbFVTTVY2R3VKQW5ZNE1QZ0FzRUpGZnhpNGpHSDREZyUzRCUzRA&cw=1&lsw=1&us_privacy=1YNN&gdpr=0&gpp=DBABTA~1YNN&gpp_sid=6",
+      "status": 200,
+      "size": 420,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://g2.gumgum.com/hbid/imp?mind=0&maxd=30&li=1&sd=0&pt=5&pr=2%2C3%2C5%2C6%2C7%2C8&viw=300&vih=169&skip=0&pbe=1&vpos=1&vplcmt=4&api=2%2C7%2C8&mimes=video%2Fmp4%2Capplication%2Fjavascript&pbm=2&gpid=%2F23358177982%2Flumiere-outstream-1%2Ffutgg&fp=0.5&fpc=USD&itype=site&clang=en&t=j9ajyoqr&pi=7&gdprApplies=0&uspConsent=1YNN&gppString=DBABTA~1YNN&gppSid=6&tId=e59fd3a2-bfe5-4200-9ff0-705003f405ee&vw=1280&vh=900&sw=1280&sh=900&pu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&tpl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ce=true&dpr=1&jcsi=%7B%22t%22%3A0%2C%22rq%22%3A8%2C%22pbv%22%3A%2211.31.0%22%7D&ogu=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&ns=10240&ua=Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F147.0.0.0%20Safari%2F537.36&sua=%7B%22source%22%3A1%2C%22platform%22%3A%7B%22brand%22%3A%22Windows%22%7D%2C%22browsers%22%3A%5B%7B%22brand%22%3A%22HeadlessChrome%22%2C%22version%22%3A%5B%22153%22%5D%7D%2C%7B%22brand%22%3A%22Not_A%20Brand%22%2C%22version%22%3A%5B%228%22%5D%7D%2C%7B%22brand%22%3A%22Chromium%22%2C%22version%22%3A%5B%22153%22%5D%7D%5D%2C%22mobile%22%3A0%7D&dnt=0&lang=en",
+      "status": 200,
+      "size": 418,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://gum.criteo.com/sid/json?origin=prebid&topUrl=https%3A%2F%2Fwww.fut.gg%2F&domain=www.fut.gg&bundle=CBRxKl9UUmptTGRMRFVhREFZZ0glMkYzUWhRY3V2dnQlMkI5NHhRbVkwd1FNJTJCQkZ0UEJaMG15TGVXVUlKZHZ1VlhwTFBFJTJCU2hodjRDNW9uWUlrbFFFQkhCcVV5YTZ4TTBPJTJCa2h0MCUyQmpBa2R3SUVnTUZDNzRkR083V1RIUmolMkJ2dGpIeFhTZ3hMU0FTNXdzVTNXVk1BbVFkZXIlMkYyYWV3JTNEJTNE&cw=1&lsw=1&us_privacy=1YNN&gdpr=0&gpp=DBABTA~1YNN&gpp_sid=6",
+      "status": 200,
+      "size": 410,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://apex.go.sonobi.com/trinity.json",
+      "status": 200,
+      "size": 395,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://prebid-server.rubiconproject.com/openrtb2/auction",
+      "status": 200,
+      "size": 185,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/sync/iframe/?cid=62b2e9a58f6bf7c75caae5e4&gdpr=0&gdpr_consent=&us_privacy=1YNN&coppa=0&gpp=DBABTA~1YNN&gpp_sid=6",
+      "status": 200,
+      "size": 109,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.kueezrtb.com/api/sync/iframe/?cid=62ce79e7dd15099534ae5e04&gdpr=0&gdpr_consent=&us_privacy=1YNN&coppa=0&gpp=DBABTA~1YNN&gpp_sid=6",
+      "status": 200,
+      "size": 109,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://id.a-mx.com/sync?tao=1&&uid=28bbafdd-3916-4a1e-8898-7a4ed9edf6cf",
+      "status": 200,
+      "size": 99,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cs.media.net/cst?gdpr=0&cs=8&usp_status=1&gdprconsent=1&usp_consent=1&us_privacy=1YNN&gpp=DBABTA~1YNN&gpp_sid=6&cid=8CAX5EKR2&itype=PREBID&ref=https%3A%2F%2Fwww.fut.gg%2F",
+      "status": 200,
+      "size": 70,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://htlb.casalemedia.com/openrtb/pbjs?s=1404954",
+      "status": 200,
+      "size": 58,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://htlb.casalemedia.com/openrtb/pbjs?s=1373476",
+      "status": 200,
+      "size": 58,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.kueezrtb.com/prebid/multi/6a21123b723db301e2017b0e",
+      "status": 200,
+      "size": 47,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://prebid.cootlogix.com/prebid/multi/6a300c189fd29f1df739fa8b",
+      "status": 200,
+      "size": 47,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=pubmatics2s&userId=2CD192A8-D2FF-47FD-BD9F-A65069FB1147&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=pubmaticut&userId=2CD192A8-D2FF-47FD-BD9F-A65069FB1147&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=sharthrough&userId=eaa3658c-f2b9-4892-a2f5-852dea78978a&gdpr=0",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=openxut&userId=eae1e85b-eb93-41a6-a282-fa2b9ccf7cb2&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=openx&userId=5303fe19-6467-4673-b70d-a7e8dac4e88b&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=unruly&userId=OPTOUT&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=yieldmo&userId=wRAtmDL__uLMZFYY8s1Q&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=sovrn&userId=Naws3LZHAaDo51gTYKEEiQqg&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=grid&userId=aaf8a116-058f-4f6f-8018-d2079b0d34b9&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=medianet&userId=4336154703471188000V10&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=rubiconut&userId=MULH9E5R-1L-5H1P",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=appnexus&userId=7992053332552451916&gdpr=0&gdpr_consent=&us_privacy=1YNN&gdpr=0&gdpr_consent=",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=triplelift&userId=2699915574022271864641&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync.cootlogix.com/api/cookie?partnerId=rubicon&userId=MULH9E5R-1L-5H1P&gdpr=0&gdpr_consent=undefined&us_privacy=1YNN",
+      "status": 200,
+      "size": 43,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ut.pubmatic.com/geo?pubid=0",
+      "status": 200,
+      "size": 29,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ut.pubmatic.com/geo?pubid=167881",
+      "status": 200,
+      "size": 29,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ut.pubmatic.com/geo?pubid=159035",
+      "status": 200,
+      "size": 29,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ut.pubmatic.com/geo?pubid=156423",
+      "status": 200,
+      "size": 29,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ut.pubmatic.com/geo?pubid=163238",
+      "status": 200,
+      "size": 29,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://targeting.unrulymedia.com/unruly_prebid",
+      "status": 200,
+      "size": 11,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://token.rubiconproject.com/khaos.json?gdpr=0&us_privacy=1YNN",
+      "status": 200,
+      "size": 7,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://token.rubiconproject.com/khaos.json?gdpr=0&us_privacy=1YNN&khaos=MULH9E5R-1L-5H1P",
+      "status": 200,
+      "size": 7,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cdn.bidstorm.tech/country",
+      "status": 200,
+      "size": 2,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://o1009746.ingest.us.sentry.io/api/4509526703341568/envelope/?sentry_version=7&sentry_key=5982aa673e345924e0e5f72e804edf26&sentry_client=sentry.javascript.react%2F10.20.0",
+      "status": 200,
+      "size": 2,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://krk2.kargo.com/api/v1/prebid",
+      "status": 200,
+      "size": 2,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "/cdn-cgi/challenge-platform/h/b/jsd/oneshot/d76008a69eab/0.8347257916658471:1790611231:9Ug_1fcHaDAQzTkBRkeXV8Qd1yzTDqwqLOHEFF_m9j8/a424364cfeeaefbd",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://rtb.openx.net/esp?url=https%3A%2F%2Fwww.fut.gg%2F&rid=esp",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://r2.fut.gg/27/fc-core-data.v1.51330cdc.json",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://r2.fut.gg/27/player-prices-ps5-dyn.v1.37865781.json",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cdn.lumiere.gg/floors/v1/futgg/current.json",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/gh/prebid/currency-file@1/latest.json?date=20260928",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cmp.uniconsent.com/v2/e538de493a/config.json",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cmp.uniconsent.com/json/",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cmp.uniconsent.com/v3/vendor-list.json",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cdn.id5-sync.com/api/1.0/esp.js",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69o0v891198259z8891192812za20gzb891192812zd891192812xf1&_p=1790613859602&_gaz=1&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&tcfd=11458&gdid=dZTcxZD&_eu=AAAAAGA&cid=728208865.1790613861&frm=0&pscdl=noapi&rcb=7&sr=1280x900&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=115938465~115938469~118897920~118897930~120213116~120385423~120412526~120469145~120469153~121280969&sid=1790613860&sct=1&seg=0&dl=https%3A%2F%2Fwww.fut.gg%2F&dt=EA%20FC%2027%20Players%2C%20Prices%2C%20and%20Squad%20Builder%20-%20FUT.GG&_tu=CA&en=page_view&_fv=1&_nsi=1&_ss=1&ep.logged_in=false&tfd=1979",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://image6.pubmatic.com/AdServer/UCookieSetPug?oid=5&p=156578&publisherId=156578&src=esp_google&ver=1&coppa=0&gdpr_consent=&gdpr=0&us_privacy=1YNN&gpp=&gpp_sid=",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://bcp.crwdcntrl.net/6/map?xcid=16589",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cmp.uniconsent.com/v2/log/?v=2&a=e538de493a&t=1790613861187&u=503df6dc-3054-256f-3210-11684365fb03&k=usp&c=1YNN",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ups.analytics.yahoo.com/ups/58813/fed?gpp=DBABTA~1YNN&gpp_sid=6&gdpr=false&us_privacy=1YNN&v=1&url=https%3A%2F%2Fwww.fut.gg%2F",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cmp.uniconsent.com/v2/log/?v=2&a=e538de493a&t=1790613861239&u=503df6dc-3054-256f-3210-11684365fb03&k=custom-consent&c=%7B%7D",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://rtb.openx.net/esp?url=https%3A%2F%2Fwww.fut.gg%2F&rid=esp&cc=1",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ups.analytics.yahoo.com/ups/58813/fed?gpp_sid=-1&gdpr=false&us_privacy=1YNN&v=1&url=https%3A%2F%2Fwww.fut.gg%2F",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://spadsync.com/sync?sptoken=135c88bf-733e-466f-82a4-c61aba746561&sspid=GgL&pubid=googless&ssphost=www.fut.gg&sharedId=e61baf51-6a29-447b-82a6-67263827502c",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://sync6.im-apps.net/9001/pid?ref=null&page=/",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://gum.criteo.com/sid/json?origin=prebid&topUrl=https%3A%2F%2Fwww.fut.gg%2F&domain=www.fut.gg&cw=1&lsw=1&us_privacy=1YNN&gdpr=0&gpp=DBABTA~1YNN&gpp_sid=6",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69o0v891198259z8891192812za20gzb891192812zd891192812xf1&_p=1790613861798&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&tcfd=11458&gdid=dZTcxZD&_eu=AAAAAGQ&cid=728208865.1790613861&frm=0&pscdl=noapi&rcb=14&sr=1280x900&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=115938466~115938468~118897920~118897930~120213116~120385422~120412526~120469145~120469153~121046856&sid=1790613860&sct=1&seg=1&dl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&dt=Players%20-%20Ones%20to%20Watch%20Tracker%20-%20Live%20Hub%20-%20EA%20SPORTS%20FC%2027%20-%20FUT.GG&_tu=CA&en=page_view&ep.logged_in=false&tfd=1495",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://cmp.uniconsent.com/v2/edge",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69o0v891198259za20gzb891192812zd891192812xf1&_p=1790613861798&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&tcfd=11458&gdid=dZTcxZD&_eu=AEAAAGQ&ae=a&cid=728208865.1790613861&frm=0&pscdl=noapi&rcb=14&sr=1280x900&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=2&tag_exp=115938466~115938468~118897920~118897930~120213116~120385422~120412526~120469145~120469153~121046856&sid=1790613860&sct=1&seg=1&dl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F&dt=Players%20-%20Ones%20to%20Watch%20Tracker%20-%20Live%20Hub%20-%20EA%20SPORTS%20FC%2027%20-%20FUT.GG&_tu=CA&en=scroll&ep.logged_in=false&epn.percent_scrolled=90&_et=1&tfd=6497",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "/cdn-cgi/rum?",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoicm5xQ1NsOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSR2FFaHBOMDVLVWlVeVFsaHlWbE5WTlZOS1dVZHlkalFsTTBRIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=658d2147-720c-427d-852b-0c75cfacdcfa&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowfQ==&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://hb.yellowblue.io/hb-multi",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://spadsync.com/sync?sptoken=b13a76bf-5b3b-4ee0-8682-e03360e6a9e3&sspid=GgL&pubid=googless&ssphost=www.fut.gg&sharedId=e61baf51-6a29-447b-82a6-67263827502c",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoicm5xQ1NsOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSR2FFaHBOMDVLVWlVeVFsaHlWbE5WTlZOS1dVZHlkalFsTTBRIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073237&ntv_pas=eyIyMDczMjM3IjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJsZW5ndGgiOjF9&ntv_ppf=eyJsdW1pZXJlLXN0aWNreS1mb290ZXIiOnsiYmFubmVyIjp7Ijk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=9c9c80ea-09b0-4cda-b8b2-c27cf8b96866&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtc3RpY2t5LWZvb3RlciIsIm1lZGlhVHlwZXMiOnsiYmFubmVyIjp7InNpemVzIjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJwb3MiOjF9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://api.w.inmobi.com/openrtb/bidder/prebidjs",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://hbopenbid.pubmatic.com/translator?source=prebid-client&gzip=1",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://mweb-hb.presage.io/api/header-bidding-request",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ingest.bidstorm.tech/v2/e?ce=gzip",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://rt.marphezis.com/hb",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://crb.kargo.com/api/v1/dsync/PrebidServer?gdpr=0&gdpr_consent=&us_privacy=1YNN&gpp=DBABTA~1YNN&gpp_sid=6&r=https%3A%2F%2Fpbs.lumiere.gg%2Fsetuid%3Fbidder%3Dkargo%26gdpr%3D0%26gdpr_consent%3D%26us_privacy%3D1YNN%26gpp%3DDBABTA~1YNN%26gpp_sid%3D6%26f%3Di%26uid%3D%24UID",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoicm5xQ1NsOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSR2FFaHBOMDVLVWlVeVFsaHlWbE5WTlZOS1dVZHlkalFsTTBRIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=22c0cbf3-0f56-41d8-b76c-6769042c8efa&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoxLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://pippio.com/api/sync?pid=5324&it=1&iv=3a8d2b315070c7ab9859696342d0a863063145a1d710a2c09971593cdf2e5967791426b5417dce21&_=2",
+      "status": 307,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://pagead2.googlesyndication.com/pagead/ping?e=1",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://tr.blismedia.com/v1/api/sync/openx",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://www.temu.com/api/adx/cm/pixel-opera?adx_uid=6b8fadffcf6642b0&gdpr=&gdpr_consent=&us_privacy=&redir=https%3A%2F%2Ft.oa.opera.com%2Fsync%3Fvendor%3D60369%26pubid%3Dpub9322105895424%26gdpr%3D%26consent%3D%26us_privacy%3D%26custom_data%3D",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://www.temu.com/api/adx/cm/pixel-opera?adx_uid=fcc6b2164f8b6175&gdpr=&gdpr_consent=&us_privacy=&redir=https%3A%2F%2Ft.oa.opera.com%2Fsync%3Fvendor%3D60369%26pubid%3Dpub9322105895424%26gdpr%3D%26consent%3D%26us_privacy%3D%26custom_data%3D",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoicm5xQ1NsOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSR2FFaHBOMDVLVWlVeVFsaHlWbE5WTlZOS1dVZHlkalFsTTBRIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=d2a3a7df-537d-49e0-b726-cf6624d71a48&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoyLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ssbsync.smartadserver.com/api/sync?callerId=132",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://tr.blismedia.com/v1/api/sync/inmobi?gdpr_consent=&gdpr=0",
+      "status": 307,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ssbsync-global.smartadserver.com/api/sync?callerId=5&gdpr=0&gdpr_consent=&redirectUri=https%3A%2F%2Fusw1-sync.a-mo.net%2Fsetuid%3Fbidder%3Dsmartadserver%26A%3D28bbafdd-3916-4a1e-8898-7a4ed9edf6cf%26uid%3D%5Bssb_sync_pid%5D",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://tr.blismedia.com/v1/api/sync/pubmatic?&gdpr=0&gdpr_consent=&us_pricacy=1YNN",
+      "status": 307,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://www.temu.com/api/adx/cm/pixel-pubmatic?id=2CD192A8-D2FF-47FD-BD9F-A65069FB1147&gdpr=0&gdpr_consent=&us_privacy=1YNN",
+      "status": 200,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://www.temu.com/api/adx/cm/pixel-opera?adx_uid=fcc6b2164f8b6175&gdpr=0&gdpr_consent=&us_privacy=&redir=https%3A%2F%2Ft.oa.opera.com%2Fsync%3Fvendor%3D60369%26pubid%3Dpub8730968190912%26gdpr%3D0%26consent%3D%26us_privacy%3D%26custom_data%3D",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://www.temu.com/api/adx/cm/pixel-opera?adx_uid=fcc6b2164f8b6175&gdpr=0&gdpr_consent=&us_privacy=1YNN&redir=https%3A%2F%2Ft.oa.opera.com%2Fsync%3Fvendor%3D60369%26pubid%3Dpub8314431288000%26gdpr%3D0%26consent%3D%26us_privacy%3D1YNN%26custom_data%3D",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://www.temu.com/api/adx/cm/pixel-opera?adx_uid=fcc6b2164f8b6175&gdpr=0&gdpr_consent=&us_privacy=1YNN&redir=https%3A%2F%2Ft.oa.opera.com%2Fsync%3Fvendor%3D60369%26pubid%3Dpub6871903319744%26gdpr%3D0%26consent%3D%26us_privacy%3D1YNN%26custom_data%3D",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoicm5xQ1NsOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSR2FFaHBOMDVLVWlVeVFsaHlWbE5WTlZOS1dVZHlkalFsTTBRIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=2fba4f1a-7140-4400-8eb8-109f2f04e1cc&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjozLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fones-to-watch%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://spadsync.com/sync?sptoken=e5a061cf-062d-4a5d-acf3-91cf23e62e03&sspid=GgL&pubid=googless&ssphost=www.fut.gg&sharedId=e61baf51-6a29-447b-82a6-67263827502c",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiWEJKbkdGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSTk9GRjJNRTVYWjA5dVowSjFjWEpPWmxOd1Z6YzRKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=2d23e585-b315-4cd2-978c-71b369134b8a&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowfQ==&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiWEJKbkdGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSTk9GRjJNRTVYWjA5dVowSjFjWEpPWmxOd1Z6YzRKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073237&ntv_pas=eyIyMDczMjM3IjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJsZW5ndGgiOjF9&ntv_ppf=eyJsdW1pZXJlLXN0aWNreS1mb290ZXIiOnsiYmFubmVyIjp7Ijk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=561fb1a3-20e2-4eec-8f0b-992bae120fa8&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtc3RpY2t5LWZvb3RlciIsIm1lZGlhVHlwZXMiOnsiYmFubmVyIjp7InNpemVzIjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJwb3MiOjF9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiWEJKbkdGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSTk9GRjJNRTVYWjA5dVowSjFjWEpPWmxOd1Z6YzRKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=780d92b1-bf18-4911-a54a-27305df0e734&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoxLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69o0v891198259z8891192812za20gzb891192812zd891192812xf1&_p=1790613879380&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&tcfd=11458&gdid=dZTcxZD&_eu=AAAAAGQ&cid=728208865.1790613861&frm=0&pscdl=noapi&rcb=0&sr=1280x900&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=115938466~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121280970&sid=1790613860&sct=1&seg=1&dl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&dt=Players%20-%20Destined%20for%20Glory%20Tracker%20-%20Live%20Hub%20-%20EA%20SPORTS%20FC%2027%20-%20FUT.GG&_tu=CA&en=page_view&ep.logged_in=false&tfd=5690",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiWEJKbkdGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSTk9GRjJNRTVYWjA5dVowSjFjWEpPWmxOd1Z6YzRKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=d7396568-5a3e-4bdd-8611-d7f8a18684a3&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoyLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiWEJKbkdGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSTk9GRjJNRTVYWjA5dVowSjFjWEpPWmxOd1Z6YzRKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=101ab989-e504-47c4-b199-7a2b92381ede&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjozLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69o0v891198259za20gzb891192812zd891192812xf1&_p=1790613879380&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&tcfd=11458&gdid=dZTcxZD&_eu=AEAAAGQ&ae=a&cid=728208865.1790613861&frm=0&pscdl=noapi&rcb=0&sr=1280x900&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=2&tag_exp=115938466~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121280970&sid=1790613860&sct=1&seg=1&dl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2Fcampaigns%2Fdestined-for-glory%2Fplayers%2F&dt=Players%20-%20Destined%20for%20Glory%20Tracker%20-%20Live%20Hub%20-%20EA%20SPORTS%20FC%2027%20-%20FUT.GG&_tu=CA&en=scroll&ep.logged_in=false&epn.percent_scrolled=90&_et=4256&tfd=10691",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://spadsync.com/sync?sptoken=4d90e7e0-61a2-470b-bf7b-88dfa5486dbf&sspid=GgL&pubid=googless&ssphost=www.fut.gg&sharedId=e61baf51-6a29-447b-82a6-67263827502c",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiaDB0SUNGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSQ1NrZHJjRFpoT1ZOaVJGZENTM2xHU0ZCclZ6TlJKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=81067ffd-7cbc-480b-ad55-1e8908d2a2cb&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowfQ==&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiaDB0SUNGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSQ1NrZHJjRFpoT1ZOaVJGZENTM2xHU0ZCclZ6TlJKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073237&ntv_pas=eyIyMDczMjM3IjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJsZW5ndGgiOjF9&ntv_ppf=eyJsdW1pZXJlLXN0aWNreS1mb290ZXIiOnsiYmFubmVyIjp7Ijk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjk3MHg5MCI6MC41LCI3Mjh4OTAiOjAuNSwiNDY4eDYwIjowLjUsIjMyMHg1MCI6MC41LCIzMDB4NTAiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=d44913a9-e961-4439-ab3a-e49fac1121fb&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtc3RpY2t5LWZvb3RlciIsIm1lZGlhVHlwZXMiOnsiYmFubmVyIjp7InNpemVzIjpbWzk3MCw5MF0sWzcyOCw5MF0sWzQ2OCw2MF0sWzMyMCw1MF0sWzMwMCw1MF1dLCJwb3MiOjF9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjowLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiaDB0SUNGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSQ1NrZHJjRFpoT1ZOaVJGZENTM2xHU0ZCclZ6TlJKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=32c68192-639c-4bb5-96fa-abd10396465e&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoxLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69o0v891198259z8891192812za20gzb891192812zd891192812xf1&_p=1790613889354&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&tcfd=11458&gdid=dZTcxZD&_eu=AAAAAGQ&cid=728208865.1790613861&frm=0&pscdl=noapi&rcb=15&sr=1280x900&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=1&tag_exp=115938466~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121280969&sid=1790613860&sct=1&seg=1&dl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&dt=Live%20Hub%20-%20EA%20SPORTS%20FC%2027%20-%20FUT.GG&_tu=CA&en=page_view&ep.logged_in=false&tfd=3663",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiaDB0SUNGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSQ1NrZHJjRFpoT1ZOaVJGZENTM2xHU0ZCclZ6TlJKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=1018b458-6336-46ce-a4b3-0c47f379659a&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjoyLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://tr.blismedia.com/v1/api/sync/rubicon?gdpr=0&us_privacy=1YNN",
+      "status": 307,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://ssbsync.smartadserver.com/api/sync?callerId=75&gdpr=0&gdpr_consent=&redirectUri=https%3A%2F%2Fmeasureadv.com%2FuserBack%3Fuid%3D%5Bssb_sync_pid%5D%26p%3D6",
+      "status": 302,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://exchange.postrelease.com/prebid?ntv_pb_eid=W3sic291cmNlIjoiY3JpdGVvLmNvbSIsInVpZHMiOlt7ImlkIjoiaDB0SUNGOTVXa05LZWpabFNsWkVOVzh4UlRWS1MybDRORmxuWW1rM2EzWXlTR2RxVDNKa2FXUlNVVWxhVG5Kak1ucENXRUZsWTAwME5IRWxNa1kyVFdOM2VIWk9NVlY1TVVaclFrSTNXSFpFWjJ3MU0xRlpVV3RyTXpSQ1NrZHJjRFpoT1ZOaVJGZENTM2xHU0ZCclZ6TlJKVE5FIiwiYXR5cGUiOjF9XX0seyJzb3VyY2UiOiJwdWJjaWQub3JnIiwidWlkcyI6W3siaWQiOiJlNjFiYWY1MS02YTI5LTQ0N2ItODJhNi02NzI2MzgyNzUwMmMiLCJhdHlwZSI6MX1dfV0=&us_privacy=1YNN&ntv_gpp_consent=DBABTA~1YNN&ntv_gdpr_consent=undefined&ntv_ptd=2073242&ntv_pas=eyIyMDczMjQyIjpbWzMwMCwxNjldXSwibGVuZ3RoIjoxfQ==&ntv_ppf=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjp7InZpZGVvIjp7IjMwMHgxNjkiOjAuNSwiKiI6MC41fSwiKiI6eyIqIjowLjUsIjMwMHgxNjkiOjAuNX19fQ==&ntv_pbv=v11.31.0&ntv_pb_rid=46fabf13-01dc-4ed1-8817-49b378b3e8e6&ntv_ppc=W3siYWRVbml0Q29kZSI6Imx1bWllcmUtb3V0c3RyZWFtLTEiLCJtZWRpYVR5cGVzIjp7InZpZGVvIjp7ImNvbnRleHQiOiJvdXRzdHJlYW0iLCJwbGF5ZXJTaXplIjpbWzMwMCwxNjldXSwicGxjbXQiOjQsInBsYWNlbWVudCI6NSwicG9zIjoxLCJwbGF5YmFja21ldGhvZCI6WzJdLCJkZWxpdmVyeSI6WzEsMl0sInN0YXJ0ZGVsYXkiOjAsInBsYXliYWNrZW5kIjoxLCJza2lwIjowLCJtaW5kdXJhdGlvbiI6MCwibWF4ZHVyYXRpb24iOjMwLCJsaW5lYXJpdHkiOjEsIm1pbmJpdHJhdGUiOjMwMCwibWF4Yml0cmF0ZSI6MTUwMCwibWltZXMiOlsidmlkZW8vbXA0IiwiYXBwbGljYXRpb24vamF2YXNjcmlwdCJdLCJwcm90b2NvbHMiOlsyLDMsNSw2LDcsOF0sImFwaSI6WzIsNyw4XSwicmVuZGVyZXIiOnsidXJsIjoiaHR0cHM6Ly9pbWFzZGsuZ29vZ2xlYXBpcy5jb20vanMvc2RrbG9hZGVyL2ltYTMuanMifSwidyI6MzAwLCJoIjoxNjl9fX1d&ntv_dbr=eyJsdW1pZXJlLW91dHN0cmVhbS0xIjozLCJsdW1pZXJlLXN0aWNreS1mb290ZXIiOjB9&ntv_url=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    },
+    {
+      "url": "https://analytics.google.com/g/collect?v=2&tid=G-JBQ8V6N36N&gtm=45je69o0v891198259za20gzb891192812zd891192812xf1&_p=1790613889354&gcs=G111&gcd=13r3r3r3r5l1&npa=0&dma=0&tcfd=11458&gdid=dZTcxZD&_eu=AEAAAGQ&ae=a&cid=728208865.1790613861&frm=0&pscdl=noapi&rcb=15&sr=1280x900&uaa=x86&uab=64&uafvl=HeadlessChrome%3B153.0.8010.12%7CNot_A%2520Brand%3B8.0.0.0%7CChromium%3B153.0.8010.12&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&gaf=2&_s=2&tag_exp=115938466~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121280969&sid=1790613860&sct=1&seg=1&dl=https%3A%2F%2Fwww.fut.gg%2Flive-hub%2F&dt=Live%20Hub%20-%20EA%20SPORTS%20FC%2027%20-%20FUT.GG&_tu=CA&en=scroll&ep.logged_in=false&epn.percent_scrolled=90&_et=3341&tfd=8664",
+      "status": 204,
+      "size": 0,
+      "hasEaId": false,
+      "hasPlayerValue": false,
+      "hasObjective": false
+    }
+  ],
+  "hits": [
+    {
+      "url": "/api/fut/players/v2/27/?sorts=-pageviews",
+      "size": 298278,
+      "topKeys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29"
+      ],
+      "playerArrayLen": 30,
+      "playerKeys": [
+        "upgrade",
+        "chemistry",
+        "metarank",
+        "ggRatingRoles",
+        "momentumPercentage",
+        "currentDbPrice",
+        "showIgsBlob",
+        "id",
+        "eaId",
+        "overall",
+        "commonName",
+        "cardName",
+        "rarityName",
+        "textColor",
+        "overallColor",
+        "lineColor",
+        "url",
+        "cardImageUrl",
+        "isEvolutionPlayerItem",
+        "isProvisional",
+        "holographicType",
+        "standardItemEaId",
+        "gradingScore",
+        "hasCompleteFaceStats",
+        "slug",
+        "basePlayerSlug",
+        "game",
+        "basePlayerEaId",
+        "firstName",
+        "lastName",
+        "nickname",
+        "faceStatsV2",
+        "gender",
+        "uniqueClub",
+        "uniqueClubEaId",
+        "uniqueClubSlug",
+        "club",
+        "nation",
+        "league",
+        "imagePath",
+        "cardImagePath",
+        "simpleCardImagePath",
+        "clubImagePath",
+        "clubLightImagePath",
+        "playerScore",
+        "leagueLightImagePath",
+        "nationImagePath",
+        "leagueImagePath",
+        "socialImagePath",
+        "rarityId",
+        "rarityEaId",
+        "raritySquadId",
+        "rarityGroupId",
+        "rarityGroupName",
+        "secondaryRarityGroupId",
+        "secondaryRarityGroupName",
+        "rarityImagePath",
+        "animatedRarityImagePath",
+        "animatedRarityImagesPath",
+        "animatedRarityImagesFrameCount",
+        "animatedRarityImagesDelay",
+        "animatedRarityImagesFps",
+        "compactRarityImagePath",
+        "isBrightColorScheme",
+        "isIcon",
+        "isHero",
+        "position",
+        "positionId",
+        "alternativePositionIds",
+        "faceStats",
+        "shadowColor",
+        "foot",
+        "weakFoot",
+        "skillMoves",
+        "defensiveWorkrate",
+        "attackingWorkrate",
+        "isDynamic",
+        "isSpecial",
+        "evolutionName",
+        "evolutionId",
+        "cosmeticEvolution",
+        "renderOnlyAsHtml",
+        "isSbc",
+        "isObjective",
+        "price",
+        "isMyEvolutionsPlayerItem",
+        "isGgClubPlayerItem",
+        "isFullChemistry",
+        "extraLeagueChemistry",
+        "extraNationChemistry",
+        "extraClubChemistry",
+        "extraSquadLeagueChemistry",
+        "extraSquadNationChemistry",
+        "hasExtraChemistry",
+        "hasPrice",
+        "playStylePlusEaIds",
+        "rolesPlus",
+        "rolesPlusPlus",
+        "numberOfEvolutions",
+        "pointCost",
+        "coinCost",
+        "playStyleEaIds",
+        "height",
+        "age",
+        "attributeStrength",
+        "accelerateType",
+        "totalIgs",
+        "quality",
+        "imageUrl",
+        "rarityImageUrl",
+        "animatedRarityImageUrl",
+        "animatedRarityImagesUrl",
+        "compactRarityImageUrl",
+        "clubImageUrl",
+        "clubLightImageUrl",
+        "nationImageUrl",
+        "leagueLightImageUrl",
+        "leagueImageUrl",
+        "simpleCardImageUrl",
+        "socialImageUrl",
+        "isCurrentGame",
+        "createdAt",
+        "dominantColor",
+        "contentTypeId",
+        "alternativePositions",
+        "totalIgsBoost",
+        "evolutionIgsBoost",
+        "metarankScore",
+        "loanDuration",
+        "ggr"
+      ],
+      "sample": "{\"upgrade\":null,\"chemistry\":0,\"metarank\":null,\"ggRatingRoles\":null,\"momentumPercentage\":null,\"currentDbPrice\":null,\"showIgsBlob\":false,\"id\":170910,\"eaId\":50605554,\"overall\":84,\"commonName\":\"Renato Veiga\",\"cardName\":\"Renato Veiga\",\"rarityName\":\"Destined for Glory\",\"textColor\":\"fff3cf\",\"overallColor\":\"fff3cf\",\"lineColor\":\"005256\",\"url\":\"/players/273906-renato-palma-veiga-renato-veiga/27-50605554/\",\"cardImageUrl\":\"https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50605554.24838a12a9e5636c67745363daf28acdfdfc3ecc7d60e9bd5d359f4ea591451e.webp\",\"isEvolutionPlayerItem\":false,\"isProvisional\":false,\"holographicType\":null,\"standardItemEaId\":null,\"gradingScore\":1038,\"hasCompleteFaceStats\":true,\"slug\":\"27-50605554\",\"basePlayerSlug\":\"273906-renato-palma-veiga-renato-veiga\",\"game\":\"27\",\"basePlayerEaId\":273906,\"firstName\":\"Renato\",\"lastName\":\"Palma Veiga\",\"nickname\":\"Renato Veiga\",\"faceStatsV2\":{\"facePace\":80,\"faceShooting\":66,\"facePassing\":77,\"faceDribbling\":78,\"faceDefending\":83,\"facePhysicality\":87,\"gkFaceDiving\":0,\"gkFaceHandling\":0,\"gkFaceKicking\":0,\"gkFaceReflexes\":0,\"gkFaceSpeed\":0,\"gkFacePositioning\":0},\"gender\":1,\"uniqueClub\":{\"id\":4",
+      "withPlayerValue": 0,
+      "withObjectives": 0
+    },
+    {
+      "url": "/api/discovery/whats-hot/",
+      "size": 215009,
+      "topKeys": [
+        "sbcs",
+        "evolutions",
+        "objectives"
+      ],
+      "playerArrayLen": 0
+    },
+    {
+      "url": "/api/fut/live-hub/27/players/?campaign_id=21",
+      "size": 833950,
+      "topKeys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20"
+      ],
+      "playerArrayLen": 0
+    },
+    {
+      "url": "/api/fut/live-hub/27/players/?campaign_id=22",
+      "size": 673555,
+      "topKeys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16"
+      ],
+      "playerArrayLen": 0
+    },
+    {
+      "url": "/api/fut/upgrade-hub/27/?page=1",
+      "size": 251856,
+      "topKeys": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ],
+      "playerArrayLen": 0
+    },
+    {
+      "url": "/api/fut/live-hub/27/campaigns/",
+      "size": 58629,
+      "topKeys": [
+        "0",
+        "1"
+      ],
+      "playerArrayLen": 0
+    }
+  ]
+}
