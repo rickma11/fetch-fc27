@@ -1,16 +1,16 @@
-// 只读诊断探针（第 6 轮）：**campaign 页结构化提取** —— 目标就是拿到「逐球员的升级条件 + 真实进度」。
+// 只读诊断探针（第 7 轮）：**campaign 子页（players/ / upgrades/）** —— 找逐球员升级条件 + 真实进度。
 //
-// 前 5 轮结论：
-//   R1-R4: 球员详情页 /players/<slug>/ 渲染后**没有** #tracker（页面里的 Live Hub 只是导航栏链接）。
-//   R5: ★突破★ `/live-hub/campaigns/<slug>/` 页面有真内容：
-//       · /live-hub/campaigns/ 列出 campaigns：destined-for-glory / ones-to-watch / fantasy-fc …
-//       · /live-hub/campaigns/ones-to-watch/   → 9 个 /players/ 链接、绿条 3 个、条件文案命中 12 条
-//       · /live-hub/campaigns/destined-for-glory/ → 同上
-//       ⇒ 升级条件/进度真源在 **campaign 页**，不是球员页。
+// 前 6 轮结论：
+//   R1-R4: 球员详情页无 #tracker。
+//   R5: campaign 页 /live-hub/campaigns/<slug>/ 有真内容（条件文案 12 条命中、绿条 3）。
+//   R6: ★ campaign 页有子页签 **OVERVIEW | PLAYERS | FIXTURES | UPGRADES**：
+//        · campaigns = destined-for-glory / ones-to-watch（27- 前缀＝FC27）/ fantasy-fc / thunderstruck /
+//          primetime / fc-pro / path-to-glory / road-to-the-final（多为 26- 前缀＝FC26 历史）
+//        · overview 页上的球员卡**只是图片链接**（无文本、无进度条）⇒ 数据在子页
+//        · playerValueHits=0 ⇒ 页面 HTML 没有 SSR 直出 JSON，只能解析渲染后 DOM
 //
-// 本轮：把 campaign 页里「每张球员卡」结构化抽出来（球员链接 + 卡片文本 + 绿条/灰条段数），
-//       同时探测是否有 SSR 直出的 JSON（playerValue / objectives），为落地解析选路。
-// 结果落盘 probe/live_hub/detail_probe.json（同时由 workflow 上传 artifact）。
+// 本轮：对 FC27 相关 campaign 逐个访问 <camp>/players/ 与 <camp>/upgrades/，
+//       统计 27- 前缀球员链接数、绿条段数，并 dump 页面可见文本（人眼可读，判断展示口径）。
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
@@ -23,80 +23,61 @@ const SITE = 'https://www.fut.gg';
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
 
 const HARD_TIMEOUT_MS = Number(process.env.PROBE_TIMEOUT_MS || 12 * 60 * 1000);
-const out = { generatedAt: new Date().toISOString(), VER, round: 6, note: '', sections: {} };
+const out = { generatedAt: new Date().toISOString(), VER, round: 7, note: '', sections: {} };
 function dump() {
   try {
     fs.mkdirSync(OUT, { recursive: true });
     fs.writeFileSync(path.join(OUT, 'detail_probe.json'), JSON.stringify(out, null, 2));
   } catch (e) { console.log('dump err', e.message); }
 }
-const watchdog = setTimeout(() => {
-  out.note = 'WATCHDOG TIMEOUT（部分结果）';
-  dump();
-  console.error('WATCHDOG TIMEOUT — 已写出部分结果');
-  process.exit(5);
-}, HARD_TIMEOUT_MS);
+const watchdog = setTimeout(() => { out.note = 'WATCHDOG TIMEOUT（部分结果）'; dump(); console.error('WATCHDOG TIMEOUT'); process.exit(5); }, HARD_TIMEOUT_MS);
 
-function jget(t) { try { return JSON.parse(t); } catch (e) { return null; } }
-async function apiGet(page, url, accept) {
-  for (let a = 1; a <= 3; a++) {
-    try {
-      const r = await page.request.get(url, { headers: { Accept: accept || 'application/json' }, timeout: 60000 });
-      const t = await r.text();
-      if (r.status() === 200) return { status: 200, body: t };
-      console.log('  api', url.slice(0, 90), 'status', r.status(), t.slice(0, 100));
-      return { status: r.status(), body: t };
-    } catch (e) { console.log('  api err', e.message); }
-    if (a < 3) await page.waitForTimeout(3000);
-  }
-  return null;
-}
-
-// 结构化提取 campaign 页里每张球员卡
-async function extractCampaign(page, url) {
-  const rec = { url, err: '', cards: [] };
+async function readPage(page, url) {
+  const rec = { url, err: '' };
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 40000 });
     await page.waitForTimeout(2500);
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
     await page.waitForTimeout(3000);
     await page.evaluate(() => window.scrollTo(0, 0));
-    await page.waitForTimeout(1000);
-    const info = await page.evaluate(() => {
-      const seen = new Set();
+    await page.waitForTimeout(800);
+    const info = await page.evaluate(VERJS => {
+      const html = document.documentElement.outerHTML;
+      const txt = (document.body.innerText || '').replace(/\n{2,}/g, '\n');
+      const all = [...document.querySelectorAll('a[href*="/players/"]')].map(a => a.getAttribute('href') || '');
+      const itemLinks = all.filter(h => /\/players\/[^/]+\/\d+-\d+\//.test(h));
+      const verLinks = itemLinks.filter(h => h.indexOf('/' + VERJS + '-') >= 0);
+      // 球员卡：向上走到「有文本」的容器
       const cards = [];
-      const links = [...document.querySelectorAll('a[href*="/players/"]')];
-      for (const a of links) {
-        const href = a.getAttribute('href') || '';
+      const seen = new Set();
+      for (const href of itemLinks) {
         if (seen.has(href)) continue;
-        // 向上找「只包含这一张球员卡」的最小容器
+        seen.add(href);
+        const a = document.querySelector(`a[href="${href.replace(/"/g, '\\"')}"]`);
+        if (!a) continue;
         let el = a;
         for (let i = 0; i < 8 && el; i++) {
           el = el.parentElement;
           if (!el) break;
-          if (el.querySelectorAll('a[href*="/players/"]').length <= 1) break;
+          if ((el.innerText || '').trim().length > 15) break;
         }
         if (!el) continue;
-        seen.add(href);
-        const txt = (el.innerText || '').trim().replace(/\s*\n+\s*/g, ' | ').slice(0, 500);
         cards.push({
           href,
-          text: txt,
+          text: (el.innerText || '').trim().replace(/\s*\n+\s*/g, ' | ').slice(0, 400),
           greens: el.querySelectorAll('[class*="bg-green-500"]').length,
           grays: el.querySelectorAll('[class*="bg-gray-900"]').length
         });
       }
-      const html = document.documentElement.outerHTML;
-      const txtPage = (document.body.innerText || '').replace(/\n{2,}/g, '\n');
       return {
         finalUrl: location.href, title: (document.title || '').slice(0, 120),
-        cards,
-        playerValueHits: (html.match(/playerValue/g) || []).length,
-        objectivesHits: (html.match(/objectives/g) || []).length,
-        htmlBytes: html.length,
-        text: txtPage.slice(0, 5000)
+        itemLinkCount: itemLinks.length, verLinkCount: verLinks.length,
+        links27: verLinks.slice(0, 30),
+        greensTotal: document.querySelectorAll('[class*="bg-green-500"]').length,
+        cards: cards.slice(0, 12),
+        text: txt.slice(0, 4000), htmlBytes: html.length
       };
-    });
+    }, VER);
     Object.assign(rec, info);
   } catch (e) { rec.err = 'goto: ' + e.message; }
   return rec;
@@ -120,51 +101,22 @@ async function extractCampaign(page, url) {
   }
   if (!passed) { out.note = 'CF 未通过'; dump(); await browser.close(); process.exit(2); }
 
-  // ① 列出所有 campaign
-  console.log('\n① /live-hub/campaigns/ ...');
-  const idx = await extractCampaign(page, SITE + '/live-hub/campaigns/');
-  const slugs = [...new Set((idx.text.match(/(?:\/live-hub\/campaigns\/)([a-z0-9-]+)/g) || []).map(s => s.split('/').filter(Boolean).pop()))];
-  const hubLinks = (idx.cards || []).length ? [] : [];
-  out.sections.index = { url: idx.url, title: idx.title, text: (idx.text || '').slice(0, 1500) };
-  // 从 DOM 直接取 campaign 链接更可靠
-  await page.goto(SITE + '/live-hub/campaigns/', { waitUntil: 'domcontentloaded', timeout: 40000 });
-  await page.waitForTimeout(2000);
-  const campLinks = await page.evaluate(() => [...new Set([...document.querySelectorAll('a[href*="/live-hub/campaigns/"]')].map(a => a.getAttribute('href')))]);
-  const camps = [...new Set(campLinks.map(h => (h.split('/').filter(Boolean).pop() || '')))] .filter(Boolean);
-  out.sections.campaigns = camps;
-  console.log('  campaigns:', camps.join(' | '));
-
-  // ② 逐个 campaign 页结构化提取
-  console.log('\n② campaign 页结构化提取 ...');
+  const CAMPS = ['ones-to-watch', 'destined-for-glory', 'fantasy-fc', 'thunderstruck', 'primetime', 'fc-pro', 'path-to-glory', 'road-to-the-final'];
+  out.sections.campaigns = CAMPS;
   out.sections.pages = [];
-  for (const c of camps.slice(0, 6)) {
-    const url = `${SITE}/live-hub/campaigns/${c}/`;
-    const rec = await extractCampaign(page, url);
-    rec.campaign = c;
-    out.sections.pages.push(rec);
-    console.log(`  ${c} → cards=${rec.cards.length} greens=${rec.cards.reduce((a, x) => a + x.greens, 0)} playerValueHits=${rec.playerValueHits} ${rec.err || ''}`);
-    for (const card of (rec.cards || []).slice(0, 3)) console.log(`      · ${card.href} g=${card.greens}/${card.greens + card.grays} :: ${card.text.slice(0, 150)}`);
+  for (const c of CAMPS) {
+    for (const sub of ['players', 'upgrades']) {
+      const url = `${SITE}/live-hub/campaigns/${c}/${sub}/`;
+      const rec = await readPage(page, url);
+      rec.campaign = c; rec.sub = sub;
+      out.sections.pages.push(rec);
+      console.log(`  ${c}/${sub} → items=${rec.itemLinkCount} 27x=${rec.verLinkCount} greens=${rec.greensTotal} cards=${(rec.cards || []).length} ${rec.err || ''}`);
+      for (const card of (rec.cards || []).slice(0, 2)) console.log(`      · ${card.href} g=${card.greens}/${card.greens + card.grays} :: ${card.text.slice(0, 160)}`);
+    }
   }
 
-  // ③ 顺带看看有没有 campaign 级 API（比解析 HTML 稳）
-  console.log('\n③ campaign API 候选 ...');
-  out.sections.apiTries = [];
-  const c0 = camps[0] || 'ones-to-watch';
-  const tries = [
-    `${BASE}/live-hub/${VER}/campaigns/${c0}/`,
-    `${BASE}/live-hub/campaigns/${c0}/?game=${VER}`,
-    `${BASE}/live-hub/${VER}/?campaign=${c0}`,
-    `${BASE}/live-hub/${VER}/${c0}/`
-  ];
-  for (const u of tries) {
-    const r = await apiGet(page, u);
-    const ok = r && r.status === 200 && r.body.length > 100;
-    out.sections.apiTries.push({ url: u, status: r ? r.status : null, bytes: r ? r.body.length : 0, head: ok ? r.body.slice(0, 300) : '' });
-    console.log(`  ${u} → ${r ? r.status : 'null'} ${r ? r.body.length : 0}B`);
-  }
-
-  const totalCards = out.sections.pages.reduce((a, p) => a + (p.cards || []).length, 0);
-  out.note = totalCards > 0 ? `HIT: campaign 页共提取 ${totalCards} 张球员卡` : 'MISS: campaign 页未提取到球员卡';
+  const hit = out.sections.pages.filter(p => (p.verLinkCount || 0) > 0 && (p.greensTotal || 0) > 0);
+  out.note = hit.length ? `HIT: ${hit.length} 个子页同时含 FC27 球员链接与绿条（如 ${hit[0].campaign}/${hit[0].sub}）` : 'MISS: 子页未见 FC27 球员+绿条组合';
   clearTimeout(watchdog);
   await browser.close();
   dump();
