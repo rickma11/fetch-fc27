@@ -39,11 +39,11 @@ jobs:
         env:
           FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
           PROBE_TIMEOUT_MS: '720000'
-        run: node scripts/probe_live_hub_players.js ${{ github.event.inputs.fc_ver || '27' }}
+        run: node scripts/probe_live_hub_obj.js ${{ github.event.inputs.fc_ver || '27' }}
       - name: Commit report
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add probe/live_hub/players_probe.json || true
+          git add probe/live_hub/obj_probe.json || true
           git commit -m "probe live-hub campaign pages: $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "no changes"
           git push || echo "push failed"
