@@ -186,16 +186,22 @@ function parseTracker(html) {
     }
     try {
       await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 40000 });
+      // ⚠️ 必须用 state:'attached'：#tracker 外层带 Tailwind `empty:hidden`（空时隐藏），
+      //    默认 waitForSelector 等的是「可见」，会一直超时（第 2 轮探针已踩）。
       try {
-        await page.waitForSelector('#tracker', { timeout: 15000 });
-        rec.renderedHasTracker = true;
-      } catch (e) { rec.err = 'wait #tracker: ' + e.message; }
+        await page.waitForSelector('#tracker', { state: 'attached', timeout: 15000 });
+        rec.trackerAttached = true;
+      } catch (e) { rec.trackerAttached = false; rec.err = 'wait attached: ' + e.message; }
+      // 给 lazy 内容一点沉降时间
+      await page.waitForTimeout(3000);
       const html = await page.content();
       rec.renderedBytes = html.length;
-      rec.tracker = rec.renderedHasTracker ? parseTracker(html) : null;
-      if (!rec.renderedHasTracker && !rec.err) rec.err = 'no selector but content ok';
-      // 诊断：渲染后是否出现 live-hub 相关线索（说明 JS 跑起来了但没 tracker）
+      rec.hasTrackerInContent = html.indexOf('id="tracker"') >= 0;
+      rec.renderedHasTracker = rec.hasTrackerInContent;
+      // 无论如何都解析（第 2 轮的坑：只在 wait 成功时解析 ⇒ 内容其实有却被丢掉）
+      rec.tracker = parseTracker(html);
       rec.hasLiveHubLink = /\/live-hub\//.test(html);
+      rec.campaignLinks = [...html.matchAll(/href="(\/live-hub\/campaigns\/[^"]*)"/g)].map(x => x[1]).slice(0, 3);
     } catch (e) { rec.err = 'goto: ' + e.message; }
     return rec;
   }
@@ -209,8 +215,10 @@ function parseTracker(html) {
       eaId: p.eaId, tid: p.tid, slug: p.slug,
       url: rec.url,
       rawStatus: rec.rawStatus, rawHasTracker: rec.rawHasTracker,
+      trackerAttached: !!rec.trackerAttached,
       renderedHasTracker: rec.renderedHasTracker,
       hasLiveHubLink: !!rec.hasLiveHubLink,
+      campaignLinks: rec.campaignLinks || [],
       err: rec.err,
       renderedBytes: rec.renderedBytes || 0,
       campaign: tr ? tr.campaign : '',
