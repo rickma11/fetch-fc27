@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       fc_ver:
-        description: 'FC 主版本（默认 27；脚本会额外抓 26）'
+        description: 'FC 主版本（默认 27；只抓该版本，目前仅 FC27）'
         type: string
         default: '27'
 
