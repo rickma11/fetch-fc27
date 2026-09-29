@@ -171,6 +171,20 @@ jobs:
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/sync_sbc_covers.js --ver 27
 
+      # R33b-方案2（2026-09-28）：SBC/进化静态 JSON 紧跟抓取链发布，不等球员主链。
+      # 读 scrape+enrich 刚产出的工作树文件（不经 git 提交），约 15 秒后把静态 JSON 上云存储
+      # fc27/data/<name>/，端上 utils/cloudJson.js 直读，list/meta 零云函数调用。
+      # 失败不致命（continue-on-error）：端上自动回退云函数 B 线，不影响主链。
+      # 条件与 scrape 一致：images-only / no-portrait-only 跳过（无新鲜 SBC/进化数据）。
+      - name: Publish SBC/Evolutions static JSON (Phase 1, after scrape)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_static_lists.js 27
+
       - name: Fetch FC27 via real browser (bypass Cloudflare)
         # no-portrait-only 跳过整个抓取（直接基于云存储已有卡面建无像卡）
         if: ${{ steps.mode.outputs.skip_fetch != 'true' }}
