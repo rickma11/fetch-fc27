@@ -140,7 +140,7 @@ function pruneOld(keepTs, keepBuckets) {
     }
   });
   // 桶名版：price_view_<12位桶>.json，按桶名降序保留最近 keepBuckets 个
-  const bucketFiles = files.filter(function (f) { return /^price_view_\d{12}\.json$/.test(f); })
+  const bucketFiles = files.filter(function (f) { return /^price_view_\d{12,}\.json$/.test(f); })
     .sort().reverse();
   bucketFiles.slice(keepBuckets || 6).forEach(function (f) {
     fs.unlinkSync(path.join(OUT_DIR, f));
@@ -152,7 +152,7 @@ function pruneOld(keepTs, keepBuckets) {
 // 本机时间分桶：YYYYMMDDHHMM（20 分钟粒度）。⚠️ 必须与端上 utils/priceStore.js#bucketOf 一致。
 function pad2(n) { return n < 10 ? '0' + n : '' + n; }
 function bucketOf(d) {
-  const m = Math.floor((d.getHours() * 60 + d.getMinutes()) / 20) * 20;
+  const m = Math.floor(d.getMinutes() / 20) * 20;          // 0/20/40（时内分钟，非「自午夜分钟」）
   return '' + d.getFullYear() + pad2(d.getMonth() + 1) + pad2(d.getDate()) + pad2(d.getHours()) + pad2(m);
 }
 
