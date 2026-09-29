@@ -20,6 +20,7 @@ try { scanCache = require('./scan_cache.js'); } catch (e) {
 const ROSTER_SCHEMA_VERSION = 16;
 const COL = 'players_fc' + VER;
 const M_COL = 'meta_fc' + VER;
+const MAX_PART_ZIP = 2 * 1024 * 1024;   // 单 zip 片体积上限（与 buildPacks 同源；分档打包 chooseSlices 共用）
 
 // —— 与 get_players/computeKeyAttrs 同源 ——
 function computeKeyAttrs(p) {
@@ -77,6 +78,72 @@ function buildPacks(all, rarityImgs, ts) {
   return last;   // 8 片仍超限（理论上不可能）→ 用最大分片数硬上，体积仍远小于单发 16MB
 }
 
+// O3/O4（2026-09-29）：分档打包。按 overall 降序切成 3 档（档0：85+ / 档1：75-84 / 档2：<75 银铜），
+// 每档内部再按单 zip ≤ MAX_PART_ZIP 切成若干子片；每片 head 带 tier/tierIndex/tierParts，
+// 端上 fetchTieredRoster 可先下档0（85+）即渲染高总评球员、档1/2 后台续下，降低首屏解析成本。
+// 向后兼容：旧客户端 fetchZipRoster 仍按全局 part/parts 拼接各片（每片独立合法 JSON），
+// 档序只会改变球员在拼接结果里的相对顺序（总体降序），不影响搜索/筛选/排序正确性。
+function chooseSlices(arr) {
+  if (!arr.length) return [];
+  // 候选子片数（与旧 buildPacks 同源思路）：取第一个使最大子片 zip ≤ MAX_PART_ZIP 的；都不行则退 8 片。
+  const C = [1, 2, 4, 8];
+  for (let ci = 0; ci < C.length; ci++) {
+    const s = C[ci];
+    const size = Math.ceil(arr.length / s);
+    const slices = [];
+    for (let i = 0; i < s; i++) {
+      const sl = arr.slice(i * size, (i + 1) * size);
+      if (sl.length) slices.push(sl);
+    }
+    let maxZip = 0;
+    for (let i = 0; i < slices.length; i++) {
+      const raw = Buffer.from(JSON.stringify({ players: slices[i] }), 'utf8');
+      const z = ziplite.zipOne('x' + i + '.json', raw).length;
+      if (z > maxZip) maxZip = z;
+    }
+    if (maxZip <= MAX_PART_ZIP) return slices;
+  }
+  const s = 8, size = Math.ceil(arr.length / 8), slices = [];
+  for (let i = 0; i < 8; i++) { const sl = arr.slice(i * size, (i + 1) * size); if (sl.length) slices.push(sl); }
+  return slices;
+}
+
+function buildTieredPacks(all, rarityImgs, ts) {
+  const head = { version: String(VER), ts: ts, count: all.length, schemaVersion: ROSTER_SCHEMA_VERSION, rarityImgs: rarityImgs };
+  // 按 overall 降序稳定排序（同总评保持原顺序）
+  const sorted = all.slice().sort(function (a, b) { return (b.overall || 0) - (a.overall || 0); });
+  const tiers = [
+    sorted.filter(function (p) { return (p.overall || 0) >= 85; }),                       // 档0：85+
+    sorted.filter(function (p) { const o = p.overall || 0; return o >= 75 && o <= 84; }), // 档1：75-84
+    sorted.filter(function (p) { return (p.overall || 0) < 75; })                          // 档2：银铜（<75）
+  ];
+  const tierSlices = tiers.map(chooseSlices);
+  const totalParts = tierSlices.reduce(function (s, sl) { return s + sl.length; }, 0);
+  const packs = [];
+  let gi = 0;
+  tierSlices.forEach(function (sl, ti) {
+    sl.forEach(function (slice, idx) {
+      const partHead = Object.assign({}, head, {
+        part: gi, parts: totalParts,
+        tier: ti, tierIndex: idx, tierParts: sl.length,
+        players: slice
+      });
+      const raw = Buffer.from(JSON.stringify(partHead), 'utf8');
+      const zip = ziplite.zipOne('roster_p' + gi + '.json', raw);
+      packs.push({ i: gi, players: slice.length, raw: raw.length, zip: zip, tier: ti, tierIndex: idx, tierParts: sl.length });
+      gi++;
+    });
+  });
+  let rawTotal = 0, zipTotal = 0, maxZip = 0;
+  packs.forEach(function (p) { rawTotal += p.raw; zipTotal += p.zip.length; if (p.zip.length > maxZip) maxZip = p.zip.length; });
+  // tierParts = 每档子片数（[n0,n1,n2]），随元文档下发，端上据此切出各档在 fileIDs 里的连续区间，
+  // 实现「先下 85+ 即渲染、75-84 / 银铜后台续下」。旧客户端忽略此字段（只认 parts/fileIDs），向后兼容。
+  return { packs: packs, parts: totalParts, rawTotal: rawTotal, zipTotal: zipTotal, maxZip: maxZip, tierParts: [tierSlices[0].length, tierSlices[1].length, tierSlices[2].length] };
+}
+
+// 仅当作为独立脚本运行（CI `node scripts/warm_roster.js`）才执行主流程；
+// 被单测 require 时不触发云端调用，便于对 buildTieredPacks / chooseSlices / computeKeyAttrs 做纯函数测试。
+if (require.main === module) {
 (async () => {
   const cred = resolve();
   const cloudbase = require('@cloudbase/node-sdk');
@@ -173,7 +240,7 @@ function buildPacks(all, rarityImgs, ts) {
   // 落库：roster/roster_v1_27.<ts>.p{i}.zip（**带 ts 后缀**，规避 COS 按路径的 CDN 缓存脏读 —— 规则 31），
   //       每片是一个只含 roster_p{i}.json 的标准 deflate zip，端上用 FileSystemManager.unzip 原生解开。
   const ts = Date.now();
-  const packs = buildPacks(all, rarityImgs, ts);
+  const packs = buildTieredPacks(all, rarityImgs, ts);   // O3/O4：分档打包（85+/75-84/银铜），向后兼容旧客户端
   console.log('roster 分片: ' + packs.parts + ' 片 | 原始 ' + (packs.rawTotal / 1048576).toFixed(2) +
     'MB → 压缩 ' + (packs.zipTotal / 1048576).toFixed(2) + 'MB（最大单片 ' + Math.round(packs.maxZip / 1024) + 'KB）');
 
@@ -214,6 +281,7 @@ try {
   await db.collection(M_COL).doc('roster').set({
     fileIDs: ups.map(u => u.fileID),
     parts: packs.parts,
+    tiers: packs.tierParts,   // O3/O4：每档子片数 [n0,n1,n2]，端上切分档区间用
     zip: true,
     ts: ts,
     count: all.length,
@@ -259,3 +327,12 @@ try {
     console.log('VERIFY SKIP: callFunction 不可用（' + String(e && e.message || e).slice(0, 100) + '）——已写 meta，客户端预载仍应生效');
   }
 })().catch(e => { console.error('FATAL', String(e && e.message || e)); process.exit(1); });
+}
+
+module.exports = {
+  buildPacks: buildPacks,
+  buildTieredPacks: buildTieredPacks,
+  chooseSlices: chooseSlices,
+  computeKeyAttrs: computeKeyAttrs,
+  rarityFileKeyOf: rarityFileKeyOf
+};
