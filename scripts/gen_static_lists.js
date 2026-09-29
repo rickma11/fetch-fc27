@@ -114,11 +114,21 @@ function hash8(buf) { return crypto.createHash('md5').update(buf).digest('hex').
 // 单个数据集：造数组 → 哈希命名 → 上传 → 写元文档 → 清旧 → 回读校验
 async function publishOne(app, name, arr, fetchedAt) {
   const ts = Date.now();
-  const jsonStr = JSON.stringify(arr);
+  // 给每条记录注入整批 _fetchedAt，保证端上「数据更新于」始终能显示（无论单条有没自己的时间戳）
+  const stamp = fetchedAt || new Date(ts).toISOString();
+  const stampedArr = arr.map(function (r) {
+    if (r && (r._fetchedAt || r.fetchedAt)) return r;
+    const o = {};
+    for (const k in r) if (Object.prototype.hasOwnProperty.call(r, k)) o[k] = r[k];
+    o._fetchedAt = stamp;
+    return o;
+  });
+
+  const jsonStr = JSON.stringify(stampedArr);
   const buf = Buffer.from(jsonStr);
   const h = hash8(buf);
   const cloudPath = CLOUD_DIR + name + '/' + name + '.' + h + '.json';
-  console.log('[' + name + '] 记录数=' + arr.length + ' json=' + (jsonStr.length / 1024).toFixed(1) +
+  console.log('[' + name + '] 记录数=' + stampedArr.length + ' json=' + (jsonStr.length / 1024).toFixed(1) +
     'KB hash=' + h + ' fetchedAt=' + (fetchedAt || '(空)'));
 
   if (NO_UPLOAD) { console.log('  （--no-upload，跳过上传）'); return; }
@@ -134,22 +144,33 @@ async function publishOne(app, name, arr, fetchedAt) {
     const rbBuf = rb && rb.fileContent;
     if (!rbBuf || !rbBuf.length) throw new Error('回读空');
     const rbArr = JSON.parse(rbBuf.toString('utf8'));
-    if (!Array.isArray(rbArr) || rbArr.length !== arr.length) throw new Error('回读条数不符 ' + (rbArr && rbArr.length));
+    if (!Array.isArray(rbArr) || rbArr.length !== stampedArr.length) throw new Error('回读条数不符 ' + (rbArr && rbArr.length));
     console.log('  ✅ 回读校验通过：条数=' + rbArr.length);
   } catch (e) { console.error('  ❌ 回读校验失败:', e.message); process.exit(7); }
 
-  // 读旧元文档（拿 prevFileId 清旧文件）
+  // 读旧元文档（拿 prevFileId 清旧文件 + prev forceVersion）
   let prevFileId = '';
+  let prevHash = '';
+  let prevFV = 0;
   try {
     const old = await app.database().collection(META_COLLECTION).doc(name).get();
-    prevFileId = (old && old.data && old.data.fileID) || '';
+    const od = (old && old.data) || null;
+    if (od) {
+      prevFileId = od.fileID || '';
+      prevHash = od.hash || '';
+      prevFV = od.forceVersion || 0;
+    }
   } catch (e) { /* 首轮无元文档 */ }
 
+  // 内容没变时保持原 forceVersion；内容变了才 bump，避免空跑刷所有人
+  const forceVersion = (prevHash && prevHash === h) ? prevFV : ts;
+
   await app.database().collection(META_COLLECTION).doc(name).set({
-    fetchedAt: fetchedAt || '', count: arr.length, fileID: fileID, hash: h, ts: ts,
-    prevFileId: prevFileId || '', updatedAt: new Date().toISOString()
+    fetchedAt: fetchedAt || '', count: stampedArr.length, fileID: fileID, hash: h, ts: ts,
+    prevFileId: prevFileId || '', updatedAt: new Date().toISOString(),
+    forceVersion: forceVersion
   });
-  console.log('  已写元文档', META_COLLECTION + '/' + name);
+  console.log('  已写元文档', META_COLLECTION + '/' + name, 'forceVersion=' + forceVersion);
 
   if (prevFileId && prevFileId !== fileID) {
     try { await app.deleteFile({ fileList: [prevFileId] }); console.log('  已清理旧文件:', shortFid(prevFileId)); }
