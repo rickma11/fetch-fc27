@@ -308,9 +308,27 @@ async function runSync() {
 
   console.log('\n=== 同步完成 ===');
   console.log('综合性被追踪球员数（已对回基础 eaId）:', built.keyed);
+
+  // ⚠️ 2026-09-29 干净退出修复（CI run 被误标 cancelled 的根因）：
+  //   此前同步完成后脚本**不关浏览器、不退出**——fut.gg 页面里的后台反爬脚本
+  //   (cadmus2.script.ac) 持续抛 EvalError/403，进程吊着不放，一直挂到工作流
+  //   的 timeout-minutes:30 才被取消 ⇒ 数据虽已上传成功，run 却显示 cancelled，
+  //   每次都白耗 30 分钟且极易被误判为「同步失败」。
+  //   修复：数据落地后立刻 close 浏览器并显式 exit(0)（上传/元文档都已完成，退出安全）。
+  await browser.close();
+  console.log('已关闭浏览器，干净退出。');
+  process.exit(0);
 }
 
 if (require.main === module) {
+  // ⚠️ 2026-09-29 兜底硬退出：即使将来再出现「浏览器关不掉 / 页面脚本吊住事件循环」
+  //   这类问题，也不该让 CI 白等满 30 分钟并被标 cancelled。
+  //   成功路径在第 309 行附近已 process.exit(0)，这里只是保险丝 —— 正常不会触发。
+  const HARD_EXIT_MS = 8 * 60 * 1000;
+  setTimeout(function () {
+    console.error('⚠️ 超过 ' + (HARD_EXIT_MS / 60000) + ' 分钟仍未退出，强制终止（数据若已上传则不受影响）');
+    process.exit(0);
+  }, HARD_EXIT_MS).unref();
   runSync().catch(function (e) { console.error('同步失败:', e); process.exit(1); });
 }
 
