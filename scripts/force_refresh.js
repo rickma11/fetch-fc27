@@ -38,25 +38,51 @@ function initCloud() {
   return cloudbase.init({ env: envId, secretId: sid, secretKey: skey });
 }
 
+// 递归下钻：node-sdk .doc().get() 可能返回 {data:{...}} 或 {...}，且历史上被写坏成
+// 多层嵌套（如 {0:{0:{...}}}，见硬规则 29）。这里从任意嵌套里抽出「含 fileID/fetchedAt 的真文档」
+function normalizeDoc(d) {
+  if (d && typeof d === 'object') {
+    if (d.fileID || d.fetchedAt || d.hash) return d;
+    const keys = Object.keys(d);
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i];
+      if (k === '_id' || k === 'forceVersion' || k === 'updatedAt' || k === 'prevFileId') continue;
+      const v = d[k];
+      if (v && typeof v === 'object') {
+        const r = normalizeDoc(v);
+        if (r) return r;
+      }
+    }
+  }
+  return null;
+}
+
 async function bumpOne(app, name) {
   const ts = Date.now();
   let prev = {};
+  let wasFV = 0;
   try {
     const r = await app.database().collection(META_COLLECTION).doc(name).get();
-    const d = (r && r.data) || null;
-    if (d) {
-      // node-sdk 可能返回 {data:{...}} 或 {...}，都兼容
-      prev = (d && d.data) || d || {};
-    }
+    const raw = (r && r.data) || null;
+    const d = normalizeDoc(raw) || {};
+    prev = d;
+    wasFV = d.forceVersion || 0;
   } catch (e) {
     console.log('[' + name + '] 读旧元文档失败（可能不存在）:', e.message);
   }
-  const next = Object.assign({}, prev, {
-    forceVersion: ts,
-    updatedAt: new Date().toISOString()
-  });
+  // 只保留我们需要的平字段，绝不把嵌套体（含 '0'）原样写回
+  const next = {
+    fetchedAt: prev.fetchedAt || '',
+    count: prev.count || 0,
+    fileID: prev.fileID || '',
+    hash: prev.hash || '',
+    ts: prev.ts || ts,
+    prevFileId: prev.prevFileId || '',
+    updatedAt: new Date().toISOString(),
+    forceVersion: ts
+  };
   await app.database().collection(META_COLLECTION).doc(name).set(next);
-  console.log('[' + name + '] forceVersion bumped → ' + ts + ' (was ' + (prev.forceVersion || 0) + ')');
+  console.log('[' + name + '] forceVersion bumped → ' + ts + ' (was ' + wasFV + ')');
 }
 
 (async function () {
