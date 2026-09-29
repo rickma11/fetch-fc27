@@ -1,21 +1,19 @@
-// FC27 升级追踪（Live Hub）同步脚本：CI 真实 Chromium 过 Cloudflare，抓 live-hub/27 全量，
-// 再用 has_dynamic 列表 + definition-data 反查 liveHubTrackerId 拿到**综合性被追踪全集**（fut.gg 网站
-// 实际用于给每张卡打「追踪 widget」的信号），按基础 eaId 建索引组装精简 JSON，上传云存储 fc27/livehub/
-// 并写 meta_fc27/livehub 元文档。
+// FC27 升级追踪（Live Hub）同步脚本：CI 真实 Chromium 过 Cloudflare，按活动抓全部被追踪卡的真实进度，
+// 按基础 eaId 建索引组装精简 JSON，上传云存储 fc27/livehub/ 并写 meta_fc27/livehub 元文档。
 //
-// 关键修正（2026-09-28 复盘）：
-//   · live-hub 聚合 API（data.players）只返回「当前精选/活跃窗口」的 6 名球员（DFG 3 + OTW 3），
-//     并非全部被追踪卡。fut.gg 网站每张卡的追踪 widget 由 `definition-data.liveHubTrackerId` 驱动，
-//     覆盖所有促销卡（含 Adeyemi/Veiga/OPTA 等），远多于 6。故「谁被追踪」的真源改为
-//     has_dynamic 列表 + definition-data 反查（综合性），live-hub 仅用于「这 6 人的真实进度 + 同 trackerId 模板」。
-//   · per-player 进度（playerValue）只有 live-hub 聚合里那 6 人有；其余被追踪卡（Adeyemi/Veiga/OPTA…）
-//     经反复探查无可达的逐球员进度端点（live-hub 变体均被忽略、objective-campaign 端点 404）。
-//     对这类卡：沿用同 trackerId 的 objectives 模板展示条件，进度标「追踪中」（playerValue=null，端上不臆造 0/X）。
+// 真接口（R8-R10 探针实锤，已写入 utweb/参考/futgg/live_hub_api.md §十）：
+//   GET /api/fut/live-hub/{ver}/campaigns/                    → 活动列表（FC27：21=OnesToWatch，22=DestinedForGlory）
+//   GET /api/fut/live-hub/{ver}/players/?campaign_id={id}     → 该活动**全量**被追踪卡（含逐球员真实进度）
+//   ⚠️ 参数名必须是 campaign_id（写 campaign 静默返 {"data":[]}）；slug 形式 404；无分页。
+//   每条 item：playerItemEaId（顶层）/ card.eaId（card 内，二者等值）作主键；tracker.objectives[] 含
+//   requirement(枚举) / value(阈值) / playerValue(已赢·逐球员真实进度) / maxGames / gamesPlayed(已赛·窗口内)
+//   / isCompleted / isNotPossible / isRepeatable / upgrades[]。
+//   FC27 实测：campaign 21→21 张，campaign 22→17 张（tid33 11 + tid34 6）⇒ **38 张 100% 覆盖**，tid34 复活。
 //
 // 设计要点：
 //   - 过 CF 沿用 probe_live_hub.js 的 page.request 方案（Node 侧 fetch，共享 cf_clearance cookie）。
-//   - 主键用 card.eaId（基础球员 eaId，与小程序 roster 主键同套），不碰 playerItemEaId（item 段，另套 id）。
-//   - 只产出「被追踪球员 + 各自进度」，不写球员主表、不碰 players_fc27 文档、不跑 warm_roster —— 与 fetch-fc27 管线隔离。
+//   - 主键用 card.eaId（基础球员 eaId，与小程序 roster 主键同套），兜底 playerItemEaId（R11 验证二者等值）。
+//   - 只产出「被追踪球员 + 各自真实进度」，不写球员主表、不碰 players_fc27 文档、不跑 warm_roster —— 与 fetch-fc27 管线隔离。
 //   - 端上只读本脚本产出的静态 JSON（wx.cloud.downloadFile），不调 get_players 云函数，降低云函数/DB 调用。
 //   - 每日由 GitHub Actions 调度一次（sync-live-hub.yml）；端上日级缓存，自然日内不二次刷新。
 //
@@ -113,103 +111,54 @@ function stripLabelProgress(label) {
     .trim();
 }
 
-// 由三部分建模「综合性被追踪全集」：
-//   liveHubPlayers：live-hub 聚合球员（含真实 objectives + 进度）
-//   defMap：{ eaId: liveHubTrackerId }（definition-data 反查，综合性被追踪信号）
-//   dynMeta：{ eaId: { rarityName, slug, clubName, nationName } }（has_dynamic 枚举，提供 campaignName 等）
-// 返回 { byEaId, keyed, unkeyed, templateByTrackerId }。
-//   · live-hub 里的人：保留真实进度。
-//   · 同 trackerId 由 live-hub 抽「模板」（requirement/value/upgrades，去进度），供其余被追踪卡复用（§七：同 trackerId 条件一致）。
-//   · defMap 中 liveHubTrackerId != null 但不在 live-hub 的人：补进 byEaId，objectives 用模板（playerValue=null → 端上标「追踪中」）。
-function buildFullPayload(liveHubPlayers, defMap, dynMeta) {
-  defMap = defMap || {};
-  dynMeta = dynMeta || {};
+// 由「按活动抓回的全量被追踪卡」数组 → 精简 JSON（按基础 eaId 建索引，主键 card.eaId || playerItemEaId）。
+// 真接口（R8-R10）：每条 item 已自带 tracker.objectives[] 真实进度（playerValue/maxGames/gamesPlayed），
+// 无需再走 has_dynamic 枚举 + definition-data 反查、也无需同 trackerId 抽模板 —— 38 张 100% 覆盖、tid34 复活。
+// 返回 { byEaId, keyed, unkeyed, skippedNoTemplate:0 }。
+function buildFullPayload(allPlayers) {
   const byEaId = {};
-
-  // 1) live-hub 的 6（真实进度）
-  for (const p of (liveHubPlayers || [])) {
+  let keyed = 0, unkeyed = 0;
+  for (const p of (allPlayers || [])) {
     const card = p.card || {};
     let ea = card.eaId != null ? Number(card.eaId) : null;
-    if (ea == null && p.playerItemEaId != null) ea = Number(p.playerItemEaId);
-    if (!ea) continue;
+    if (ea == null && p.playerItemEaId != null) ea = Number(p.playerItemEaId); // R11 验证 card.eaId===playerItemEaId
+    if (!ea) { unkeyed++; continue; }
     const tracker = p.tracker || {};
     const objectives = Array.isArray(tracker.objectives)
       ? tracker.objectives.map(function (o) {
           const req = o.requirement || o.req || '';
+          const ups = Array.isArray(o.upgrades) ? o.upgrades : [];
           return {
             key: o.key || (req + ':' + (o.value == null ? '' : o.value)),
             label: o.label || '',
             requirement: req,
             value: (o.value == null ? null : Number(o.value)),
-            playerValue: (o.playerValue == null ? 0 : Number(o.playerValue)),
+            playerValue: (o.playerValue == null ? null : Number(o.playerValue)), // null = 无逐球员真实进度（端上标「追踪中」）
+            maxGames: (o.maxGames == null ? null : Number(o.maxGames)),          // 窗口总场次（如 6）
+            gamesPlayed: (o.gamesPlayed == null ? null : Number(o.gamesPlayed)),// 窗口内已赛场次
             isCompleted: !!o.isCompleted,
             isNotPossible: !!o.isNotPossible,
-            upgrades: Array.isArray(o.upgrades)
-              ? o.upgrades.map(function (u2) { return { upgrade: u2.upgrade, label: u2.label || (u2.customUpgrade || '') }; })
-              : []
+            isRepeatable: !!o.isRepeatable,
+            upgrades: ups.map(function (u2) { return { upgrade: u2.upgrade, label: u2.label || (u2.customUpgrade || '') }; })
           };
         })
       : [];
+    const hasProgress = objectives.some(function (o) { return o.playerValue != null; });
     byEaId[String(ea)] = {
       eaId: ea,
       itemEaId: p.playerItemEaId != null ? Number(p.playerItemEaId) : null,
       trackerId: (p.trackerId != null) ? p.trackerId : null,
-      campaignName: p.campaignName || (dynMeta[ea] && dynMeta[ea].rarityName) || '',
+      campaignName: p.campaignName || '',
       competitionName: p.competitionName || '',
-      clubName: p.clubName || (dynMeta[ea] && dynMeta[ea].clubName) || '',
-      nationName: p.nationName || (dynMeta[ea] && dynMeta[ea].nationName) || '',
+      clubName: p.clubName || '',
+      nationName: p.nationName || '',
       startDate: (p.data && p.data.startDate) || '',
       objectives: objectives,
-      hasProgress: true
-    };
-  }
-
-  // 2) 由 live-hub 同 trackerId 抽「模板」（去进度 + 剥离 label 里的插值进度）
-  //    ⚠️ 关键坑（2026-09-28 用户截图实证）：fut.gg 会把精选球员的进度插值进 label，
-  //    如 "Win 3 of next 6 matches (2/6)" 里的 "(2/6)" 是该精选人的进度。若原样当模板，
-  //    所有非精选球员都会顶着 "(2/6)" —— 看起来人人都是 2/6（统计错误）。故模板 label 必须剥离 " (N/M)"。
-  const templateByTrackerId = {};
-  for (const k of Object.keys(byEaId)) {
-    const r = byEaId[k];
-    if (r.trackerId != null && !templateByTrackerId[r.trackerId] && r.objectives.length) {
-      templateByTrackerId[r.trackerId] = r.objectives.map(function (o) {
-        return { key: o.key, label: stripLabelProgress(o.label), requirement: o.requirement, value: o.value, upgrades: o.upgrades };
-      });
-    }
-  }
-
-  // 3) 综合集：defMap 中 liveHubTrackerId != null 的，全部补进 byEaId（live-hub 已有则保留真实进度）
-  //    ⚠️ 无模板（该 trackerId 在 live-hub 里没有任何精选样本 → 拿不到升级条件）的卡**不补进**，
-  //    避免端上出现「动态」标签 + 空「升级规则」页签（2026-09-28：trackerId 34 的 6 张即此类，
-  //    fut.gg live-hub 当前无 34 号活动样本；等其出现精选样本后自动纳入）。
-  let keyed = Object.keys(byEaId).length, unkeyed = 0, skippedNoTemplate = 0;
-  for (const eaStr of Object.keys(defMap)) {
-    const tid = defMap[eaStr];
-    if (tid == null) continue;
-    const ea = Number(eaStr);
-    if (byEaId[String(ea)]) continue; // 已有真实进度
-    const meta = dynMeta[ea] || {};
-    const tpl = templateByTrackerId[tid] || [];
-    if (!tpl.length) { skippedNoTemplate++; continue; } // 无升级条件模板 → 不展示（避免空页签）
-    byEaId[String(ea)] = {
-      eaId: ea,
-      itemEaId: null,
-      trackerId: tid,
-      campaignName: meta.rarityName || '',
-      competitionName: '',
-      clubName: meta.clubName || '',
-      nationName: meta.nationName || '',
-      startDate: '',
-      // 模板复用：playerValue=null（无逐球员进度；端上「升级规则」页只列条件，不显进度/次数）
-      objectives: tpl.map(function (o) {
-        return { key: o.key, label: o.label, requirement: o.requirement, value: o.value, playerValue: null, isCompleted: false, isNotPossible: false, upgrades: o.upgrades };
-      }),
-      hasProgress: false
+      hasProgress: hasProgress
     };
     keyed++;
   }
-
-  return { byEaId: byEaId, keyed: keyed, unkeyed: unkeyed, skippedNoTemplate: skippedNoTemplate, templateByTrackerId: templateByTrackerId };
+  return { byEaId: byEaId, keyed: keyed, unkeyed: unkeyed, skippedNoTemplate: 0 };
 }
 
 // —— 通用 API fetch（Node 侧，共享 cf_clearance）——
@@ -258,64 +207,35 @@ async function runSync() {
   }
   if (!passed) { await browser.close(); console.error('未能过 Cloudflare'); process.exit(2); }
 
-  // ① live-hub 聚合（6 人，含真实进度 + 同 trackerId 模板源）
-  console.log(`\n① 抓取 live-hub/${VER} 全量...`);
-  let lhText = null, lhStatus = 0;
-  for (let attempt = 1; attempt <= 4; attempt++) {
-    const t = await apiGet(page, `${BASE}/live-hub/${VER}/`);
-    if (t) { lhText = t; lhStatus = 200; console.log(`  live-hub 第 ${attempt} 次成功 bytes=${t.length}`); break; }
-    if (attempt < 4) await page.waitForTimeout(5000);
-  }
-  if (!lhText) { await browser.close(); console.error('live-hub 抓取最终失败'); process.exit(3); }
-  const lhJson = jget(lhText);
-  const lhPlayers = (lhJson && lhJson.data && Array.isArray(lhJson.data.players)) ? lhJson.data.players : [];
-  console.log(`  live-hub players=${lhPlayers.length}`);
+  // ① 活动清单（精简 JSON，无分页）
+  console.log(`\n① 抓取 live-hub/${VER}/campaigns/ ...`);
+  const rc = await apiGet(page, `${BASE}/live-hub/${VER}/campaigns/`);
+  const jc = rc ? jget(rc) : null;
+  const camps = (jc && Array.isArray(jc.data)) ? jc.data : [];
+  console.log(`  活动 ${camps.length} 个: ` + camps.map(function (c) { return '#' + c.id + ' ' + (c.slug || ''); }).join(' | '));
+  if (!camps.length) { await browser.close(); console.error('未拿到活动清单'); process.exit(3); }
 
-  // ② has_dynamic 枚举（data 为直数组，非 data.players）→ 收集 eaId/rarityName 等
-  console.log('\n② 枚举 has_dynamic 列表...');
-  const dynMeta = {};
-  let pg = 1;
-  while (pg <= 100) {
-    const t = await apiGet(page, `${BASE}/players/v2/${VER}/?has_dynamic=true&page=${pg}`);
-    if (!t) break;
+  // ② 逐活动抓 players?campaign_id= 全量（含逐球员真实进度），合并为单一数组
+  console.log('\n② 逐活动抓 players?campaign_id= ...');
+  const allPlayers = [];
+  for (const c of camps) {
+    let t = null;
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      const r = await apiGet(page, `${BASE}/live-hub/${VER}/players/?campaign_id=${c.id}`);
+      if (r) { t = r; console.log(`  #${c.id} ${c.slug || ''} 第 ${attempt} 次成功 bytes=${r.length}`); break; }
+      if (attempt < 4) await page.waitForTimeout(5000);
+    }
+    if (!t) { console.log(`  #${c.id} 失败，跳过`); continue; }
     const j = jget(t);
-    const arr = (j && Array.isArray(j.data)) ? j.data : [];
-    for (const pl of arr) {
-      const ea = pl.eaId != null ? Number(pl.eaId) : null;
-      if (!ea) continue;
-      dynMeta[ea] = { rarityName: pl.rarityName || '', slug: pl.slug || '', clubName: pl.clubName || '', nationName: pl.nationName || '' };
-    }
-    console.log(`  has_dynamic page ${pg} count ${arr.length} 累计 ${Object.keys(dynMeta).length}`);
-    if (!arr.length) break;
-    const pag = (j && j.pagination) || {};
-    if (pag.totalPages && pg >= pag.totalPages) break;
-    pg++;
+    const arr = (j && Array.isArray(j.data)) ? j.data : (Array.isArray(j) ? j : []);
+    console.log(`  #${c.id} ${c.slug || ''} → ${arr.length} 条`);
+    for (const it of arr) allPlayers.push(it);
   }
-  const dynSlugs = Object.values(dynMeta).map(function (m) { return m.slug; }).filter(Boolean);
-  console.log(`  has_dynamic 动态卡总数 = ${Object.keys(dynMeta).length}`);
+  if (!allPlayers.length) { await browser.close(); console.error('未抓到任何被追踪球员'); process.exit(3); }
+  console.log(`  合计 ${allPlayers.length} 张被追踪卡（全量，100% 覆盖）`);
 
-  // ③ definition-data 批量反查 liveHubTrackerId（综合性被追踪信号）
-  console.log('\n③ definition-data 反查 liveHubTrackerId...');
-  const defMap = {};
-  for (let i = 0; i < dynSlugs.length; i += 50) {
-    const batch = dynSlugs.slice(i, i + 50);
-    const t = await apiGet(page, `${BASE}/players/v2/definition-data/?game=${VER}&slugs=${encodeURIComponent(batch.join(','))}`);
-    if (!t) continue;
-    const arr = jget(t);
-    const list = Array.isArray(arr) ? arr : (arr && arr.data ? arr.data : []);
-    for (const d of list) {
-      let ea = d.eaId != null ? Number(d.eaId) : null;
-      if (ea == null && d.slug) { const m = /(\d+)$/.exec(d.slug); if (m) ea = Number(m[1]); }
-      if (ea == null) continue;
-      defMap[String(ea)] = (d.liveHubTrackerId != null) ? d.liveHubTrackerId : null;
-    }
-    console.log(`  def batch ${i} -> ${list.length} items`);
-  }
-  const trackedCount = Object.values(defMap).filter(function (v) { return v != null; }).length;
-  console.log(`  definition-data 被追踪（liveHubTrackerId!=null）总数 = ${trackedCount}`);
-
-  // ④ 建模综合性被追踪全集
-  const built = buildFullPayload(lhPlayers, defMap, dynMeta);
+  // ③ 组装精简 JSON（按基础 eaId 建索引，主键 card.eaId || playerItemEaId）
+  const built = buildFullPayload(allPlayers);
   const ts = Date.now();
   const payload = {
     ts: ts,
@@ -334,10 +254,10 @@ async function runSync() {
   fs.writeFileSync(localFile, jsonStr);
   console.log('本地调试文件:', localFile);
 
-  // 统计被追踪但无逐球员进度的（模板复用）
+  // 统计被追踪但无逐球员真实进度的（playerValue=null，端上标「追踪中」）
   const noProgress = Object.keys(built.byEaId).filter(function (k) { return !built.byEaId[k].hasProgress; });
-  console.log(`  其中「无逐球员进度（模板复用/仅升级条件）」${noProgress.length} 人`);
-  console.log(`  跳过「无升级条件模板」的被追踪卡 ${built.skippedNoTemplate} 张（如 trackerId 34 当前无 live-hub 精选样本）`);
+  console.log(`  其中「无逐球员真实进度（标追踪中）」${noProgress.length} 人`);
+  console.log(`  跳过「无升级条件模板」的被追踪卡 ${built.skippedNoTemplate} 张（全量端点已覆盖，恒为 0）`);
 
   if (NO_UPLOAD) {
     console.log('（--no-upload，仅本地验证，未写云存储 / 未写元文档）');
@@ -360,7 +280,8 @@ async function runSync() {
   } catch (e) { console.log('  （无旧元文档，首轮）'); }
 
   await app.database().collection(META_COLLECTION).doc(META_DOC).set({
-    ts: ts, fileID: fileID, prevFileId: prevFileId || '', updatedAt: new Date().toISOString()
+    ts: ts, fileID: fileID, prevFileId: prevFileId || '', updatedAt: new Date().toISOString(),
+    forceVersion: ts   // 升级追踪自身元文档也带 forceVersion，供端上 liveHub.js 后续尊重该字段做即时强刷
   });
   console.log('已写元文档', META_COLLECTION + '/' + META_DOC, 'ts=' + ts);
 
@@ -368,6 +289,22 @@ async function runSync() {
     try { await app.deleteFile({ fileList: [prevFileId] }); console.log('已清理旧文件:', shortFid(prevFileId)); }
     catch (e) { console.log('⚠️ 清理旧文件失败（不影响本次）:', e.message); }
   }
+
+  // 引用 meta_fc27/get_evolutions 的 forceVersion：本次升级追踪同步成功即 bump 该字段，
+  // 让端上 dailyWindowGate 的非窗口旁路检测到变大 → SBC/进化页立即清缓存强刷（统一数据刷新信号）。
+  // ⚠️ 必须 read-merge-set（沿用 force_refresh.js 范式），绝不能裸 .set() 覆盖整篇，
+  //    否则清空 SBC/进化列表元信息（fetchedAt/count/fileID/prevFileId…）。
+  try {
+    let evoPrev = {};
+    try {
+      const er = await app.database().collection(META_COLLECTION).doc('get_evolutions').get();
+      const ed = (er && er.data) || null;
+      if (ed) evoPrev = (ed.data && typeof ed.data === 'object') ? ed.data : ed;
+    } catch (e) { console.log('  （get_evolutions 元文档可能不存在，将仅写 forceVersion）'); }
+    const evoNext = Object.assign({}, evoPrev, { forceVersion: ts, updatedAt: new Date().toISOString() });
+    await app.database().collection(META_COLLECTION).doc('get_evolutions').set(evoNext);
+    console.log('已 bump meta_fc27/get_evolutions forceVersion → ' + ts + ' (was ' + (evoPrev.forceVersion || 0) + ')');
+  } catch (e) { console.log('⚠️ bump get_evolutions forceVersion 失败（不影响本次 livehub 同步）:', e.message); }
 
   console.log('\n=== 同步完成 ===');
   console.log('综合性被追踪球员数（已对回基础 eaId）:', built.keyed);

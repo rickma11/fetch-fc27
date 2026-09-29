@@ -7,7 +7,8 @@ name: Sync fut.gg Live Hub (FC27 tracked players)
 #   不碰 cloud-data/fc27、不落库 players、不改每日同步管线、不提交 git（产物只在云存储）。
 #
 # 触发：
-#   - 原生 schedule：每日 02:30 北京时间（UTC 18:30）一次，作为可靠兜底（GitHub 原生调度）。
+#   - 原生 schedule：每日北京时间 01:10 与 12:00 各一次（UTC 17:10 / 04:00），贴合端上每日双窗口闸门
+#     （W1 01:30–02:00 接住 01:10 跑；W2 12:30 接住 12:00 跑），避免升级追踪数据在客户端滞留到次日。
 #   - workflow_dispatch：手动触发（fc_ver 默认 27）。
 #   - 如已在 eafc-miniapp 的 trigger_github_action/config.json 计时器里登记本 workflow，
 #     外置计时器也会 dispatch；与上面 schedule 不重叠（计时器只 dispatch 登记过的 workflow）。
@@ -19,7 +20,8 @@ on:
         type: string
         default: '27'
   schedule:
-    - cron: '30 18 * * *'   # UTC 18:30 ≈ 北京时间次日 02:30
+    - cron: '10 17 * * *'   # UTC 17:10 ≈ 北京时间 01:10
+    - cron: '0 4 * * *'     # UTC 04:00 ≈ 北京时间 12:00
 
 permissions:
   contents: read
