@@ -215,6 +215,28 @@ async function runSync() {
   console.log(`  活动 ${camps.length} 个: ` + camps.map(function (c) { return '#' + c.id + ' ' + (c.slug || ''); }).join(' | '));
   if (!camps.length) { await browser.close(); console.error('未拿到活动清单'); process.exit(3); }
 
+  // ①b 抓全局赛程 upcomingFixtures（含每场真实 date，用于升级追踪「窗口」具体日期）。
+  //   接口：live-hub/{ver}/?campaign=campaigns（与①同族，250KB 级）。先落盘探针 JSON，
+  //   待确认 fixtures 与球员的关联方式（全局 vs 按 competition）后再接入 byEaId 展示。
+  console.log(`\n①b 抓取 live-hub/${VER}/?campaign=campaigns（upcomingFixtures 赛程窗口）...`);
+  const rc2 = await apiGet(page, `${BASE}/live-hub/${VER}/?campaign=campaigns`);
+  const jc2 = rc2 ? jget(rc2) : null;
+  let upcoming = [];
+  if (jc2) {
+    // fut.gg 该接口 data 可能是对象（含 upcomingFixtures）或数组；兼容两种
+    const d = jc2.data || jc2;
+    upcoming = (d && Array.isArray(d.upcomingFixtures)) ? d.upcomingFixtures
+      : (Array.isArray(jc2.upcomingFixtures) ? jc2.upcomingFixtures : []);
+  }
+  console.log(`  upcomingFixtures ${upcoming.length} 条` + (upcoming.length ? `，首条 date=${(upcoming[0] && upcoming[0].date) || '(无)'}` : ''));
+  if (upcoming.length) {
+    const uf = path.join(OUT_DIR, `upcoming_${ts}.json`);
+    try { fs.writeFileSync(uf, JSON.stringify(upcoming, null, 1)); console.log('  已落盘探针:', uf); } catch (e) { console.log('  落盘失败:', e.message); }
+    // 预统计：窗口首/末日期（按 date 升序），供后续接入展示
+    const dates = upcoming.map(function (f) { return f && f.date; }).filter(Boolean).sort();
+    if (dates.length) console.log(`  赛程日期范围: ${dates[0]} ~ ${dates[dates.length - 1]}（共 ${dates.length} 场）`);
+  }
+
   // ② 逐活动抓 players?campaign_id= 全量（含逐球员真实进度），合并为单一数组
   console.log('\n② 逐活动抓 players?campaign_id= ...');
   const allPlayers = [];
