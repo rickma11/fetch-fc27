@@ -1,0 +1,120 @@
+name: Resync SBC & Evolutions
+
+# 按需重抓 SBC / Evolutions 的独立通道（2026-09-30 新增）。
+# 背景：每日主流程 fetch-fc27.yml 虽然已经包含 SBC/进化链，但它夹在球员主链里，
+#        想「只重抓进化+SBC、不重跑 2 万球员抓取」只能整轮跑（浪费 15~60min+）。
+#        本 workflow 只编排既有 5 个脚本，触发一次即重抓并重发 SBC/进化静态 JSON，
+#        完全不碰球员管线（fetch_ci / upload_db / roster / 图片）。
+# 触发：仅手动 workflow_dispatch（daily 已自动覆盖定时刷新，本流程用于「脏数据回补 / 源站抽风后补抓」）。
+on:
+  workflow_dispatch:
+    inputs:
+      ver:
+        description: '游戏版本（默认 27 = FC27）'
+        type: string
+        default: '27'
+      skip_enrich:
+        description: '跳过 Player Pick 选择球员富集（enrich_sbc_pools）'
+        type: boolean
+        default: false
+      skip_covers:
+        description: '跳过 SBC set 封面转存云存储'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+# 同一时间只跑一个，避免两次重抓互相踩到 sbcs.json / evolutions.json
+concurrency:
+  group: resync-sbc-evo
+  cancel-in-progress: false
+
+jobs:
+  resync:
+    runs-on: ubuntu-latest
+    # scrape(~3s) + enrich(~0) + upload(~8s) + covers(~3s) + static(~15s) 实际只有 ~30s；
+    # 主要耗时在 npm install + Playwright Chromium 安装（各 1~2min）。留足余量。
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 浏览器内核交给下一步单独装，避免此处重复下载
+        run: npm install
+
+      # 前置检查：先确认这套凭证能不能看到目标环境、有没有数据库操作权限。
+      # 放在抓取之前 —— 凭证有问题时几秒就失败，不用白等浏览器安装再报错。
+      - name: Preflight (云开发凭证体检)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/tcb_whoami.js
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      # ===== SBC / Evolutions 抓取（与球员管线同一套真实浏览器过 CF 机制，独立步骤、独立浏览器）=====
+      # 输出 cloud-data/fc{ver}/sbcs.json + evolutions.json + sbc_evo_summary.json
+      # ⚠️ 本步 REQUIRED：抓取失败应整轮报错（用户要知道没修好），故不加 continue-on-error。
+      - name: Scrape SBC & Evolutions (real browser bypass Cloudflare)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/scrape_sbc_evolutions.js --ver ${{ github.event.inputs.ver }}
+
+      # Player Pick 类 SBC 选择球员富集（默认开，可用 skip_enrich 跳过）：
+      # scrape 只写出 set.pool.id/slug，不含选择球员；本步遍历带 pool 的 set 用真实浏览器过 CF
+      # 抓 pool 页选择球员，回填 choicePlayers 进 sbcs.json。失败不致命（continue-on-error）。
+      - name: Enrich SBC Player Pick choices (real browser bypass Cloudflare)
+        if: ${{ github.event.inputs.skip_enrich != 'true' }}
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/enrich_sbc_pools.js --ver ${{ github.event.inputs.ver }}
+
+      # SBC 上云：把 sbcs.json 写入 sbcs_fc{ver}。失败不致命（continue-on-error），
+      # 但 scrape 已 REQUIRED，故走到这里 sbcs.json 一定是本轮新抓的。
+      - name: Upload SBC to CloudBase Database
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/upload_sbcs.js --ver ${{ github.event.inputs.ver }}
+
+      # SBC set 封面转存云存储（默认开，可用 skip_covers 跳过）。失败不致命。
+      - name: Sync SBC Covers to Cloud Storage
+        if: ${{ github.event.inputs.skip_covers != 'true' }}
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/sync_sbc_covers.js --ver ${{ github.event.inputs.ver }}
+
+      # R33b-方案2（2026-09-28）：SBC/进化静态 JSON 紧跟抓取链发布。
+      # 读 scrape+enrich 刚产出的工作树文件（不经 git 提交），把静态 JSON 上云存储
+      # fc{ver}/data/<name>/，端上 utils/cloudJson.js 直读，list/meta 零云函数调用。
+      # 内容变化会自动 bump forceVersion（R35）→ 端上 SBC/进化页自动刷新、无需发包。失败不致命。
+      - name: Publish SBC/Evolutions static JSON (Phase 1, after scrape)
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_static_lists.js ${{ github.event.inputs.ver }}
+
+      - name: Show resync summary
+        if: always()
+        run: cat cloud-data/fc${{ github.event.inputs.ver }}/sbc_evo_summary.json || true
