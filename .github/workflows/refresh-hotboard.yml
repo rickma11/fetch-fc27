@@ -1,20 +1,14 @@
 name: Refresh Hotboard (player_hot fallback)
 
-# 热门球员榜每 30 分钟聚合一次的「可靠兜底」通道（2026-09-30 新增）。
-# 背景：player_hot 云函数自带 WeChat 定时触发器（every30m / 0 */30 * * * * *），
-#        但微信云函数定时调度实测不稳定（2026-09-30 验证：16:08 手动测试成功、16:30 自然触发未响，
-#        meta_fc27/hotboard.fetchedAt 始终停在 16:08:43）。本 workflow 用 GitHub Actions 的
-#        schedule（外部可靠调度器）每 30 分钟直接 callFunction 调 player_hot#buildBoard，
-#        与微信定时器并行互补，确保热门榜至少每 30 分钟刷新一次。
-# 关系：2026-09-30 微信 every30m 定时器已删除（实测不稳 + 省云函数配额），本 workflow 现为热门榜**唯一调度源**；
-#        不再有微信定时器并行。player_hot 云函数仅被 callFunction 按需调用，无需任何定时器触发器。
-# 触发：① schedule 每 30 分钟（cron 为 UTC，*/30 = UTC :00/:30；北京=UTC+8，仅小时+8、分钟不变 ⇒ 北京时间 :00/:30。
-#        注意 GitHub schedule 有自然抖动（通常 ±数分钟，高负载可达十余分钟），属正常，非偏移）——现为唯一刷新节奏
-#        ② workflow_dispatch 可手动触发（input: ver，默认 27）
+# 热门球员榜每 30 分钟聚合一次的后台通道（2026-09-30 新增/修正）。
+# 背景：player_hot 云函数自带 WeChat 定时触发器（every30m）实测不稳定（16:30 自然触发未响）；
+#        改用微信云函数 trigger_hotboard 每 30 分钟做「哑开关」dispatch 本 workflow，
+#        复用 trigger_github_action（fetch-fc27 主链路）已验证的稳定模式。
+# 关系：trigger_hotboard（微信定时器）是**主调度源**，本 workflow 仅负责执行 buildBoard；
+#        GitHub 原生 schedule 在 17:00/17:30 两次未生成 run，已删除，避免空跑/误导。
+# 触发：仅 workflow_dispatch（由 trigger_hotboard 每 30 分钟自动 dispatch，也可手动触发）
 # 注意：触发与校验逻辑全部内联，不依赖仓库内 scripts/*（避免脚本未入库导致 MODULE_NOT_FOUND）。
 on:
-  schedule:
-    - cron: '*/30 * * * *'
   workflow_dispatch:
     inputs:
       ver:
