@@ -211,4 +211,8 @@ if (require.main === module) {
   run().catch(function (e) { console.error('失败:', e); process.exit(1); });
 }
 
-module.exports = { slimRecord: slimRecord, maxFetchedAt: maxFetchedAt };
+module.exports = {
+  slimRecord: slimRecord, maxFetchedAt: maxFetchedAt,
+  publishOne: publishOne, initCloud: initCloud, hash8: hash8, CLOUD_DIR: CLOUD_DIR,
+  META_COLLECTION: META_COLLECTION
+};
