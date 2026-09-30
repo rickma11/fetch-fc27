@@ -6,9 +6,9 @@ name: Refresh Hotboard (player_hot fallback)
 #        meta_fc27/hotboard.fetchedAt 始终停在 16:08:43）。本 workflow 用 GitHub Actions 的
 #        schedule（外部可靠调度器）每 30 分钟直接 callFunction 调 player_hot#buildBoard，
 #        与微信定时器并行互补，确保热门榜至少每 30 分钟刷新一次。
-# 关系：按硬规则 104（降级兜底非删云函数）——本流程只作为兜底补充，不替换微信定时器；
-#        若微信定时器日后恢复稳定，本 workflow 可保留（多一次刷新无害，buildBoard 幂等）或停用。
-# 触发：① schedule 每 30 分钟（UTC :00/:30，即北京时间 :08/:38，与微信 :00/:30 错峰互补）
+# 关系：2026-09-30 微信 every30m 定时器已删除（实测不稳 + 省云函数配额），本 workflow 现为热门榜**唯一调度源**；
+#        不再有微信定时器并行。player_hot 云函数仅被 callFunction 按需调用，无需任何定时器触发器。
+# 触发：① schedule 每 30 分钟（UTC :00/:30，即北京时间 :08/:38）——现为唯一刷新节奏
 #        ② workflow_dispatch 可手动触发（input: ver，默认 27）
 # 注意：触发与校验逻辑全部内联，不依赖仓库内 scripts/*（避免脚本未入库导致 MODULE_NOT_FOUND）。
 on:
