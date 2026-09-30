@@ -8,7 +8,8 @@ name: Refresh Hotboard (player_hot fallback)
 #        与微信定时器并行互补，确保热门榜至少每 30 分钟刷新一次。
 # 关系：2026-09-30 微信 every30m 定时器已删除（实测不稳 + 省云函数配额），本 workflow 现为热门榜**唯一调度源**；
 #        不再有微信定时器并行。player_hot 云函数仅被 callFunction 按需调用，无需任何定时器触发器。
-# 触发：① schedule 每 30 分钟（UTC :00/:30，即北京时间 :08/:38）——现为唯一刷新节奏
+# 触发：① schedule 每 30 分钟（cron 为 UTC，*/30 = UTC :00/:30；北京=UTC+8，仅小时+8、分钟不变 ⇒ 北京时间 :00/:30。
+#        注意 GitHub schedule 有自然抖动（通常 ±数分钟，高负载可达十余分钟），属正常，非偏移）——现为唯一刷新节奏
 #        ② workflow_dispatch 可手动触发（input: ver，默认 27）
 # 注意：触发与校验逻辑全部内联，不依赖仓库内 scripts/*（避免脚本未入库导致 MODULE_NOT_FOUND）。
 on:
