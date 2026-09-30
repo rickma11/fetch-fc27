@@ -1,0 +1,68 @@
+name: Refresh Hotboard (player_hot fallback)
+
+# 热门球员榜每 30 分钟聚合一次的「可靠兜底」通道（2026-09-30 新增）。
+# 背景：player_hot 云函数自带 WeChat 定时触发器（every30m / 0 */30 * * * * *），
+#        但微信云函数定时调度实测不稳定（2026-09-30 验证：16:08 手动测试成功、16:30 自然触发未响，
+#        meta_fc27/hotboard.fetchedAt 始终停在 16:08:43）。本 workflow 用 GitHub Actions 的
+#        schedule（外部可靠调度器）每 30 分钟直接 callFunction 调 player_hot#buildBoard，
+#        与微信定时器并行互补，确保热门榜至少每 30 分钟刷新一次。
+# 关系：按硬规则 104（降级兜底非删云函数）——本流程只作为兜底补充，不替换微信定时器；
+#        若微信定时器日后恢复稳定，本 workflow 可保留（多一次刷新无害，buildBoard 幂等）或停用。
+# 触发：① schedule 每 30 分钟（UTC :00/:30，即北京时间 :08/:38，与微信 :00/:30 错峰互补）
+#        ② workflow_dispatch 可手动触发（input: ver，默认 27）
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+    inputs:
+      ver:
+        description: '游戏版本（默认 27 = FC27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: read
+
+# 同一时间只跑一个，避免两次 buildBoard 互相踩 meta_fc{ver}/hotboard（虽幂等但不必并发）
+concurrency:
+  group: refresh-hotboard
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Preflight (云开发凭证体检)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/tcb_whoami.js
+
+      - name: Trigger player_hot#buildBoard via CloudBase
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          FC_VER: ${{ github.event.inputs.ver || '27' }}
+        run: node scripts/trigger_hotboard.js ${{ github.event.inputs.ver || '27' }}
+
+      - name: Verify hotboard meta updated
+        if: always()
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/probe_hotboard.js
