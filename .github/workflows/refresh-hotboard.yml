@@ -83,3 +83,48 @@ jobs:
             console.log("meta_fc27/hotboard => fetchedAt=" + m.fetchedAt + " count=" + m.count + " fileID=" + m.fileID);
           })().catch(e => { console.error("读 meta 失败:", e && e.message); process.exit(1); });
           '
+
+  # 方案 B（2026-09-30）：热门榜聚合后顺带生成首页整页静态 JSON（home_hot / home_new）。
+  # 由微信定时器 trigger_hotboard 每 30 分钟 dispatch 本 workflow 的节奏继承 —— buildBoard 产出 hotboard
+  # 后，这里读 hotboard + players_fc{ver} + dicts 装饰后落云存储，端上零云函数直读首页。
+  # continue-on-error：本步失败（如 dicts 暂缺）绝不影响热门榜本身，回退动态路径照常可用。
+  gen-payload:
+    needs: refresh
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Preflight (云开发凭证体检)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/tcb_whoami.js
+
+      - name: Generate home payload static JSON
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          FC_VER: ${{ github.event.inputs.ver || '27' }}
+        run: node scripts/gen_home_payload.js ${{ github.event.inputs.ver || '27' }}
+
+      - name: Verify home payload static JSON
+        if: always()
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          FC_VER: ${{ github.event.inputs.ver || '27' }}
+        run: node scripts/home_payload_test.js ${{ github.event.inputs.ver || '27' }}
