@@ -10,6 +10,7 @@ name: Refresh Hotboard (player_hot fallback)
 #        若微信定时器日后恢复稳定，本 workflow 可保留（多一次刷新无害，buildBoard 幂等）或停用。
 # 触发：① schedule 每 30 分钟（UTC :00/:30，即北京时间 :08/:38，与微信 :00/:30 错峰互补）
 #        ② workflow_dispatch 可手动触发（input: ver，默认 27）
+# 注意：触发与校验逻辑全部内联，不依赖仓库内 scripts/*（避免脚本未入库导致 MODULE_NOT_FOUND）。
 on:
   schedule:
     - cron: '*/30 * * * *'
@@ -57,7 +58,20 @@ jobs:
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
           FC_VER: ${{ github.event.inputs.ver || '27' }}
-        run: node scripts/trigger_hotboard.js ${{ github.event.inputs.ver || '27' }}
+        run: |
+          node -e '
+          const cloudbase = require("@cloudbase/node-sdk");
+          const app = cloudbase.init({ env: process.env.TCB_ENV_ID, secretId: process.env.TCB_SECRET_ID, secretKey: process.env.TCB_SECRET_KEY });
+          const ver = process.env.FC_VER || "27";
+          (async () => {
+            const res = await app.callFunction({ name: "player_hot", data: { action: "buildBoard", version: ver } });
+            const r = res && res.result !== undefined ? res.result : res;
+            console.log("player_hot 返回:", JSON.stringify(r));
+            if (!r || !r.meta || !r.meta.fileID) { console.error("❌ 未拿到 meta.fileID（buildBoard 可能未执行）"); process.exit(1); }
+            console.log("✅ buildBoard 成功: count=" + r.count + " fetchedAt=" + r.meta.fetchedAt);
+            process.exit(0);
+          })().catch(e => { console.error("callFunction 失败:", e && e.message); process.exit(1); });
+          '
 
       - name: Verify hotboard meta updated
         if: always()
@@ -65,4 +79,12 @@ jobs:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
-        run: node scripts/probe_hotboard.js
+        run: |
+          node -e '
+          const cloudbase = require("@cloudbase/node-sdk");
+          const app = cloudbase.init({ env: process.env.TCB_ENV_ID, secretId: process.env.TCB_SECRET_ID, secretKey: process.env.TCB_SECRET_KEY });
+          (async () => {
+            const m = (await app.database().collection("meta_fc27").doc("hotboard").get()).data;
+            console.log("meta_fc27/hotboard => fetchedAt=" + m.fetchedAt + " count=" + m.count + " fileID=" + m.fileID);
+          })().catch(e => { console.error("读 meta 失败:", e && e.message); process.exit(1); });
+          '
