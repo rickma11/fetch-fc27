@@ -35,8 +35,10 @@ const CLOUD_DIR = 'fc' + VER + '/data/';
 const META_COL = 'meta_fc' + VER;
 const VOTE_USER_COL = 'votes_user_fc' + VER;
 const HARD_TIMEOUT_MS = Number(process.env.VOTE_TIMEOUT_MS || 110 * 60 * 1000);
+const CONCURRENCY = Number(process.env.VOTE_CONCURRENCY || 8);
 
 function jget(t) { try { return JSON.parse(t); } catch (e) { return null; } }
+function sleep(ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); }
 
 // —— 云初始化（仅上传/读库时）——
 function loadEnv() {
@@ -140,27 +142,53 @@ async function loadMiniapp(app) {
   return mini;
 }
 
-// ② 逐唯一 baseId 拉投票（去重，同 baseId 只拉一次）
-async function fetchVoting(page, baseIds) {
+// ② 分桶并发拉投票（参考 market_core.js：共享 cursor + 多 worker + Promise.all）
+// 每个 worker 持有独立的 playwright page，避免请求串行排队；futgg 为共享结果对象。
+async function fetchVoting(ctx, baseIds) {
   const futgg = {};   // baseId -> {up, down, total, score}
+  let cursor = 0;
   let done = 0;
-  for (const baseId of baseIds) {
-    const body = await apiGet(page, `${BASE}/voting/${VER}/${baseId}/`);
-    if (body) {
-      const j = jget(body);
-      const d = j && j.data;
-      if (d) {
-        const up = Number(d.upvotes) || 0;
-        const down = Number(d.downvotes) || 0;
-        const total = Number(d.totalVotes) || 0;
-        const score = Number(d.score) || 0;
-        futgg[baseId] = { up: up, down: down, total: total, score: score };
+  let failed = 0;
+  const total = baseIds.length;
+  const conc = Math.min(CONCURRENCY, total);
+
+  const worker = async function () {
+    const page = await ctx.newPage();
+    try {
+      while (cursor < total) {
+        const idx = cursor++;
+        const baseId = baseIds[idx];
+        let ok = false;
+        for (let retry = 0; retry < 3 && !ok; retry++) {
+          try {
+            const body = await apiGet(page, `${BASE}/voting/${VER}/${baseId}/`);
+            if (body) {
+              const j = jget(body);
+              const d = j && j.data;
+              if (d) {
+                const up = Number(d.upvotes) || 0;
+                const down = Number(d.downvotes) || 0;
+                const totalVotes = Number(d.totalVotes) || 0;
+                const score = Number(d.score) || 0;
+                futgg[baseId] = { up: up, down: down, total: totalVotes, score: score };
+              }
+            }
+            ok = true;
+          } catch (e) {
+            if (retry >= 2) { failed++; console.log('  投票失败 baseId', baseId, e.message); }
+            await sleep(300 * (retry + 1));
+          }
+        }
+        done++;
+        if (done % 500 === 0 || done === total) console.log('  投票进度', done, '/', total, '失败', failed);
       }
+    } finally {
+      try { await page.close(); } catch (e) {}
     }
-    done++;
-    if (done % 200 === 0) console.log('  投票进度', done, '/', baseIds.length);
-  }
-  console.log('  投票抓取：', Object.keys(futgg).length, '个 baseId 有响应');
+  };
+
+  await Promise.all(Array.from({ length: conc }).map(worker));
+  console.log('  投票抓取：', Object.keys(futgg).length, '个 baseId 有响应（并发', conc, '失败', failed, '）');
   return futgg;
 }
 
@@ -204,8 +232,8 @@ async function uploadJson(app, cloudPath, obj) {
   const baseIds = [...new Set(Object.values(map))];
   console.log('  唯一 baseId：', baseIds.length);
 
-  console.log('\n② 拉 fut.gg 投票...');
-  const futgg = await fetchVoting(page, baseIds);
+  console.log('\n② 拉 fut.gg 投票（并发 ', CONCURRENCY, '）...');
+  const futgg = await fetchVoting(ctx, baseIds);
 
   await browser.close();
 
