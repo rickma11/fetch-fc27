@@ -30,6 +30,7 @@ const UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Apple
 const VER = Number(process.argv[2] || process.env.FC_VER || 27);
 const NO_UPLOAD = process.argv.indexOf('--no-upload') >= 0;
 const BASE = 'https://www.fut.gg/api/fut';
+const VOTE_BASE = 'https://www.fut.gg/api';   // 投票 API 路径不带 /fut：/api/voting/{ver}/{baseId}/
 const SITE = 'https://www.fut.gg';
 const CLOUD_DIR = 'fc' + VER + '/data/';
 const META_COL = 'meta_fc' + VER;
@@ -223,7 +224,7 @@ async function fetchVoting(page, baseIds) {
         results = await page.evaluate(async ({ batch, BASE, VER }) => {
           const sleep = ms => new Promise(r => setTimeout(r, ms));
           const fetchOne = async (baseId, attempt) => {
-            const url = `${BASE}/voting/${VER}/${baseId}/`;
+            const url = `${VOTE_BASE}/voting/${VER}/${baseId}/`;
             const controller = new AbortController();
             const timer = setTimeout(() => controller.abort(), 20000);
             try {
@@ -279,9 +280,14 @@ async function fetchVoting(page, baseIds) {
             failed++;
           }
         } else {
-          failed++;
-          if (done <= 10 || done % 1000 === 0) {
-            console.log('  投票失败 baseId', r.baseId, r.status || r.err || '');
+          if (r.status === 404) {
+            // fut.gg 对该球员无投票记录：视为 0/0，不算失败
+            futgg[r.baseId] = { up: 0, down: 0, total: 0, score: 0 };
+          } else {
+            failed++;
+            if (done <= 10 || done % 1000 === 0) {
+              console.log('  投票失败 baseId', r.baseId, r.status || r.err || '');
+            }
           }
         }
       }
