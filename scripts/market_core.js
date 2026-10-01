@@ -129,7 +129,8 @@ function build(roster, cur, prev, src, tsOverride) {
     return {
       eaId: r.eaId, name: r.name, overall: r.overall, pos: r.pos,
       pc: m[0] == null ? null : m[0], ps: m[1] == null ? null : m[1],
-      img: cardCloudId(r.eaId, !!(r.imagePath))
+      img: cardCloudId(r.eaId, !!(r.imagePath)),
+      rarity: r.rarity || ''
     };
   });
 
@@ -151,7 +152,8 @@ function build(roster, cur, prev, src, tsOverride) {
       eaId: k, name: meta.name || '', pos: meta.pos || '',
       overall: meta.overall || 0,
       prev: prevP, cur: curP, dPct: Math.round(d * 100) / 100,
-      img: cardCloudId(k, !!(meta && meta.imagePath))
+      img: cardCloudId(k, !!(meta && meta.imagePath)),
+      rarity: (meta && meta.rarity) || ''
     });
   });
   moves.sort(function (a, b) { return b.dPct - a.dPct; });

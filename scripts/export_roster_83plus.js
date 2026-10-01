@@ -31,14 +31,15 @@ for (let i = 0; i < argv.length; i++) {
 
 const OUT_FILE = path.join(ROOT, 'cloud-data', 'fc' + VER, 'roster_83plus.json');
 
-// 端上需要的 5 字段：eaId / name(=commonName) / overall / pos(=position) / imagePath
+// 端上需要的字段：eaId / name(=commonName) / overall / pos(=position) / imagePath / rarity(稀有度名称)
 function project(p) {
   return {
     eaId: p.eaId,
     name: p.commonName || p.name || '',
     overall: p.overall || 0,
     pos: p.position || '',
-    imagePath: p.imagePath || ''
+    imagePath: p.imagePath || '',
+    rarity: (p.rarity && p.rarity.name) || ''
   };
 }
 
@@ -94,7 +95,7 @@ async function main() {
     const db = app.database();
     const cmd = db.command;
     const COL = 'players_fc' + VER;
-    const proj = { eaId: true, commonName: true, overall: true, position: true, imagePath: true };
+    const proj = { eaId: true, commonName: true, overall: true, position: true, imagePath: true, 'rarity.name': true };
     const all = [];
     let skip = 0;
     while (true) {
