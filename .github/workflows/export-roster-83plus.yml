@@ -1,0 +1,46 @@
+name: Export Roster 83+ (market monitor)
+
+# 独立 workflow：在「Fetch FC27 Daily」完成后触发（逻辑上 = 主线流水线最后一步），
+# 零改 fetch-fc27.yml 现有步骤，物理隔离 → 其失败绝不阻断主线入库。
+#
+# 作用：把当日 83+ 球员映射（eaId/name/overall/pos/imagePath）publish 到云存储公有读
+#       fc27/data/roster_83plus.json，供 eafc-miniapp 的 market_sync 云函数每小时 fetch()
+#       （外部 HTTP，0 腾讯「调用次数」，且每日新鲜）。
+#
+# 配额：本 workflow 走直扫云库 players_fc27 的 83+（≈624 读/日，远低于 sync_i18n 全表 19,860），
+#       边际成本极小；失败不影响任何球员数据入库（export 只读、仅写一份新文件）。
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Fetch FC27 Daily"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: export-roster-83plus
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Export & upload 83+ roster subset
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/export_roster_83plus.js --upload
