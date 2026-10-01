@@ -1,6 +1,6 @@
 {
   "version": "27",
-  "total": 19902,
+  "total": 19905,
   "positions": [
     "CAM",
     "CB",
@@ -942,20 +942,20 @@
     "Zimbabwe"
   ],
   "rarities": [
-    "Base Hall of FUT",
-    "Base Hero",
-    "Base Icon",
-    "Bronze",
-    "Debut International Icon",
-    "Destined for Glory",
     "Gold",
-    "Ones to Watch",
-    "POTM Bundesliga",
-    "POTM Serie A",
-    "Partnerships",
     "Silver",
+    "Bronze",
+    "Base Hall of FUT",
+    "Base Icon",
+    "Base Hero",
+    "Debut International Icon",
     "Squad Foundations",
-    "Team of the week"
+    "Ones to Watch",
+    "Partnerships",
+    "Team of the week",
+    "Destined for Glory",
+    "POTM Serie A",
+    "POTM Bundesliga"
   ],
   "rarityImgs": {
     "Base Icon": "rarity_bfcdcd3305884da9.webp",
@@ -967,8 +967,8 @@
     "Debut International Icon": "rarity_8cc9029ef3661521.webp",
     "Base Hall of FUT": "rarity_a0d3e794f46c3808.webp",
     "POTM Serie A": "rarity_55c3cba75f9d4fa5.webp",
-    "Partnerships": "rarity_b65cddba238717ab.webp",
     "Ones to Watch": "rarity_a1b6faa80553d8c0.webp",
+    "Partnerships": "rarity_b65cddba238717ab.webp",
     "Squad Foundations": "rarity_ac798fa823433611.webp",
     "Silver": "rarity_c17401f46193bac8.webp",
     "Bronze": "rarity_79b2a5aa3902a8b0.webp"
@@ -1025,5 +1025,5 @@
     "EXPLOSIVE",
     "LENGTHY"
   ],
-  "updatedAt": "2026-10-01T15:21:36.762Z"
+  "updatedAt": "2026-10-01T17:25:22.225Z"
 }
