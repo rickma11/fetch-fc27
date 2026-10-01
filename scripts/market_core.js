@@ -11,8 +11,9 @@ const CONCURRENCY = 20;
 const CLOUD_ENV = 'cloud1-d5gq6q3np8708aeef';
 const CLOUD_BUCKET = '636c-cloud1-d5gq6q3np8708aeef-1475854307';
 // 卡面 cloud:// fileID（按有无半身像选真实卡面 _card.webp / 剪影 _np.webp）
+// 2026-10-01 修正：云端卡面统一在 fc27/images/ 前缀下，与 format.js#cloudImg 口径一致。
 function cardCloudId(eaId, hasPortrait) {
-  return 'cloud://' + CLOUD_ENV + '.' + CLOUD_BUCKET + '/' + eaId + (hasPortrait ? '_card.webp' : '_np.webp');
+  return 'cloud://' + CLOUD_ENV + '.' + CLOUD_BUCKET + '/fc27/images/' + eaId + (hasPortrait ? '_card.webp' : '_np.webp');
 }
 const TIER_MIN = 83;       // 2026-09-27 拍板：从 85+ 扩到 83+（85+ 只有 424 张）
 const MOVE_MIN_PCT = 20;   // 异动榜门槛
