@@ -34,7 +34,7 @@ const SITE = 'https://www.fut.gg';
 const CLOUD_DIR = 'fc' + VER + '/data/';
 const META_COL = 'meta_fc' + VER;
 const VOTE_USER_COL = 'votes_user_fc' + VER;
-const HARD_TIMEOUT_MS = Number(process.env.VOTE_TIMEOUT_MS || 110 * 60 * 1000);
+const HARD_TIMEOUT_MS = Number(process.env.VOTE_TIMEOUT_MS || 170 * 60 * 1000);
 const CONCURRENCY = Number(process.env.VOTE_CONCURRENCY || 8);
 
 function jget(t) { try { return JSON.parse(t); } catch (e) { return null; } }
@@ -86,29 +86,83 @@ async function passCF(page) {
   return false;
 }
 
-// ① 建 eaId → basePlayerEaId 映射（拉全量列表）
+// ① 建 eaId → basePlayerEaId 映射（按 overall 分桶翻页，绕过 max_result_window=10000）
+//   移植自 fetch_ci.js 阶段1（2026-09-17 实测修法）：朴素 ?page=N 翻页到第 ~334 页被服务端截断只拿 ~1万，
+//   分桶后全量 ≈19797~21000（云库 players_fc27 实证）。fut.gg 对超出末页的 page 不返回空数组而是重复末页，
+//   故「空页即桶末」不成立，改判「连续 2 页都没有新增」才结束；并加 count<19000 安全闸阻断残缺落库。
 async function buildMapping(page) {
-  const map = {};        // eaId -> baseId
-  let pageNo = 1;
-  while (true) {
-    const body = await apiGet(page, `${BASE}/players/v2/${VER}/?page=${pageNo}`);
-    if (!body) { console.log('  列表中断于 page', pageNo); break; }
-    const j = jget(body);
-    const arr = (j && Array.isArray(j.data)) ? j.data : [];
-    if (!arr.length) break;
-    for (const pl of arr) {
-      const ea = pl.eaId != null ? Number(pl.eaId) : null;
-      if (!ea) continue;
-      const base = pl.basePlayerEaId != null ? Number(pl.basePlayerEaId) : ea;
-      map[ea] = base;
+  const result = await page.evaluate(async ({ BASE, VER, OVR_MIN }) => {
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    const r1 = await fetch(`${BASE}/players/v2/${VER}/?page=1`, { headers: { Accept: 'application/json' } });
+    if (!r1.ok) throw new Error('列表第 1 页失败 status=' + r1.status);
+    const j1 = await r1.json();
+    const first = Array.isArray(j1.data) ? j1.data : [];
+
+    const map = {};            // eaId -> baseId
+    const seen = new Set();    // 已见 eaId（跨桶去重）
+    const push = arr => {
+      let added = 0;
+      for (const pl of arr) {
+        const ea = pl.eaId != null ? Number(pl.eaId) : null;
+        if (!ea || seen.has(ea)) continue;
+        seen.add(ea);
+        const base = pl.basePlayerEaId != null ? Number(pl.basePlayerEaId) : ea;
+        map[ea] = base;
+        added++;
+      }
+      return added;
+    };
+    push(first);
+
+    const OVR_MAX = 99;
+    const failedOvr = [];
+    // 单桶翻页：overall__gte/lte 同值。每桶命中远小于 10000，桶内翻页不触窗口。
+    async function fetchBucket(ovr) {
+      let dup = 0;
+      for (let pg = 1; pg <= 2000; pg++) {
+        let added = -1;        // -1 = 本页请求未成功
+        for (let attempt = 0; attempt < 3 && added < 0; attempt++) {
+          try {
+            const r = await fetch(`${BASE}/players/v2/${VER}/?overall__gte=${ovr}&overall__lte=${ovr}&page=${pg}`, { headers: { Accept: 'application/json' } });
+            if (r.ok) {
+              const j = await r.json();
+              if (Array.isArray(j.data) && j.data.length) added = push(j.data);
+              else return;     // 真空页 = 桶末
+            } else if (r.status === 404) { return; }
+            else { await sleep(400 * Math.pow(2, attempt)); }   // 指数退避 400/800/1600ms
+          } catch (e) { await sleep(400 * Math.pow(2, attempt)); }
+        }
+        if (added < 0) { if (pg === 1) failedOvr.push(ovr); return; }
+        if (added === 0) { if (++dup >= 2) return; } else dup = 0;  // 连续 2 页全为已见 → 桶末（越界页重复末页）
+        await sleep(60);
+      }
     }
-    if (arr.length < 30) break;   // 末页
-    pageNo++;
-    if (pageNo > 400) break;
-    if (pageNo % 50 === 0) console.log('  映射进度 page', pageNo, '已收录', Object.keys(map).length);
+    let ovrCursor = OVR_MAX;
+    async function w() {
+      while (true) {
+        const o = ovrCursor--;
+        if (o < OVR_MIN) return;
+        await fetchBucket(o);
+      }
+    }
+    const LIST_CONC = 8;
+    const bucketCount = OVR_MAX - OVR_MIN + 1;
+    await Promise.all(Array.from({ length: Math.min(LIST_CONC, bucketCount) }, w));
+    // 限流兜底：首页失败的桶（多为中段 OVR）用更长退避整体重试一次，尽量不丢球员
+    if (failedOvr.length) {
+      console.log('⚠️ 首页失败桶 ' + failedOvr.length + ' 个（OVR: ' + failedOvr.join(',') + '），退避 3s 后重试…');
+      for (const ovr of failedOvr) { await sleep(3000); await fetchBucket(ovr); }
+    }
+    console.log('  分桶翻页完成：OVR ' + OVR_MAX + '→' + OVR_MIN + ' 共 ' + bucketCount + ' 桶' + (failedOvr.length ? '（已重试 ' + failedOvr.length + ' 个失败桶）' : ''));
+    return { map: map, count: seen.size };
+  }, { BASE: 'https://www.fut.gg/api/fut', VER: VER, OVR_MIN: 1 });
+
+  console.log('  映射完成：', result.count, '名球员（eaId → baseId）');
+  // 安全闸：全量约 19797~21000，若中段 OVR 桶被限流/遗漏导致偏少，阻断避免 vote_meta 残缺落库。
+  if (result.count < 19000) {
+    throw new Error('列表抓取异常偏少（' + result.count + ' 人，预期 ~20000）——疑似中段 OVR 桶被限流/遗漏，已阻断以免 vote_meta 残缺');
   }
-  console.log('  映射完成：', Object.keys(map).length, '名球员');
-  return map;
+  return result.map;
 }
 
 // ③ 读云库 votes_user_fc{ver} → 按 baseId 聚合 miniapp 票数
