@@ -1,0 +1,57 @@
+name: Sync fut.gg community votes (FC27)
+
+# 社区投票同步（独立于 fetch-fc27 主管线）：
+#   过 Cloudflare 拉全量球员列表建 eaId→basePlayerEaId 映射 → 逐 baseId 拉 /api/voting 取 fut.gg 票数
+#   → 读云库 votes_user_fc{ver} 算小程序用户票 → 合并（futgg.total>miniapp.total 则刷新，否则不变）
+#   → 上传云存储 fc{ver}/data/vote_meta/ + fc{ver}/data/votes/<bucket>.json（端上只读静态 JSON，零云函数）。
+# ⚠️ 与 sync-live-hub.yml 完全隔离：独立 concurrency 组（sync-votes），不碰 players_fc27、不提交 git（产物只在云存储）。
+# ⚠️ 云库 votes_user_fc{ver} 需配「所有用户可读、所有用户可写」安全规则（端上匿名直写）。
+#
+# 触发：
+#   - schedule：每周一北京时间 04:00（UTC 周日 20:00）跑一次（贴合「每周抓取一次」）。
+#   - workflow_dispatch：手动触发（fc_ver 默认 27）。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27；只抓该版本，目前仅 FC27）'
+        type: string
+        default: '27'
+  schedule:
+    - cron: '0 20 * * 0'   # UTC 周日 20:00 ≈ 北京时间周一 04:00
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-votes
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 浏览器内核交给下一步单独装
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Sync community votes (real browser bypass Cloudflare → upload to CloudBase)
+        env:
+          FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/sync_votes.js ${{ github.event.inputs.fc_ver || '27' }}
