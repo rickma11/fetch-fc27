@@ -221,7 +221,7 @@ async function fetchVoting(page, baseIds) {
     let lastErr = '';
     while (!results && attempts < 3) {
       try {
-        results = await page.evaluate(async ({ batch, BASE, VER }) => {
+        results = await page.evaluate(async ({ batch, VOTE_BASE, VER }) => {
           const sleep = ms => new Promise(r => setTimeout(r, ms));
           const fetchOne = async (baseId, attempt) => {
             const url = `${VOTE_BASE}/voting/${VER}/${baseId}/`;
@@ -248,7 +248,7 @@ async function fetchVoting(page, baseIds) {
             }
           };
           return await Promise.all(batch.map(id => fetchOne(id, 0)));
-        }, { batch, BASE, VER });
+        }, { batch, VOTE_BASE, VER });
       } catch (e) {
         attempts++;
         lastErr = e && e.message ? e.message : String(e);
