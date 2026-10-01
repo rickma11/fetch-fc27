@@ -35,7 +35,8 @@ const CLOUD_DIR = 'fc' + VER + '/data/';
 const META_COL = 'meta_fc' + VER;
 const VOTE_USER_COL = 'votes_user_fc' + VER;
 const HARD_TIMEOUT_MS = Number(process.env.VOTE_TIMEOUT_MS || 170 * 60 * 1000);
-const CONCURRENCY = Number(process.env.VOTE_CONCURRENCY || 8);
+const CONCURRENCY = Number(process.env.VOTE_CONCURRENCY || 12);    // worker 数（page 数）
+const VOTE_BATCH = Number(process.env.VOTE_BATCH || 32);           // 每个 worker 每批并发 fetch 的 baseId 数
 
 function jget(t) { try { return JSON.parse(t); } catch (e) { return null; } }
 function sleep(ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); }
@@ -197,7 +198,9 @@ async function loadMiniapp(app) {
 }
 
 // ② 分桶并发拉投票（参考 market_core.js：共享 cursor + 多 worker + Promise.all）
-// 每个 worker 持有独立的 playwright page，避免请求串行排队；futgg 为共享结果对象。
+// 每个 worker 持有独立的 playwright page；在 page.evaluate 内用浏览器原生 fetch 并发一批 baseId，
+// 避免 Playwright Node 侧 page.request.get 的单请求往返开销。原实现 8 并发 + 单请求约 7-8s，
+// 实测 8 分钟仅 500 票；改批内并发后预计可提升 10-50 倍（取决 HTTP/2 多路复用）。
 async function fetchVoting(ctx, baseIds) {
   const futgg = {};   // baseId -> {up, down, total, score}
   let cursor = 0;
@@ -205,35 +208,80 @@ async function fetchVoting(ctx, baseIds) {
   let failed = 0;
   const total = baseIds.length;
   const conc = Math.min(CONCURRENCY, total);
+  const BATCH = VOTE_BATCH;
 
   const worker = async function () {
     const page = await ctx.newPage();
     try {
       while (cursor < total) {
-        const idx = cursor++;
-        const baseId = baseIds[idx];
-        let ok = false;
-        for (let retry = 0; retry < 3 && !ok; retry++) {
+        // 原子地取一批 baseId
+        const batch = [];
+        while (batch.length < BATCH && cursor < total) batch.push(baseIds[cursor++]);
+        if (!batch.length) break;
+
+        let results = null;
+        let attempts = 0;
+        while (!results && attempts < 3) {
           try {
-            const body = await apiGet(page, `${BASE}/voting/${VER}/${baseId}/`);
-            if (body) {
-              const j = jget(body);
-              const d = j && j.data;
-              if (d) {
-                const up = Number(d.upvotes) || 0;
-                const down = Number(d.downvotes) || 0;
-                const totalVotes = Number(d.totalVotes) || 0;
-                const score = Number(d.score) || 0;
-                futgg[baseId] = { up: up, down: down, total: totalVotes, score: score };
-              }
-            }
-            ok = true;
+            results = await page.evaluate(async ({ batch, BASE, VER, UA }) => {
+              const sleep = ms => new Promise(r => setTimeout(r, ms));
+              const fetchOne = async (baseId, attempt) => {
+                const url = `${BASE}/voting/${VER}/${baseId}/`;
+                const controller = new AbortController();
+                const timer = setTimeout(() => controller.abort(), 20000);
+                try {
+                  const r = await fetch(url, {
+                    headers: { Accept: 'application/json', 'User-Agent': UA },
+                    signal: controller.signal
+                  });
+                  clearTimeout(timer);
+                  if (r.ok) {
+                    const text = await r.text();
+                    return { baseId, ok: true, text };
+                  }
+                } catch (e) {}
+                clearTimeout(timer);
+                if (attempt < 2) {
+                  await sleep(400 * (attempt + 1));
+                  return fetchOne(baseId, attempt + 1);
+                }
+                return { baseId, ok: false };
+              };
+              // 一批内并发；浏览器内部 HTTP/2 多路复用可充分利用连接
+              return await Promise.all(batch.map(id => fetchOne(id, 0)));
+            }, { batch, BASE, VER, UA });
           } catch (e) {
-            if (retry >= 2) { failed++; console.log('  投票失败 baseId', baseId, e.message); }
-            await sleep(300 * (retry + 1));
+            attempts++;
+            if (attempts >= 3) {
+              console.log('  投票批次失败（整批', batch.length, '个）', e.message);
+              break;
+            }
+            await sleep(500 * attempts);
           }
         }
-        done++;
+
+        if (!results) {
+          failed += batch.length;
+          done += batch.length;
+        } else {
+          for (const r of results) {
+            done++;
+            if (r.ok && r.text) {
+              const j = jget(r.text);
+              const d = j && j.data;
+              if (d) {
+                futgg[r.baseId] = {
+                  up: Number(d.upvotes) || 0,
+                  down: Number(d.downvotes) || 0,
+                  total: Number(d.totalVotes) || 0,
+                  score: Number(d.score) || 0
+                };
+              }
+            } else {
+              failed++;
+            }
+          }
+        }
         if (done % 500 === 0 || done === total) console.log('  投票进度', done, '/', total, '失败', failed);
       }
     } finally {
@@ -242,7 +290,7 @@ async function fetchVoting(ctx, baseIds) {
   };
 
   await Promise.all(Array.from({ length: conc }).map(worker));
-  console.log('  投票抓取：', Object.keys(futgg).length, '个 baseId 有响应（并发', conc, '失败', failed, '）');
+  console.log('  投票抓取：', Object.keys(futgg).length, '个 baseId 有响应（并发', conc, '批大小', BATCH, '失败', failed, '）');
   return futgg;
 }
 
