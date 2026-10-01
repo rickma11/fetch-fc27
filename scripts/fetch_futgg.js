@@ -451,6 +451,20 @@ async function main() {
     arr.forEach(function (x) { if (x) s.add(x); });
     return Array.from(s).sort();
   }
+  // 稀有度按「该稀有度最早一张卡的 createdAt」升序 = 稀有度的添加顺序（从旧到新）。
+  // 与 eafc-miniapp/utils/dataLoader.js 的 rarityOrder 口径保持一致。
+  function rarityOrderByCreatedAt(players) {
+    const minTs = {};
+    players.forEach(function (p) {
+      const r = p.rarity && p.rarity.name;
+      if (!r) return;
+      const c = p.createdAt || '';
+      if (!minTs[r] || c < minTs[r]) minTs[r] = c;
+    });
+    return Object.keys(minTs).sort(function (a, b) {
+      return (minTs[a] || '9999').localeCompare(minTs[b] || '9999') || a.localeCompare(b);
+    });
+  }
   const facets = {
     version: VER,
     total: listPlayers.length,
@@ -458,7 +472,7 @@ async function main() {
     leagues: uniqSorted(listPlayers.map(function (p) { return p.league && p.league.name; })),
     clubs: uniqSorted(listPlayers.map(function (p) { return p.club && p.club.name; })),
     nations: uniqSorted(listPlayers.map(function (p) { return p.nation && p.nation.name; })),
-    rarities: uniqSorted(listPlayers.map(function (p) { return p.rarity && p.rarity.name; })),
+    rarities: rarityOrderByCreatedAt(listPlayers),
     // 稀有度英文名 → 小卡面文件名（rarity_<内容hash>.webp，键与 images.js#rarityFileKeyOf 同口径）。
     // 端上筛选弹层小卡面用；原 id 方案已废弃（金/银/铜共用占位 id 718，按 id 命名会张冠李戴）。
     rarityImgs: (function () {
