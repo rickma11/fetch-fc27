@@ -552,7 +552,7 @@
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
-      "doNotGenerate": false,
+      "doNotGenerate": true,
       "allowedPriorEvolutionIds": [],
       "createdAt": "2026-09-15T20:19:42.644297Z",
       "endTime": "2026-10-22T07:00:00Z",
@@ -1371,16 +1371,16 @@
       "sbcName": null,
       "sbcUrl": null,
       "sbcSlug": null,
-      "objectiveGroupName": null,
-      "objectiveGroupUrl": null,
-      "objectiveGroupSlug": null,
+      "objectiveGroupName": "EVO Ascension",
+      "objectiveGroupUrl": "/objectives/campaigns/113-squad-foundations-shunsuke-mito/",
+      "objectiveGroupSlug": "113-squad-foundations-shunsuke-mito",
       "timedCustom": null,
       "customUnlockable": null,
       "isTimed": true,
       "totalTrainingTime": 86400,
-      "hideFromFilters": false,
+      "hideFromFilters": true,
       "hideFromListings": false,
-      "excludeFromActivePaths": false,
+      "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
       "doesNotUpgradePlayer": false,
@@ -1547,7 +1547,7 @@
           "value": "Max. 83"
         }
       ],
-      "isRewardEvolution": false
+      "isRewardEvolution": true
     },
     {
       "id": 2490,
@@ -25822,7 +25822,7 @@
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
-      "doNotGenerate": false,
+      "doNotGenerate": true,
       "allowedPriorEvolutionIds": [],
       "createdAt": "2026-10-01T17:00:24.256159Z",
       "endTime": "2026-10-11T17:00:00Z",
@@ -26490,16 +26490,16 @@
       "sbcName": null,
       "sbcUrl": null,
       "sbcSlug": null,
-      "objectiveGroupName": null,
-      "objectiveGroupUrl": null,
-      "objectiveGroupSlug": null,
+      "objectiveGroupName": "Score in 4",
+      "objectiveGroupUrl": "/objectives/campaigns/124-ultimate-gauntlet-1/",
+      "objectiveGroupSlug": "124-ultimate-gauntlet-1",
       "timedCustom": null,
       "customUnlockable": null,
       "isTimed": false,
       "totalTrainingTime": null,
-      "hideFromFilters": false,
+      "hideFromFilters": true,
       "hideFromListings": false,
-      "excludeFromActivePaths": false,
+      "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
       "doesNotUpgradePlayer": false,
@@ -26630,7 +26630,7 @@
           "value": "Max. 80"
         }
       ],
-      "isRewardEvolution": false
+      "isRewardEvolution": true
     },
     {
       "id": 2534,
@@ -29008,7 +29008,7 @@
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
-      "doNotGenerate": false,
+      "doNotGenerate": true,
       "allowedPriorEvolutionIds": [],
       "createdAt": "2026-09-15T20:19:42.644297Z",
       "endTime": "2026-10-22T07:00:00Z",
@@ -29827,16 +29827,16 @@
       "sbcName": null,
       "sbcUrl": null,
       "sbcSlug": null,
-      "objectiveGroupName": null,
-      "objectiveGroupUrl": null,
-      "objectiveGroupSlug": null,
+      "objectiveGroupName": "EVO Ascension",
+      "objectiveGroupUrl": "/objectives/campaigns/113-squad-foundations-shunsuke-mito/",
+      "objectiveGroupSlug": "113-squad-foundations-shunsuke-mito",
       "timedCustom": null,
       "customUnlockable": null,
       "isTimed": true,
       "totalTrainingTime": 86400,
-      "hideFromFilters": false,
+      "hideFromFilters": true,
       "hideFromListings": false,
-      "excludeFromActivePaths": false,
+      "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
       "doesNotUpgradePlayer": false,
@@ -30003,7 +30003,7 @@
           "value": "Max. 83"
         }
       ],
-      "isRewardEvolution": false
+      "isRewardEvolution": true
     },
     {
       "id": 2490,
@@ -56487,7 +56487,7 @@
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
-      "doNotGenerate": false,
+      "doNotGenerate": true,
       "allowedPriorEvolutionIds": [],
       "createdAt": "2026-10-01T17:00:24.256159Z",
       "endTime": "2026-10-11T17:00:00Z",
@@ -57155,16 +57155,16 @@
       "sbcName": null,
       "sbcUrl": null,
       "sbcSlug": null,
-      "objectiveGroupName": null,
-      "objectiveGroupUrl": null,
-      "objectiveGroupSlug": null,
+      "objectiveGroupName": "Score in 4",
+      "objectiveGroupUrl": "/objectives/campaigns/124-ultimate-gauntlet-1/",
+      "objectiveGroupSlug": "124-ultimate-gauntlet-1",
       "timedCustom": null,
       "customUnlockable": null,
       "isTimed": false,
       "totalTrainingTime": null,
-      "hideFromFilters": false,
+      "hideFromFilters": true,
       "hideFromListings": false,
-      "excludeFromActivePaths": false,
+      "excludeFromActivePaths": true,
       "isGkEvolution": false,
       "isNotInEvoLab": false,
       "doesNotUpgradePlayer": false,
@@ -57295,7 +57295,7 @@
           "value": "Max. 80"
         }
       ],
-      "isRewardEvolution": false
+      "isRewardEvolution": true
     },
     {
       "id": 2534,
@@ -59153,7 +59153,7 @@
       "isRewardEvolution": true
     }
   ],
-  "activeHash": "9775e327",
-  "allHash": "f156a7c5",
-  "fetchedAt": "2026-10-02T17:10:49.790Z"
+  "activeHash": "cb949604",
+  "allHash": "269f8e0c",
+  "fetchedAt": "2026-10-02T19:27:32.147Z"
 }
