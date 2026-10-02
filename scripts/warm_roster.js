@@ -8,6 +8,7 @@ const path = require('path');
 process.chdir(path.resolve(__dirname));
 const { resolve } = require('./tcb_env');
 const ziplite = require('./ziplite');   // 极简 zip 写入器（roster 压缩分片上传用，见第 3 步）
+const { cn } = require('./cn_time');    // 北京时间直读字段（控制台用）
 
 const VER = 27;
 // R29k：共享扫描缓存（由 sync_i18n.js 在扫全表时 write，本脚本与 gen_squad_chem 用 --from-cache 读）。
@@ -287,7 +288,8 @@ try {
     count: all.length,
     schemaVersion: ROSTER_SCHEMA_VERSION,
     rawSize: packs.rawTotal,
-    zipSize: packs.zipTotal
+    zipSize: packs.zipTotal,
+    tsCn: cn(ts)   // 北京时间直读（控制台用；纯展示）
   });
   console.log('meta doc written:', M_COL + '/roster', 'parts=' + packs.parts, 'ts=' + ts, '(' + new Date(ts).toISOString() + ')');
 

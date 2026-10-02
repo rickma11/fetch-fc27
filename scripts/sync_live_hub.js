@@ -22,6 +22,7 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 const cloudbase = require('@cloudbase/node-sdk');
+const { cn } = require('./cn_time');   // 北京时间直读字段（控制台用）
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'probe', 'live_hub');
@@ -279,9 +280,11 @@ async function runSync() {
     prevFileId = (old && old.data && old.data.fileID) || '';
   } catch (e) { console.log('  （无旧元文档，首轮）'); }
 
+  const liveNowIso = new Date().toISOString();
   await app.database().collection(META_COLLECTION).doc(META_DOC).set({
-    ts: ts, fileID: fileID, prevFileId: prevFileId || '', updatedAt: new Date().toISOString(),
-    forceVersion: ts   // 升级追踪自身元文档也带 forceVersion，供端上 liveHub.js 后续尊重该字段做即时强刷
+    ts: ts, fileID: fileID, prevFileId: prevFileId || '', updatedAt: liveNowIso,
+    forceVersion: ts,   // 升级追踪自身元文档也带 forceVersion，供端上 liveHub.js 后续尊重该字段做即时强刷
+    updatedAtCn: cn(liveNowIso), tsCn: cn(ts)   // 北京时间直读（控制台用；纯展示）
   });
   console.log('已写元文档', META_COLLECTION + '/' + META_DOC, 'ts=' + ts);
 
@@ -301,7 +304,8 @@ async function runSync() {
       const ed = (er && er.data) || null;
       if (ed) evoPrev = (ed.data && typeof ed.data === 'object') ? ed.data : ed;
     } catch (e) { console.log('  （get_evolutions 元文档可能不存在，将仅写 forceVersion）'); }
-    const evoNext = Object.assign({}, evoPrev, { forceVersion: ts, updatedAt: new Date().toISOString() });
+    const evoNowIso = new Date().toISOString();
+    const evoNext = Object.assign({}, evoPrev, { forceVersion: ts, updatedAt: evoNowIso, updatedAtCn: cn(evoNowIso) });
     await app.database().collection(META_COLLECTION).doc('get_evolutions').set(evoNext);
     console.log('已 bump meta_fc27/get_evolutions forceVersion → ' + ts + ' (was ' + (evoPrev.forceVersion || 0) + ')');
   } catch (e) { console.log('⚠️ bump get_evolutions forceVersion 失败（不影响本次 livehub 同步）:', e.message); }

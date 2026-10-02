@@ -24,6 +24,7 @@ const fs = require('fs');
 const path = require('path');
 const cloudbase = require('@cloudbase/node-sdk');
 const { resolve } = require('./tcb_env');
+const { cn } = require('./cn_time');   // 北京时间直读字段（控制台用）
 // R29k-P1：写前内容签名。软加载——加载失败只影响「能不能跳过未变文档」，不该拖垮落库本身。
 // 签名表由 sync_i18n 顺手落盘（见 content_sig.js#saveSigMap），本脚本读上一份做比对。
 let contentSig = null;
@@ -268,7 +269,11 @@ async function removeByIds(name, ids) {
 async function writeFacets(facets, mCol) {
   await ensureCollection(mCol);
   // set() 本身就是「不存在则创建」，无需再清空；_id 由 doc('facets') 指定，不能放进 body
-  await db.collection(mCol).doc('facets').set(bodyOf(facets));
+  const body = bodyOf(facets);
+  const stamp = (facets && facets.updatedAt) || new Date().toISOString();
+  if (!body.updatedAt) body.updatedAt = stamp;
+  body.updatedAtCn = cn(stamp);   // 北京时间直读（控制台用；纯展示）
+  await db.collection(mCol).doc('facets').set(body);
   console.log('  facets 写入完成（联赛', (facets.leagues || []).length, '俱乐部', (facets.clubs || []).length, '）');
 }
 

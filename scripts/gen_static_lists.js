@@ -21,6 +21,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const cloudbase = require('@cloudbase/node-sdk');
+const { cn } = require('./cn_time');   // 北京时间直读字段（控制台用）
 
 const ROOT = path.resolve(__dirname, '..');
 const VER = Number(process.argv[2] || process.env.FC_VER || 27);
@@ -165,10 +166,13 @@ async function publishOne(app, name, arr, fetchedAt) {
   // 内容没变时保持原 forceVersion；内容变了才 bump，避免空跑刷所有人
   const forceVersion = (prevHash && prevHash === h) ? prevFV : ts;
 
+  const nowIso = new Date().toISOString();
   await app.database().collection(META_COLLECTION).doc(name).set({
     fetchedAt: fetchedAt || '', count: stampedArr.length, fileID: fileID, hash: h, ts: ts,
-    prevFileId: prevFileId || '', updatedAt: new Date().toISOString(),
-    forceVersion: forceVersion
+    prevFileId: prevFileId || '', updatedAt: nowIso,
+    forceVersion: forceVersion,
+    // 北京时间直读字段（控制台用；纯展示，不参与任何逻辑，勿依赖）
+    fetchedAtCn: cn(fetchedAt || ''), updatedAtCn: cn(nowIso), tsCn: cn(ts)
   });
   console.log('  已写元文档', META_COLLECTION + '/' + name, 'forceVersion=' + forceVersion);
 

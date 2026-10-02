@@ -21,6 +21,7 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 const cloudbase = require('@cloudbase/node-sdk');
+const { cn } = require('./cn_time');   // 北京时间直读字段（控制台用）
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'probe', 'votes');
@@ -399,7 +400,13 @@ async function uploadJson(app, cloudPath, obj) {
   // 写元文档（端上可选读；当前端上直接读 vote_meta.json 分片，元文档仅作版本标记）
   try {
     const db = app.database();
-    await db.collection(META_COL).doc('votes').set({ data: { updatedAt: meta.updatedAt, count: meta.count, buckets: meta.buckets, ts: Date.now() } });
+    // 顶层另加北京时间直读字段（控制台用）。注：body 的 `data` 包裹是历史遗留结构（端的只读
+    // vote_meta.json，不读本元文档），此处不改结构，只在顶层补可读时间。
+    const vTs = Date.now();
+    await db.collection(META_COL).doc('votes').set({
+      data: { updatedAt: meta.updatedAt, count: meta.count, buckets: meta.buckets, ts: vTs },
+      updatedAtCn: cn(meta.updatedAt), tsCn: cn(vTs)
+    });
   } catch (e) { console.log('  元文档写入跳过：', e.message); }
 
   console.log('\n===== 完成 =====');
