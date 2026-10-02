@@ -4,6 +4,7 @@
 //
 // 本文件**不碰任何本地文件系统**，IO 由两个入口各自负责。
 
+const https = require('https');
 const PRICE_API = 'https://enhancer-api.futnext.com/players/prices';
 const BATCH = 50;          // 接口上限
 // 并发实测（2026-09-27，792 批 / 19,716 条，本机）：并发 5 = 42.8s，并发 20 = 12.4s。
@@ -38,17 +39,29 @@ const pct = function (prev, cur) {
 function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
 // ── 问价（单批）──
+// 微信云函数 runtime 是 Node 16，没有全局 fetch；本地/云端两份 market_core.js 统一用内置 https，
+// 避免在云函数里触发 ReferenceError: fetch is not defined。
 function fetchBatch(ids, platform) {
-  const qs = 'ids=' + ids.map(key).join('_') + '&platform=' + platform;
-  const ctrl = new AbortController();
-  const t = setTimeout(function () { ctrl.abort(); }, 20000);
-  return fetch(PRICE_API + '?' + qs, { signal: ctrl.signal })
-    .then(function (r) {
-      if (!r.ok) throw new Error('HTTP ' + r.status + ' on platform=' + platform);
-      return r.json();
-    })
-    .then(function (j) { clearTimeout(t); return j; })
-    .catch(function (e) { clearTimeout(t); throw e; });
+  const url = PRICE_API + '?ids=' + ids.map(key).join('_') + '&platform=' + platform;
+  return new Promise(function (resolve, reject) {
+    const req = https.get(url, function (res) {
+      let data = '';
+      res.on('data', function (chunk) { data += chunk; });
+      res.on('end', function () {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          try { resolve(JSON.parse(data)); }
+          catch (e) { reject(new Error('json parse error on platform=' + platform + ': ' + e.message)); }
+        } else {
+          reject(new Error('HTTP ' + res.statusCode + ' on platform=' + platform));
+        }
+      });
+    });
+    req.on('error', function (err) { reject(err); });
+    req.setTimeout(20000, function () {
+      req.destroy();
+      reject(new Error('timeout on platform=' + platform));
+    });
+  });
 }
 
 // pc 与 ps 必须**并行**拉（串行两段 = 43s，并行压到 ~25s）。

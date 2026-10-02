@@ -313,6 +313,10 @@ async function main() {
     //    残缺结果不能当「这个球员没有全息版本」，否则会把已有的 pill 误删。
     const HOLO = (dump.holo && typeof dump.holo === 'object') ? dump.holo : null;
     const HOLO_OK = !!(HOLO && dump.holoComplete);
+    // 2026-10-03：全息变体 item 不应作为球员写库（变体是独立 eaId，个别促销卡会列入列表）。
+    // 用 dump.holo 的 variantEaId 集合，成型时直接跳过（双保险：fetch_ci 已先剔除并并入 removedIds）。
+    const holoVariantSet = new Set();
+    if (HOLO) Object.keys(HOLO).forEach(function (k) { const h = HOLO[k]; if (h && h.variantEaId != null) holoVariantSet.add(String(h.variantEaId)); });
     if (dump.count != null) DUMP_META.count = dump.count;
 
     const rawList = Array.isArray(dump.list) ? dump.list
@@ -340,6 +344,7 @@ async function main() {
       const p = listPlayers[i];
       if (needSet && !needSet.has(String(p.eaId))) continue;
       if (eaIdSet.has(p.eaId)) continue;
+      if (holoVariantSet.has(String(p.eaId))) { console.log('  跳过全息变体 item（不当球员写库）:', p.eaId, p.commonName); continue; }
       eaIdSet.add(p.eaId);
       players.push(p);
       const _det = buildDetail(p, (dump.details && dump.details[p.eaId]) || {});

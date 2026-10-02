@@ -150,6 +150,7 @@ jobs:
 
       # SBC 上云（2026-09-19 补）：scrape 写出的 sbcs.json 此前没有任何步骤往云库传，
       # 小程序 SBC 页读的是 sbcs_fc27 → 一直停在最后一次手动上传的旧数据。
+      # 2026-10-01 修正：早期只传 SBC 列表；sbcCost 回写必须等 upload_db 完成后，否则会被抹掉。
       - name: Upload SBC to CloudBase Database
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         continue-on-error: true
@@ -157,7 +158,7 @@ jobs:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
-        run: node scripts/upload_sbcs.js --ver 27
+        run: node scripts/upload_sbcs.js --ver 27 --skip-sbc-cost
 
       # SBC set 封面转存云存储（2026-09-19 补）：小程序端 sbcs.js#imgUrl 按确定性命名
       # sbc_<id>.webp 直拼 cloud fileID，本步骤把当日新增 set 封面下载（真实浏览器过 CF）
@@ -234,6 +235,18 @@ jobs:
           #   成型真产出了 players.json）时自然走 full，两端永远对得上。
           FC_MODE: auto
         run: node scripts/upload_db.js --ver 27
+
+      # SBC 积分兑换回写（2026-10-01 修正顺序）：必须在 upload_db 之后。
+      # upload_db 用 doc.set 整体覆盖球员文档，若 sbcCost 在它之前写入会被抹掉；
+      # 早期把 upload_sbcs 放在 fetch 前，导致新 SBC 球员详情页看不到「SBC兑换」。
+      - name: Write SBC cost to players
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/upload_sbcs.js --ver 27 --sbc-cost-only
 
       # 收藏室代币兑换价（2026-09-21 补）：fut.gg 球员详情接口不含该数值，权威来源是
       # r2 静态数据集 token-store（manifest 引 hash，商店轮换 hash 会变）。本步骤抓数据集

@@ -6,7 +6,14 @@
 //    重复执行幂等安全。SBC 数据量小（当前 10 条 / 约 44KB），无瘦身必要，
 //    challenges[] 随整条入库（云函数 get_sbcs list 直接全量返回）。
 //
-// 用法：node scripts/upload_sbcs.js --ver 27
+// 用法：
+//   node scripts/upload_sbcs.js --ver 27                       # 完整流程：上传 SBC 列表 + 回写 sbcCost
+//   node scripts/upload_sbcs.js --ver 27 --skip-sbc-cost       # 只上传 SBC 列表（跳过 sbcCost 回写）
+//   node scripts/upload_sbcs.js --ver 27 --sbc-cost-only       # 只回写 sbcCost（不碰 sbcs_fc 集合）
+//
+// 为什么拆分：fetch-fc27.yml 把 SBC 抓取链提到球员主链之前，SBC 列表可 15 秒内入库；
+// 但 sbcCost 回写必须等 upload_db 把球员文档写完后才执行，否则会被 upload_db 的 doc.set 抹掉。
+// 故 workflow 里 early 阶段用 --skip-sbc-cost，upload_db 后用 --sbc-cost-only。
 const fs = require('fs');
 const path = require('path');
 const { resolve } = require('./tcb_env');
@@ -20,6 +27,8 @@ function argVer() {
 
 const VER = argVer() || 27;
 const SRC = path.resolve(__dirname, '..', 'cloud-data', 'fc' + VER, 'sbcs.json');
+const SKIP_SBC_COST = process.argv.includes('--skip-sbc-cost');
+const SBC_COST_ONLY = process.argv.includes('--sbc-cost-only');
 
 const d = JSON.parse(fs.readFileSync(SRC, 'utf8'));
 const sets = d.sets || [];
@@ -39,24 +48,32 @@ const docs = sets.map(s => Object.assign({}, s, { _id: String(s.id), _fetchedAt:
   const db = app.database();
   const col = 'sbcs_fc' + VER;
 
-  // 集合不存在则自动创建（已存在时报错忽略）
-  try { await db.createCollection(col); console.log('已创建集合', col); }
-  catch (e) { console.log('集合', col, '已存在（或创建失败忽略）:', (e && e.message || '').slice(0, 80)); }
-
   let ok = 0, fail = 0;
-  for (const doc of docs) {
-    const body = Object.assign({}, doc);
-    const id = body._id;
-    delete body._id; // doc(id) 已指定主键，body 不能再带 _id
-    let done = false, lastErr = null;
-    for (let k = 1; k <= 3 && !done; k++) {
-      try { await db.collection(col).doc(id).set(body); done = true; }
-      catch (e) { lastErr = e; await new Promise(r => setTimeout(r, 1000 * k)); }
+
+  if (!SBC_COST_ONLY) {
+    // 集合不存在则自动创建（已存在时报错忽略）
+    try { await db.createCollection(col); console.log('已创建集合', col); }
+    catch (e) { console.log('集合', col, '已存在（或创建失败忽略）:', (e && e.message || '').slice(0, 80)); }
+
+    for (const doc of docs) {
+      const body = Object.assign({}, doc);
+      const id = body._id;
+      delete body._id; // doc(id) 已指定主键，body 不能再带 _id
+      let done = false, lastErr = null;
+      for (let k = 1; k <= 3 && !done; k++) {
+        try { await db.collection(col).doc(id).set(body); done = true; }
+        catch (e) { lastErr = e; await new Promise(r => setTimeout(r, 1000 * k)); }
+      }
+      if (done) { ok++; console.log('  UP', col, id, doc.nameZh || doc.name); }
+      else { fail++; console.error('  FAIL', col, id, (lastErr && lastErr.message) || lastErr); }
     }
-    if (done) { ok++; console.log('  UP', col, id, doc.nameZh || doc.name); }
-    else { fail++; console.error('  FAIL', col, id, (lastErr && lastErr.message) || lastErr); }
+    console.log('SBC 上云完成: ' + col + ' 成功 ' + ok + ' | 失败 ' + fail + ' | fetchedAt=' + fetchedAt);
   }
-  console.log('SBC 上云完成: ' + col + ' 成功 ' + ok + ' | 失败 ' + fail + ' | fetchedAt=' + fetchedAt);
+
+  if (SKIP_SBC_COST) {
+    console.log('[sbcCost] --skip-sbc-cost：本阶段不回写 sbcCost，留到 upload_db 之后用 --sbc-cost-only 执行');
+    process.exit(0);
+  }
 
   // ── SBC 积分兑换回写（2026-09-20；2026-09-23 扩 Player Pick）────────────────
   // 从 sbcs.json 反查「奖励球员 → 该 SBC 的 scoreRequirement」：只有 streamlined SBC 有 scoreRequirement

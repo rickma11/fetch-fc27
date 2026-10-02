@@ -7,7 +7,7 @@
 //
 // 但「关联关系」藏在哪，经历过两次踩坑才摸清：
 //   ❌ 列表接口（players/v2/{ver}/）的 holographicType / standardItemEaId → 标准 item 上恒 null，
-//      且全息变体**完全不在列表里**（列表只有 19799 条标准条目）。
+//      且全息变体**通常不在列表里**（列表只有 19799 条标准条目）。
 //   ❌ 详情接口（player-item-definitions/{ver}/{eaId}/）的 itemVariants → **恒返回 []**。
 //   ❌ all-versions/{baseEaId}/ → 只有 FC25/26 历史代，没有 27-{变体}。
 //   ❌ 球员页 HTML 的 RSC 流里有值，但那是页面渲染产物，不适合批量抓。
@@ -21,7 +21,10 @@
 // 变体条目形态：itemVariants = [{eaId: 标准卡, holographicType: null},
 //                              {eaId: 变体卡, holographicType: "pristine"}]
 //   例：Yamal 67386507 → 变体 50609291、Raya 67329765 → 变体 50552549
-//   变体**不在列表里**（列表只有 19799 条标准条目）⇒ 列表驱动的管线天然看不到，必须单独查。
+//   变体**通常不在列表里**（列表只有 19799 条标准条目）⇒ 列表驱动的管线天然看不到，必须单独查。
+//   ⚠️ 例外（2026-10-03 实锤）：个别促销卡（如 Upamecano 89 命定荣耀 / Destined for Glory）
+//      会把变体本体也列进 players/v2 列表 ⇒ 带自己的 sbcPoints ⇒ 被当普通球员写库 ⇒ 列表/详情重复。
+//      因此管线（fetch_ci / fetch_futgg）必须显式按 holoVariantEaId 剔除变体 item，不能依赖"列表看不到"。
 // ⚠️ 另有「条目自身就是那张全息卡」（itemVariants 里变体 eaId == 自身）的情形：pristine 下实测 0 例，
 //    语义上也不成立（自己和自己不构成「版本」）⇒ pickHoloVariant 直接跳过，不做兜底。
 //

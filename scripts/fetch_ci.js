@@ -504,6 +504,25 @@ function readResolved() {
     }
   }
 
+  // ---------- 全息变体过滤（2026-10-03 修「变体被当球员写库」）----------
+  // 变体是独立 item，正常不在列表接口里；但促销卡（如 Upamecano 89 命定荣耀）会把它也列出来。
+  // 它带自己的 sbcPoints ⇒ 被当成普通球员写库 ⇒ 列表/详情出现重复卡。
+  // 用阶段 3.5 解出的 variantEaId 从列表剔除，并并入 removedIds（upload_db 据此删净残留文档，防每日抓取写回）。
+  {
+    const holoVariantSet = new Set(Object.values(holoDump).map(function (d) { return d && d.variantEaId != null ? Number(d.variantEaId) : null; }).filter(Boolean));
+    if (holoVariantSet.size) {
+      const before = listRes.items.length;
+      listRes.items = listRes.items.filter(function (it) { return !holoVariantSet.has(Number(it.eaId)); });
+      if (listRes.items.length !== before) {
+        console.log('全息变体过滤：从列表剔除 ' + (before - listRes.items.length) + ' 条变体 item（防当球员写库）');
+      }
+      const curRemoved = new Set(removedIds.map(String));
+      let added = 0;
+      holoVariantSet.forEach(function (id) { if (!curRemoved.has(String(id))) { removedIds.push(Number(id)); curRemoved.add(String(id)); added++; } });
+      if (added) console.log('全息变体并入 removedIds:', added, '条（下次 upload_db 删净）');
+    }
+  }
+
   // ---------- 阶段 4：下载球员图片（按签名增量，全量模式也跳过未变的）----------
   // 抽成 runImageStage()：images-only 模式（FC_IMG_ONLY=1）在阶段 1 抓列表后直接调用并退出，
   //           正常 / data-only 模式在此原位调用。函数体内只看列表的 imagePath，不依赖详情
