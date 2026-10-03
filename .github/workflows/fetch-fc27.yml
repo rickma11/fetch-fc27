@@ -433,6 +433,7 @@ jobs:
       # （白扫一次全表 19,860 次 DB 读）。reseed 由 job1 事件驱动，不新增定时任务，不违反探针 cron 只跑 3-24 的约定。
       - name: Anchor probe baseline (reseed after daily sync)
         if: success()
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
