@@ -16,6 +16,7 @@ on:
         default: '0'
 permissions:
   contents: write
+  actions: write
 
 # 同一时间只跑一个，避免两次抓取互相踩到快照
 concurrency:
@@ -425,6 +426,23 @@ jobs:
           if [ "$PUSHED" = "1" ]; then echo "push 成功"; exit 0; fi
           echo "::error::push 重试 3 次后仍失败"
           exit 1
+
+      # 探针基线锚定（2026-10-03）：job1 每日同步完云库后，触发探针 reseed 模式，
+      # 把探针 baseline 刷新成"当日已同步态"。否则 job1(01:10) 已同步、但探针 baseline 还停在
+      # 昨日 23:05 的旧值，会致 03:05 探针把 job1 已处理的数据误判为"变化"→ 冗余重跑 fetch-fc27
+      # （白扫一次全表 19,860 次 DB 读）。reseed 由 job1 事件驱动，不新增定时任务，不违反探针 cron 只跑 3-24 的约定。
+      - name: Anchor probe baseline (reseed after daily sync)
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s -o /dev/null -w "probe reseed dispatched: %{http_code}\n" \
+            -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -d '{"ref":"main","inputs":{"mode":"reseed"}}' \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/probe-futgg-updates.yml/dispatches"
 
       - name: Show run summary
         if: always()

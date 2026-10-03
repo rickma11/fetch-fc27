@@ -18,6 +18,8 @@
 // 模式：
 //   PROBE_MODE=observe  → 照常抓全部信号、写 baseline，但**永不 dispatch**（用于先观察几天/验证流程）。
 //   PROBE_MODE=probe    → 变化则 dispatch。
+//   PROBE_MODE=reseed   → 与 observe 同样只写 baseline 不 dispatch，但带保护：球员数未取到成功则不覆盖旧基线。
+//                          专供 fetch-fc27.yml(job1) 每日同步后锚定探针基线，避免 job1 已同步的数据被探针误判为"变化"而重复触发。
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
@@ -218,10 +220,18 @@ async function main() {
   }
   log('changed=%s reasons=%s', changed, reasons.join(' | ') || '(none)');
 
-  if (MODE === 'observe') {
-    log('OBSERVE: 写 baseline，不 dispatch');
-    fs.writeFileSync(BASELINE_PATH, JSON.stringify(current, null, 2));
-    log('baseline: playerCount=%s sbcTotal=%s evoHashes=%s', playerCount, sbcTotal, JSON.stringify(manifestHashes));
+  // observe / reseed：都只写 baseline、永不 dispatch。
+  // 保护：若球员数量没抓到成功(playerCount=null)，绝不拿 null 覆盖旧基线，否则下次探针会误触发。
+  //   reseed 由 job1 每日同步后调用，目的就是"锚定基线"，更不能被一次 CF 抖动污染。
+  if (MODE === 'observe' || MODE === 'reseed') {
+    const tag = MODE.toUpperCase();
+    if (player.ok && playerCount != null) {
+      log('%s: 写 baseline，不 dispatch', tag);
+      fs.writeFileSync(BASELINE_PATH, JSON.stringify(current, null, 2));
+      log('baseline: playerCount=%s sbcTotal=%s evoHashes=%s', playerCount, sbcTotal, JSON.stringify(manifestHashes));
+    } else {
+      log('%s: 球员数量未取到(playerCount=%s)，跳过写 baseline，保留旧值防误触发', tag, playerCount);
+    }
     pingHC(true);
     return;
   }
