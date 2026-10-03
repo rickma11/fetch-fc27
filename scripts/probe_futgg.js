@@ -1,31 +1,41 @@
 #!/usr/bin/env node
 'use strict';
-// 轻量探针：监控 fut.gg 球员数据 / 进化 / SBC 是否有更新，有则 dispatch fetch-fc27.yml
-// 运行点：GitHub Actions（由 cron-job.org 每小时 workflow_dispatch 触发）
+// 轻量探针（count-only 球员判据版）：每小时监控 fut.gg 球员数量 / 进化 / SBC 是否有更新，
+// 有则 dispatch fetch-fc27.yml（真正的抓取落库由 fetch-fc27 完成，本脚本只做"看门狗"）。
 //
-// 球员变更判据（修订版，对齐 fetch-fc27 content_sig 的 total 思路）：
-//   不再只信 manifest 里 fc-core-data 的 hash（间接、且未证实是全量），
-//   而是真正下载 fc-core-data（r2 直连 GitHub 200）数条目数 playerCount + 算内容 sha1，
-//   与基线比对。count 变=球员增删；sha1 变=球员属性被改（count 不变也能兜住）。
-//   体积代价：~1.74MB/次（fut.gg 公开 CDN，不是我们的带宽/配额）。
+// 运行点：GitHub Actions（由 cron-job.org 每小时 workflow_dispatch 触发）。
+//
+// 三条信号（任一变化即判定有更新）：
+//   ① 球员数量 playerCount —— 用 Playwright 真实浏览器过 Cloudflare，抓 players/v2 第一页读 total。
+//      count-only：只读总数（1 个请求），不抓全量，极轻；漏"改了属性但人数没变"的情况（FC 极少）。
+//   ② SBC 总数 sbcTotal     —— 直连 www.fut.gg/api/fut/sbc/{ver}（GitHub 直连 200），读 totalCount。
+//   ③ 进化 hash             —— 直连 r2.fut.gg/{ver}/manifest.json（GitHub 直连 200），读白名单键的 hash。
+//
+// 关键：探针**不扫云库**。球员数量来自浏览器内存态 vs 本地 baseline（提交在仓库），
+//       SBC/进化来自两次轻量 HTTP。全程 0 云库读 / 0 云库写。只有"变了"才 dispatch fetch-fc27
+//       （fetch-fc27 才会扫云库 19,860 条 + 落库）。这把"每小时扫云库"降成"每次变化才扫"。
+//
+// 模式：
+//   PROBE_MODE=observe  → 照常抓全部信号、写 baseline，但**永不 dispatch**（用于先观察几天/验证流程）。
+//   PROBE_MODE=probe    → 变化则 dispatch。
 const fs = require('fs');
 const path = require('path');
-const crypto = require('crypto');
 const { execSync } = require('child_process');
+const { chromium } = require('playwright');
 
 const VER = process.env.PROBE_VER || '27';
 const R2_BASE = process.env.R2_BASE || `https://r2.fut.gg/${VER}`;
 const SBC_URL = process.env.SBC_URL || `https://www.fut.gg/api/fut/sbc/${VER}?page=1`;
+const PLAYERS_URL = process.env.PLAYERS_URL || `https://www.fut.gg/api/fut/players/v2/${VER}/`;
 const BASELINE_PATH = process.env.BASELINE_PATH || path.join(__dirname, '..', 'probe', 'baseline.json');
 const MODE = process.env.PROBE_MODE || 'probe'; // 'probe' | 'observe'
-// 仅进化走 manifest hash（避免每小时下载十几 MB 的进化文件）；球员单独数条目
 const WHITELIST = (process.env.PROBE_KEYS || 'active-evolutions,all-evolutions')
   .split(',').map(s => s.trim()).filter(Boolean);
-const EXCLUDE = new Set((process.env.PROBE_EXCLUDE || '').split(',').map(s => s.trim()).filter(Boolean));
 const DISPATCH_REPO = process.env.DISPATCH_REPO || 'rickma11/fetch-fc27';
 const DISPATCH_WF = process.env.DISPATCH_WF || 'fetch-fc27.yml';
 const HC_URL = process.env.HEALTHCHECK_URL || '';
 const GH_TOKEN = process.env.GH_TOKEN || process.env.GITHUB_TOKEN || '';
+const CF_UA = process.env.CF_UA || 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36';
 
 function log(...a) { console.log('[probe]', ...a); }
 
@@ -41,66 +51,55 @@ async function getJson(url, timeoutMs = 20000) {
     const text = await res.text();
     let data;
     try { data = JSON.parse(text); } catch (e) { return { ok: false, status: -1, url, err: 'json-parse' }; }
-    return { ok: true, status: res.status, url, data, text };
+    return { ok: true, status: res.status, url, data };
   } catch (e) {
     return { ok: false, status: -2, url, err: e.name === 'AbortError' ? 'timeout' : e.message };
   } finally { clearTimeout(t); }
 }
 
-// 下载 fc-core-data 整包，数球员条目数 + 算内容 sha1（轻量：r2 直连 GitHub 200）
-async function getCoreData(r2Base, manifest) {
-  if (!manifest || !('fc-core-data' in manifest)) return { ok: false, reason: 'no-manifest-key' };
-  const hash = manifest['fc-core-data'];
-  const url = `${r2Base}/fc-core-data.v1.${hash}.json`;
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 60000);
+// 用 Playwright 真实浏览器过 Cloudflare，抓 players/v2 第一页读 total（count-only）。
+// 复用 fetch-fc27 的过 CF 范式：先 goto 首页触发挑战，再轮询同源 API 直到 200。
+async function getPlayerCount() {
+  log('player: launching chromium (bypass Cloudflare)...');
+  const browser = await chromium.launch({
+    headless: true,
+    args: ['--disable-blink-features=AutomationControlled', '--no-sandbox', '--disable-dev-shm-usage']
+  });
   try {
-    const res = await fetch(url, {
-      signal: ctrl.signal,
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OAO-probe/1.0)', Accept: 'application/json' }
+    const ctx = await browser.newContext({
+      userAgent: CF_UA, locale: 'en-US', viewport: { width: 1280, height: 800 }, timezoneId: 'America/New_York'
     });
-    if (!res.ok) return { ok: false, status: res.status, url, hash };
-    const text = await res.text();
-    let data;
-    try { data = JSON.parse(text); } catch (e) { return { ok: false, status: -1, url, hash, err: 'json-parse' }; }
-    const count = Array.isArray(data) ? data.length
-      : (data && Array.isArray(data.data)) ? data.data.length
-      : (data && typeof data === 'object') ? Object.keys(data).length
-      : null;
-    const sha1 = crypto.createHash('sha1').update(text).digest('hex');
-    const sampleKeys = Array.isArray(data)
-      ? (data[0] && typeof data[0] === 'object' ? Object.keys(data[0]).slice(0, 20) : null)
-      : (data && typeof data === 'object' ? Object.keys(data).slice(0, 20) : null);
-    return { ok: true, status: res.status, url, hash, count, sha1, sampleKeys };
-  } catch (e) {
-    return { ok: false, status: -2, url, hash, err: e.name === 'AbortError' ? 'timeout' : e.message };
-  } finally { clearTimeout(t); }
-}
+    const page = await ctx.newPage();
+    await page.goto('https://www.fut.gg/', { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-// 调试用：扫描某个 manifest 键，报告 status / 体积 / 条目数 / 样本键（不写 baseline）
-async function scanKey(r2Base, manifest, key) {
-  if (!manifest || !(key in manifest)) { log('SCAN %s: not in manifest', key); return; }
-  const hash = manifest[key];
-  const url = `${r2Base}/${key}.v1.${hash}.json`;
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), 60000);
-  try {
-    const res = await fetch(url, { signal: ctrl.signal, headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OAO-probe/1.0)', Accept: 'application/json' } });
-    if (!res.ok) { log('SCAN %s: http %s', key, res.status); return; }
-    const text = await res.text();
-    let data; try { data = JSON.parse(text); } catch (e) { log('SCAN %s: json-parse-fail', key); return; }
-    const count = Array.isArray(data) ? data.length
-      : (data && Array.isArray(data.data)) ? data.data.length
-      : (data && typeof data === 'object') ? Object.keys(data).length : null;
-    const sampleKeys = Array.isArray(data)
-      ? (data[0] && typeof data[0] === 'object' ? Object.keys(data[0]).slice(0, 25) : null)
-      : (data && typeof data === 'object' ? Object.keys(data).slice(0, 25) : null);
-    const sample0 = Array.isArray(data) && data[0] ? JSON.stringify(data[0]).slice(0, 300) : null;
-    log('SCAN %s: http=%s bytes=%d count=%s sampleKeys=%s', key, res.status, Buffer.byteLength(text), count, JSON.stringify(sampleKeys));
-    if (sample0) log('SCAN %s sample0=%s', key, sample0);
-  } catch (e) {
-    log('SCAN %s err %s', key, e.name === 'AbortError' ? 'timeout' : e.message);
-  } finally { clearTimeout(t); }
+    let passed = false, total = null, status = null, topKeys = null;
+    for (let i = 0; i < 30; i++) {
+      try {
+        const r = await page.request.get(`${PLAYERS_URL}?page=1`, { headers: { Accept: 'application/json' }, timeout: 20000 });
+        status = r.status();
+        if (status === 200) {
+          const j = await r.json();
+          total = (j && typeof j.total === 'number') ? j.total : null;
+          topKeys = j && typeof j === 'object' ? Object.keys(j).slice(0, 12) : null;
+          passed = true;
+          break;
+        }
+      } catch (e) { /* keep polling */ }
+      await page.waitForTimeout(3000);
+    }
+    if (!passed) {
+      log('player: Cloudflare 未通过（status=%s），本次无法获取球员数量', status);
+      return { ok: false, reason: 'cf-not-passed', status };
+    }
+    if (total == null) {
+      log('player: 200 但响应无 total 字段，topKeys=%s —— 需核实字段名', JSON.stringify(topKeys));
+      return { ok: false, reason: 'no-total-field', status, topKeys };
+    }
+    log('player: status=%s total=%s topKeys=%s', status, total, JSON.stringify(topKeys));
+    return { ok: true, status, playerCount: total };
+  } finally {
+    await browser.close();
+  }
 }
 
 function pingHC(success) {
@@ -111,17 +110,13 @@ function pingHC(success) {
 
 async function main() {
   log('mode=%s ver=%s evoWhitelist=%s', MODE, VER, WHITELIST.join(','));
-  log('r2_base=%s', R2_BASE);
 
-  const m = await getJson(`${R2_BASE}/manifest.json`);
-  let manifest = null;
-  if (m.ok && m.data && typeof m.data === 'object') manifest = m.data;
-  log('manifest status=%s keys=%s', m.status, manifest ? Object.keys(manifest).length : '-');
+  // ① 球员数量（浏览器）
+  const player = await getPlayerCount();
+  let playerCount = null;
+  if (player.ok) playerCount = player.playerCount;
 
-  // 调试：扫描候选键（PROBE_SCAN_KEYS 逗号分隔），仅打印不写 baseline
-  const SCAN_KEYS = (process.env.PROBE_SCAN_KEYS || '').split(',').map(s => s.trim()).filter(Boolean);
-  for (const k of SCAN_KEYS) await scanKey(R2_BASE, manifest, k);
-
+  // ② SBC 总数（轻量 HTTP，GitHub 直连 200）
   const s = await getJson(SBC_URL);
   let sbcTotal = null;
   if (s.ok && s.data) {
@@ -130,60 +125,52 @@ async function main() {
   }
   log('sbc status=%s totalCount=%s', s.status, sbcTotal);
 
-  // 球员：下载 fc-core-data 数条目
-  const core = await getCoreData(R2_BASE, manifest);
-  let playerCount = null, playerHash = null;
-  if (core.ok) {
-    playerCount = core.count; playerHash = core.sha1;
-    log('core-data status=%s count=%s sha1=%s sampleKeys=%s', core.status, core.count, core.sha1, JSON.stringify(core.sampleKeys));
-  } else {
-    log('core-data FETCH_FAIL status=%s reason=%s', core.status, core.reason || core.err || '-');
-  }
-
-  // 进化：manifest hash 白名单
+  // ③ 进化 hash（轻量 HTTP，manifest）
+  const m = await getJson(`${R2_BASE}/manifest.json`);
+  let manifest = null;
+  if (m.ok && m.data && typeof m.data === 'object') manifest = m.data;
+  log('manifest status=%s keys=%s', m.status, manifest ? Object.keys(manifest).length : '-');
   const manifestHashes = {};
   if (manifest) {
     for (const k of WHITELIST) {
-      if (EXCLUDE.has(k)) continue;
       if (k in manifest) manifestHashes[k] = manifest[k];
     }
   }
+
   const current = {
     ts: Date.now(),
-    manifestStatus: m.status,
+    playerStatus: player.ok ? player.status : (player.status || -1),
     sbcStatus: s.status,
-    coreDataStatus: core.ok ? core.status : (core.status || -1),
-    playerCount, playerHash,
-    manifestHashes, sbcTotal
+    manifestStatus: m.status,
+    playerCount,
+    sbcTotal,
+    manifestHashes
   };
 
   let baseline = {};
   try { baseline = JSON.parse(fs.readFileSync(BASELINE_PATH, 'utf8')); } catch (e) { baseline = {}; }
-  const firstRun = !baseline || Object.keys(baseline).length === 0;
+  const firstRun = Object.keys(baseline).length === 0;
 
   if (firstRun) {
     log('FIRST_RUN: seeding baseline, no dispatch');
     fs.writeFileSync(BASELINE_PATH, JSON.stringify(current, null, 2));
-    log('playerCount=%s (expect ~19860 if fc-core-data is full set)', playerCount);
-    log('all manifest keys: ' + (manifest ? Object.keys(manifest).join(', ') : '(unavailable)'));
+    log('seeded: playerCount=%s sbcTotal=%s evoHashes=%s', playerCount, sbcTotal, JSON.stringify(manifestHashes));
     pingHC(true);
     return;
   }
 
-  // detect change
+  // 变化检测
   let changed = false; const reasons = [];
-  if (!core.ok && sbcTotal == null && Object.keys(manifestHashes).length === 0) {
-    log('NO_SOURCE_AVAILABLE: cannot determine; failing safe (no dispatch)');
+  if (!player.ok && sbcTotal == null && Object.keys(manifestHashes).length === 0) {
+    log('NO_SOURCE_AVAILABLE: 三条信号全失败，fail-open 不触发');
     pingHC(false);
     return;
   }
-  if (core.ok) {
-    if (baseline.playerCount != null && playerCount !== baseline.playerCount) {
-      changed = true; reasons.push(`player:count ${baseline.playerCount}->${playerCount}`);
-    }
-    if (baseline.playerHash != null && playerHash !== baseline.playerHash) {
-      changed = true; reasons.push(`player:hash ${String(baseline.playerHash).slice(0, 8)}->${String(playerHash).slice(0, 8)}`);
-    }
+  if (player.ok && baseline.playerCount != null && playerCount !== baseline.playerCount) {
+    changed = true; reasons.push(`player:count ${baseline.playerCount}->${playerCount}`);
+  }
+  if (sbcTotal != null && baseline.sbcTotal != null && sbcTotal !== baseline.sbcTotal) {
+    changed = true; reasons.push(`sbc:${baseline.sbcTotal}->${sbcTotal}`);
   }
   if (Object.keys(manifestHashes).length) {
     const bH = baseline.manifestHashes || {};
@@ -194,22 +181,22 @@ async function main() {
       }
     }
   }
-  if (sbcTotal != null && baseline.sbcTotal != null && sbcTotal !== baseline.sbcTotal) {
-    changed = true; reasons.push(`sbc:${baseline.sbcTotal}->${sbcTotal}`);
+  // 有球员信号但基线里没有（罕见）：视为需触发
+  if (player.ok && !('playerCount' in baseline) && baseline.playerCount == null) {
+    reasons.push('no-player-baseline'); changed = true;
   }
-  if (core.ok && !('playerCount' in baseline)) { reasons.push('no-player-baseline'); changed = true; }
-  log('changed=%s reasons=%s', changed, reasons.join(' | '));
+  log('changed=%s reasons=%s', changed, reasons.join(' | ') || '(none)');
 
   if (MODE === 'observe') {
-    log('OBSERVE: writing baseline, no dispatch');
+    log('OBSERVE: 写 baseline，不 dispatch');
     fs.writeFileSync(BASELINE_PATH, JSON.stringify(current, null, 2));
-    log('playerCount=%s (baseline seeded)', playerCount);
+    log('baseline: playerCount=%s sbcTotal=%s evoHashes=%s', playerCount, sbcTotal, JSON.stringify(manifestHashes));
     pingHC(true);
     return;
   }
 
   if (changed) {
-    // in-flight / recent dedup: avoid duplicate dispatch
+    // 60min in-flight / 近期去重：避免一小时内重复 dispatch
     if (GH_TOKEN) {
       try {
         const api = `https://api.github.com/repos/${DISPATCH_REPO}/actions/workflows/${DISPATCH_WF}/runs?per_page=5`;
@@ -218,13 +205,14 @@ async function main() {
           const j = await r.json();
           const now = Date.now();
           const recent = (j.workflow_runs || []).filter(run => {
-            const st = run.status; const created = new Date(run.created_at).getTime();
+            const st = run.status;
+            const created = new Date(run.created_at).getTime();
             if (st === 'queued' || st === 'in_progress') return true;
             if (st === 'completed' && now - created < 60 * 60 * 1000) return true;
             return false;
           });
           if (recent.length > 0) {
-            log('IN_FLIGHT/RECENT fetch run detected (%d), skip dispatch to avoid duplicate', recent.length);
+            log('IN_FLIGHT/RECENT fetch run 存在 (%d)，跳过 dispatch 防重复', recent.length);
             changed = false;
           }
         }
@@ -241,7 +229,7 @@ async function main() {
     log('no change, nothing to do');
   }
 
-  // persist baseline so same state won't re-dispatch
+  // 持久化 baseline，避免重复误报
   fs.writeFileSync(BASELINE_PATH, JSON.stringify(current, null, 2));
   pingHC(true);
 }

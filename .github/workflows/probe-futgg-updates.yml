@@ -7,10 +7,6 @@ on:
         description: 'probe (default, may dispatch) | observe (seed baseline only, no dispatch)'
         required: false
         default: 'probe'
-      scan_keys:
-        description: 'debug: comma-separated manifest keys to scan (status/size/count/sample), no dispatch effect'
-        required: false
-        default: ''
 
 permissions:
   contents: write      # commit probe/baseline.json
@@ -19,20 +15,29 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+
+      # 浏览器过 Cloudflare 需要 Playwright Chromium（与 fetch-fc27 同机制）
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
       - name: Run probe
         env:
           PROBE_MODE: ${{ inputs.mode }}
-          PROBE_SCAN_KEYS: ${{ inputs.scan_keys }}
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
           HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_PROBE }}
         run: node scripts/probe_futgg.js
+
       - name: Commit baseline if changed
         run: |
           git config user.name "github-actions[bot]"
