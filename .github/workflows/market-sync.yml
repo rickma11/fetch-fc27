@@ -1,0 +1,57 @@
+name: Market Sync Hourly (FC27 prices)
+
+# 独立旁路：把 eafc-miniapp 的 market_sync 云函数逻辑搬到 GitHub 跑。
+# 详见 eafc-miniapp/docs/25-market-sync-to-github.md。
+#
+# 触发：仅 workflow_dispatch（由 cron-job.org 每小时 POST，或手动触发）。
+#   - 不挂 Fetch FC27 Daily，对原每日抓取流水线零影响；
+#   - 默认 upload=false 空跑验证；cron-job.org 传 inputs.upload=true 才真写云存储。
+#
+# 迁移顺序：本 workflow 先建好（闲置）→ 配 cron-job.org 指向它 → 验证稳定后停云函数定时器。
+#   在配第三方触发前，云函数 market_sync 必须继续跑（否则市场价格停更）。
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: '是否上传到云存储（false=空跑验证，true=真写）'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: market-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync & upload (upload=${{ github.event.inputs.upload }})
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/price_sync_cloud.js ${{ github.event.inputs.upload == 'true' && '--upload' || '' }}
