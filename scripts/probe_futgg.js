@@ -57,8 +57,28 @@ async function getJson(url, timeoutMs = 20000) {
   } finally { clearTimeout(t); }
 }
 
-// 用 Playwright 真实浏览器过 Cloudflare，抓 players/v2 第一页读 total（count-only）。
-// 复用 fetch-fc27 的过 CF 范式：先 goto 首页触发挑战，再轮询同源 API 直到 200。
+// 用 Playwright 真实浏览器过 Cloudflare，按 overall 分桶抓 players/v2 真实 total 求和（count-only）。
+// 为什么分桶：API 有 max_result_window=10000，单页 total 被卡在 10000（实际 ~19860 人），
+// 必须按 overall 分桶（overall__gte/lte）把每桶真实 total 加起来才准。
+// 命中 10000 上限的桶自动拆成单 OVR 再求，避免被窗口截断。
+function chunk(arr, n) { const r = []; for (let i = 0; i < arr.length; i += n) r.push(arr.slice(i, i + n)); return r; }
+
+async function fetchBucketTotal(page, lo, hi) {
+  const url = `${PLAYERS_URL}?page=1&overall__gte=${lo}&overall__lte=${hi}`;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const r = await page.request.get(url, { headers: { Accept: 'application/json' }, timeout: 20000 });
+      if (r.status() === 200) {
+        const j = await r.json();
+        const t = (j && typeof j.total === 'number') ? j.total : 0;
+        return { ok: true, total: t, capped: t >= 10000 };
+      }
+    } catch (e) { /* retry */ }
+    await new Promise(res => setTimeout(res, 1000));
+  }
+  return { ok: false, total: 0 };
+}
+
 async function getPlayerCount() {
   log('player: launching chromium (bypass Cloudflare)...');
   const browser = await chromium.launch({
@@ -72,31 +92,42 @@ async function getPlayerCount() {
     const page = await ctx.newPage();
     await page.goto('https://www.fut.gg/', { waitUntil: 'domcontentloaded', timeout: 60000 });
 
-    let passed = false, total = null, status = null, topKeys = null;
+    let passed = false, status = null;
     for (let i = 0; i < 30; i++) {
       try {
         const r = await page.request.get(`${PLAYERS_URL}?page=1`, { headers: { Accept: 'application/json' }, timeout: 20000 });
         status = r.status();
-        if (status === 200) {
-          const j = await r.json();
-          total = (j && typeof j.total === 'number') ? j.total : null;
-          topKeys = j && typeof j === 'object' ? Object.keys(j).slice(0, 12) : null;
-          passed = true;
-          break;
-        }
+        if (status === 200) { passed = true; break; }
       } catch (e) { /* keep polling */ }
-      await page.waitForTimeout(3000);
+      await new Promise(res => setTimeout(res, 3000));
     }
     if (!passed) {
       log('player: Cloudflare 未通过（status=%s），本次无法获取球员数量', status);
       return { ok: false, reason: 'cf-not-passed', status };
     }
-    if (total == null) {
-      log('player: 200 但响应无 total 字段，topKeys=%s —— 需核实字段名', JSON.stringify(topKeys));
-      return { ok: false, reason: 'no-total-field', status, topKeys };
+
+    // 5-OVR 分桶；命中 10000 上限的桶拆成单 OVR 再求
+    const buckets = [];
+    for (let lo = 1; lo <= 99; lo += 5) { const hi = Math.min(lo + 4, 99); buckets.push([lo, hi]); }
+    let total = 0, failed = 0; const bucketTotals = [];
+    for (const group of chunk(buckets, 5)) {
+      const res = await Promise.all(group.map(([lo, hi]) => fetchBucketTotal(page, lo, hi)));
+      for (let i = 0; i < res.length; i++) {
+        const r = res[i]; const [lo, hi] = group[i];
+        if (!r.ok) { failed++; continue; }
+        if (r.capped) {
+          const sub = await Promise.all(Array.from({ length: hi - lo + 1 }, (_, k) => fetchBucketTotal(page, lo + k, lo + k)));
+          for (const s of sub) { if (!s.ok) { failed++; continue; } total += s.total; bucketTotals.push(s.total); }
+        } else { total += r.total; bucketTotals.push(r.total); }
+      }
+      await new Promise(res => setTimeout(res, 200));
     }
-    log('player: status=%s total=%s topKeys=%s', status, total, JSON.stringify(topKeys));
-    return { ok: true, status, playerCount: total };
+    if (failed >= 5) {
+      log('player: %d 个桶失败，判定球员数量不可用', failed);
+      return { ok: false, reason: 'too-many-failures', failed };
+    }
+    log('player: 真实球员总数=%s（%d 桶，失败 %d）', total, bucketTotals.length, failed);
+    return { ok: true, status: 200, playerCount: total };
   } finally {
     await browser.close();
   }
