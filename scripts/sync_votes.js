@@ -3,11 +3,12 @@
 // 职责：
 //   ① 过 Cloudflare 拉 fut.gg 全量球员列表（/api/fut/players/v2/{ver}/?page=N），建两套映射：
 //      - 投票：v2EaId → list id（/api/voting 要 list id）
-//      - 化学：v2 eaId（卡片实例 id，基础卡=真 eaId、特殊卡=50M 级）→ trueEaId
+//      - 化学：v2 eaId（卡片实例 id，基础卡=真 eaId、特殊卡=50M 级）→ 代表卡片 chemId
 //        ⚠️ 关键：化学端点 /api/fut/players/{ver}/{id}/chemistry-style/ 的 {id} 必须是 v2 列表项的 eaId 字段，
 //           不是 list id（list id 一律 404）。详见 2026-10-03 探针（Akliouche: listId=145529→404；eaId=264862→200 total19；卡片实例id 50596510→200 total503≈截图54/27/8）。
 //   ② 化学推荐：逐卡片实例 id 拉 /api/fut/players/{ver}/{id}/chemistry-style/ 取 top3 风格 + 总票数；
-//      按 trueEaId 归类，选票数最多的卡片作为该球员代表推荐（端上按真 eaId 查）。
+//      按 trueEaId 归类选票数最多的卡片作为该球员代表推荐，再展开为「每个版本卡实例 id → 代表 chemId」
+//      （含特殊卡），端上用任意卡实例 id 查 chem_meta.map 均命中（2026-10-03 修：特殊卡原本空白）。
 //   ③ 社区投票：逐 list id 拉 /api/voting/{ver}/{id}/ 取 fut.gg 原生 up/down/total/score；
 //      读云库 votes_user_fc{ver} 聚合小程序用户票；合并（futgg.total>miniapp.total 则刷新，否则不变）。
 //
@@ -18,7 +19,7 @@
 //   只在 full（周日）重建映射并重新发布。化学抓取本身仍需过 CF 的浏览器会话，无法跳过。
 //
 // 上传云存储（公有读，零云函数配额）：
-//   化学： fc{ver}/data/chem_meta/chem_meta.json   { updatedAt, map:{trueEaId:bestChemId}, count }
+//   化学： fc{ver}/data/chem_meta/chem_meta.json   { updatedAt, map:{eaId:bestChemId}, count }   // eaId 含所有版本卡实例 id（基础卡+特殊卡）
 //         fc{ver}/data/chem/<bucket>.json          { updatedAt, byId:{chemId(v2 eaId):{total, top3:[[apiId,pct],...]}} }
 //   投票： fc{ver}/data/vote_meta/vote_meta.json   { updatedAt, map, baseMap }
 //         fc{ver}/data/votes/<bucket>.json         { updatedAt, byId:{listId:{up,down,total,score}} }
@@ -439,6 +440,20 @@ function pickBestChem(chemIndex, chem) {
   return best;
 }
 
+// 展开：trueEaId→bestChemId 扩展为每个卡片实例 id→bestChemId，
+// 使端上用任意版本卡实例 id（基础卡 eaId / 特殊卡 50M 级 id）查 chem_meta.map 都能命中。
+// 背景（2026-10-03 用户反馈）：云库 players_fc27 / details_fc27 均未存 basePlayerEaId 字段，
+//       端上打开特殊卡时只能拿到卡片实例 id（如 SBC 的 84119499），而旧 map 仅按 trueEaId（基础卡）建索引
+//       ⇒ 特殊卡查 map 必 miss、化学推荐整段空白。展开后实例 id 直接命中，无需端上依赖 basePlayerEaId。
+function expandChemMap(chemIndex, best) {
+  const out = {};
+  for (const ck of Object.keys(chemIndex)) {
+    const bc = best[chemIndex[ck]];
+    if (bc != null) out[ck] = bc;
+  }
+  return out;
+}
+
 // ④ 投票分桶组装（含 miniapp 合并）
 function buildVoteBuckets(map, baseMap, futgg, mini) {
   const buckets = {};
@@ -568,7 +583,10 @@ async function uploadBuckets(app, prefix, buckets, nowIso, label, concurrency) {
 
   // —— 化学推荐：组装 + 上传 ——
   if (RUN_CHEM) {
-    if (!chemMap) chemMap = pickBestChem(chemIndex, chem);   // 非缓存路径：按 trueEaId 选票数最多卡片
+    if (!chemMap) {
+      const best = pickBestChem(chemIndex, chem);   // 非缓存路径：按 trueEaId 选票数最多卡片
+      chemMap = expandChemMap(chemIndex, best);     // 展开：每个版本卡实例 id 都能查到该球员代表推荐（含特殊卡）
+    }
     console.log('\n④ 化学：分桶 + 上传...');
     const chemBuckets = buildChemBuckets(chemMap, chem);
     const chemMeta = { updatedAt: nowIso, ver: VER, count: Object.keys(chemMap).length, buckets: Object.keys(chemBuckets).length, map: chemMap, baseMap: {} };
