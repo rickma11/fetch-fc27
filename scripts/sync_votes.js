@@ -1,10 +1,14 @@
 // 社区投票 + 化学推荐同步脚本（FC27）。
 //
 // 职责：
-//   ① 过 Cloudflare 拉 fut.gg 全量球员列表（/api/fut/players/v2/{ver}/?page=N），
-//      建 eaId → fut.gg id 映射（投票/化学接口都用 fut.gg 内部 id，不是 eaId 也不是 basePlayerEaId）。
-//   ② 化学推荐：逐 fut.gg id 拉 /api/fut/players/{ver}/{id}/chemistry-style/ 取 top3 风格 + 总票数。
-//   ③ 社区投票：逐 fut.gg id 拉 /api/voting/{ver}/{id}/ 取 fut.gg 原生 up/down/total/score；
+//   ① 过 Cloudflare 拉 fut.gg 全量球员列表（/api/fut/players/v2/{ver}/?page=N），建两套映射：
+//      - 投票：v2EaId → list id（/api/voting 要 list id）
+//      - 化学：v2 eaId（卡片实例 id，基础卡=真 eaId、特殊卡=50M 级）→ trueEaId
+//        ⚠️ 关键：化学端点 /api/fut/players/{ver}/{id}/chemistry-style/ 的 {id} 必须是 v2 列表项的 eaId 字段，
+//           不是 list id（list id 一律 404）。详见 2026-10-03 探针（Akliouche: listId=145529→404；eaId=264862→200 total19；卡片实例id 50596510→200 total503≈截图54/27/8）。
+//   ② 化学推荐：逐卡片实例 id 拉 /api/fut/players/{ver}/{id}/chemistry-style/ 取 top3 风格 + 总票数；
+//      按 trueEaId 归类，选票数最多的卡片作为该球员代表推荐（端上按真 eaId 查）。
+//   ③ 社区投票：逐 list id 拉 /api/voting/{ver}/{id}/ 取 fut.gg 原生 up/down/total/score；
 //      读云库 votes_user_fc{ver} 聚合小程序用户票；合并（futgg.total>miniapp.total 则刷新，否则不变）。
 //
 // 调度（北京时间）：每天由 cron-job.org 触发一次，mode 决定抓什么：
@@ -14,11 +18,11 @@
 //   只在 full（周日）重建映射并重新发布。化学抓取本身仍需过 CF 的浏览器会话，无法跳过。
 //
 // 上传云存储（公有读，零云函数配额）：
-//   化学： fc{ver}/data/chem_meta/chem_meta.json   { updatedAt, map, baseMap, count }
-//         fc{ver}/data/chem/<bucket>.json          { updatedAt, byId:{futggId:{total, top3:[[apiId,pct],...]}} }
+//   化学： fc{ver}/data/chem_meta/chem_meta.json   { updatedAt, map:{trueEaId:bestChemId}, count }
+//         fc{ver}/data/chem/<bucket>.json          { updatedAt, byId:{chemId(v2 eaId):{total, top3:[[apiId,pct],...]}} }
 //   投票： fc{ver}/data/vote_meta/vote_meta.json   { updatedAt, map, baseMap }
-//         fc{ver}/data/votes/<bucket>.json         { updatedAt, byId:{futggId:{up,down,total,score}} }
-//   bucket = floor(futggId/1000)。
+//         fc{ver}/data/votes/<bucket>.json         { updatedAt, byId:{listId:{up,down,total,score}} }
+//   bucket = floor(chemId/1000)（化学）｜ floor(listId/1000)（投票）。
 //
 // 端上：utils/chemRecommend.js 只读 chem 静态 JSON（不投票）；utils/vote.js 读 votes 静态 JSON + 直写云库投票。
 //
@@ -153,20 +157,21 @@ async function buildMapping(page) {
     const j1 = await r1.json();
     const first = Array.isArray(j1.data) ? j1.data : [];
 
-    const map = {};
-    const baseMap = {};
-    const seen = new Set();
+    const map = {};          // v2EaId -> listId（投票用：/api/voting 要 list id）
+    const baseMap = {};       // v2EaId -> trueEaId（投票用）
+    const chemIndex = {};     // chemId(v2 eaId，卡片实例 id) -> trueEaId（化学用：/api/.../chemistry-style/ 要 v2 eaId，不是 list id）
+    const seenV = new Set();  // 按 v2EaId 去重（每张卡唯一）
+    const seenC = new Set();  // 按 chemId 去重
     const push = arr => {
       let added = 0;
       for (const pl of arr) {
-        const ea = pl.eaId != null ? Number(pl.eaId) : null;
-        if (!ea || seen.has(ea)) continue;
-        seen.add(ea);
-        const fgId = pl.id != null ? Number(pl.id) : ea;
-        const base = pl.basePlayerEaId != null ? Number(pl.basePlayerEaId) : ea;
-        map[ea] = fgId;
-        baseMap[ea] = base;
-        added++;
+        const v2Ea = pl.eaId != null ? Number(pl.eaId) : null;
+        if (v2Ea == null) continue;
+        const listId = pl.id != null ? Number(pl.id) : v2Ea;   // 投票接口用 list id
+        const base = pl.basePlayerEaId != null ? Number(pl.basePlayerEaId) : v2Ea;
+        const chemId = v2Ea;                                   // 化学接口要 v2 eaId（卡片实例 id：基础卡=真eaId，特殊卡=50M 级）
+        if (!seenV.has(v2Ea)) { seenV.add(v2Ea); map[v2Ea] = listId; baseMap[v2Ea] = base; added++; }
+        if (!seenC.has(chemId)) { seenC.add(chemId); chemIndex[chemId] = base; }
       }
       return added;
     };
@@ -210,14 +215,14 @@ async function buildMapping(page) {
       for (const ovr of failedOvr) { await sleep(3000); await fetchBucket(ovr); }
     }
     console.log('  分桶翻页完成：OVR ' + OVR_MAX + '→' + OVR_MIN + ' 共 ' + bucketCount + ' 桶' + (failedOvr.length ? '（已重试 ' + failedOvr.length + ' 个失败桶）' : ''));
-    return { map: map, baseMap: baseMap, count: seen.size };
+    return { map: map, baseMap: baseMap, chemIndex: chemIndex, count: seenV.size, chemCount: seenC.size };
   }, { BASE: 'https://www.fut.gg/api/fut', VER: VER, OVR_MIN: 1 });
 
-  console.log('  映射完成：', result.count, '名球员（eaId → fut.gg id）');
+  console.log('  映射完成：', result.count, '名球员（投票 v2EaId→listId）｜化学 chemId 数', result.chemCount);
   if (result.count < 19000) {
     throw new Error('列表抓取异常偏少（' + result.count + ' 人，预期 ~20000）——疑似中段 OVR 桶被限流/遗漏，已阻断以免 meta 残缺');
   }
-  return { map: result.map, baseMap: result.baseMap };
+  return { map: result.map, baseMap: result.baseMap, chemIndex: result.chemIndex };
 }
 
 // ③ 读云库 votes_user_fc{ver} → 按 baseId 聚合 miniapp 票数（仅投票用）
@@ -404,18 +409,32 @@ async function fetchChem(page, ids) {
   return chem;
 }
 
-// ④ 化学分桶组装
+// ④ 化学分桶组装（map: trueEaId → bestChemId；chem: chemId → {total,top3}）
 function buildChemBuckets(map, chem) {
   const buckets = {};
   for (const eaIdStr of Object.keys(map)) {
-    const fgId = map[eaIdStr];
-    const c = chem[fgId];
-    if (!c) continue;                       // 无数据不落库（端上隐藏）
-    const bucket = Math.floor(fgId / 1000);
+    const chemId = map[eaIdStr];
+    const c = chem[chemId];
+    if (!c || !c.total) continue;            // 无数据不落库（端上隐藏）
+    const bucket = Math.floor(Number(chemId) / 1000);
     if (!buckets[bucket]) buckets[bucket] = { byId: {} };
-    buckets[bucket].byId[String(fgId)] = { total: c.total, top3: c.top3 };
+    buckets[bucket].byId[String(chemId)] = { total: c.total, top3: c.top3 };
   }
   return buckets;
+}
+
+// 按 trueEaId 归类：每张卡(chemId)选票数最多的作为该球员代表推荐
+function pickBestChem(chemIndex, chem) {
+  const best = {};
+  for (const ck of Object.keys(chemIndex)) {
+    const te = chemIndex[ck];
+    const c = chem[ck];
+    if (!c) continue;
+    if (best[te] == null) { best[te] = ck; continue; }
+    const prev = chem[best[te]];
+    if (!prev || (c.total || 0) > (prev.total || 0)) best[te] = ck;
+  }
+  return best;
 }
 
 // ④ 投票分桶组装（含 miniapp 合并）
@@ -450,20 +469,24 @@ async function uploadJson(app, cloudPath, obj) {
   const ctx = await browser.newContext({ userAgent: UA });
   const page = await ctx.newPage();
 
-  // 映射：full（周日）重建；其余复用已发布的 chem_meta.map
-  let map, baseMap;
+  // 映射：full（周日）重建；其余复用已发布的 chem_meta.map（已是 trueEaId→bestChemId）
+  let map, baseMap, chemIndex, chemMap;
   const cached = REBUILD_MAP ? null : await getCachedMap();
+  let chemIds = [];
   if (cached) {
-    map = cached.map; baseMap = cached.baseMap;
+    // 缓存映射：chem_meta.map 已为 trueEaId → 最佳卡片 chemId（周日重建时产出），直接复用跳过 2 万翻页
+    chemMap = cached.map;
+    chemIds = [...new Set(Object.values(chemMap).map(Number))];
+    console.log('  复用已发布 chem_meta 映射：', Object.keys(chemMap).length, '名球员（化学目标 id', chemIds.length, '个，跳过浏览器翻页）');
   } else {
     const passed = await passCF(page);
     if (!passed) { await browser.close(); console.error('CF 未通过'); process.exit(2); }
     console.log('\n① 建映射...');
     const m = await buildMapping(page);
-    map = m.map; baseMap = m.baseMap;
+    map = m.map; baseMap = m.baseMap; chemIndex = m.chemIndex;
+    chemIds = [...new Set(Object.keys(chemIndex).map(k => Number(k)))];
+    console.log('  映射完成：化学抓取目标 id', chemIds.length, '个（含每张卡的卡片实例 id）');
   }
-  const ids = [...new Set(Object.values(map))];
-  console.log('  唯一 fut.gg id：', ids.length);
 
   // 浏览器内抓取（化学 + 投票都依赖已通过 CF 的 page，必须在 close 前完成）
   let chem = {};
@@ -473,13 +496,14 @@ async function uploadJson(app, cloudPath, obj) {
       const passed = await passCF(page);
       if (!passed) { await browser.close(); console.error('CF 未通过（化学抓取）'); process.exit(2); }
     }
-    console.log('\n② 拉 fut.gg 化学推荐（主 page 批量并发，批大小', VOTE_BATCH, '）...');
-    chem = await fetchChem(page, ids);
+    console.log('\n② 拉 fut.gg 化学推荐（主 page 批量并发，批大小', VOTE_BATCH, '，目标 id', chemIds.length, '）...');
+    chem = await fetchChem(page, chemIds);
   }
   let futgg = {};
   if (RUN_VOTES) {
-    console.log('\n② 拉 fut.gg 投票（主 page 批量并发，批大小', VOTE_BATCH, '）...');
-    futgg = await fetchVoting(page, ids);
+    const voteIds = map ? [...new Set(Object.values(map).map(Number))] : [];
+    console.log('\n② 拉 fut.gg 投票（主 page 批量并发，批大小', VOTE_BATCH, '，目标 id', voteIds.length, '）...');
+    futgg = await fetchVoting(page, voteIds);
   }
 
   await browser.close();
@@ -502,9 +526,10 @@ async function uploadJson(app, cloudPath, obj) {
 
   // —— 化学推荐：组装 + 上传 ——
   if (RUN_CHEM) {
+    if (!chemMap) chemMap = pickBestChem(chemIndex, chem);   // 非缓存路径：按 trueEaId 选票数最多卡片
     console.log('\n④ 化学：分桶 + 上传...');
-    const chemBuckets = buildChemBuckets(map, chem);
-    const chemMeta = { updatedAt: nowIso, ver: VER, count: Object.keys(map).length, buckets: Object.keys(chemBuckets).length, map: map, baseMap: baseMap };
+    const chemBuckets = buildChemBuckets(chemMap, chem);
+    const chemMeta = { updatedAt: nowIso, ver: VER, count: Object.keys(chemMap).length, buckets: Object.keys(chemBuckets).length, map: chemMap, baseMap: {} };
     fs.writeFileSync(path.join(OUT_DIR, 'chem_meta.json'), JSON.stringify(chemMeta));
     for (const b of Object.keys(chemBuckets)) {
       fs.writeFileSync(path.join(OUT_DIR, 'chem_' + b + '.json'), JSON.stringify({ updatedAt: nowIso, byId: chemBuckets[b].byId }));
