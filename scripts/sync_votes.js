@@ -91,7 +91,9 @@ function initCloud() {
   const sid = process.env.TCB_SECRET_ID || env.TCB_SECRET_ID;
   const skey = process.env.TCB_SECRET_KEY || env.TCB_SECRET_KEY;
   if (!envId || !sid || !skey) throw new Error('缺 TCB_ENV_ID / TCB_SECRET_ID / TCB_SECRET_KEY（来自 env 或 .env.local）');
-  return cloudbase.init({ env: envId, secretId: sid, secretKey: skey });
+  // timeout 给 SDK 层一个硬上限（@cloudbase/node-sdk 默认无超时，runner→COS 偶发 stalled 会无限挂）；
+  // 其值须小于下方 uploadJson 的 race 超时，让 SDK 先自我中止再走我们的重试。
+  return cloudbase.init({ env: envId, secretId: sid, secretKey: skey, timeout: 180000 });
 }
 
 async function apiGet(page, url, tries) {
@@ -458,11 +460,13 @@ function buildVoteBuckets(map, baseMap, futgg, mini) {
 
 // 带超时和重试的云存储上传（避免单个文件 hang 死整个 run）
 async function uploadJson(app, cloudPath, obj, timeoutMs) {
-  timeoutMs = timeoutMs || 60000;
+  // race 超时须 > SDK init 的 timeout(180s)，让 SDK 先自我中止、再走下面的重试；
+  // 单文件最多 3 次尝试 + 指数退避，扛 runner→COS 偶发 stalled（实测同一文件有时 60s 内无事、有时卡死）。
+  timeoutMs = timeoutMs || 200000;
   const jsonStr = JSON.stringify(obj);
   const buf = Buffer.from(jsonStr);
   let lastErr = '';
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  for (let attempt = 1; attempt <= 3; attempt++) {
     try {
       const up = await Promise.race([
         app.uploadFile({ cloudPath: cloudPath, fileContent: buf }),
@@ -471,8 +475,8 @@ async function uploadJson(app, cloudPath, obj, timeoutMs) {
       return up.fileID || up;
     } catch (e) {
       lastErr = e && e.message ? e.message : String(e);
-      console.log('  上传失败（attempt', attempt, '）', cloudPath, lastErr);
-      if (attempt < 2) await sleep(1000);
+      console.log('  上传失败（attempt', attempt, '/3）', cloudPath, lastErr);
+      if (attempt < 3) await sleep(2000 * attempt);
     }
   }
   throw new Error('上传 ' + cloudPath + ' 最终失败: ' + lastErr);
