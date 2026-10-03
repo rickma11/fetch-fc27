@@ -77,6 +77,32 @@ async function getCoreData(r2Base, manifest) {
   } finally { clearTimeout(t); }
 }
 
+// 调试用：扫描某个 manifest 键，报告 status / 体积 / 条目数 / 样本键（不写 baseline）
+async function scanKey(r2Base, manifest, key) {
+  if (!manifest || !(key in manifest)) { log('SCAN %s: not in manifest', key); return; }
+  const hash = manifest[key];
+  const url = `${r2Base}/${key}.v1.${hash}.json`;
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), 60000);
+  try {
+    const res = await fetch(url, { signal: ctrl.signal, headers: { 'User-Agent': 'Mozilla/5.0 (compatible; OAO-probe/1.0)', Accept: 'application/json' } });
+    if (!res.ok) { log('SCAN %s: http %s', key, res.status); return; }
+    const text = await res.text();
+    let data; try { data = JSON.parse(text); } catch (e) { log('SCAN %s: json-parse-fail', key); return; }
+    const count = Array.isArray(data) ? data.length
+      : (data && Array.isArray(data.data)) ? data.data.length
+      : (data && typeof data === 'object') ? Object.keys(data).length : null;
+    const sampleKeys = Array.isArray(data)
+      ? (data[0] && typeof data[0] === 'object' ? Object.keys(data[0]).slice(0, 25) : null)
+      : (data && typeof data === 'object' ? Object.keys(data).slice(0, 25) : null);
+    const sample0 = Array.isArray(data) && data[0] ? JSON.stringify(data[0]).slice(0, 300) : null;
+    log('SCAN %s: http=%s bytes=%d count=%s sampleKeys=%s', key, res.status, Buffer.byteLength(text), count, JSON.stringify(sampleKeys));
+    if (sample0) log('SCAN %s sample0=%s', key, sample0);
+  } catch (e) {
+    log('SCAN %s err %s', key, e.name === 'AbortError' ? 'timeout' : e.message);
+  } finally { clearTimeout(t); }
+}
+
 function pingHC(success) {
   if (!HC_URL) return;
   const url = success ? HC_URL : HC_URL + '/fail';
@@ -91,6 +117,10 @@ async function main() {
   let manifest = null;
   if (m.ok && m.data && typeof m.data === 'object') manifest = m.data;
   log('manifest status=%s keys=%s', m.status, manifest ? Object.keys(manifest).length : '-');
+
+  // 调试：扫描候选键（PROBE_SCAN_KEYS 逗号分隔），仅打印不写 baseline
+  const SCAN_KEYS = (process.env.PROBE_SCAN_KEYS || '').split(',').map(s => s.trim()).filter(Boolean);
+  for (const k of SCAN_KEYS) await scanKey(R2_BASE, manifest, k);
 
   const s = await getJson(SBC_URL);
   let sbcTotal = null;

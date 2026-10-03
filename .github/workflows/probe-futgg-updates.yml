@@ -7,6 +7,10 @@ on:
         description: 'probe (default, may dispatch) | observe (seed baseline only, no dispatch)'
         required: false
         default: 'probe'
+      scan_keys:
+        description: 'debug: comma-separated manifest keys to scan (status/size/count/sample), no dispatch effect'
+        required: false
+        default: ''
 
 permissions:
   contents: write      # commit probe/baseline.json
@@ -24,6 +28,7 @@ jobs:
       - name: Run probe
         env:
           PROBE_MODE: ${{ inputs.mode }}
+          PROBE_SCAN_KEYS: ${{ inputs.scan_keys }}
           GH_TOKEN: ${{ github.token }}
           GITHUB_TOKEN: ${{ github.token }}
           HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_PROBE }}
