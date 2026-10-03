@@ -1,9 +1,13 @@
-// export_roster_83plus.js —— 从「最新球员全量」导出供市场价监控用的 83+ 子集。
+// export_roster_83plus.js —— 从「最新球员全量」导出供市场价监控用的 80+ 子集。
+//
+// ⚠️ 2026-10-03 变更：阈值 83 → 80（市场页新增「81+ 分档(81~84)」与「搜索 80+」），
+//   文件名/云路径沿用 roster_83plus.json（用户拍板：不改名，消费方 URL 零改动）。
+//   规模实测：80+ ≈ 1118 条（原 83+ ≈ 624 条），云库读次数 624→1118/日。
 //
 // 数据来源（两种，按可用性与配额择优）：
 //   ① 优先：sync_i18n 刚落盘的共享扫描缓存 cloud-data/fc27/_scan_cache.json
 //           （带 --from-cache ⇒ 0 云库读；缓存缺失/过期/条数不足 ⇒ 退化到 ②）
-//   ② 退化：直接扫云库 players_fc27，仅投影 5 字段 + 仅 overall>=83
+//   ② 退化：直接扫云库 players_fc27，仅投影 5 字段 + 仅 overall>=MIN_RATING
 //           （≈624 条 = ≈624 读，比全表 19,860 读轻得多；仅缓存不可用时才走）
 //
 // 产物（本地模拟）：cloud-data/fc27/roster_83plus.json
@@ -19,6 +23,8 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const VER = 27;
+// 市场价监控的最低总评（市场页 81+ 分档与 80+ 搜索的数据源）
+const MIN_RATING = 80;
 
 const argv = process.argv.slice(2);
 let FROM_CACHE = false;
@@ -79,10 +85,10 @@ async function main() {
       console.warn('[export_roster_83plus] 加载 scan_cache 失败 ⇒ 退化直扫：' + String(e && e.message || e).slice(0, 100));
     }
   } else {
-    console.log('[export_roster_83plus] 未指定 --from-cache，直接走云库扫描（轻量，仅 83+）');
+    console.log('[export_roster_83plus] 未指定 --from-cache，直接走云库扫描（轻量，仅 ' + MIN_RATING + '+）');
   }
 
-  // ② 退化：直扫云库 players_fc27，仅投影 5 字段 + 仅 overall>=83
+  // ② 退化：直扫云库 players_fc27，仅投影 5 字段 + 仅 overall>=MIN_RATING
   if (!rows) {
     const { resolve } = require('./tcb_env');
     const cred = resolve();
@@ -99,7 +105,7 @@ async function main() {
     const all = [];
     let skip = 0;
     while (true) {
-      const r = await db.collection(COL).field(proj).where({ overall: cmd.gte(83) }).skip(skip).limit(1000).get();
+      const r = await db.collection(COL).field(proj).where({ overall: cmd.gte(MIN_RATING) }).skip(skip).limit(1000).get();
       const d = r.data || [];
       if (!d.length) break;
       all.push(...d);
@@ -107,18 +113,18 @@ async function main() {
       skip += 1000;
     }
     rows = all;
-    sourceLabel = 'cloud_db(直扫 83+, 轻量)';
+    sourceLabel = 'cloud_db(直扫 ' + MIN_RATING + '+, 轻量)';
     console.log('[export_roster_83plus] 直扫云库 ' + all.length + ' 条(83+)');
   }
 
-  // 筛 83+ + 投影 + 按 overall 降序
+  // 筛 MIN_RATING+ + 投影 + 按 overall 降序
   const out = rows
-    .filter(p => (p.overall || 0) >= 83)
+    .filter(p => (p.overall || 0) >= MIN_RATING)
     .map(project)
     .sort((a, b) => b.overall - a.overall);
 
   if (!out.length) {
-    throw new Error('筛出 0 条 83+，疑似数据源异常，拒绝写出空文件');
+    throw new Error('筛出 0 条 ' + MIN_RATING + '+，疑似数据源异常，拒绝写出空文件');
   }
 
   const body = writeOut(out, sourceLabel);

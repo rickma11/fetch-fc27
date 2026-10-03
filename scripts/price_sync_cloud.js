@@ -4,8 +4,7 @@
 // 本脚本在 fetch-fc27 的 GitHub Actions 里跑，逻辑与端上契约**完全对齐**：
 //   - 桶算法 = 北京时间纯小时（分钟固定 00），与端上 utils/priceStore.js#bucketOf 一致；
 //   - 产出 price_view_<YYYYMMDDHH00>.json（端上只读这个）；
-//   - prev 文件 = fc27/market/price_all_market_latest.json（{ts, prices}），与云函数同结构；
-//   - 24h 异动门控：非门控日 moves=[]（端上「暂无可显异动」非 bug）。
+//   - 2026-10-03：异动榜（moves）下线 —— 不再读/写 prev 快照、不再算 moves，每小时只更新分档价。
 //
 // 唯一与云函数的差异：上传从 wx-server-sdk 的 cloud.uploadFile 换成 @cloudbase/node-sdk
 // （同 export-roster-83plus.yml 已验证的 TCB_* Secrets 链）。
@@ -23,11 +22,8 @@ const core = require('./market_core.js');
 
 // ⚠️ 与云函数 market_sync 常量保持一致（勿改，否则端上契约漂移）。
 const VER = 27;
-const MOVES_INTERVAL_MS = 24 * 3600 * 1000;          // 异动榜每日一次
 const PRICE_VIEW_PREFIX = 'fc27/market/price_view_';
-const PREV_CLOUD_PATH = 'fc27/market/price_all_market_latest.json';
 const ROSTER_URL = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la/fc27/data/roster_83plus.json';
-const PREV_URL = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la/fc27/market/price_all_market_latest.json';
 const FETCH_TIMEOUT = 8000;
 
 // 北京时间（UTC+8）分桶：YYYYMMDDHHMM（纯小时粒度，分钟固定 00）。⚠️ 必须与端上 utils/priceStore.js#bucketOf 一致。
@@ -76,16 +72,6 @@ async function loadRoster() {
     });
 }
 
-// prev 读：fetch 公有读 URL（0 腾讯配额）。失败返回 {}（非门控日 moves 自然为 []）
-async function readPrev() {
-  try {
-    const j = await httpGetJson(PREV_URL);
-    return { prices: (j && j.prices) || {}, ts: (j && j.ts) || 0 };
-  } catch (e) {
-    return { prices: {}, ts: 0 };
-  }
-}
-
 // ── 上传（@cloudbase/node-sdk，与 export-roster-83plus.yml 同链） ──
 let __tcbApp = null;
 function tcbApp() {
@@ -129,25 +115,8 @@ async function runHourlySync(doUpload) {
   }
 
   const now = Date.now();
-  const prevState = await readPrev();
-  const lastRun = Math.max(prevState.ts || 0, 0);
-  logStep('readPrev done, lastRun=' + lastRun);
-
-  let built;
-  let moved = false;
-  if (now - lastRun >= MOVES_INTERVAL_MS) {
-    // 门控日：用上轮全量价算异动榜，并回写当前价为新 prev
-    logStep('moves gate open (now-lastRun=' + (now - lastRun) + 'ms)');
-    built = core.build(roster, pull.rows, prevState.prices, 'futnext');
-    if (doUpload) await uploadText(PREV_CLOUD_PATH, { ts: now, prices: pull.rows });
-    moved = true;
-    logStep('upload prev done');
-  } else {
-    // 非门控日：prev={} ⇒ build 内 moves=[]（端上「暂无可显异动」非 bug）
-    logStep('moves gate skip (now-lastRun=' + (now - lastRun) + 'ms)');
-    built = core.build(roster, pull.rows, {}, 'futnext');
-  }
-  logStep('build done, tierN=' + built.tierN + ', mvN=' + built.mvN);
+  const built = core.build(roster, pull.rows, {}, 'futnext');
+  logStep('build done, tierN=' + built.tierN);
 
   const bucket = bucketOf();
   if (doUpload) {
@@ -162,8 +131,6 @@ async function runHourlySync(doUpload) {
     ts: now,
     bucket: bucket,
     tierN: built.tierN,
-    mvN: built.mvN,
-    moved: moved,
     costMs: now - runStart,
     pullFailed: pull.failed,
     pullBatches: pull.batches

@@ -16,26 +16,15 @@ const CLOUD_BUCKET = '636c-cloud1-d5gq6q3np8708aeef-1475854307';
 function cardCloudId(eaId, hasPortrait) {
   return 'cloud://' + CLOUD_ENV + '.' + CLOUD_BUCKET + '/fc27/images/' + eaId + (hasPortrait ? '_card.webp' : '_np.webp');
 }
-const TIER_MIN = 83;       // 2026-09-27 拍板：从 85+ 扩到 83+（85+ 只有 424 张）
-const MOVE_MIN_PCT = 20;   // 异动榜门槛
-const MOVE_TOP = 200;
-// ⚠️ 基准价下限（2026-09-27 实测发现）：
-//   futnext 对「当时几乎无人挂单」的卡会回一个很低的占位价（200 / 750 / 850…），
-//   一旦真实挂单出现就是 +2400% / +1233% 这种假异动，把异动榜整页刷满垃圾。
-//   实测样例：Kevin Angulo 200→5000 (+2400%)、Patrik Hrošovský 750→10000 (+1233%)。
-//   首轮 1000 档仍漏：云端实跑异动前 5 条全是占位价（Gorosabel 1900→9400、
-//   Ali Gholizadeh 1000→4700、Reena Wichmann 1700→7400、Luca Bazzoli 2300→10000）⇒ 提到 2500。
-//   故：**上一轮价格低于此值的卡不进异动榜**（它的旧价不可信）。
-let MIN_BASE = 2500;
+const TIER_MIN = 80;       // 2026-10-03 拍板：83 → 80（市场页 81+ 分档 + 搜索 80+；原 85+/83+ 历史见 docs）
+// ⚠️ 2026-10-03：异动榜（moves）已从产品下线 —— 删掉 MOVE_MIN_PCT / MOVE_TOP / pct / moves 计算，
+//   prev 快照与 price_all_market_latest.json 不再写也不再读（用户要求「去掉相关代码和跑数据，不浪费」）。
+let MIN_BASE = 2500;       // 仅本地脚本 price_sync.js 的 --min-base 默认值沿用
 
 function setMinBase(v) { MIN_BASE = v; }
 function getMinBase() { return MIN_BASE; }
 
 const key = function (v) { return typeof v === 'number' ? String(v) : String(v); };
-const pct = function (prev, cur) {
-  if (!prev || prev <= 0) return null;             // 无基准 ⇒ 不敢算
-  return (cur - prev) / prev * 100;
-};
 function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
 // ── 问价（单批）──
@@ -133,7 +122,7 @@ function build(roster, cur, prev, src, tsOverride) {
     else merged[k] = arr;
   });
 
-  // 分档 >= 83
+  // 分档 >= TIER_MIN（2026-10-03：80+）
   const tier = roster.filter(function (r) {
     const m = merged[key(r.eaId)];
     return r.overall >= TIER_MIN && m && (m[0] != null || m[1] != null);
@@ -147,40 +136,16 @@ function build(roster, cur, prev, src, tsOverride) {
     };
   });
 
-  // 异动榜：|dPct| >= 门槛，按 dPct 降序取前 N
-  const moves = [];
-  Object.keys(merged).forEach(function (k) {
-    const m = merged[k];
-    if (!m) return;
-    const curP = m[0] != null ? m[0] : m[1];
-    const pv = prev[k];
-    if (!pv) return;
-    const prevP = pv[0] != null ? pv[0] : pv[1];
-    const d = pct(prevP, curP);
-    if (d == null) return;
-    if (Math.abs(d) < MOVE_MIN_PCT) return;
-    if (prevP < MIN_BASE) return;   // 占位价卡，旧值不可信
-    const meta = nameOf[k] || {};
-    moves.push({
-      eaId: k, name: meta.name || '', pos: meta.pos || '',
-      overall: meta.overall || 0,
-      prev: prevP, cur: curP, dPct: Math.round(d * 100) / 100,
-      img: cardCloudId(k, !!(meta && meta.imagePath)),
-      rarity: (meta && meta.rarity) || ''
-    });
-  });
-  moves.sort(function (a, b) { return b.dPct - a.dPct; });
-  const mv = moves.slice(0, MOVE_TOP);
+  // 异动榜已于 2026-10-03 下线：不再算 moves、view 不再带 moves 字段。
 
   const all = { v: 1, ts: ts, cur: merged, prev: prev, src: src };
-  const view = { v: 1, ts: ts, tier: tier, moves: mv };
-  return { ts: ts, all: all, view: view, tierN: tier.length, mvN: mv.length, mergedN: Object.keys(merged).length };
+  const view = { v: 1, ts: ts, tier: tier };
+  return { ts: ts, all: all, view: view, tierN: tier.length, mergedN: Object.keys(merged).length };
 }
 
 module.exports = {
   PRICE_API: PRICE_API, BATCH: BATCH, TIER_MIN: TIER_MIN,
-  MOVE_MIN_PCT: MOVE_MIN_PCT, MOVE_TOP: MOVE_TOP,
-  key: key, pct: pct, sleep: sleep,
+  key: key, sleep: sleep,
   fetchBatch: fetchBatch, pullPlatforms: pullPlatforms, build: build,
   setMinBase: setMinBase, getMinBase: getMinBase
 };

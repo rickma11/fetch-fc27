@@ -34,10 +34,10 @@
 const fs = require('fs');
 // 核心逻辑（抓价 / 分档 / 异动榜）已迁至 market_core.js，此处单一真源引用。
 const core = require('./market_core.js');
-const key = core.key, pct = core.pct, sleep = core.sleep;
+const key = core.key, sleep = core.sleep;
 const fetchBatch = core.fetchBatch, pullPlatforms = core.pullPlatforms, build = core.build;
 const PRICE_API = core.PRICE_API, BATCH = core.BATCH, CONCURRENCY = core.CONCURRENCY;
-const TIER_MIN = core.TIER_MIN, MOVE_MIN_PCT = core.MOVE_MIN_PCT, MOVE_TOP = core.MOVE_TOP;
+const TIER_MIN = core.TIER_MIN;   // 2026-10-03：异动榜下线，MOVE_* / pct 已从 market_core 移除
 
 const argv = process.argv.slice(2);
 const has = function (f) { return argv.indexOf(f) >= 0; };
@@ -163,8 +163,7 @@ function bucketOf(d) {
   fs.mkdirSync(OUT_DIR, { recursive: true });
 
   console.log('=== FC27 市场价同步（生产端，方案 C v4）===');
-  console.log('分档口径 overall >= ' + TIER_MIN + '（2026-09-27 拍板）；异动榜 |Δ| ≥ ' +
-    MOVE_MIN_PCT + '%，取前 ' + MOVE_TOP);
+  console.log('分档口径 overall >= ' + TIER_MIN + '（2026-10-03 起 80+；异动榜已下线）');
 
   let roster = [];
   try {
@@ -210,18 +209,7 @@ function bucketOf(d) {
   console.log('  price_all  = ' + (allJson.length / 1024).toFixed(0) + ' KB（' +
     built.mergedN + ' 个 eaId）');
   console.log('  price_view = ' + (viewJson.length / 1024).toFixed(1) + ' KB（分档 ' +
-    built.tierN + ' 张，异动 ' + built.mvN + ' 条）');
-  if (built.mvN) {
-    const top = built.view.moves.slice(0, 5).map(function (m) {
-      return m.name + ' ' + m.prev + '→' + m.cur + ' (' + (m.dPct > 0 ? '+' : '') + m.dPct + '%)';
-    });
-    console.log('  异动榜样例：' + top.join('；'));
-  } else if (!Object.keys(prev).length) {
-    console.log('  ⚠️ 异动榜为空 = 没有上一轮基准（首次运行），第二轮起才有');
-  } else {
-    console.log('  ⚠️ 异动榜为空 = 本轮满足 |Δ|≥' + MOVE_MIN_PCT + '% 且基准价 ≥' +
-      MIN_BASE + ' 的卡为 0（多为「20 分钟内行情没动」）');
-  }
+    built.tierN + ' 张）');
 
   if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
   const allFile = path.join(OUT_DIR, 'price_all_' + built.ts + '.json');
