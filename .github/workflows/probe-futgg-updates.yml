@@ -1,0 +1,42 @@
+name: Probe FutGG Updates
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'probe (default, may dispatch) | observe (seed baseline only, no dispatch)'
+        required: false
+        default: 'probe'
+
+permissions:
+  contents: write      # commit probe/baseline.json
+  actions: write       # dispatch fetch-fc27.yml
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run probe
+        env:
+          PROBE_MODE: ${{ inputs.mode }}
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+          HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_PROBE }}
+        run: node scripts/probe_futgg.js
+      - name: Commit baseline if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [[ -n "$(git status --porcelain probe/baseline.json)" ]]; then
+            git add probe/baseline.json
+            git commit -m "chore(probe): update baseline"
+            git pull --rebase --autostash
+            git push || git push
+          else
+            echo "baseline unchanged, skip commit"
+          fi
