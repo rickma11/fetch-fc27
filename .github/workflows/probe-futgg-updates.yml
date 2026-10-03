@@ -43,10 +43,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if [[ -n "$(git status --porcelain probe/baseline.json)" ]]; then
-            git add probe/baseline.json
-            git commit -m "chore(probe): update baseline"
-            git pull --rebase --autostash
-            git push || git push
+            for i in 1 2 3; do
+              git add probe/baseline.json
+              git commit -m "chore(probe): update baseline" || true
+              git pull --rebase --autostash || true
+              if git push; then echo "pushed (attempt $i)"; break; fi
+              sleep 5
+            done
           else
             echo "baseline unchanged, skip commit"
           fi
