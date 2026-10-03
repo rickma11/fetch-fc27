@@ -372,10 +372,20 @@ async function fetchChem(page, ids) {
           const d = j && j.data;
           if (d && d.chemistryVotes) {
             const cv = d.chemistryVotes;
-            const entries = Object.keys(cv).map(k => [Number(k), Number(cv[k]) || 0]).filter(x => x[1] > 0);
-            const totalVotes = entries.reduce((s, x) => s + x[1], 0);
-            const top3 = entries.sort((a, b) => b[1] - a[1]).slice(0, 3)
-              .map(([id, c]) => [id, totalVotes ? Math.round(c / totalVotes * 100) : 0]);
+            const totalVotes = Object.keys(cv).map(k => Number(cv[k]) || 0).reduce((s, x) => s + x, 0);
+            // 优先用 fut.gg 预计算的 top3ChemistryStyles 百分比（与站点展示一致，如 54/27/8），
+            // 其 pct 相对全量投票数（三者之和≈89%，其余分散）；仅在缺字段时回退到按票数自算。
+            let top3;
+            if (Array.isArray(d.top3ChemistryStyles) && d.top3ChemistryStyles.length) {
+              top3 = d.top3ChemistryStyles
+                .filter(x => Array.isArray(x) && x.length >= 2)
+                .slice(0, 3)
+                .map(([id, pct]) => [Number(id), Number(pct) || 0]);
+            } else {
+              const entries = Object.keys(cv).map(k => [Number(k), Number(cv[k]) || 0]).filter(x => x[1] > 0);
+              top3 = entries.sort((a, b) => b[1] - a[1]).slice(0, 3)
+                .map(([id, c]) => [id, totalVotes ? Math.round(c / totalVotes * 100) : 0]);
+            }
             chem[r.id] = { total: totalVotes, top3: top3 };
           } else { chem[r.id] = { total: 0, top3: [] }; }
         } else {
