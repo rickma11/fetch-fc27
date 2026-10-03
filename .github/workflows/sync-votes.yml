@@ -1,24 +1,32 @@
-name: Sync fut.gg community votes (FC27)
+name: Sync fut.gg community votes + chemistry recommendations (FC27)
 
-# 社区投票同步（独立于 fetch-fc27 主管线）：
-#   过 Cloudflare 拉全量球员列表建 eaId→basePlayerEaId 映射 → 逐 baseId 拉 /api/voting 取 fut.gg 票数
-#   → 读云库 votes_user_fc{ver} 算小程序用户票 → 合并（futgg.total>miniapp.total 则刷新，否则不变）
-#   → 上传云存储 fc{ver}/data/vote_meta/ + fc{ver}/data/votes/<bucket>.json（端上只读静态 JSON，零云函数）。
-# ⚠️ 与 sync-live-hub.yml 完全隔离：独立 concurrency 组（sync-votes），不碰 players_fc27、不提交 git（产物只在云存储）。
-# ⚠️ 云库 votes_user_fc{ver} 需配「所有用户可读、所有用户可写」安全规则（端上匿名直写）。
+# 社区投票 + 化学推荐同步（独立于 fetch-fc27 主管线）。
+#   过 Cloudflare 拉全量球员列表建 eaId→fut.gg id 映射 →
+#     化学：逐 id 拉 /api/fut/players/{ver}/{id}/chemistry-style/ 取 top3 风格
+#     投票：逐 id 拉 /api/voting/{ver}/{id}/ 取 fut.gg 票数 + 读云库小程序票合并
+#   → 上传云存储 fc{ver}/data/chem_* 与 fc{ver}/data/vote_*（端上只读静态 JSON，零云函数）。
 #
-# 触发：
-#   - schedule：每周一北京时间 04:00（UTC 周日 20:00）跑一次（贴合「每周抓取一次」）。
-#   - workflow_dispatch：手动触发（fc_ver 默认 27）。
+# 调度：
+#   - workflow_dispatch：手动触发，mode 输入 auto/chem/full（默认 auto）。
+#       auto：北京时间周日 → full（化学+投票），其余 → 仅化学。
+#       chem：仅化学；full：化学+投票。
+#   - 日常由 cron-job.org 每天 04:05（Asia/Shanghai）dispatch 本 workflow（替换原 native 周调度），
+#     body {"ref":"main","inputs":{"mode":"auto"}}。原生 schedule 已移除，避免与 cron-job.org 重复跑。
+#
+# 映射缓存：非 full 运行复用已发布的 chem_meta.json 的 map，跳过 2 万次翻页（省时长）；full（周日）才重建。
+# ⚠️ 与 sync-live-hub.yml 完全隔离：独立 concurrency 组（sync-votes），不碰 players_fc27、不提交 git。
+# ⚠️ 云库 votes_user_fc{ver} 需配「所有用户可读、所有用户可写」安全规则（端上匿名直写）。
 on:
   workflow_dispatch:
     inputs:
       fc_ver:
-        description: 'FC 主版本（默认 27；只抓该版本，目前仅 FC27）'
+        description: 'FC 主版本（默认 27）'
         type: string
         default: '27'
-  schedule:
-    - cron: '0 20 * * 0'   # UTC 周日 20:00 ≈ 北京时间周一 04:00
+      mode:
+        description: 'auto（周日full/其余chem） | chem（仅化学） | full（化学+投票）'
+        type: string
+        default: 'auto'
 
 permissions:
   contents: read
@@ -30,7 +38,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 240
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -40,18 +48,34 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: votes-node-modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            votes-node-modules-
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: votes-playwright-${{ runner.os }}
+
       - name: Install dependencies
         env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 浏览器内核交给下一步单独装
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
         run: npm install
 
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Sync community votes (real browser bypass Cloudflare → upload to CloudBase)
+      - name: Sync votes + chem recommendations (real browser bypass Cloudflare → upload to CloudBase)
         env:
           FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
+          SYNC_MODE: ${{ github.event.inputs.mode || 'auto' }}
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          VOTE_TIMEOUT_MS: '13200000'   # 220min 硬看门狗（周日 full 含 化学+投票+miniapp）
         run: node scripts/sync_votes.js ${{ github.event.inputs.fc_ver || '27' }}

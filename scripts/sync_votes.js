@@ -1,22 +1,28 @@
-// 社区投票同步脚本：独立每周跑一次（不进 fetch-fc27 主管线、不碰 players_fc27 集合）。
+// 社区投票 + 化学推荐同步脚本（FC27）。
 //
-// 职责（与 sync_live_hub.js 同源思路，但数据不同）：
+// 职责：
 //   ① 过 Cloudflare 拉 fut.gg 全量球员列表（/api/fut/players/v2/{ver}/?page=N），
-//      建 eaId → fut.gg id 映射（⚠️ 投票接口用 fut.gg 内部 id，不是 eaId 也不是 basePlayerEaId）。
-//   ② 逐唯一 fut.gg id 拉 /api/voting/{ver}/{id}/ 取 fut.gg 原生 up/down/total/score。
-//   ③ 读云库 votes_user_fc{ver}（端上直写的用户投票，doc._id = baseId:anonId，data.action=up/down/null）
-//      按 basePlayerEaId 聚合成 miniapp 累计。
-//   ④ 合并规则：futgg.total > miniapp.total → 展示 = futgg（"刷新"）；否则展示 = miniapp（"不变"）。
-//      miniapp 原始票保留在云库，允许日后反超；展示值写进静态 JSON，端上只读。
-//   ⑤ 上传云存储（公有读，零云函数配额）：
-//        fc{ver}/data/vote_meta/vote_meta.json        { updatedAt, map:{eaId:futggId}, baseMap:{eaId:basePlayerEaId} }
-//        fc{ver}/data/votes/<bucket>.json             { updatedAt, byId:{futggId:{up,down,total,score}} }
-//        bucket = floor(futggId/1000)，每片仅几十~几百球员，端上按需取一片。
+//      建 eaId → fut.gg id 映射（投票/化学接口都用 fut.gg 内部 id，不是 eaId 也不是 basePlayerEaId）。
+//   ② 化学推荐：逐 fut.gg id 拉 /api/fut/players/{ver}/{id}/chemistry-style/ 取 top3 风格 + 总票数。
+//   ③ 社区投票：逐 fut.gg id 拉 /api/voting/{ver}/{id}/ 取 fut.gg 原生 up/down/total/score；
+//      读云库 votes_user_fc{ver} 聚合小程序用户票；合并（futgg.total>miniapp.total 则刷新，否则不变）。
 //
-// 端上（eafc-miniapp/utils/vote.js）读这些静态 JSON；用户点赞点踩直写 votes_user_fc{ver}（非云函数）。
-// ⚠️ 云库 votes_user_fc{ver} 安全规则需放「所有用户可读、所有用户可写」（端上匿名直写）。
+// 调度（北京时间）：每天由 cron-job.org 触发一次，mode 决定抓什么：
+//   - mode=auto（默认）：周日 → full（化学+投票）；其余 → 仅化学（chem）。
+//   - mode=chem：仅化学；mode=full：化学+投票。
+// 映射缓存（省时长）：非 full 运行复用已发布的 chem_meta.json 里的 map（跳过 ① 的 2 万次翻页），
+//   只在 full（周日）重建映射并重新发布。化学抓取本身仍需过 CF 的浏览器会话，无法跳过。
 //
-// 用法：node scripts/sync_votes.js [ver]            （ver 默认 27；可加 --no-upload 仅本地验证不写云）
+// 上传云存储（公有读，零云函数配额）：
+//   化学： fc{ver}/data/chem_meta/chem_meta.json   { updatedAt, map, baseMap, count }
+//         fc{ver}/data/chem/<bucket>.json          { updatedAt, byId:{futggId:{total, top3:[[apiId,pct],...]}} }
+//   投票： fc{ver}/data/vote_meta/vote_meta.json   { updatedAt, map, baseMap }
+//         fc{ver}/data/votes/<bucket>.json         { updatedAt, byId:{futggId:{up,down,total,score}} }
+//   bucket = floor(futggId/1000)。
+//
+// 端上：utils/chemRecommend.js 只读 chem 静态 JSON（不投票）；utils/vote.js 读 votes 静态 JSON + 直写云库投票。
+//
+// 用法：node scripts/sync_votes.js [ver] [--chem|--full|--no-upload]   （ver 默认 27）
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
@@ -36,13 +42,34 @@ const SITE = 'https://www.fut.gg';
 const CLOUD_DIR = 'fc' + VER + '/data/';
 const META_COL = 'meta_fc' + VER;
 const VOTE_USER_COL = 'votes_user_fc' + VER;
-const HARD_TIMEOUT_MS = Number(process.env.VOTE_TIMEOUT_MS || 170 * 60 * 1000);
+const HARD_TIMEOUT_MS = Number(process.env.VOTE_TIMEOUT_MS || 220 * 60 * 1000);
 const VOTE_BATCH = Number(process.env.VOTE_BATCH || 32);           // 每批并发 fetch 的 fut.gg id 数
+const CHEM_META_URL = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la/fc' + VER + '/data/chem_meta/chem_meta.json';
 
 function jget(t) { try { return JSON.parse(t); } catch (e) { return null; } }
 function sleep(ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); }
 
-// —— 云初始化（仅上传/读库时）——
+// —— 运行模式判定 ——
+// auto：周日 full（化学+投票），其余仅化学；--chem / --full / SYNC_MODE 可强制。
+function resolveMode() {
+  if (process.argv.indexOf('--full') >= 0) return 'full';
+  if (process.argv.indexOf('--chem') >= 0) return 'chem';
+  const m = (process.env.SYNC_MODE || 'auto').toLowerCase();
+  if (m === 'full' || m === 'chem') return m;
+  return 'auto';
+}
+function isSundayBJ() {
+  // 北京时间星期几：UTC 时间 +8h 后取 getUTCDay()（0=周日）
+  const d = new Date(Date.now() + 8 * 3600 * 1000);
+  return d.getUTCDay() === 0;
+}
+const MODE = resolveMode();
+const RUN_CHEM = true;                                   // 化学推荐每天抓
+const RUN_VOTES = (MODE === 'full') || (MODE === 'auto' && isSundayBJ());
+const REBUILD_MAP = (MODE === 'full') || (MODE === 'auto' && isSundayBJ()); // 仅 full（周日）重建映射
+console.log('[mode] MODE=' + MODE + ' RUN_CHEM=' + RUN_CHEM + ' RUN_VOTES=' + RUN_VOTES + ' REBUILD_MAP=' + REBUILD_MAP + ' (周日BJ=' + isSundayBJ() + ')');
+
+// —— 云初始化（仅上传时）——
 function loadEnv() {
   const f = path.join(ROOT, '.env.local');
   const out = {};
@@ -75,9 +102,23 @@ async function apiGet(page, url, tries) {
   return null;
 }
 
+// 复用已发布的 chem_meta.json 里的 map（跨天缓存，跳过 2 万次翻页）。仅 full 运行才忽略缓存重建。
+async function getCachedMap() {
+  if (REBUILD_MAP) return null;
+  try {
+    const r = await fetch(CHEM_META_URL + '?_rcb=' + Date.now(), { headers: { Accept: 'application/json' } });
+    if (r.ok) {
+      const j = await r.json();
+      if (j && j.map && Object.keys(j.map).length > 19000) {
+        console.log('  复用已发布 chem_meta 映射：', Object.keys(j.map).length, '名球员（跳过浏览器翻页）');
+        return { map: j.map, baseMap: j.baseMap || {} };
+      }
+    }
+  } catch (e) { console.log('  读缓存映射失败（将重建）：', e.message); }
+  return null;
+}
+
 // 过 Cloudflare：先进 /fc/players/?page=1 等网络稳定，再在 page.evaluate 内 fetch 列表 API 直到 200。
-// 关键：Playwright Node 侧 page.request.get 携带的 cookie 与浏览器内 fetch 不同；
-// #12 之前用 request.get 在本环境被 CF 403，而 page.evaluate 内 fetch 能 200。
 async function passCF(page) {
   try {
     console.log('  passCF goto /fc/players/?page=1 ...');
@@ -104,10 +145,6 @@ async function passCF(page) {
 }
 
 // ① 建 eaId → fut.gg id 映射（按 overall 分桶翻页，绕过 max_result_window=10000）
-//   同时保留 baseMap: eaId → basePlayerEaId（端上云库存储/聚合用）。
-//   移植自 fetch_ci.js 阶段1（2026-09-17 实测修法）：朴素 ?page=N 翻页到第 ~334 页被服务端截断只拿 ~1万，
-//   分桶后全量 ≈19797~21000（云库 players_fc27 实证）。fut.gg 对超出末页的 page 不返回空数组而是重复末页，
-//   故「空页即桶末」不成立，改判「连续 2 页都没有新增」才结束；并加 count<19000 安全闸阻断残缺落库。
 async function buildMapping(page) {
   const result = await page.evaluate(async ({ BASE, VER, OVR_MIN }) => {
     const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -116,16 +153,16 @@ async function buildMapping(page) {
     const j1 = await r1.json();
     const first = Array.isArray(j1.data) ? j1.data : [];
 
-    const map = {};            // eaId -> fut.gg id（投票真源 key）
-    const baseMap = {};        // eaId -> basePlayerEaId（端上云库聚合 key）
-    const seen = new Set();    // 已见 eaId（跨桶去重）
+    const map = {};
+    const baseMap = {};
+    const seen = new Set();
     const push = arr => {
       let added = 0;
       for (const pl of arr) {
         const ea = pl.eaId != null ? Number(pl.eaId) : null;
         if (!ea || seen.has(ea)) continue;
         seen.add(ea);
-        const fgId = pl.id != null ? Number(pl.id) : ea;   // 投票接口用 fut.gg 内部 id
+        const fgId = pl.id != null ? Number(pl.id) : ea;
         const base = pl.basePlayerEaId != null ? Number(pl.basePlayerEaId) : ea;
         map[ea] = fgId;
         baseMap[ea] = base;
@@ -137,24 +174,23 @@ async function buildMapping(page) {
 
     const OVR_MAX = 99;
     const failedOvr = [];
-    // 单桶翻页：overall__gte/lte 同值。每桶命中远小于 10000，桶内翻页不触窗口。
     async function fetchBucket(ovr) {
       let dup = 0;
       for (let pg = 1; pg <= 2000; pg++) {
-        let added = -1;        // -1 = 本页请求未成功
+        let added = -1;
         for (let attempt = 0; attempt < 3 && added < 0; attempt++) {
           try {
             const r = await fetch(`${BASE}/players/v2/${VER}/?overall__gte=${ovr}&overall__lte=${ovr}&page=${pg}`, { headers: { Accept: 'application/json' } });
             if (r.ok) {
               const j = await r.json();
               if (Array.isArray(j.data) && j.data.length) added = push(j.data);
-              else return;     // 真空页 = 桶末
+              else return;
             } else if (r.status === 404) { return; }
-            else { await sleep(400 * Math.pow(2, attempt)); }   // 指数退避 400/800/1600ms
+            else { await sleep(400 * Math.pow(2, attempt)); }
           } catch (e) { await sleep(400 * Math.pow(2, attempt)); }
         }
         if (added < 0) { if (pg === 1) failedOvr.push(ovr); return; }
-        if (added === 0) { if (++dup >= 2) return; } else dup = 0;  // 连续 2 页全为已见 → 桶末（越界页重复末页）
+        if (added === 0) { if (++dup >= 2) return; } else dup = 0;
         await sleep(60);
       }
     }
@@ -169,7 +205,6 @@ async function buildMapping(page) {
     const LIST_CONC = 8;
     const bucketCount = OVR_MAX - OVR_MIN + 1;
     await Promise.all(Array.from({ length: Math.min(LIST_CONC, bucketCount) }, w));
-    // 限流兜底：首页失败的桶（多为中段 OVR）用更长退避整体重试一次，尽量不丢球员
     if (failedOvr.length) {
       console.log('⚠️ 首页失败桶 ' + failedOvr.length + ' 个（OVR: ' + failedOvr.join(',') + '），退避 3s 后重试…');
       for (const ovr of failedOvr) { await sleep(3000); await fetchBucket(ovr); }
@@ -179,16 +214,15 @@ async function buildMapping(page) {
   }, { BASE: 'https://www.fut.gg/api/fut', VER: VER, OVR_MIN: 1 });
 
   console.log('  映射完成：', result.count, '名球员（eaId → fut.gg id）');
-  // 安全闸：全量约 19797~21000，若中段 OVR 桶被限流/遗漏导致偏少，阻断避免 vote_meta 残缺落库。
   if (result.count < 19000) {
-    throw new Error('列表抓取异常偏少（' + result.count + ' 人，预期 ~20000）——疑似中段 OVR 桶被限流/遗漏，已阻断以免 vote_meta 残缺');
+    throw new Error('列表抓取异常偏少（' + result.count + ' 人，预期 ~20000）——疑似中段 OVR 桶被限流/遗漏，已阻断以免 meta 残缺');
   }
   return { map: result.map, baseMap: result.baseMap };
 }
 
-// ③ 读云库 votes_user_fc{ver} → 按 baseId 聚合 miniapp 票数
+// ③ 读云库 votes_user_fc{ver} → 按 baseId 聚合 miniapp 票数（仅投票用）
 async function loadMiniapp(app) {
-  const mini = {};   // baseId -> {up, down, total}
+  const mini = {};
   try {
     const db = app.database();
     const col = db.collection(VOTE_USER_COL);
@@ -218,15 +252,9 @@ async function loadMiniapp(app) {
 }
 
 // ② 在主 page 上批量并发拉 fut.gg 投票（按 fut.gg 内部 id）
-// 关键：必须用已通过 Cloudflare 的同一个主 page，才能保证浏览器侧 fetch 携带有效 CF cookie。
-// #9 的教训：worker 新 page 未过 CF → page.evaluate 内 fetch 投票 API 100% 失败。
-// 修法：不再开 worker page，直接在主 page 的 evaluate 里分 BATCH 并发 fetch，
-// 既避免 Playwright Node 侧 page.request.get 的往返开销，又继承 CF 会话。
 async function fetchVoting(page, ids) {
-  const futgg = {};   // fut.gg id -> {up, down, total, score}
-  let cursor = 0;
-  let done = 0;
-  let failed = 0;
+  const futgg = {};
+  let cursor = 0, done = 0, failed = 0;
   const total = ids.length;
   const BATCH = VOTE_BATCH;
 
@@ -235,9 +263,7 @@ async function fetchVoting(page, ids) {
     while (batch.length < BATCH && cursor < total) batch.push(ids[cursor++]);
     if (!batch.length) break;
 
-    let results = null;
-    let attempts = 0;
-    let lastErr = '';
+    let results = null, attempts = 0, lastErr = '';
     while (!results && attempts < 3) {
       try {
         results = await page.evaluate(async ({ batch, VOTE_BASE, VER }) => {
@@ -247,22 +273,13 @@ async function fetchVoting(page, ids) {
             const controller = new AbortController();
             const timer = setTimeout(() => controller.abort(), 20000);
             try {
-              const r = await fetch(url, {
-                headers: { Accept: 'application/json' },
-                signal: controller.signal
-              });
+              const r = await fetch(url, { headers: { Accept: 'application/json' }, signal: controller.signal });
               clearTimeout(timer);
-              if (r.ok) {
-                const text = await r.text();
-                return { id, ok: true, text };
-              }
+              if (r.ok) { const text = await r.text(); return { id, ok: true, text }; }
               return { id, ok: false, status: r.status };
             } catch (e) {
               clearTimeout(timer);
-              if (attempt < 2) {
-                await sleep(400 * (attempt + 1));
-                return fetchOne(id, attempt + 1);
-              }
+              if (attempt < 2) { await sleep(400 * (attempt + 1)); return fetchOne(id, attempt + 1); }
               return { id, ok: false, err: String(e && e.message || e) };
             }
           };
@@ -271,65 +288,135 @@ async function fetchVoting(page, ids) {
       } catch (e) {
         attempts++;
         lastErr = e && e.message ? e.message : String(e);
-        if (attempts >= 3) {
-          console.log('  投票批次失败（整批', batch.length, '个）', lastErr);
-          break;
-        }
+        if (attempts >= 3) { console.log('  投票批次失败（整批', batch.length, '个）', lastErr); break; }
         await sleep(500 * attempts);
       }
     }
 
-    if (!results) {
-      failed += batch.length;
-      done += batch.length;
-    } else {
+    if (!results) { failed += batch.length; done += batch.length; }
+    else {
       for (const r of results) {
         done++;
         if (r.ok && r.text) {
           const j = jget(r.text);
           const d = j && j.data;
           if (d) {
-            futgg[r.id] = {
-              up: Number(d.upvotes) || 0,
-              down: Number(d.downvotes) || 0,
-              total: Number(d.totalVotes) || 0,
-              score: Number(d.score) || 0
-            };
-          } else {
-            failed++;
-          }
+            futgg[r.id] = { up: Number(d.upvotes) || 0, down: Number(d.downvotes) || 0, total: Number(d.totalVotes) || 0, score: Number(d.score) || 0 };
+          } else { failed++; }
         } else {
-          if (r.status === 404) {
-            // fut.gg 对该球员无投票记录：视为 0/0，不算失败
-            futgg[r.id] = { up: 0, down: 0, total: 0, score: 0 };
-          } else {
+          if (r.status === 404) futgg[r.id] = { up: 0, down: 0, total: 0, score: 0 };
+          else {
             failed++;
-            if (done <= 10 || done % 1000 === 0) {
-              console.log('  投票失败 id', r.id, r.status || r.err || '');
-            }
+            if (done <= 10 || done % 1000 === 0) console.log('  投票失败 id', r.id, r.status || r.err || '');
           }
         }
       }
     }
     if (done % 500 === 0 || done === total) console.log('  投票进度', done, '/', total, '失败', failed);
-    // 批次间短暂呼吸，避免触发 rate limit
     if (cursor < total) await sleep(120);
   }
-
   console.log('  投票抓取：', Object.keys(futgg).length, '个 fut.gg id 有响应（批大小', BATCH, '失败', failed, '）');
   return futgg;
 }
 
-// ④ 合并 + ⑤ 分桶组装
-function buildBuckets(map, baseMap, futgg, mini) {
-  const buckets = {};   // bucket -> {byId:{futggId:{up,down,total,score}}}
+// ②' 批量并发拉 fut.gg 化学推荐（按 fut.gg 内部 id）
+// 端点：/api/fut/players/{ver}/{id}/chemistry-style/  →  data.chemistryVotes{apiId:count}, data.top3ChemistryStyles[[apiId,pct],...]
+// 返回：futggId → { total, top3:[[apiId,pct],...] }（apiId 为 1-based，端上用 CHEM_STYLES[apiId-1] 取风格）
+async function fetchChem(page, ids) {
+  const chem = {};
+  let cursor = 0, done = 0, failed = 0;
+  const total = ids.length;
+  const BATCH = VOTE_BATCH;
+
+  while (cursor < total) {
+    const batch = [];
+    while (batch.length < BATCH && cursor < total) batch.push(ids[cursor++]);
+    if (!batch.length) break;
+
+    let results = null, attempts = 0, lastErr = '';
+    while (!results && attempts < 3) {
+      try {
+        results = await page.evaluate(async ({ batch, BASE, VER }) => {
+          const sleep = ms => new Promise(r => setTimeout(r, ms));
+          const fetchOne = async (id, attempt) => {
+            const url = `${BASE}/players/${VER}/${id}/chemistry-style/`;
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 20000);
+            try {
+              const r = await fetch(url, { headers: { Accept: 'application/json' }, signal: controller.signal });
+              clearTimeout(timer);
+              if (r.ok) { const text = await r.text(); return { id, ok: true, text }; }
+              return { id, ok: false, status: r.status };
+            } catch (e) {
+              clearTimeout(timer);
+              if (attempt < 2) { await sleep(400 * (attempt + 1)); return fetchOne(id, attempt + 1); }
+              return { id, ok: false, err: String(e && e.message || e) };
+            }
+          };
+          return await Promise.all(batch.map(id => fetchOne(id, 0)));
+        }, { batch, BASE, VER });
+      } catch (e) {
+        attempts++;
+        lastErr = e && e.message ? e.message : String(e);
+        if (attempts >= 3) { console.log('  化学批次失败（整批', batch.length, '个）', lastErr); break; }
+        await sleep(500 * attempts);
+      }
+    }
+
+    if (!results) { failed += batch.length; done += batch.length; }
+    else {
+      for (const r of results) {
+        done++;
+        if (r.ok && r.text) {
+          const j = jget(r.text);
+          const d = j && j.data;
+          if (d && d.chemistryVotes) {
+            const cv = d.chemistryVotes;
+            const entries = Object.keys(cv).map(k => [Number(k), Number(cv[k]) || 0]).filter(x => x[1] > 0);
+            const totalVotes = entries.reduce((s, x) => s + x[1], 0);
+            const top3 = entries.sort((a, b) => b[1] - a[1]).slice(0, 3)
+              .map(([id, c]) => [id, totalVotes ? Math.round(c / totalVotes * 100) : 0]);
+            chem[r.id] = { total: totalVotes, top3: top3 };
+          } else { chem[r.id] = { total: 0, top3: [] }; }
+        } else {
+          if (r.status === 404) chem[r.id] = { total: 0, top3: [] };
+          else {
+            failed++;
+            if (done <= 10 || done % 1000 === 0) console.log('  化学失败 id', r.id, r.status || r.err || '');
+          }
+        }
+      }
+    }
+    if (done % 500 === 0 || done === total) console.log('  化学进度', done, '/', total, '失败', failed);
+    if (cursor < total) await sleep(120);
+  }
+  console.log('  化学抓取：', Object.keys(chem).length, '个 fut.gg id 有响应（批大小', BATCH, '失败', failed, '）');
+  return chem;
+}
+
+// ④ 化学分桶组装
+function buildChemBuckets(map, chem) {
+  const buckets = {};
+  for (const eaIdStr of Object.keys(map)) {
+    const fgId = map[eaIdStr];
+    const c = chem[fgId];
+    if (!c) continue;                       // 无数据不落库（端上隐藏）
+    const bucket = Math.floor(fgId / 1000);
+    if (!buckets[bucket]) buckets[bucket] = { byId: {} };
+    buckets[bucket].byId[String(fgId)] = { total: c.total, top3: c.top3 };
+  }
+  return buckets;
+}
+
+// ④ 投票分桶组装（含 miniapp 合并）
+function buildVoteBuckets(map, baseMap, futgg, mini) {
+  const buckets = {};
   for (const eaIdStr of Object.keys(map)) {
     const eaId = Number(eaIdStr);
     const fgId = map[eaId];
     const baseId = baseMap[eaId] != null ? baseMap[eaId] : eaId;
     const f = futgg[fgId] || { up: 0, down: 0, total: 0, score: 0 };
     const m = mini[baseId] || { up: 0, down: 0, total: 0 };
-    // 合并规则：futgg.total > miniapp.total → 展示 futgg；否则展示 miniapp
     let disp;
     if (f.total > m.total) disp = { up: f.up, down: f.down, total: f.total };
     else disp = { up: m.up, down: m.down, total: m.total };
@@ -353,16 +440,37 @@ async function uploadJson(app, cloudPath, obj) {
   const ctx = await browser.newContext({ userAgent: UA });
   const page = await ctx.newPage();
 
-  const passed = await passCF(page);
-  if (!passed) { await browser.close(); console.error('CF 未通过'); process.exit(2); }
-
-  console.log('\n① 建映射...');
-  const { map, baseMap } = await buildMapping(page);
+  // 映射：full（周日）重建；其余复用已发布的 chem_meta.map
+  let map, baseMap;
+  const cached = REBUILD_MAP ? null : await getCachedMap();
+  if (cached) {
+    map = cached.map; baseMap = cached.baseMap;
+  } else {
+    const passed = await passCF(page);
+    if (!passed) { await browser.close(); console.error('CF 未通过'); process.exit(2); }
+    console.log('\n① 建映射...');
+    const m = await buildMapping(page);
+    map = m.map; baseMap = m.baseMap;
+  }
   const ids = [...new Set(Object.values(map))];
   console.log('  唯一 fut.gg id：', ids.length);
 
-  console.log('\n② 拉 fut.gg 投票（主 page 批量并发，批大小', VOTE_BATCH, '）...');
-  const futgg = await fetchVoting(page, ids);
+  // 浏览器内抓取（化学 + 投票都依赖已通过 CF 的 page，必须在 close 前完成）
+  let chem = {};
+  if (RUN_CHEM) {
+    // 化学需要过 CF 的会话：若走了缓存映射分支，这里补一次 passCF
+    if (cached) {
+      const passed = await passCF(page);
+      if (!passed) { await browser.close(); console.error('CF 未通过（化学抓取）'); process.exit(2); }
+    }
+    console.log('\n② 拉 fut.gg 化学推荐（主 page 批量并发，批大小', VOTE_BATCH, '）...');
+    chem = await fetchChem(page, ids);
+  }
+  let futgg = {};
+  if (RUN_VOTES) {
+    console.log('\n② 拉 fut.gg 投票（主 page 批量并发，批大小', VOTE_BATCH, '）...');
+    futgg = await fetchVoting(page, ids);
+  }
 
   await browser.close();
 
@@ -370,47 +478,65 @@ async function uploadJson(app, cloudPath, obj) {
   let app = null;
   if (!NO_UPLOAD) {
     try { app = initCloud(); } catch (e) { console.error('云初始化失败：', e.message); process.exit(3); }
-    console.log('\n③ 读 miniapp 投票...');
-    mini = await loadMiniapp(app);
+    if (RUN_VOTES) {
+      console.log('\n③ 读 miniapp 投票...');
+      mini = await loadMiniapp(app);
+    } else {
+      console.log('\n③ --no-votes（非周日）：跳过云库投票读取');
+    }
   } else {
     console.log('\n③ --no-upload：跳过云库读取与上传');
   }
 
-  console.log('\n④ 合并 + 分桶...');
-  const buckets = buildBuckets(map, baseMap, futgg, mini);
-  const meta = { updatedAt: new Date().toISOString(), ver: VER, count: Object.keys(map).length, buckets: Object.keys(buckets).length };
-  const metaJson = { updatedAt: meta.updatedAt, map: map, baseMap: baseMap };
+  const nowIso = new Date().toISOString();
 
-  // 本地落盘（调试/审计）
-  fs.writeFileSync(path.join(OUT_DIR, 'vote_meta.json'), JSON.stringify(metaJson));
-  for (const b of Object.keys(buckets)) {
-    fs.writeFileSync(path.join(OUT_DIR, b + '.json'), JSON.stringify({ updatedAt: meta.updatedAt, byId: buckets[b].byId }));
+  // —— 化学推荐：组装 + 上传 ——
+  if (RUN_CHEM) {
+    console.log('\n④ 化学：分桶 + 上传...');
+    const chemBuckets = buildChemBuckets(map, chem);
+    const chemMeta = { updatedAt: nowIso, ver: VER, count: Object.keys(map).length, buckets: Object.keys(chemBuckets).length, map: map, baseMap: baseMap };
+    fs.writeFileSync(path.join(OUT_DIR, 'chem_meta.json'), JSON.stringify(chemMeta));
+    for (const b of Object.keys(chemBuckets)) {
+      fs.writeFileSync(path.join(OUT_DIR, 'chem_' + b + '.json'), JSON.stringify({ updatedAt: nowIso, byId: chemBuckets[b].byId }));
+    }
+    if (!NO_UPLOAD) {
+      await uploadJson(app, CLOUD_DIR + 'chem_meta/chem_meta.json', chemMeta);
+      for (const b of Object.keys(chemBuckets)) {
+        await uploadJson(app, CLOUD_DIR + 'chem/' + b + '.json', { updatedAt: nowIso, byId: chemBuckets[b].byId });
+      }
+    }
+    console.log('  化学：', Object.keys(chemBuckets).length, '桶，映射球员', chemMeta.count);
   }
 
-  if (NO_UPLOAD) {
-    console.log('\n[--no-upload] 完成（未上传）。meta:', JSON.stringify(meta));
-    clearTimeout(watchdog); process.exit(0);
+  // —— 社区投票：组装 + 上传（仅 full/周日）——
+  if (RUN_VOTES) {
+    console.log('\n④ 投票：合并 + 分桶 + 上传...');
+    const buckets = buildVoteBuckets(map, baseMap, futgg, mini);
+    const meta = { updatedAt: nowIso, ver: VER, count: Object.keys(map).length, buckets: Object.keys(buckets).length };
+    const metaJson = { updatedAt: meta.updatedAt, map: map, baseMap: baseMap };
+    fs.writeFileSync(path.join(OUT_DIR, 'vote_meta.json'), JSON.stringify(metaJson));
+    for (const b of Object.keys(buckets)) {
+      fs.writeFileSync(path.join(OUT_DIR, b + '.json'), JSON.stringify({ updatedAt: meta.updatedAt, byId: buckets[b].byId }));
+    }
+    if (!NO_UPLOAD) {
+      await uploadJson(app, CLOUD_DIR + 'vote_meta/vote_meta.json', metaJson);
+      for (const b of Object.keys(buckets)) {
+        await uploadJson(app, CLOUD_DIR + 'votes/' + b + '.json', { updatedAt: meta.updatedAt, byId: buckets[b].byId });
+      }
+      try {
+        const db = app.database();
+        const vTs = Date.now();
+        await db.collection(META_COL).doc('votes').set({
+          data: { updatedAt: meta.updatedAt, count: meta.count, buckets: meta.buckets, ts: vTs },
+          updatedAtCn: cn(meta.updatedAt), tsCn: cn(vTs)
+        });
+      } catch (e) { console.log('  元文档写入跳过：', e.message); }
+    }
+    console.log('  投票：映射球员', meta.count, '| 分桶', meta.buckets);
   }
-
-  console.log('\n⑤ 上传云存储...');
-  await uploadJson(app, CLOUD_DIR + 'vote_meta/vote_meta.json', metaJson);
-  for (const b of Object.keys(buckets)) {
-    await uploadJson(app, CLOUD_DIR + 'votes/' + b + '.json', { updatedAt: meta.updatedAt, byId: buckets[b].byId });
-  }
-  // 写元文档（端上可选读；当前端上直接读 vote_meta.json 分片，元文档仅作版本标记）
-  try {
-    const db = app.database();
-    // 顶层另加北京时间直读字段（控制台用）。注：body 的 `data` 包裹是历史遗留结构（端的只读
-    // vote_meta.json，不读本元文档），此处不改结构，只在顶层补可读时间。
-    const vTs = Date.now();
-    await db.collection(META_COL).doc('votes').set({
-      data: { updatedAt: meta.updatedAt, count: meta.count, buckets: meta.buckets, ts: vTs },
-      updatedAtCn: cn(meta.updatedAt), tsCn: cn(vTs)
-    });
-  } catch (e) { console.log('  元文档写入跳过：', e.message); }
 
   console.log('\n===== 完成 =====');
-  console.log('  映射球员', meta.count, '| 分桶', meta.buckets, '| updatedAt', meta.updatedAt);
+  console.log('  MODE=' + MODE + ' RUN_CHEM=' + RUN_CHEM + ' RUN_VOTES=' + RUN_VOTES + ' updatedAt=' + nowIso);
   clearTimeout(watchdog);
   process.exit(0);
 })().catch(function (e) { console.error('ERR', e); process.exit(1); });
