@@ -456,10 +456,48 @@ function buildVoteBuckets(map, baseMap, futgg, mini) {
   return buckets;
 }
 
-async function uploadJson(app, cloudPath, obj) {
+// 带超时和重试的云存储上传（避免单个文件 hang 死整个 run）
+async function uploadJson(app, cloudPath, obj, timeoutMs) {
+  timeoutMs = timeoutMs || 60000;
   const jsonStr = JSON.stringify(obj);
-  const up = await app.uploadFile({ cloudPath: cloudPath, fileContent: Buffer.from(jsonStr) });
-  return up.fileID || up;
+  const buf = Buffer.from(jsonStr);
+  let lastErr = '';
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const up = await Promise.race([
+        app.uploadFile({ cloudPath: cloudPath, fileContent: buf }),
+        new Promise(function (_, reject) { setTimeout(function () { reject(new Error('upload timeout after ' + timeoutMs + 'ms')); }, timeoutMs); })
+      ]);
+      return up.fileID || up;
+    } catch (e) {
+      lastErr = e && e.message ? e.message : String(e);
+      console.log('  上传失败（attempt', attempt, '）', cloudPath, lastErr);
+      if (attempt < 2) await sleep(1000);
+    }
+  }
+  throw new Error('上传 ' + cloudPath + ' 最终失败: ' + lastErr);
+}
+
+// 并发上传桶文件，单个失败记录但不阻断整体
+async function uploadBuckets(app, prefix, buckets, nowIso, label, concurrency) {
+  concurrency = concurrency || 4;
+  const entries = Object.entries(buckets);
+  const results = [];
+  for (let i = 0; i < entries.length; i += concurrency) {
+    const batch = entries.slice(i, i + concurrency);
+    const batchRes = await Promise.all(batch.map(function ([b, data]) {
+      return uploadJson(app, prefix + b + '.json', { updatedAt: nowIso, byId: data.byId }).then(function () {
+        return { bucket: b, ok: true };
+      }).catch(function (e) {
+        console.log('  [' + label + '] 桶上传失败', b, e.message);
+        return { bucket: b, ok: false, err: e.message };
+      });
+    }));
+    results.push.apply(results, batchRes);
+  }
+  const failed = results.filter(function (r) { return !r.ok; });
+  if (failed.length) throw new Error(label + ' 有 ' + failed.length + ' 个桶上传失败');
+  return results;
 }
 
 (async () => {
@@ -536,9 +574,7 @@ async function uploadJson(app, cloudPath, obj) {
     }
     if (!NO_UPLOAD) {
       await uploadJson(app, CLOUD_DIR + 'chem_meta/chem_meta.json', chemMeta);
-      for (const b of Object.keys(chemBuckets)) {
-        await uploadJson(app, CLOUD_DIR + 'chem/' + b + '.json', { updatedAt: nowIso, byId: chemBuckets[b].byId });
-      }
+      await uploadBuckets(app, CLOUD_DIR + 'chem/', chemBuckets, nowIso, '化学', 4);
     }
     console.log('  化学：', Object.keys(chemBuckets).length, '桶，映射球员', chemMeta.count);
   }
@@ -555,9 +591,7 @@ async function uploadJson(app, cloudPath, obj) {
     }
     if (!NO_UPLOAD) {
       await uploadJson(app, CLOUD_DIR + 'vote_meta/vote_meta.json', metaJson);
-      for (const b of Object.keys(buckets)) {
-        await uploadJson(app, CLOUD_DIR + 'votes/' + b + '.json', { updatedAt: meta.updatedAt, byId: buckets[b].byId });
-      }
+      await uploadBuckets(app, CLOUD_DIR + 'votes/', buckets, meta.updatedAt, '投票', 4);
       try {
         const db = app.database();
         const vTs = Date.now();
