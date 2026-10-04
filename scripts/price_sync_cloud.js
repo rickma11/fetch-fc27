@@ -24,7 +24,7 @@ const core = require('./market_core.js');
 const VER = 27;
 const PRICE_VIEW_PREFIX = 'fc27/market/price_view_';
 const ROSTER_URL = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la/fc27/data/roster_83plus.json';
-const FETCH_TIMEOUT = 8000;
+const FETCH_TIMEOUT = 30000;
 
 // 北京时间（UTC+8）分桶：YYYYMMDDHHMM（纯小时粒度，分钟固定 00）。⚠️ 必须与端上 utils/priceStore.js#bucketOf 一致。
 function pad2(n) { return n < 10 ? '0' + n : '' + n; }
@@ -62,14 +62,28 @@ function httpGetJson(url, timeoutMs) {
   });
 }
 
+function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+
+// 名册拉取：裸 8s 超时在跨太平洋（GitHub runner → 腾讯云 COS）偶发超时报错，
+// 与价格拉取（market_core.js#pullPlatforms）保持同口径 —— 3 次重试 + 退避。
 async function loadRoster() {
-  const j = await httpGetJson(ROSTER_URL);
-  const list = Array.isArray(j) ? j : (j.players || []);
-  return list
-    .filter(function (p) { return p && p.eaId != null; })
-    .map(function (p) {
-      return { eaId: p.eaId, name: p.name || '', overall: p.overall || 0, pos: p.pos || '', imagePath: p.imagePath || '', rarity: p.rarity || '' };
-    });
+  let lastErr = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const j = await httpGetJson(ROSTER_URL);
+      const list = Array.isArray(j) ? j : (j.players || []);
+      return list
+        .filter(function (p) { return p && p.eaId != null; })
+        .map(function (p) {
+          return { eaId: p.eaId, name: p.name || '', overall: p.overall || 0, pos: p.pos || '', imagePath: p.imagePath || '', rarity: p.rarity || '' };
+        });
+    } catch (e) {
+      lastErr = e;
+      logStep('loadRoster attempt ' + attempt + ' failed: ' + (e && e.message || e));
+      if (attempt < 3) await sleep(800 * attempt);
+    }
+  }
+  throw new Error('loadRoster 重试 3 次仍失败: ' + (lastErr && lastErr.message || lastErr));
 }
 
 // ── 上传（@cloudbase/node-sdk，与 export-roster-83plus.yml 同链） ──
