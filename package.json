@@ -17,6 +17,7 @@
     "noportrait:preview": "node scripts/preview_noportrait.js"
   },
   "dependencies": {
+    "@cloudbase/manager-node": "^5.9.0",
     "@cloudbase/node-sdk": "^3.18.3",
     "playwright": "^1.63.0",
     "sharp": "^0.34.0"
