@@ -6,10 +6,10 @@ name: Dict static (Gitee dictionaries → CloudBase storage)
 #   （端上 utils/cloudJson.js#fetchObject 直读，零云函数调用，见 eafc-miniapp 2026-10-04 迁移）。
 # ⚠️ 与 fetch-fc27.yml / gen-static-lists.yml 完全隔离：独立 concurrency 组（dict-static），
 #   不碰抓取管线、不写业务数据库集合（除 meta_fc27 元文档）、不提交 git（产物只在云存储）。
-# 触发：每小时 :00（与旧云函数 60 分钟定时器同频）；另保留 workflow_dispatch 手动跑。
+# 触发：仅 workflow_dispatch（由 cron-job.org 每小时 POST 本 workflow，或手动触发）。
+#   ⚠️ 已移除 GitHub 原生 schedule（与 market-sync / sync-votes 一致，统一走第三方 cron-job.org 触发，
+#      避免 native schedule runner 排队延迟 + 与第三方重复跑）。cron-job.org 配置见 docs/19-dict-basic-static-migration.md。
 on:
-  schedule:
-    - cron: '0 * * * *'
   workflow_dispatch:
     inputs:
       fc_ver:

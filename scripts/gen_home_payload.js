@@ -8,8 +8,11 @@
 //   · meta_fc{ver}/hotboard.fileID → downloadFile 直读 top20 热门榜 [{eaId, v}]（与端上 viewedIds24h 同源）
 //   · players_fc{ver} 按 _id(_in) 取 ≤20 条完整记录（热门球员）
 //   · players_fc{ver} 按 createdAt desc 取 120 条 → newFeed 过滤 → 取最新 20 条（新增球员）
-//   · dicts/basic（稀有度/卡类型扁平 map）＋ dicts/names（{league,leagueShort,club,nation}）＝中文映射
-//     （云库优先，fetch-fc27 包内快照 data/i18n-bundle.json 兜底，最后回落英文 —— 与端上 i18n 优先级一致）
+//   · 中文映射：
+//     － basic（稀有度/卡类型/SBC/EVO 中文化）＝ gen_dict_static 生成的静态 JSON，
+//       从 meta_fc{ver}/dict_basic 元文档 → downloadFile 直读（2026-10-04 起；原 dicts/basic 由已删云函数写入，已孤儿化）
+//     － names（{league,leagueShort,club,nation}）仍由 sync_i18n 每日写 dicts/names（与静态 JSON names 段同源）
+//     （BUNDLE 包内快照兜底 names 类，最后回落英文 —— 与端上 i18n 优先级一致）
 //
 // 输出（云存储，复用 gen_static_lists#publishOne）：
 //   · fc{ver}/data/home_hot/home_hot.<hash8>.json  （装饰后的热门球员数组，带 hotViews）
@@ -71,16 +74,35 @@ function docData(r) {
   return d || null;
 }
 
+// basic（稀有度/卡类型/SBC/EVO 中文化）现由 gen_dict_static 生成静态 JSON 落云存储，
+// 从 meta_fc{ver}/dict_basic 元文档 → downloadFile 直读（不再读已删云函数写的 dicts/basic，避免孤儿读）。
+async function loadBasicStatic(app) {
+  try {
+    const meta = docData(await app.database().collection(META_COLLECTION).doc('dict_basic').get());
+    const fileID = meta && meta.fileID;
+    if (!fileID) {
+      console.warn('[gen_home_payload] 无 dict_basic 元文档（dict-static.yml 还没跑过？）回落英文');
+      return {};
+    }
+    const dl = await app.downloadFile({ fileID: fileID });
+    const buf = dl && dl.fileContent;
+    if (!buf || !buf.length) throw new Error('dict_basic 回读空');
+    const obj = JSON.parse(buf.toString('utf8'));
+    if (obj && obj.basic && obj.basic.map && typeof obj.basic.map === 'object') return obj.basic.map;
+    throw new Error('dict_basic 结构不符（缺 basic.map）');
+  } catch (e) {
+    console.warn('[gen_home_payload] 读 dict_basic 静态 JSON 失败，回落英文', e.message);
+    return {};
+  }
+}
+
 async function loadDicts(app) {
   const db = app.database();
   let basicMap = {};
   let namesMap = { league: {}, leagueShort: {}, club: {}, nation: {} };
-  try {
-    const b = docData(await db.collection('dicts').doc('basic').get());
-    if (b && b.map && typeof b.map === 'object') basicMap = b.map;
-  } catch (e) {
-    console.warn('[gen_home_payload] 读 dicts/basic 失败，回落包内/英文', e.message);
-  }
+  // basic：改读 gen_dict_static 静态 JSON（落云存储 + meta_fc{ver}/dict_basic）；不再读已删云函数写的 dicts/basic
+  basicMap = await loadBasicStatic(app);
+  // names：仍由 sync_i18n 每日写 dicts/names（与静态 JSON names 段同源），保留 DB 直读
   try {
     const n = docData(await db.collection('dicts').doc('names').get());
     if (n && n.map && typeof n.map === 'object') {
@@ -94,7 +116,8 @@ async function loadDicts(app) {
   return { basicMap: basicMap, namesMap: namesMap };
 }
 
-// —— 以下 zh 函数优先级：云库 dicts 覆盖 → 包内快照 BUNDLE → 英文原值（与端上 i18n.js 一致）——
+// —— 以下 zh 函数优先级：names 类＝云库 dicts/names 覆盖 → BUNDLE 包内快照 → 英文；
+//    rarity 类＝dict_basic 静态 JSON（basicMap）覆盖 → 英文（与端上 i18n.js 一致）——
 function zhLeague(cloud, name) {
   const k = String(name == null ? '' : name).trim();
   if (!k || k === '-') return '-';
