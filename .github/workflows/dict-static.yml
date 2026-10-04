@@ -1,0 +1,50 @@
+name: Dict static (Gitee dictionaries → CloudBase storage)
+
+# dict_basic 静态 JSON 生成（替代云函数 cloudfunctions/dict_basic）：
+#   从 Gitee OAO-evotrans 拉三份词典源 → 抽取 basic/names/evolutions/tac/player_review/tlib 六段
+#   → 哈希命名 JSON 上传云存储 fc27/data/dict_basic/ ＋ 写元文档 meta_fc27/dict_basic
+#   （端上 utils/cloudJson.js#fetchObject 直读，零云函数调用，见 eafc-miniapp 2026-10-04 迁移）。
+# ⚠️ 与 fetch-fc27.yml / gen-static-lists.yml 完全隔离：独立 concurrency 组（dict-static），
+#   不碰抓取管线、不写业务数据库集合（除 meta_fc27 元文档）、不提交 git（产物只在云存储）。
+# 触发：每小时 :00（与旧云函数 60 分钟定时器同频）；另保留 workflow_dispatch 手动跑。
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dict-static
+  cancel-in-progress: false
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+
+      - name: Gen dict static (upload to CloudBase storage + write meta doc)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_dict_static.js ${{ github.event.inputs.fc_ver || '27' }}
