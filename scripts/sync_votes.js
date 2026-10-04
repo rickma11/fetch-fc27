@@ -11,9 +11,12 @@
 //      （含特殊卡），端上用任意卡实例 id 查 chem_meta.map 均命中（2026-10-03 修：特殊卡原本空白）。
 //   ③ 社区投票：逐 list id 拉 /api/voting/{ver}/{id}/ 取 fut.gg 原生 up/down/total/score；
 //      读云库 votes_user_fc{ver} 聚合小程序用户票；合并（futgg.total>miniapp.total 则刷新，否则不变）。
+//   ④ SBC 投票：逐 fut.gg sbcSet id 拉 /api/voting/20/{id}/（contentTypeId=20）取原生 up/down/total/score；
+//      读云库 sbc_votes_user_fc{ver}（doc=sbcId:anonId）聚合小程序用户票；合并语义同上（保留大的）。
+//      SBC 无 baseId 概念（集合本身就是投票实体），端上用集合 id 直查；每天抓（独立于球员投票）。
 //
 // 调度（北京时间）：每天由 cron-job.org 触发一次，mode 决定抓什么：
-//   - mode=auto（默认）：周日 → full（化学+投票）；其余 → 仅化学（chem）。
+//   - mode=auto（默认）：周日 → full（化学+投票）；其余 → 仅化学（chem）。SBC 投票每日都抓（RUN_SBC_VOTES=true）。
 //   - mode=chem：仅化学；mode=full：化学+投票。
 // 映射缓存（省时长）：非 full 运行复用已发布的 chem_meta.json 里的 map（跳过 ① 的 2 万次翻页），
 //   只在 full（周日）重建映射并重新发布。化学抓取本身仍需过 CF 的浏览器会话，无法跳过。
@@ -23,9 +26,11 @@
 //         fc{ver}/data/chem/<bucket>.json          { updatedAt, byId:{chemId(v2 eaId):{total, top3:[[apiId,pct],...]}} }
 //   投票： fc{ver}/data/vote_meta/vote_meta.json   { updatedAt, map, baseMap }
 //         fc{ver}/data/votes/<bucket>.json         { updatedAt, byId:{listId:{up,down,total,score}} }
+//   SBC： fc{ver}/data/sbc_votes/<bucket>.json      { updatedAt, byId:{sbcId:{up,down,total,score}} }   // bucket=floor(sbcId/100)
 //   bucket = floor(chemId/1000)（化学）｜ floor(listId/1000)（投票）。
 //
-// 端上：utils/chemRecommend.js 只读 chem 静态 JSON（不投票）；utils/vote.js 读 votes 静态 JSON + 直写云库投票。
+// 端上：utils/chemRecommend.js 只读 chem 静态 JSON（不投票）；utils/vote.js 读 votes 静态 JSON + 直写云库投票；
+//      utils/sbcVote.js 读 sbc_votes 静态 JSON + 直写 sbc_votes_user_fc{ver}（与 vote.js 同机制）。
 //
 // 用法：node scripts/sync_votes.js [ver] [--chem|--full|--no-upload]   （ver 默认 27）
 const fs = require('fs');
@@ -47,6 +52,7 @@ const SITE = 'https://www.fut.gg';
 const CLOUD_DIR = 'fc' + VER + '/data/';
 const META_COL = 'meta_fc' + VER;
 const VOTE_USER_COL = 'votes_user_fc' + VER;
+const SBC_VOTE_USER_COL = 'sbc_votes_user_fc' + VER;
 const HARD_TIMEOUT_MS = Number(process.env.VOTE_TIMEOUT_MS || 220 * 60 * 1000);
 const VOTE_BATCH = Number(process.env.VOTE_BATCH || 32);           // 每批并发 fetch 的 fut.gg id 数
 const CHEM_META_URL = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la/fc' + VER + '/data/chem_meta/chem_meta.json';
@@ -71,8 +77,9 @@ function isSundayBJ() {
 const MODE = resolveMode();
 const RUN_CHEM = true;                                   // 化学推荐每天抓
 const RUN_VOTES = (MODE === 'full') || (MODE === 'auto' && isSundayBJ());
+const RUN_SBC_VOTES = true;                              // SBC 投票每天抓（独立于球员投票，contentTypeId=20）
 const REBUILD_MAP = (MODE === 'full') || (MODE === 'auto' && isSundayBJ()); // 仅 full（周日）重建映射
-console.log('[mode] MODE=' + MODE + ' RUN_CHEM=' + RUN_CHEM + ' RUN_VOTES=' + RUN_VOTES + ' REBUILD_MAP=' + REBUILD_MAP + ' (周日BJ=' + isSundayBJ() + ')');
+console.log('[mode] MODE=' + MODE + ' RUN_CHEM=' + RUN_CHEM + ' RUN_VOTES=' + RUN_VOTES + ' RUN_SBC_VOTES=' + RUN_SBC_VOTES + ' REBUILD_MAP=' + REBUILD_MAP + ' (周日BJ=' + isSundayBJ() + ')');
 
 // —— 云初始化（仅上传时）——
 function loadEnv() {
@@ -257,6 +264,144 @@ async function loadMiniapp(app) {
     console.log('  miniapp 读取失败（视为空）：', e.message);
   }
   return mini;
+}
+
+// ③' 读云库 sbcs_fc{ver} → 取全部 SBC 集合 id（= fut.gg sbcSet id，即投票 key）
+async function loadSbcIds(app) {
+  const ids = [];
+  try {
+    const db = app.database();
+    const col = db.collection('sbcs_fc' + VER);
+    let skip = 0;
+    const PAGE = 100;
+    while (true) {
+      const res = await col.limit(PAGE).skip(skip).field({ _id: true }).get();
+      const docs = (res && res.data) || [];
+      for (const d of docs) { const id = Number(d._id); if (id) ids.push(id); }
+      if (docs.length < PAGE) break;
+      skip += PAGE;
+    }
+    console.log('  SBC 集合 id 数量：', ids.length);
+  } catch (e) { console.log('  SBC id 读取失败（视为空）：', e.message); }
+  return ids;
+}
+
+// ③'' 读云库 sbc_votes_user_fc{ver} → 按 sbcId 聚合 miniapp 票数（SBC 投票用；doc._id = sbcId:anonId）
+async function loadSbcMiniapp(app) {
+  const mini = {};
+  try {
+    const db = app.database();
+    const col = db.collection(SBC_VOTE_USER_COL);
+    let skip = 0;
+    const PAGE = 100;
+    while (true) {
+      const res = await col.limit(PAGE).skip(skip).get();
+      const docs = (res && res.data) || [];
+      for (const d of docs) {
+        const id = d._id || '';
+        const sbcId = Number(String(id).split(':')[0]);
+        if (!sbcId) continue;
+        const act = d.action;
+        if (act === 'up' || act === 'down') {
+          if (!mini[sbcId]) mini[sbcId] = { up: 0, down: 0, total: 0 };
+          mini[sbcId][act]++; mini[sbcId].total++;
+        }
+      }
+      if (docs.length < PAGE) break;
+      skip += PAGE;
+    }
+    console.log('  SBC miniapp 票统计：', Object.keys(mini).length, '个 SBC 有票');
+  } catch (e) { console.log('  SBC miniapp 读取失败（视为空）：', e.message); }
+  return mini;
+}
+
+// ②' 批量并发拉 fut.gg SBC 投票（contentTypeId=20，端点 /api/voting/20/{sbcSetId}/）
+// 返回：sbcId → { up, down, total, score }（与球员投票同结构）
+async function fetchSbcVotes(page, ids) {
+  const futgg = {};
+  let cursor = 0, done = 0, failed = 0;
+  const total = ids.length;
+  const BATCH = VOTE_BATCH;
+
+  while (cursor < total) {
+    const batch = [];
+    while (batch.length < BATCH && cursor < total) batch.push(ids[cursor++]);
+    if (!batch.length) break;
+
+    let results = null, attempts = 0, lastErr = '';
+    while (!results && attempts < 3) {
+      try {
+        results = await page.evaluate(async ({ batch, VOTE_BASE, VER }) => {
+          const sleep = ms => new Promise(r => setTimeout(r, ms));
+          const fetchOne = async (id, attempt) => {
+            const url = `${VOTE_BASE}/voting/20/${id}/`;
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 20000);
+            try {
+              const r = await fetch(url, { headers: { Accept: 'application/json' }, signal: controller.signal });
+              clearTimeout(timer);
+              if (r.ok) { const text = await r.text(); return { id, ok: true, text }; }
+              return { id, ok: false, status: r.status };
+            } catch (e) {
+              clearTimeout(timer);
+              if (attempt < 2) { await sleep(400 * (attempt + 1)); return fetchOne(id, attempt + 1); }
+              return { id, ok: false, err: String(e && e.message || e) };
+            }
+          };
+          return await Promise.all(batch.map(id => fetchOne(id, 0)));
+        }, { batch, VOTE_BASE, VER });
+      } catch (e) {
+        attempts++;
+        lastErr = e && e.message ? e.message : String(e);
+        if (attempts >= 3) { console.log('  SBC 投票批次失败（整批', batch.length, '个）', lastErr); break; }
+        await sleep(500 * attempts);
+      }
+    }
+
+    if (!results) { failed += batch.length; done += batch.length; }
+    else {
+      for (const r of results) {
+        done++;
+        if (r.ok && r.text) {
+          const j = jget(r.text);
+          const d = j && j.data;
+          if (d) {
+            futgg[r.id] = { up: Number(d.upvotes) || 0, down: Number(d.downvotes) || 0, total: Number(d.totalVotes) || 0, score: Number(d.score) || 0 };
+          } else { failed++; }
+        } else {
+          if (r.status === 404) futgg[r.id] = { up: 0, down: 0, total: 0, score: 0 };
+          else {
+            failed++;
+            if (done <= 10 || done % 1000 === 0) console.log('  SBC 投票失败 id', r.id, r.status || r.err || '');
+          }
+        }
+      }
+    }
+    if (done % 500 === 0 || done === total) console.log('  SBC 投票进度', done, '/', total, '失败', failed);
+    if (cursor < total) await sleep(120);
+  }
+  console.log('  SBC 投票抓取：', Object.keys(futgg).length, '个 SBC 有响应（批大小', BATCH, '失败', failed, '）');
+  return futgg;
+}
+
+// ④' SBC 投票分桶组装（含 miniapp 合并，保留大的）
+function buildSbcVoteBuckets(sbcIds, futgg, mini) {
+  const buckets = {};
+  for (const sbcId of sbcIds) {
+    const sid = Number(sbcId);
+    const f = futgg[sid] || { up: 0, down: 0, total: 0, score: 0 };
+    const m = mini[sid] || { up: 0, down: 0, total: 0 };
+    let disp;
+    if (f.total > m.total) disp = { up: f.up, down: f.down, total: f.total };
+    else disp = { up: m.up, down: m.down, total: m.total };
+    const bucket = Math.floor(sid / 100);
+    if (!buckets[bucket]) buckets[bucket] = { byId: {} };
+    // src 标记来源：futgg＝fut.gg 原生票（不含本机票）；mini＝fut.gg 无票、回退小程序云库聚合（含本机票）。
+    // 端上据此决定是否从冻结基线扣减本机票（与 vote.js 的 miniapp 分支同语义，杜绝幂等重复计数）。
+    const src = (f.total > m.total) ? 'futgg' : 'mini';
+    buckets[bucket].byId[String(sid)] = { up: disp.up, down: disp.down, total: disp.total, score: f.score, src: src };
+  }
+  return buckets;
 }
 
 // ② 在主 page 上批量并发拉 fut.gg 投票（按 fut.gg 内部 id）
@@ -521,6 +666,21 @@ async function uploadBuckets(app, prefix, buckets, nowIso, label, concurrency) {
 
 (async () => {
   const watchdog = setTimeout(function () { console.error('WATCHDOG TIMEOUT'); process.exit(5); }, HARD_TIMEOUT_MS);
+  // —— 云初始化（提前：SBC 集合 id / miniapp 票聚合需在浏览器前读取）——
+  let app = null;
+  if (!NO_UPLOAD) {
+    try { app = initCloud(); } catch (e) { console.error('云初始化失败：', e.message); process.exit(3); }
+  }
+  let mini = {};        // 球员 miniapp 票（仅 RUN_VOTES）
+  let sbcIds = [];      // SBC 集合 id（fut.gg sbcSet id，即投票 key）
+  let sbcMini = {};     // SBC miniapp 票（sbc_votes_user_fc{ver} 聚合）
+  if (app) {
+    if (RUN_VOTES) { console.log('\n③ 读球员 miniapp 投票...'); mini = await loadMiniapp(app); }
+    if (RUN_SBC_VOTES) { console.log('\n③ 读 SBC 集合 id + miniapp 票...'); sbcIds = await loadSbcIds(app); sbcMini = await loadSbcMiniapp(app); }
+  } else if (NO_UPLOAD) {
+    console.log('\n③ --no-upload：跳过云库读取与上传');
+  }
+
   console.log('启动 Chromium（过 CF）...');
   const browser = await chromium.launch({ headless: true, args: ['--disable-blink-features=AutomatedControlled', '--no-sandbox', '--disable-dev-shm-usage'] });
   const ctx = await browser.newContext({ userAgent: UA });
@@ -545,7 +705,7 @@ async function uploadBuckets(app, prefix, buckets, nowIso, label, concurrency) {
     console.log('  映射完成：化学抓取目标 id', chemIds.length, '个（含每张卡的卡片实例 id）');
   }
 
-  // 浏览器内抓取（化学 + 投票都依赖已通过 CF 的 page，必须在 close 前完成）
+  // 浏览器内抓取（化学 + 投票 + SBC 投票都依赖已通过 CF 的 page，必须在 close 前完成）
   let chem = {};
   if (RUN_CHEM) {
     // 化学需要过 CF 的会话：若走了缓存映射分支，这里补一次 passCF
@@ -562,22 +722,13 @@ async function uploadBuckets(app, prefix, buckets, nowIso, label, concurrency) {
     console.log('\n② 拉 fut.gg 投票（主 page 批量并发，批大小', VOTE_BATCH, '，目标 id', voteIds.length, '）...');
     futgg = await fetchVoting(page, voteIds);
   }
+  let sbcFutgg = {};
+  if (RUN_SBC_VOTES) {
+    console.log('\n② 拉 fut.gg SBC 投票（contentTypeId=20，批大小', VOTE_BATCH, '，目标 id', sbcIds.length, '）...');
+    sbcFutgg = await fetchSbcVotes(page, sbcIds);
+  }
 
   await browser.close();
-
-  let mini = {};
-  let app = null;
-  if (!NO_UPLOAD) {
-    try { app = initCloud(); } catch (e) { console.error('云初始化失败：', e.message); process.exit(3); }
-    if (RUN_VOTES) {
-      console.log('\n③ 读 miniapp 投票...');
-      mini = await loadMiniapp(app);
-    } else {
-      console.log('\n③ --no-votes（非周日）：跳过云库投票读取');
-    }
-  } else {
-    console.log('\n③ --no-upload：跳过云库读取与上传');
-  }
 
   const nowIso = new Date().toISOString();
 
@@ -626,8 +777,24 @@ async function uploadBuckets(app, prefix, buckets, nowIso, label, concurrency) {
     console.log('  投票：映射球员', meta.count, '| 分桶', meta.buckets);
   }
 
+  // —— SBC 投票：组装 + 上传（每天）——
+  if (RUN_SBC_VOTES) {
+    console.log('\n④ SBC 投票：合并 + 分桶 + 上传...');
+    const sbcBuckets = buildSbcVoteBuckets(sbcIds, sbcFutgg, sbcMini);
+    console.log('  SBC 投票：', Object.keys(sbcBuckets).length, '桶，覆盖', sbcIds.length, '个 SBC');
+    if (!NO_UPLOAD) {
+      // 确保用户投票集合存在（安全规则需手动配置「所有用户可读写」，见方案文档 §3.3）
+      try { await app.database().createCollection(SBC_VOTE_USER_COL); console.log('  已确保集合', SBC_VOTE_USER_COL); } catch (e) {}
+      // 元信息：端上 ensureMeta 读它判断数据新鲜度 / 哪些 SBC 有票（idx 命中则一定有桶记录）
+      const sbcMeta = { updatedAt: nowIso, ver: VER, count: sbcIds.length, ids: sbcIds.map(Number) };
+      fs.writeFileSync(path.join(OUT_DIR, 'sbc_vote_meta.json'), JSON.stringify(sbcMeta));
+      await uploadJson(app, CLOUD_DIR + 'sbc_vote_meta/sbc_vote_meta.json', sbcMeta);
+      await uploadBuckets(app, CLOUD_DIR + 'sbc_votes/', sbcBuckets, nowIso, 'SBC投票', 4);
+    }
+  }
+
   console.log('\n===== 完成 =====');
-  console.log('  MODE=' + MODE + ' RUN_CHEM=' + RUN_CHEM + ' RUN_VOTES=' + RUN_VOTES + ' updatedAt=' + nowIso);
+  console.log('  MODE=' + MODE + ' RUN_CHEM=' + RUN_CHEM + ' RUN_VOTES=' + RUN_VOTES + ' RUN_SBC_VOTES=' + RUN_SBC_VOTES + ' updatedAt=' + nowIso);
   clearTimeout(watchdog);
   process.exit(0);
 })().catch(function (e) { console.error('ERR', e); process.exit(1); });
