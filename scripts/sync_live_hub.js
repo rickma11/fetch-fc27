@@ -301,8 +301,11 @@ async function runSync() {
     let evoPrev = {};
     try {
       const er = await app.database().collection(META_COLLECTION).doc('get_evolutions').get();
+      // ⚠️ 修复：node-sdk 的 doc().get() 返回的 data 可能是数组 [{...}]（硬规则 29 同款坑），
+      //    必须解包取首元素，否则 Object.assign({}, evoPrev, ...) 会把数组下标当键、丢光 fileID/count/fetchedAt。
       const ed = (er && er.data) || null;
-      if (ed) evoPrev = (ed.data && typeof ed.data === 'object') ? ed.data : ed;
+      if (Array.isArray(ed)) evoPrev = ed[0] || {};
+      else if (ed && typeof ed === 'object') evoPrev = ed;
     } catch (e) { console.log('  （get_evolutions 元文档可能不存在，将仅写 forceVersion）'); }
     const evoNowIso = new Date().toISOString();
     const evoNext = Object.assign({}, evoPrev, { forceVersion: ts, updatedAt: evoNowIso, updatedAtCn: cn(evoNowIso) });

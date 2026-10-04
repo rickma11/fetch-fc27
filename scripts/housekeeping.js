@@ -110,8 +110,18 @@ async function run() {
       }
     } catch (e) { /* 集合/文档缺失：keep 留空，下面会安全跳过 */ }
 
-    // 3) 防竞态：额外保留「最大 Key」（最新写入的文件），即使 meta 短暂滞后也不误删
-    if (keys.length) keep.add(keys.reduce(function (a, b) { return a > b ? a : b; }));
+    // 3) 防竞态：额外保留「真实最新写入」的文件（按 LastModified 时间排序，而非文件名字符串比较）。
+    //    ⚠️ 不能用文件名字符串比较：哈希命名目录（home_hot/home_new/get_sbcs/get_evolutions）
+    //    文件名与时间无关，字符串最大会误留老文件（如误留 9-30 那份），必须按真实写入时间取最新。
+    if (keys.length) {
+      let newestKey = keys[0];
+      let newestMs = Date.parse((files[0] && files[0].LastModified) || 0) || 0;
+      for (let k = 1; k < keys.length; k++) {
+        const ms = Date.parse((files[k] && files[k].LastModified) || 0) || 0;
+        if (ms > newestMs) { newestMs = ms; newestKey = keys[k]; }
+      }
+      keep.add(newestKey);
+    }
 
     // 4) 候选删除：列出但不在 keep 中
     const toDelete = keys.filter(function (k) { return !keep.has(k); });
