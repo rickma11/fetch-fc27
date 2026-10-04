@@ -1,7 +1,7 @@
 // FC27 市场价同步（生产端，方案 C v4）
 //
 // 定位：本脚本**不跑在腾讯云上**。它在 WorkBuddy 自动化 / GitHub Actions 里跑，
-// 只负责「抓价 → 算异动榜 → 生成两个 JSON → 上传云存储」，小程序端只读展示。
+// 只负责「抓价 → 生成 price_view JSON → 上传云存储」，小程序端只读展示。
 // ⇒ 云开发的「调用次数」只会被端上取签名的几次 GET 消耗，**云函数 GBs = 0**。
 //
 // 契约（来自 2026-09-26 实测，勿改）：
@@ -23,14 +23,11 @@
 //
 // 产物（上传路径前缀：fc27/market/）：
 //   price_all_<ts>.json   ~499KB  {v,ts,cur:{eaId:[pc,ps,xbox]},prev:{},src}
-//   price_view_<ts>.json  ~28KB   {v,ts,tier:[…83+ 分档…],moves:[{eaId,name,prev,cur,dPct,pos}]}
+//   price_view_<ts>.json  ~28KB   {v,ts,tier:[…80+ 分档…]}
 //   文件名带 ts ⇒ 绕开云存储 CDN 缓存（规则 31），每轮须删上一代。
 //
 // ⚠️ 端上红线（改这里就要同步改断言）：
-//   1. moves 每条必须自带 prev / cur / dPct，端上才能直接画红涨绿跌；
-//      砍掉 dPct ⇒ 端上得回查 price_all（499KB）⇒ 首开变慢。scripts/market_assert_test.js 里
-//      有「删掉 dPct 必须变红」的反例。
-//   2. ts 必须单调递增；本轮抓价失败时必须**早退且不写新 ts**，端上靠 ts 判 stale。
+//   1. ts 必须单调递增；本轮抓价失败时必须**早退且不写新 ts**，端上靠 ts 判 stale。
 const fs = require('fs');
 // 核心逻辑（抓价 / 分档 / 异动榜）已迁至 market_core.js，此处单一真源引用。
 const core = require('./market_core.js');
@@ -45,9 +42,6 @@ const opt = function (k, d) {
   const hit = argv.filter(function (a) { return a.indexOf('--' + k + '=') === 0; })[0];
   return hit ? hit.split('=')[1] : d;
 };
-// --min-base=0 可关闭占位价过滤
-let MIN_BASE = parseInt(opt('min-base', String(core.getMinBase())), 10);
-
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');

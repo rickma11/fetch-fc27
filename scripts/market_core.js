@@ -1,6 +1,6 @@
 // FC27 市场价「核心逻辑单一真源」。
 // 本机入口 scripts/price_sync.js 与云端入口 scripts/price_sync_cloud.js **都必须** require 本文件，
-// 谁都不许再抄第二份 —— 否则分档/异动榜口径会随文件各自漂移（规则 93「行处理逻辑只能一份」）。
+// 谁都不许再抄第二份 —— 否则分档口径会随文件各自漂移（规则 93「行处理逻辑只能一份」）。
 //
 // 本文件**不碰任何本地文件系统**，IO 由两个入口各自负责。
 
@@ -17,12 +17,8 @@ function cardCloudId(eaId, hasPortrait) {
   return 'cloud://' + CLOUD_ENV + '.' + CLOUD_BUCKET + '/fc27/images/' + eaId + (hasPortrait ? '_card.webp' : '_np.webp');
 }
 const TIER_MIN = 80;       // 2026-10-03 拍板：83 → 80（市场页 81+ 分档 + 搜索 80+；原 85+/83+ 历史见 docs）
-// ⚠️ 2026-10-03：异动榜（moves）已从产品下线 —— 删掉 MOVE_MIN_PCT / MOVE_TOP / pct / moves 计算，
+// ⚠️ 2026-10-03：异动榜（moves）已从产品下线 —— pct / moves 计算删除，
 //   prev 快照与 price_all_market_latest.json 不再写也不再读（用户要求「去掉相关代码和跑数据，不浪费」）。
-let MIN_BASE = 2500;       // 仅本地脚本 price_sync.js 的 --min-base 默认值沿用
-
-function setMinBase(v) { MIN_BASE = v; }
-function getMinBase() { return MIN_BASE; }
 
 const key = function (v) { return typeof v === 'number' ? String(v) : String(v); };
 function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
@@ -146,6 +142,5 @@ function build(roster, cur, prev, src, tsOverride) {
 module.exports = {
   PRICE_API: PRICE_API, BATCH: BATCH, TIER_MIN: TIER_MIN,
   key: key, sleep: sleep,
-  fetchBatch: fetchBatch, pullPlatforms: pullPlatforms, build: build,
-  setMinBase: setMinBase, getMinBase: getMinBase
+  fetchBatch: fetchBatch, pullPlatforms: pullPlatforms, build: build
 };
