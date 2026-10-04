@@ -676,7 +676,13 @@ async function uploadBuckets(app, prefix, buckets, nowIso, label, concurrency) {
   let sbcMini = {};     // SBC miniapp 票（sbc_votes_user_fc{ver} 聚合）
   if (app) {
     if (RUN_VOTES) { console.log('\n③ 读球员 miniapp 投票...'); mini = await loadMiniapp(app); }
-    if (RUN_SBC_VOTES) { console.log('\n③ 读 SBC 集合 id + miniapp 票...'); sbcIds = await loadSbcIds(app); sbcMini = await loadSbcMiniapp(app); }
+    if (RUN_SBC_VOTES) {
+      console.log('\n③ 读 SBC 集合 id + miniapp 票...');
+      sbcIds = await loadSbcIds(app);
+      // 先确保用户投票集合存在，再读取；否则首次运行会报 ResourceNotFound（虽被捕获视为空，但日志吓人）
+      try { await app.database().createCollection(SBC_VOTE_USER_COL); console.log('  已确保集合', SBC_VOTE_USER_COL); } catch (e) {}
+      sbcMini = await loadSbcMiniapp(app);
+    }
   } else if (NO_UPLOAD) {
     console.log('\n③ --no-upload：跳过云库读取与上传');
   }
@@ -783,8 +789,6 @@ async function uploadBuckets(app, prefix, buckets, nowIso, label, concurrency) {
     const sbcBuckets = buildSbcVoteBuckets(sbcIds, sbcFutgg, sbcMini);
     console.log('  SBC 投票：', Object.keys(sbcBuckets).length, '桶，覆盖', sbcIds.length, '个 SBC');
     if (!NO_UPLOAD) {
-      // 确保用户投票集合存在（安全规则需手动配置「所有用户可读写」，见方案文档 §3.3）
-      try { await app.database().createCollection(SBC_VOTE_USER_COL); console.log('  已确保集合', SBC_VOTE_USER_COL); } catch (e) {}
       // 元信息：端上 ensureMeta 读它判断数据新鲜度 / 哪些 SBC 有票（idx 命中则一定有桶记录）
       const sbcMeta = { updatedAt: nowIso, ver: VER, count: sbcIds.length, ids: sbcIds.map(Number) };
       fs.writeFileSync(path.join(OUT_DIR, 'sbc_vote_meta.json'), JSON.stringify(sbcMeta));
