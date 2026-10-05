@@ -16,7 +16,7 @@ on:
       upload:
         description: '是否上传到云存储（false=空跑验证，true=真写）'
         type: boolean
-        default: false
+        default: true
 
 permissions:
   contents: read
@@ -54,4 +54,4 @@ jobs:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
-        run: node scripts/price_sync_cloud.js ${{ github.event.inputs.upload == 'true' && '--upload' || '' }}
+        run: node scripts/price_sync_cloud.js ${{ github.event.inputs.upload != 'false' && '--upload' || '' }}
