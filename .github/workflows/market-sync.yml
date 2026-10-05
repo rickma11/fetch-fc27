@@ -5,7 +5,8 @@ name: Market Sync Hourly (FC27 prices)
 #
 # 触发：仅 workflow_dispatch（由 cron-job.org 每小时 POST，或手动触发）。
 #   - 不挂 Fetch FC27 Daily，对原每日抓取流水线零影响；
-#   - 默认 upload=false 空跑验证；cron-job.org 传 inputs.upload=true 才真写云存储。
+#   - 默认 upload=true 真写云存储；只有显式传 inputs.upload=false 时才空跑验证。
+#   - cron-job.org 可省略 inputs.upload（默认即上传），也可显式传 "true"/"false"。
 #
 # 迁移顺序：本 workflow 先建好（闲置）→ 配 cron-job.org 指向它 → 验证稳定后停云函数定时器。
 #   在配第三方触发前，云函数 market_sync 必须继续跑（否则市场价格停更）。
