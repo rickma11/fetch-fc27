@@ -100,6 +100,28 @@ function httpGetText(url, depth) {
   });
 }
 
+// ---------- HTTP 重试包装（Gitee 偶发超时/抖动：单次失败不应让整轮 dict-static 挂掉）----------
+// 2026-10-04 run#8 实锤：GitHub Actions runner 拉 Gitee raw 偶发 20s socket 超时，
+// 原 httpGetText 无重试 ⇒ 整轮失败（幸而下一小时 run#9 重跑成功，数据未过期）。
+// 此处加 3 次指数退避重试（与 sync_votes.js / memory 规则 116 同口径）。
+async function httpGetTextRetry(url, maxAttempts) {
+  maxAttempts = maxAttempts || 3;
+  let lastErr;
+  for (let i = 0; i < maxAttempts; i++) {
+    try {
+      return await httpGetText(url, 0);
+    } catch (e) {
+      lastErr = e;
+      if (i < maxAttempts - 1) {
+        const wait = 800 * (i + 1) + Math.random() * 400;
+        console.warn('[gen_dict_static] 拉取 ' + url + ' 第 ' + (i + 1) + ' 次失败（' + e.message + '），' + Math.round(wait) + 'ms 后重试');
+        await new Promise(function (r) { setTimeout(r, wait); });
+      }
+    }
+  }
+  throw lastErr;
+}
+
 // ---------- 抽取（与云函数逐字同口径）----------
 function zhOf(v) {
   if (v == null) return '';
@@ -210,9 +232,9 @@ async function buildDict() {
     miniappText = fs.readFileSync(path.join(LOCAL_DIR, 'miniapp-dictionaries.json'), 'utf8');
     evoText = fs.readFileSync(path.join(LOCAL_DIR, 'evolutions1.json'), 'utf8');
   } else {
-    srcText = await httpGetText(SRC_URL, 0);
-    miniappText = await httpGetText(MINIAPP_SBC_URL, 0);
-    evoText = await httpGetText(EVOLUTIONS_URL, 0);
+    srcText = await httpGetTextRetry(SRC_URL);
+    miniappText = await httpGetTextRetry(MINIAPP_SBC_URL);
+    evoText = await httpGetTextRetry(EVOLUTIONS_URL);
   }
   const srcJson = JSON.parse(srcText);
   const miniappJson = JSON.parse(miniappText);
