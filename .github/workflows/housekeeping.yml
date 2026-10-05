@@ -1,8 +1,9 @@
 name: Storage Housekeeping
 
 # 云存储历史文件清理（独立于每日抓取链路）。
-# 见 scripts/housekeeping.js：清理 fc27/data/ 下 6 类按 hash/时间戳堆积的静态 JSON 死数据
-# （尤其 hotboard 每 30 分钟一个、从不清理）。GitHub 原生 schedule 定时跑，不依赖云函数触发器。
+# 见 scripts/housekeeping.js：清理 fc27/data/ 下 7 类按 hash/时间戳堆积的静态 JSON 死数据
+# （尤其 hotboard 每 30 分钟一个、从不清理），以及 fc27/market/ 下的历史孤儿文件。
+# GitHub 原生 schedule 定时跑，不依赖云函数触发器。
 #
 # 时区：GitHub cron 为 UTC。'30 19 * * *' = 北京时间 03:30 每日。
 # 手动触发（workflow_dispatch）可指定 dry-run（只列不删）先做验证。

@@ -3,14 +3,17 @@
 // 背景：fc{ver}/data/<name>/ 下由 CI / 云函数定时生成的静态 JSON 会按 hash / 时间戳不断堆积：
 //   · hotboard   —— player_hot 定时器每 30 分钟上传一个 hotboard_<ts>.json，且**从不清理**（最紧急）；
 //   · changelog  —— 仅版本变化时写，但也会堆积；
-//   · home_hot / home_new / get_sbcs / get_evolutions —— publishOne 写后删 prevFileId，但失败/并发会留孤儿。
+//   · home_hot / home_new / get_sbcs / get_evolutions —— publishOne 写后删 prevFileId，但失败/并发会留孤儿；
+//   · dict_basic —— 每小时生成，hash 命名，内容变则换名；
+//   · fc{ver}/market/ —— price_view_<桶>.json 每小时生成，且历史 _chain_*.json / price_all_*.json 已成孤儿。
 // 端上只读 meta_fc{ver}/<name>.fileID 指向的当前文件，其余都是死数据，白占云存储配额。
 //
 // 本脚本（独立每日 workflow 调用）：
-//   1. 对 6 类可堆积目录，读 meta 当前 fileID（＋ prevFileId）作为 keep 集合；
+//   1. 对 7 类可堆积目录，读 meta 当前 fileID（＋ prevFileId）作为 keep 集合；
 //   2. walkCloudDir 枚举该目录全部文件（@cloudbase/node-sdk 无 list，必须用 manager-node）；
 //   3. 额外保留「最大 Key」（最新写入）防竞态；
 //   4. 删掉 keep 集合之外的所有文件。
+//   5. 对 market 目录特殊处理：保留最近 12 个 price_view_*.json，删除其余所有非 price_view 文件。
 //
 // 安全护栏：
 //   · 若某类 keep 为空（meta 缺失 / fileID 为空），**跳过该类**——宁可不删，绝不误删当前文件；
@@ -39,7 +42,8 @@ const CATEGORIES = [
   'home_new',
   'get_sbcs',
   'get_evolutions',
-  'changelog'
+  'changelog',
+  'dict_basic'
 ];
 
 // node-sdk / wx-server-sdk 的 doc().get() 返回 data 可能是数组或对象，统一解包
@@ -154,6 +158,46 @@ async function run() {
       }
     }
     totalDeleted += toDelete.length;
+  }
+
+  // ── 特殊目录：fc{ver}/market/ ──
+  // 保留最近 12 个 price_view_*.json（覆盖端上 6 小时回退窗口，留一倍余量）；
+  // 删除 _chain_*.json、price_all_*.json 等所有历史孤儿文件。
+  // 安全门：若目录里没有 price_view_*.json，宁可跳过也不删。
+  const marketPrefix = 'fc' + VER + '/market/';
+  try {
+    const marketFiles = await storage.walkCloudDir(marketPrefix);
+    const marketKeys = (marketFiles || []).map(function (f) { return f.Key; }).filter(Boolean);
+    const priceViewKeys = marketKeys.filter(function (k) {
+      return /price_view_\d{12}\.json$/.test(k.split('/').pop() || '');
+    }).sort();
+    if (priceViewKeys.length === 0) {
+      console.error('[market] 跳过删除：未找到 price_view_*.json，为防误删不执行');
+    } else {
+      const keepMarket = new Set(priceViewKeys.slice(-12));
+      const toDeleteMarket = marketKeys.filter(function (k) { return !keepMarket.has(k); });
+      console.log('[market] 文件数=' + marketKeys.length + ' 保留 price_view=' + keepMarket.size +
+        ' 待删=' + toDeleteMarket.length);
+      if (toDeleteMarket.length) {
+        if (DRY) {
+          toDeleteMarket.forEach(function (k) { console.log('  (dry) 将删: ' + k); });
+          totalWouldDelete += toDeleteMarket.length;
+        } else {
+          for (let i = 0; i < toDeleteMarket.length; i += 20) {
+            const batch = toDeleteMarket.slice(i, i + 20);
+            try {
+              await storage.deleteFile(batch);
+              console.log('  已删 ' + batch.length + ' 个: ' + batch.map(function (k) { return k.split('/').pop(); }).join(', '));
+            } catch (e) {
+              console.error('  删除批次失败（继续下一批）: ' + e.message);
+            }
+          }
+          totalDeleted += toDeleteMarket.length;
+        }
+      }
+    }
+  } catch (e) {
+    console.error('[market] 列举失败，跳过: ' + e.message);
   }
 
   console.log('\n=== housekeeping 完成 === ' +
