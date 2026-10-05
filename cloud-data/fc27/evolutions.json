@@ -45,18 +45,18 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 74391,
+      "numberOfPlayers": 59248,
       "trendingPlayersIds": [
         "67356819_2488:1",
         "50579603_2488:1",
         "254796_2488:1",
         "244391_2488:1",
+        "84141355_2488:1",
+        "67364139_2488:1",
         "67382428_2488:1",
         "50605212_2488:1",
         "50583214_2488:1",
-        "235659_2488:2",
         "235805_2488:1",
-        "271800_2488:2",
         "257470_2488:2",
         "50551380_2488:2",
         "219732_2488:2",
@@ -70,8 +70,8 @@
       ],
       "eligiblePlayerItemIds": [
         "84110231",
-        "77050",
-        "84141355"
+        "73562",
+        "80170"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -446,12 +446,12 @@
         }
       ],
       "bestPathChoices": [
-        2
+        1
       ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
-          "value": "Inventive",
+          "value": "Gamechanger",
           "maxValue": "(^4)"
         }
       ],
@@ -476,8 +476,8 @@
         "bestPosition": 25,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.4690170185494308,
-        "highestGgrBoost": 11,
+        "averageGgrBoost": 0.6304227056080816,
+        "highestGgrBoost": 8.699999809265137,
         "games": 1,
         "wins": 0,
         "cleanSheets": 0,
@@ -493,7 +493,7 @@
       "totalUpgrades": [
         {
           "upgrade": "play_style",
-          "value": 38,
+          "value": 37,
           "maxValue": 4,
           "guidAssetId": null
         }
@@ -522,7 +522,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 18710,
+      "numberOfPlayers": 2995,
       "trendingPlayersIds": [
         "216700_2489",
         "190972_2489",
@@ -546,9 +546,9 @@
         "210537_2489"
       ],
       "eligiblePlayerItemIds": [
-        "86435",
+        "86183",
         "50609623",
-        "76098"
+        "50606207"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -1389,8 +1389,8 @@
         "bestPosition": 12,
         "statsBoost": 116,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 7.729909762132534,
-        "highestGgrBoost": 28.5,
+        "averageGgrBoost": 8.96883472011165,
+        "highestGgrBoost": 33.70000076293945,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -1561,7 +1561,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 9302,
+      "numberOfPlayers": 9311,
       "trendingPlayersIds": [
         "247832_2490",
         "256632_2490",
@@ -1585,9 +1585,9 @@
         "254088_2490"
       ],
       "eligiblePlayerItemIds": [
-        "84102355",
+        "50603785",
         "84158217",
-        "50585117"
+        "279811"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -1941,8 +1941,8 @@
         "bestPosition": 3,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.07686710773877042,
-        "highestGgrBoost": 3.799999952316284,
+        "averageGgrBoost": 0.8712845143928033,
+        "highestGgrBoost": 11.149999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -2011,9 +2011,9 @@
         "251025_2491"
       ],
       "eligiblePlayerItemIds": [
-        "276505",
+        "80327",
         "265252",
-        "80327"
+        "77163"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -2794,7 +2794,7 @@
         "bestPosition": 3,
         "statsBoost": 242,
         "completionDifficulty": "medium",
-        "averageGgrBoost": 18.009847356708907,
+        "averageGgrBoost": 18.753343519181694,
         "highestGgrBoost": 50.900001525878906,
         "games": 7,
         "wins": 0,
@@ -2958,7 +2958,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 25746,
+      "numberOfPlayers": 21951,
       "trendingPlayersIds": [
         "245054_2492",
         "193348_2492",
@@ -2982,9 +2982,9 @@
         "50562314_2492"
       ],
       "eligiblePlayerItemIds": [
-        "78357",
+        "273748",
         "267318",
-        "50562314"
+        "268992"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -3558,8 +3558,8 @@
         "bestPosition": 25,
         "statsBoost": 30,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.021728768939113,
-        "highestGgrBoost": 11.300000190734863,
+        "averageGgrBoost": 1.3197150511559108,
+        "highestGgrBoost": 8.699999809265137,
         "games": 3,
         "wins": 0,
         "cleanSheets": 0,
@@ -3662,7 +3662,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3770,
+      "numberOfPlayers": 3775,
       "trendingPlayersIds": [
         "222227_2493",
         "224841_2493",
@@ -3686,9 +3686,9 @@
         "270964_2493"
       ],
       "eligiblePlayerItemIds": [
-        "266939",
-        "50586773",
-        "267199"
+        "267199",
+        "265459",
+        "50555806"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -4086,11 +4086,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2493,
-        "bestPosition": 23,
+        "bestPosition": 10,
         "statsBoost": 10,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.8931671082281781,
-        "highestGgrBoost": 2.9600000381469727,
+        "averageGgrBoost": 0.6043867547711395,
+        "highestGgrBoost": 5.599999904632568,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -4151,7 +4151,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 1917,
+      "numberOfPlayers": 1922,
       "trendingPlayersIds": [
         "250961_2494",
         "272145_2494",
@@ -4175,9 +4175,9 @@
         "254551_2494"
       ],
       "eligiblePlayerItemIds": [
-        "265020",
+        "267674",
         "242458",
-        "273748"
+        "86398"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -5056,8 +5056,8 @@
         "bestPosition": 25,
         "statsBoost": 183,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 12.837626502967217,
-        "highestGgrBoost": 36.70000076293945,
+        "averageGgrBoost": 12.88951612435258,
+        "highestGgrBoost": 35.599998474121094,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -5244,7 +5244,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 16753,
+      "numberOfPlayers": 16775,
       "trendingPlayersIds": [
         "240709_2495",
         "213666_2495",
@@ -5268,9 +5268,9 @@
         "239254_2495"
       ],
       "eligiblePlayerItemIds": [
+        "50562314",
         "50591516",
-        "70004",
-        "78357"
+        "50574483"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -5615,11 +5615,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2495,
-        "bestPosition": 7,
+        "bestPosition": 14,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.7076833997078991,
-        "highestGgrBoost": 6.900000095367432,
+        "averageGgrBoost": 0.43637794279772374,
+        "highestGgrBoost": 7.800000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -5664,7 +5664,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 16959,
+      "numberOfPlayers": 16981,
       "trendingPlayersIds": [
         "266160_2496:1:1",
         "260521_2496:1:1",
@@ -5689,8 +5689,8 @@
       ],
       "eligiblePlayerItemIds": [
         "50591516",
-        "50562314",
-        "50590845"
+        "50594307",
+        "78357"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -6182,11 +6182,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2496,
-        "bestPosition": 7,
+        "bestPosition": 5,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.5736116519584102,
-        "highestGgrBoost": 16.600000381469727,
+        "averageGgrBoost": 2.7131535255134467,
+        "highestGgrBoost": 18.299999237060547,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -6237,7 +6237,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 496,
+      "numberOfPlayers": 497,
       "trendingPlayersIds": [
         "268703_2497",
         "80028_2497",
@@ -6261,9 +6261,9 @@
         "258378_2497"
       ],
       "eligiblePlayerItemIds": [
-        "265057",
-        "80028",
-        "259913"
+        "212096",
+        "272049",
+        "258378"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -7190,8 +7190,8 @@
         "bestPosition": 16,
         "statsBoost": 213,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 14.560181461274624,
-        "highestGgrBoost": 38.20000076293945,
+        "averageGgrBoost": 16.17513079230694,
+        "highestGgrBoost": 40.70000076293945,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -7394,7 +7394,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 16959,
+      "numberOfPlayers": 16981,
       "trendingPlayersIds": [
         "240709_2498:1:1",
         "254088_2498:1:2",
@@ -7418,9 +7418,9 @@
         "205186_2498:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "78357",
-        "70145",
-        "86398"
+        "50562314",
+        "50574483",
+        "78357"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -7912,10 +7912,10 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2498,
-        "bestPosition": 25,
+        "bestPosition": 18,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.8210260035496817,
+        "averageGgrBoost": 1.9604240022154356,
         "highestGgrBoost": 13.899999618530273,
         "games": 0,
         "wins": 0,
@@ -7967,7 +7967,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 6540,
+      "numberOfPlayers": 6562,
       "trendingPlayersIds": [
         "50551380_2499:2:1",
         "219732_2499:2:1",
@@ -7978,22 +7978,22 @@
         "271800_2499:2:1",
         "226110_2499:2:1",
         "244391_2499:2:1",
-        "50607696_2499:2:1",
         "50583214_2499:2:1",
         "67356819_2499:2:1",
         "50579603_2499:2:1",
         "246630_2499:2:1",
         "235805_2499:2:1",
         "257470_2499:2:1",
+        "67348495_2499:1:1",
         "67382428_2499:1:1",
         "50605212_2499:1:1",
         "254796_2499:1:1",
         "238616_2499:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "264862",
         "70415",
-        "80028"
+        "264862",
+        "276552"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -8500,8 +8500,8 @@
         "bestPosition": 25,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.4859724754666972,
-        "highestGgrBoost": 14.399999618530273,
+        "averageGgrBoost": 2.12392105987958,
+        "highestGgrBoost": 12.800000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -8560,7 +8560,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3607,
+      "numberOfPlayers": 3636,
       "trendingPlayersIds": [
         "235805_2500",
         "263205_2500",
@@ -8584,9 +8584,9 @@
         "208722_2500"
       ],
       "eligiblePlayerItemIds": [
-        "50588323",
-        "83971352",
-        "50408064"
+        "50408064",
+        "50405533",
+        "50588323"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -8977,11 +8977,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2500,
-        "bestPosition": 25,
+        "bestPosition": 14,
         "statsBoost": 6,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.22978098175610023,
-        "highestGgrBoost": 8.300000190734863,
+        "averageGgrBoost": 0.4530693064792117,
+        "highestGgrBoost": 4.900000095367432,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -9038,7 +9038,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 16888,
+      "numberOfPlayers": 16910,
       "trendingPlayersIds": [
         "224574_2501",
         "240709_2501",
@@ -9063,8 +9063,8 @@
       ],
       "eligiblePlayerItemIds": [
         "70004",
-        "70145",
-        "50591516"
+        "78357",
+        "74462"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -9409,11 +9409,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2501,
-        "bestPosition": 25,
+        "bestPosition": 14,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.012585860241291854,
-        "highestGgrBoost": 9.5,
+        "averageGgrBoost": 1.1542022472819162,
+        "highestGgrBoost": 10.399999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -9458,7 +9458,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2503",
         "67342283_2503",
@@ -9469,11 +9469,11 @@
         "50583793_2503",
         "67374762_2503",
         "50597546_2503",
+        "67338422_2503",
+        "50561206_2503",
+        "84119499_2503",
         "227203_2503",
         "192119_2503",
-        "237288_2503",
-        "67372876_2503",
-        "50595660_2503",
         "231443_2503",
         "238794_2503",
         "252145_2503",
@@ -9482,8 +9482,8 @@
         "50563395_2503"
       ],
       "eligiblePlayerItemIds": [
-        "238439",
-        "1397",
+        "37576",
+        "168473",
         "237067"
       ],
       "eligiblePathHashes": [],
@@ -9820,11 +9820,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2503,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -9860,7 +9860,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2504",
         "67342283_2504",
@@ -9871,11 +9871,11 @@
         "50583793_2504",
         "67374762_2504",
         "50597546_2504",
+        "67338422_2504",
+        "50561206_2504",
+        "84119499_2504",
         "227203_2504",
         "192119_2504",
-        "237288_2504",
-        "67372876_2504",
-        "50595660_2504",
         "231443_2504",
         "238794_2504",
         "252145_2504",
@@ -9884,9 +9884,9 @@
         "50563395_2504"
       ],
       "eligiblePlayerItemIds": [
-        "238439",
-        "37576",
-        "28130"
+        "168473",
+        "190042",
+        "237067"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -10222,11 +10222,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2504,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -10262,7 +10262,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2505",
         "67342283_2505",
@@ -10273,11 +10273,11 @@
         "50583793_2505",
         "67374762_2505",
         "50597546_2505",
+        "67338422_2505",
+        "50561206_2505",
+        "84119499_2505",
         "227203_2505",
         "192119_2505",
-        "237288_2505",
-        "67372876_2505",
-        "50595660_2505",
         "231443_2505",
         "238794_2505",
         "252145_2505",
@@ -10286,9 +10286,9 @@
         "50563395_2505"
       ],
       "eligiblePlayerItemIds": [
-        "190045",
-        "237067",
-        "1397"
+        "28130",
+        "275243",
+        "37576"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -10624,11 +10624,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2505,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -10664,7 +10664,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 18934,
+      "numberOfPlayers": 18546,
       "trendingPlayersIds": [
         "183540_2507",
         "253120_2507",
@@ -10688,9 +10688,9 @@
         "278096_2507"
       ],
       "eligiblePlayerItemIds": [
-        "70502",
-        "76098",
-        "78070"
+        "70007",
+        "71259",
+        "77681"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -11531,8 +11531,8 @@
         "bestPosition": 10,
         "statsBoost": 254,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 17.297772103730512,
-        "highestGgrBoost": 49.79999923706055,
+        "averageGgrBoost": 18.97050509398174,
+        "highestGgrBoost": 50.5,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -11703,7 +11703,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 10964,
+      "numberOfPlayers": 10959,
       "trendingPlayersIds": [
         "226316_2508:1:1:1",
         "245637_2508:1:1:3",
@@ -11727,9 +11727,9 @@
         "254551_2508:1:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "256612",
-        "265577",
-        "265059"
+        "273748",
+        "267674",
+        "50590845"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -12802,8 +12802,8 @@
         "bestPosition": 25,
         "statsBoost": 52,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 6.470345899670408,
-        "highestGgrBoost": 25.399999618530273,
+        "averageGgrBoost": 6.519335395294265,
+        "highestGgrBoost": 25.200000762939453,
         "games": 3,
         "wins": 0,
         "cleanSheets": 0,
@@ -12950,7 +12950,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3689,
+      "numberOfPlayers": 3695,
       "trendingPlayersIds": [
         "269404_2509",
         "278219_2509",
@@ -12974,9 +12974,9 @@
         "238794_2509"
       ],
       "eligiblePlayerItemIds": [
-        "239085",
-        "50570733",
-        "50563395"
+        "231747",
+        "231443",
+        "246219"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -13397,8 +13397,8 @@
         "bestPosition": 25,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.0382596916711226,
-        "highestGgrBoost": 13.100000381469727,
+        "averageGgrBoost": 1.2587225978022016,
+        "highestGgrBoost": 14.800000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -13461,7 +13461,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2992,
+      "numberOfPlayers": 2998,
       "trendingPlayersIds": [
         "78012_2510",
         "246420_2510",
@@ -13485,9 +13485,9 @@
         "189362_2510"
       ],
       "eligiblePlayerItemIds": [
-        "67386507",
-        "247827",
-        "247635"
+        "84133907",
+        "84119499",
+        "247827"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -13883,11 +13883,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2510,
-        "bestPosition": 16,
+        "bestPosition": 23,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.5486330219829595,
-        "highestGgrBoost": 5.099999904632568,
+        "averageGgrBoost": 0.24721147418655878,
+        "highestGgrBoost": 9.100000381469727,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -13944,7 +13944,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3666,
+      "numberOfPlayers": 3669,
       "trendingPlayersIds": [
         "158023_2511",
         "232075_2511",
@@ -13968,9 +13968,9 @@
         "231443_2511"
       ],
       "eligiblePlayerItemIds": [
-        "247827",
-        "84119499",
-        "231443"
+        "231443",
+        "227203",
+        "50579475"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -14388,11 +14388,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2511,
-        "bestPosition": 7,
+        "bestPosition": 18,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.5391489354613102,
-        "highestGgrBoost": 2.9700000286102295,
+        "averageGgrBoost": 0.574810574295212,
+        "highestGgrBoost": 10.5,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -14455,7 +14455,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 5911,
+      "numberOfPlayers": 5918,
       "trendingPlayersIds": [
         "226161_2512",
         "255253_2512",
@@ -14479,9 +14479,9 @@
         "252371_2512"
       ],
       "eligiblePlayerItemIds": [
-        "255253",
-        "212198",
-        "272834"
+        "265898",
+        "252371",
+        "237288"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -14924,8 +14924,8 @@
         "bestPosition": 14,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.003857215444192308,
-        "highestGgrBoost": 10.84000015258789,
+        "averageGgrBoost": 1.4101672860447239,
+        "highestGgrBoost": 12.899999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -14994,7 +14994,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2185,
+      "numberOfPlayers": 2187,
       "trendingPlayersIds": [
         "192984_2513",
         "263139_2513",
@@ -15018,9 +15018,9 @@
         "215698_2513"
       ],
       "eligiblePlayerItemIds": [
-        "212831",
-        "220901",
-        "230621"
+        "235073",
+        "258310",
+        "215698"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -15417,7 +15417,7 @@
         "bestPosition": null,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.6018810052867953,
+        "averageGgrBoost": 1.6026383157594664,
         "highestGgrBoost": 12.800000190734863,
         "games": 0,
         "wins": 0,
@@ -15475,7 +15475,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3028,
+      "numberOfPlayers": 3030,
       "trendingPlayersIds": [
         "78012_2514",
         "278219_2514",
@@ -15499,9 +15499,9 @@
         "238794_2514"
       ],
       "eligiblePlayerItemIds": [
-        "84119499",
-        "50611447",
-        "252371"
+        "231747",
+        "279799",
+        "50611447"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -15897,11 +15897,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2514,
-        "bestPosition": 16,
+        "bestPosition": 27,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.5208784683079728,
-        "highestGgrBoost": 5.099999904632568,
+        "averageGgrBoost": 0.2663498352137287,
+        "highestGgrBoost": 10.300000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -15958,7 +15958,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4767,
+      "numberOfPlayers": 4772,
       "trendingPlayersIds": [
         "246863_2515",
         "270673_2515",
@@ -15982,9 +15982,9 @@
         "212622_2515"
       ],
       "eligiblePlayerItemIds": [
-        "252371",
-        "272834",
-        "251854"
+        "265898",
+        "245830",
+        "237289"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -16427,8 +16427,8 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.33238514872763686,
-        "highestGgrBoost": 5.840000152587891,
+        "averageGgrBoost": 1.1028520527056886,
+        "highestGgrBoost": 11.800000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -16497,7 +16497,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4197,
+      "numberOfPlayers": 4202,
       "trendingPlayersIds": [
         "78012_2516",
         "257008_2516",
@@ -16521,9 +16521,9 @@
         "252145_2516"
       ],
       "eligiblePlayerItemIds": [
+        "50611447",
         "262531",
-        "252145",
-        "84119499"
+        "67374762"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -16941,11 +16941,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2516,
-        "bestPosition": 12,
+        "bestPosition": 16,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.23622825724992094,
-        "highestGgrBoost": 5.179999828338623,
+        "averageGgrBoost": 0.4818967153300052,
+        "highestGgrBoost": 13,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -17008,7 +17008,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4133,
+      "numberOfPlayers": 4140,
       "trendingPlayersIds": [
         "78012_2517",
         "170369_2517",
@@ -17032,9 +17032,9 @@
         "189362_2517"
       ],
       "eligiblePlayerItemIds": [
-        "50565067",
-        "227102",
-        "50579475"
+        "84133907",
+        "67386507",
+        "84119499"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -17455,8 +17455,8 @@
         "bestPosition": 12,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.2470868615545792,
-        "highestGgrBoost": 6.929999828338623,
+        "averageGgrBoost": 0.4976787434314976,
+        "highestGgrBoost": 12.699999809265137,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -17519,7 +17519,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2525,
+      "numberOfPlayers": 2528,
       "trendingPlayersIds": [
         "253124_2518",
         "248165_2518",
@@ -17543,9 +17543,9 @@
         "212622_2518"
       ],
       "eligiblePlayerItemIds": [
-        "67336110",
-        "67359754",
-        "212622"
+        "50571678",
+        "235212",
+        "84126110"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -17988,8 +17988,8 @@
         "bestPosition": 3,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.23358811862176598,
-        "highestGgrBoost": 5.400000095367432,
+        "averageGgrBoost": 1.1495371828779661,
+        "highestGgrBoost": 12.649999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -18058,7 +18058,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4496,
+      "numberOfPlayers": 4501,
       "trendingPlayersIds": [
         "270531_2519",
         "239580_2519",
@@ -18082,9 +18082,9 @@
         "268889_2519"
       ],
       "eligiblePlayerItemIds": [
-        "50561206",
-        "243715",
-        "229558"
+        "229558",
+        "50539513",
+        "50561206"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -18502,11 +18502,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2519,
-        "bestPosition": 18,
+        "bestPosition": 5,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.427622330734619,
-        "highestGgrBoost": 2.990000009536743,
+        "averageGgrBoost": 0.6019084637525697,
+        "highestGgrBoost": 11.149999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -18569,7 +18569,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2456,
+      "numberOfPlayers": 2459,
       "trendingPlayersIds": [
         "227013_2520",
         "269701_2520",
@@ -18593,9 +18593,9 @@
         "225375_2520"
       ],
       "eligiblePlayerItemIds": [
-        "239231",
-        "227323",
-        "252145"
+        "253436",
+        "233662",
+        "227323"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -19038,8 +19038,8 @@
         "bestPosition": 7,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.23099348486813714,
-        "highestGgrBoost": 6.869999885559082,
+        "averageGgrBoost": 1.0326026826899994,
+        "highestGgrBoost": 9.050000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -19108,7 +19108,7 @@
       "pointsCost": 200,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2521",
         "67342283_2521",
@@ -19119,11 +19119,11 @@
         "50583793_2521",
         "67374762_2521",
         "50597546_2521",
+        "67338422_2521",
+        "50561206_2521",
+        "84119499_2521",
         "227203_2521",
         "192119_2521",
-        "237288_2521",
-        "67372876_2521",
-        "50595660_2521",
         "231443_2521",
         "238794_2521",
         "252145_2521",
@@ -19133,7 +19133,7 @@
       ],
       "eligiblePlayerItemIds": [
         "238439",
-        "237067",
+        "275243",
         "247553"
       ],
       "eligiblePathHashes": [],
@@ -19470,11 +19470,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2521,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -19510,7 +19510,7 @@
       "pointsCost": 200,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2522",
         "67342283_2522",
@@ -19521,11 +19521,11 @@
         "50583793_2522",
         "67374762_2522",
         "50597546_2522",
+        "67338422_2522",
+        "50561206_2522",
+        "84119499_2522",
         "227203_2522",
         "192119_2522",
-        "237288_2522",
-        "67372876_2522",
-        "50595660_2522",
         "231443_2522",
         "238794_2522",
         "252145_2522",
@@ -19534,7 +19534,7 @@
         "50563395_2522"
       ],
       "eligiblePlayerItemIds": [
-        "37576",
+        "190045",
         "237067",
         "275243"
       ],
@@ -19872,11 +19872,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2522,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -19912,7 +19912,7 @@
       "pointsCost": 200,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2523",
         "67342283_2523",
@@ -19923,11 +19923,11 @@
         "50583793_2523",
         "67374762_2523",
         "50597546_2523",
+        "67338422_2523",
+        "50561206_2523",
+        "84119499_2523",
         "227203_2523",
         "192119_2523",
-        "237288_2523",
-        "67372876_2523",
-        "50595660_2523",
         "231443_2523",
         "238794_2523",
         "252145_2523",
@@ -19937,8 +19937,8 @@
       ],
       "eligiblePlayerItemIds": [
         "275243",
-        "237067",
-        "1397"
+        "1397",
+        "238439"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -20274,11 +20274,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2523,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -20314,7 +20314,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 23910,
+      "numberOfPlayers": 23080,
       "trendingPlayersIds": [
         "244050_2524:1:1:2",
         "276969_2524:1:1:2",
@@ -20338,8 +20338,8 @@
         "279604_2524:1:1:2"
       ],
       "eligiblePlayerItemIds": [
+        "265459",
         "265271",
-        "50591516",
         "266939"
       ],
       "eligiblePathHashes": [],
@@ -21303,8 +21303,8 @@
         "bestPosition": 10,
         "statsBoost": 58,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 4.182532898277692,
-        "highestGgrBoost": 17,
+        "averageGgrBoost": 5.7061583380201615,
+        "highestGgrBoost": 23,
         "games": 3,
         "wins": 0,
         "cleanSheets": 0,
@@ -21451,7 +21451,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 9104,
+      "numberOfPlayers": 4449,
       "trendingPlayersIds": [
         "237043_2525:1:1:2",
         "243792_2525:1:1:1",
@@ -21475,9 +21475,9 @@
         "239892_2525:1:1:1"
       ],
       "eligiblePlayerItemIds": [
+        "246672",
         "259377",
-        "239892",
-        "259633"
+        "265860"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -22462,7 +22462,7 @@
         "bestPosition": 16,
         "statsBoost": 64,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 6.495281359664465,
+        "averageGgrBoost": 6.4958401122471185,
         "highestGgrBoost": 25,
         "games": 3,
         "wins": 0,
@@ -22616,7 +22616,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2526",
         "67342283_2526",
@@ -22627,11 +22627,11 @@
         "50583793_2526",
         "67374762_2526",
         "50597546_2526",
+        "67338422_2526",
+        "50561206_2526",
+        "84119499_2526",
         "227203_2526",
         "192119_2526",
-        "237288_2526",
-        "67372876_2526",
-        "50595660_2526",
         "231443_2526",
         "238794_2526",
         "252145_2526",
@@ -22640,9 +22640,9 @@
         "50563395_2526"
       ],
       "eligiblePlayerItemIds": [
-        "37576",
-        "28130",
-        "247553"
+        "238439",
+        "1397",
+        "190042"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -22981,7 +22981,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -23018,7 +23018,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2527",
         "67342283_2527",
@@ -23029,11 +23029,11 @@
         "50583793_2527",
         "67374762_2527",
         "50597546_2527",
+        "67338422_2527",
+        "50561206_2527",
+        "84119499_2527",
         "227203_2527",
         "192119_2527",
-        "237288_2527",
-        "67372876_2527",
-        "50595660_2527",
         "231443_2527",
         "238794_2527",
         "252145_2527",
@@ -23042,9 +23042,9 @@
         "50563395_2527"
       ],
       "eligiblePlayerItemIds": [
-        "237067",
         "190045",
-        "247553"
+        "28130",
+        "37576"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -23383,7 +23383,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -23420,7 +23420,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2528",
         "67342283_2528",
@@ -23431,11 +23431,11 @@
         "50583793_2528",
         "67374762_2528",
         "50597546_2528",
+        "67338422_2528",
+        "50561206_2528",
+        "84119499_2528",
         "227203_2528",
         "192119_2528",
-        "237288_2528",
-        "67372876_2528",
-        "50595660_2528",
         "231443_2528",
         "238794_2528",
         "252145_2528",
@@ -23444,7 +23444,7 @@
         "50563395_2528"
       ],
       "eligiblePlayerItemIds": [
-        "28130",
+        "275243",
         "237067",
         "247553"
       ],
@@ -23759,7 +23759,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -23789,7 +23789,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2529",
         "67342283_2529",
@@ -23800,11 +23800,11 @@
         "50583793_2529",
         "67374762_2529",
         "50597546_2529",
+        "67338422_2529",
+        "50561206_2529",
+        "84119499_2529",
         "227203_2529",
         "192119_2529",
-        "237288_2529",
-        "67372876_2529",
-        "50595660_2529",
         "231443_2529",
         "238794_2529",
         "252145_2529",
@@ -23813,9 +23813,9 @@
         "50563395_2529"
       ],
       "eligiblePlayerItemIds": [
-        "190045",
-        "168473",
-        "190042"
+        "28130",
+        "190042",
+        "275243"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -24128,7 +24128,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -24158,7 +24158,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2530",
         "67342283_2530",
@@ -24169,11 +24169,11 @@
         "50583793_2530",
         "67374762_2530",
         "50597546_2530",
+        "67338422_2530",
+        "50561206_2530",
+        "84119499_2530",
         "227203_2530",
         "192119_2530",
-        "237288_2530",
-        "67372876_2530",
-        "50595660_2530",
         "231443_2530",
         "238794_2530",
         "252145_2530",
@@ -24182,9 +24182,9 @@
         "50563395_2530"
       ],
       "eligiblePlayerItemIds": [
-        "37576",
-        "190045",
-        "1397"
+        "190042",
+        "247553",
+        "190045"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -24497,7 +24497,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -24529,31 +24529,31 @@
       "eventTokenId": null,
       "numberOfPlayers": 3870,
       "trendingPlayersIds": [
-        "189296_2531",
+        "218212_2531",
+        "258792_2531",
         "189021_2531",
-        "242656_2531",
+        "273621_2531",
+        "257568_2531",
         "216325_2531",
         "244810_2531",
-        "233189_2531",
+        "242656_2531",
+        "266803_2531",
         "195668_2531",
         "242179_2531",
-        "200316_2531",
-        "228410_2531",
-        "50587548_2531",
         "206561_2531",
-        "199904_2531",
-        "71641_2531",
         "240657_2531",
-        "231237_2531",
-        "233164_2531",
+        "199904_2531",
+        "50587548_2531",
         "50552468_2531",
+        "233164_2531",
+        "231237_2531",
         "201299_2531",
         "236583_2531"
       ],
       "eligiblePlayerItemIds": [
-        "278032",
-        "71641",
-        "50589887"
+        "50553557",
+        "50537723",
+        "275811"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -25125,8 +25125,8 @@
         "bestPosition": null,
         "statsBoost": 62,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 13.56160473688222,
-        "highestGgrBoost": 33.25,
+        "averageGgrBoost": 15.366093930199174,
+        "highestGgrBoost": 35.849998474121094,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -25229,10 +25229,11 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4250,
+      "numberOfPlayers": 4253,
       "trendingPlayersIds": [
         "84138242_2532",
         "67361026_2532",
+        "84154054_2532",
         "67376838_2532",
         "50599622_2532",
         "67376538_2532",
@@ -25248,12 +25249,11 @@
         "67179590_2532",
         "50402374_2532",
         "264968_2532",
-        "255565_2532",
         "50588596_2532",
         "222492_2532"
       ],
       "eligiblePlayerItemIds": [
-        "50588596",
+        "67376538",
         "50553345",
         "224371"
       ],
@@ -25710,7 +25710,7 @@
         "bestPosition": 25,
         "statsBoost": 21,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 3.025571764504208,
+        "averageGgrBoost": 3.024455678125227,
         "highestGgrBoost": 14.800000190734863,
         "games": 0,
         "wins": 0,
@@ -25792,7 +25792,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 13972,
+      "numberOfPlayers": 3032,
       "trendingPlayersIds": [
         "268131_2533",
         "272723_2533",
@@ -25816,9 +25816,9 @@
         "248695_2533"
       ],
       "eligiblePlayerItemIds": [
-        "274644",
-        "265188",
-        "50569633"
+        "279709",
+        "50574483",
+        "265188"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -26644,7 +26644,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 18757,
+      "numberOfPlayers": 13268,
       "trendingPlayersIds": [
         "265072_2534:1:1:2",
         "234730_2534:1:1:2",
@@ -26668,9 +26668,9 @@
         "257470_2534:1:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "278928",
-        "83494",
-        "271945"
+        "76042",
+        "271945",
+        "266097"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -27833,7 +27833,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19805,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2535",
         "67342283_2535",
@@ -27857,9 +27857,9 @@
         "50563395_2535"
       ],
       "eligiblePlayerItemIds": [
+        "190045",
         "190042",
-        "238439",
-        "1397"
+        "238439"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -28172,7 +28172,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007447614387426374,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -28202,7 +28202,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19805,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2536",
         "67342283_2536",
@@ -28226,9 +28226,9 @@
         "50563395_2536"
       ],
       "eligiblePlayerItemIds": [
-        "237067",
         "190042",
-        "238439"
+        "275243",
+        "1397"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -28541,7 +28541,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007447614387426374,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -28595,9 +28595,9 @@
         "50586853_2537:1:1:1"
       ],
       "eligiblePlayerItemIds": [
+        "50608343",
         "50605215",
-        "50540109",
-        "278901"
+        "273227"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -29710,18 +29710,18 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 74391,
+      "numberOfPlayers": 59248,
       "trendingPlayersIds": [
         "67356819_2488:1",
         "50579603_2488:1",
         "254796_2488:1",
         "244391_2488:1",
+        "84141355_2488:1",
+        "67364139_2488:1",
         "67382428_2488:1",
         "50605212_2488:1",
         "50583214_2488:1",
-        "235659_2488:2",
         "235805_2488:1",
-        "271800_2488:2",
         "257470_2488:2",
         "50551380_2488:2",
         "219732_2488:2",
@@ -29735,8 +29735,8 @@
       ],
       "eligiblePlayerItemIds": [
         "84110231",
-        "77050",
-        "84141355"
+        "73562",
+        "80170"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -30111,12 +30111,12 @@
         }
       ],
       "bestPathChoices": [
-        2
+        1
       ],
       "totalUpgradesText": [
         {
           "label": "PlayStyle",
-          "value": "Inventive",
+          "value": "Gamechanger",
           "maxValue": "(^4)"
         }
       ],
@@ -30141,8 +30141,8 @@
         "bestPosition": 25,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.4690170185494308,
-        "highestGgrBoost": 11,
+        "averageGgrBoost": 0.6304227056080816,
+        "highestGgrBoost": 8.699999809265137,
         "games": 1,
         "wins": 0,
         "cleanSheets": 0,
@@ -30158,7 +30158,7 @@
       "totalUpgrades": [
         {
           "upgrade": "play_style",
-          "value": 38,
+          "value": 37,
           "maxValue": 4,
           "guidAssetId": null
         }
@@ -30187,7 +30187,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 18710,
+      "numberOfPlayers": 2995,
       "trendingPlayersIds": [
         "216700_2489",
         "190972_2489",
@@ -30211,9 +30211,9 @@
         "210537_2489"
       ],
       "eligiblePlayerItemIds": [
-        "86435",
+        "86183",
         "50609623",
-        "76098"
+        "50606207"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -31054,8 +31054,8 @@
         "bestPosition": 12,
         "statsBoost": 116,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 7.729909762132534,
-        "highestGgrBoost": 28.5,
+        "averageGgrBoost": 8.96883472011165,
+        "highestGgrBoost": 33.70000076293945,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -31226,7 +31226,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 9302,
+      "numberOfPlayers": 9311,
       "trendingPlayersIds": [
         "247832_2490",
         "256632_2490",
@@ -31250,9 +31250,9 @@
         "254088_2490"
       ],
       "eligiblePlayerItemIds": [
-        "84102355",
+        "50603785",
         "84158217",
-        "50585117"
+        "279811"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -31606,8 +31606,8 @@
         "bestPosition": 3,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.07686710773877042,
-        "highestGgrBoost": 3.799999952316284,
+        "averageGgrBoost": 0.8712845143928033,
+        "highestGgrBoost": 11.149999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -31676,9 +31676,9 @@
         "251025_2491"
       ],
       "eligiblePlayerItemIds": [
-        "276505",
+        "80327",
         "265252",
-        "80327"
+        "77163"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -32459,7 +32459,7 @@
         "bestPosition": 3,
         "statsBoost": 242,
         "completionDifficulty": "medium",
-        "averageGgrBoost": 18.009847356708907,
+        "averageGgrBoost": 18.753343519181694,
         "highestGgrBoost": 50.900001525878906,
         "games": 7,
         "wins": 0,
@@ -32623,7 +32623,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 25746,
+      "numberOfPlayers": 21951,
       "trendingPlayersIds": [
         "245054_2492",
         "193348_2492",
@@ -32647,9 +32647,9 @@
         "50562314_2492"
       ],
       "eligiblePlayerItemIds": [
-        "78357",
+        "273748",
         "267318",
-        "50562314"
+        "268992"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -33223,8 +33223,8 @@
         "bestPosition": 25,
         "statsBoost": 30,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.021728768939113,
-        "highestGgrBoost": 11.300000190734863,
+        "averageGgrBoost": 1.3197150511559108,
+        "highestGgrBoost": 8.699999809265137,
         "games": 3,
         "wins": 0,
         "cleanSheets": 0,
@@ -33327,7 +33327,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3770,
+      "numberOfPlayers": 3775,
       "trendingPlayersIds": [
         "222227_2493",
         "224841_2493",
@@ -33351,9 +33351,9 @@
         "270964_2493"
       ],
       "eligiblePlayerItemIds": [
-        "266939",
-        "50586773",
-        "267199"
+        "267199",
+        "265459",
+        "50555806"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -33751,11 +33751,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2493,
-        "bestPosition": 23,
+        "bestPosition": 10,
         "statsBoost": 10,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.8931671082281781,
-        "highestGgrBoost": 2.9600000381469727,
+        "averageGgrBoost": 0.6043867547711395,
+        "highestGgrBoost": 5.599999904632568,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -33816,7 +33816,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 1917,
+      "numberOfPlayers": 1922,
       "trendingPlayersIds": [
         "250961_2494",
         "272145_2494",
@@ -33840,9 +33840,9 @@
         "254551_2494"
       ],
       "eligiblePlayerItemIds": [
-        "265020",
+        "267674",
         "242458",
-        "273748"
+        "86398"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -34721,8 +34721,8 @@
         "bestPosition": 25,
         "statsBoost": 183,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 12.837626502967217,
-        "highestGgrBoost": 36.70000076293945,
+        "averageGgrBoost": 12.88951612435258,
+        "highestGgrBoost": 35.599998474121094,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -34909,7 +34909,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 16753,
+      "numberOfPlayers": 16775,
       "trendingPlayersIds": [
         "240709_2495",
         "213666_2495",
@@ -34933,9 +34933,9 @@
         "239254_2495"
       ],
       "eligiblePlayerItemIds": [
+        "50562314",
         "50591516",
-        "70004",
-        "78357"
+        "50574483"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -35280,11 +35280,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2495,
-        "bestPosition": 7,
+        "bestPosition": 14,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.7076833997078991,
-        "highestGgrBoost": 6.900000095367432,
+        "averageGgrBoost": 0.43637794279772374,
+        "highestGgrBoost": 7.800000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -35329,7 +35329,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 16959,
+      "numberOfPlayers": 16981,
       "trendingPlayersIds": [
         "266160_2496:1:1",
         "260521_2496:1:1",
@@ -35354,8 +35354,8 @@
       ],
       "eligiblePlayerItemIds": [
         "50591516",
-        "50562314",
-        "50590845"
+        "50594307",
+        "78357"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -35847,11 +35847,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2496,
-        "bestPosition": 7,
+        "bestPosition": 5,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.5736116519584102,
-        "highestGgrBoost": 16.600000381469727,
+        "averageGgrBoost": 2.7131535255134467,
+        "highestGgrBoost": 18.299999237060547,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -35902,7 +35902,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 496,
+      "numberOfPlayers": 497,
       "trendingPlayersIds": [
         "268703_2497",
         "80028_2497",
@@ -35926,9 +35926,9 @@
         "258378_2497"
       ],
       "eligiblePlayerItemIds": [
-        "265057",
-        "80028",
-        "259913"
+        "212096",
+        "272049",
+        "258378"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -36855,8 +36855,8 @@
         "bestPosition": 16,
         "statsBoost": 213,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 14.560181461274624,
-        "highestGgrBoost": 38.20000076293945,
+        "averageGgrBoost": 16.17513079230694,
+        "highestGgrBoost": 40.70000076293945,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -37059,7 +37059,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 16959,
+      "numberOfPlayers": 16981,
       "trendingPlayersIds": [
         "240709_2498:1:1",
         "254088_2498:1:2",
@@ -37083,9 +37083,9 @@
         "205186_2498:2:1"
       ],
       "eligiblePlayerItemIds": [
-        "78357",
-        "70145",
-        "86398"
+        "50562314",
+        "50574483",
+        "78357"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -37577,10 +37577,10 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2498,
-        "bestPosition": 25,
+        "bestPosition": 18,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.8210260035496817,
+        "averageGgrBoost": 1.9604240022154356,
         "highestGgrBoost": 13.899999618530273,
         "games": 0,
         "wins": 0,
@@ -37632,7 +37632,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 6540,
+      "numberOfPlayers": 6562,
       "trendingPlayersIds": [
         "50551380_2499:2:1",
         "219732_2499:2:1",
@@ -37643,22 +37643,22 @@
         "271800_2499:2:1",
         "226110_2499:2:1",
         "244391_2499:2:1",
-        "50607696_2499:2:1",
         "50583214_2499:2:1",
         "67356819_2499:2:1",
         "50579603_2499:2:1",
         "246630_2499:2:1",
         "235805_2499:2:1",
         "257470_2499:2:1",
+        "67348495_2499:1:1",
         "67382428_2499:1:1",
         "50605212_2499:1:1",
         "254796_2499:1:1",
         "238616_2499:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "264862",
         "70415",
-        "80028"
+        "264862",
+        "276552"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -38165,8 +38165,8 @@
         "bestPosition": 25,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.4859724754666972,
-        "highestGgrBoost": 14.399999618530273,
+        "averageGgrBoost": 2.12392105987958,
+        "highestGgrBoost": 12.800000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -38225,7 +38225,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3607,
+      "numberOfPlayers": 3636,
       "trendingPlayersIds": [
         "235805_2500",
         "263205_2500",
@@ -38249,9 +38249,9 @@
         "208722_2500"
       ],
       "eligiblePlayerItemIds": [
-        "50588323",
-        "83971352",
-        "50408064"
+        "50408064",
+        "50405533",
+        "50588323"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -38642,11 +38642,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2500,
-        "bestPosition": 25,
+        "bestPosition": 14,
         "statsBoost": 6,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.22978098175610023,
-        "highestGgrBoost": 8.300000190734863,
+        "averageGgrBoost": 0.4530693064792117,
+        "highestGgrBoost": 4.900000095367432,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -38703,7 +38703,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 16888,
+      "numberOfPlayers": 16910,
       "trendingPlayersIds": [
         "224574_2501",
         "240709_2501",
@@ -38728,8 +38728,8 @@
       ],
       "eligiblePlayerItemIds": [
         "70004",
-        "70145",
-        "50591516"
+        "78357",
+        "74462"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -39074,11 +39074,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2501,
-        "bestPosition": 25,
+        "bestPosition": 14,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.012585860241291854,
-        "highestGgrBoost": 9.5,
+        "averageGgrBoost": 1.1542022472819162,
+        "highestGgrBoost": 10.399999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -40141,7 +40141,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2503",
         "67342283_2503",
@@ -40152,11 +40152,11 @@
         "50583793_2503",
         "67374762_2503",
         "50597546_2503",
+        "67338422_2503",
+        "50561206_2503",
+        "84119499_2503",
         "227203_2503",
         "192119_2503",
-        "237288_2503",
-        "67372876_2503",
-        "50595660_2503",
         "231443_2503",
         "238794_2503",
         "252145_2503",
@@ -40165,8 +40165,8 @@
         "50563395_2503"
       ],
       "eligiblePlayerItemIds": [
-        "238439",
-        "1397",
+        "37576",
+        "168473",
         "237067"
       ],
       "eligiblePathHashes": [],
@@ -40503,11 +40503,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2503,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -40543,7 +40543,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2504",
         "67342283_2504",
@@ -40554,11 +40554,11 @@
         "50583793_2504",
         "67374762_2504",
         "50597546_2504",
+        "67338422_2504",
+        "50561206_2504",
+        "84119499_2504",
         "227203_2504",
         "192119_2504",
-        "237288_2504",
-        "67372876_2504",
-        "50595660_2504",
         "231443_2504",
         "238794_2504",
         "252145_2504",
@@ -40567,9 +40567,9 @@
         "50563395_2504"
       ],
       "eligiblePlayerItemIds": [
-        "238439",
-        "37576",
-        "28130"
+        "168473",
+        "190042",
+        "237067"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -40905,11 +40905,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2504,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -40945,7 +40945,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2505",
         "67342283_2505",
@@ -40956,11 +40956,11 @@
         "50583793_2505",
         "67374762_2505",
         "50597546_2505",
+        "67338422_2505",
+        "50561206_2505",
+        "84119499_2505",
         "227203_2505",
         "192119_2505",
-        "237288_2505",
-        "67372876_2505",
-        "50595660_2505",
         "231443_2505",
         "238794_2505",
         "252145_2505",
@@ -40969,9 +40969,9 @@
         "50563395_2505"
       ],
       "eligiblePlayerItemIds": [
-        "190045",
-        "237067",
-        "1397"
+        "28130",
+        "275243",
+        "37576"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -41307,11 +41307,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2505,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -42538,7 +42538,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 18934,
+      "numberOfPlayers": 18546,
       "trendingPlayersIds": [
         "183540_2507",
         "253120_2507",
@@ -42562,9 +42562,9 @@
         "278096_2507"
       ],
       "eligiblePlayerItemIds": [
-        "70502",
-        "76098",
-        "78070"
+        "70007",
+        "71259",
+        "77681"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -43405,8 +43405,8 @@
         "bestPosition": 10,
         "statsBoost": 254,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 17.297772103730512,
-        "highestGgrBoost": 49.79999923706055,
+        "averageGgrBoost": 18.97050509398174,
+        "highestGgrBoost": 50.5,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -43577,7 +43577,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 10964,
+      "numberOfPlayers": 10959,
       "trendingPlayersIds": [
         "226316_2508:1:1:1",
         "245637_2508:1:1:3",
@@ -43601,9 +43601,9 @@
         "254551_2508:1:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "256612",
-        "265577",
-        "265059"
+        "273748",
+        "267674",
+        "50590845"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -44676,8 +44676,8 @@
         "bestPosition": 25,
         "statsBoost": 52,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 6.470345899670408,
-        "highestGgrBoost": 25.399999618530273,
+        "averageGgrBoost": 6.519335395294265,
+        "highestGgrBoost": 25.200000762939453,
         "games": 3,
         "wins": 0,
         "cleanSheets": 0,
@@ -44824,7 +44824,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3689,
+      "numberOfPlayers": 3695,
       "trendingPlayersIds": [
         "269404_2509",
         "278219_2509",
@@ -44848,9 +44848,9 @@
         "238794_2509"
       ],
       "eligiblePlayerItemIds": [
-        "239085",
-        "50570733",
-        "50563395"
+        "231747",
+        "231443",
+        "246219"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -45271,8 +45271,8 @@
         "bestPosition": 25,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.0382596916711226,
-        "highestGgrBoost": 13.100000381469727,
+        "averageGgrBoost": 1.2587225978022016,
+        "highestGgrBoost": 14.800000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -45335,7 +45335,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2992,
+      "numberOfPlayers": 2998,
       "trendingPlayersIds": [
         "78012_2510",
         "246420_2510",
@@ -45359,9 +45359,9 @@
         "189362_2510"
       ],
       "eligiblePlayerItemIds": [
-        "67386507",
-        "247827",
-        "247635"
+        "84133907",
+        "84119499",
+        "247827"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -45757,11 +45757,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2510,
-        "bestPosition": 16,
+        "bestPosition": 23,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.5486330219829595,
-        "highestGgrBoost": 5.099999904632568,
+        "averageGgrBoost": 0.24721147418655878,
+        "highestGgrBoost": 9.100000381469727,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -45818,7 +45818,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3666,
+      "numberOfPlayers": 3669,
       "trendingPlayersIds": [
         "158023_2511",
         "232075_2511",
@@ -45842,9 +45842,9 @@
         "231443_2511"
       ],
       "eligiblePlayerItemIds": [
-        "247827",
-        "84119499",
-        "231443"
+        "231443",
+        "227203",
+        "50579475"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -46262,11 +46262,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2511,
-        "bestPosition": 7,
+        "bestPosition": 18,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.5391489354613102,
-        "highestGgrBoost": 2.9700000286102295,
+        "averageGgrBoost": 0.574810574295212,
+        "highestGgrBoost": 10.5,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -46329,7 +46329,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 5911,
+      "numberOfPlayers": 5918,
       "trendingPlayersIds": [
         "226161_2512",
         "255253_2512",
@@ -46353,9 +46353,9 @@
         "252371_2512"
       ],
       "eligiblePlayerItemIds": [
-        "255253",
-        "212198",
-        "272834"
+        "265898",
+        "252371",
+        "237288"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -46798,8 +46798,8 @@
         "bestPosition": 14,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.003857215444192308,
-        "highestGgrBoost": 10.84000015258789,
+        "averageGgrBoost": 1.4101672860447239,
+        "highestGgrBoost": 12.899999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -46868,7 +46868,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2185,
+      "numberOfPlayers": 2187,
       "trendingPlayersIds": [
         "192984_2513",
         "263139_2513",
@@ -46892,9 +46892,9 @@
         "215698_2513"
       ],
       "eligiblePlayerItemIds": [
-        "212831",
-        "220901",
-        "230621"
+        "235073",
+        "258310",
+        "215698"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -47291,7 +47291,7 @@
         "bestPosition": null,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 1.6018810052867953,
+        "averageGgrBoost": 1.6026383157594664,
         "highestGgrBoost": 12.800000190734863,
         "games": 0,
         "wins": 0,
@@ -47349,7 +47349,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 3028,
+      "numberOfPlayers": 3030,
       "trendingPlayersIds": [
         "78012_2514",
         "278219_2514",
@@ -47373,9 +47373,9 @@
         "238794_2514"
       ],
       "eligiblePlayerItemIds": [
-        "84119499",
-        "50611447",
-        "252371"
+        "231747",
+        "279799",
+        "50611447"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -47771,11 +47771,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2514,
-        "bestPosition": 16,
+        "bestPosition": 27,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.5208784683079728,
-        "highestGgrBoost": 5.099999904632568,
+        "averageGgrBoost": 0.2663498352137287,
+        "highestGgrBoost": 10.300000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -47832,7 +47832,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4767,
+      "numberOfPlayers": 4772,
       "trendingPlayersIds": [
         "246863_2515",
         "270673_2515",
@@ -47856,9 +47856,9 @@
         "212622_2515"
       ],
       "eligiblePlayerItemIds": [
-        "252371",
-        "272834",
-        "251854"
+        "265898",
+        "245830",
+        "237289"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -48301,8 +48301,8 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.33238514872763686,
-        "highestGgrBoost": 5.840000152587891,
+        "averageGgrBoost": 1.1028520527056886,
+        "highestGgrBoost": 11.800000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -48371,7 +48371,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4197,
+      "numberOfPlayers": 4202,
       "trendingPlayersIds": [
         "78012_2516",
         "257008_2516",
@@ -48395,9 +48395,9 @@
         "252145_2516"
       ],
       "eligiblePlayerItemIds": [
+        "50611447",
         "262531",
-        "252145",
-        "84119499"
+        "67374762"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -48815,11 +48815,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2516,
-        "bestPosition": 12,
+        "bestPosition": 16,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.23622825724992094,
-        "highestGgrBoost": 5.179999828338623,
+        "averageGgrBoost": 0.4818967153300052,
+        "highestGgrBoost": 13,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -48882,7 +48882,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4133,
+      "numberOfPlayers": 4140,
       "trendingPlayersIds": [
         "78012_2517",
         "170369_2517",
@@ -48906,9 +48906,9 @@
         "189362_2517"
       ],
       "eligiblePlayerItemIds": [
-        "50565067",
-        "227102",
-        "50579475"
+        "84133907",
+        "67386507",
+        "84119499"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -49329,8 +49329,8 @@
         "bestPosition": 12,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -0.2470868615545792,
-        "highestGgrBoost": 6.929999828338623,
+        "averageGgrBoost": 0.4976787434314976,
+        "highestGgrBoost": 12.699999809265137,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -49393,7 +49393,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2525,
+      "numberOfPlayers": 2528,
       "trendingPlayersIds": [
         "253124_2518",
         "248165_2518",
@@ -49417,9 +49417,9 @@
         "212622_2518"
       ],
       "eligiblePlayerItemIds": [
-        "67336110",
-        "67359754",
-        "212622"
+        "50571678",
+        "235212",
+        "84126110"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -49862,8 +49862,8 @@
         "bestPosition": 3,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.23358811862176598,
-        "highestGgrBoost": 5.400000095367432,
+        "averageGgrBoost": 1.1495371828779661,
+        "highestGgrBoost": 12.649999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -49932,7 +49932,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4496,
+      "numberOfPlayers": 4501,
       "trendingPlayersIds": [
         "270531_2519",
         "239580_2519",
@@ -49956,9 +49956,9 @@
         "268889_2519"
       ],
       "eligiblePlayerItemIds": [
-        "50561206",
-        "243715",
-        "229558"
+        "229558",
+        "50539513",
+        "50561206"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -50376,11 +50376,11 @@
       "doesNotUpgradePlayer": false,
       "analysis": {
         "id": 2519,
-        "bestPosition": 18,
+        "bestPosition": 5,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.427622330734619,
-        "highestGgrBoost": 2.990000009536743,
+        "averageGgrBoost": 0.6019084637525697,
+        "highestGgrBoost": 11.149999618530273,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -50443,7 +50443,7 @@
       "pointsCost": 150,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 2456,
+      "numberOfPlayers": 2459,
       "trendingPlayersIds": [
         "227013_2520",
         "269701_2520",
@@ -50467,9 +50467,9 @@
         "225375_2520"
       ],
       "eligiblePlayerItemIds": [
-        "239231",
-        "227323",
-        "252145"
+        "253436",
+        "233662",
+        "227323"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 9999,
@@ -50912,8 +50912,8 @@
         "bestPosition": 7,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.23099348486813714,
-        "highestGgrBoost": 6.869999885559082,
+        "averageGgrBoost": 1.0326026826899994,
+        "highestGgrBoost": 9.050000190734863,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -50982,7 +50982,7 @@
       "pointsCost": 200,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2521",
         "67342283_2521",
@@ -50993,11 +50993,11 @@
         "50583793_2521",
         "67374762_2521",
         "50597546_2521",
+        "67338422_2521",
+        "50561206_2521",
+        "84119499_2521",
         "227203_2521",
         "192119_2521",
-        "237288_2521",
-        "67372876_2521",
-        "50595660_2521",
         "231443_2521",
         "238794_2521",
         "252145_2521",
@@ -51007,7 +51007,7 @@
       ],
       "eligiblePlayerItemIds": [
         "238439",
-        "237067",
+        "275243",
         "247553"
       ],
       "eligiblePathHashes": [],
@@ -51344,11 +51344,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2521,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -51384,7 +51384,7 @@
       "pointsCost": 200,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2522",
         "67342283_2522",
@@ -51395,11 +51395,11 @@
         "50583793_2522",
         "67374762_2522",
         "50597546_2522",
+        "67338422_2522",
+        "50561206_2522",
+        "84119499_2522",
         "227203_2522",
         "192119_2522",
-        "237288_2522",
-        "67372876_2522",
-        "50595660_2522",
         "231443_2522",
         "238794_2522",
         "252145_2522",
@@ -51408,7 +51408,7 @@
         "50563395_2522"
       ],
       "eligiblePlayerItemIds": [
-        "37576",
+        "190045",
         "237067",
         "275243"
       ],
@@ -51746,11 +51746,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2522,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -51786,7 +51786,7 @@
       "pointsCost": 200,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19680,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2523",
         "67342283_2523",
@@ -51797,11 +51797,11 @@
         "50583793_2523",
         "67374762_2523",
         "50597546_2523",
+        "67338422_2523",
+        "50561206_2523",
+        "84119499_2523",
         "227203_2523",
         "192119_2523",
-        "237288_2523",
-        "67372876_2523",
-        "50595660_2523",
         "231443_2523",
         "238794_2523",
         "252145_2523",
@@ -51811,8 +51811,8 @@
       ],
       "eligiblePlayerItemIds": [
         "275243",
-        "237067",
-        "1397"
+        "1397",
+        "238439"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -52148,11 +52148,11 @@
       "doesNotUpgradePlayer": true,
       "analysis": {
         "id": 2523,
-        "bestPosition": null,
+        "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": -1.0329131099200481,
-        "highestGgrBoost": 6.199999809265137,
+        "averageGgrBoost": 0.0007467057250096688,
+        "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -52188,7 +52188,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 23910,
+      "numberOfPlayers": 23080,
       "trendingPlayersIds": [
         "244050_2524:1:1:2",
         "276969_2524:1:1:2",
@@ -52212,8 +52212,8 @@
         "279604_2524:1:1:2"
       ],
       "eligiblePlayerItemIds": [
+        "265459",
         "265271",
-        "50591516",
         "266939"
       ],
       "eligiblePathHashes": [],
@@ -53177,8 +53177,8 @@
         "bestPosition": 10,
         "statsBoost": 58,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 4.182532898277692,
-        "highestGgrBoost": 17,
+        "averageGgrBoost": 5.7061583380201615,
+        "highestGgrBoost": 23,
         "games": 3,
         "wins": 0,
         "cleanSheets": 0,
@@ -53325,7 +53325,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 9104,
+      "numberOfPlayers": 4449,
       "trendingPlayersIds": [
         "237043_2525:1:1:2",
         "243792_2525:1:1:1",
@@ -53349,9 +53349,9 @@
         "239892_2525:1:1:1"
       ],
       "eligiblePlayerItemIds": [
+        "246672",
         "259377",
-        "239892",
-        "259633"
+        "265860"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -54336,7 +54336,7 @@
         "bestPosition": 16,
         "statsBoost": 64,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 6.495281359664465,
+        "averageGgrBoost": 6.4958401122471185,
         "highestGgrBoost": 25,
         "games": 3,
         "wins": 0,
@@ -54490,7 +54490,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2526",
         "67342283_2526",
@@ -54501,11 +54501,11 @@
         "50583793_2526",
         "67374762_2526",
         "50597546_2526",
+        "67338422_2526",
+        "50561206_2526",
+        "84119499_2526",
         "227203_2526",
         "192119_2526",
-        "237288_2526",
-        "67372876_2526",
-        "50595660_2526",
         "231443_2526",
         "238794_2526",
         "252145_2526",
@@ -54514,9 +54514,9 @@
         "50563395_2526"
       ],
       "eligiblePlayerItemIds": [
-        "37576",
-        "28130",
-        "247553"
+        "238439",
+        "1397",
+        "190042"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -54855,7 +54855,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -54892,7 +54892,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2527",
         "67342283_2527",
@@ -54903,11 +54903,11 @@
         "50583793_2527",
         "67374762_2527",
         "50597546_2527",
+        "67338422_2527",
+        "50561206_2527",
+        "84119499_2527",
         "227203_2527",
         "192119_2527",
-        "237288_2527",
-        "67372876_2527",
-        "50595660_2527",
         "231443_2527",
         "238794_2527",
         "252145_2527",
@@ -54916,9 +54916,9 @@
         "50563395_2527"
       ],
       "eligiblePlayerItemIds": [
-        "237067",
         "190045",
-        "247553"
+        "28130",
+        "37576"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -55257,7 +55257,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -55294,7 +55294,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2528",
         "67342283_2528",
@@ -55305,11 +55305,11 @@
         "50583793_2528",
         "67374762_2528",
         "50597546_2528",
+        "67338422_2528",
+        "50561206_2528",
+        "84119499_2528",
         "227203_2528",
         "192119_2528",
-        "237288_2528",
-        "67372876_2528",
-        "50595660_2528",
         "231443_2528",
         "238794_2528",
         "252145_2528",
@@ -55318,7 +55318,7 @@
         "50563395_2528"
       ],
       "eligiblePlayerItemIds": [
-        "28130",
+        "275243",
         "237067",
         "247553"
       ],
@@ -55633,7 +55633,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -55663,7 +55663,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2529",
         "67342283_2529",
@@ -55674,11 +55674,11 @@
         "50583793_2529",
         "67374762_2529",
         "50597546_2529",
+        "67338422_2529",
+        "50561206_2529",
+        "84119499_2529",
         "227203_2529",
         "192119_2529",
-        "237288_2529",
-        "67372876_2529",
-        "50595660_2529",
         "231443_2529",
         "238794_2529",
         "252145_2529",
@@ -55687,9 +55687,9 @@
         "50563395_2529"
       ],
       "eligiblePlayerItemIds": [
-        "190045",
-        "168473",
-        "190042"
+        "28130",
+        "190042",
+        "275243"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -56002,7 +56002,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -56032,7 +56032,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19707,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2530",
         "67342283_2530",
@@ -56043,11 +56043,11 @@
         "50583793_2530",
         "67374762_2530",
         "50597546_2530",
+        "67338422_2530",
+        "50561206_2530",
+        "84119499_2530",
         "227203_2530",
         "192119_2530",
-        "237288_2530",
-        "67372876_2530",
-        "50595660_2530",
         "231443_2530",
         "238794_2530",
         "252145_2530",
@@ -56056,9 +56056,9 @@
         "50563395_2530"
       ],
       "eligiblePlayerItemIds": [
-        "37576",
-        "190045",
-        "1397"
+        "190042",
+        "247553",
+        "190045"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -56371,7 +56371,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007423758205265894,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -56403,31 +56403,31 @@
       "eventTokenId": null,
       "numberOfPlayers": 3870,
       "trendingPlayersIds": [
-        "189296_2531",
+        "218212_2531",
+        "258792_2531",
         "189021_2531",
-        "242656_2531",
+        "273621_2531",
+        "257568_2531",
         "216325_2531",
         "244810_2531",
-        "233189_2531",
+        "242656_2531",
+        "266803_2531",
         "195668_2531",
         "242179_2531",
-        "200316_2531",
-        "228410_2531",
-        "50587548_2531",
         "206561_2531",
-        "199904_2531",
-        "71641_2531",
         "240657_2531",
-        "231237_2531",
-        "233164_2531",
+        "199904_2531",
+        "50587548_2531",
         "50552468_2531",
+        "233164_2531",
+        "231237_2531",
         "201299_2531",
         "236583_2531"
       ],
       "eligiblePlayerItemIds": [
-        "278032",
-        "71641",
-        "50589887"
+        "50553557",
+        "50537723",
+        "275811"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -56999,8 +56999,8 @@
         "bestPosition": null,
         "statsBoost": 62,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 13.56160473688222,
-        "highestGgrBoost": 33.25,
+        "averageGgrBoost": 15.366093930199174,
+        "highestGgrBoost": 35.849998474121094,
         "games": 0,
         "wins": 0,
         "cleanSheets": 0,
@@ -57103,10 +57103,11 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 4250,
+      "numberOfPlayers": 4253,
       "trendingPlayersIds": [
         "84138242_2532",
         "67361026_2532",
+        "84154054_2532",
         "67376838_2532",
         "50599622_2532",
         "67376538_2532",
@@ -57122,12 +57123,11 @@
         "67179590_2532",
         "50402374_2532",
         "264968_2532",
-        "255565_2532",
         "50588596_2532",
         "222492_2532"
       ],
       "eligiblePlayerItemIds": [
-        "50588596",
+        "67376538",
         "50553345",
         "224371"
       ],
@@ -57584,7 +57584,7 @@
         "bestPosition": 25,
         "statsBoost": 21,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 3.025571764504208,
+        "averageGgrBoost": 3.024455678125227,
         "highestGgrBoost": 14.800000190734863,
         "games": 0,
         "wins": 0,
@@ -57666,7 +57666,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 13972,
+      "numberOfPlayers": 3032,
       "trendingPlayersIds": [
         "268131_2533",
         "272723_2533",
@@ -57690,9 +57690,9 @@
         "248695_2533"
       ],
       "eligiblePlayerItemIds": [
-        "274644",
-        "265188",
-        "50569633"
+        "279709",
+        "50574483",
+        "265188"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 2,
@@ -58518,7 +58518,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 18757,
+      "numberOfPlayers": 13268,
       "trendingPlayersIds": [
         "265072_2534:1:1:2",
         "234730_2534:1:1:2",
@@ -58542,9 +58542,9 @@
         "257470_2534:1:1:1"
       ],
       "eligiblePlayerItemIds": [
-        "278928",
-        "83494",
-        "271945"
+        "76042",
+        "271945",
+        "266097"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -59707,7 +59707,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19805,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2535",
         "67342283_2535",
@@ -59731,9 +59731,9 @@
         "50563395_2535"
       ],
       "eligiblePlayerItemIds": [
+        "190045",
         "190042",
-        "238439",
-        "1397"
+        "238439"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -60046,7 +60046,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007447614387426374,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -60076,7 +60076,7 @@
       "pointsCost": 0,
       "tokenCost": 0,
       "eventTokenId": null,
-      "numberOfPlayers": 19805,
+      "numberOfPlayers": 19807,
       "trendingPlayersIds": [
         "265898_2536",
         "67342283_2536",
@@ -60100,9 +60100,9 @@
         "50563395_2536"
       ],
       "eligiblePlayerItemIds": [
-        "237067",
         "190042",
-        "238439"
+        "275243",
+        "1397"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -60415,7 +60415,7 @@
         "bestPosition": 10,
         "statsBoost": 0,
         "completionDifficulty": "easy",
-        "averageGgrBoost": 0.0007447614387426374,
+        "averageGgrBoost": 0.0007467057250096688,
         "highestGgrBoost": 0.05000000074505806,
         "games": 0,
         "wins": 0,
@@ -60469,9 +60469,9 @@
         "50586853_2537:1:1:1"
       ],
       "eligiblePlayerItemIds": [
+        "50608343",
         "50605215",
-        "50540109",
-        "278901"
+        "273227"
       ],
       "eligiblePathHashes": [],
       "repeatabilityCount": 1,
@@ -61571,7 +61571,7 @@
       "isRewardEvolution": false
     }
   ],
-  "activeHash": "9a663370",
-  "allHash": "d6bbbe7b",
-  "fetchedAt": "2026-10-04T17:11:09.834Z"
+  "activeHash": "9e19cf56",
+  "allHash": "9a17d108",
+  "fetchedAt": "2026-10-05T11:06:52.765Z"
 }
