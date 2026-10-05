@@ -297,7 +297,20 @@ async function buildDict() {
   }
   const player_review = { enabled: true, map: prMap, count: Object.keys(prMap).length };
 
-  // ⑥ tlib（战术库开关；on 必须显式 boolean，否则写 null 让端上回落包内默认开）
+  // ⑥ fcut（FCUT常识文章列表：运营可录多条 {title,url}；白名单校验；全版本通用，不按版本过滤）
+  const fcutSec = (miniappJson && miniappJson.FCUT) || null;
+  const fcutList = [];
+  if (Array.isArray(fcutSec)) {
+    fcutSec.forEach(function (it) {
+      const t = String((it && it.title) || '').trim();
+      const u = isMpWeixinUrl(String((it && it.url) || '').trim());
+      if (t && u) fcutList.push({ title: t, url: u });
+      else console.warn('[gen_dict_static] FCUT 跳过非法条目 title=' + t + ' url=' + String((it && it.url) || ''));
+    });
+  }
+  const fcut = { enabled: true, list: fcutList, count: fcutList.length };
+
+  // ⑦ tlib（战术库开关；on 必须显式 boolean，否则写 null 让端上回落包内默认开）
   const tlibSec = (miniappJson && miniappJson.TLIB) || null;
   let on = null;
   if (tlibSec) {
@@ -325,6 +338,7 @@ async function buildDict() {
     evolutions: evolutions,
     tac: tac,
     player_review: player_review,
+    fcut: fcut,
     tlib: tlib
   };
   return dict;
@@ -334,7 +348,7 @@ async function buildDict() {
 function contentSig(dict) {
   const pick = {
     basic: dict.basic, names: dict.names, evolutions: dict.evolutions,
-    tac: dict.tac, player_review: dict.player_review, tlib: dict.tlib
+    tac: dict.tac, player_review: dict.player_review, fcut: dict.fcut, tlib: dict.tlib
   };
   return crypto.createHash('md5').update(JSON.stringify(pick)).digest('hex');
 }
@@ -372,7 +386,7 @@ async function publishDict(app, dict) {
     console.log('  basic=' + Object.keys(dict.basic.map).length +
       ' names(league/club/nation)=' + dict.names.counts.league + '/' + dict.names.counts.club + '/' + dict.names.counts.nation +
       ' evo=' + dict.evolutions.count +
-      ' tac.enabled=' + dict.tac.enabled + ' player_review=' + dict.player_review.count + ' tlib.on=' + dict.tlib.on);
+      ' tac.enabled=' + dict.tac.enabled + ' player_review=' + dict.player_review.count + ' fcut=' + dict.fcut.count + ' tlib.on=' + dict.tlib.on);
     return { skipped: true, sig: sig };
   }
 
