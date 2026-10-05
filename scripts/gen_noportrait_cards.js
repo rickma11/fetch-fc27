@@ -28,6 +28,7 @@
  *   --conc N      并发上传数（默认 4）
  *   --sil-width N 剪影宽度（默认 340）
  *   --sil-cx N    剪影中心 x（默认 275；右肩缺口靠它让开右侧逆足标签列）
+ *   --sil-bot N   剪影底边 y（默认 442；必须到 442，否则盖不住 fut.gg 烘焙的通用人像）
  *   --dry         不写云存储、不写清单
  *   --keep        保留中间产物（_np_out/）
  *
@@ -50,6 +51,8 @@ const ROOT = path.resolve(__dirname, '..');
 const VER = (() => { const i = process.argv.indexOf('--ver'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '27'; })();
 const CONC = Number((() => { const i = process.argv.indexOf('--conc'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '4'; })());
 const SIL_WIDTH = Number((() => { const i = process.argv.indexOf('--sil-width'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '340'; })());
+const SIL_CX = Number((() => { const i = process.argv.indexOf('--sil-cx'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '275'; })());
+const SIL_BOT = Number((() => { const i = process.argv.indexOf('--sil-bot'); return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : '442'; })());
 const FORCE = process.argv.includes('--force');
 const DRY = process.argv.includes('--dry');
 const ALL = process.argv.includes('--all');
@@ -64,20 +67,24 @@ const RECLAIM_ALL = process.argv.includes('--reclaim-all');
 const REG = { x0: 96, y0: 96, x1: 434, y1: 180 };          // 建底板用的观察区
 const ICON = { x0: 112, x1: 150, y0: 114, y1: 150 };        // 破图图标（整块抹掉）
 const NAME = { x0: 141, x1: 430, y0: 100, y1: 178 };        // 顶部多余姓名行
-// 位置徽章版式（2026-09-19 重设计）：照片区盖一块统一深灰面板，居中放大号位置码，
-// 颜色按位置分组（GK 蓝 / DF 绿 / MF 黄 / FW 红，沿用 list.js 的 fw/mf/df 口径）。
-// 不再叠灰色人形剪影。照片区矩形对齐原剪影 footprint：中心 x=275、底 442。
-const PHOTO = { x0: 100, y0: 152, x1: 450, y1: 452 };   // 照片区窗口（卡面 500x698 基准）
+// ---- 通用灰色半身剪影（2026-10-06 恢复 09-16 旧版式，取代 09-19 起的「深灰面板 + 位置码」）----
+// 素材：assets/noportrait/silhouette.png（535×477，中灰人形、带 alpha）。换形状跑：
+//   node scripts/make_noportrait_silhouette.js --plain --src <新剪影图>
+// 摆放三参数沿用 09-16 定稿值（见 docs/07-fetch-pipeline.md §12.1）：宽 340 / 中心 x=275 / 底边 442。
+// 必须**完全盖住** fut.gg 新版式卡面上烘焙进照片区的通用人像（实测 bbox x[144,415] y[156,442]）：
+//   ⚠️ 底边 442 不能只到 438 —— 会露出通用人像的下沿；
+//   ⚠️ 中心 275 不是卡面中心 250 —— 右肩缺口靠它让开右侧逆足标签列（R/L/CM…）与星级行。
+const SIL_PATH = path.join(ROOT, 'assets', 'noportrait', 'silhouette.png');
 const INK_REL = 35;          // 「比该像素背景中位暗 35 以上」判为字迹（仅用于抹 ICON/NAME 残留）
 const DILATE_SAMPLE = 3;     // 建底板时，把字迹及其 3px 邻域从样本里剔除（躲开 WebP 的过冲亮环）
 const DILATE_FILL = 2;       // 抹除时，把字迹膨胀 2px 一起填（连抗锯齿边一起去掉）
 const W = 500, H = 698;
 const RW = REG.x1 - REG.x0, RH = REG.y1 - REG.y0;
-// 位置 → 分组（GK 单独配蓝；其余沿用 list.js 的 df/mf/fw）
-const POS_GROUP = { GK: 'gk', LB: 'df', CB: 'df', RB: 'df', LWB: 'df', RWB: 'df', CDM: 'mf', CM: 'mf', CAM: 'mf', LM: 'mf', RM: 'mf', LW: 'fw', ST: 'fw', RW: 'fw', LF: 'fw', RF: 'fw', CF: 'fw' };
-const GROUP_COLOR = { gk: '#3b82f6', df: '#22c55e', mf: '#eab308', fw: '#ef4444' };
-const PANEL_FILL = { r: 22, g: 27, b: 38, alpha: 1 };   // #161b26 照片区面板
-const NP_PARAMS = 'np-v2|panel161b26|poscolor|photo:' + [PHOTO.x0, PHOTO.y0, PHOTO.x1, PHOTO.y1].join(',');
+// ⚠️ 签名要覆盖「抹除区 + 剪影摆放 + 剪影文件内容」三者，任一变化都必须让已生成的卡全部重做。
+//    剪影文件内容进签名（`silfile:<sha1 前 8>`）→ 换素材自动全量重生成，**不需要 --force**。
+const NP_PARAMS = 'np-sil1|sil:' + [SIL_WIDTH, SIL_CX, SIL_BOT].join(',') +
+  '|erase:' + [ICON.x0, ICON.y0, ICON.x1, ICON.y1, NAME.x0, NAME.y0, NAME.x1, NAME.y1].join(',') +
+  '|silfile:' + crypto.createHash('sha1').update(fs.readFileSync(SIL_PATH)).digest('hex').slice(0, 8);
 
 const CACHE = path.join(os.tmpdir(), 'fc_np_cache');
 const PLATE_DIR = path.join(CACHE, 'plates');
@@ -158,25 +165,18 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
     return [...m.values()];
   })();
 
-  // 位置徽章：按位置预生成（每个位置一张，缓存复用）。SVG 栅格化 → PNG，只含位置码文字、
-  // 透明底，直接叠在照片区面板上。位置码是拉丁字母（CB/ST/GK…），不依赖 CJK 字体。
-  const PW = PHOTO.x1 - PHOTO.x0, PH = PHOTO.y1 - PHOTO.y0;
-  const badgeCache = {};
-  const posBadge = async function (pos) {
-    if (badgeCache[pos]) return badgeCache[pos];
-    const grp = POS_GROUP[pos] || 'df';
-    const color = GROUP_COLOR[grp];
-    const code = (pos && /^[A-Za-z0-9]{1,3}$/.test(pos)) ? pos : '—';
-    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + PW + '" height="' + PH + '">' +
-      '<text x="' + (PW / 2) + '" y="' + (PH / 2 + 52) + '" font-family="Arial, Helvetica, sans-serif" ' +
-      'font-size="150" font-weight="700" fill="' + color + '" text-anchor="middle">' + code + '</text></svg>';
-    const buf = await sharp(Buffer.from(svg)).png().toBuffer();
-    badgeCache[pos] = buf;
-    return buf;
-  };
-  // 本设计不再依赖外部素材，签名固定（改 PHOTO / PANEL_FILL / GROUP_COLOR 时必须同步改 NP_PARAMS）
+  // ---- 通用灰色半身剪影 ----
+  // 素材读进来按 SIL_WIDTH 等比缩放一次、全员复用（每人只做一次 composite，不做逐人栅格化）。
+  // ⚠️ 素材内容已进签名（NP_PARAMS 的 `silfile:…`）→ 换剪影自动全量重做，**不需要 --force**。
+  const silRaw = await sharp(fs.readFileSync(SIL_PATH)).ensureAlpha()
+    .resize({ width: SIL_WIDTH }).png().toBuffer();
+  const silMeta = await sharp(silRaw).metadata();
+  const SIL_LEFT = Math.round(SIL_CX - silMeta.width / 2);
+  const SIL_TOP = SIL_BOT - silMeta.height;
   const PARAMS = NP_PARAMS;
-  console.log('位置徽章：照片区 ' + PW + 'x' + PH + ' @ (' + PHOTO.x0 + ',' + PHOTO.y0 + ')，面板 #161b26');
+  console.log('通用剪影：' + silMeta.width + '×' + silMeta.height + ' @ (' + SIL_LEFT + ',' + SIL_TOP + ')' +
+    '  中心 x=' + SIL_CX + ' / 底边 y=' + SIL_BOT);
+  console.log('签名：' + PARAMS);
 
   // ---- Phase 0 前置校验：portrait 文件是否真的已落到云存储 ----
   // ⚠️ 「云库 imagePath 非空」**不等于**「半身像文件已就绪」。实测退化链（Nabil Fekir 216594）：
@@ -445,10 +445,9 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
   console.log('建立背景底板（每个稀有度一块）…');
   for (const lv of levels) if (platePool.some(p => lvlOf(p) === lv)) plates[lv] = await buildPlate(lv);
 
-  // ---------- 2) 照片区面板 + 位置徽章 ----------
-  // 底板（plate）已抹掉「破图图标 + 多余姓名行」；此处再在照片区盖一块统一深灰面板，
-  // 居中叠放大号位置码（按位置分组着色）。面板/徽章都不越出卡面轮廓（PHOTO 在卡面实体内部）。
-  const panelBuf = await sharp({ create: { width: PW, height: PH, channels: 4, background: PANEL_FILL } }).png().toBuffer();
+  // ---------- 2) 叠通用灰色半身剪影 ----------
+  // 底板（plate）已抹掉「破图图标 + 多余姓名行」；此处在照片区叠一枚通用灰色人形剪影。
+  // 剪影自带 alpha，只覆盖人形区域；若摆放越出卡面轮廓，下方逐张回归自检会立刻报出来。
 
   // ---------- 3) 逐人生成 ----------
   // manifest / manifestPath 已在上方 Phase 0 对账阶段声明并加载（已移除已获半身像的球员）
@@ -497,14 +496,10 @@ const mid = arr => { arr.sort((a, b) => a - b); return arr[Math.floor(arr.length
       card[o] = plate[po]; card[o + 1] = plate[po + 1]; card[o + 2] = plate[po + 2]; card[o + 3] = 255; filled++;
     }
     const base = await sharp(card, { raw: { width: W, height: H, channels: 4 } }).png().toBuffer();
-    // 照片区盖统一深灰面板（#161b26），再居中叠位置徽章（按分组着色）。
-    const posCode = (p.position && /^[A-Za-z0-9]{1,3}$/.test(p.position)) ? p.position : '—';
-    const badge = await posBadge(posCode);
+    // 叠通用灰色半身剪影（09-16 旧版式）：人形带 alpha，落在照片区、盖住 fut.gg 烘焙的通用人像，
+    // 同时让出左侧 OVR 数字与右侧逆足/星级列（靠 SIL_CX=275 的右肩缺口）。
     const webp = await sharp(base)
-      .composite([
-        { input: panelBuf, left: PHOTO.x0, top: PHOTO.y0 },
-        { input: badge, left: PHOTO.x0, top: PHOTO.y0 }
-      ])
+      .composite([{ input: silRaw, left: SIL_LEFT, top: SIL_TOP }])
       .webp({ quality: 82, effort: 4 })
       .toBuffer();
     // 回归自检（每张跑一次，几十毫秒）：**卡面轮廓外绝不能被填成不透明**。
