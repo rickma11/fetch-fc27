@@ -551,7 +551,7 @@
         "50606207"
       ],
       "eligiblePathHashes": [],
-      "repeatabilityCount": 2,
+      "repeatabilityCount": 4,
       "doNotGenerate": true,
       "allowedPriorEvolutionIds": [],
       "createdAt": "2026-09-15T20:19:42.644297Z",
@@ -963,12 +963,6 @@
           ],
           "upgrades": [
             {
-              "upgrade": "play_style",
-              "value": 6,
-              "maxValue": 3,
-              "guidAssetId": null
-            },
-            {
               "upgrade": "attribute_vision",
               "value": 15,
               "maxValue": 84,
@@ -990,6 +984,12 @@
               "upgrade": "attribute_stamina",
               "value": 15,
               "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 6,
+              "maxValue": 3,
               "guidAssetId": null
             }
           ],
@@ -1066,12 +1066,6 @@
           ],
           "upgrades": [
             {
-              "upgrade": "play_style",
-              "value": 19,
-              "maxValue": 3,
-              "guidAssetId": null
-            },
-            {
               "upgrade": "attribute_crossing",
               "value": 10,
               "maxValue": 78,
@@ -1092,6 +1086,12 @@
             {
               "upgrade": "weak_foot",
               "value": 2,
+              "maxValue": 3,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 19,
               "maxValue": 3,
               "guidAssetId": null
             }
@@ -25821,7 +25821,7 @@
         "265188"
       ],
       "eligiblePathHashes": [],
-      "repeatabilityCount": 2,
+      "repeatabilityCount": 3,
       "doNotGenerate": true,
       "allowedPriorEvolutionIds": [],
       "createdAt": "2026-10-01T17:00:24.256159Z",
@@ -26232,12 +26232,6 @@
           ],
           "upgrades": [
             {
-              "upgrade": "play_style",
-              "value": 11,
-              "maxValue": 3,
-              "guidAssetId": null
-            },
-            {
               "upgrade": "attribute_long_passing",
               "value": 5,
               "maxValue": 75,
@@ -26259,6 +26253,12 @@
               "upgrade": "attribute_aggression",
               "value": 5,
               "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 11,
+              "maxValue": 3,
               "guidAssetId": null
             }
           ],
@@ -30216,7 +30216,7 @@
         "50606207"
       ],
       "eligiblePathHashes": [],
-      "repeatabilityCount": 2,
+      "repeatabilityCount": 4,
       "doNotGenerate": true,
       "allowedPriorEvolutionIds": [],
       "createdAt": "2026-09-15T20:19:42.644297Z",
@@ -30628,12 +30628,6 @@
           ],
           "upgrades": [
             {
-              "upgrade": "play_style",
-              "value": 6,
-              "maxValue": 3,
-              "guidAssetId": null
-            },
-            {
               "upgrade": "attribute_vision",
               "value": 15,
               "maxValue": 84,
@@ -30655,6 +30649,12 @@
               "upgrade": "attribute_stamina",
               "value": 15,
               "maxValue": 78,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 6,
+              "maxValue": 3,
               "guidAssetId": null
             }
           ],
@@ -30731,12 +30731,6 @@
           ],
           "upgrades": [
             {
-              "upgrade": "play_style",
-              "value": 19,
-              "maxValue": 3,
-              "guidAssetId": null
-            },
-            {
               "upgrade": "attribute_crossing",
               "value": 10,
               "maxValue": 78,
@@ -30757,6 +30751,12 @@
             {
               "upgrade": "weak_foot",
               "value": 2,
+              "maxValue": 3,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 19,
               "maxValue": 3,
               "guidAssetId": null
             }
@@ -57695,7 +57695,7 @@
         "265188"
       ],
       "eligiblePathHashes": [],
-      "repeatabilityCount": 2,
+      "repeatabilityCount": 3,
       "doNotGenerate": true,
       "allowedPriorEvolutionIds": [],
       "createdAt": "2026-10-01T17:00:24.256159Z",
@@ -58106,12 +58106,6 @@
           ],
           "upgrades": [
             {
-              "upgrade": "play_style",
-              "value": 11,
-              "maxValue": 3,
-              "guidAssetId": null
-            },
-            {
               "upgrade": "attribute_long_passing",
               "value": 5,
               "maxValue": 75,
@@ -58133,6 +58127,12 @@
               "upgrade": "attribute_aggression",
               "value": 5,
               "maxValue": 79,
+              "guidAssetId": null
+            },
+            {
+              "upgrade": "play_style",
+              "value": 11,
+              "maxValue": 3,
               "guidAssetId": null
             }
           ],
@@ -61571,7 +61571,7 @@
       "isRewardEvolution": false
     }
   ],
-  "activeHash": "9e19cf56",
-  "allHash": "9a17d108",
-  "fetchedAt": "2026-10-05T11:06:52.765Z"
+  "activeHash": "33f31df3",
+  "allHash": "3efbcdf8",
+  "fetchedAt": "2026-10-05T15:06:47.892Z"
 }
