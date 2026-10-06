@@ -297,16 +297,14 @@ async function buildDict() {
   }
   const player_review = { enabled: true, map: prMap, count: Object.keys(prMap).length };
 
-  // ⑥ fcut（FCUT常识文章列表：运营在 Gitee 词典以对象 map 录入，"标题": "url"；白名单校验；全版本通用，不按版本过滤）
-  const fcutSec = (miniappJson && miniappJson.FCUT) || null;
+  // ⑥ fcut（FCUT常识文章列表：运营在 Gitee 词典以对象 map 录入，"标题": {"webpagedata":"url"}；白名单校验；全版本通用，不按版本过滤）
+  const fcutRaw = extractCategory(miniappJson, 'FCUT') || {};
   const fcutMap = {};
-  if (fcutSec && typeof fcutSec === 'object' && !Array.isArray(fcutSec)) {
-    Object.keys(fcutSec).forEach(function (k) {
-      const u = isMpWeixinUrl(String(fcutSec[k] || '').trim());
-      if (u) fcutMap[k] = u;
-      else console.warn('[gen_dict_static] FCUT 跳过非法条目 title=' + k + ' url=' + String(fcutSec[k] || ''));
-    });
-  }
+  Object.keys(fcutRaw).forEach(function (k) {
+    const u = isMpWeixinUrl(fcutRaw[k]);
+    if (u) fcutMap[k] = u;
+    else console.warn('[gen_dict_static] FCUT 跳过非法条目 title=' + k + ' url=' + String(fcutRaw[k] || ''));
+  });
   const fcut = { enabled: true, map: fcutMap, count: Object.keys(fcutMap).length };
 
   // ⑦ tlib（战术库开关；on 必须显式 boolean，否则写 null 让端上回落包内默认开）
