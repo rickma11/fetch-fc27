@@ -1,16 +1,34 @@
 {
  "version": "27",
- "total": 20202,
- "updateISO": "2026-10-05T17:18:11.039Z",
+ "total": 20206,
+ "updateISO": "2026-10-06T17:19:42.132Z",
  "counts": {
-  "league": 65,
-  "club": 718,
+  "league": 62,
+  "club": 717,
   "nation": 164
  },
- "pendingCount": 0,
+ "pendingCount": 4,
  "pending": {
-  "league": [],
-  "club": [],
+  "league": [
+   {
+    "en": "Liga Bulgaria",
+    "players": 25
+   },
+   {
+    "en": "Norge Kvinner Liga",
+    "players": 20
+   },
+   {
+    "en": "Ísland Kvennadeild",
+    "players": 19
+   }
+  ],
+  "club": [
+   {
+    "en": "Partnerships",
+    "players": 5
+   }
+  ],
   "nation": []
  }
 }

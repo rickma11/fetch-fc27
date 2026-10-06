@@ -1,6 +1,6 @@
 {
   "version": "27",
-  "total": 19946,
+  "total": 19950,
   "positions": [
     "CAM",
     "CB",
@@ -44,11 +44,9 @@
     "K League 1",
     "LALIGA EA SPORTS",
     "LALIGA HYPERMOTION",
-    "League 2272",
-    "League 2273",
-    "League 2274",
     "Liga Azerbaijan",
     "Liga BBVA MX",
+    "Liga Bulgaria",
     "Liga Colombia",
     "Liga Cyprus",
     "Liga F",
@@ -63,6 +61,7 @@
     "Major League Soccer",
     "National Women's Soccer League",
     "Nederland Vrouwen Liga",
+    "Norge Kvinner Liga",
     "PKO Bank Polski Ekstraklasa",
     "Partners League",
     "Premier League",
@@ -79,6 +78,7 @@
     "Trendyol Süper Lig",
     "Ukrayina Liha",
     "United Emirates League",
+    "Ísland Kvennadeild",
     "Österreichische Fußball-Bundesliga",
     "Česká Liga"
   ],
@@ -239,7 +239,6 @@
     "Cienciano",
     "City Torque",
     "Clermont Foot 63",
-    "Club 113307",
     "Club América",
     "Club Brugge",
     "Club Guadalajara",
@@ -548,6 +547,7 @@
     "Panathinaikos",
     "Paris FC",
     "Parma Calcio",
+    "Partnerships",
     "Pau FC",
     "Perth Glory",
     "Peterborough",
@@ -958,7 +958,8 @@
     "POTM Bundesliga",
     "POTM Premier League",
     "POTM LaLiga EA Sports",
-    "FUT Champions"
+    "FUT Champions",
+    "POTM Liga F"
   ],
   "rarityImgs": {
     "Base Icon": "rarity_bfcdcd3305884da9.webp",
@@ -967,6 +968,7 @@
     "Team of the week": "rarity_8d10186879dd5b45.webp",
     "POTM Bundesliga": "rarity_72384b5eb7506cd5.webp",
     "FUT Champions": "rarity_c9b866cc42afd635.webp",
+    "POTM Liga F": "rarity_88f85522b6723d78.webp",
     "POTM LaLiga EA Sports": "rarity_40c6f402a13c2c37.webp",
     "Base Hero": "rarity_d77e4f522b688dfc.webp",
     "Debut International Icon": "rarity_8cc9029ef3661521.webp",
@@ -1031,5 +1033,5 @@
     "EXPLOSIVE",
     "LENGTHY"
   ],
-  "updatedAt": "2026-10-05T17:16:59.968Z"
+  "updatedAt": "2026-10-06T17:17:55.706Z"
 }
