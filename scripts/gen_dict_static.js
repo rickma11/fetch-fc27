@@ -297,13 +297,25 @@ async function buildDict() {
   }
   const player_review = { enabled: true, map: prMap, count: Object.keys(prMap).length };
 
-  // ⑥ fcut（FCUT常识文章列表：运营在 Gitee 词典以对象 map 录入，"标题": {"webpagedata":"url"}；白名单校验；全版本通用，不按版本过滤）
-  const fcutRaw = extractCategory(miniappJson, 'FCUT') || {};
+  // ⑥ fcut（FCUT常识文章列表：运营在 Gitee 词典以对象 map 录入，"标题": {"webpagedata":"url","shorten":"n"}；
+  //   白名单校验；shorten 越小越靠前；全版本通用，不按版本过滤）
+  const fcutRaw = (miniappJson && miniappJson.FCUT) || {};
   const fcutMap = {};
   Object.keys(fcutRaw).forEach(function (k) {
-    const u = isMpWeixinUrl(fcutRaw[k]);
-    if (u) fcutMap[k] = u;
-    else console.warn('[gen_dict_static] FCUT 跳过非法条目 title=' + k + ' url=' + String(fcutRaw[k] || ''));
+    const v = fcutRaw[k];
+    let url = '';
+    let shorten = '';
+    if (typeof v === 'string') {
+      url = isMpWeixinUrl(v);
+    } else if (v && typeof v === 'object') {
+      url = isMpWeixinUrl(v.webpagedata);
+      shorten = String(v.shorten || '').trim();
+    }
+    if (url) {
+      fcutMap[k] = { url: url, shorten: shorten };
+    } else {
+      console.warn('[gen_dict_static] FCUT 跳过非法条目 title=' + k + ' raw=' + String(v || ''));
+    }
   });
   const fcut = { enabled: true, map: fcutMap, count: Object.keys(fcutMap).length };
 
