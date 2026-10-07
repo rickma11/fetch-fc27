@@ -16,10 +16,10 @@
 //      SBC 无 baseId 概念（集合本身就是投票实体），端上用集合 id 直查；每天抓（独立于球员投票）。
 //
 // 调度（北京时间）：每天由 cron-job.org 触发一次，mode 决定抓什么：
-//   - mode=auto（默认）：周日 → full（化学+投票）；其余 → 仅化学（chem）。SBC 投票每日都抓（RUN_SBC_VOTES=true）。
+//   - mode=auto（默认）：每天 → full（化学+投票+重建映射）。SBC 投票每日都抓（RUN_SBC_VOTES=true）。
 //   - mode=chem：仅化学；mode=full：化学+投票。
-// 映射缓存（省时长）：非 full 运行复用已发布的 chem_meta.json 里的 map（跳过 ① 的 2 万次翻页），
-//   只在 full（周日）重建映射并重新发布。化学抓取本身仍需过 CF 的浏览器会话，无法跳过。
+// 映射/投票（自 2026-10-07 起每天重建）：此前仅周日 full 重建映射、平日复用已发布 chem_meta.json 的 map（跳过 ① 的 2 万次翻页）；
+//   现在每天跑 full（含 ① 的 2 万次翻页 + 投票抓取），让周中新加入的球员当日即获化学推荐；化学抓取本身仍需过 CF 的浏览器会话。
 //
 // 上传云存储（公有读，零云函数配额）：
 //   化学： fc{ver}/data/chem_meta/chem_meta.json   { updatedAt, map:{eaId:bestChemId}, count }   // eaId 含所有版本卡实例 id（基础卡+特殊卡）
@@ -53,7 +53,7 @@ const CLOUD_DIR = 'fc' + VER + '/data/';
 const META_COL = 'meta_fc' + VER;
 const VOTE_USER_COL = 'votes_user_fc' + VER;
 const SBC_VOTE_USER_COL = 'sbc_votes_user_fc' + VER;
-const HARD_TIMEOUT_MS = Number(process.env.VOTE_TIMEOUT_MS || 220 * 60 * 1000);
+const HARD_TIMEOUT_MS = Number(process.env.VOTE_TIMEOUT_MS || 300 * 60 * 1000);
 const VOTE_BATCH = Number(process.env.VOTE_BATCH || 32);           // 每批并发 fetch 的 fut.gg id 数
 const CHEM_META_URL = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la/fc' + VER + '/data/chem_meta/chem_meta.json';
 
@@ -76,9 +76,9 @@ function isSundayBJ() {
 }
 const MODE = resolveMode();
 const RUN_CHEM = true;                                   // 化学推荐每天抓
-const RUN_VOTES = (MODE === 'full') || (MODE === 'auto' && isSundayBJ());
+const RUN_VOTES = true;                                   // 球员投票每天抓（自 2026-10-07 起，不再仅周日 full）
 const RUN_SBC_VOTES = true;                              // SBC 投票每天抓（独立于球员投票，contentTypeId=20）
-const REBUILD_MAP = (MODE === 'full') || (MODE === 'auto' && isSundayBJ()); // 仅 full（周日）重建映射
+const REBUILD_MAP = true;                                // 映射每天重建（自 2026-10-07 起，不再仅周日 full）
 console.log('[mode] MODE=' + MODE + ' RUN_CHEM=' + RUN_CHEM + ' RUN_VOTES=' + RUN_VOTES + ' RUN_SBC_VOTES=' + RUN_SBC_VOTES + ' REBUILD_MAP=' + REBUILD_MAP + ' (周日BJ=' + isSundayBJ() + ')');
 
 // —— 云初始化（仅上传时）——
