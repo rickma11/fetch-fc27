@@ -236,6 +236,11 @@ async function scan(db) {
 // ---------- 3. 抓取 Gitee basic ----------
 
 // 跟随 301/302 重定向下载（Gitee raw 会跳到带签名的 raw.giteeusercontent.com）。
+// ⚠️ R104 修复（2026-10-08）：原生 https.get 不带 socket 超时，runner 到 gitee.com（或其 302 跳转的
+//    raw.giteeusercontent.com）连接一旦挂起 ⇒ 请求永久阻塞 ⇒ 整步空转 5 小时触发 job 超时（timeout-minutes:300）
+//    ⇒ 连带 roster 预热 / 图片上传全被 skipped（Fetch FC27 Daily #104 事故）。加单跳 30s 超时兜底：
+//    每跳各自 30s，最坏 5 跳 × 30s = 150s 必失败，由 fetchGiteeBasic 的 catch 降级为「本轮不补齐 Gitee basic」。
+const HTTP_TIMEOUT_MS = 30000;
 function httpsGet(url, redirectsLeft) {
   return new Promise(function (resolve, reject) {
     const req = https.get(url, { headers: { 'User-Agent': 'Mozilla/5.0 sync_i18n' } }, function (res) {
@@ -253,6 +258,10 @@ function httpsGet(url, redirectsLeft) {
       res.setEncoding('utf8');
       res.on('data', function (c) { body += c; });
       res.on('end', function () { resolve(body); });
+    });
+    // R104 修复：单跳 socket 超时 ⇒ destroy 触发 'error' ⇒ reject ⇒ fetchGiteeBasic 捕获并降级为 {}。
+    req.setTimeout(HTTP_TIMEOUT_MS, function () {
+      req.destroy(new Error('拉取 ' + url + ' 超时（' + HTTP_TIMEOUT_MS + 'ms），已中止'));
     });
     req.on('error', reject);
   });
