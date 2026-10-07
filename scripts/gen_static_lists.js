@@ -180,6 +180,55 @@ async function publishOne(app, name, arr, fetchedAt) {
     try { await app.deleteFile({ fileList: [prevFileId] }); console.log('  已清理旧文件:', shortFid(prevFileId)); }
     catch (e) { console.log('  ⚠️ 清理旧文件失败（不影响本次）:', e.message); }
   }
+  return { hash: h, ts: ts, fileID: fileID };
+}
+
+// 对象型静态 JSON 发布（内容更新告知 feed_meta 用）：与 publishOne 同构，但载荷是 JSON 对象（不注入 _fetchedAt）。
+// 端上 utils/cloudJson#fetchObject 读 meta_fc{ver}/<name> 拿 fileID → downloadFile 直读对象。
+async function publishObject(app, name, obj) {
+  const ts = Date.now();
+  const jsonStr = JSON.stringify(obj);
+  const buf = Buffer.from(jsonStr);
+  const h = hash8(buf);
+  const cloudPath = CLOUD_DIR + name + '/' + name + '.' + h + '.json';
+  console.log('[' + name + '] 对象 json=' + (jsonStr.length / 1024).toFixed(1) + 'KB hash=' + h);
+  if (NO_UPLOAD) { console.log('  （--no-upload，跳过上传）'); return; }
+
+  const up = await app.uploadFile({ cloudPath: cloudPath, fileContent: buf });
+  const fileID = (up && up.fileID) || '';
+  if (!fileID) { console.error('  ❌ 上传未拿到 fileID'); process.exit(6); }
+  console.log('  已上传:', cloudPath, '→', shortFid(fileID));
+
+  // 回读校验（规则 100）：uploadFile 假成功，必须 downloadFile 读回断言
+  try {
+    const rb = await app.downloadFile({ fileID: fileID });
+    const rbBuf = rb && rb.fileContent;
+    if (!rbBuf || !rbBuf.length) throw new Error('回读空');
+    const rbObj = JSON.parse(rbBuf.toString('utf8'));
+    if (!rbObj || typeof rbObj !== 'object' || Array.isArray(rbObj)) throw new Error('回读非对象');
+    console.log('  ✅ 回读校验通过');
+  } catch (e) { console.error('  ❌ 回读校验失败:', e.message); process.exit(7); }
+
+  // 读旧元文档（拿 prevFileId 清旧文件）
+  let prevFileId = '';
+  try {
+    const old = await app.database().collection(META_COLLECTION).doc(name).get();
+    const od = (old && old.data) || null;
+    if (od) prevFileId = od.fileID || '';
+  } catch (e) { /* 首轮无元文档 */ }
+
+  const nowIso = new Date().toISOString();
+  await app.database().collection(META_COLLECTION).doc(name).set({
+    fetchedAt: '', count: 0, fileID: fileID, hash: h, ts: ts,
+    prevFileId: prevFileId || '', updatedAt: nowIso,
+    forceVersion: ts,
+    fetchedAtCn: '', updatedAtCn: cn(nowIso), tsCn: cn(ts)
+  });
+  console.log('  已写元文档', META_COLLECTION + '/' + name);
+  if (prevFileId && prevFileId !== fileID) {
+    try { await app.deleteFile({ fileList: [prevFileId] }); console.log('  已清理旧文件:', shortFid(prevFileId)); }
+    catch (e) { console.log('  ⚠️ 清理旧文件失败（不影响本次）:', e.message); }
+  }
 }
 
 async function run() {
@@ -206,8 +255,25 @@ async function run() {
   }
 
   const app = initCloud();
-  await publishOne(app, 'get_sbcs', sbcArr, sbcFetchedAt);
-  await publishOne(app, 'get_evolutions', evoArr, evoFetchedAt);
+  const sbcMeta = await publishOne(app, 'get_sbcs', sbcArr, sbcFetchedAt);
+  const evoMeta = await publishOne(app, 'get_evolutions', evoArr, evoFetchedAt);
+
+  // 内容更新告知：feed_meta（evo/sbc 指纹；players 指纹端上直读 roster meta，不在此写）。
+  // rev = 列表内容 hash（内容不变则不变 → 端上据此判断「有无新内容」）；updatedAt = 本次 CI ts（ISO），
+  // 用于「下次更新无新内容则自动过期」的周期判定。端上 utils/updateFeed.js#compute 消费。
+  const feedMeta = {
+    sections: {
+      evolutions: {
+        rev: (evoMeta && evoMeta.hash) || '',
+        updatedAt: (evoMeta && evoMeta.ts) ? new Date(evoMeta.ts).toISOString() : ''
+      },
+      sbc: {
+        rev: (sbcMeta && sbcMeta.hash) || '',
+        updatedAt: (sbcMeta && sbcMeta.ts) ? new Date(sbcMeta.ts).toISOString() : ''
+      }
+    }
+  };
+  await publishObject(app, 'feed_meta', feedMeta);
   console.log('\n=== gen_static_lists 完成 ===');
 }
 
@@ -217,6 +283,6 @@ if (require.main === module) {
 
 module.exports = {
   slimRecord: slimRecord, maxFetchedAt: maxFetchedAt,
-  publishOne: publishOne, initCloud: initCloud, hash8: hash8, CLOUD_DIR: CLOUD_DIR,
+  publishOne: publishOne, publishObject: publishObject, initCloud: initCloud, hash8: hash8, CLOUD_DIR: CLOUD_DIR,
   META_COLLECTION: META_COLLECTION
 };
