@@ -103,9 +103,10 @@ function httpGetText(url, depth) {
 // ---------- HTTP 重试包装（Gitee 偶发超时/抖动：单次失败不应让整轮 dict-static 挂掉）----------
 // 2026-10-04 run#8 实锤：GitHub Actions runner 拉 Gitee raw 偶发 20s socket 超时，
 // 原 httpGetText 无重试 ⇒ 整轮失败（幸而下一小时 run#9 重跑成功，数据未过期）。
-// 此处加 3 次指数退避重试（与 sync_votes.js / memory 规则 116 同口径）。
+// 此处加 5 次指数退避重试（与 sync_votes.js / memory 规则 116 同口径；
+// 2026-10-07 #78 曾因 Gitee 抖动连吃 ECONNRESET+timeout 3 次全败，故由 3 提至 5 以扛过更长抖动窗口）。
 async function httpGetTextRetry(url, maxAttempts) {
-  maxAttempts = maxAttempts || 3;
+  maxAttempts = maxAttempts || 5;
   let lastErr;
   for (let i = 0; i < maxAttempts; i++) {
     try {
@@ -113,7 +114,7 @@ async function httpGetTextRetry(url, maxAttempts) {
     } catch (e) {
       lastErr = e;
       if (i < maxAttempts - 1) {
-        const wait = 800 * (i + 1) + Math.random() * 400;
+        const wait = 1200 * (i + 1) + Math.random() * 400;
         console.warn('[gen_dict_static] 拉取 ' + url + ' 第 ' + (i + 1) + ' 次失败（' + e.message + '），' + Math.round(wait) + 'ms 后重试');
         await new Promise(function (r) { setTimeout(r, wait); });
       }
