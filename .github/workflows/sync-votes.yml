@@ -38,7 +38,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 240
+    timeout-minutes: 300
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -77,5 +77,5 @@ jobs:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
-          VOTE_TIMEOUT_MS: '13200000'   # 220min 硬看门狗（周日 full 含 化学+投票+miniapp）
+          VOTE_TIMEOUT_MS: '18000000'   # 300min 硬看门狗（每日 full 含 映射重建+化学+投票+miniapp；与 job timeout 对齐）
         run: node scripts/sync_votes.js ${{ github.event.inputs.fc_ver || '27' }}
