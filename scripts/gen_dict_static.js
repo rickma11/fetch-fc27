@@ -219,10 +219,36 @@ function initCloud() {
   const sid = process.env.TCB_SECRET_ID || env.TCB_SECRET_ID;
   const skey = process.env.TCB_SECRET_KEY || env.TCB_SECRET_KEY;
   if (!envId || !sid || !skey) throw new Error('缺 TCB_ENV_ID / TCB_SECRET_ID / TCB_SECRET_KEY');
-  return cloudbase.init({ env: envId, secretId: sid, secretKey: skey });
+  // rule 116：SDK 层加 180s 硬上限，避免 upload/download 偶发卡死无限挂。
+  return cloudbase.init({ env: envId, secretId: sid, secretKey: skey, timeout: 180000 });
 }
 function shortFid(fid) { return fid ? String(fid).slice(0, 64) + (fid.length > 64 ? '…' : '') : ''; }
 function hash8(buf) { return crypto.createHash('md5').update(buf).digest('hex').slice(0, 8); }
+
+// rule 116：downloadFile 回读偶发 ECONNRESET/卡死，须 3 次重试 + race=200s（>SDK timeout 180s，让 SDK 先自我中止）。
+async function downloadFileSafe(app, fileID) {
+  const RACE_MS = 200000;
+  async function once() {
+    return Promise.race([
+      app.downloadFile({ fileID: fileID }),
+      new Promise(function (_, rej) {
+        setTimeout(function () { rej(new Error('race-timeout-200s')); }, RACE_MS);
+      })
+    ]);
+  }
+  let lastErr = null;
+  for (let i = 0; i < 3; i++) {
+    try {
+      const rb = await once();
+      return rb;
+    } catch (e) {
+      lastErr = e;
+      console.warn('[gen_dict_static] 回读第 ' + (i + 1) + ' 次失败（' + ((e && e.message) || e) + '），' + (i < 2 ? '1.5s 后重试' : '放弃'));
+      if (i < 2) await new Promise(function (r) { setTimeout(r, 1500); });
+    }
+  }
+  throw lastErr || new Error('回读全部重试失败');
+}
 
 // ---------- 组装词典（返回合并对象，含六段）----------
 async function buildDict() {
@@ -404,9 +430,9 @@ async function publishDict(app, dict) {
   if (!fileID) { console.error('  ❌ 上传未拿到 fileID'); process.exit(6); }
   console.log('  已上传:', cloudPath, '→', shortFid(fileID));
 
-  // 回读校验
+  // 回读校验（rule 116：downloadFile 偶发 ECONNRESET/卡死，走重试包装）
   try {
-    const rb = await app.downloadFile({ fileID: fileID });
+    const rb = await downloadFileSafe(app, fileID);
     const rbBuf = rb && rb.fileContent;
     if (!rbBuf || !rbBuf.length) throw new Error('回读空');
     const rbObj = JSON.parse(rbBuf.toString('utf8'));
