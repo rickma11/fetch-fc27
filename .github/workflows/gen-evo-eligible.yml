@@ -1,0 +1,58 @@
+name: Evo Eligible Daily (FC27)
+
+# 独立旁路：读 evolutions_fc27(requirements) × players_fc27，产出「符合进化条件的球员」静态 JSON
+# 缓存到云存储公有读（端上按需在进化详情页入口拉取，0 云函数配额）。
+# 详见 eafc-miniapp 交接文档「进化符合球员名单」一节。
+#
+# 触发：仅 workflow_dispatch（由 cron-job.org 每日 02:30 Asia/Shanghai POST 触发，或手动触发）。
+#   - 完全旁路，对原每日抓取流水线零影响；默认 --upload 真写云存储。
+#   - 脚本内含新鲜度护栏：evolution 数据当日未刷新（_fetchedAt > 30h）则跳过，保留昨日缓存。
+#   - cron-job.org 配置 POST：
+#       https://api.github.com/repos/rickma11/fetch-fc27/actions/workflows/gen-evo-eligible.yml/dispatches
+#       body {"ref":"main"}，PAT 需 Actions:write，时区 Asia/Shanghai。
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: '是否上传到云存储（false=空跑验证，true=真写）'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: evo-eligible
+  cancel-in-progress: false
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate & upload (upload=${{ github.event.inputs.upload }})
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_evo_eligible.js ${{ github.event.inputs.upload != 'false' && '--upload' || '' }}
