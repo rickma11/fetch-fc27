@@ -4,7 +4,7 @@ name: Evo Eligible Daily (FC27)
 # 缓存到云存储公有读（端上按需在进化详情页入口拉取，0 云函数配额）。
 # 详见 eafc-miniapp 交接文档「进化符合球员名单」一节。
 #
-# 触发：仅 workflow_dispatch（由 cron-job.org 每日 02:30 Asia/Shanghai POST 触发，或手动触发）。
+# 触发：仅 workflow_dispatch（由 cron-job.org 每日 02:00 Asia/Shanghai POST 触发，或手动触发）。
 #   - 完全旁路，对原每日抓取流水线零影响；默认 --upload 真写云存储。
 #   - 脚本内含新鲜度护栏：evolution 数据当日未刷新（_fetchedAt > 30h）则跳过，保留昨日缓存。
 #   - cron-job.org 配置 POST：

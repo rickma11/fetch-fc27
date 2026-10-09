@@ -20,7 +20,7 @@
 //   node scripts/gen_evo_eligible.js --upload        # 真写云存储公有读
 //   node scripts/gen_evo_eligible.js --checkonly     # 只打印匹配器自测 + 抽样校验，不产出
 //
-// 触发：由 .github/workflows/gen-evo-eligible.yml 经 cron-job.org 每日 02:30 触发，含新鲜度护栏。
+// 触发：由 .github/workflows/gen-evo-eligible.yml 经 cron-job.org 每日 02:00 触发，含新鲜度护栏。
 
 'use strict';
 
