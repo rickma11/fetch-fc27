@@ -13,7 +13,7 @@
 //   · 属性阈值（attributeX/min/max）只在 details_fc27 有，按需懒读：先过非属性约束得候选集，
 //     合并所有含属性约束进化的候选 → 批量读 details.attributes → 应用属性约束（一次查询，多进化复用）。
 //   · 高频约束全实现；罕见/无数据约束（价格、workrate、bodyTypes…）保守放行 + 告警计数，绝不静默丢人。
-//   · 交叉校验：算出 count 与 fut.gg 顶层 numberOfPlayers 比，偏差超阈值告警（最强正确性信号）。
+//   · 交叉校验（coverage-aware）：算出 count 与 fut.gg 顶层 numberOfPlayers 比；仅当 fut 落在本名册可达范围内（<= 名册总量）才作为告警基准，避免全版本计数造成的宽进化虚警。
 //
 // 用法：
 //   node scripts/gen_evo_eligible.js                 # 本地模拟（写 cloud-data，不上传）
@@ -542,18 +542,27 @@ async function main() {
   });
   if (!CHECK_ONLY) jobs.push({ cloudPath: 'fc27/data/evo_eligible/index.json', obj: index });
 
-  // 交叉校验：count vs numberOfPlayers
-  console.log('\n[gen_evo_eligible] ── 交叉校验（count vs fut.gg numberOfPlayers）──');
-  let warnCount = 0;
+  // 交叉校验（coverage-aware）：仅在 fut 统计落在本名册可达范围内才作为告警基准，
+  // 避免 fut.gg 全版本计数（常超本名册总量）造成的宽进化虚警。
+  console.log('\n[gen_evo_eligible] ── 交叉校验（count vs fut.gg numberOfPlayers，coverage-aware）──');
+  const ROSTER_TOTAL = players.length;
+  let warnCount = 0, skipCount = 0;
   report.forEach(function (r) {
     if (r.fut == null) return;
+    if (r.fut > ROSTER_TOTAL) {
+      // fut 含全游戏所有卡版本，超出本名册可达上限 → 口径不可比，不告警
+      skipCount++;
+      console.log('  ⇄ evo ' + r.id + '：算出 ' + r.count + ' / fut ' + r.fut +
+        '（fut 超本名册总量 ' + ROSTER_TOTAL + '，疑似含全版本计数，跳过告警）');
+      return;
+    }
     const diff = r.count - r.fut;
     const pct = r.fut ? Math.abs(diff) / r.fut : 0;
     const flag = (pct > 0.1 || (pct > 0.05 && Math.abs(diff) > 200)) ? '⚠️' : '✔';
     if (flag === '⚠️') warnCount++;
     console.log('  ' + flag + ' evo ' + r.id + '：算出 ' + r.count + ' / fut ' + r.fut + '（差 ' + diff + '，' + (pct * 100).toFixed(1) + '%）');
   });
-  console.log('[gen_evo_eligible] 告警进化数：' + warnCount + ' / ' + report.length);
+  console.log('[gen_evo_eligible] 告警进化数：' + warnCount + ' / ' + report.length + '（口径跳过 ' + skipCount + '）');
 
   // 未实现约束告警
   const unimplKeys = Object.keys(ctx.unimplemented);
