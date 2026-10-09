@@ -1,0 +1,50 @@
+name: Force Refresh (bump SBC/Evolution forceVersion)
+
+# 一键强制刷新端上 SBC / 进化列表缓存。
+# 行为：bump meta_fc{ver}/get_sbcs 与 meta_fc{ver}/get_evolutions 的 forceVersion 字段，
+#   端上 dailyWindowGate 的非窗口旁路检测到 forceVersion 变大 → 立即清缓存重拉（绕过每日双窗口封板）。
+#   只改元文档一个数字字段，不改数据内容、不删文件、不写业务数据库集合、不提交 git。
+# 触发：workflow_dispatch（手动在 GitHub 点一下，或第三方 cron 调 Actions API）。
+#   与 fetch-fc27 / dict-static 等互不干扰（独立 concurrency 组 force-refresh）。
+# 典型用途：daily 已把新 SBC/进化写进云库，但端上被 01:30 窗口用旧数据封板，
+#   此时点一下本 workflow 即可全网立即刷新，不用等 02:00 / 12:30 补拉窗口。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: force-refresh
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+
+      - name: Bump forceVersion (SBC + Evolutions)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          FC_VER: ${{ github.event.inputs.fc_ver || '27' }}
+        run: node scripts/force_refresh.js ${{ github.event.inputs.fc_ver || '27' }}
