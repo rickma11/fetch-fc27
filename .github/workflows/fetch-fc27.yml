@@ -451,6 +451,28 @@ jobs:
             -d '{"ref":"main","inputs":{"mode":"reseed"}}' \
             "https://api.github.com/repos/${{ github.repository }}/actions/workflows/probe-futgg-updates.yml/dispatches"
 
+      # 首页新球员静态 JSON 兜底（2026-10-10）：job1 每日落库后，home_new / home_hot 本应随
+      # refresh-hotboard（每 30 分钟由微信 trigger_hotboard 定时器 dispatch）重新生成。但若每日同步
+      # 恰好落在两个 30 分钟窗口之间，home_new 就要等最长 30 分钟才会刷新 ⇒ 首页「新球员」红点/列表滞后。
+      # 这里在每日同步末尾主动 dispatch 一次 refresh-hotboard，让 gen_home_payload 立即重建
+      # home_new / home_hot，不再依赖 30 分钟定时器的对齐。
+      #   · skip_db=true（images-only / no-portrait-only）时本步跳过：这两种模式不改球员数据，无需重建。
+      #   · continue-on-error：gen-payload 作业失败（如 dicts 暂缺）绝不影响本次每日同步的结果。
+      #   · refresh-hotboard 自身有 concurrency 组（cancel-in-progress:false），若恰与 30 分钟定时器撞车会排队，不会互相覆盖。
+      - name: Refresh home_new/home_hot (trigger Refresh Hotboard once)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s -o /dev/null -w "refresh-hotboard dispatched: %{http_code}\n" \
+            -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -d '{"ref":"main","inputs":{"ver":"27"}}' \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/refresh-hotboard.yml/dispatches"
+
       - name: Show run summary
         if: always()
         run: |
