@@ -13,7 +13,7 @@
 //   · 属性阈值（attributeX/min/max）只在 details_fc27 有，按需懒读：先过非属性约束得候选集，
 //     合并所有含属性约束进化的候选 → 批量读 details.attributes → 应用属性约束（一次查询，多进化复用）。
 //   · 高频约束全实现；罕见/无数据约束（价格、workrate、bodyTypes…）保守放行 + 告警计数，绝不静默丢人。
-//   · 交叉校验（coverage-aware）：算出 count 与 fut.gg 顶层 numberOfPlayers 比；仅当 fut 落在本名册可达范围内（<= 名册总量）才作为告警基准，避免全版本计数造成的宽进化虚警。
+//   · 交叉校验（方向+幅度感知）：算出 count 与 fut.gg 顶层 numberOfPlayers 比；因 fut 口径不可比（实测最宽进化 19807 < 本名册 20212，恒定 ~2% 差），故「count<fut」正常、「count>fut 且≤10%」亦为口径差不告警，仅「count>fut 超 10%」打告警（真·多放人）。漏匹配由 unimplemented/missingAttr 兜底。
 //
 // 用法：
 //   node scripts/gen_evo_eligible.js                 # 本地模拟（写 cloud-data，不上传）
@@ -542,27 +542,31 @@ async function main() {
   });
   if (!CHECK_ONLY) jobs.push({ cloudPath: 'fc27/data/evo_eligible/index.json', obj: index });
 
-  // 交叉校验（coverage-aware）：仅在 fut 统计落在本名册可达范围内才作为告警基准，
-  // 避免 fut.gg 全版本计数（常超本名册总量）造成的宽进化虚警。
-  console.log('\n[gen_evo_eligible] ── 交叉校验（count vs fut.gg numberOfPlayers，coverage-aware）──');
+  // 交叉校验（方向+幅度感知）：fut.gg 的 numberOfPlayers 口径与本名册不可比——
+  // 实测 fut 最宽进化=19807 < 本名册总量 20212，存在约 2% 的系统性口径差（恒定 +405）。
+  // 故「count<fut」是正常版本膨胀，「count>fut 但≤10%」也只是口径差，二者都不告警；
+  // 仅当「count>fut 且超 10%」才视为真异常（我方严重多放人）打 ⚠️。
+  // 漏匹配/属性读不到由下方 unimplemented / missingAttr 告警兜底，不依赖此口径。
+  console.log('\n[gen_evo_eligible] ── 交叉校验（count vs fut.gg numberOfPlayers，方向+幅度感知：仅 count>fut 超 10% 告警）──');
   const ROSTER_TOTAL = players.length;
-  let warnCount = 0, skipCount = 0;
+  const GROSS_PCT = 0.10; // 仅当 count 超 fut 10% 以上才算真异常（过滤系统性 ~2% 口径差）
+  let warnCount = 0, okCount = 0, overTotalCount = 0;
   report.forEach(function (r) {
     if (r.fut == null) return;
-    if (r.fut > ROSTER_TOTAL) {
-      // fut 含全游戏所有卡版本，超出本名册可达上限 → 口径不可比，不告警
-      skipCount++;
-      console.log('  ⇄ evo ' + r.id + '：算出 ' + r.count + ' / fut ' + r.fut +
-        '（fut 超本名册总量 ' + ROSTER_TOTAL + '，疑似含全版本计数，跳过告警）');
+    const diff = r.count - r.fut;
+    if (diff > 0 && (r.fut ? diff / r.fut : 1) > GROSS_PCT) {
+      const pct = r.fut ? (diff / r.fut * 100) : 100;
+      warnCount++;
+      console.log('  ⚠️ evo ' + r.id + '：算出 ' + r.count + ' / fut ' + r.fut + '（多 ' + diff + ' 人，+' + pct.toFixed(1) + '%）');
       return;
     }
-    const diff = r.count - r.fut;
-    const pct = r.fut ? Math.abs(diff) / r.fut : 0;
-    const flag = (pct > 0.1 || (pct > 0.05 && Math.abs(diff) > 200)) ? '⚠️' : '✔';
-    if (flag === '⚠️') warnCount++;
-    console.log('  ' + flag + ' evo ' + r.id + '：算出 ' + r.count + ' / fut ' + r.fut + '（差 ' + diff + '，' + (pct * 100).toFixed(1) + '%）');
+    okCount++;
+    let note = '';
+    if (r.fut > ROSTER_TOTAL) { overTotalCount++; note = '（fut 超本名册总量 ' + ROSTER_TOTAL + '，含全版本计数）'; }
+    else if (diff > 0) { note = '（count>fut 但 ≤' + (GROSS_PCT * 100) + '%，口径差，不告警）'; }
+    console.log('  ✔ evo ' + r.id + '：算出 ' + r.count + ' / fut ' + r.fut + note);
   });
-  console.log('[gen_evo_eligible] 告警进化数：' + warnCount + ' / ' + report.length + '（口径跳过 ' + skipCount + '）');
+  console.log('[gen_evo_eligible] 告警进化数：' + warnCount + ' / ' + report.length + '（正常 ' + okCount + '，其中 fut 超名册总量 ' + overTotalCount + '）');
 
   // 未实现约束告警
   const unimplKeys = Object.keys(ctx.unimplemented);
