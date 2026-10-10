@@ -314,12 +314,16 @@ async function buildDict() {
   const tac = { enabled: !!okTac, map: okTac ? (function () { var o = {}; o[TAC_KEY] = okTac; return o; })() : {}, count: okTac ? 1 : 0 };
 
   // ⑤ player_review（球员公众号评测文章链接，白名单校验；键＝球员 eaId）
+  // 值兼容两种格式：纯 URL 字符串 / 对象 {webpagedata, shorten, timestamp}（与 FCUT 同口径）
   const prSec = (miniappJson && miniappJson.PLAYER_REVIEW) || null;
   const prMap = {};
   if (prSec && typeof prSec === 'object') {
     Object.keys(prSec).forEach(function (k) {
-      const u = isMpWeixinUrl(String(prSec[k] || '').trim());
-      if (u) prMap[String(k)] = u;
+      const v = prSec[k];
+      let url = '';
+      if (typeof v === 'string') url = isMpWeixinUrl(v);
+      else if (v && typeof v === 'object') url = isMpWeixinUrl(v.webpagedata);
+      if (url) prMap[String(k)] = url;
     });
   }
   const player_review = { enabled: true, map: prMap, count: Object.keys(prMap).length };
