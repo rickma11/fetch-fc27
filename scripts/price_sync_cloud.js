@@ -23,6 +23,10 @@ const core = require('./market_core.js');
 // ⚠️ 与云函数 market_sync 常量保持一致（勿改，否则端上契约漂移）。
 const VER = 27;
 const PRICE_VIEW_PREFIX = 'fc27/market/price_view_';
+const SERIES_FILE = 'series_24h.json';
+const SERIES_CLOUD_PATH = 'fc27/market/' + SERIES_FILE;
+const SERIES_DOMAIN = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la';
+const SERIES_READ_URL = SERIES_DOMAIN + '/' + SERIES_CLOUD_PATH;
 const ROSTER_URL = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la/fc27/data/roster_83plus.json';
 const FETCH_TIMEOUT = 30000;
 
@@ -95,7 +99,7 @@ function tcbApp() {
   const skey = process.env.TCB_SECRET_KEY;
   if (!envId || !sid || !skey) throw new Error('缺 TCB_ENV_ID / TCB_SECRET_ID / TCB_SECRET_KEY');
   const cloudbase = require('@cloudbase/node-sdk');
-  __tcbApp = cloudbase.init({ env: envId, secretId: sid, secretKey: skey, timeout: 120000 });
+  __tcbApp = cloudbase.init({ env: envId, secretId: sid, secretKey: skey, timeout: 180000 });
   return __tcbApp;
 }
 async function uploadText(cloudPath, obj) {
@@ -103,6 +107,43 @@ async function uploadText(cloudPath, obj) {
   const res = await tcbApp().uploadFile({ cloudPath: cloudPath, fileContent: buf });
   console.log('  -> 上传 ' + cloudPath + ' → ' + JSON.stringify(res).slice(0, 160));
   return res;
+}
+
+// 读旧 series_24h.json（公有读直链），3 次重试；失败/首跑返回 null（不阻断，从当前小时重建）。
+async function readOldSeries() {
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const j = await httpGetJson(SERIES_READ_URL);
+      if (j && j.players) return j;
+      return null;
+    } catch (e) {
+      logStep('readOldSeries attempt ' + attempt + ' 失败: ' + (e && e.message || e));
+      if (attempt < 3) await sleep(800 * attempt);
+    }
+  }
+  return null;
+}
+
+// 上传带超时+重试（#116 模式：SDK 层硬上限 180s，外层 race 200s > SDK timeout，3 次重试）。
+// 单文件偶发卡死无告警 ⇒ 必须 race 让其先自我中止再重试。
+async function uploadJsonSafe(cloudPath, obj) {
+  const RACE = 200000;
+  let lastErr = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const buf = Buffer.from(JSON.stringify(obj));
+      const p = tcbApp().uploadFile({ cloudPath: cloudPath, fileContent: buf });
+      const race = new Promise(function (_, rej) { setTimeout(function () { rej(new Error('upload race timeout')); }, RACE); });
+      await Promise.race([p, race]);
+      console.log('  -> 上传 ' + cloudPath + ' ✓ (attempt ' + attempt + ')');
+      return;
+    } catch (e) {
+      lastErr = e;
+      console.warn('[market_sync_gh] uploadJsonSafe attempt ' + attempt + ' 失败: ' + (e && e.message || e));
+      if (attempt < 3) await sleep(1000 * attempt);
+    }
+  }
+  throw new Error('uploadJsonSafe 重试 3 次仍失败: ' + (lastErr && lastErr.message || lastErr));
 }
 
 // 打日志带相对启动耗时，便于在 Actions 日志里定位是哪一步超时
@@ -134,8 +175,13 @@ async function runHourlySync(doUpload) {
 
   const bucket = bucketOf();
   if (doUpload) {
-    await uploadText(PRICE_VIEW_PREFIX + bucket + '.json', built.view);
+    await uploadJsonSafe(PRICE_VIEW_PREFIX + bucket + '.json', built.view);
     logStep('upload view done, bucket=' + bucket);
+    // 24h 序列：读旧 series → 位移追加 → 写回（套 #116 重试）
+    const oldSeries = await readOldSeries();
+    const series = core.buildSeries(oldSeries, built, bucket);
+    await uploadJsonSafe(SERIES_CLOUD_PATH, series);
+    logStep('upload series done, players=' + Object.keys(series.players).length + ', buckets=' + series.buckets.length);
   } else {
     logStep('DRY-RUN: 跳过上传（加 --upload 才写云存储），bucket=' + bucket);
   }

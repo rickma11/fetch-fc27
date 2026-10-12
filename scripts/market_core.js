@@ -139,8 +139,74 @@ function build(roster, cur, prev, src, tsOverride) {
   return { ts: ts, all: all, view: view, tierN: tier.length, mergedN: Object.keys(merged).length };
 }
 
+// ── 24h 序列聚合（供 price_sync_cloud.js 每小时增量生成 series_24h.json） ──
+// 契约（端上 utils/priceSeries.js 只读）：
+//   series = { v, ts, buckets:[≤24 个 YYYYMMDDHH00], players:{ eaId:{ pc:[≤24], ps:[≤24] } } }
+//   - 数组与 buckets 按下标对齐；缺失小时为 null。
+//   - 前 24 小时逐小时累积（buckets 增长 1→24）；满 24 后滑动窗口（去最旧、补最新）。
+//   - 同小时重跑（cron 双触发）：替换最后一点而非位移，保证幂等。
+// ⚠️ 粒度必须为「每小时」：端上 priceStore.bucketOf 与 price_sync_cloud.bucketOf 一致；
+//    绝不能接 price_sync.js 的 20 分钟粒度（会让端上 statsOf 取错窗口）。
+// 纯函数（无 IO、无 bucket 依赖），scripts/price_series_test.js 离线覆盖。
+function buildSeries(old, built, curBucket) {
+  old = old || {};
+  var oldBuckets = Array.isArray(old.buckets) ? old.buckets : [];
+  var oldPlayers = old.players || {};
+  var B = oldBuckets.length;
+
+  var newBuckets, shifted;
+  if (B && oldBuckets[B - 1] === curBucket) {
+    newBuckets = oldBuckets.slice();                      // 同小时重跑：不位移
+    shifted = false;
+  } else if (B < 24) {
+    newBuckets = oldBuckets.concat([curBucket]);          // 累积阶段（1→24）
+    shifted = true;
+  } else {
+    newBuckets = oldBuckets.slice(1).concat([curBucket]); // 满 24：滑动窗口
+    shifted = true;
+  }
+  var L = newBuckets.length; // 1..24
+
+  var tier = (built && built.view && (built.view.tier || built.tier)) || [];
+  var curMap = {};
+  tier.forEach(function (t) { curMap[String(t.eaId)] = t; });
+
+  function shiftAppend(oldArr, newVal) {
+    var arr = Array.isArray(oldArr) ? oldArr.slice() : [];
+    if (shifted) {
+      if (B >= 24 && arr.length >= 24) arr = arr.slice(1); // 已满：去最旧一点
+      arr.push(newVal);
+    } else {
+      // 同小时重跑：替换最后一点
+      if (arr.length) arr[arr.length - 1] = newVal;
+      else { var pad = new Array(L - 1); for (var i = 0; i < L - 1; i++) pad[i] = null; pad.push(newVal); arr = pad; }
+    }
+    while (arr.length < L) arr.unshift(null); // 新加入球员补齐前导 null，与 buckets 对齐
+    return arr;
+  }
+
+  var players = {};
+  Object.keys(curMap).forEach(function (eaId) {
+    var t = curMap[eaId];
+    var oldRec = oldPlayers[eaId] || {};
+    players[eaId] = { pc: shiftAppend(oldRec.pc, t.pc), ps: shiftAppend(oldRec.ps, t.ps) };
+  });
+  Object.keys(oldPlayers).forEach(function (eaId) { // 本次快照缺失的球员：补 null 保留连续性
+    if (curMap[eaId]) return;
+    var oldRec = oldPlayers[eaId];
+    players[eaId] = { pc: shiftAppend(oldRec.pc, null), ps: shiftAppend(oldRec.ps, null) };
+  });
+  Object.keys(players).forEach(function (eaId) { // 清理连续 24h 全 null（已离场）
+    var r = players[eaId];
+    var allNull = r.pc.every(function (x) { return x == null; }) && r.ps.every(function (x) { return x == null; });
+    if (allNull) delete players[eaId];
+  });
+  return { v: 1, ts: Date.now(), buckets: newBuckets, players: players };
+}
+
 module.exports = {
   PRICE_API: PRICE_API, BATCH: BATCH, TIER_MIN: TIER_MIN,
   key: key, sleep: sleep,
-  fetchBatch: fetchBatch, pullPlatforms: pullPlatforms, build: build
+  fetchBatch: fetchBatch, pullPlatforms: pullPlatforms,   build: build,
+  buildSeries: buildSeries
 };
