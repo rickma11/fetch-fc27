@@ -101,6 +101,42 @@ function ageAt(birthMs, nowMs) {
   return a;
 }
 
+// fut.gg 的 minBirthDate / maxBirthDate 可能以 ISO 字符串（'2003-10-09'）或数字 YYYYMMDD（20031009）存储。
+// 该函数必须返回对应日期的 UTC 午夜时间戳；无法解析时返回 NaN。
+function parseBirthDate(v) {
+  if (v == null) return NaN;
+  if (v instanceof Date) return v.getTime();
+  if (typeof v === 'number' && isFinite(v)) {
+    const s = String(Math.floor(v));
+    if (/^\d{8}$/.test(s)) {
+      const y = parseInt(s.slice(0, 4), 10);
+      const m = parseInt(s.slice(4, 6), 10) - 1;
+      const d = parseInt(s.slice(6, 8), 10);
+      const ts = Date.UTC(y, m, d);
+      if (!isNaN(ts)) return ts;
+    }
+    return NaN;
+  }
+  const s = String(v).trim();
+  if (!s) return NaN;
+  const parsed = Date.parse(s);
+  if (!isNaN(parsed)) return parsed;
+  // 兼容 '2003/10/09'、'09/10/2003' 等格式，作为最后兜底（优先 ISO 已涵盖前者）
+  const parts = s.split(/[-/\.]/);
+  if (parts.length === 3) {
+    const nums = parts.map(function (x) { return parseInt(x, 10); }).filter(function (x) { return !isNaN(x); });
+    if (nums.length === 3) {
+      let y, m, d;
+      if (nums[0] > 1900) { y = nums[0]; m = nums[1] - 1; d = nums[2]; }
+      else if (nums[2] > 1900) { d = nums[0]; m = nums[1] - 1; y = nums[2]; }
+      else { return NaN; }
+      const ts = Date.UTC(y, m, d);
+      if (!isNaN(ts)) return ts;
+    }
+  }
+  return NaN;
+}
+
 // 计算玩家「能踢的位置」uniqueId 集合（主位置码 + 备选 ID），已去重
 function playerPosSet(p) {
   const ids = playerPositionIds(p); // 含主 + 备选
@@ -238,17 +274,29 @@ function matchNonAttr(req, p, ctx) {
   if (req.minWeight != null) { ctx.missingFields.weight = (ctx.missingFields.weight || 0) + 1; } // 名册无 weight → 放行
   if (req.maxWeight != null) { ctx.missingFields.weight = (ctx.missingFields.weight || 0) + 1; }
 
-  // 年龄 / 生日（需 dateOfBirth）
+  // 年龄 / 生日（需 dateOfBirth）。
+  // 注意：fut.gg 的 minBirthDate/maxBirthDate 可能是数字 YYYYMMDD 或 ISO 字符串（见 parseBirthDate）。
+  // 为保证「满足所有适用条件」，球员无生日或 req 日期无法解析时均视为不满足；解析失败会计入 criticalParseErrors 并导致 CI 失败。
   if (req.minAge != null || req.maxAge != null || req.minBirthDate != null || req.maxBirthDate != null) {
     const bd = (typeof p.dateOfBirth === 'string' && p.dateOfBirth) ? Date.parse(p.dateOfBirth) : NaN;
     if (!isNaN(bd)) {
       const age = ageAt(bd, ctx.now);
       if (req.minAge != null && age < req.minAge) return false;
       if (req.maxAge != null && age > req.maxAge) return false;
-      if (req.minBirthDate != null) { const lo = Date.parse(req.minBirthDate); if (!isNaN(lo) && bd < lo) return false; }
-      if (req.maxBirthDate != null) { const hi = Date.parse(req.maxBirthDate); if (!isNaN(hi) && bd > hi) return false; }
+      if (req.minBirthDate != null) {
+        const lo = parseBirthDate(req.minBirthDate);
+        if (isNaN(lo)) { ctx.criticalParseErrors.birthDate = (ctx.criticalParseErrors.birthDate || 0) + 1; return false; }
+        if (bd < lo) return false;
+      }
+      if (req.maxBirthDate != null) {
+        const hi = parseBirthDate(req.maxBirthDate);
+        if (isNaN(hi)) { ctx.criticalParseErrors.birthDate = (ctx.criticalParseErrors.birthDate || 0) + 1; return false; }
+        if (bd > hi) return false;
+      }
     } else {
-      ctx.missingFields.dateOfBirth = (ctx.missingFields.dateOfBirth || 0) + 1; // 无生日 → 放行
+      // 球员无生日 → 无法满足年龄/生日约束，排除（不再放行，避免超集）
+      ctx.missingFields.dateOfBirth = (ctx.missingFields.dateOfBirth || 0) + 1;
+      return false;
     }
   }
 
@@ -482,7 +530,7 @@ async function main() {
   }
 
   // 匹配
-  const ctx = { now: Date.now(), unimplemented: {}, missingFields: {}, missingAttr: 0 };
+  const ctx = { now: Date.now(), unimplemented: {}, missingFields: {}, missingAttr: 0, criticalParseErrors: {} };
   const eligibleByEvo = {};
   const candidatesByEvo = {};
   const needAttrEvos = evos.filter(function (e) { return hasAttrConstraint(e.req); });
@@ -505,6 +553,7 @@ async function main() {
   }
 
   // 属性约束 pass2
+  let attrMap = {};
   if (needAttrEvos.length) {
     const allCand = [];
     const seen = {};
@@ -512,7 +561,7 @@ async function main() {
       (candidatesByEvo[e.id] || []).forEach(function (ea) { if (!seen[ea]) { seen[ea] = true; allCand.push(ea); } });
     });
     console.log('[gen_evo_eligible] 含属性约束进化 ' + needAttrEvos.length + ' 个，需读 details 属性候选 ' + allCand.length + ' 人…');
-    const attrMap = await readDetailsAttrs(db, allCand);
+    attrMap = await readDetailsAttrs(db, allCand);
     console.log('[gen_evo_eligible] 拿到属性 ' + Object.keys(attrMap).length + ' 人');
     needAttrEvos.forEach(function (e) {
       (candidatesByEvo[e.id] || []).forEach(function (ea) {
@@ -520,6 +569,40 @@ async function main() {
         if (!detail || !detail.attributes) { ctx.missingAttr++; return; }
         if (matchAttrOnly(e.req, detail, ctx)) eligibleByEvo[e.id].push(ea);
       });
+    });
+  }
+
+  // ── 名单自校验（保证满足所有适用条件）──
+  // 用同样的 matchNonAttr / matchAttrOnly 对最终名单复核；任何不满足已声明约束的 eaId 立即剔除并告警。
+  const playersMap = {};
+  for (let i = 0; i < players.length; i++) { playersMap[players[i].eaId] = players[i]; }
+  const selfValidateRemoved = {};
+  evos.forEach(function (e) {
+    const req = e.req;
+    const needAttr = hasAttrConstraint(req);
+    const out = [];
+    let removed = 0;
+    const ids = eligibleByEvo[e.id] || [];
+    for (let i = 0; i < ids.length; i++) {
+      const ea = ids[i];
+      const p = playersMap[ea];
+      if (!p) { removed++; continue; }
+      const tmpCtx = { now: ctx.now, unimplemented: {}, missingFields: {}, missingAttr: 0, criticalParseErrors: {} };
+      if (!matchNonAttr(req, p, tmpCtx)) { removed++; continue; }
+      if (needAttr) {
+        const detail = attrMap[ea];
+        if (!detail || !detail.attributes || !matchAttrOnly(req, detail, tmpCtx)) { removed++; continue; }
+      }
+      out.push(ea);
+    }
+    if (removed) selfValidateRemoved[e.id] = removed;
+    eligibleByEvo[e.id] = out;
+  });
+  const selfRemovedKeys = Object.keys(selfValidateRemoved);
+  if (selfRemovedKeys.length) {
+    console.log('\n[gen_evo_eligible] ── ⚠️ 名单自校验剔除（确保最终名单满足所有适用条件）──');
+    selfRemovedKeys.sort().forEach(function (id) {
+      console.log('  · evo ' + id + '：自校验剔除 ' + selfValidateRemoved[id] + ' 人');
     });
   }
 
@@ -577,8 +660,15 @@ async function main() {
     console.log('\n[gen_evo_eligible] 未实现约束：无');
   }
   if (ctx.missingFields.weight) console.log('  · weight 约束：名册无 weight 字段，已保守放行 ' + ctx.missingFields.weight + ' 次');
-  if (ctx.missingFields.dateOfBirth) console.log('  · dateOfBirth 缺失：已保守放行 ' + ctx.missingFields.dateOfBirth + ' 次');
+  if (ctx.missingFields.dateOfBirth) console.log('  · dateOfBirth 缺失：已排除 ' + ctx.missingFields.dateOfBirth + ' 人次（不再放行）');
   if (ctx.missingAttr) console.log('  · attributes 缺失（含属性约束但无详情）：已排除 ' + ctx.missingAttr + ' 人次');
+
+  const criticalKeys = Object.keys(ctx.criticalParseErrors);
+  if (criticalKeys.length) {
+    console.log('\n[gen_evo_eligible] ── ❌ 关键解析错误（为保证名单正确，拒绝产出）──');
+    criticalKeys.sort().forEach(function (k) { console.log('  · ' + k + '：' + ctx.criticalParseErrors[k] + ' 次无法解析'); });
+    throw new Error('关键约束解析失败 ' + criticalKeys.join(', ') + '，详见上方日志');
+  }
 
   if (CHECK_ONLY) {
     console.log('\n[gen_evo_eligible] --checkonly 完成，未产出文件。');
@@ -633,6 +723,7 @@ module.exports = {
   mainPosOnly: mainPosOnly,
   playerPosSet: playerPosSet,
   ageAt: ageAt,
+  parseBirthDate: parseBirthDate,
   IMPLEMENTED_KEYS: IMPLEMENTED_KEYS,
   RE_ATTR_ANY: RE_ATTR_ANY,
   posName: posName
