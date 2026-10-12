@@ -56,15 +56,23 @@ jobs:
         run: |
           node -e '
           const cloudbase = require("@cloudbase/node-sdk");
-          const app = cloudbase.init({ env: process.env.TCB_ENV_ID, secretId: process.env.TCB_SECRET_ID, secretKey: process.env.TCB_SECRET_KEY });
+          const app = cloudbase.init({ env: process.env.TCB_ENV_ID, secretId: process.env.TCB_SECRET_ID, secretKey: process.env.TCB_SECRET_KEY, timeout: 20000 });
           const ver = process.env.FC_VER || "27";
+          const RETRIES = 3, GAP = 10000;
           (async () => {
-            const res = await app.callFunction({ name: "player_hot", data: { action: "buildBoard", version: ver } });
-            const r = res && res.result !== undefined ? res.result : res;
-            console.log("player_hot 返回:", JSON.stringify(r));
-            if (!r || !r.meta || !r.meta.fileID) { console.error("❌ 未拿到 meta.fileID（buildBoard 可能未执行）"); process.exit(1); }
-            console.log("✅ buildBoard 成功: count=" + r.count + " fetchedAt=" + r.meta.fetchedAt);
-            process.exit(0);
+            let lastErr;
+            for (let attempt = 1; attempt <= RETRIES; attempt++) {
+              try {
+                const res = await app.callFunction({ name: "player_hot", data: { action: "buildBoard", version: ver } });
+                const r = res && res.result !== undefined ? res.result : res;
+                console.log("player_hot 返回:", JSON.stringify(r));
+                if (!r || !r.meta || !r.meta.fileID) { lastErr = new Error("未拿到 meta.fileID（buildBoard 可能未执行）"); }
+                else { console.log("✅ buildBoard 成功: count=" + r.count + " fetchedAt=" + r.meta.fetchedAt); return process.exit(0); }
+              } catch (e) { lastErr = e; }
+              if (attempt < RETRIES) { console.error("callFunction 第 " + attempt + "/" + RETRIES + " 次失败：" + (lastErr && lastErr.message) + "；10s 后重试"); await new Promise(s => setTimeout(s, GAP)); }
+            }
+            console.error("❌ 未拿到 meta.fileID（buildBoard 可能未执行）: " + (lastErr && lastErr.message));
+            process.exit(1);
           })().catch(e => { console.error("callFunction 失败:", e && e.message); process.exit(1); });
           '
 
@@ -77,10 +85,20 @@ jobs:
         run: |
           node -e '
           const cloudbase = require("@cloudbase/node-sdk");
-          const app = cloudbase.init({ env: process.env.TCB_ENV_ID, secretId: process.env.TCB_SECRET_ID, secretKey: process.env.TCB_SECRET_KEY });
+          const app = cloudbase.init({ env: process.env.TCB_ENV_ID, secretId: process.env.TCB_SECRET_ID, secretKey: process.env.TCB_SECRET_KEY, timeout: 20000 });
+          const RETRIES = 3, GAP = 10000;
           (async () => {
-            const m = (await app.database().collection("meta_fc27").doc("hotboard").get()).data;
-            console.log("meta_fc27/hotboard => fetchedAt=" + m.fetchedAt + " count=" + m.count + " fileID=" + m.fileID);
+            let lastErr;
+            for (let attempt = 1; attempt <= RETRIES; attempt++) {
+              try {
+                const m = (await app.database().collection("meta_fc27").doc("hotboard").get()).data;
+                console.log("meta_fc27/hotboard => fetchedAt=" + m.fetchedAt + " count=" + m.count + " fileID=" + m.fileID);
+                return process.exit(0);
+              } catch (e) { lastErr = e; }
+              if (attempt < RETRIES) { console.error("读 meta 第 " + attempt + "/" + RETRIES + " 次失败：" + (lastErr && lastErr.message) + "；10s 后重试"); await new Promise(s => setTimeout(s, GAP)); }
+            }
+            console.error("读 meta 失败: " + (lastErr && lastErr.message));
+            process.exit(1);
           })().catch(e => { console.error("读 meta 失败:", e && e.message); process.exit(1); });
           '
 
