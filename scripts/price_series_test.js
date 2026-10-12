@@ -141,6 +141,32 @@ console.log('\n=== buildSeries ===');
   eq('F 末点为 null', sF3.players['1'].pc[23], null);
 })();
 
+console.log('\n=== arrowOf ===');
+(function () {
+  // 涨：末点 > 首点
+  const up = { buckets: ['1', '2'], players: { '10': { pc: [100, 110], ps: [100, 110] } } };
+  const aUp = priceSeries.arrowOf(up, 10, 'pc');
+  eq('涨箭头', aUp.arrow, '↑');
+  eq('涨颜色', aUp.cls, 'up');
+  // 跌
+  const down = { buckets: ['1', '2'], players: { '10': { pc: [110, 100], ps: [110, 100] } } };
+  const aDown = priceSeries.arrowOf(down, 10, 'pc');
+  eq('跌箭头', aDown.arrow, '↓');
+  eq('跌颜色', aDown.cls, 'down');
+  // 平
+  const flat = { buckets: ['1', '2'], players: { '10': { pc: [100, 100], ps: [100, 100] } } };
+  const aFlat = priceSeries.arrowOf(flat, 10, 'pc');
+  eq('平箭头', aFlat.arrow, '—');
+  eq('平颜色', aFlat.cls, 'flat');
+  // 无数据
+  const none = priceSeries.arrowOf(null, 10, 'pc');
+  eq('无数据', none.arrow, '—');
+  eq('无数据颜色', none.cls, 'flat');
+  // ps 平台
+  const psUp = priceSeries.arrowOf(up, 10, 'ps');
+  eq('ps 平台箭头', psUp.arrow, '↑');
+})();
+
 console.log('\n=== 结果 ===');
 console.log('  PASS=' + pass + '  FAIL=' + fail);
 process.exit(fail ? 1 : 0);
