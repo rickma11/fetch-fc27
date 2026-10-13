@@ -104,7 +104,7 @@ t('所有带积分的 SBC：奖励/候选球员全部入 map 且值正确', func
   const sbcsPath = path.join(ROOT, 'cloud-data', 'fc27', 'sbcs.json');
   if (!fs.existsSync(sbcsPath)) { console.log('  skip 找不到 ' + sbcsPath); return; }
   const sets = JSON.parse(fs.readFileSync(sbcsPath, 'utf8')).sets || [];
-  const { map } = buildSbcCostMap(sets);
+  const { map, dup } = buildSbcCostMap(sets);
   let pickSets = 0, awardSets = 0;
   sets.forEach(function (s) {
     const req = Number(s && s.scoreRequirement) || 0;
@@ -113,11 +113,23 @@ t('所有带积分的 SBC：奖励/候选球员全部入 map 且值正确', func
       pickSets++;
       s.choicePlayers.forEach(function (c) {
         if (!c) return;
-        if (c.eaId != null) assert.strictEqual(map[Number(c.eaId)], req, 'pick 候选 ' + c.eaId);
+        if (c.eaId != null) {
+          const v = map[Number(c.eaId)];
+          // 护栏：候选必须确实入 map 且值 > 0（防 2026-09-23 那种整段漏入 bug）
+          assert.ok(v != null && v > 0, 'pick 候选 ' + c.eaId + ' 未入 map（或值<=0）');
+          // 多 SBC 冲突：同一球员在不同积分 SBC 出现，buildSbcCostMap 只留一个值，
+          // 只要已记在 dup 冲突列表里就放行（否则仍按等值断言抓真 bug）
+          if (v !== req && dup.indexOf(Number(c.eaId)) < 0) assert.strictEqual(v, req, 'pick 候选 ' + c.eaId);
+        }
       });
     }
     const ea = (s.awards || []).map(function (a) { return a && a.playerEaId != null ? Number(a.playerEaId) : null; }).filter(function (x) { return x != null; })[0];
-    if (ea != null) { awardSets++; assert.strictEqual(map[ea], req, '单人奖励 ' + ea); }
+    if (ea != null) {
+      awardSets++;
+      const v = map[ea];
+      assert.ok(v != null && v > 0, '单人奖励 ' + ea + ' 未入 map（或值<=0）');
+      if (v !== req && dup.indexOf(ea) < 0) assert.strictEqual(v, req, '单人奖励 ' + ea);
+    }
   });
   Object.keys(map).forEach(function (k) { assert.ok(map[k] > 0, 'map 值应 > 0: ' + k); });
   console.log('  统计: pick 组 ' + pickSets + ' / 单人奖励组 ' + awardSets + ' / map 共 ' + Object.keys(map).length + ' 人' + (pickSets === 0 ? '（WARN: 当前无 pick 组，若预期有请检查 enrich_sbc_pools）' : ''));
