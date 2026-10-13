@@ -119,7 +119,9 @@ jobs:
       # ② 若仓库配置了 WECOM_WEBHOOK（企业微信群机器人 Webhook URL）则额外推手机消息；
       #    未配置则仅日志告警，不报错、不阻断。
       - name: Alert on unit-test failure
-        if: always() && steps['unit-tests'].conclusion == 'failure'
+        # 注意：unit-tests 步设了 continue-on-error: true，失败时其 conclusion 仍为 success，
+        # 必须用 outcome（步骤真实结果，不受 continue-on-error 影响）才能检测到失败。
+        if: always() && steps['unit-tests'].outcome == 'failure'
         env:
           WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
         run: |
