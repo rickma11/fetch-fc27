@@ -124,6 +124,7 @@ jobs:
         if: always() && steps['unit-tests'].outcome == 'failure'
         env:
           WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
+          SCT_SENDKEY: ${{ secrets.SCT_SENDKEY }}
         run: |
           echo "::error::单元测试失败但已放行发布（continue-on-error）。需人工排查是否真实数据 bug（如抓取器真漏候选）。失败 run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ -n "$WECOM_WEBHOOK" ]; then
@@ -133,6 +134,15 @@ jobs:
               "$WECOM_WEBHOOK"
           else
             echo "[告警降级] 未配置 WECOM_WEBHOOK，仅 GitHub 注解告警。如需手机推送，请在仓库 Secrets 添加 WECOM_WEBHOOK（企业微信群机器人 Webhook URL）。"
+          fi
+          # Server酱（个人微信推送）：若配置了 SCT_SENDKEY 则额外推一条到个人微信。
+          if [ -n "$SCT_SENDKEY" ]; then
+            curl -s -o /dev/null -w "SCT(http): %{http_code}\n" \
+              --data-urlencode "title=[OAO fetch-fc27] 单元测试失败(已放行发布)" \
+              --data-urlencode "desp=需人工排查是否真实数据 bug。run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+              "https://sct.ftqq.com/$SCT_SENDKEY.send"
+          else
+            echo "[告警降级] 未配置 SCT_SENDKEY，仅 GitHub 注解 + 可选企微推送。可在仓库 Secrets 添加 SCT_SENDKEY(=Server酱 SendKey) 开启个人微信推送。"
           fi
 
       # 前置检查：先确认这套凭证能不能看到目标环境、有没有数据库操作权限。
@@ -509,3 +519,21 @@ jobs:
               console.log('\n图片清单: 已上传 '+Object.keys(j).length+' 名球员的卡图'); }
             catch(e){ console.log('\n图片清单: 尚未生成'); }
           "
+
+      # R113b（2026-10-13）：Daily 任务级失败时（任一非 continue-on-error 步骤失败），
+      # 经 Server酱 推一条到个人微信，避免半夜/无人值守时静默失败无人知晓。
+      # 仅当仓库配置了 SCT_SENDKEY（Server酱 SendKey，存为 Secret）才实际推送；
+      # 未配置则空跑跳过、不报错、不影响既有流程。
+      - name: Notify on job failure (Server酱)
+        if: failure()
+        env:
+          SCT_SENDKEY: ${{ secrets.SCT_SENDKEY }}
+        run: |
+          if [ -z "$SCT_SENDKEY" ]; then
+            echo "[跳过] 未配置 SCT_SENDKEY，不推送 Server酱。请在仓库 Settings → Secrets and variables → Actions 添加仓库 Secret：名称 SCT_SENDKEY，值 = 你的 Server酱 SendKey（形如 SCTxxxx...）。"
+            exit 0
+          fi
+          curl -s -o /dev/null -w "SCT(http): %{http_code}\n" \
+            --data-urlencode "title=【OAO fetch-fc27】每日同步失败" \
+            --data-urlencode "desp=Daily 任务异常退出，需尽快排查。run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            "https://sct.ftqq.com/$SCT_SENDKEY.send"
