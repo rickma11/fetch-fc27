@@ -141,6 +141,42 @@ function pingHC(success) {
   try { fetch(url).catch(() => {}); } catch (e) { /* ignore */ }
 }
 
+// ───────────────────────────────────────────────────────────────────────────
+// 纯决策：本次探针是否 / 为何 dispatch（不依赖网络，便于单测）。
+//   changed        是否检测到内容变化
+//   runs           fetch-fc27 最近的 run 列表（GitHub API 返回）
+//   now            当前时间戳(ms)
+//   retryWindowMs  失败自愈窗口(ms)：窗口内的最近一次 fetch 失败则触发 retry
+// 返回 { action: 'skip' | 'change' | 'retry', blocking: <number> }
+function decideDispatch({ changed, runs, now, retryWindowMs }) {
+  const sorted = (runs || [])
+    .map(run => ({ ...run, _created: new Date(run.created_at).getTime() }))
+    .filter(r => !isNaN(r._created))
+    .sort((a, b) => b._created - a._created);
+  const lastRun = sorted[0];
+  const lastFailedRecent = !!(lastRun && lastRun.conclusion === 'failure'
+    && (now - lastRun._created) < retryWindowMs);
+  // 在途 / 1h 内成功 → 不打扰；失败 run 不算 blocking（否则自愈会被自己的去重护栏挡掉）
+  const blocking = sorted.filter(run => {
+    if (run.status === 'queued' || run.status === 'in_progress') return true;
+    if (run.status === 'completed' && run.conclusion === 'success'
+      && (now - run._created) < 60 * 60 * 1000) return true;
+    return false;
+  });
+  if (blocking.length > 0) return { action: 'skip', blocking: blocking.length };
+  if (changed) return { action: 'change', blocking: 0 };
+  if (lastFailedRecent) return { action: 'retry', blocking: 0 };
+  return { action: 'skip', blocking: 0 };
+}
+
+// 实际触发 dispatch（调用 gh api）。失败仅置 exitCode，不抛。
+function doDispatch() {
+  try {
+    const out = execSync(`gh api -X POST /repos/${DISPATCH_REPO}/actions/workflows/${DISPATCH_WF}/dispatches -f ref=main`, { stdio: 'pipe' }).toString();
+    log('DISPATCH_OK %s', out.trim());
+  } catch (e) { log('DISPATCH_FAIL %s', e.message); process.exitCode = 1; }
+}
+
 async function main() {
   log('mode=%s ver=%s evoWhitelist=%s', MODE, VER, WHITELIST.join(','));
 
@@ -236,38 +272,28 @@ async function main() {
     return;
   }
 
-  if (changed) {
-    // 60min in-flight / 近期去重：避免一小时内重复 dispatch
-    if (GH_TOKEN) {
-      try {
-        const api = `https://api.github.com/repos/${DISPATCH_REPO}/actions/workflows/${DISPATCH_WF}/runs?per_page=5`;
-        const r = await fetch(api, { headers: { Authorization: `Bearer ${GH_TOKEN}`, Accept: 'application/vnd.github+json' } });
-        if (r.ok) {
-          const j = await r.json();
-          const now = Date.now();
-          const recent = (j.workflow_runs || []).filter(run => {
-            const st = run.status;
-            const created = new Date(run.created_at).getTime();
-            if (st === 'queued' || st === 'in_progress') return true;
-            if (st === 'completed' && now - created < 60 * 60 * 1000) return true;
-            return false;
-          });
-          if (recent.length > 0) {
-            log('IN_FLIGHT/RECENT fetch run 存在 (%d)，跳过 dispatch 防重复', recent.length);
-            changed = false;
-          }
-        }
-      } catch (e) { log('dedup check err %s', e.message); }
-    }
-    if (changed) {
-      log('CHANGE DETECTED -> dispatch %s/%s', DISPATCH_REPO, DISPATCH_WF);
-      try {
-        const out = execSync(`gh api -X POST /repos/${DISPATCH_REPO}/actions/workflows/${DISPATCH_WF}/dispatches -f ref=main`, { stdio: 'pipe' }).toString();
-        log('DISPATCH_OK %s', out.trim());
-      } catch (e) { log('DISPATCH_FAIL %s', e.message); process.exitCode = 1; }
-    }
-  } else {
-    log('no change, nothing to do');
+  // ── 是否触发 dispatch 的决策 ──
+  // 触发条件：① 真实变化（changed）→ 正常抓取；② 失败自愈（最近一次 fetch 失败且在窗口内）
+  //           即便无内容变化也重 dispatch，修补"坏管道卡住无人管"的盲区。
+  const RETRY_WINDOW = (parseInt(process.env.PROBE_RETRY_WINDOW_MS, 10) || 6 * 60 * 60 * 1000);
+  let runs = [];
+  if (GH_TOKEN) {
+    try {
+      const api = `https://api.github.com/repos/${DISPATCH_REPO}/actions/workflows/${DISPATCH_WF}/runs?per_page=8`;
+      const r = await fetch(api, { headers: { Authorization: `Bearer ${GH_TOKEN}`, Accept: 'application/vnd.github+json' } });
+      if (r.ok) { const j = await r.json(); runs = j.workflow_runs || []; }
+    } catch (e) { log('fetch runs err %s', e.message); }
+  }
+  const decision = decideDispatch({ changed, runs, now: Date.now(), retryWindowMs: RETRY_WINDOW });
+  if (decision.action === 'skip') {
+    log('IN_FLIGHT/RECENT fetch run 存在 (%d)，跳过 dispatch 防重复', decision.blocking || 0);
+  } else if (decision.action === 'change') {
+    log('CHANGE DETECTED -> dispatch %s/%s', DISPATCH_REPO, DISPATCH_WF);
+    doDispatch();
+  } else if (decision.action === 'retry') {
+    reasons.push('retry-last-failed-run');
+    log('LAST FETCH FAILED -> retry dispatch %s/%s', DISPATCH_REPO, DISPATCH_WF);
+    doDispatch();
   }
 
   // 持久化 baseline，避免重复误报
@@ -275,4 +301,5 @@ async function main() {
   pingHC(true);
 }
 
-main().catch(e => { console.error(e); process.exit(1); });
+if (require.main === module) { main().catch(e => { console.error(e); process.exit(1); }); }
+module.exports = { decideDispatch, doDispatch };
