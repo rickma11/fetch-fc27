@@ -471,6 +471,22 @@ jobs:
           echo "::error::push 重试 3 次后仍失败"
           exit 1
 
+      # R113c（2026-10-13）：方案2 死人开关心跳——Daily 核心同步（落库+commit）成功后才 ping
+      # healthchecks.io，表示"今日已成功同步"。若超 24h 无 ping，healthcheck-watch.yml 会推 Server酱。
+      # 仅当配置了 HC_PING_URL 才 ping；未配则空跑跳过，不破坏既有流程。
+      # continue-on-error：ping 失败绝不影响本次已完成的同步。
+      - name: Ping healthchecks (Daily succeeded)
+        if: success()
+        continue-on-error: true
+        env:
+          HC_PING_URL: ${{ secrets.HC_PING_URL }}
+        run: |
+          if [ -z "$HC_PING_URL" ]; then
+            echo "[跳过] 未配置 HC_PING_URL，不 ping healthchecks（方案2 看门狗未启用）。"
+            exit 0
+          fi
+          curl -s -o /dev/null -w "HC ping http: %{http_code}\n" "$HC_PING_URL"
+
       # 探针基线锚定（2026-10-03）：job1 每日同步完云库后，触发探针 reseed 模式，
       # 把探针 baseline 刷新成"当日已同步态"。否则 job1(01:10) 已同步、但探针 baseline 还停在
       # 昨日 23:05 的旧值，会致 03:05 探针把 job1 已处理的数据误判为"变化"→ 冗余重跑 fetch-fc27

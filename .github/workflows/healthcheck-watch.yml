@@ -1,0 +1,51 @@
+name: Healthcheck Watch (OAO fetch-fc27)
+
+# 方案2 死人开关的"看门狗"：每日由 cron-job.org（Asia/Shanghai 08:30）POST dispatch 一次，
+# 读取 healthchecks.io 上 OAO fetch-fc27 检查的状态；若超过 24h 无成功 ping（status=down），
+# 经 Server酱 推一条到个人微信，避免 Daily 全天未跑/持续失败时无人知晓。
+#
+# 调度不在本文件内（禁用 GitHub 原生 schedule，与数据管线一致），由 cron-job.org 调用：
+#   POST https://api.github.com/repos/rickma11/fetch-fc27/actions/workflows/healthcheck-watch.yml/dispatches
+#   body: {"ref":"main"}  （PAT 需 Actions:write 权限，时区 Asia/Shanghai）
+#
+# 依赖仓库 Secrets：
+#   HC_PING_URL  healthchecks.io 的 Ping URL（含 UUID），形如 https://hc-ping.com/<uuid>
+#   HC_API_KEY   healthchecks.io 只读 API Key（Settings → API Keys，read-only 即可）
+#   SCT_SENDKEY  Server酱 SendKey（见 fetch-fc27.yml 内 Server酱 通知）
+# 任一缺失则本工作流空跑跳过，不报错。
+
+on:
+  workflow_dispatch:
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    env:
+      HC_API_KEY: ${{ secrets.HC_API_KEY }}
+      HC_PING_URL: ${{ secrets.HC_PING_URL }}
+      SCT_SENDKEY: ${{ secrets.SCT_SENDKEY }}
+    steps:
+      - name: Check healthchecks status & alert
+        run: |
+          if [ -z "$HC_PING_URL" ] || [ -z "$HC_API_KEY" ] || [ -z "$SCT_SENDKEY" ]; then
+            echo "[跳过] 缺少 HC_PING_URL / HC_API_KEY / SCT_SENDKEY，不执行看门狗。"
+            exit 0
+          fi
+          # 从 Ping URL 抽出 UUID（healthchecks API 按 UUID 查单个检查）
+          UUID=$(echo "$HC_PING_URL" | sed -E 's#.*/([0-9a-fA-F-]{36})$#\1#')
+          if [ -z "$UUID" ]; then
+            echo "::error::无法从 HC_PING_URL 解析 UUID: $HC_PING_URL"
+            exit 1
+          fi
+          # 读检查状态；解析失败（网络/鉴权）时记 error，交由下面 else 不告警（避免误报）。
+          STATUS=$(curl -s -H "X-Api-Key: $HC_API_KEY" "https://hc-ping.com/api/v1/checks/$UUID" \
+            | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{try{const j=JSON.parse(d);console.log(j.status||'unknown')}catch(e){console.log('error')}})")
+          echo "healthchecks status: $STATUS"
+          if [ "$STATUS" = "down" ]; then
+            curl -s -G -o /dev/null -w "SCT(http): %{http_code}\n" \
+              --data-urlencode "title=【OAO fetch-fc27】24h 无成功同步" \
+              --data-urlencode "desp=healthchecks 显示 Daily 已超 24h 未成功 ping，可能全天未跑或持续失败，请尽快排查。check: https://hc-ping.com/$UUID" \
+              "https://sctapi.ftqq.com/$SCT_SENDKEY.send"
+          else
+            echo "[正常] healthchecks 状态=$STATUS，未触发告警"
+          fi
