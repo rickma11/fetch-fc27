@@ -18,6 +18,7 @@
 'use strict';
 
 const https = require('https');
+const fs = require('fs');
 const core = require('./market_core.js');
 
 // ⚠️ 与云函数 market_sync 常量保持一致（勿改，否则端上契约漂移）。
@@ -25,6 +26,8 @@ const VER = 27;
 const PRICE_VIEW_PREFIX = 'fc27/market/price_view_';
 const SERIES_FILE = 'series_24h.json';
 const SERIES_CLOUD_PATH = 'fc27/market/' + SERIES_FILE;
+// 覆盖前先把「覆盖前云上旧文件」存一份备份，供极端情况下（主文件被部分写坏）恢复。
+const SERIES_CLOUD_PATH_BACKUP = 'fc27/market/series_24h_backup_latest.json';
 const SERIES_DOMAIN = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la';
 const SERIES_READ_URL = SERIES_DOMAIN + '/' + SERIES_CLOUD_PATH;
 const ROSTER_URL = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la/fc27/data/roster_83plus.json';
@@ -109,19 +112,28 @@ async function uploadText(cloudPath, obj) {
   return res;
 }
 
-// 读旧 series_24h.json（公有读直链），3 次重试；失败/首跑返回 null（不阻断，从当前小时重建）。
+// 读旧 series_24h.json（公有读直链，读用 60s 超时 —— 上传已按 #116 加固，读也要对齐）。
+// ⚠️ 关键：严格区分「文件不存在（404=首次运行，合法）」与「瞬断（超时/连接错误/5xx）」。
+//   瞬断连续 3 次 ⇒ 抛错（而非返回 null），让上层「跳过本次 series 上传、保留云上旧文件」。
+//   这是 10/13 10:00 数据被重置的根因修复点：绝不再把瞬断当成「没历史」去覆盖真实文件。
 async function readOldSeries() {
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
-      const j = await httpGetJson(SERIES_READ_URL);
+      const j = await httpGetJson(SERIES_READ_URL, 60000);
       if (j && j.players) return j;
-      return null;
+      return null; // 拿到了但结构不符（空/无 players）→ 视同首跑
     } catch (e) {
-      logStep('readOldSeries attempt ' + attempt + ' 失败: ' + (e && e.message || e));
+      const msg = (e && e.message) || '';
+      if (msg.indexOf('404') >= 0) return null; // 真·首次运行：文件不存在，合法
+      logStep('readOldSeries attempt ' + attempt + ' 失败: ' + msg);
       if (attempt < 3) await sleep(800 * attempt);
+      if (attempt === 3) {
+        // 连续瞬断 ⇒ 抛错，上层据此跳过本次 series 写，云上旧文件原样保留
+        throw new Error('readOldSeries 连续 3 次瞬断（非 404），放弃本次 series 更新以保留云上旧文件: ' + msg);
+      }
     }
   }
-  return null;
+  throw new Error('readOldSeries 意外退出');
 }
 
 // 上传带超时+重试（#116 模式：SDK 层硬上限 180s，外层 race 200s > SDK timeout，3 次重试）。
@@ -177,11 +189,26 @@ async function runHourlySync(doUpload) {
   if (doUpload) {
     await uploadJsonSafe(PRICE_VIEW_PREFIX + bucket + '.json', built.view);
     logStep('upload view done, bucket=' + bucket);
-    // 24h 序列：读旧 series → 位移追加 → 写回（套 #116 重试）
-    const oldSeries = await readOldSeries();
-    const series = core.buildSeries(oldSeries, built, bucket);
-    await uploadJsonSafe(SERIES_CLOUD_PATH, series);
-    logStep('upload series done, players=' + Object.keys(series.players).length + ', buckets=' + series.buckets.length);
+    // 24h 序列：读旧 → 位移追加 → 写回。
+    // ⚠️ 读旧瞬断 ⇒ catch 跳过本次 series 更新，云上旧文件原样保留，绝不覆盖历史。
+    try {
+      const oldSeries = await readOldSeries();   // 404→null(首跑)；瞬断→throw(被下方 catch 兜住)
+      const series = core.buildSeries(oldSeries, built, bucket);
+      // 内存不变量：非首跑时新桶数不得少于旧桶数（防御 buildSeries 回归）
+      if (oldSeries && series.buckets.length < oldSeries.buckets.length) {
+        console.warn('[market_sync_gh] ⚠️ 新序列桶数(' + series.buckets.length + ') < 旧(' + oldSeries.buckets.length + ')，疑似 buildSeries 回归');
+      }
+      // 先备后覆盖：把「覆盖前云上旧文件」存一份 backup，再写主文件
+      if (oldSeries) {
+        try { await uploadJsonSafe(SERIES_CLOUD_PATH_BACKUP, oldSeries); }
+        catch (be) { console.warn('[market_sync_gh] backup 上传失败(非致命): ' + (be && be.message || be)); }
+      }
+      await uploadJsonSafe(SERIES_CLOUD_PATH, series);
+      logStep('upload series done, players=' + Object.keys(series.players).length + ', buckets=' + series.buckets.length);
+    } catch (se) {
+      // 瞬断读旧失败 ⇒ 放弃本次 series 写，历史完好保留（最坏只漏这一小时的一个点）
+      console.warn('[market_sync_gh] series 更新跳过（读旧瞬断，云上旧文件已保留）: ' + (se && se.message || se));
+    }
   } else {
     logStep('DRY-RUN: 跳过上传（加 --upload 才写云存储），bucket=' + bucket);
   }
@@ -197,13 +224,67 @@ async function runHourlySync(doUpload) {
   };
 }
 
+// ── 回填：用历史 price_view_<bucket>.json 重放 buildSeries，重建 series_24h.json ──
+// 用途：10/13 10:00 瞬断把真实序列覆盖成 1 桶后，用历史每小时快照把丢失的小时补回来。
+// 仅 workflow_dispatch（--backfill --upload，CI 带 TCB 密钥跑）；本地空跑只重建并落本地副本校验。
+async function runBackfill(doUpload) {
+  logStep('runBackfill start (upload=' + !!doUpload + ')');
+  const now = new Date();
+  let series = null;
+  let included = 0, skipped = 0, total = 0;
+  for (let off = -24; off <= 0; off++) {
+    // 直接用 now 的 UTC 瞬时；bucketOf 内部已做 UTC→北京偏移，切勿在外层再 +8h
+    // （否则窗口整体后移 8h，漏掉最早 8 小时历史 —— 这是回填初版隐藏 bug，已修正）
+    const d = new Date(now.getTime() + off * 3600 * 1000);
+    const b = bucketOf(d);
+    if (b > bucketOf(now)) { logStep('backfill ' + b + ' 超出当前，break'); break; }
+    total++;
+    try {
+      const j = await httpGetJson(SERIES_DOMAIN + '/fc27/market/price_view_' + b + '.json', 60000);
+      if (j && Array.isArray(j.tier) && j.tier.length) {
+        series = core.buildSeries(series, { view: { tier: j.tier } }, b);
+        included++;
+      } else { skipped++; logStep('backfill ' + b + ' 跳过(无 tier/空)'); }
+    } catch (e) {
+      skipped++; // 该小时无快照（404）或瞬断 ⇒ 跳过，不阻断回填
+      logStep('backfill ' + b + ' 跳过: ' + ((e && e.message) || e));
+    }
+  }
+  logStep('backfill 汇总: total迭代=' + total + ' included=' + included + ' skipped=' + skipped);
+  if (!series) { console.warn('[market_sync_gh] backfill 无可用快照，未生成序列'); return null; }
+  // 本地校验：每个球员 pc/ps 数组长度必须与 buckets 长度对齐
+  const L = series.buckets.length;
+  let bad = 0;
+  Object.keys(series.players).forEach(function (k) {
+    const r = series.players[k];
+    if ((r.pc || []).length !== L || (r.ps || []).length !== L) bad++;
+  });
+  logStep('backfill 校验: buckets=' + L + ' players=' + Object.keys(series.players).length + ' 对齐异常=' + bad + ' (应为 0)');
+  fs.writeFileSync(__dirname + '/series_24h.backfill.json', JSON.stringify(series));
+  logStep('backfill 本地副本已落 series_24h.backfill.json');
+  if (doUpload) {
+    await uploadJsonSafe(SERIES_CLOUD_PATH_BACKUP, series);
+    await uploadJsonSafe(SERIES_CLOUD_PATH, series);
+    logStep('backfill 上传完成（主文件 + backup 均已更新）');
+  } else {
+    logStep('DRY-RUN: 未上传（加 --upload 才写云存储）');
+  }
+  return series;
+}
+
 // ── main ──
 (async function main() {
   const argv = process.argv.slice(2);
   const doUpload = argv.indexOf('--upload') >= 0;
+  const doBackfill = argv.indexOf('--backfill') >= 0;
   try {
-    const r = await runHourlySync(doUpload);
-    console.log('[market_sync_gh] OK ' + JSON.stringify(r));
+    if (doBackfill) {
+      const s = await runBackfill(doUpload);
+      console.log('[market_sync_gh] BACKFILL OK buckets=' + (s ? s.buckets.length : 0));
+    } else {
+      const r = await runHourlySync(doUpload);
+      console.log('[market_sync_gh] OK ' + JSON.stringify(r));
+    }
   } catch (e) {
     console.error('[market_sync_gh] FAIL: ' + (e && e.message || e));
     process.exitCode = 1;

@@ -1,0 +1,53 @@
+name: Backfill 24h Series (FC27)
+
+# 一次性/应急：用历史 price_view_<bucket>.json 重放 buildSeries 重建 series_24h.json。
+# 典型场景：某次瞬断把真实序列覆盖成少桶后，用历史每小时快照把丢失的小时补回来。
+# 触发：仅 workflow_dispatch（手动，或 cron-job.org 一次性 POST）。默认 upload=true 真写云存储。
+# 用法：node scripts/price_sync_cloud.js --backfill --upload
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: '是否上传到云存储（false=空跑验证，true=真写）'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+# 与 hourly 同步用同一并发组，避免回填与整点同步同时写 series 互相覆盖。
+concurrency:
+  group: market-sync
+  cancel-in-progress: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Backfill & upload (upload=${{ github.event.inputs.upload }})
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/price_sync_cloud.js --backfill ${{ github.event.inputs.upload != 'false' && '--upload' || '' }}
