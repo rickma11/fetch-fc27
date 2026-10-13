@@ -107,7 +107,31 @@ jobs:
         run: npm install
 
       - name: Unit tests (签名与差异归类)
+        id: unit-tests
+        # R113（2026-10-13）：测试降级为"可失败旁路"——不再当发布门禁。
+        # 即便单测失败也放行后续 scrape/上云/落库，避免一次测试 bug 饿死全量更新（#112–#114 事故）。
+        # 失败由下一步 "Alert on unit-test failure" 告警，次日人工排查是否为真实数据 bug。
+        continue-on-error: true
         run: npm test
+
+      # R113（2026-10-13）：上一步单测已设 continue-on-error，本步在其失败时发告警。
+      # 两条通道：① GitHub ::error:: 注解（必现，run 摘要可见，仓库 Watch 会推通知）；
+      # ② 若仓库配置了 WECOM_WEBHOOK（企业微信群机器人 Webhook URL）则额外推手机消息；
+      #    未配置则仅日志告警，不报错、不阻断。
+      - name: Alert on unit-test failure
+        if: always() && steps['unit-tests'].conclusion == 'failure'
+        env:
+          WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
+        run: |
+          echo "::error::单元测试失败但已放行发布（continue-on-error）。需人工排查是否真实数据 bug（如抓取器真漏候选）。失败 run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ -n "$WECOM_WEBHOOK" ]; then
+            curl -s -o /dev/null -w "WeCom alert http: %{http_code}\n" \
+              -H "Content-Type: application/json" \
+              -d '{"msgtype":"text","text":{"content":"[OAO fetch-fc27] 单元测试失败但已放行发布，需人工排查是否真实数据 bug。\nrun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}}' \
+              "$WECOM_WEBHOOK"
+          else
+            echo "[告警降级] 未配置 WECOM_WEBHOOK，仅 GitHub 注解告警。如需手机推送，请在仓库 Secrets 添加 WECOM_WEBHOOK（企业微信群机器人 Webhook URL）。"
+          fi
 
       # 前置检查：先确认这套凭证能不能看到目标环境、有没有数据库操作权限。
       # 放在抓取之前 —— 凭证有问题时几秒就失败，不用白等 6 分钟抓取再报错。
