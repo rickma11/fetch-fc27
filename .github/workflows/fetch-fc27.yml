@@ -136,11 +136,13 @@ jobs:
             echo "[告警降级] 未配置 WECOM_WEBHOOK，仅 GitHub 注解告警。如需手机推送，请在仓库 Secrets 添加 WECOM_WEBHOOK（企业微信群机器人 Webhook URL）。"
           fi
           # Server酱（个人微信推送）：若配置了 SCT_SENDKEY 则额外推一条到个人微信。
+          # ⚠️ 必须用 API 域名 sctapi.ftqq.com（sct.ftqq.com 是官网，POST 被拦/GET 只返网页）；
+          #    实测 GET 正常返回 {"code":0}，故用 -G 把 --data-urlencode 当作查询参数。
           if [ -n "$SCT_SENDKEY" ]; then
-            curl -s -o /dev/null -w "SCT(http): %{http_code}\n" \
+            curl -s -G -o /dev/null -w "SCT(http): %{http_code}\n" \
               --data-urlencode "title=[OAO fetch-fc27] 单元测试失败(已放行发布)" \
               --data-urlencode "desp=需人工排查是否真实数据 bug。run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-              "https://sct.ftqq.com/$SCT_SENDKEY.send"
+              "https://sctapi.ftqq.com/$SCT_SENDKEY.send"
           else
             echo "[告警降级] 未配置 SCT_SENDKEY，仅 GitHub 注解 + 可选企微推送。可在仓库 Secrets 添加 SCT_SENDKEY(=Server酱 SendKey) 开启个人微信推送。"
           fi
@@ -533,7 +535,9 @@ jobs:
             echo "[跳过] 未配置 SCT_SENDKEY，不推送 Server酱。请在仓库 Settings → Secrets and variables → Actions 添加仓库 Secret：名称 SCT_SENDKEY，值 = 你的 Server酱 SendKey（形如 SCTxxxx...）。"
             exit 0
           fi
-          curl -s -o /dev/null -w "SCT(http): %{http_code}\n" \
+          # ⚠️ 必须用 API 域名 sctapi.ftqq.com（sct.ftqq.com 是官网，POST 被拦/GET 只返网页）；
+          #    实测 GET 正常返回 {"code":0}，故用 -G 把 --data-urlencode 当作查询参数。
+          curl -s -G -o /dev/null -w "SCT(http): %{http_code}\n" \
             --data-urlencode "title=【OAO fetch-fc27】每日同步失败" \
             --data-urlencode "desp=Daily 任务异常退出，需尽快排查。run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            "https://sct.ftqq.com/$SCT_SENDKEY.send"
+            "https://sctapi.ftqq.com/$SCT_SENDKEY.send"
