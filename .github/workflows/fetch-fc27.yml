@@ -541,6 +541,17 @@ jobs:
             -d '{"ref":"main","inputs":{"ver":"27"}}' \
             "https://api.github.com/repos/${{ github.repository }}/actions/workflows/refresh-hotboard.yml/dispatches"
 
+      # 每日内容弹窗聚合 JSON（2026-10-14）：纯派生步骤，读本地 sbcs.json/evolutions.json（gen_static_lists 已落盘）
+      # + 云库 newFeed 球员（gen_home_payload 同口径），算「新增 SBC/EVO（id 基线差，与端上 NEW 同源）+ 即将结束（72h）+ 新增球员前10」，
+      # 发布 daily_content / daily_baseline 静态 JSON。放在数据同步最末尾，不抓新数据、不写录入集合，
+      # 即使失败也只少一个弹窗，前面 SBC/EVO/球员抓取与录入不受影响（用户要求）。
+      #   · continue-on-error：不影响本次每日同步结果。
+      #   · skip_db=true 时本步跳过（不改球员数据，无需重建弹窗）。
+      - name: Generate daily content payload
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        run: node scripts/gen_daily_content.js 27
+
       - name: Show run summary
         if: always()
         run: |
