@@ -30,6 +30,9 @@ jobs:
     # 实测：每周日 auto=full 整轮（抓取 42min + 落库 18min + 背图 ~2h）≈ 179 分钟，
     # 距旧上限 180min 仅差 1 分钟 —— 稍慢就会被强杀（连提交版本历史都跑不到），故提到 300。
     # 图片清单是边传边记的，即使被超时杀掉，下次也只补没传完的部分。
+    # ⚠️ R122（2026-10-14）：DB 写入步（Upload SBC / Upload players / Write SBC cost / Sync Token Store）
+    #   另有各自的 step 级 timeout-minutes（10/25/10/10）做挂死快速失败；job 级 300 只作背图等
+    #   合法长阶段的总兜底，勿再下调（images-only 补图按设计可跑数小时）。
     timeout-minutes: 300
     steps:
       - name: Checkout
@@ -193,6 +196,9 @@ jobs:
       - name: Upload SBC to CloudBase Database
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         continue-on-error: true
+        # R122（2026-10-14 事故）：TCB connect timeout 时本步内部重试 173min 才成功，拖垮整轮 4h。
+        # step 级超时快速失败：healthy 仅 38s，10min≈15 倍余量；超时只本步失败（continue-on-error 不阻断）。
+        timeout-minutes: 10
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
@@ -261,6 +267,10 @@ jobs:
 
       - name: Upload to CloudBase Database
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        # R122（2026-10-14 事故）：TCB 故障时本步 45min 超时后 exit 1，是 #122 的失败点。
+        # step 级超时让挂死提前暴露（healthy 37s，25min 含 full 模式余量）→ job 快速失败 →
+        # if: failure() 的 Server酱 通知步正常触发（job 级超时会直接 kill runner、通知步不跑＝静默失败）。
+        timeout-minutes: 25
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
@@ -281,6 +291,8 @@ jobs:
       - name: Write SBC cost to players
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         continue-on-error: true
+        # R122：与 Upload SBC 同理的 TCB 挂死快速失败（healthy 80s）。
+        timeout-minutes: 10
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
@@ -296,6 +308,8 @@ jobs:
       - name: Sync Token Store costs to CloudBase
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         continue-on-error: true
+        # R122：与 Upload SBC 同理的 TCB 挂死快速失败（healthy 23s）。
+        timeout-minutes: 10
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
