@@ -104,8 +104,11 @@ async function pullPlatforms(roster, limit, concurrency) {
 // ── 组装两个信封 ──
 // roster: [{eaId,name,overall,pos}]，来自精简表（云端）或 players.json（本机）
 // cur/prev: {eaId: [pc, ps, xbox]}
-function build(roster, cur, prev, src, tsOverride) {
+// minRating: 分档下限（默认 TIER_MIN=80，即 80+；sub-80 监控传 0 关闭过滤）。
+//   ⚠️ 向后兼容：80+ 管线不传该参数 ⇒ 行为完全不变。
+function build(roster, cur, prev, src, tsOverride, minRating) {
   const ts = tsOverride || Date.now();
+  const MIN = (minRating != null) ? minRating : TIER_MIN;
   const nameOf = {};
   roster.forEach(function (r) { nameOf[key(r.eaId)] = r; });
 
@@ -118,10 +121,10 @@ function build(roster, cur, prev, src, tsOverride) {
     else merged[k] = arr;
   });
 
-  // 分档 >= TIER_MIN（2026-10-03：80+）
+  // 分档 >= MIN（默认 80+；sub-80 监控传 minRating=0 ⇒ 整批 sub-80 进 tier）
   const tier = roster.filter(function (r) {
     const m = merged[key(r.eaId)];
-    return r.overall >= TIER_MIN && m && (m[0] != null || m[1] != null);
+    return r.overall >= MIN && m && (m[0] != null || m[1] != null);
   }).map(function (r) {
     const m = merged[key(r.eaId)] || [];
     return {
@@ -204,9 +207,130 @@ function buildSeries(old, built, curBucket) {
   return { v: 1, ts: Date.now(), buckets: newBuckets, players: players };
 }
 
+// ── 80↓ 价格异动榜计算（纯函数，无 IO；供 price_sync_cloud.js#runUnder80Sync 调用） ──
+// series: buildSeries 产物 { v, ts, buckets:[≤24 个 YYYYMMDDHH00], players:{ eaId:{ pc:[≤24], ps:[≤24] } } }
+// rosterMap: { eaId: { name, overall, pos, imagePath, rarity } }（来自 roster_under80.json#players，按 eaId 索引）
+// cfg: { MARGIN, MOVE_PCT, WINDOW, RECENT }（阈值，默认值见下）
+//
+// 入选规则（并集）：
+//   (a) 当前价 > 该总评均值 × MARGIN —— 同 overall 分组，pc/ps 各自算均值，任一平台超即命中 'abovePc'/'abovePs'
+//   (b) 近 WINDOW 小时累计涨跌幅绝对值 ≥ MOVE_PCT% —— pc/ps 任一命中 'movePc'/'movePs'
+//
+// 输出 under80_alerts.json 结构：仅含被选中球员，内联近 RECENT 小时价（recent）供端上弹层直接画折线，
+//   不再依赖那个大序列文件（series_24h_under80.json 仅 CI 读写、端上不下载）。
+//
+// ⚠️ 阈值经真实抽样校准（2026-10-14）：sub-80 各 overall 档价格分布集中，MARGIN=1.5 全量预计 ≈981 人、
+//   MARGIN=1.3≈1625 / 1.8≈719；MOVE_PCT=30 在 6h 内属真实大异动。两者并集即异动榜，集中在千级、可滚动。
+function computeUnder80Alerts(series, rosterMap, cfg) {
+  cfg = cfg || {};
+  const MARGIN = (cfg.MARGIN != null) ? cfg.MARGIN : 1.5;
+  const MOVE_PCT = (cfg.MOVE_PCT != null) ? cfg.MOVE_PCT : 30;
+  const WINDOW = (cfg.WINDOW != null) ? cfg.WINDOW : 6;
+  const RECENT = (cfg.RECENT != null) ? cfg.RECENT : 12;
+
+  const buckets = Array.isArray(series.buckets) ? series.buckets : [];
+  const players = series.players || {};
+  const L = buckets.length;
+  if (!L) {
+    return { v: 1, ts: series.ts || Date.now(), generatedAt: Date.now(), cfg: { MARGIN: MARGIN, MOVE_PCT: MOVE_PCT, WINDOW: WINDOW, RECENT: RECENT }, count: 0, alerts: [] };
+  }
+
+  // 1) 取每个球员「末位非空」当前价，按 overall 分组算 pc/ps 均值
+  const groups = {};      // overall -> { pc:[], ps:[] }
+  const curByEa = {};     // eaId -> { pc, ps, ovr, meta }
+  Object.keys(players).forEach(function (eaId) {
+    const rec = players[eaId];
+    const pcArr = rec.pc || [];
+    const psArr = rec.ps || [];
+    let pc = null, ps = null;
+    for (let i = L - 1; i >= 0; i--) { if (pcArr[i] != null) { pc = pcArr[i]; break; } }
+    for (let i = L - 1; i >= 0; i--) { if (psArr[i] != null) { ps = psArr[i]; break; } }
+    if (pc == null && ps == null) return; // 当前无价，跳过
+    const meta = rosterMap[eaId] || {};
+    const ovr = meta.overall || 0;
+    if (!groups[ovr]) groups[ovr] = { pc: [], ps: [] };
+    if (pc != null) groups[ovr].pc.push(pc);
+    if (ps != null) groups[ovr].ps.push(ps);
+    curByEa[eaId] = { pc: pc, ps: ps, ovr: ovr, meta: meta };
+  });
+
+  const meanOf = function (arr) { if (!arr.length) return null; let s = 0; arr.forEach(function (x) { s += x; }); return s / arr.length; };
+  const meanPcByOvr = {}, meanPsByOvr = {};
+  Object.keys(groups).forEach(function (ovr) {
+    meanPcByOvr[ovr] = meanOf(groups[ovr].pc);
+    meanPsByOvr[ovr] = meanOf(groups[ovr].ps);
+  });
+
+  // 2) 逐球员判定（above / move 并集）
+  const alerts = [];
+  Object.keys(curByEa).forEach(function (eaId) {
+    const c = curByEa[eaId];
+    const mPc = meanPcByOvr[c.ovr];
+    const mPs = meanPsByOvr[c.ovr];
+    const ratioPc = (mPc && mPc > 0 && c.pc != null) ? c.pc / mPc : null;
+    const ratioPs = (mPs && mPs > 0 && c.ps != null) ? c.ps / mPs : null;
+
+    const flags = [];
+    if (ratioPc != null && ratioPc >= MARGIN) flags.push('abovePc');
+    if (ratioPs != null && ratioPs >= MARGIN) flags.push('abovePs');
+
+    // 近 WINDOW 小时累计涨跌（相对 WINDOW 步前的末位非空值）
+    const chg = function (arr) {
+      if (!arr || !arr.length) return null;
+      let cur = null; for (let i = L - 1; i >= 0; i--) { if (arr[i] != null) { cur = arr[i]; break; } }
+      if (cur == null) return null;
+      const idx = Math.max(0, L - 1 - WINDOW);
+      let base = null; for (let i = idx; i >= 0; i--) { if (arr[i] != null) { base = arr[i]; break; } }
+      if (base == null || base === 0) return null;
+      return (cur - base) / base * 100;
+    };
+    const chgPc = chg(players[eaId].pc);
+    const chgPs = chg(players[eaId].ps);
+    if (chgPc != null && Math.abs(chgPc) >= MOVE_PCT) flags.push('movePc');
+    if (chgPs != null && Math.abs(chgPs) >= MOVE_PCT) flags.push('movePs');
+
+    if (!flags.length) return;
+
+    // 内联近 RECENT 小时（与 buckets 对齐），供端上弹层画折线
+    const start = Math.max(0, L - RECENT);
+    alerts.push({
+      eaId: eaId,
+      name: c.meta.name || '',
+      overall: c.ovr,
+      pos: c.meta.pos || '',
+      img: cardCloudId(eaId, !!(c.meta.imagePath)),  // 与 build()#tier.img 同口径（有像_card / 无像_np）
+      rarity: c.meta.rarity || '',
+      pc: c.pc, ps: c.ps,
+      meanPc: mPc != null ? Math.round(mPc) : null,
+      meanPs: mPs != null ? Math.round(mPs) : null,
+      ratioPc: ratioPc != null ? +ratioPc.toFixed(3) : null,
+      ratioPs: ratioPs != null ? +ratioPs.toFixed(3) : null,
+      chg6hPc: chgPc != null ? +chgPc.toFixed(1) : null,
+      chg6hPs: chgPs != null ? +chgPs.toFixed(1) : null,
+      flags: flags,
+      recent: { buckets: buckets.slice(start), pc: (players[eaId].pc || []).slice(start), ps: (players[eaId].ps || []).slice(start) }
+    });
+  });
+
+  // 排序：先 overall 降序（高总评优先），同分按「异动强度」降序（最明显排最前）
+  const score = function (x) {
+    return Math.max(x.ratioPc || 0, x.ratioPs || 0, Math.abs(x.chg6hPc || 0) / 10, Math.abs(x.chg6hPs || 0) / 10);
+  };
+  alerts.sort(function (a, b) {
+    if (b.overall !== a.overall) return b.overall - a.overall;
+    return score(b) - score(a);
+  });
+
+  return {
+    v: 1, ts: series.ts || Date.now(), generatedAt: Date.now(),
+    cfg: { MARGIN: MARGIN, MOVE_PCT: MOVE_PCT, WINDOW: WINDOW, RECENT: RECENT },
+    count: alerts.length, alerts: alerts
+  };
+}
+
 module.exports = {
   PRICE_API: PRICE_API, BATCH: BATCH, TIER_MIN: TIER_MIN,
-  key: key, sleep: sleep,
+  key: key, sleep: sleep, cardCloudId: cardCloudId,
   fetchBatch: fetchBatch, pullPlatforms: pullPlatforms,   build: build,
-  buildSeries: buildSeries
+  buildSeries: buildSeries, computeUnder80Alerts: computeUnder80Alerts
 };

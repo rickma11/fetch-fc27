@@ -1,0 +1,60 @@
+name: Market Sync Under80 (FC27 sub-80 alerts)
+
+# 80↓ 价格异动监控 —— 与「Market Sync Hourly (FC27 prices)」物理隔离的旁路。
+# 监控范围：roster_under80.json（overall<=79，≈18681 人）；产出 series_24h_under80.json（滑窗，仅 CI 读写）
+#   与 under80_alerts.json（端上只读这个，0 云函数配额）。
+#
+# ⚠️ 名册发布：roster_under80.json 由 scripts/export_roster_under80.js --upload 单独发布（已在 2026-10-14 发布一次），
+#   本 workflow 不每小时重建（避免 4.1MB 重复上传；CI checkout 也不含本地 players.json）。
+#   球员库大版本更新后，手动重跑一次 export_roster_under80.js --upload 即可。
+#
+# 触发：仅 workflow_dispatch（由 cron-job.org 每小时 POST，或手动触发）。
+#   - 默认 upload=true 真写云存储；显式 inputs.upload=false 时空跑验证。
+#   - 数量级过大时可把 cron-job.org 调度从 60min 改 120min（2h 一次），序列滑窗仍连续。
+#   - 与 80+ 管线独立 concurrency 组，互不阻塞。
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: '是否上传到云存储（false=空跑验证，true=真写）'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: market-sync-under80
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Sync sub-80 & upload (upload=${{ github.event.inputs.upload }})
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/price_sync_cloud.js --under80 ${{ github.event.inputs.upload != 'false' && '--upload' || '' }}
