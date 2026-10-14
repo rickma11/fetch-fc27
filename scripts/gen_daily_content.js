@@ -122,11 +122,28 @@ function sbcSummary(s) {
   return s1 || '无奖励信息';
 }
 
+// 位置 id → 缩写（与端上 eafc-miniapp/data/roles.js#POS_ABBR 严格同源；改一边必须同步另一边）
+const POS_ABBR = { 0: 'GK', 3: 'RB', 5: 'CB', 7: 'LB', 10: 'CDM', 12: 'RM', 14: 'CM', 16: 'LM', 18: 'CAM', 23: 'RW', 25: 'ST', 27: 'LW' };
+
+// 进化允许的位置：**优先取 requirements.readableSchemas 里的 Position**（值已是缩写，如 LW / ST / CAM，
+//   与进化详情页展示的「位置」同源，口径天然一致）；缺失时才用 requirements.positions 的数字 id 映射兜底。
+// ⚠️ 2026-10-14 修正：旧实现直接 join(requirements.positions) → 弹窗摘要显示成「· 27 / · 25」（裸 id）。
+function evoPositions(e) {
+  const req = (e && e.requirements) || {};
+  const rs = Array.isArray(req.readableSchemas) ? req.readableSchemas : [];
+  for (let i = 0; i < rs.length; i++) {
+    const s = rs[i];
+    if (s && String(s.label) === 'Position' && s.value) return String(s.value);
+  }
+  const ids = Array.isArray(req.positions) ? req.positions : [];
+  return ids.map(function (id) { return POS_ABBR[id] || String(id); }).filter(Boolean).join('/');
+}
+
 // EVO 单条摘要：金币 + 最高总评 + 位置
 function evoSummary(e) {
   const coin = fmtCost(e.coinsCost);
   const maxO = e.requirements && e.requirements.maxOverall;
-  const pos = (e.requirements && Array.isArray(e.requirements.positions)) ? e.requirements.positions.join('/') : '';
+  const pos = evoPositions(e);
   let s1 = '金币 ' + coin;
   if (maxO) s1 += ' · 最高 ' + maxO;
   if (pos) s1 += ' · ' + pos;
