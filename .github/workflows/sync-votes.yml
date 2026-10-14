@@ -8,9 +8,9 @@ name: Sync fut.gg community votes + chemistry recommendations (FC27)
 #
 # 调度：
 #   - workflow_dispatch：手动触发，mode 输入 auto/chem/full（默认 auto）。
-#       auto：北京时间周日 → full（化学+投票），其余 → 仅化学。
+#       auto：每日 → full（化学+投票+SBC投票，映射每日重建）；自 2026-10-07 起不再仅周日 full。
 #       chem：仅化学；full：化学+投票。
-#   - 日常由 cron-job.org 每天 04:05（Asia/Shanghai）dispatch 本 workflow（替换原 native 周调度），
+#   - 日常由 cron-job.org 每天 01:30（Asia/Shanghai，夏令时）dispatch 本 workflow（替换原 native 周调度）；冬令时手动改 02:30 避开 fut.gg 每日刷新（北京 02:00）。
 #     body {"ref":"main","inputs":{"mode":"auto"}}。原生 schedule 已移除，避免与 cron-job.org 重复跑。
 #
 # 映射缓存：非 full 运行复用已发布的 chem_meta.json 的 map，跳过 2 万次翻页（省时长）；full（周日）才重建。
