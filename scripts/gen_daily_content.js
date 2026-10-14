@@ -11,7 +11,10 @@
 //   · 复刻 utils/newSince.js#markNew 的 id 基线差逻辑 —— 当前批次 id 集合 − 上一轮基线 id 集合，
 //     且按批次发布日期闸控（不同日期才比对；首次/同日不误标），次日失效。
 //   · 球员「新增」用 gen_home_payload#passNewFeed 口径（overall>=80 或 特殊稀有度），
-//     与首页「新增球员」一致；取总评前 10 展示，>10 时给「具体请查看首页-新增球员」提示。
+//     与首页「新增球员」一致；**按 createdAt desc 取最新 10 展示**（与首页 tab 同序同源），
+//     >10 时给「还有 N 名新球员 · 查看首页-新增球员」提示。
+//     ⚠️ 2026-10-14 修正：旧实现按 overall desc「总评前 10」，展示的是批次里总评最高的**老卡**
+//     （10-06/07 的 TOTW 周黑），不是最新新增的卡，与首页列表对不上（用户反馈「球员列表不对」）。
 //
 // 「即将结束」判定：
 //   · SBC / EVO 的 endTime 在 72h 内（>0 且 <=72）。
@@ -46,7 +49,7 @@ const NO_UPLOAD = process.argv.indexOf('--no-upload') >= 0;
 const META_COLLECTION = 'meta_fc' + VER;
 const PLAYERS_COLLECTION = 'players_fc' + VER;
 const NEW_CANDIDATE = 120;     // 取最新 120 再用 newFeed 过滤（与 gen_home_payload 同口径）
-const PLAYER_TOP = 10;          // 弹窗只展示总评前 10
+const PLAYER_TOP = 10;          // 弹窗只展示最新 10 名（createdAt desc，与首页「新增球员」同序）
 const ENDING_WINDOW_H = 72;     // 即将结束窗口（小时）
 
 // ── 北京日期串 'YYYY-MM-DD'（与端上 utils/daykey.js#dayOf 同口径：固定 +8，无夏令时）──
@@ -214,7 +217,7 @@ async function run() {
     }
   });
 
-  // 5) 每日新增球员（newFeed 口径，总评前 10）
+  // 5) 每日新增球员（newFeed 口径；createdAt desc 取最新 10，与首页「新增球员」tab 同序同源）
   let newPlayers = [];
   let newPlayersTotal = 0;
   if (!NO_UPLOAD && app) {
@@ -223,7 +226,8 @@ async function run() {
     const nr = await db.collection(PLAYERS_COLLECTION).orderBy('createdAt', 'desc').limit(NEW_CANDIDATE).get();
     const cands = (nr.data || []).filter(home.passNewFeed);
     newPlayersTotal = cands.length;
-    cands.sort(function (a, b) { return (Number(b.overall) || 0) - (Number(a.overall) || 0); });
+    // ⚠️ 不要重排：cands 已是 createdAt desc（云库返回序），与首页 home_new 完全同序；
+    //   若改按 overall desc 重排，弹窗会变成「总评最高的老卡」，与首页列表不一致（2026-10-14 已修正）。
     const top = cands.slice(0, PLAYER_TOP);
     home.decorate(top, dicts);
     newPlayers = top.map(function (p) {
