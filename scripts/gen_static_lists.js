@@ -107,10 +107,40 @@ function initCloud() {
   const sid = process.env.TCB_SECRET_ID || env.TCB_SECRET_ID;
   const skey = process.env.TCB_SECRET_KEY || env.TCB_SECRET_KEY;
   if (!envId || !sid || !skey) throw new Error('缺 TCB_ENV_ID / TCB_SECRET_ID / TCB_SECRET_KEY');
-  return cloudbase.init({ env: envId, secretId: sid, secretKey: skey });
+  // 规则 116（2026-10-03 实测）：SDK 层硬超时，避免 uploadFile 偶发卡死无告警拖垮整条 CI。
+  return cloudbase.init({ env: envId, secretId: sid, secretKey: skey, timeout: 180000 });
 }
 function shortFid(fid) { return fid ? String(fid).slice(0, 64) + (fid.length > 64 ? '…' : '') : ''; }
 function hash8(buf) { return crypto.createHash('md5').update(buf).digest('hex').slice(0, 8); }
+
+// 规则 116（2026-10-03 实测）：@cloudbase/node-sdk 的 uploadFile 从 CI runner→腾讯 COS 偶发卡死无告警，
+// 单文件 stall 会让 CI 无限挂（WATCHDOG 220min 才杀）。统一封装：SDK 层硬超时(180s，见 initCloud)＋
+// 本函数 3 次重试 ＋ race=200s（须 > SDK timeout 让其先自我中止）＋ 回读校验。publishOne/publishObject 共用。
+async function uploadWithRetry(app, cloudPath, buf) {
+  const ATTEMPTS = 3;
+  const RACE_MS = 200000; // > initCloud timeout(180s)，确保 SDK 先自我中止再重试
+  let lastErr;
+  for (let i = 0; i < ATTEMPTS; i++) {
+    try {
+      const up = await Promise.race([
+        app.uploadFile({ cloudPath: cloudPath, fileContent: buf }),
+        new Promise(function (_, rej) {
+          setTimeout(function () { rej(new Error('uploadFile 超时 ' + RACE_MS + 'ms（已 abort）')); }, RACE_MS);
+        })
+      ]);
+      const fileID = (up && up.fileID) || '';
+      if (!fileID) throw new Error('上传未拿到 fileID');
+      const rb = await app.downloadFile({ fileID: fileID });
+      const rbBuf = rb && rb.fileContent;
+      if (!rbBuf || !rbBuf.length) throw new Error('回读空');
+      return { fileID: fileID, rbBuf: rbBuf };
+    } catch (e) {
+      lastErr = e;
+      console.error('  ⚠️ 上传/回读尝试 ' + (i + 1) + '/' + ATTEMPTS + ' 失败: ' + e.message);
+    }
+  }
+  throw lastErr || new Error('uploadWithRetry 全部 ' + ATTEMPTS + ' 次失败');
+}
 
 // 单个数据集：造数组 → 哈希命名 → 上传 → 写元文档 → 清旧 → 回读校验
 async function publishOne(app, name, arr, fetchedAt) {
@@ -134,17 +164,13 @@ async function publishOne(app, name, arr, fetchedAt) {
 
   if (NO_UPLOAD) { console.log('  （--no-upload，跳过上传）'); return; }
 
-  const up = await app.uploadFile({ cloudPath: cloudPath, fileContent: buf });
-  const fileID = (up && up.fileID) || '';
-  if (!fileID) { console.error('  ❌ 上传未拿到 fileID'); process.exit(6); }
+  const up = await uploadWithRetry(app, cloudPath, buf);
+  const fileID = up.fileID;
   console.log('  已上传:', cloudPath, '→', shortFid(fileID));
 
   // 回读校验（规则 100）：uploadFile 假成功，必须 downloadFile 读回断言
   try {
-    const rb = await app.downloadFile({ fileID: fileID });
-    const rbBuf = rb && rb.fileContent;
-    if (!rbBuf || !rbBuf.length) throw new Error('回读空');
-    const rbArr = JSON.parse(rbBuf.toString('utf8'));
+    const rbArr = JSON.parse(up.rbBuf.toString('utf8'));
     if (!Array.isArray(rbArr) || rbArr.length !== stampedArr.length) throw new Error('回读条数不符 ' + (rbArr && rbArr.length));
     console.log('  ✅ 回读校验通过：条数=' + rbArr.length);
   } catch (e) { console.error('  ❌ 回读校验失败:', e.message); process.exit(7); }
@@ -194,17 +220,13 @@ async function publishObject(app, name, obj) {
   console.log('[' + name + '] 对象 json=' + (jsonStr.length / 1024).toFixed(1) + 'KB hash=' + h);
   if (NO_UPLOAD) { console.log('  （--no-upload，跳过上传）'); return; }
 
-  const up = await app.uploadFile({ cloudPath: cloudPath, fileContent: buf });
-  const fileID = (up && up.fileID) || '';
-  if (!fileID) { console.error('  ❌ 上传未拿到 fileID'); process.exit(6); }
+  const up = await uploadWithRetry(app, cloudPath, buf);
+  const fileID = up.fileID;
   console.log('  已上传:', cloudPath, '→', shortFid(fileID));
 
   // 回读校验（规则 100）：uploadFile 假成功，必须 downloadFile 读回断言
   try {
-    const rb = await app.downloadFile({ fileID: fileID });
-    const rbBuf = rb && rb.fileContent;
-    if (!rbBuf || !rbBuf.length) throw new Error('回读空');
-    const rbObj = JSON.parse(rbBuf.toString('utf8'));
+    const rbObj = JSON.parse(up.rbBuf.toString('utf8'));
     if (!rbObj || typeof rbObj !== 'object' || Array.isArray(rbObj)) throw new Error('回读非对象');
     console.log('  ✅ 回读校验通过');
   } catch (e) { console.error('  ❌ 回读校验失败:', e.message); process.exit(7); }
