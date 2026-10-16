@@ -36,7 +36,7 @@ const DET_COL = 'details_fc' + VER;
 const META_COL = 'meta_fc' + VER;
 const CLOUD_DIR = 'fc' + VER + '/data/details_static/';
 const META_DOC = 'detail_static';
-const HARD_TIMEOUT_MS = Number(process.env.DETAILS_TIMEOUT_MS || 20 * 60 * 1000);
+const HARD_TIMEOUT_MS = Number(process.env.DETAILS_TIMEOUT_MS || 60 * 60 * 1000);
 
 // —— 五大联赛（按名解析 eaId，避免硬编码数字）——
 const BIG5_NAMES = ['Premier League', 'LALIGA EA SPORTS', 'Serie A Enilive', 'Bundesliga', 'Ligue 1 McDonald\'s'];
@@ -90,7 +90,8 @@ function sleep(ms) { return new Promise(function (resolve) { setTimeout(resolve,
 //    回读必须用 rb.fileContent；旧实现误用 dl.tempFilePath → 真实上传时 verifyUpload 抛「path 为 undefined」。
 async function uploadWithRetry(app, cloudPath, buf, expectBytes) {
   expectBytes = expectBytes || (buf && buf.length) || 0;
-  const RACE_MS = 200000;
+  // 大分片（>2MB）自适应放宽：4 并发共享带宽时 3.4MB 单流可能 >200s（R116 实测 CI→COS 单流 ~10-30KB/s）
+  const RACE_MS = expectBytes > 2 * 1024 * 1024 ? 600000 : 200000;
   let lastErr;
   for (let i = 0; i < 3; i++) {
     try {
@@ -183,22 +184,38 @@ async function main() {
   const manifestShards = [];
   let totalBytes = 0;
   const keys = Object.keys(buckets).sort();
-  for (const key of keys) {
+  const tasks = keys.map(function (key) {
     const records = buckets[key];
     const content = JSON.stringify({ schemaVersion: SCHEMA_VERSION, generatedAt: nowIso, key: key, records: records });
     const bytes = Buffer.byteLength(content, 'utf8');
     totalBytes += bytes;
     const hash = shortHash(content);
     const fileName = 'det_' + key + '_' + hash + '.json';
-    console.log('    分片 ' + key + ' 玩家=' + records.length + ' 体积=' + (bytes / 1024).toFixed(1) + 'KB');
-    if (NO_UPLOAD) {
-      fs.writeFileSync(path.join(OUT_DIR, fileName), content);
-      manifestShards.push({ key: key, fileID: 'local:' + fileName, count: records.length });
-    } else {
-      const fileID = await uploadWithRetry(app, CLOUD_DIR + fileName, Buffer.from(content), bytes);
-      manifestShards.push({ key: key, fileID: fileID, count: records.length });
+    return { key: key, records: records, content: content, bytes: bytes, fileName: fileName };
+  });
+  tasks.forEach(function (t) {
+    console.log('    分片 ' + t.key + ' 玩家=' + t.records.length + ' 体积=' + (t.bytes / 1024).toFixed(1) + 'KB');
+  });
+  if (NO_UPLOAD) {
+    for (const t of tasks) {
+      fs.writeFileSync(path.join(OUT_DIR, t.fileName), t.content);
+      manifestShards.push({ key: t.key, fileID: 'local:' + t.fileName, count: t.records.length });
     }
+  } else {
+    // 桶 4 并发上传（R116：CI runner→云存储实测单流仅 ~10-80KB/s，串行 69 分片会撞 job 超时）
+    let cursor = 0; let done = 0;
+    async function worker() {
+      while (cursor < tasks.length) {
+        const t = tasks[cursor++];
+        const fileID = await uploadWithRetry(app, CLOUD_DIR + t.fileName, Buffer.from(t.content), t.bytes);
+        manifestShards.push({ key: t.key, fileID: fileID, count: t.records.length });
+        done++;
+        console.log('    [上传 ' + done + '/' + tasks.length + '] ' + t.key + ' OK');
+      }
+    }
+    await Promise.all([worker(), worker(), worker(), worker()]);
   }
+  manifestShards.sort(function (a, b) { return a.key < b.key ? -1 : (a.key > b.key ? 1 : 0); });
   console.log('  ★ 总静态 JSON 体积(估算)=' + (totalBytes / 1024).toFixed(1) + 'KB (' + (totalBytes / 1024 / 1024).toFixed(2) + 'MB)；分片数=' + keys.length);
 
   // 5) manifest（含 big5/hot 名单，保证端云一致）

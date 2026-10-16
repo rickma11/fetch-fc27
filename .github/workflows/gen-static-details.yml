@@ -26,7 +26,7 @@ concurrency:
 jobs:
   gen:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 90
     steps:
       - name: Checkout
         uses: actions/checkout@v6
