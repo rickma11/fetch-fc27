@@ -1,0 +1,56 @@
+name: Gen static detail shards (layered detail JSON to CloudBase storage)
+
+# 详情分层静态化生成（docs/35，2026-10-16）：
+#   扫描 details_fc{ver} 全表 → 按 overall/league/nation 烤成分片 JSON 上传云存储 fc{ver}/data/details_static/
+#   + 最后写 meta_fc{ver}/detail_static 元文档（fileID → manifest）。
+#   端上 utils/cloudJson.js 直读分片，零云函数调用（见 docs/35）。
+# ⚠️ 与 fetch-fc27.yml 完全隔离：独立 concurrency 组（gen-static-details），
+#   不碰抓取管线、不写数据库业务集合、不提交 git（产物只在云存储）。
+# ⚠️ 原子发布：所有分片先上传，最后才写 meta；任一失败 → 不写 meta → 线上仍是上一次成功的全量（自动回退昨天）。
+# 触发：仅 workflow_dispatch 手动跑。验证 OK 后如需每日自动，可在 on: 下加 schedule（当前先手动）。
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gen-static-details
+  cancel-in-progress: false
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 本流程无浏览器抓取，跳过 Chromium 下载省时间
+        run: npm install
+
+      - name: Gen static detail shards (upload to CloudBase storage + write meta doc)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_static_details.js ${{ github.event.inputs.fc_ver || '27' }}
+
+      - name: Verify published manifest + shards (R1/R2/R4 + 可下载性)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_static_details_test.js ${{ github.event.inputs.fc_ver || '27' }}
