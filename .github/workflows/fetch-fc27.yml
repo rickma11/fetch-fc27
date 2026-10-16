@@ -569,6 +569,7 @@ jobs:
         env:
           WECOM_WEBHOOK: ${{ secrets.WECOM_WEBHOOK }}
           SCT_SENDKEY: ${{ secrets.SCT_SENDKEY }}
+          DINGTALK_WEBHOOK: ${{ secrets.DINGTALK_WEBHOOK }}
         run: |
           echo "::error::每日内容弹窗生成失败（已被 continue-on-error 放行）。小程序「每日更新」可能停留在旧日期，需人工排查云上传是否卡死/抛错。失败 run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           if [ -n "$WECOM_WEBHOOK" ]; then
@@ -586,6 +587,15 @@ jobs:
               "https://sctapi.ftqq.com/$SCT_SENDKEY.send"
           else
             echo "[告警降级] 未配置 SCT_SENDKEY，不推送 Server酱(个人微信)。如需手机推送请加仓库 Secret SCT_SENDKEY。"
+          fi
+          # 钉钉群自定义机器人：安全设置选「自定义关键词」，关键词填 OAO（下方 content 含 OAO 才会被接收）。
+          if [ -n "$DINGTALK_WEBHOOK" ]; then
+            curl -s -o /dev/null -w "DingTalk http: %{http_code}\n" \
+              -H "Content-Type: application/json" \
+              -d '{"msgtype":"text","text":{"content":"[OAO fetch-fc27] 每日内容弹窗生成失败(已放行)，可能停留在旧日期，需人工排查云上传。run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}}' \
+              "$DINGTALK_WEBHOOK"
+          else
+            echo "[告警降级] 未配置 DINGTALK_WEBHOOK，不推送钉钉。如需钉钉群通知请加仓库 Secret DINGTALK_WEBHOOK。"
           fi
 
       - name: Show run summary
