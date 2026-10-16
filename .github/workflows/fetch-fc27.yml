@@ -577,7 +577,7 @@ jobs:
               -d '{"msgtype":"text","text":{"content":"[OAO fetch-fc27] 每日内容弹窗生成失败(已放行)，可能停留在旧日期，需人工排查云上传。\nrun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"}}' \
               "$WECOM_WEBHOOK"
           else
-            echo "[告警降级] 未配置 WECOM_WEBHOOK，仅 GitHub 注解告警。"
+            echo "[告警降级] 未配置 WECOM_WEBHOOK，仅 GitHub 注解 + Server酱 告警。"
           fi
           if [ -n "$SCT_SENDKEY" ]; then
             curl -s -G -o /dev/null -w "SCT(http): %{http_code}\n" \
@@ -586,14 +586,6 @@ jobs:
               "https://sctapi.ftqq.com/$SCT_SENDKEY.send"
           else
             echo "[告警降级] 未配置 SCT_SENDKEY，不推送 Server酱(个人微信)。如需手机推送请加仓库 Secret SCT_SENDKEY。"
-          fi
-          if [ -n "$SCT_SENDKEY" ]; then
-            curl -s -G -o /dev/null -w "SCT(http): %{http_code}\n" \
-              --data-urlencode "title=[OAO fetch-fc27] 每日内容弹窗生成失败(已放行)" \
-              --data-urlencode "desp=小程序每日更新可能停留在旧日期，需人工排查云上传卡死/抛错。run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-              "https://sctapi.ftqq.com/$SCT_SENDKEY.send"
-          else
-            echo "[告警降级] 未配置 SCT_SENDKEY，仅 GitHub 注解告警。"
           fi
 
       - name: Show run summary
