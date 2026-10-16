@@ -31,7 +31,10 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # ⚠️ 2026-10-17：15 → 30（规则 125）。云存储吞吐 ≈25KB/s，一个 job 要传 4 趟
+    # （下载旧序列 + 上传 series 2.7MB + 上传 alerts 2.8MB）≈440s，实测成功那次就跑了 9 分钟；
+    # 15 分钟毫无余量，#47/#48/#49 连挂三次。30 分钟留足 4 倍冗余。
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v6

@@ -147,12 +147,16 @@ async function readOldSeries(url) {
   throw new Error('readOldSeries 意外退出');
 }
 
-// 上传带超时+重试（#116 模式：SDK 层硬上限 180s，外层 race 200s > SDK timeout，3 次重试）。
+// 上传带超时+重试（#116 模式：SDK 层硬上限 180s，外层 race > SDK timeout）。
 // 单文件偶发卡死无告警 ⇒ 必须 race 让其先自我中止再重试。
+// ⚠️ 2026-10-17 调参（规则 125）：实测云存储吞吐 ≈25KB/s，2.7MB 文件单次就要 ~110s，
+//    旧的 RACE=200s + 3 次重试会把「慢」误判成「卡死」→ 重试 3×200s=600s → 直接撞 workflow
+//    timeout 被 cancel（under80 #47/#48/#49 即此因）。现改为 RACE=480s（留 4 倍以上余量）+ 重试 2 次。
 async function uploadJsonSafe(cloudPath, obj) {
-  const RACE = 200000;
+  const RACE = 480000;
+  const MAX_ATTEMPT = 2;
   let lastErr = null;
-  for (let attempt = 1; attempt <= 3; attempt++) {
+  for (let attempt = 1; attempt <= MAX_ATTEMPT; attempt++) {
     try {
       const buf = Buffer.from(JSON.stringify(obj));
       const p = tcbApp().uploadFile({ cloudPath: cloudPath, fileContent: buf });
@@ -163,10 +167,10 @@ async function uploadJsonSafe(cloudPath, obj) {
     } catch (e) {
       lastErr = e;
       console.warn('[market_sync_gh] uploadJsonSafe attempt ' + attempt + ' 失败: ' + (e && e.message || e));
-      if (attempt < 3) await sleep(1000 * attempt);
+      if (attempt < MAX_ATTEMPT) await sleep(1000 * attempt);
     }
   }
-  throw new Error('uploadJsonSafe 重试 3 次仍失败: ' + (lastErr && lastErr.message || lastErr));
+  throw new Error('uploadJsonSafe 重试 ' + MAX_ATTEMPT + ' 次仍失败: ' + (lastErr && lastErr.message || lastErr));
 }
 
 // 打日志带相对启动耗时，便于在 Actions 日志里定位是哪一步超时
@@ -337,10 +341,10 @@ async function runUnder80Sync(doUpload) {
       if (oldSeries && series.buckets.length < oldSeries.buckets.length) {
         console.warn('[market_sync_gh] ⚠️ under80 新序列桶数(' + series.buckets.length + ') < 旧(' + oldSeries.buckets.length + ')，疑似 buildSeries 回归');
       }
-      if (oldSeries) {
-        try { await uploadJsonSafe(SERIES_UNDER80_CLOUD_PATH + '.backup', oldSeries); }
-        catch (be) { console.warn('[market_sync_gh] under80 backup 上传失败(非致命): ' + (be && be.message || be)); }
-      }
+      // ⚠️ 2026-10-17 移除 `.backup` 上传（规则 125）：
+      //   ①云存储吞吐仅 ≈25KB/s，多传一份 2.7MB = 多 ~110s，是 #47/#48/#49 连挂的直接诱因；
+      //   ②它备份的是 oldSeries，而 oldSeries 就是云上主文件的当前内容、在本函数覆盖前一直完好，
+      //     属于冗余双保险；真正的历史保护由 readOldSeries 的「瞬断→throw→跳过覆盖」承担。
       await uploadJsonSafe(SERIES_UNDER80_CLOUD_PATH, series);
       logStep('upload series_under80 done, players=' + Object.keys(series.players).length + ', buckets=' + series.buckets.length);
 
