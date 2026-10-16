@@ -84,39 +84,33 @@ function initCloud() {
 }
 function sleep(ms) { return new Promise(function (resolve) { setTimeout(resolve, ms); }); }
 
-// 带超时和重试的云存储上传（与 gen_hot_details#uploadJson 同款）
-async function uploadJson(app, cloudPath, obj, timeoutMs) {
-  timeoutMs = timeoutMs || 200000;
-  const jsonStr = JSON.stringify(obj);
-  const buf = Buffer.from(jsonStr);
-  let lastErr = '';
-  for (let attempt = 1; attempt <= 3; attempt++) {
+// 规则 116/100：@cloudbase/node-sdk 从 CI runner→COS 偶发卡死 + uploadFile 假成功（返回成功但内容残缺）。
+// 统一封装：SDK 硬超时(180s,见 initCloud) + 3 次重试 + race=200s(>SDK timeout 让其先自我中止) + 回读校验。
+// ⚠️ 关键：node-sdk 的 downloadFile 返回 { fileContent: Buffer }（不是 wx 端的 tempFilePath），
+//    回读必须用 rb.fileContent；旧实现误用 dl.tempFilePath → 真实上传时 verifyUpload 抛「path 为 undefined」。
+async function uploadWithRetry(app, cloudPath, buf, expectBytes) {
+  expectBytes = expectBytes || (buf && buf.length) || 0;
+  const RACE_MS = 200000;
+  let lastErr;
+  for (let i = 0; i < 3; i++) {
     try {
       const up = await Promise.race([
         app.uploadFile({ cloudPath: cloudPath, fileContent: buf }),
-        new Promise(function (_, reject) { setTimeout(function () { reject(new Error('upload timeout after ' + timeoutMs + 'ms')); }, timeoutMs); })
+        new Promise(function (_, rej) { setTimeout(function () { rej(new Error('uploadFile 超时 ' + RACE_MS + 'ms')); }, RACE_MS); })
       ]);
-      return up.fileID || up;
+      const fileID = (up && up.fileID) || '';
+      if (!fileID) throw new Error('上传未拿到 fileID');
+      const rb = await app.downloadFile({ fileID: fileID });
+      const rbBuf = rb && rb.fileContent;
+      if (!rbBuf || !rbBuf.length) throw new Error('回读空');
+      if (expectBytes && rbBuf.length !== expectBytes) throw new Error('回读字节数不符 ' + rbBuf.length + ' != ' + expectBytes);
+      return fileID;
     } catch (e) {
-      lastErr = e && e.message ? e.message : String(e);
-      console.log('  上传失败（attempt', attempt, '/3）', cloudPath, lastErr);
-      if (attempt < 3) await sleep(2000 * attempt);
+      lastErr = e;
+      console.error('  ⚠️ 上传/回读尝试 ' + (i + 1) + '/3 失败: ' + (e && e.message || e));
     }
   }
-  throw new Error('上传 ' + cloudPath + ' 最终失败: ' + lastErr);
-}
-
-// 回读校验：下载刚传的文件，比对大小是否一致（防「上传返回成功但内容残缺」）
-async function verifyUpload(app, fileID, expectBytes) {
-  try {
-    const dl = await app.downloadFile({ fileID: fileID });
-    const info = fs.statSync(dl.tempFilePath);
-    if (info.size !== expectBytes) throw new Error('size mismatch ' + info.size + ' != ' + expectBytes);
-    fs.unlinkSync(dl.tempFilePath);
-    return true;
-  } catch (e) {
-    throw new Error('回读校验失败 ' + fileID + ': ' + (e && e.message || e));
-  }
+  throw lastErr || new Error('uploadWithRetry 全部 3 次失败');
 }
 
 function shortHash(str) { return crypto.createHash('sha256').update(str).digest('hex').slice(0, 8); }
@@ -201,8 +195,7 @@ async function main() {
       fs.writeFileSync(path.join(OUT_DIR, fileName), content);
       manifestShards.push({ key: key, fileID: 'local:' + fileName, count: records.length });
     } else {
-      const fileID = await uploadJson(app, CLOUD_DIR + fileName, JSON.parse(content));
-      await verifyUpload(app, fileID, bytes);
+      const fileID = await uploadWithRetry(app, CLOUD_DIR + fileName, Buffer.from(content), bytes);
       manifestShards.push({ key: key, fileID: fileID, count: records.length });
     }
   }
@@ -223,8 +216,7 @@ async function main() {
   } else {
     const mFileName = 'manifest_' + shortHash(JSON.stringify(manifestShards)) + '.json';
     const mBytes = Buffer.byteLength(JSON.stringify(manifest), 'utf8');
-    const mFileID = await uploadJson(app, CLOUD_DIR + mFileName, manifest);
-    await verifyUpload(app, mFileID, mBytes);
+    const mFileID = await uploadWithRetry(app, CLOUD_DIR + mFileName, Buffer.from(JSON.stringify(manifest)), mBytes);
     // ★ 最后才写 meta 元文档（原子发布）：指向 manifest fileID
     try {
       await app.database().collection(META_COL).doc(META_DOC).set({ data: { fileID: mFileID, generatedAt: nowTs, schemaVersion: SCHEMA_VERSION, ver: VER, count: kept } });
