@@ -73,7 +73,10 @@ async function loadFromCloud() {
   const r = await db.collection(META_COL).doc('detail_static').get();
   const d = (r && r.data) || null;
   const meta = Array.isArray(d) ? (d[0] || null) : d;
-  if (!meta || !meta.fileID) { console.warn('  ⚠️ meta_fc' + VER + '/detail_static 不存在'); return null; }
+  if (meta && !meta.fileID && meta.data && meta.data.fileID) {
+    console.warn('  ⚠️ meta 文档形状错误：载荷被嵌在 data 字段下（生成器 doc.set 误用 {data:{...}} 包裹），fileID 实为 meta.data.fileID');
+  }
+  if (!meta || !meta.fileID) { console.warn('  ⚠️ meta_fc' + VER + '/detail_static 不存在或缺 fileID'); return null; }
   const dl = await app.downloadFile({ fileID: meta.fileID });
   const buf = dl && dl.fileContent;
   if (!buf || !buf.length) { console.warn('  ⚠️ manifest 回读为空'); return null; }

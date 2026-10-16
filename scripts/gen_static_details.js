@@ -258,12 +258,14 @@ async function main() {
     const mBytes = Buffer.byteLength(JSON.stringify(manifest), 'utf8');
     const mFileID = await uploadWithRetry(app, CLOUD_DIR + mFileName, Buffer.from(JSON.stringify(manifest)), mBytes);
     // ★ 最后才写 meta 元文档（原子发布）：指向 manifest fileID
+    // ⚠️ 字段直接平铺（与 gen_static_lists 同款）；node-sdk doc.set 不吃 {data:{...}} 包裹——
+    //    包了会把载荷嵌进名为 data 的字段，端上 readMeta 读 meta.fileID 永远空（CI verify 步骤实测抓到）。
     try {
-      await app.database().collection(META_COL).doc(META_DOC).set({ data: { fileID: mFileID, generatedAt: nowTs, schemaVersion: SCHEMA_VERSION, ver: VER, count: kept } });
+      await app.database().collection(META_COL).doc(META_DOC).set({ fileID: mFileID, generatedAt: nowTs, schemaVersion: SCHEMA_VERSION, ver: VER, count: kept });
       console.log('  元文档 meta_fc' + VER + '/' + META_DOC + ' 已写（count=' + kept + '）');
     } catch (e) {
       await app.database().createCollection(META_COL).catch(function () {});
-      await app.database().collection(META_COL).doc(META_DOC).set({ data: { fileID: mFileID, generatedAt: nowTs, schemaVersion: SCHEMA_VERSION, ver: VER, count: kept } }).catch(function (e2) { console.error('  元文档写入失败：', e2.message); });
+      await app.database().collection(META_COL).doc(META_DOC).set({ fileID: mFileID, generatedAt: nowTs, schemaVersion: SCHEMA_VERSION, ver: VER, count: kept }).catch(function (e2) { console.error('  元文档写入失败：', e2.message); });
     }
   }
 
