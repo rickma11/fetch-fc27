@@ -62,17 +62,14 @@ function slimRecord(e) {
     o.commonTexts = commonTexts;
     o.routeTexts = routeTexts;
   }
-  // 2026-10-16：新的外观类进化（如 Golden Stars / Pink Fire）doesNotUpgradePlayer=true 但 upgrades 为空，
-  // 需同样识别为装饰，避免被错标为付费/免费进化。
-  const rarityLike = lv.every(function (L) {
+  // 2026-10-16：装饰进化升级项分两种 —— rarity_id（只换稀有度/卡面，如 Ones to Watch Retro）
+  // 与 cosmetic（纯视觉，如 Golden Stars / Pink Fire / 各类 Badge）。两者均不升级球员属性，均判装饰。
+  // 判据：① doesNotUpgradePlayer=true（EA 明确「不升级球员」）→ 装饰；
+  //       ② 兜底：所有等级 upgrades 全为 rarity_id 或 cosmetic。
+  o.rarityOnly = lv.length > 0 && lv.every(function (L) {
     const ups = (L && Array.isArray(L.upgrades)) ? L.upgrades : [];
-    return ups.every(function (u) { return !u || u.upgrade === 'rarity_id'; });
-  });
-  o.rarityOnly = (e.doesNotUpgradePlayer === true && rarityLike)
-    || (lv.length > 0 && lv.every(function (L) {
-      const ups = (L && Array.isArray(L.upgrades)) ? L.upgrades : [];
-      return ups.length > 0 && ups.every(function (u) { return u && u.upgrade === 'rarity_id'; });
-    }));
+    return ups.length > 0 && ups.every(function (u) { return u && (u.upgrade === 'rarity_id' || u.upgrade === 'cosmetic'); });
+  }) || (e.doesNotUpgradePlayer === true);
   if (typeof e.roleOnly === 'boolean') {
     o.roleOnly = e.roleOnly;
   } else {

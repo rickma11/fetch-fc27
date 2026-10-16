@@ -164,21 +164,17 @@ function isRoleOnlyOf(rec) {
 }
 
 // 装饰（纯卡面）：slim 记录消费 rec.rarityOnly；原始记录用 levels 现场推导
-// 2026-10-16：新的外观类进化 doesNotUpgradePlayer=true 但 upgrades 为空，同样识别为装饰
+// 2026-10-16 强化：装饰进化升级项分 rarity_id（换卡面）与 cosmetic（纯视觉，如 Golden Stars / Pink Fire），
+// 两者均不升级球员属性；EA 亦以 doesNotUpgradePlayer=true 显式标识纯外观进化。
 function isRarityOnlyOf(rec) {
   if (!rec) return false;
   if (typeof rec.rarityOnly === 'boolean') return rec.rarityOnly;
   const lv = Array.isArray(rec.levels) ? rec.levels : [];
-  if (rec.doesNotUpgradePlayer === true) {
-    return lv.length === 0 || lv.every(function (L) {
-      const ups = (L && Array.isArray(L.upgrades)) ? L.upgrades : [];
-      return ups.every(function (u) { return !u || u.upgrade === 'rarity_id'; });
-    });
-  }
+  if (rec.doesNotUpgradePlayer === true) return true;
   if (!lv.length) return false;
   return lv.every(function (L) {
     const ups = (L && Array.isArray(L.upgrades)) ? L.upgrades : [];
-    return ups.length > 0 && ups.every(function (u) { return u && u.upgrade === 'rarity_id'; });
+    return ups.length > 0 && ups.every(function (u) { return u && (u.upgrade === 'rarity_id' || u.upgrade === 'cosmetic'); });
   });
 }
 
