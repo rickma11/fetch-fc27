@@ -164,10 +164,17 @@ function isRoleOnlyOf(rec) {
 }
 
 // 装饰（纯卡面）：slim 记录消费 rec.rarityOnly；原始记录用 levels 现场推导
+// 2026-10-16：新的外观类进化 doesNotUpgradePlayer=true 但 upgrades 为空，同样识别为装饰
 function isRarityOnlyOf(rec) {
   if (!rec) return false;
   if (typeof rec.rarityOnly === 'boolean') return rec.rarityOnly;
   const lv = Array.isArray(rec.levels) ? rec.levels : [];
+  if (rec.doesNotUpgradePlayer === true) {
+    return lv.length === 0 || lv.every(function (L) {
+      const ups = (L && Array.isArray(L.upgrades)) ? L.upgrades : [];
+      return ups.every(function (u) { return !u || u.upgrade === 'rarity_id'; });
+    });
+  }
   if (!lv.length) return false;
   return lv.every(function (L) {
     const ups = (L && Array.isArray(L.upgrades)) ? L.upgrades : [];

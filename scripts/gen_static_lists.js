@@ -62,10 +62,17 @@ function slimRecord(e) {
     o.commonTexts = commonTexts;
     o.routeTexts = routeTexts;
   }
-  o.rarityOnly = lv.length > 0 && lv.every(function (L) {
+  // 2026-10-16：新的外观类进化（如 Golden Stars / Pink Fire）doesNotUpgradePlayer=true 但 upgrades 为空，
+  // 需同样识别为装饰，避免被错标为付费/免费进化。
+  const rarityLike = lv.every(function (L) {
     const ups = (L && Array.isArray(L.upgrades)) ? L.upgrades : [];
-    return ups.length > 0 && ups.every(function (u) { return u && u.upgrade === 'rarity_id'; });
+    return ups.every(function (u) { return !u || u.upgrade === 'rarity_id'; });
   });
+  o.rarityOnly = (e.doesNotUpgradePlayer === true && rarityLike)
+    || (lv.length > 0 && lv.every(function (L) {
+      const ups = (L && Array.isArray(L.upgrades)) ? L.upgrades : [];
+      return ups.length > 0 && ups.every(function (u) { return u && u.upgrade === 'rarity_id'; });
+    }));
   if (typeof e.roleOnly === 'boolean') {
     o.roleOnly = e.roleOnly;
   } else {
