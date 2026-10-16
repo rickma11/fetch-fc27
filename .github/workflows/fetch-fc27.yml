@@ -551,6 +551,13 @@ jobs:
         id: gen-daily
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         continue-on-error: true
+        # R127（2026-10-16）：本步需云开发凭证——initCloud()（查 newFeed 球员 + 上传 daily_content）一上来就读
+        # TCB_ENV_ID/SECRET_ID/SECRET_KEY。曾漏配 env → CI 里 initCloud 立即抛「缺 TCB_*」被 continue-on-error
+        # 静默吞（R126 的 outcome 告警步首次实战即抓到）。必须与其它上云步骤一致注入三个 TCB Secret。
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/gen_daily_content.js 27
 
       # R126（2026-10-15）：daily_content 步骤曾因云上传偶发卡死/抛错，被 continue-on-error 静默吞掉
