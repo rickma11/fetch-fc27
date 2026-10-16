@@ -188,8 +188,10 @@ async function main() {
   // 自我中止保护，>2MB 的单文件实测必挂（nat_14_r74_64 3.4MB 三连挂）。限制单文件 ≤1.2MB；
   // manifest 允许同一 key 多个条目（part），端上按 key 找全部条目合并查找。
   const SPLIT_LIMIT = 1.2 * 1024 * 1024;
+  // ⚠️ 分片内容【禁止】放 generatedAt（docs/35 §13-F1）：内容含时间戳 → hash 每次变 → 文件名每次变
+  // → 旧分片成孤儿（~54MB/天累积）且每天全量重传。时间戳只留 manifest/meta；端上只读 records。
   function buildShardTask(key, records, partIdx, partCount) {
-    const content = JSON.stringify({ schemaVersion: SCHEMA_VERSION, generatedAt: nowIso, key: key, part: partIdx, parts: partCount, records: records });
+    const content = JSON.stringify({ schemaVersion: SCHEMA_VERSION, key: key, part: partIdx, parts: partCount, records: records });
     const bytes = Buffer.byteLength(content, 'utf8');
     const hash = shortHash(content);
     const fileName = 'det_' + key + (partCount > 1 ? '_p' + partIdx : '') + '_' + hash + '.json';
@@ -202,7 +204,7 @@ async function main() {
     if (whole.bytes <= SPLIT_LIMIT) { tasks.push(whole); totalBytes += whole.bytes; return; }
     // 按记录序列化体积贪心切块
     const recStrs = records.map(function (r) { return JSON.stringify(r); });
-    const overhead = JSON.stringify({ schemaVersion: SCHEMA_VERSION, generatedAt: nowIso, key: key, part: 0, parts: 0, records: [] }).length + 4;
+    const overhead = JSON.stringify({ schemaVersion: SCHEMA_VERSION, key: key, part: 0, parts: 0, records: [] }).length + 4;
     const parts = [];
     let cur = [], curLen = 0;
     for (let i = 0; i < recStrs.length; i++) {
