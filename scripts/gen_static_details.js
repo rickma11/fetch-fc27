@@ -184,14 +184,37 @@ async function main() {
   const manifestShards = [];
   let totalBytes = 0;
   const keys = Object.keys(buckets).sort();
-  const tasks = keys.map(function (key) {
-    const records = buckets[key];
-    const content = JSON.stringify({ schemaVersion: SCHEMA_VERSION, generatedAt: nowIso, key: key, records: records });
+  // 超大分片拆 part（R116 补充）：CI→COS 单流 ~10-30KB/s，TCB SDK 对慢速上传有 UserNetworkTooSlow
+  // 自我中止保护，>2MB 的单文件实测必挂（nat_14_r74_64 3.4MB 三连挂）。限制单文件 ≤1.2MB；
+  // manifest 允许同一 key 多个条目（part），端上按 key 找全部条目合并查找。
+  const SPLIT_LIMIT = 1.2 * 1024 * 1024;
+  function buildShardTask(key, records, partIdx, partCount) {
+    const content = JSON.stringify({ schemaVersion: SCHEMA_VERSION, generatedAt: nowIso, key: key, part: partIdx, parts: partCount, records: records });
     const bytes = Buffer.byteLength(content, 'utf8');
-    totalBytes += bytes;
     const hash = shortHash(content);
-    const fileName = 'det_' + key + '_' + hash + '.json';
-    return { key: key, records: records, content: content, bytes: bytes, fileName: fileName };
+    const fileName = 'det_' + key + (partCount > 1 ? '_p' + partIdx : '') + '_' + hash + '.json';
+    return { key: key, records: records, content: content, bytes: bytes, fileName: fileName, partIdx: partIdx, partCount: partCount };
+  }
+  const tasks = [];
+  keys.forEach(function (key) {
+    const records = buckets[key];
+    const whole = buildShardTask(key, records, 0, 1);
+    if (whole.bytes <= SPLIT_LIMIT) { tasks.push(whole); totalBytes += whole.bytes; return; }
+    // 按记录序列化体积贪心切块
+    const recStrs = records.map(function (r) { return JSON.stringify(r); });
+    const overhead = JSON.stringify({ schemaVersion: SCHEMA_VERSION, generatedAt: nowIso, key: key, part: 0, parts: 0, records: [] }).length + 4;
+    const parts = [];
+    let cur = [], curLen = 0;
+    for (let i = 0; i < recStrs.length; i++) {
+      if (cur.length && curLen + recStrs[i].length + 1 + overhead > SPLIT_LIMIT) { parts.push(cur); cur = []; curLen = 0; }
+      cur.push(recStrs[i]); curLen += recStrs[i].length + 1;
+    }
+    if (cur.length) parts.push(cur);
+    console.log('    ⚠️ 分片 ' + key + ' 超限(' + (whole.bytes / 1024).toFixed(0) + 'KB > ' + (SPLIT_LIMIT / 1024).toFixed(0) + 'KB) 拆为 ' + parts.length + ' 个 part');
+    parts.forEach(function (prs, idx) {
+      const t = buildShardTask(key, prs.map(function (s) { return JSON.parse(s); }), idx, parts.length);
+      tasks.push(t); totalBytes += t.bytes;
+    });
   });
   tasks.forEach(function (t) {
     console.log('    分片 ' + t.key + ' 玩家=' + t.records.length + ' 体积=' + (t.bytes / 1024).toFixed(1) + 'KB');
@@ -199,7 +222,7 @@ async function main() {
   if (NO_UPLOAD) {
     for (const t of tasks) {
       fs.writeFileSync(path.join(OUT_DIR, t.fileName), t.content);
-      manifestShards.push({ key: t.key, fileID: 'local:' + t.fileName, count: t.records.length });
+      manifestShards.push({ key: t.key, fileID: 'local:' + t.fileName, count: t.records.length, part: t.partIdx, parts: t.partCount });
     }
   } else {
     // 桶 4 并发上传（R116：CI runner→云存储实测单流仅 ~10-80KB/s，串行 69 分片会撞 job 超时）
@@ -208,7 +231,7 @@ async function main() {
       while (cursor < tasks.length) {
         const t = tasks[cursor++];
         const fileID = await uploadWithRetry(app, CLOUD_DIR + t.fileName, Buffer.from(t.content), t.bytes);
-        manifestShards.push({ key: t.key, fileID: fileID, count: t.records.length });
+        manifestShards.push({ key: t.key, fileID: fileID, count: t.records.length, part: t.partIdx, parts: t.partCount });
         done++;
         console.log('    [上传 ' + done + '/' + tasks.length + '] ' + t.key + ' OK');
       }

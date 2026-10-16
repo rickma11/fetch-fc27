@@ -134,17 +134,23 @@ async function run() {
     if (!check(okLocator, '分片 ' + s.key + ' fileID 合法(cloud:// 或 local:)')) continue;
 
     let parsed = null;
+    let sz = 0;
     if (useCloud && ctx.app) {
       const d = await ctx.app.downloadFile({ fileID: s.fileID });
       const buf = d && d.fileContent;
       if (!check(buf && buf.length, '分片 ' + s.key + ' 回读非空')) continue;
+      sz = buf.length;
       try { parsed = JSON.parse(buf.toString('utf8')); } catch (e) { check(false, '分片 ' + s.key + ' JSON 解析'); continue; }
     } else {
       const fname = (s.fileID.indexOf('local:') === 0) ? s.fileID.slice(6) : (s.key + '.json');
       const fp = path.join(ctx.localDir, fname);
       if (!fs.existsSync(fp)) { console.warn('  ⚠️ 本地分片文件缺失 ' + fp); continue; }
+      sz = fs.statSync(fp).size;
       parsed = JSON.parse(fs.readFileSync(fp, 'utf8'));
     }
+    // R5：单 part 体积 ≤1.3MB（生成器 SPLIT_LIMIT=1.2MB + 小余量）——>2MB 单文件会被 TCB SDK
+    // UserNetworkTooSlow 自我中止（CI 实测三连挂），此检查防止拆分逻辑被改动后悄悄失效。
+    check(sz <= 1.3 * 1024 * 1024, '分片 ' + s.key + ' 单 part 体积 ≤1.3MB（实际 ' + (sz / 1024).toFixed(0) + 'KB）');
 
     const recs = cloudJson
       ? Object.keys(cloudJson._shardRecordsToMap(parsed)).map(function (k) { return cloudJson._shardRecordsToMap(parsed)[k]; })
@@ -174,6 +180,11 @@ async function run() {
   // R4：体量 sanity
   const totalCount = shards.reduce(function (a, s) { return a + (Number(s.count) || 0); }, 0);
   check(totalCount >= 8000, '静态总覆盖 >= 8000（实际 ' + totalCount + '，占全量 ~40%+，达标）');
+
+  // R6：全量分片 fileID 唯一（同 key 多 part 靠 fileID 区分，重复会导致端上缓存互踩）
+  const fids = shards.map(function (s) { return s.fileID; });
+  const dup = fids.filter(function (f, i) { return fids.indexOf(f) !== i; });
+  check(dup.length === 0, 'manifest 全量分片 fileID 无重复（' + fids.length + ' 条）' + (dup.length ? '（重复: ' + dup.slice(0, 3).join(' , ') + '）' : ''));
 
   finish();
 }
