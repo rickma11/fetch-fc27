@@ -37,6 +37,16 @@ const SERIES_UNDER80_CLOUD_PATH = 'fc27/market/' + SERIES_UNDER80_FILE;
 const SERIES_UNDER80_READ_URL = SERIES_DOMAIN + '/' + SERIES_UNDER80_CLOUD_PATH;
 const ALERTS_FILE = 'under80_alerts.json';
 const ALERTS_CLOUD_PATH = 'fc27/market/' + ALERTS_FILE;
+// 80↓ backup：覆盖主序列前存一份旧序列（best-effort 上传，见规则 125/128）。
+//   主序列读不到（连续 3 次 404）时回退读它续写；backup 每小时也被覆盖 ⇒ 只保护 1 小时窗口，
+//   更长的 24h 恢复靠下面的 under80_view_ 快照回填。
+const SERIES_UNDER80_BACKUP_FILE = 'series_24h_under80_backup_latest.json';
+const SERIES_UNDER80_CLOUD_PATH_BACKUP = 'fc27/market/' + SERIES_UNDER80_BACKUP_FILE;
+const SERIES_UNDER80_BACKUP_READ_URL = SERIES_DOMAIN + '/' + SERIES_UNDER80_CLOUD_PATH_BACKUP;
+// 80↓ 每小时 slim 快照（方案 C）：序列被重置/损坏后的回填原料，格式同 80+ price_view。
+//   保留窗口 30h（回填只需 24h，留 6h 余量）；每跑只删刚滑出窗口的那 1 个（now-31h）。
+const UNDER80_VIEW_PREFIX = 'fc27/market/under80_view_';
+const SNAPSHOT_KEEP_HOURS = 30;
 // 80↓ 异动阈值（单点可调，经真实抽样校准，详见 market_core.js#computeUnder80Alerts 注释）。
 //   MARGIN: 当前价 > 该总评均值×MARGIN 即「明显偏高」；MOVE_PCT: 近 6h 累计涨跌≥该值即「异动」。
 const UNDER80_CFG = { MARGIN: 1.5, MOVE_PCT: 30, WINDOW: 6, RECENT: 12 };
@@ -180,6 +190,46 @@ async function uploadJsonSafe(cloudPath, obj) {
   throw new Error('uploadJsonSafe 重试 ' + MAX_ATTEMPT + ' 次仍失败: ' + (lastErr && lastErr.message || lastErr));
 }
 
+// deleteFile 只认 uploadFile 返回的 cloud://<env>.<bucket>/<path>（规则 129：传裸路径不报错但
+// 逐条返回 STORAGE_FILE_NONEXIST，极易误判「已删干净」）。对历史文件（无上传返回值）用模板构造：
+// env 取 TCB_ENV_ID，bucket 从 SERIES_DOMAIN 剥离（已用探针实测对齐）。
+function fileIdOf(cloudPath) {
+  const bucket = SERIES_DOMAIN.replace(/^https?:\/\//, '').replace(/\.tcb\.qcloud\.la$/, '');
+  return 'cloud://' + process.env.TCB_ENV_ID + '.' + bucket + '/' + cloudPath;
+}
+
+// best-effort 上传：独立短 race，失败只警告、绝不抛出。
+// 用于 backup / slim 快照等「保险文件」——它们失败不该拖垮 series/alerts 主上传
+// （#47/#48/#49 连挂的教训：冗余 backup 曾是首个超时点，把 15 分钟上限撞爆）。
+async function uploadJsonBestEffort(cloudPath, obj, raceMs) {
+  try {
+    const buf = Buffer.from(JSON.stringify(obj));
+    const p = tcbApp().uploadFile({ cloudPath: cloudPath, fileContent: buf });
+    const race = new Promise(function (_, rej) { setTimeout(function () { rej(new Error('best-effort race timeout')); }, raceMs || 120000); });
+    await Promise.race([p, race]);
+    console.log('  -> 上传 ' + cloudPath + ' ✓ (best-effort ' + (buf.length / 1024).toFixed(0) + 'KB)');
+    return true;
+  } catch (e) {
+    console.warn('[market_sync_gh] best-effort 上传失败(非致命，主流程继续) ' + cloudPath + ': ' + (e && e.message || e));
+    return false;
+  }
+}
+
+// 清理刚滑出保留窗口的历史快照：每跑只删 1 个（now-(KEEP+1)h 那个）。
+// 文件本就不存在（早期未开通快照）⇒ STORAGE_FILE_NONEXIST，属预期，无害。
+async function pruneOldUnder80Snapshots() {
+  const d = new Date(Date.now() - (SNAPSHOT_KEEP_HOURS + 1) * 3600 * 1000);
+  const p = UNDER80_VIEW_PREFIX + bucketOf(d) + '.json';
+  try {
+    const r = await tcbApp().deleteFile({ fileList: [fileIdOf(p)] });
+    const f = (r.fileList || [])[0] || {};
+    if (f.code === 0 || f.code === 'SUCCESS') console.log('  -> 清理旧快照 ' + p + ' ✓');
+    else console.log('  -> 清理旧快照 ' + p + ' 跳过(' + (f.code || 'unknown') + '，可能本就不存在)');
+  } catch (e) {
+    console.warn('[market_sync_gh] 清理旧快照异常(非致命): ' + (e && e.message || e));
+  }
+}
+
 // 打日志带相对启动耗时，便于在 Actions 日志里定位是哪一步超时
 const __startMs = Date.now();
 function logStep(label) {
@@ -305,6 +355,54 @@ async function runBackfill(doUpload) {
   return series;
 }
 
+// ── 80↓ 序列回填（方案 C 的恢复入口；2026-10-17）──
+// 用每小时 slim 快照 under80_view_<bucket>.json 重放 buildSeries 重建 series_24h_under80.json。
+// 典型场景：主序列被重置/损坏（含 backup 也救不了的双重失败），跑此命令复活近 24h 历史。
+// 触发：workflow_dispatch（backfill-under80.yml）或本地 --backfill-under80 [--upload]。
+async function runBackfillUnder80(doUpload) {
+  logStep('runBackfillUnder80 start (upload=' + !!doUpload + ')');
+  const now = new Date();
+  let series = null;
+  let included = 0, skipped = 0, total = 0;
+  for (let off = -24; off <= 0; off++) {
+    // 直接用 now 的 UTC 瞬时；bucketOf 内部已做 UTC→北京偏移，切勿在外层再 +8h（10-17 回填初版 bug）
+    const d = new Date(now.getTime() + off * 3600 * 1000);
+    const b = bucketOf(d);
+    if (b > bucketOf(now)) { logStep('backfill-under80 ' + b + ' 超出当前，break'); break; }
+    total++;
+    try {
+      const j = await httpGetJson(SERIES_DOMAIN + '/' + UNDER80_VIEW_PREFIX + b + '.json', 60000);
+      if (j && Array.isArray(j.tier) && j.tier.length) {
+        series = core.buildSeries(series, { view: { tier: j.tier } }, b);
+        included++;
+      } else { skipped++; logStep('backfill-under80 ' + b + ' 跳过(无 tier/空)'); }
+    } catch (e) {
+      skipped++; // 该小时无快照（404，快照开通前）或瞬断 ⇒ 跳过，不阻断回填
+      logStep('backfill-under80 ' + b + ' 跳过: ' + ((e && e.message) || e));
+    }
+  }
+  logStep('backfill-under80 汇总: total迭代=' + total + ' included=' + included + ' skipped=' + skipped);
+  if (!series) { console.warn('[market_sync_gh] backfill-under80 无可用快照，未生成序列'); return null; }
+  // 本地校验：每个球员 pc/ps 数组长度必须与 buckets 长度对齐
+  const L = series.buckets.length;
+  let bad = 0;
+  Object.keys(series.players).forEach(function (k) {
+    const r = series.players[k];
+    if ((r.pc || []).length !== L || (r.ps || []).length !== L) bad++;
+  });
+  logStep('backfill-under80 校验: buckets=' + L + ' players=' + Object.keys(series.players).length + ' 对齐异常=' + bad + ' (应为 0)');
+  fs.writeFileSync(__dirname + '/series_24h_under80.backfill.json', JSON.stringify(series));
+  logStep('backfill-under80 本地副本已落 series_24h_under80.backfill.json');
+  if (doUpload) {
+    await uploadJsonSafe(SERIES_UNDER80_CLOUD_PATH_BACKUP, series);
+    await uploadJsonSafe(SERIES_UNDER80_CLOUD_PATH, series);
+    logStep('backfill-under80 上传完成（主文件 + backup 均已更新）');
+  } else {
+    logStep('DRY-RUN: 未上传（加 --upload 才写云存储）');
+  }
+  return series;
+}
+
 // ── 80↓ 异动监控（与 80+ 管线物理隔离：独立名册 / 独立序列文件 / 独立 try-catch） ──
 // 失败绝不影响现有 80+ 同步。sub-80 全量 ≈18681 人（80+ 的 ~16.7 倍），但探针实测
 // 零 429、墙钟 ~39s，可行；数量级过大时由 market-sync-under80.yml 降频为 2h 一次。
@@ -351,20 +449,37 @@ async function runUnder80Sync(doUpload) {
 
   const bucket = bucketOf();
   if (doUpload) {
-    // ⚠️ sub-80 不持久化每小时 view（≈18k 人/小时 storage 压力大）；仅维护滑窗序列 + 异动榜。
-    // 序列若被重置，24h 滑窗会自愈（每小时追加）。
+    // 每小时写 4 个文件：backup(旧序列,best-effort) → series(新序列,必须成功) →
+    //   slim 快照(当前价,best-effort,回填原料) → alerts(端上契约,必须成功)。
+    // ⚠️ 2026-10-17：恢复 backup 上传（05:xx 曾因拖慢 job 移除，规则 125）——但改为 best-effort
+    //   （独立 120s race、失败不阻塞），既拿回「主文件损坏自动续写」的保险，又不重蹈 #47-49 覆辙。
+    //   另新增 slim 快照（方案 C）：序列再被重置时，--backfill-under80 可重放近 24h 快照完整重建
+    //   （10-17 07:00 那次因无快照，19 小时历史永久丢失）。
     try {
-      const oldSeries = await readOldSeries(SERIES_UNDER80_READ_URL); // 404→null(首跑)；瞬断→throw(被下方 catch 兜住)
+      let oldSeries = await readOldSeries(SERIES_UNDER80_READ_URL); // 404×3→null(疑似首跑)；瞬断→throw(被下方 catch 兜住)
+      if (!oldSeries) {
+        // 认定首跑前先看 backup：连续 3 次 404 可能是 CDN 抖动而非真首跑（10-17 事故，规则 128）
+        try {
+          const bk = await readOldSeries(SERIES_UNDER80_BACKUP_READ_URL);
+          if (bk && Array.isArray(bk.buckets) && bk.buckets.length > 1) {
+            oldSeries = bk;
+            logStep('under80 主序列读不到，回退 backup_latest 续写, buckets=' + bk.buckets.length);
+          }
+        } catch (be) { logStep('under80 backup 也不可读，按首跑处理: ' + (be && be.message || be)); }
+      }
       const series = core.buildSeries(oldSeries, built, bucket);
       if (oldSeries && series.buckets.length < oldSeries.buckets.length) {
         console.warn('[market_sync_gh] ⚠️ under80 新序列桶数(' + series.buckets.length + ') < 旧(' + oldSeries.buckets.length + ')，疑似 buildSeries 回归');
       }
-      // ⚠️ 2026-10-17 移除 `.backup` 上传（规则 125）：
-      //   ①云存储吞吐仅 ≈25KB/s，多传一份 2.7MB = 多 ~110s，是 #47/#48/#49 连挂的直接诱因；
-      //   ②它备份的是 oldSeries，而 oldSeries 就是云上主文件的当前内容、在本函数覆盖前一直完好，
-      //     属于冗余双保险；真正的历史保护由 readOldSeries 的「瞬断→throw→跳过覆盖」承担。
+      // ① backup：存「覆盖前云上的旧序列」。oldSeries 为 null（真首跑）时无可保护对象，跳过。
+      if (oldSeries) await uploadJsonBestEffort(SERIES_UNDER80_CLOUD_PATH_BACKUP, oldSeries, 120000);
+      // ② 主序列（必须成功）
       await uploadJsonSafe(SERIES_UNDER80_CLOUD_PATH, series);
       logStep('upload series_under80 done, players=' + Object.keys(series.players).length + ', buckets=' + series.buckets.length);
+      // ③ slim 快照（best-effort，180s）：回填原料；与 80+ price_view 同格式同机制
+      await uploadJsonBestEffort(UNDER80_VIEW_PREFIX + bucket + '.json', core.slimSnapshot(built), 180000);
+      // ④ 清理刚滑出 30h 窗口的旧快照（best-effort，删不掉只是占存储）
+      await pruneOldUnder80Snapshots();
 
       // 异动榜：用全量序列 + 名册算，输出仅入选球员（端上只读这个，不下载大序列）
       const rosterMap = {};
@@ -384,6 +499,10 @@ async function runUnder80Sync(doUpload) {
     })();
     const series = core.buildSeries(oldSeries, built, bucket);
     fs.writeFileSync(__dirname + '/series_24h_under80.dry.json', JSON.stringify(series));
+    // slim 快照 + 本地重放自检：用刚生成的快照当「历史」重建一次，验证 roundtrip 无损
+    const snap = core.slimSnapshot(built);
+    fs.writeFileSync(__dirname + '/under80_view.dry.json', JSON.stringify(snap));
+    const replay = core.buildSeries(null, { view: { tier: snap.tier } }, bucket);
     const rosterMap = {};
     pullRoster.forEach(function (p) { rosterMap[String(p.eaId)] = p; });
     const alerts = core.computeUnder80Alerts(series, rosterMap, UNDER80_CFG);
@@ -395,8 +514,11 @@ async function runUnder80Sync(doUpload) {
       const r = series.players[k];
       if ((r.pc || []).length !== L || (r.ps || []).length !== L) bad++;
     });
-    logStep('DRY: 落 series_24h_under80.dry.json + under80_alerts.dry.json（bucket=' + bucket +
-      ', seriesPlayers=' + Object.keys(series.players).length + ', 对齐异常=' + bad + ', 入选=' + alerts.count + '）');
+    const rp = Object.keys(replay.players).length;
+    logStep('DRY: 落 series_24h_under80.dry.json + under80_alerts.dry.json + under80_view.dry.json' +
+      '（bucket=' + bucket + ', seriesPlayers=' + Object.keys(series.players).length +
+      ', 对齐异常=' + bad + ', 入选=' + alerts.count +
+      ', 快照=' + snap.tier.length + '人/' + (JSON.stringify(snap).length / 1024).toFixed(0) + 'KB, 重放球员=' + rp + '）');
   }
 
   return {
@@ -410,9 +532,13 @@ async function runUnder80Sync(doUpload) {
   const argv = process.argv.slice(2);
   const doUpload = argv.indexOf('--upload') >= 0;
   const doBackfill = argv.indexOf('--backfill') >= 0;
+  const doBackfillUnder80 = argv.indexOf('--backfill-under80') >= 0;
   const doUnder80 = argv.indexOf('--under80') >= 0;
   try {
-    if (doUnder80) {
+    if (doBackfillUnder80) {
+      const s = await runBackfillUnder80(doUpload);
+      console.log('[market_sync_gh] BACKFILL-UNDER80 OK buckets=' + (s ? s.buckets.length : 0));
+    } else if (doUnder80) {
       const r = await runUnder80Sync(doUpload);
       console.log('[market_sync_gh] UNDER80 OK ' + JSON.stringify(r));
     } else if (doBackfill) {

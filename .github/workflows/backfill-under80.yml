@@ -1,0 +1,54 @@
+name: Backfill 24h Series Under80 (FC27)
+
+# 一次性/应急：用历史 under80_view_<bucket>.json（slim 快照）重放 buildSeries 重建 series_24h_under80.json。
+# 典型场景：主序列被重置/损坏、backup 也救不了（或坏了没人发现、backup 已被污染）时，复活近 24h 历史。
+# 触发：仅 workflow_dispatch（手动，或 cron-job.org 一次性 POST）。默认 upload=true 真写云存储。
+# 用法：node scripts/price_sync_cloud.js --backfill-under80 --upload
+# 注意：快照自 2026-10-17 14:00 起才有，之前的小时会 included=0 跳过（正常）。
+
+on:
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: '是否上传到云存储（false=空跑验证，true=真写）'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+# 与 under80 整点同步同一并发组，避免回填与 hourly 同时写文件互相覆盖（与 80+ 同设计）。
+concurrency:
+  group: market-sync-under80
+  cancel-in-progress: false
+
+jobs:
+  backfill-under80:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Backfill under80 & upload (upload=${{ github.event.inputs.upload }})
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/price_sync_cloud.js --backfill-under80 ${{ github.event.inputs.upload != 'false' && '--upload' || '' }}

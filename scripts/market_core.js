@@ -207,6 +207,26 @@ function buildSeries(old, built, curBucket) {
   return { v: 1, ts: Date.now(), buckets: newBuckets, players: players };
 }
 
+// ── 80↓ 每小时 slim 快照（方案 C；2026-10-17）──
+// 动机：series_24h_under80.json 若被重置/损坏，历史上无原料可回填（10-17 07:00 事故丢了 19 小时）。
+//   每小时存一份「当小时全员价格表」，回填命令即可重放重建（与 80+ 的 price_view 同机制）。
+// 体积：只投影 buildSeries 重放所需的三个字段（eaId/pc/ps），实测 18680 人 ≈0.52MB/小时；
+//   完整 view（含 name/img/rarity）≈2.7MB/小时，是原代码不上传 hourly view 的原因，slim 是它的 1/5。
+// ⚠️ 必须含全员：computeUnder80Alerts 的「同总评均价」从序列全量球员按 overall 分组计算，
+//   只存入选球员会把均值算歪、above 判定失效。
+// 格式与 80+ price_view_<bucket>.json 同构 { v, ts, tier:[{eaId,pc,ps}] }，可直接喂 buildSeries。
+function slimSnapshot(built) {
+  var tier = (built && built.view && built.view.tier) || [];
+  var out = [];
+  for (var i = 0; i < tier.length; i++) {
+    var t = tier[i];
+    if (t && t.eaId != null) {
+      out.push({ eaId: t.eaId, pc: t.pc == null ? null : t.pc, ps: t.ps == null ? null : t.ps });
+    }
+  }
+  return { v: 1, ts: (built && built.ts) || Date.now(), tier: out };
+}
+
 // ── 80↓ 价格异动榜计算（纯函数，无 IO；供 price_sync_cloud.js#runUnder80Sync 调用） ──
 // series: buildSeries 产物 { v, ts, buckets:[≤24 个 YYYYMMDDHH00], players:{ eaId:{ pc:[≤24], ps:[≤24] } } }
 // rosterMap: { eaId: { name, overall, pos, imagePath, rarity } }（来自 roster_under80.json#players，按 eaId 索引）
@@ -332,5 +352,6 @@ module.exports = {
   PRICE_API: PRICE_API, BATCH: BATCH, TIER_MIN: TIER_MIN,
   key: key, sleep: sleep, cardCloudId: cardCloudId,
   fetchBatch: fetchBatch, pullPlatforms: pullPlatforms,   build: build,
-  buildSeries: buildSeries, computeUnder80Alerts: computeUnder80Alerts
+  buildSeries: buildSeries, slimSnapshot: slimSnapshot,
+  computeUnder80Alerts: computeUnder80Alerts
 };
