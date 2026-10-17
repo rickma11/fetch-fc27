@@ -9,6 +9,8 @@
 //   R3 端云键一致：对抽样分片记录，用端上 detailShardKey.shardKeyOf（manifest 的 big5/hot 同源）
 //       重算的分片键必须与 manifest.shards[].key 完全一致 —— 否则端上算的 key 在 manifest 找不到 → 全落云函数。
 //   R4 体量 sanity：静态总覆盖 >= 8000（确认分层达 ~40%+ 覆盖，未退化成全长尾）。
+//   R1b canonical 序列化（2026-10-17，docs/36 风险 R1）：生成器导出 canon，不同 key 顺序的等价对象
+//       必须 canonical 成同一字节序 —— 锁死「DB 字段顺序漂移不会让文件名 hash 假变」。
 //
 // 数据源：云端优先（读 meta_fc{ver}/detail_static 真实产物），无 TCB 凭证时回退本地
 //        probe/static_details/（先 `node scripts/gen_static_details.js 27 --no-upload` 生成）。
@@ -64,6 +66,29 @@ function testShardRecordsToMap() {
   check(!m3[0] && m3[5], '缺 eaId/_id 记录被忽略，其余保留');
 }
 
+// R1b：canonical 序列化单测（2026-10-17，docs/36 风险 R1；只依赖 fetch-fc27 内的生成器导出）
+function testCanonical() {
+  let gen = null;
+  try { gen = require('./gen_static_details.js'); } catch (e) { console.warn('  ⚠️ gen_static_details.js 不可用，跳过 canon 单测'); return; }
+  if (!gen || typeof gen.canon !== 'function') { check(false, '生成器导出 canon 函数'); return; }
+  const canon = gen.canon;
+
+  // 同内容不同 key 顺序（含嵌套对象/数组）→ canonical 后序列化必须逐字节相同
+  const a = { b: 1, a: { d: 2, c: [ { z: 1, y: 2 } ] } };
+  const b = { a: { c: [ { y: 2, z: 1 } ], d: 2 }, b: 1 };
+  check(JSON.stringify(canon(a)) === JSON.stringify(canon(b)), '不同 key 顺序的等价对象 canonical 后字节一致');
+
+  // 幂等：canon(canon(x)) 序列化不变
+  check(JSON.stringify(canon(canon(a))) === JSON.stringify(canon(a)), 'canon 幂等');
+
+  // 保序：数组顺序不得被打乱（records 顺序由 orderBy _id 决定，canon 只排 key 不重排数组）
+  const arrCanon = canon({ records: [ { eaId: 3 }, { eaId: 1 }, { eaId: 2 } ] });
+  check(JSON.stringify(arrCanon.records.map(function (r) { return r.eaId; })) === '[3,1,2]', 'canon 不重排数组顺序');
+
+  // 标量与 null 原样透传
+  check(canon(null) === null && canon(5) === 5 && canon('s') === 's', '标量与 null 原样透传');
+}
+
 async function loadFromCloud() {
   let gen;
   try { gen = require('./gen_static_details.js'); } catch (e) { return null; }
@@ -102,6 +127,9 @@ async function run() {
 
   console.log('[R1] shardRecordsToMap 纯函数单测');
   testShardRecordsToMap();
+
+  console.log('[R1b] canonical 序列化单测');
+  testCanonical();
 
   console.log('[R2/R3/R4] 加载 manifest（云优先，回退本地 probe）');
   let ctx = (argv.indexOf('--local') >= 0) ? null : await loadFromCloud();

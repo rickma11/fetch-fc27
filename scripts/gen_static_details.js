@@ -15,6 +15,10 @@
 // 原子发布：所有分片先上传到云存储，最后才写 meta 元文档（detail_static）指向 manifest。
 //   任何上传失败 → 不写 meta → 线上仍是「上一次成功的全量」→ 端上自动读昨天，无感回退。
 //
+// 文件名稳定性三件套（2026-10-17，docs/36）：① 分页 orderBy('_id','asc') 保证 records 顺序确定；
+//   ② 分片内容 deep-sort keys 后序列化（canon），不随 DB 字段顺序漂移；③ manifestShards 按 key+part
+//   双键排序，不随并发上传完成序漂移。三者共同保证「数据没变 → 文件名逐字节稳定 → 零累积」。
+//
 // 复用 gen_hot_details.js 已验证的上传稳态：cloudbase.init({timeout:180000}) + 单文件 3 次重试 / race=200s + 4 并发 + 回读校验。
 //
 // 用法：node scripts/gen_static_details.js [ver] [--no-upload]
@@ -110,6 +114,21 @@ async function uploadWithRetry(app, cloudPath, buf, expectBytes) {
 
 function shortHash(str) { return crypto.createHash('sha256').update(str).digest('hex').slice(0, 8); }
 
+// canonical 序列化（2026-10-17，docs/36 风险 R1）：DB 文档字段顺序会随 update 漂移
+// （MongoDB 系 $set 新字段追加到文档末尾），直接 JSON.stringify(records) 会让「同内容不同字节序」
+// → 文件名 hash 假变 → F-1「数据没变则文件名稳定/零累积」失效、F-2 增量无从比对。
+// 统一 deep-sort keys 后序列化（content 与 hash 同源受益）；端上只读 records 值、不关心 key 顺序。
+// ⚠️ 必须留在文件级作用域：module.exports 要引用它（曾在 main() 内定义 → ReferenceError）。
+function canon(v) {
+  if (Array.isArray(v)) return v.map(canon);
+  if (v && typeof v === 'object') {
+    const out = {};
+    for (const k of Object.keys(v).sort()) out[k] = canon(v[k]);
+    return out;
+  }
+  return v;
+}
+
 async function main() {
   const watchdog = setTimeout(function () { console.error('WATCHDOG TIMEOUT'); process.exit(5); }, HARD_TIMEOUT_MS);
   let app = null;
@@ -128,7 +147,9 @@ async function main() {
   let skip = 0;
   const PAGE = 1000;
   while (true) {
-    const r = await app.database().collection(DET_COL).skip(skip).limit(PAGE).get();
+    // 稳定分页（2026-10-17，docs/36 风险 R1）：显式按 _id 升序。DB 自然顺序无保证，
+    // 跨次运行 records 顺序漂移会直接改变分片内容 → 文件名 hash 假变。_id 插入后不变，可安全 skip 分页。
+    const r = await app.database().collection(DET_COL).orderBy('_id', 'asc').skip(skip).limit(PAGE).get();
     const docs = (r && r.data) || [];
     if (!docs.length) break;
     for (const d of docs) {
@@ -184,8 +205,9 @@ async function main() {
   const SPLIT_LIMIT = 1.2 * 1024 * 1024;
   // ⚠️ 分片内容【禁止】放 generatedAt（docs/35 §13-F1）：内容含时间戳 → hash 每次变 → 文件名每次变
   // → 旧分片成孤儿（~54MB/天累积）且每天全量重传。时间戳只留 manifest/meta；端上只读 records。
+  // canonical 序列化见文件级 canon()（deep-sort keys，防 DB 字段顺序漂移导致 hash 假变）。
   function buildShardTask(key, records, partIdx, partCount) {
-    const content = JSON.stringify({ schemaVersion: SCHEMA_VERSION, key: key, part: partIdx, parts: partCount, records: records });
+    const content = JSON.stringify({ schemaVersion: SCHEMA_VERSION, key: key, part: partIdx, parts: partCount, records: records.map(canon) });
     const bytes = Buffer.byteLength(content, 'utf8');
     const hash = shortHash(content);
     const fileName = 'det_' + key + (partCount > 1 ? '_p' + partIdx : '') + '_' + hash + '.json';
@@ -196,8 +218,8 @@ async function main() {
     const records = buckets[key];
     const whole = buildShardTask(key, records, 0, 1);
     if (whole.bytes <= SPLIT_LIMIT) { tasks.push(whole); totalBytes += whole.bytes; return; }
-    // 按记录序列化体积贪心切块
-    const recStrs = records.map(function (r) { return JSON.stringify(r); });
+    // 按记录序列化体积贪心切块（用 canon 后的字节数，与最终 content 同源）
+    const recStrs = records.map(function (r) { return JSON.stringify(canon(r)); });
     const overhead = JSON.stringify({ schemaVersion: SCHEMA_VERSION, key: key, part: 0, parts: 0, records: [] }).length + 4;
     const parts = [];
     let cur = [], curLen = 0;
@@ -234,7 +256,12 @@ async function main() {
     }
     await Promise.all([worker(), worker(), worker(), worker()]);
   }
-  manifestShards.sort(function (a, b) { return a.key < b.key ? -1 : (a.key > b.key ? 1 : 0); });
+  // 排序必须完全确定（2026-10-17，docs/36 事实 E）：同 key 多 part 若只按 key 排，
+  // part 顺序 = 4 并发 worker 上传完成序（随机）→ manifestShards 数组顺序不稳 → manifest 文件名 hash 假变。加 part 次级键。
+  manifestShards.sort(function (a, b) {
+    if (a.key !== b.key) return a.key < b.key ? -1 : 1;
+    return (a.part || 0) - (b.part || 0);
+  });
   console.log('  ★ 总静态 JSON 体积(估算)=' + (totalBytes / 1024).toFixed(1) + 'KB (' + (totalBytes / 1024 / 1024).toFixed(2) + 'MB)；分片数=' + keys.length);
 
   // 5) manifest（含 big5/hot 名单，保证端云一致）
@@ -274,4 +301,4 @@ if (require.main === module) {
   main().catch(function (e) { console.error('ERR', e); process.exit(1); });
 }
 
-module.exports = { initCloud: initCloud, main: main };
+module.exports = { initCloud: initCloud, main: main, canon: canon };
