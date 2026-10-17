@@ -1,7 +1,8 @@
 // 80↓ 异动榜 · 离线单测（node 跑，无云依赖）
 // 覆盖：
 //   - market_core.js#build 的 minRating 参数（默认 80+ / minRating=0 含 sub-80）
-//   - market_core.js#computeUnder80Alerts（分组均值 / above / move 双筛选 / recent 内联 / 空序列 / 排序）
+//   - market_core.js#computeUnder80Alerts（分组均值 / above / move 双筛选 / recent 内联 /
+//     v=2 瘦身契约（recentBuckets 顶层共享、条目不再内联 buckets）/ 空序列 / 排序）
 //
 // 用法：node scripts/under80_alerts_test.js
 'use strict';
@@ -80,8 +81,9 @@ console.log('\n=== computeUnder80Alerts: 分组均值 + above 筛选 ===');
   const a5 = out.alerts.find(a => a.eaId === '5');
   ok('E(200恒定): 未入选', !a5);
 
-  // recent 内联长度（L=8 < RECENT=12 ⇒ 取全部 8）
-  ok('A recent.pc 长度=8（与 buckets 对齐）', a1 && a1.recent.pc.length === 8 && a1.recent.buckets.length === 8);
+  // recent 内联长度（L=8 < RECENT=12 ⇒ 取全部 8）；buckets 已提文档级 recentBuckets（v=2 瘦身）
+  ok('A recent.pc 长度=8（与文档级 recentBuckets 对齐）', a1 && a1.recent.pc.length === 8 && out.recentBuckets.length === 8);
+  ok('A recent 不再内联 buckets', a1 && a1.recent.buckets === undefined);
   eq('A recent.pc 末位=300', a1 && a1.recent.pc[7], 300);
 })();
 
@@ -110,6 +112,7 @@ console.log('\n=== computeUnder80Alerts: 空序列 / 当前无价 / rosterMap �
   // 空 buckets
   const out0 = core.computeUnder80Alerts({ v: 1, ts: Date.now(), buckets: [], players: {} }, {}, {});
   eq('空序列 count=0', out0.count, 0);
+  eq('空序列 recentBuckets=[]', out0.recentBuckets.length, 0);
 
   const buckets = ['202610120100', '202610120200'];
   // 球员当前价全 null（无价）→ 跳过
@@ -136,7 +139,43 @@ console.log('\n=== computeUnder80Alerts: recent 滑窗截断（L>RECENT）===');
   const series = { v: 1, ts: Date.now(), buckets: buckets, players: players };
   const out = core.computeUnder80Alerts(series, rosterMap, { MARGIN: 1.5, MOVE_PCT: 30, WINDOW: 6, RECENT: 12 });
   eq('L=20 > RECENT=12 → recent 取末 12', out.alerts[0].recent.pc.length, 12);
+  eq('recentBuckets 同样取末 12', out.recentBuckets.length, 12);
+  eq('recentBuckets 末位=最后 1 桶', out.recentBuckets[11], buckets[19]);
   eq('recent 末位=200', out.alerts[0].recent.pc[11], 200);
+})();
+
+console.log('\n=== computeUnder80Alerts: v=2 瘦身契约（recentBuckets 顶层共享，2026-10-17）===');
+(function () {
+  // 动机：alerts 3.59MB 上传连续被 SDK 强杀（UserNetworkTooSlow）。桶标签所有球员完全相同，
+  //   提到文档级共享后实测 -29%。本块锁契约：v=2 / recentBuckets 顶层 / 条目无内联 buckets / 对齐 / 体积。
+  const n = 24;
+  const buckets = [];
+  for (let h = 1; h <= n; h++) { const hh = (h < 10 ? '0' + h : '' + h); buckets.push('20261012' + hh + '00'); }
+  const players = {}, rosterMap = {};
+  for (let i = 1; i <= 200; i++) {
+    const pc = []; for (let h = 1; h <= n; h++) pc.push(100 + i);
+    players['' + i] = { pc: pc, ps: pc };
+    rosterMap['' + i] = { name: 'P' + i, overall: 70, pos: 'ST', imagePath: '', rarity: '' };
+  }
+  const series = { v: 1, ts: Date.now(), buckets: buckets, players: players };
+  // MARGIN=0 ⇒ 全员入选（ratio≥0 恒真）；MOVE_PCT 巨大 ⇒ 只走 above 路径
+  const out = core.computeUnder80Alerts(series, rosterMap, { MARGIN: 0, MOVE_PCT: 1e9, WINDOW: 6, RECENT: 12 });
+  eq('v=2', out.v, 2);
+  eq('全员入选', out.count, 200);
+  eq('recentBuckets 长度=12（末 12 桶）', out.recentBuckets.length, 12);
+  eq('recentBuckets 末位=最后 1 桶', out.recentBuckets[11], buckets[23]);
+  ok('每条 alert 不再内联 buckets（瘦身契约）', out.alerts.every(function (a) { return !a.recent || a.recent.buckets === undefined; }));
+  ok('每条 recent.pc/ps 与 recentBuckets 等长', out.alerts.every(function (a) { return a.recent.pc.length === 12 && a.recent.ps.length === 12; }));
+  // 对齐抽查：第 1 条的 recent.pc 应等于其序列末 12 位（下标与 recentBuckets 对齐）
+  const a1 = out.alerts.find(function (a) { return a.eaId === '1'; });
+  eq('对齐: a1 recent.pc 末位=序列末位', a1.recent.pc[11], players['1'].pc[23]);
+  eq('对齐: a1 recent.pc 首位=序列第 13 位', a1.recent.pc[0], players['1'].pc[12]);
+  // 体积对照：同数据按旧格式（每条内联 buckets）序列化应明显更大
+  const slimSize = JSON.stringify(out).length;
+  const oldStyle = { v: out.v, ts: out.ts, generatedAt: out.generatedAt, cfg: out.cfg, count: out.count,
+    alerts: out.alerts.map(function (a) { return Object.assign({}, a, { recent: { buckets: out.recentBuckets, pc: a.recent.pc, ps: a.recent.ps } }); }) };
+  const oldSize = JSON.stringify(oldStyle).length;
+  ok('瘦身后体积 < 旧格式 85%（实测 ' + (slimSize / oldSize * 100).toFixed(1) + '%）', slimSize < oldSize * 0.85, 'slim=' + slimSize + ' old=' + oldSize);
 })();
 
 console.log('\n=== 结果 ===');

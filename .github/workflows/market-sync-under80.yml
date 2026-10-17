@@ -31,10 +31,12 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    # ⚠️ 2026-10-17：15 → 30（规则 125）。云存储吞吐 ≈25KB/s，一个 job 要传 4 趟
-    # （下载旧序列 + 上传 series 2.7MB + 上传 alerts 2.8MB）≈440s，实测成功那次就跑了 9 分钟；
-    # 15 分钟毫无余量，#47/#48/#49 连挂三次。30 分钟留足 4 倍冗余。
-    timeout-minutes: 30
+    # ⚠️ 2026-10-17：15 → 30（规则 125）→ 40（B 调参后）。实测构成（#66 全日志）：
+    #   拉价 9.6s + backup best-effort 120s + series 434s（ECONNRESET@299s→重试 135s 成功）
+    #   + slim 快照 47s + alerts 546s（两次 UserNetworkTooSlow@~265s）≈ 20 分钟。
+    #   alerts 瘦身（3.59→2.41MB）后单次 ≈175s@13.8KB/s；uploadJsonSafe 慢速失败只重试 1 次，
+    #   单文件最坏 ~600s 有界，全程最坏 ~33.5min ⇒ 40 分钟留余量。正常应回到 10~15min。
+    timeout-minutes: 40
     steps:
       - name: Checkout
         uses: actions/checkout@v6

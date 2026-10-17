@@ -131,22 +131,30 @@ async function uploadText(cloudPath, obj) {
   return res;
 }
 
-// 读旧 series（公有读直链，读用 60s 超时 —— 上传已按 #116 加固，读也要对齐）。
+// 读旧 series（公有读直链）。⚠️ 2026-10-17：超时 60s→90s —— 见下方缓存击穿说明（回源读 1.8MB 留余量，
+//   原 60s 是 CDN 边缘命中时的校准值；rule 116「读也要对齐加固」）。
 // ⚠️ 关键：严格区分「文件不存在（404=首次运行，合法）」与「瞬断（超时/连接错误/5xx）」。
 //   瞬断连续 3 次 ⇒ 抛错（而非返回 null），让上层「跳过本次 series 上传、保留云上旧文件」。
 //   这是 10/13 10:00 数据被重置的根因修复点：绝不再把瞬断当成「没历史」去覆盖真实文件。
+// ⚠️ 2026-10-17 CDN 缓存击穿（#66 事故，用户拍板执行）：裸 URL 读旧会撞 CDN 边缘缓存——
+//   北京 15:12 那次读到了 14:01 的旧版本（14:53 已上传新版），buildSeries 据此续写会把序列改回旧态
+//   （10/13、10/17 上午两次「瞬断/缓存误判→覆盖」同族）。现每次读都带唯一 ?v=<桶>-<nonce>
+//   强制边缘 miss 回源取最新（端上 priceStore.urlOfAlerts 同款手段，实测 X-Cache-Lookup: Cache Miss 可证）。
+//   代价：每小时多一次回源拉取（under80 序列 1.8MB），读取耗时已打日志监控。
 // url 可传（默认 80+ 的 SERIES_READ_URL）；sub-80 传 SERIES_UNDER80_READ_URL 复用同一套加固语义。
 async function readOldSeries(url) {
   url = url || SERIES_READ_URL;
+  url += (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + bucketOf(new Date()) + '-' + Math.random().toString(36).slice(2, 8);
   // ⚠️ 2026-10-17 事故修复（规则 126 后续）：旧逻辑「错误消息含 404 就立刻 return null 当首跑」
   //    把 COS/CDN 偶发 404（10/17 北京 07:00 run #334 实测中招）误判成文件不存在，
   //    buildSeries 以首跑重建 → 24h 序列被覆盖成 1 桶，之后每小时只基于当天数据滚动。
   //    新逻辑：404 与瞬断一样重试；连续 3 次全 404 才认定真·首跑；混有瞬断 ⇒ 抛错由上层跳过覆盖。
   var saw404 = false, sawTransient = false, lastMsg = '';
   for (let attempt = 1; attempt <= 3; attempt++) {
+    const t0 = Date.now();
     try {
-      const j = await httpGetJson(url, 60000);
-      if (j && j.players) return j;
+      const j = await httpGetJson(url, 90000);
+      if (j && j.players) { logStep('readOldSeries OK (' + Math.round((Date.now() - t0) / 1000) + 's, ' + url.split('/').pop() + ')'); return j; }
       return null; // 拿到了但结构不符（空/无 players）→ 视同首跑
     } catch (e) {
       const msg = (e && e.message) || '';
@@ -168,22 +176,38 @@ async function readOldSeries(url) {
 // 单文件偶发卡死无告警 ⇒ 必须 race 让其先自我中止再重试。
 // ⚠️ 2026-10-17 调参（规则 125）：实测云存储吞吐 ≈25KB/s，2.7MB 文件单次就要 ~110s，
 //    旧的 RACE=200s + 3 次重试会把「慢」误判成「卡死」→ 重试 3×200s=600s → 直接撞 workflow
-//    timeout 被 cancel（under80 #47/#48/#49 即此因）。现改为 RACE=480s（留 4 倍以上余量）+ 重试 2 次。
+//    timeout 被 cancel（under80 #47/#48/#49 即此因）。RACE=480s（留 4 倍以上余量）。
+// ⚠️ 2026-10-17 二次调参（用户拍板 B：重试 2→3，配 alerts 瘦身一起上）。#66 日志实测两类失败：
+//     (a) 快速失败（连接重置/瞬断，<90s）——重试大概率就好，充分重试；
+//     (b) 慢速失败（ECONNRESET@299s / UserNetworkTooSlow@257~273s，SDK ~4.5min 强杀档）——
+//         #66 的 series 正是 ECONNRESET@299s 后重试 135s 成功，不能不重试；但 #66 的 alerts
+//         连续两次 UserNetworkTooSlow 说明网络差时重试也白搭。折中：慢速失败只允许再试 1 次
+//         （slowRetried 锁），单文件最坏 2×300s≈600s 有界，不会 3×480s 撞 workflow timeout。
 async function uploadJsonSafe(cloudPath, obj) {
   const RACE = 480000;
-  const MAX_ATTEMPT = 2;
+  const MAX_ATTEMPT = 3;
+  const FAST_FAIL_MS = 90000; // >90s 的失败视为「慢速被杀」，走慢速重试锁
   let lastErr = null;
+  let slowRetried = false;
   for (let attempt = 1; attempt <= MAX_ATTEMPT; attempt++) {
+    const t0 = Date.now();
     try {
       const buf = Buffer.from(JSON.stringify(obj));
       const p = tcbApp().uploadFile({ cloudPath: cloudPath, fileContent: buf });
       const race = new Promise(function (_, rej) { setTimeout(function () { rej(new Error('upload race timeout')); }, RACE); });
       await Promise.race([p, race]);
-      console.log('  -> 上传 ' + cloudPath + ' ✓ (attempt ' + attempt + ')');
+      console.log('  -> 上传 ' + cloudPath + ' ✓ (attempt ' + attempt + ', ' + Math.round((Date.now() - t0) / 1000) + 's, ' + (buf.length / 1024).toFixed(0) + 'KB)');
       return;
     } catch (e) {
       lastErr = e;
-      console.warn('[market_sync_gh] uploadJsonSafe attempt ' + attempt + ' 失败: ' + (e && e.message || e));
+      const elapsed = Date.now() - t0;
+      console.warn('[market_sync_gh] uploadJsonSafe attempt ' + attempt + ' 失败(' + Math.round(elapsed / 1000) + 's): ' + (e && e.message || e));
+      if (elapsed > FAST_FAIL_MS) {
+        if (slowRetried || attempt >= MAX_ATTEMPT) {
+          throw new Error('uploadJsonSafe 慢速失败（第 ' + attempt + ' 次尝试，' + Math.round(elapsed / 1000) + 's），已达慢速重试上限，交下一轮: ' + (e && e.message || e));
+        }
+        slowRetried = true; // 慢速失败只再试一次（#66：ECONNRESET@299s → 重试 135s 成功）
+      }
       if (attempt < MAX_ATTEMPT) await sleep(1000 * attempt);
     }
   }

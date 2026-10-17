@@ -236,8 +236,11 @@ function slimSnapshot(built) {
 //   (a) 当前价 > 该总评均值 × MARGIN —— 同 overall 分组，pc/ps 各自算均值，任一平台超即命中 'abovePc'/'abovePs'
 //   (b) 近 WINDOW 小时累计涨跌幅绝对值 ≥ MOVE_PCT% —— pc/ps 任一命中 'movePc'/'movePs'
 //
-// 输出 under80_alerts.json 结构：仅含被选中球员，内联近 RECENT 小时价（recent）供端上弹层直接画折线，
+// 输出 under80_alerts.json 结构：仅含被选中球员，内联近 RECENT 小时价（recent.pc/recent.ps）供端上弹层画折线，
 //   不再依赖那个大序列文件（series_24h_under80.json 仅 CI 读写、端上不下载）。
+// ⚠️ 2026-10-17 瘦身（alerts 3.59MB 上传连续被 SDK 强杀，UserNetworkTooSlow）：小时桶标签 buckets
+//   所有球员完全相同，提到文档级 recentBuckets 共享一份，每条 alert 只留 recent.pc/ps ——
+//   实测 -29%（3.59MB→~2.5MB）。v=2；端上 priceStore/market 已做新旧结构双兼容读法。
 //
 // ⚠️ 阈值经真实抽样校准（2026-10-14）：sub-80 各 overall 档价格分布集中，MARGIN=1.5 全量预计 ≈981 人、
 //   MARGIN=1.3≈1625 / 1.8≈719；MOVE_PCT=30 在 6h 内属真实大异动。两者并集即异动榜，集中在千级、可滚动。
@@ -252,7 +255,7 @@ function computeUnder80Alerts(series, rosterMap, cfg) {
   const players = series.players || {};
   const L = buckets.length;
   if (!L) {
-    return { v: 1, ts: series.ts || Date.now(), generatedAt: Date.now(), cfg: { MARGIN: MARGIN, MOVE_PCT: MOVE_PCT, WINDOW: WINDOW, RECENT: RECENT }, count: 0, alerts: [] };
+    return { v: 2, ts: series.ts || Date.now(), generatedAt: Date.now(), cfg: { MARGIN: MARGIN, MOVE_PCT: MOVE_PCT, WINDOW: WINDOW, RECENT: RECENT }, recentBuckets: [], count: 0, alerts: [] };
   }
 
   // 1) 取每个球员「末位非空」当前价，按 overall 分组算 pc/ps 均值
@@ -283,6 +286,8 @@ function computeUnder80Alerts(series, rosterMap, cfg) {
 
   // 2) 逐球员判定（above / move 并集）
   const alerts = [];
+  // 近 RECENT 小时窗口起点：所有球员共用（buckets 已提文档级 recentBuckets，见返回处）
+  const start = Math.max(0, L - RECENT);
   Object.keys(curByEa).forEach(function (eaId) {
     const c = curByEa[eaId];
     const mPc = meanPcByOvr[c.ovr];
@@ -311,8 +316,8 @@ function computeUnder80Alerts(series, rosterMap, cfg) {
 
     if (!flags.length) return;
 
-    // 内联近 RECENT 小时（与 buckets 对齐），供端上弹层画折线
-    const start = Math.max(0, L - RECENT);
+    // 内联近 RECENT 小时价格（与文档级 recentBuckets 按下标对齐），供端上弹层画折线。
+    // 不再内联 buckets（每条重复 12 个标签 ≈170B，6572 条 ≈1.1MB，是 alerts 超大的元凶）。
     alerts.push({
       eaId: eaId,
       name: c.meta.name || '',
@@ -328,7 +333,7 @@ function computeUnder80Alerts(series, rosterMap, cfg) {
       chg6hPc: chgPc != null ? +chgPc.toFixed(1) : null,
       chg6hPs: chgPs != null ? +chgPs.toFixed(1) : null,
       flags: flags,
-      recent: { buckets: buckets.slice(start), pc: (players[eaId].pc || []).slice(start), ps: (players[eaId].ps || []).slice(start) }
+      recent: { pc: (players[eaId].pc || []).slice(start), ps: (players[eaId].ps || []).slice(start) }
     });
   });
 
@@ -342,8 +347,9 @@ function computeUnder80Alerts(series, rosterMap, cfg) {
   });
 
   return {
-    v: 1, ts: series.ts || Date.now(), generatedAt: Date.now(),
+    v: 2, ts: series.ts || Date.now(), generatedAt: Date.now(),
     cfg: { MARGIN: MARGIN, MOVE_PCT: MOVE_PCT, WINDOW: WINDOW, RECENT: RECENT },
+    recentBuckets: buckets.slice(start),
     count: alerts.length, alerts: alerts
   };
 }

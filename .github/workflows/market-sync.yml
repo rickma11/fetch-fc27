@@ -29,7 +29,10 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # ⚠️ 2026-10-17：10 → 15。实测近 6 轮稳定 9.3min/轮（拉价批次远多于 under80），
+    #   10 分钟上限毫无余量；uploadJsonSafe 慢速失败只重试 1 次后单文件最坏 ~600s，
+    #   15 分钟可容纳一次慢速重试（规则 125「留足冗余」同口径）。
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v6
