@@ -1,12 +1,14 @@
 // 详情分层静态化生成脚本（取代 gen_hot_details.js，方案 docs/35，2026-10-16）。
 //
-// 目标：把「高分 + 热门」球员的详情文档（details_fc{ver}）按 **评分段 + 联赛/国家队** 烤成云存储静态 JSON，
+// 目标：把**全部**球员的详情文档（details_fc{ver}）按 **评分段 + 联赛/国家队** 烤成云存储静态 JSON，
 //       端上经 utils/cloudJson.js#getStaticShardRecord 直读、零云函数调用（详见 docs/35）。
 //
 // 与旧 gen_hot_details 的关键区别：
 //   - 不依赖 player_hot 浏览埋点（旧方案因此与 P4 冲突），改为纯按 overall/league/nation 分层。
-//   - 覆盖从 ~434（旧 Top-N）扩到 ~12393 人（85+ / 80-84 五大热门 / 75-79 / ≤74 五大+热门）。
-//   - ≤74 按「联赛或国家队 × rating 三段(70-74/65-69/≤64)」切，点击触发时只下该段（下载更小）。
+//   - 2026-10-17 起**全覆盖**（docs/35 §14）：85+ / 80-84 五大热门 / 75-84 按 rating / ≤74 五大+热门
+//     按联赛·国家队×rating 三段 / **≤74 长尾按 rating 单分桶 tail_r{r}**（实测 8212 人≈36MB，
+//     每桶 0.9-2.8MB → SPLIT_LIMIT 自动拆 1-3 part）。云函数只剩「当日新入库球员」兜底。
+//   - ≤74 五大/热门按「联赛或国家队 × rating 三段(70-74/65-69/≤64)」切，点击触发时只下该段（下载更小）。
 //
 // 分类函数 classifyKey(p, big5, hot) 必须与端上 utils/cloudJson.js#shardKeyOf 逐字一致（同一份口径）。
 //
@@ -46,21 +48,13 @@ const HOT_NAMES = ['England', 'Germany', 'Spain', 'France', 'Italy', 'Portugal',
 
 function norm(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
 
-// —— 与端上 cloudJson.shardKeyOf 完全一致的纯分类函数 ——
-function band74(r) { r = Number(r) || 0; return r >= 70 ? '70' : (r >= 65 ? '65' : '64'); }
+// 分类口径单一真源：与端上 eafc-miniapp/utils/detailShardKey.js 逐字节相同的副本
+// （CI 只 checkout fetch-fc27，跨仓 require 不可行；漂移由 gen_static_details_test.js#R8 检测）。
+// band74 亦从真源导出，勿在本文件另抄一份。
+const _detailShardKey = require('./detailShardKey.js');
+const band74 = _detailShardKey.band74;   // 仅供本文件内 ≤74 体积预检/日志用（分类一律走 classifyKey）
 function classifyKey(p, big5, hot) {
-  const r = Number(p.overall) || 0;
-  const lg = Number(p.leagueEaId) || 0;
-  const nt = Number(p.nationEaId) || 0;
-  if (r >= 85) return 'r85';
-  if (r >= 80) {
-    if (big5.indexOf(lg) >= 0 || hot.indexOf(nt) >= 0) return 'r80_84_scope';
-    return 'r' + r;                       // 80-84 非五大 → 并入 75-79 按 rating 切片
-  }
-  if (r >= 75) return 'r' + r;            // 75-79
-  if (big5.indexOf(lg) >= 0) return 'lg_' + lg + '_r74_' + band74(r);
-  if (hot.indexOf(nt) >= 0) return 'nat_' + nt + '_r74_' + band74(r);
-  return null;                            // 长尾 → 云函数
+  return _detailShardKey.shardKeyOf(p, big5 || [], hot || []);
 }
 
 function loadEnv() {

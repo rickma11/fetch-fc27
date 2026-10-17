@@ -21,7 +21,8 @@
 const fs = require('fs');
 const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
-const VER = Number(process.argv[2] || process.env.FC_VER || 27);
+const argv = process.argv.slice(2);
+const VER = Number(argv.filter(function (a) { return !/^--/.test(a); })[0] || process.env.FC_VER || 27);
 
 let failures = 0;
 function check(cond, label) {
@@ -103,7 +104,7 @@ async function run() {
   testShardRecordsToMap();
 
   console.log('[R2/R3/R4] 加载 manifest（云优先，回退本地 probe）');
-  let ctx = await loadFromCloud();
+  let ctx = (argv.indexOf('--local') >= 0) ? null : await loadFromCloud();
   const useCloud = !!ctx;
   if (!ctx) ctx = await loadFromLocalProbe();
   if (!ctx) { console.error('\n❌ 无 manifest 来源（既无 TCB 凭证也无本地 probe），无法继续'); process.exit(1); }
@@ -128,6 +129,9 @@ async function run() {
     const hit = shards.filter(function (s) { return s.key === k; })[0];
     if (hit && SAMPLE.indexOf(hit) < 0) SAMPLE.push(hit);
   });
+  // 强制含一个 tail_r* 长尾桶（排序在最后，前 12 名抽样永远覆盖不到——2026-10-17 实测）
+  const tailHit = shards.filter(function (s) { return /^tail_r\d+$/.test(s.key); })[0];
+  if (tailHit && SAMPLE.indexOf(tailHit) < 0) SAMPLE.push(tailHit);
   const seen = {};
   for (const s of SAMPLE) {
     if (seen[s.key]) continue; seen[s.key] = 1;
@@ -180,14 +184,32 @@ async function run() {
     }
   }
 
-  // R4：体量 sanity
+  // R4：体量 sanity（2026-10-17 全覆盖后应为 ~20346，全库即除当日新增外的全部）
   const totalCount = shards.reduce(function (a, s) { return a + (Number(s.count) || 0); }, 0);
-  check(totalCount >= 8000, '静态总覆盖 >= 8000（实际 ' + totalCount + '，占全量 ~40%+，达标）');
+  check(totalCount >= 19000, '静态总覆盖 >= 19000（实际 ' + totalCount + '，全量覆盖，达标）');
 
   // R6：全量分片 fileID 唯一（同 key 多 part 靠 fileID 区分，重复会导致端上缓存互踩）
   const fids = shards.map(function (s) { return s.fileID; });
   const dup = fids.filter(function (f, i) { return fids.indexOf(f) !== i; });
   check(dup.length === 0, 'manifest 全量分片 fileID 无重复（' + fids.length + ' 条）' + (dup.length ? '（重复: ' + dup.slice(0, 3).join(' , ') + '）' : ''));
+
+  // R7：长尾全覆盖（docs/35 §14）：tail_r* 分片必须存在且 >=10 个 rating 桶；
+  //     防 classifyKey 退回 return null（那会静默丢 8000+ 人回云函数）。
+  const tailKeys = shards.filter(function (s) { return /^tail_r\d+$/.test(s.key); }).map(function (s) { return s.key; });
+  check(tailKeys.length >= 10, '长尾 tail_r* 分片存在（' + tailKeys.length + ' 个 rating 桶：' + tailKeys.sort().slice(0, 20).join(',') + '）');
+
+  // R8：单一真源漂移检测——fetch-fc27/scripts/detailShardKey.js 与端上 eafc-miniapp/utils/detailShardKey.js
+  //     必须逐字节相同。历史上生成器内手抄副本与端上漂移过（2026-10-17 发现），此断言防复发。
+  //     CI 仅 checkout fetch-fc27 → 无端上仓库时跳过并告警（开发机双仓库才全量覆盖）。
+  {
+    const local = path.join(ROOT, 'scripts', 'detailShardKey.js');
+    const remote = path.resolve(ROOT, '..', 'eafc-miniapp', 'utils', 'detailShardKey.js');
+    if (fs.existsSync(local) && fs.existsSync(remote)) {
+      check(fs.readFileSync(local, 'utf8') === fs.readFileSync(remote, 'utf8'), 'detailShardKey 单一真源无漂移（fetch-fc27 副本 == eafc-miniapp 原件）');
+    } else {
+      console.warn('  ⚠️ eafc-miniapp 不在工作区，R8 漂移检测跳过（仅 CI 单仓时出现）');
+    }
+  }
 
   finish();
 }
