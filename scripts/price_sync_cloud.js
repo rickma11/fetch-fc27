@@ -128,6 +128,11 @@ async function uploadText(cloudPath, obj) {
 // url 可传（默认 80+ 的 SERIES_READ_URL）；sub-80 传 SERIES_UNDER80_READ_URL 复用同一套加固语义。
 async function readOldSeries(url) {
   url = url || SERIES_READ_URL;
+  // ⚠️ 2026-10-17 事故修复（规则 126 后续）：旧逻辑「错误消息含 404 就立刻 return null 当首跑」
+  //    把 COS/CDN 偶发 404（10/17 北京 07:00 run #334 实测中招）误判成文件不存在，
+  //    buildSeries 以首跑重建 → 24h 序列被覆盖成 1 桶，之后每小时只基于当天数据滚动。
+  //    新逻辑：404 与瞬断一样重试；连续 3 次全 404 才认定真·首跑；混有瞬断 ⇒ 抛错由上层跳过覆盖。
+  var saw404 = false, sawTransient = false, lastMsg = '';
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
       const j = await httpGetJson(url, 60000);
@@ -135,16 +140,18 @@ async function readOldSeries(url) {
       return null; // 拿到了但结构不符（空/无 players）→ 视同首跑
     } catch (e) {
       const msg = (e && e.message) || '';
-      if (msg.indexOf('404') >= 0) return null; // 真·首次运行：文件不存在，合法
+      lastMsg = msg;
+      if (msg.indexOf('404') >= 0) saw404 = true; else sawTransient = true;
       logStep('readOldSeries attempt ' + attempt + ' 失败(' + url.split('/').pop() + '): ' + msg);
       if (attempt < 3) await sleep(800 * attempt);
-      if (attempt === 3) {
-        // 连续瞬断 ⇒ 抛错，上层据此跳过本次 series 写，云上旧文件原样保留
-        throw new Error('readOldSeries 连续 3 次瞬断（非 404），放弃本次 series 更新以保留云上旧文件: ' + msg);
-      }
     }
   }
-  throw new Error('readOldSeries 意外退出');
+  if (saw404 && !sawTransient) {
+    logStep('readOldSeries 连续 3 次 404，认定真·首跑: ' + url.split('/').pop());
+    return null;
+  }
+  // 连续瞬断 ⇒ 抛错，上层据此跳过本次 series 写，云上旧文件原样保留
+  throw new Error('readOldSeries 连续 3 次失败（含瞬断），放弃本次 series 更新以保留云上旧文件: ' + lastMsg);
 }
 
 // 上传带超时+重试（#116 模式：SDK 层硬上限 180s，外层 race > SDK timeout）。
@@ -207,7 +214,18 @@ async function runHourlySync(doUpload) {
     // 24h 序列：读旧 → 位移追加 → 写回。
     // ⚠️ 读旧瞬断 ⇒ catch 跳过本次 series 更新，云上旧文件原样保留，绝不覆盖历史。
     try {
-      const oldSeries = await readOldSeries();   // 404→null(首跑)；瞬断→throw(被下方 catch 兜住)
+      let oldSeries = await readOldSeries();   // 连续3次404→null(首跑)；瞬断→throw(被下方 catch 兜住)
+      // 双保险：主 series 读不到、但 backup_latest 存在多桶历史 ⇒ 绝非首跑（404 误判的最后兜底）。
+      // backup 只存「上一次成功覆盖前的主文件」，桶数>1 即证明 series 曾经正常累积过。
+      if (!oldSeries) {
+        try {
+          const bk = await readOldSeries(SERIES_DOMAIN + '/' + SERIES_CLOUD_PATH_BACKUP);
+          if (bk && bk.players && (bk.buckets || []).length > 1) {
+            oldSeries = bk;
+            console.warn('[market_sync_gh] ⚠️ 主 series 读不到，回退用 backup_latest 续写（buckets=' + bk.buckets.length + '）');
+          }
+        } catch (be) { /* backup 也没有 ⇒ 真首跑或全丢，按首跑处理 */ }
+      }
       const series = core.buildSeries(oldSeries, built, bucket);
       // 内存不变量：非首跑时新桶数不得少于旧桶数（防御 buildSeries 回归）
       if (oldSeries && series.buckets.length < oldSeries.buckets.length) {
