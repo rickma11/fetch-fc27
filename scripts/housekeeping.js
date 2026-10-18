@@ -13,7 +13,12 @@
 //   2. walkCloudDir 枚举该目录全部文件（@cloudbase/node-sdk 无 list，必须用 manager-node）；
 //   3. 额外保留「最大 Key」（最新写入）防竞态；
 //   4. 删掉 keep 集合之外的所有文件。
-//   5. 对 market 目录特殊处理：保留最近 12 个 price_view_*.json，删除其余所有非 price_view 文件。
+//   5. 对 market 目录特殊处理（2026-10-18 重写，事故见规则 130）：
+//      活文件白名单永不删（series_24h* / *_backup_latest / under80_alerts / under80_view_* 族）
+//      ＋ 只删已知垃圾（_chain_* / price_all_* / 超出最新 12 个的 price_view）
+//      ＋ 不明文件默认保留并 ::error 告警。
+//      ⚠️ 旧逻辑「只留 12 个 price_view、其余全删」把活文件当孤儿每天删一次，导致 24h 序列
+//      每天被重置（10/13-10/18 连续 5 天），且 CI 全绿无告警。
 //
 // 安全护栏：
 //   · 若某类 keep 为空（meta 缺失 / fileID 为空），**跳过该类**——宁可不删，绝不误删当前文件；
@@ -161,24 +166,60 @@ async function run() {
   }
 
   // ── 特殊目录：fc{ver}/market/ ──
-  // 保留最近 12 个 price_view_*.json（覆盖端上 6 小时回退窗口，留一倍余量）；
-  // 删除 _chain_*.json、price_all_*.json 等所有历史孤儿文件。
-  // 安全门：若目录里没有 price_view_*.json，宁可跳过也不删。
+  // 保留规则（2026-10-18 重写；旧逻辑每天误删活文件致 24h 序列重置，见规则 130）：
+  //   ① 活文件白名单——每小时 market sync 读写的固定名文件，永不删：
+  //      series_24h.json / series_24h_backup_latest.json /
+  //      series_24h_under80.json / series_24h_under80_backup_latest.json /
+  //      under80_alerts.json
+  //      外加 under80_view_*.json 整族（寿命由 sync 的 pruneOldUnder80Views 管，这里不碰）；
+  //   ② 已知垃圾才删：_chain_*.json、price_all_*.json、超出最新 12 个的 price_view_*.json；
+  //   ③ 不明文件（不在白名单、不匹配任何已知家族）→ 默认不删 + ::error 告警。
   const marketPrefix = 'fc' + VER + '/market/';
+  const MARKET_LIVE_FILES = [
+    'series_24h.json',
+    'series_24h_backup_latest.json',
+    'series_24h_under80.json',
+    'series_24h_under80_backup_latest.json',
+    'under80_alerts.json'
+  ];
+  const MARKET_DEAD_PATTERNS = [/^_chain_.*\.json$/, /^price_all_.*\.json$/];
+  const MARKET_LIVE_NAME_RE = /^(series_24h.*\.json|under80_alerts\.json|under80_view_\d{12}\.json)$/;
   try {
     const marketFiles = await storage.walkCloudDir(marketPrefix);
     const marketKeys = (marketFiles || []).map(function (f) { return f.Key; }).filter(Boolean);
-    const priceViewKeys = marketKeys.filter(function (k) {
-      return /price_view_\d{12}\.json$/.test(k.split('/').pop() || '');
-    }).sort();
+    const baseOf = function (k) { return k.split('/').pop() || ''; };
+    const isPriceView = function (k) { return /^price_view_\d{12}\.json$/.test(baseOf(k)); };
+    const isLiveView = function (k) { return /^under80_view_\d{12}\.json$/.test(baseOf(k)); };
+    const priceViewKeys = marketKeys.filter(isPriceView).sort();
     if (priceViewKeys.length === 0) {
       console.error('[market] 跳过删除：未找到 price_view_*.json，为防误删不执行');
     } else {
       const keepMarket = new Set(priceViewKeys.slice(-12));
-      const toDeleteMarket = marketKeys.filter(function (k) { return !keepMarket.has(k); });
-      console.log('[market] 文件数=' + marketKeys.length + ' 保留 price_view=' + keepMarket.size +
-        ' 待删=' + toDeleteMarket.length);
-      if (toDeleteMarket.length) {
+      MARKET_LIVE_FILES.forEach(function (n) { keepMarket.add(marketPrefix + n); });
+      const toDeleteMarket = [];
+      const unknownKeep = [];
+      marketKeys.forEach(function (k) {
+        if (keepMarket.has(k) || isLiveView(k)) return;
+        if (isPriceView(k) || MARKET_DEAD_PATTERNS.some(function (re) { return re.test(baseOf(k)); })) {
+          toDeleteMarket.push(k);
+        } else {
+          unknownKeep.push(k);
+        }
+      });
+      const liveViewN = marketKeys.filter(isLiveView).length;
+      console.log('[market] 文件数=' + marketKeys.length + ' 保留=' + (keepMarket.size + liveViewN) +
+        '（白名单 ' + keepMarket.size + ' ＋ view 快照 ' + liveViewN + '）待删=' + toDeleteMarket.length +
+        (unknownKeep.length ? (' 不明文件保留=' + unknownKeep.length) : ''));
+      if (unknownKeep.length) {
+        console.error('::error::[market] 不明文件（不匹配任何已知家族），按防误删原则保留，请人工确认: ' +
+          unknownKeep.map(baseOf).join(', '));
+      }
+      // 防误删护栏：正常不可达（活文件名已在上面排除），防未来改码 reintroduce 老 bug
+      const liveHit = toDeleteMarket.filter(function (k) { return MARKET_LIVE_NAME_RE.test(baseOf(k)); });
+      if (liveHit.length) {
+        console.error('::error::[market] 防误删护栏触发：待删清单命中活文件名模式，终止本次 market 删除: ' +
+          liveHit.map(baseOf).join(', '));
+      } else if (toDeleteMarket.length) {
         if (DRY) {
           toDeleteMarket.forEach(function (k) { console.log('  (dry) 将删: ' + k); });
           totalWouldDelete += toDeleteMarket.length;
@@ -187,7 +228,7 @@ async function run() {
             const batch = toDeleteMarket.slice(i, i + 20);
             try {
               await storage.deleteFile(batch);
-              console.log('  已删 ' + batch.length + ' 个: ' + batch.map(function (k) { return k.split('/').pop(); }).join(', '));
+              console.log('  已删 ' + batch.length + ' 个: ' + batch.map(baseOf).join(', '));
             } catch (e) {
               console.error('  删除批次失败（继续下一批）: ' + e.message);
             }
