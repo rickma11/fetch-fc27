@@ -143,9 +143,10 @@ function evoPositions(e) {
 // 只输出 **key**（不输出中文）：中文标签的真源在端上 data/evolutionText.js#SOURCE_LABEL，
 // 端上按 key 查表得「免费进化 / 付费进化 / 训练营 / 路线进化 / 赛季通行证 / 任务奖励 / 角色 / 装饰」，
 // 这样弹窗标签与进化页 `item.source.label` **同一真源**，不产生中文双份。
-// ⚠️ 判别顺序即优先级（2026-10-17 与端上同步）：装饰 → 通行证后缀 → 训练营 → pathway → 任务奖励 → 角色
-//    → 路线结构兜底 → 免费/付费。「装饰」必须排在所有「获取方式」信号之前：任务奖励/赛季通行证送的
-//    装饰仍然是装饰，若先判 objective/seasonPass 会错进「任务奖励/赛季通行证」并在首页展示。
+// ⚠️ 判别顺序即优先级（2026-10-18 与端上同步）：装饰 → 比赛风格实验室（EA 官方 categorySlug，
+//    最权威分类标记、紧贴装饰之后、优先于一切「获取方式」信号）→ 通行证后缀 → 训练营 → pathway
+//    → 任务奖励 → 角色 → 路线结构兜底 → 免费/付费。「装饰」必须排在所有「获取方式」信号之前：
+//    任务奖励/赛季通行证送的装饰仍然是装饰，若先判 objective/seasonPass 会错进「任务奖励/赛季通行证」并在首页展示。
 //    改这里必须同步改端上 sourceOf（同 POS_ABBR 的双边同步约定）。
 function isPaidOf(rec) {
   const n = function (v) { const x = Number(v); return isFinite(x) && x > 0 ? x : 0; };
@@ -188,6 +189,10 @@ function evoSourceKey(rec) {
   // 装饰（纯卡面）必须排在「获取方式」信号之前：任务奖励/通行证送的装饰仍然是装饰，
   // 若先判 objective/seasonPass 会错进「任务奖励/赛季通行证」并在首页展示。
   if (isRarityOnlyOf(rec)) return 'cosmetic';
+  // 比赛风格实验室（PlayStyles Lab）：EA 官方 categorySlug==='playstyle-lab' 是最权威分类标记，
+  // 紧贴装饰之后、优先于一切「获取方式」信号（这些进化本身仍付费），确保即便同时挂了
+  // isRewardEvolution / objectiveGroupName 也归 PlayStyles Lab（与端上 sourceOf 同源）。
+  if (rec && rec.categorySlug === 'playstyle-lab') return 'playstyleLab';
   if (/\[SP\+\s*(\d+)?\s*\]/i.test(name)) return 'seasonPassPremium';
   if (/\[SP\s*(\d+)?\s*\]/i.test(name)) return 'seasonPass';
   if (Number(rec.totalTrainingTime || 0) > 0 || /training camp/i.test(name)) return 'trainingCamp';
