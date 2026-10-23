@@ -49,3 +49,11 @@ data/*
 cloud-data/fc27/_scan_cache.json
 # R29k-P1：写前内容签名表（由 sync_i18n 顺手落盘，upload_db 读上一份做「内容未变就跳过」的比对）
 cloud-data/fc27/_sig_cache.json
+
+# 80↓ 主序列本地状态（2026-10-23 起由 Actions cache 在运行间传递，不进 git；
+#   同理 dry/backfill 本地副本也只是验证产物）
+scripts/.u80state/
+scripts/series_24h_under80.dry.json
+scripts/series_24h_under80.backfill.json
+scripts/under80_view.dry.json
+scripts/under80_alerts.dry.json

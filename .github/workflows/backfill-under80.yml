@@ -1,10 +1,13 @@
 name: Backfill 24h Series Under80 (FC27)
 
-# 一次性/应急：用历史 under80_view_<bucket>.json（slim 快照）重放 buildSeries 重建 series_24h_under80.json。
+# 一次性/应急：用历史 under80_view_<bucket>.json（slim 快照）重放 buildSeries 重建 80↓ 序列。
 # 典型场景：主序列被重置/损坏、backup 也救不了（或坏了没人发现、backup 已被污染）时，复活近 24h 历史。
 # 触发：仅 workflow_dispatch（手动，或 cron-job.org 一次性 POST）。默认 upload=true 真写云存储。
 # 用法：node scripts/price_sync_cloud.js --backfill-under80 --upload
 # 注意：快照自 2026-10-17 14:00 起才有，之前的小时会 included=0 跳过（正常）。
+# ⚠️ 2026-10-23 起主序列不在云上（Actions cache 传递）：回填产物写本地状态文件 + 云 backup_latest。
+#   本 workflow 配了同款 u80-series cache 步骤 ⇒ 回填结果直接入 cache，下一轮 hourly 读旧即恢复，
+#   无需再手动清 cache。timeout 10min：备份上传 4.1MB 最坏 ~600s（慢速重试有界）。
 
 on:
   workflow_dispatch:
@@ -45,6 +48,16 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      # 与 market-sync-under80.yml 同 key 前缀：回填写入的本地状态文件随本 job 结束入 cache，
+      # 下一轮 hourly 的「Cache under80 series state」步骤即还原到它（恢复链最后一环）。
+      - name: Cache under80 series state
+        uses: actions/cache@v4
+        with:
+          path: scripts/.u80state/series_24h_under80.json
+          key: u80-series-${{ github.run_id }}
+          restore-keys: |
+            u80-series-
 
       - name: Backfill under80 & upload (upload=${{ github.event.inputs.upload }})
         env:

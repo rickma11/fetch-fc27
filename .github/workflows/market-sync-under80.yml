@@ -1,8 +1,11 @@
 name: Market Sync Under80 (FC27 sub-80 alerts)
 
 # 80↓ 价格异动监控 —— 与「Market Sync Hourly (FC27 prices)」物理隔离的旁路。
-# 监控范围：roster_under80.json（overall<=79，≈18681 人）；产出 series_24h_under80.json（滑窗，仅 CI 读写）
-#   与 under80_alerts.json（端上只读这个，0 云函数配额）。
+# 监控范围：roster_under80.json（overall<=79，≈18681 人）；产出 under80_alerts.json（端上只读这个，0 云函数配额）。
+#   series_24h_under80.json 自 2026-10-23 起不再上传云存储——4.1MB 常被 TCB SDK ~240s 强杀
+#   （UserNetworkTooSlow，10-23 19/20 点两轮假成功事故），且端上从不读它。改由本 workflow 的
+#   Actions cache（u80-series-*）在运行间传递；DR 层：slim 快照 under80_view_*（回填原料）+
+#   backup_latest（cache 丢失时读旧链第二步）。
 #
 # ⚠️ 名册发布：roster_under80.json 由 scripts/export_roster_under80.js --upload 单独发布（已在 2026-10-14 发布一次），
 #   本 workflow 不每小时重建（避免 4.1MB 重复上传；CI checkout 也不含本地 players.json）。
@@ -31,11 +34,9 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    # ⚠️ 2026-10-17：15 → 30（规则 125）→ 40（B 调参后）。实测构成（#66 全日志）：
-    #   拉价 9.6s + backup best-effort 120s + series 434s（ECONNRESET@299s→重试 135s 成功）
-    #   + slim 快照 47s + alerts 546s（两次 UserNetworkTooSlow@~265s）≈ 20 分钟。
-    #   alerts 瘦身（3.59→2.41MB）后单次 ≈175s@13.8KB/s；uploadJsonSafe 慢速失败只重试 1 次，
-    #   单文件最坏 ~600s 有界，全程最坏 ~33.5min ⇒ 40 分钟留余量。正常应回到 10~15min。
+    # ⚠️ 2026-10-23 架构调整后维持 40 分钟：series 上传已移除（改 Actions cache），关键路径变为
+    #   拉价 ~11s + slim 快照 BE ≤180s + backup BE ≤120s + alerts ≤600s（慢速重试有界）≈ ≤16min；
+    #   40 分钟留足余量（规则 125「留足冗余」）。正常一轮 ~3~6min。
     timeout-minutes: 40
     steps:
       - name: Checkout
@@ -53,6 +54,17 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
+      # 80↓ 主序列状态（2026-10-23 起替代云端 series_24h_under80.json）：
+      #   key 带 run_id ⇒ 每轮存新条目；restore-keys 前缀命中取最新。云端只留 backup_latest 作 DR。
+      #   cache 未命中（首轮/被逐出）⇒ 脚本回退读云 backup_latest 续写，不会丢历史。
+      - name: Cache under80 series state
+        uses: actions/cache@v4
+        with:
+          path: scripts/.u80state/series_24h_under80.json
+          key: u80-series-${{ github.run_id }}
+          restore-keys: |
+            u80-series-
 
       - name: Install dependencies
         run: npm install
