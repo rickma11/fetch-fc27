@@ -299,7 +299,8 @@ function buildIndex(catalogue, hub) {
   return {
     v: 1, game: catalogue.game || ('fc' + VER),
     capturedAt: catalogue.capturedAt || '', computedAt: hub.computedAt || '',
-    updatedAt: new Date().toISOString(),
+    // ⚠️ 必须是**数据源时间**，不能是生成时间：否则每次运行 hash 都变 → 增量跳过永不生效（2026-10-24）
+    updatedAt: (hub.computedAt || catalogue.computedAt || catalogue.capturedAt || new Date().toISOString()),
     categories: categories,
     sets: sets,
     tags: (catalogue.tags || []).map(tagBrief)   // 含 First Owner tiers（[5:+150% / 10:+300% / 20:+500%]）
@@ -329,7 +330,8 @@ function buildSetDetail(sd, poolById, ctx) {
     v: 1, setId: sd.set.id, catSlug: (sd.category || {}).slug || '', setSlug: sd.set.slug || '',
     name: sd.set.name || '', desc: sd.set.description || '',
     requiredCards: sd.set.requiredCards || 0,
-    updatedAt: new Date().toISOString(),
+    // ⚠️ 同 index：必须是数据源时间，不能是生成时间（否则 hash 每次都变、增量永不跳过）
+    updatedAt: (sol.computedAt || new Date().toISOString()),
     // v2.1：数据源时间戳（端上判定"要不要刷新"的依据；写盘时间见 publishedAt，由发布环节写进元文档）
     dataUpdatedAt: sol.computedAt || '',
     grades: gradeBrief(sd.set.grades),
