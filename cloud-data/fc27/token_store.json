@@ -1,11 +1,11 @@
 {
   "ver": 27,
-  "hash": "bfd83cb3",
-  "sourceUrl": "https://r2.fut.gg/27/token-store.v1.bfd83cb3.json",
+  "hash": "d1435473",
+  "sourceUrl": "https://r2.fut.gg/27/token-store.v1.d1435473.json",
   "storeExpiresAt": "2026-12-03T07:59:59Z",
-  "fetchedAt": "2026-10-22T18:26:25.841Z",
-  "itemCount": 44,
-  "playerCount": 21,
+  "fetchedAt": "2026-10-23T17:15:39.400Z",
+  "itemCount": 61,
+  "playerCount": 26,
   "dupCount": 0,
   "players": {
     "155885": {
@@ -154,6 +154,41 @@
       "purchaseLimit": 1,
       "endTime": "2026-12-03T07:59:59Z",
       "eventTokenId": 1
+    },
+    "50555715": {
+      "tokenCost": 50,
+      "name": "Jeppe Tverskov",
+      "purchaseLimit": 1,
+      "endTime": "2026-11-13T17:59:00Z",
+      "eventTokenId": 3
+    },
+    "50577998": {
+      "tokenCost": 550,
+      "name": "Enzo Le Fée",
+      "purchaseLimit": 1,
+      "endTime": "2026-11-13T17:59:00Z",
+      "eventTokenId": 3
+    },
+    "67180042": {
+      "tokenCost": 300,
+      "name": "Saïd El Mala",
+      "purchaseLimit": 1,
+      "endTime": "2026-11-13T17:59:00Z",
+      "eventTokenId": 3
+    },
+    "84113342": {
+      "tokenCost": 1500,
+      "name": "Jill Scott",
+      "purchaseLimit": 1,
+      "endTime": "2026-11-13T17:59:00Z",
+      "eventTokenId": 3
+    },
+    "84129107": {
+      "tokenCost": 900,
+      "name": "Juan Sebastián Verón",
+      "purchaseLimit": 1,
+      "endTime": "2026-11-13T17:59:00Z",
+      "eventTokenId": 3
     }
   }
 }
