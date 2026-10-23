@@ -68,7 +68,7 @@ jobs:
         run: >-
           node scripts/gallery_sync.js
           ${{ github.event.inputs.fc_ver || '27' }}
-          ${{ github.event.inputs.upload != 'false' && '' || '--no-upload' }}
+          ${{ github.event.inputs.upload == 'false' && '--no-upload' || '' }}
 
       # 卡面缺口检查：CI 不转传卡面（首批已本机传完），有新卡缺口时显式告警（规则 125：
       # continue-on-error 必须配 outcome 告警；这里主步骤失败即真失败，缺口只是 warning）。
