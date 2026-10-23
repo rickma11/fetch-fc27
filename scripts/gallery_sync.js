@@ -21,8 +21,9 @@
 //   - 云路径：fc27/data/gallery_index/ 与 fc27/data/gallery_set_{id}/（哈希命名，规则 99）
 //   - 元文档：meta_fc27/gallery_index 与 meta_fc27/gallery_set_{id}（端上 utils/cloudJson#fetchObject 直读）
 //
-// 端上零云函数：JSON 全静态直读；卡面走 fc27/images/{eaId}_gcard.webp（我们库没有的 promo 卡，
-//   由 --cards 模式增量转传；库内卡 cardSrc='lib' 走既有 displayImg 链路）。
+// 端上零云函数：JSON 全静态直读；卡面三来源——库内卡 {eaId}_card.webp/_np.webp（cardSrc='lib'，
+//   与列表/详情页同一套图，不重复搬运）；库外 promo 卡 {eaId}_gcard.webp（cardSrc='gcard'，
+//   由 gallery_cards.js 增量转传）。库内判定用 players.json（本机）/ lib_eaids.json 快照（CI）。
 //
 // 用法：
 //   node scripts/gallery_sync.js 27 --no-upload          干跑：拉数据+生成本地产物，不写云
@@ -52,6 +53,8 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 
 const BASE = 'https://www.fut.gg/api/fut/gallery/fc' + VER;
 const OUT_DIR = path.join(ROOT, 'cloud-data', 'fc' + VER, 'gallery');
+const PLAYERS_FILE = path.join(ROOT, 'cloud-data', 'fc' + VER, 'players.json');       // 本机才有（.gitignore）
+const LIB_SNAPSHOT_FILE = path.join(ROOT, 'cloud-data', 'fc' + VER, 'lib_eaids.json'); // 随仓提交，CI 消费
 
 // ── 基础工具 ──────────────────────────────────────────────────────────────
 function log() { console.log.apply(console, arguments); }
@@ -143,21 +146,68 @@ function cardBrief(x) {
   };
 }
 
-// solution/costTiers 的 items → 补 pool 字段（卡面统一走 _gcard.webp，见脚本头部说明）
-// 为什么不用库内 _card.webp：① players.json 被 .gitignore 排除，CI 上拿不到库内 eaId 集合，
-// 判定会失效；② pool 的 futgg-player-item-card 与库内列表平版卡面本就不是同一张图，统一图源视觉更一致。
-function itemsBrief(items, poolById) {
+// solution/costTiers 的 items → 补 pool 字段 + 卡面来源判定（用户 2026-10-23 拍板：
+// 库内已有的卡面绝不重复搬运，只补我们球员库里没有的 promo 卡）。
+// 端上按 cardSrc/face 拼 fc27/images/ 路径（零外域依赖，与列表/详情页同一套卡面）：
+//   · cardSrc='lib'   eaId 在我们球员库 → {eaId}_card.webp；imagePath 为空的 44 人
+//                     face='np' → {eaId}_np.webp（与 format.js#displayImg 同规则）
+//   · cardSrc='gcard' 库外 promo 卡（Future Stars/DFG/POTM…）→ {eaId}_gcard.webp，
+//                     由 gallery_cards.js 从 fut.gg 增量转传（小程序不能直载外域图）
+// libMap 来源：本机 players.json（本地跑自动刷新快照）；CI 上 players.json 不在 checkout，
+//   读随仓提交的 lib_eaids.json 快照。
+function itemsBrief(items, poolById, libMap) {
   return (items || []).map(function (it) {
     const p = poolById[String(it.eaId)] || null;
-    return {
+    const face = libMap[String(it.eaId)] || '';
+    const o = {
       eaId: it.eaId, playerEaId: it.playerEaId,
       name: (p && (p.commonName || p.cardName)) || '',
       overall: it.overall, rarityName: (p && p.rarityName) || '',
       positions: p && Array.isArray(p.positions) ? p.positions : [],
       score: it.score, price: it.price,
-      cardUrl: (p && p.cardImageUrl) || ''
+      cardSrc: face ? 'lib' : 'gcard',
+      face: face
     };
+    if (!face) o.cardUrl = (p && p.cardImageUrl) || '';   // 仅 gcard 需要（转传源+占位）
+    return o;
   });
+}
+
+// ── 库内卡面映射（eaId → 'card' | 'np'）────────────────────────────────────
+// 本机：读 players.json（imagePath 非空→'card'，空→'np'，与 format.js#displayImg 同规则），
+//   并刷新随仓快照 lib_eaids.json 供 CI 用；CI：players.json 不在 checkout，直接读快照。
+// 快照过期只影响「新入库的卡被当成 promo 卡多传一张 _gcard」，展示不误导，可接受；
+// 本地每次跑 gallery_sync 都会自动刷新快照， push 后 CI 即同步。
+function loadLibMap() {
+  let map = null;
+  try {
+    const pl = JSON.parse(fs.readFileSync(PLAYERS_FILE, 'utf8'));
+    const items = Array.isArray(pl) ? pl : (pl.data || pl.players || pl.items || []);
+    map = {};
+    items.forEach(function (it) {
+      const e = it && (it.eaId != null ? it.eaId : it.id);
+      if (e != null) map[String(e)] = it.imagePath ? 'card' : 'np';
+    });
+  } catch (e) { map = null; }
+  if (map) {
+    try {
+      let oldMap = {};
+      try { oldMap = JSON.parse(fs.readFileSync(LIB_SNAPSHOT_FILE, 'utf8')).map || {}; } catch (e2) {}
+      if (JSON.stringify(oldMap) !== JSON.stringify(map)) {
+        fs.writeFileSync(LIB_SNAPSHOT_FILE, JSON.stringify({
+          v: 1, updatedAt: new Date().toISOString(), count: Object.keys(map).length, map: map
+        }));
+        log('[快照] lib_eaids.json 已刷新（' + Object.keys(map).length + ' 张库内卡面映射）');
+      }
+    } catch (e) { log('⚠️ lib_eaids.json 快照刷新失败: ' + e.message); }
+    return map;
+  }
+  try {
+    const snap = JSON.parse(fs.readFileSync(LIB_SNAPSHOT_FILE, 'utf8'));
+    if (snap && snap.map) { log('[快照] 用 lib_eaids.json（' + Object.keys(snap.map).length + ' 条，更新于 ' + (snap.updatedAt || '?') + '）'); return snap.map; }
+  } catch (e) {}
+  log('⚠️ 既无 players.json 也无 lib_eaids.json 快照——所有卡按 gcard 处理（会多传卡面，展示不误导）');
+  return {};
 }
 
 // ── gallery_index ─────────────────────────────────────────────────────────
@@ -199,7 +249,7 @@ function buildIndex(catalogue, hub) {
 }
 
 // ── gallery_set_{id} ──────────────────────────────────────────────────────
-function buildSetDetail(sd, poolById) {
+function buildSetDetail(sd, poolById, libMap) {
   const sol = sd.solution || {};
   const tagById = {};
   (sd.tags || []).forEach(function (t) { tagById[String(t.tagId != null ? t.tagId : t.id)] = t; });
@@ -228,13 +278,13 @@ function buildSetDetail(sd, poolById) {
       grade: sol.grade || '', totalScore: sol.totalScore || 0,
       baseGrade: sol.baseGrade || 0, bonusGrade: sol.bonusGrade || 0,
       tokens: sol.tokens || 0, maxTokens: sol.maxTokens || 0,
-      items: itemsBrief(sol.items, poolById)
+      items: itemsBrief(sol.items, poolById, libMap)
     },
     costTiers: (sol.costTiers || []).map(function (t) {
       return {
         grade: t.grade, threshold: t.threshold, tokens: t.tokens,
         cost: t.cost, peakPrice: t.peakPrice, status: t.status || '',
-        items: itemsBrief(t.items, poolById)
+        items: itemsBrief(t.items, poolById, libMap)
       };
     }),
     tags: tags,
@@ -250,6 +300,9 @@ async function run() {
   log('模式: ' + (NO_UPLOAD ? '干跑(--no-upload)' : '完整(上传)') + (ONLY ? ' only=' + ONLY : '') + (SET_IDS ? ' setIds=' + Array.from(SET_IDS).join(',') : ''));
 
   if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
+
+  // 库内卡面映射（决定 items 的 cardSrc/face，见 loadLibMap 说明）
+  const libMap = loadLibMap();
 
   // 1) catalogue
   log('\n[1/4] 拉 catalogue ...');
@@ -341,13 +394,13 @@ async function run() {
     const needGcards = {};   // eaId -> cardUrl（lib 之外的卡才需要）
     let n = 0;
     for (const sd of sdOk) {
-      const detail = buildSetDetail(sd, poolById);
+      const detail = buildSetDetail(sd, poolById, libMap);
       const str = JSON.stringify(detail);
       fs.writeFileSync(path.join(OUT_DIR, 'gallery_set_' + sd.set.id + '.json'), str);
       n++;
       [detail.solution].concat(detail.costTiers || []).forEach(function (blk) {
         (blk.items || []).forEach(function (it) {
-          if (it.cardUrl && !needGcards[String(it.eaId)]) needGcards[String(it.eaId)] = it.cardUrl;
+          if (it.cardSrc === 'gcard' && it.cardUrl && !needGcards[String(it.eaId)]) needGcards[String(it.eaId)] = it.cardUrl;
         });
       });
     }
