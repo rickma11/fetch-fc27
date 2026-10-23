@@ -39,6 +39,12 @@ const SERIES_UNDER80_CLOUD_PATH = 'fc27/market/' + SERIES_UNDER80_FILE;
 const SERIES_UNDER80_READ_URL = SERIES_DOMAIN + '/' + SERIES_UNDER80_CLOUD_PATH;
 const ALERTS_FILE = 'under80_alerts.json';
 const ALERTS_CLOUD_PATH = 'fc27/market/' + ALERTS_FILE;
+// recent 伴生文件（2026-10-23 拆分上传）：主文件 2.66MB 在管道慢速档（~11KB/s）必被 SDK ~240s 强杀，
+//   把 1.05MB 的 recent 数组拆出来单独传（主 ~1.6MB + 伴生 ~1.1MB，均可在慢速档完成）。
+//   ⚠️ 上传顺序：先伴生后主文件——主文件是「索引」，端上以 ts 一致才认伴生（见 priceStore.js#mergeRecent）；
+//   任一失败 ⇒ 整体 loud fail（exit 1），不存在「新主+旧伴生」错位被静默消费。
+const ALERTS_RECENT_FILE = 'under80_alerts_recent.json';
+const ALERTS_RECENT_CLOUD_PATH = 'fc27/market/' + ALERTS_RECENT_FILE;
 // 按天聚合（2026-10-23 新增）：近 7 日「日均价/最低/最高」，端上走势弹层「按天」视图数据源。
 //   生成逻辑（core.updateDaily，纯函数）：每小时从新 series 截「今日桶」重算当日值，
 //   过去日冻结、跨日滚动保留 7 天；读旧/上传复用 series 那套加固（规则 128/130）。
@@ -580,6 +586,19 @@ async function runUnder80Sync(doUpload) {
     pullRoster.forEach(function (p) { rosterMap[String(p.eaId)] = p; });
     const alerts = core.computeUnder80Alerts(series, rosterMap, UNDER80_CFG);
     logStep('computeUnder80Alerts done, 入选=' + alerts.count + ', recent=' + (alerts.recentBuckets || []).length);
+    // 拆分上传（2026-10-23）：recent 数组（1.05MB/5085 人×24 桶×双平台）拆到伴生文件，
+    //   主文件从 2.66MB 降到 ~1.6MB——慢速档（~11KB/s）下 2.66MB 必被 SDK ~240s 强杀，
+    //   而 1.6/1.1MB 可分别在 ~145s/~100s 内完成（10-23 21:22 run #218 实证）。
+    //   顺序：先伴生后主——端上按 ts 一致才合并（priceStore.js#mergeRecent），
+    //   任一侧上传失败即整体 loud fail，不会留下错位组合被静默消费。
+    const alertsRecent = { v: 1, ts: alerts.ts, players: {} };
+    (alerts.alerts || []).forEach(function (a) {
+      const r = a.recent || {};
+      alertsRecent.players[String(a.eaId)] = { pc: r.pc || [], ps: r.ps || [] };
+      delete a.recent;
+    });
+    await uploadJsonSafe(ALERTS_RECENT_CLOUD_PATH, alertsRecent);
+    logStep('upload under80_alerts_recent done, players=' + Object.keys(alertsRecent.players).length);
     await uploadJsonSafe(ALERTS_CLOUD_PATH, alerts);
     logStep('upload under80_alerts done');
   } else {
@@ -596,6 +615,14 @@ async function runUnder80Sync(doUpload) {
     const rosterMap = {};
     pullRoster.forEach(function (p) { rosterMap[String(p.eaId)] = p; });
     const alerts = core.computeUnder80Alerts(series, rosterMap, UNDER80_CFG);
+    // 与上传路径同款拆分：recent 拆到伴生 dry 文件，验证两块结构与体积
+    const alertsRecentDry = { v: 1, ts: alerts.ts, players: {} };
+    (alerts.alerts || []).forEach(function (a) {
+      const r = a.recent || {};
+      alertsRecentDry.players[String(a.eaId)] = { pc: r.pc || [], ps: r.ps || [] };
+      delete a.recent;
+    });
+    fs.writeFileSync(__dirname + '/under80_alerts_recent.dry.json', JSON.stringify(alertsRecentDry));
     fs.writeFileSync(__dirname + '/under80_alerts.dry.json', JSON.stringify(alerts));
     // 本地校验对齐
     const L = series.buckets.length;
@@ -605,10 +632,15 @@ async function runUnder80Sync(doUpload) {
       if ((r.pc || []).length !== L || (r.ps || []).length !== L) bad++;
     });
     const rp = Object.keys(replay.players).length;
-    logStep('DRY: 落 series_24h_under80.dry.json + under80_alerts.dry.json + under80_view.dry.json' +
+    const recentBad = (alerts.recentBuckets || []).length !== L ? 1 : 0;
+    logStep('DRY: 落 series_24h_under80.dry.json + under80_alerts.dry.json + under80_alerts_recent.dry.json + under80_view.dry.json' +
       '（bucket=' + bucket + ', seriesPlayers=' + Object.keys(series.players).length +
       ', 对齐异常=' + bad + ', 入选=' + alerts.count +
+      ', 主文件=' + (JSON.stringify(alerts).length / 1024 / 1024).toFixed(2) + 'MB' +
+      ', 伴生=' + (JSON.stringify(alertsRecentDry).length / 1024 / 1024).toFixed(2) + 'MB' +
+      ', recentBuckets=' + (alerts.recentBuckets || []).length + '/' + L +
       ', 快照=' + snap.tier.length + '人/' + (JSON.stringify(snap).length / 1024).toFixed(0) + 'KB, 重放球员=' + rp + '）');
+    if (recentBad) console.warn('[market_sync_gh] ⚠️ recentBuckets 与 series 桶数不一致: ' + (alerts.recentBuckets || []).length + ' vs ' + L);
   }
 
   return {
