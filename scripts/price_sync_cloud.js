@@ -37,6 +37,14 @@ const SERIES_UNDER80_CLOUD_PATH = 'fc27/market/' + SERIES_UNDER80_FILE;
 const SERIES_UNDER80_READ_URL = SERIES_DOMAIN + '/' + SERIES_UNDER80_CLOUD_PATH;
 const ALERTS_FILE = 'under80_alerts.json';
 const ALERTS_CLOUD_PATH = 'fc27/market/' + ALERTS_FILE;
+// 按天聚合（2026-10-23 新增）：近 7 日「日均价/最低/最高」，端上走势弹层「按天」视图数据源。
+//   生成逻辑（core.updateDaily，纯函数）：每小时从新 series 截「今日桶」重算当日值，
+//   过去日冻结、跨日滚动保留 7 天；读旧/上传复用 series 那套加固（规则 128/130）。
+const DAILY_FILE = 'daily_7d.json';
+const DAILY_CLOUD_PATH = 'fc27/market/' + DAILY_FILE;
+const DAILY_BACKUP_FILE = 'daily_7d_backup_latest.json';
+const DAILY_CLOUD_PATH_BACKUP = 'fc27/market/' + DAILY_BACKUP_FILE;
+const DAILY_READ_URL = SERIES_DOMAIN + '/' + DAILY_CLOUD_PATH;
 // 80↓ backup：覆盖主序列前存一份旧序列（best-effort 上传，见规则 125/128）。
 //   主序列读不到（连续 3 次 404）时回退读它续写；backup 每小时也被覆盖 ⇒ 只保护 1 小时窗口，
 //   更长的 24h 恢复靠下面的 under80_view_ 快照回填。
@@ -287,6 +295,7 @@ async function runHourlySync(doUpload) {
     logStep('upload view done, bucket=' + bucket);
     // 24h 序列：读旧 → 位移追加 → 写回。
     // ⚠️ 读旧瞬断 ⇒ catch 跳过本次 series 更新，云上旧文件原样保留，绝不覆盖历史。
+    let series = null;
     try {
       let oldSeries = await readOldSeries();   // 连续3次404→null(首跑)；瞬断→throw(被下方 catch 兜住)
       // 双保险：主 series 读不到、但 backup_latest 存在多桶历史 ⇒ 绝非首跑（404 误判的最后兜底）。
@@ -300,7 +309,7 @@ async function runHourlySync(doUpload) {
           }
         } catch (be) { /* backup 也没有 ⇒ 真首跑或全丢，按首跑处理 */ }
       }
-      const series = core.buildSeries(oldSeries, built, bucket);
+      series = core.buildSeries(oldSeries, built, bucket);
       // 内存不变量：非首跑时新桶数不得少于旧桶数（防御 buildSeries 回归）
       if (oldSeries && series.buckets.length < oldSeries.buckets.length) {
         console.warn('[market_sync_gh] ⚠️ 新序列桶数(' + series.buckets.length + ') < 旧(' + oldSeries.buckets.length + ')，疑似 buildSeries 回归');
@@ -315,6 +324,34 @@ async function runHourlySync(doUpload) {
     } catch (se) {
       // 瞬断读旧失败 ⇒ 放弃本次 series 写，历史完好保留（最坏只漏这一小时的一个点）
       console.warn('[market_sync_gh] series 更新跳过（读旧瞬断，云上旧文件已保留）: ' + (se && se.message || se));
+    }
+
+    // 按天聚合（2026-10-23）：series 写成功才做；失败同样只跳过本次、保留云上旧文件。
+    // 口径见 market_core.js#updateDaily：今日桶重算当日 avg/min/max，过去日冻结，滚动保留 7 天。
+    if (series) {
+      try {
+        let oldDaily = await readOldSeries(DAILY_READ_URL);   // 连续3次404→null(首跑)；瞬断→throw
+        if (!oldDaily) {
+          // 双保险：主文件读不到、backup 有日子 ⇒ 绝非首跑（404 误判兜底，同 series 那套）
+          try {
+            const bk = await readOldSeries(SERIES_DOMAIN + '/' + DAILY_CLOUD_PATH_BACKUP);
+            if (bk && Array.isArray(bk.days) && bk.days.length) {
+              oldDaily = bk;
+              console.warn('[market_sync_gh] ⚠️ daily 主文件读不到，回退 backup_latest 续写（days=' + bk.days.length + '）');
+            }
+          } catch (be) { /* backup 也没有 ⇒ 真首跑 */ }
+        }
+        const dayKey = bucketOf(new Date()).slice(0, 8);      // 北京日期 YYYYMMDD
+        const daily = core.updateDaily(oldDaily, series, dayKey);
+        if (oldDaily) {
+          try { await uploadJsonSafe(DAILY_CLOUD_PATH_BACKUP, oldDaily); }
+          catch (be) { console.warn('[market_sync_gh] daily backup 上传失败(非致命): ' + (be && be.message || be)); }
+        }
+        await uploadJsonSafe(DAILY_CLOUD_PATH, daily);
+        logStep('upload daily done, days=' + daily.days.length + ' (最新=' + daily.days[daily.days.length - 1] + '), players=' + Object.keys(daily.players).length);
+      } catch (de) {
+        console.warn('[market_sync_gh] daily 更新跳过（读旧瞬断，云上旧文件已保留）: ' + (de && de.message || de));
+      }
     }
   } else {
     logStep('DRY-RUN: 跳过上传（加 --upload 才写云存储），bucket=' + bucket);

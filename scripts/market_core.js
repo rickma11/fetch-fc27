@@ -354,10 +354,74 @@ function computeUnder80Alerts(series, rosterMap, cfg) {
   };
 }
 
+// ── 按天聚合（2026-10-23 新增，供 price_sync_cloud.js 每小时生成 daily_7d.json）──
+// 契约（端上 utils/priceSeries.js#getDaily 只读）：
+//   daily = { v, ts, days:['YYYYMMDD' ×N(≤DAILY_KEEP_DAYS)], players:{ eaId:{ pc:[[avg,min,max]|null ×N], ps:[...] } } }
+//   - 数组与 days 按下标对齐；当日无数据为 null。
+//   - 「当日」口径：当日已采集小时点的算术平均（avg=round(mean)）与 min/max。
+//   - **无累积状态**：每小时从新 series 里截取「今日桶」重算当日值；过去日保持冻结值
+//     （昨日最后一次写入=23:00 那一刻=全日 24 点精确值），避免 sum/count 状态漂移。
+//   - 跨日（北京）自动滚动：push 新日、丢最旧（>DAILY_KEEP_DAYS）。
+//   - 同小时重跑幂等：今日值整体重算替换，历史不动。
+// 纯函数（无 IO），scripts/daily_agg_test.js 离线覆盖。
+var DAILY_KEEP_DAYS = 7;
+function updateDaily(oldDaily, series, dayKey) {
+  oldDaily = oldDaily || {};
+  var days = Array.isArray(oldDaily.days) ? oldDaily.days.slice() : [];
+  var oldPlayers = oldDaily.players || {};
+  if (days[days.length - 1] !== dayKey) {
+    days.push(dayKey);
+    while (days.length > DAILY_KEEP_DAYS) days.shift();
+  }
+  var keep = days.length - 1;                       // 历史格数（去掉今日）
+  var buckets = (series && series.buckets) || [];
+  var sPlayers = (series && series.players) || {};
+  // 今日桶在 series 里的下标（桶标签前 8 位=北京日期 YYYYMMDD）
+  var todayIdx = [];
+  for (var i = 0; i < buckets.length; i++) {
+    if (String(buckets[i]).slice(0, 8) === dayKey) todayIdx.push(i);
+  }
+  function dayAgg(arr) {
+    var vals = [];
+    for (var k = 0; k < todayIdx.length; k++) { var v = arr[todayIdx[k]]; if (v != null) vals.push(v); }
+    if (!vals.length) return null;
+    var s = 0, mn = vals[0], mx = vals[0];
+    for (var j = 0; j < vals.length; j++) { s += vals[j]; if (vals[j] < mn) mn = vals[j]; if (vals[j] > mx) mx = vals[j]; }
+    return [Math.round(s / vals.length), mn, mx];
+  }
+  function alignHist(arr) {                        // 历史列对齐：保留末尾 keep 格，不足前导补 null
+    var a = Array.isArray(arr) ? arr.slice() : [];
+    if (a.length > keep) a = a.slice(a.length - keep);
+    while (a.length < keep) a.unshift(null);
+    return a;
+  }
+  var players = {};
+  Object.keys(oldPlayers).forEach(function (eaId) { // 旧球员：历史列保留（滚掉最旧日）
+    var r = oldPlayers[eaId] || {};
+    players[eaId] = { pc: alignHist(r.pc), ps: alignHist(r.ps) };
+  });
+  Object.keys(sPlayers).forEach(function (eaId) {   // 今日值：来自 series 今日桶
+    var r = sPlayers[eaId] || {};
+    var aPc = dayAgg(r.pc || []), aPs = dayAgg(r.ps || []);
+    if (!aPc && !aPs) return;                       // 今日两平台都无数据
+    if (!players[eaId]) players[eaId] = { pc: new Array(keep).fill(null), ps: new Array(keep).fill(null) };
+    players[eaId].pc.push(aPc);                     // 新球员历史列补 null 对齐
+    players[eaId].ps.push(aPs);
+  });
+  Object.keys(players).forEach(function (eaId) {    // 今日缺席的旧球员补 null，保对齐
+    var r = players[eaId];
+    while (r.pc.length < days.length) r.pc.push(null);
+    while (r.ps.length < days.length) r.ps.push(null);
+    if (r.pc.length > days.length) r.pc = r.pc.slice(-days.length);
+    if (r.ps.length > days.length) r.ps = r.ps.slice(-days.length);
+  });
+  return { v: 1, ts: Date.now(), days: days, players: players };
+}
+
 module.exports = {
-  PRICE_API: PRICE_API, BATCH: BATCH, TIER_MIN: TIER_MIN,
+  PRICE_API: PRICE_API, BATCH: BATCH, TIER_MIN: TIER_MIN, DAILY_KEEP_DAYS: DAILY_KEEP_DAYS,
   key: key, sleep: sleep, cardCloudId: cardCloudId,
   fetchBatch: fetchBatch, pullPlatforms: pullPlatforms,   build: build,
   buildSeries: buildSeries, slimSnapshot: slimSnapshot,
-  computeUnder80Alerts: computeUnder80Alerts
+  computeUnder80Alerts: computeUnder80Alerts, updateDaily: updateDaily
 };
