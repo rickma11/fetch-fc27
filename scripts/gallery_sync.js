@@ -330,6 +330,8 @@ function buildSetDetail(sd, poolById, ctx) {
     name: sd.set.name || '', desc: sd.set.description || '',
     requiredCards: sd.set.requiredCards || 0,
     updatedAt: new Date().toISOString(),
+    // v2.1：数据源时间戳（端上判定"要不要刷新"的依据；写盘时间见 publishedAt，由发布环节写进元文档）
+    dataUpdatedAt: sol.computedAt || '',
     grades: gradeBrief(sd.set.grades),
     solution: {
       status: sol.status || '', computedAt: sol.computedAt || '',
@@ -626,7 +628,7 @@ async function run() {
     log('[上传] gallery_set × ' + files.length + '（并发 ' + CONC + '，增量：仅内容变化才写云）...');
     const upRes = await poolMap(files, CONC, async function (f) {
       const obj = JSON.parse(fs.readFileSync(path.join(OUT_DIR, f), 'utf8'));
-      const r = await publishIncremental(app, 'gallery_set_' + obj.setId, obj, obj.updatedAt || '');
+      const r = await publishIncremental(app, 'gallery_set_' + obj.setId, obj, obj.dataUpdatedAt || obj.updatedAt || '');
       return r;
     });
     upRes.out.forEach(function (r) { if (!r) return; PUB[r.changed ? 'changed' : 'skipped']++; });
