@@ -1,0 +1,91 @@
+name: Gallery Sync Daily (FC27 FUT Gallery)
+
+# 收藏馆（FUT Gallery）数据每日同步：fut.gg 公开 API → 瘦身切片 → 云存储静态 JSON。
+# 详见 eafc-miniapp/docs/33-miniprogram-gallery.md（数据层方案）。
+#
+# 触发：仅 workflow_dispatch（由 cron-job.org 每日 POST，或手动触发）。
+#   - 不挂 Fetch FC27 Daily，对原每日抓取流水线零影响；
+#   - 默认 upload=true 真写云存储；显式传 inputs.upload=false 时空跑验证。
+#
+# 与 market-sync / dict-static 同模式（规则 118：cron-job.org 主 + 禁用 GitHub 原生 schedule）。
+# ⚠️ 本机/沙箱跑要带代理（fut.gg 拦数据中心 IP），GitHub Actions 出口直连同域 API 有 200 先例
+#   （sync_votes 同域验证过）；万一被 CF 拦，日志会显示 "Just a moment" 页面，降级方案见 docs。
+#
+# 卡面（_gcard.webp）不走本 workflow：首批 473 张已由本机 gallery_cards.js 转传，增量卡面
+#   缺口由下方「卡面缺口检查」步骤发 ::warning:: 告知，人工跑 gallery_cards.js 补。
+
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: '游戏版本（默认 27）'
+        type: string
+        default: '27'
+      upload:
+        description: '是否上传到云存储（false=空跑验证，true=真写）'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gallery-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # 实测本机：拉取 390 请求（195 detail + 195 pool，并发4）约 3~4min + 上传 196 文件约 2~3min。
+    # CI 网络波动更大，且 uploadJsonSafe 慢速失败最坏 ~600s/文件（规则 125），留 30min 冗余。
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      # 规则 126：会 initCloud/上云的步骤必须注入 TCB env 三件套，否则 0.2s 抛「缺 TCB_*」。
+      - name: Sync & upload (upload=${{ github.event.inputs.upload }})
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: >-
+          node scripts/gallery_sync.js
+          ${{ github.event.inputs.fc_ver || '27' }}
+          ${{ github.event.inputs.upload != 'false' && '' || '--no-upload' }}
+
+      # 卡面缺口检查：CI 不转传卡面（首批已本机传完），有新卡缺口时显式告警（规则 125：
+      # continue-on-error 必须配 outcome 告警；这里主步骤失败即真失败，缺口只是 warning）。
+      - name: 卡面缺口检查
+        if: always()
+        run: |
+          node -e "
+          const fs = require('fs');
+          try {
+            const need = JSON.parse(fs.readFileSync('cloud-data/fc27/gallery/needed_gcards.json', 'utf8'));
+            let sent = {};
+            try { sent = JSON.parse(fs.readFileSync('cloud-data/fc27/gallery/sent_gcards.json', 'utf8')) || {}; } catch (e) {}
+            const miss = Object.keys(need).filter(function (k) { return !sent[k]; });
+            if (miss.length) {
+              console.log('::warning:: 收藏馆卡面缺口 ' + miss.length + ' 张，需跑 gallery_cards.js 转传: ' + miss.slice(0, 20).join(','));
+            } else {
+              console.log('卡面覆盖完整（' + Object.keys(need).length + ' 张全部已传）');
+            }
+          } catch (e) { console.log('::warning:: 卡面缺口检查跳过：' + e.message); }
+          "
