@@ -1,13 +1,13 @@
 {
  "version": "27",
- "total": 20399,
- "updateISO": "2026-10-22T18:27:51.970Z",
+ "total": 20393,
+ "updateISO": "2026-10-23T10:32:36.430Z",
  "counts": {
-  "league": 62,
+  "league": 61,
   "club": 718,
   "nation": 164
  },
- "pendingCount": 4,
+ "pendingCount": 3,
  "pending": {
   "league": [
    {
@@ -23,12 +23,7 @@
     "players": 19
    }
   ],
-  "club": [
-   {
-    "en": "Partnerships",
-    "players": 5
-   }
-  ],
+  "club": [],
   "nation": []
  }
 }
