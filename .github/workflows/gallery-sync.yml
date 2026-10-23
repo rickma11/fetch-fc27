@@ -60,6 +60,9 @@ jobs:
         run: npm install
 
       # 规则 126：会 initCloud/上云的步骤必须注入 TCB env 三件套，否则 0.2s 抛「缺 TCB_*」。
+      # ⚠️ 表达式写法坑（2026-10-24 修）：不能写 `upload != 'false' && '' || '--no-upload'` ——
+      #   GitHub 表达式里空串是 falsy，`true && ''` 得 ''，再 `|| '--no-upload'` 结果恒定带 --no-upload
+      #   （曾经因此长期跑干跑、从没真上传）。正确写法：`upload == 'false' && '--no-upload' || ''`。
       - name: Sync & upload (upload=${{ github.event.inputs.upload }})
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
