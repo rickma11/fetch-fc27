@@ -23,7 +23,8 @@
 //
 // 端上零云函数：JSON 全静态直读；卡面三来源——库内卡 {eaId}_card.webp/_np.webp（cardSrc='lib'，
 //   与列表/详情页同一套图，不重复搬运）；库外 promo 卡 {eaId}_gcard.webp（cardSrc='gcard'，
-//   由 gallery_cards.js 增量转传）。库内判定用 players.json（本机）/ lib_eaids.json 快照（CI）。
+//   由 gallery_cards.js 增量转传）。库内判定走**线上云库最新数据**（v2，规则 133：禁用本地 players.json
+//   / lib_eaids 快照）；全息卡（pool.holographic=true）不转存，改用「普通卡面 + 全息标签」。
 //
 // 用法：
 //   node scripts/gallery_sync.js 27 --no-upload          干跑：拉数据+生成本地产物，不写云
@@ -39,7 +40,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execFile } = require('child_process');
-const { publishObject, initCloud, hash8 } = require('./gen_static_lists.js');
+const { publishObject, initCloud, hash8, CLOUD_DIR, META_COLLECTION } = require('./gen_static_lists.js');
 const { cn } = require('./cn_time');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -53,8 +54,7 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 
 const BASE = 'https://www.fut.gg/api/fut/gallery/fc' + VER;
 const OUT_DIR = path.join(ROOT, 'cloud-data', 'fc' + VER, 'gallery');
-const PLAYERS_FILE = path.join(ROOT, 'cloud-data', 'fc' + VER, 'players.json');       // 本机才有（.gitignore）
-const LIB_SNAPSHOT_FILE = path.join(ROOT, 'cloud-data', 'fc' + VER, 'lib_eaids.json'); // 随仓提交，CI 消费
+const COL = 'players_fc' + VER;                       // 线上球员库集合（v2：唯一权威数据源）
 
 // ── 基础工具 ──────────────────────────────────────────────────────────────
 function log() { console.log.apply(console, arguments); }
@@ -146,68 +146,126 @@ function cardBrief(x) {
   };
 }
 
-// solution/costTiers 的 items → 补 pool 字段 + 卡面来源判定（用户 2026-10-23 拍板：
-// 库内已有的卡面绝不重复搬运，只补我们球员库里没有的 promo 卡）。
-// 端上按 cardSrc/face 拼 fc27/images/ 路径（零外域依赖，与列表/详情页同一套卡面）：
-//   · cardSrc='lib'   eaId 在我们球员库 → {eaId}_card.webp；imagePath 为空的 44 人
-//                     face='np' → {eaId}_np.webp（与 format.js#displayImg 同规则）
-//   · cardSrc='gcard' 库外 promo 卡（Future Stars/DFG/POTM…）→ {eaId}_gcard.webp，
-//                     由 gallery_cards.js 从 fut.gg 增量转传（小程序不能直载外域图）
-// libMap 来源：本机 players.json（本地跑自动刷新快照）；CI 上 players.json 不在 checkout，
-//   读随仓提交的 lib_eaids.json 快照。
-function itemsBrief(items, poolById, libMap) {
+// solution/costTiers 的 items → 补 pool 字段 + 卡面来源判定
+//
+// ── v2（2026-10-24 拍板，实测依据见 eafc-miniapp/docs/33 §0）────────────────
+// ① 库内判定一律走**线上云库最新数据**（禁本地 players.json / lib_eaids 快照）。
+// ② **全息卡不转存卡面**：pool 的 `holographic:true` 是唯一可靠判据（全息 id 无前缀规律，
+//    禁止按 id 段猜）；全息卡 = 普通卡面 + 端上「全息」角标，积分自带 1.5×（item.score）。
+// ③ pristine 卡池里标 holographic=false 且主流程已抓 → 天然走普通卡分支，无需特殊处理。
+//
+// 端上按 cardSrc/faceEaId/face 拼 fc27/images/ 路径（零外域依赖，与列表/详情页同一套卡面）：
+//   · cardSrc='lib'   → {faceEaId}_{face}.webp（face='card'；imagePath 为空的少数人 face='np'）
+//   · cardSrc='gcard' → {eaId}_gcard.webp（由 gallery_cards.js 从 fut.gg 增量转传）
+// 判定链（命中即停）：
+//   非全息：libMap[eaId] → libMap[playerEaId] → 名字+总评查库 → gcard
+//   全息  ：池内普通孪生(playerEaId+overall+rarityName,非全息)在库 → libMap[playerEaId]
+//           → 名字+总评查库 → gcard
+const FACE_STATS = { libExact: 0, libPlayerId: 0, libTwin: 0, libByName: 0, gcard: 0 };
+const FACE_CACHE = {};   // eaId → { cardSrc, faceEaId, face, isHolo }（跨 set 复用，同一张卡只判一次）
+
+function twinKey(x) { return String(x.playerEaId) + '|' + x.overall + '|' + (x.rarityName || ''); }
+
+// 池内「普通孪生索引」：全息卡 → 同一球员同一总评同一稀有度的非全息版 eaId
+function buildTwinIndex(poolById) {
+  const idx = {};
+  for (const k in poolById) {
+    const x = poolById[k];
+    if (!x || x.holographic) continue;
+    const key = twinKey(x);
+    if (!idx[key]) idx[key] = String(x.eaId);
+  }
+  return idx;
+}
+
+function itemsBrief(items, poolById, ctx) {
   return (items || []).map(function (it) {
     const p = poolById[String(it.eaId)] || null;
-    const face = libMap[String(it.eaId)] || '';
+    const r = resolveFace(it, p, ctx);
     const o = {
       eaId: it.eaId, playerEaId: it.playerEaId,
       name: (p && (p.commonName || p.cardName)) || '',
       overall: it.overall, rarityName: (p && p.rarityName) || '',
       positions: p && Array.isArray(p.positions) ? p.positions : [],
       score: it.score, price: it.price,
-      cardSrc: face ? 'lib' : 'gcard',
-      face: face
+      isHolo: !!r.isHolo,                       // 端上据此叠「全息」角标
+      cardSrc: r.cardSrc, faceEaId: r.faceEaId, face: r.face
     };
-    if (!face) o.cardUrl = (p && p.cardImageUrl) || '';   // 仅 gcard 需要（转传源+占位）
+    if (r.cardSrc === 'gcard') o.cardUrl = (p && p.cardImageUrl) || '';   // 仅 gcard 需要（转传源+占位）
     return o;
   });
 }
 
-// ── 库内卡面映射（eaId → 'card' | 'np'）────────────────────────────────────
-// 本机：读 players.json（imagePath 非空→'card'，空→'np'，与 format.js#displayImg 同规则），
-//   并刷新随仓快照 lib_eaids.json 供 CI 用；CI：players.json 不在 checkout，直接读快照。
-// 快照过期只影响「新入库的卡被当成 promo 卡多传一张 _gcard」，展示不误导，可接受；
-// 本地每次跑 gallery_sync 都会自动刷新快照， push 后 CI 即同步。
-function loadLibMap() {
-  let map = null;
-  try {
-    const pl = JSON.parse(fs.readFileSync(PLAYERS_FILE, 'utf8'));
-    const items = Array.isArray(pl) ? pl : (pl.data || pl.players || pl.items || []);
-    map = {};
-    items.forEach(function (it) {
-      const e = it && (it.eaId != null ? it.eaId : it.id);
-      if (e != null) map[String(e)] = it.imagePath ? 'card' : 'np';
-    });
-  } catch (e) { map = null; }
-  if (map) {
-    try {
-      let oldMap = {};
-      try { oldMap = JSON.parse(fs.readFileSync(LIB_SNAPSHOT_FILE, 'utf8')).map || {}; } catch (e2) {}
-      if (JSON.stringify(oldMap) !== JSON.stringify(map)) {
-        fs.writeFileSync(LIB_SNAPSHOT_FILE, JSON.stringify({
-          v: 1, updatedAt: new Date().toISOString(), count: Object.keys(map).length, map: map
-        }));
-        log('[快照] lib_eaids.json 已刷新（' + Object.keys(map).length + ' 张库内卡面映射）');
-      }
-    } catch (e) { log('⚠️ lib_eaids.json 快照刷新失败: ' + e.message); }
-    return map;
+// ── 卡面判定（单次判定 + 缓存）──────────────────────────────────────────────
+function resolveFace(it, p, ctx) {
+  const key = String(it.eaId);
+  if (FACE_CACHE[key]) return FACE_CACHE[key];
+  const isHolo = !!(p && p.holographic);
+  const libMap = ctx.libMap, twinIndex = ctx.twinIndex;
+  let faceEaId = ''; let how = '';
+
+  if (isHolo) {
+    // 全息：优先用「普通孪生」的库内卡面，其次 playerEaId（多为 Base Icon/Hero）
+    const twinId = twinIndex[twinKey(p)];
+    if (twinId && libMap[twinId]) { faceEaId = twinId; how = 'libTwin'; }
+    else if (it.playerEaId != null && libMap[String(it.playerEaId)]) { faceEaId = String(it.playerEaId); how = 'libPlayerId'; }
+  } else {
+    if (libMap[key]) { faceEaId = key; how = 'libExact'; }
+    else if (it.playerEaId != null && libMap[String(it.playerEaId)]) { faceEaId = String(it.playerEaId); how = 'libPlayerId'; }
   }
-  try {
-    const snap = JSON.parse(fs.readFileSync(LIB_SNAPSHOT_FILE, 'utf8'));
-    if (snap && snap.map) { log('[快照] 用 lib_eaids.json（' + Object.keys(snap.map).length + ' 条，更新于 ' + (snap.updatedAt || '?') + '）'); return snap.map; }
-  } catch (e) {}
-  log('⚠️ 既无 players.json 也无 lib_eaids.json 快照——所有卡按 gcard 处理（会多传卡面，展示不误导）');
-  return {};
+
+  let cardSrc = 'lib', face = faceEaId ? (libMap[faceEaId] || 'card') : '';
+  if (!faceEaId) {
+    // 名字+总评兜底（ctx.nameIndex 由 run() 预查询填充；键 = overall|小写的 pool 全名）
+    // ⚠️ 必须用 pool 的全名：set detail 的原始 item 没有 name 字段，直接取 it.name 会永远空、兜底永不命中。
+    const fullName = (p && (p.commonName || p.cardName)) || it.name || '';
+    const nm = ctx.nameIndex[String(it.overall) + '|' + String(fullName).toLowerCase()];
+    if (nm) { faceEaId = nm.eaId; face = nm.face; how = 'libByName'; }
+    else { cardSrc = 'gcard'; face = ''; how = 'gcard'; }
+  }
+  FACE_STATS[how] = (FACE_STATS[how] || 0) + 1;
+  const r = { isHolo: isHolo, cardSrc: cardSrc, faceEaId: faceEaId, face: face };
+  FACE_CACHE[key] = r;
+  return r;
+}
+
+// ── 线上库内卡面映射（eaId → 'card' | 'np'）────────────────────────────────
+// 规则 133：数据判断必须用线上最新。按需 `where eaId in 批次` 查询（每批 ≤500），
+// 绝不全表扫（全表 = 2 万条/天 ≈ 61 万条/月，远超 20 万/月配额，规则 92/103）。
+// ⚠️ 失败必须 throw：禁止静默返回空 map（否则全量降级 gcard，会重演 4419 张误传）。
+async function queryLibMap(app, ids) {
+  const uniq = Array.from(new Set(ids.map(String).filter(Boolean)));
+  const map = {}; let reads = 0;
+  const BATCH = 500;
+  for (let i = 0; i < uniq.length; i += BATCH) {
+    const batch = uniq.slice(i, i + BATCH);
+    const r = await app.database().collection(COL)
+      .field({ eaId: true, imagePath: true })
+      .where({ eaId: app.database().command.in(batch.map(Number).filter(function (n) { return !isNaN(n); })) })
+      .limit(1000).get();
+    const d = (r && r.data) || [];
+    d.forEach(function (x) { if (x && x.eaId != null) map[String(x.eaId)] = x.imagePath ? 'card' : 'np'; });
+    reads += d.length;
+  }
+  log('[库内] 按需查库 ' + uniq.length + ' 个 eaId → 命中 ' + Object.keys(map).length + ' 张（DB 读 ' + reads + ' 条）');
+  return map;
+}
+
+// 名字+总评兜底索引（只查上一轮没命中的少量卡，避免全表扫）
+async function buildNameIndex(app, missList) {
+  const idx = {};
+  if (!missList.length) return idx;
+  const db = app.database();
+  for (const m of missList) {
+    try {
+      const r = await db.collection(COL).field({ eaId: true, commonName: true, overall: true, imagePath: true })
+        .where({ commonName: m.name, overall: Number(m.overall) }).limit(5).get();
+      const d = (r && r.data) || [];
+      if (d.length) idx[String(m.overall) + '|' + String(m.name || '').toLowerCase()] = { eaId: String(d[0].eaId), face: d[0].imagePath ? 'card' : 'np' };
+    } catch (e) { /* 单次失败不阻塞，落 gcard */ }
+  }
+  log('[库内] 名字+总评兜底命中 ' + Object.keys(idx).length + ' / ' + missList.length);
+  return idx;
 }
 
 // ── gallery_index ─────────────────────────────────────────────────────────
@@ -249,7 +307,7 @@ function buildIndex(catalogue, hub) {
 }
 
 // ── gallery_set_{id} ──────────────────────────────────────────────────────
-function buildSetDetail(sd, poolById, libMap) {
+function buildSetDetail(sd, poolById, ctx) {
   const sol = sd.solution || {};
   const tagById = {};
   (sd.tags || []).forEach(function (t) { tagById[String(t.tagId != null ? t.tagId : t.id)] = t; });
@@ -278,13 +336,13 @@ function buildSetDetail(sd, poolById, libMap) {
       grade: sol.grade || '', totalScore: sol.totalScore || 0,
       baseGrade: sol.baseGrade || 0, bonusGrade: sol.bonusGrade || 0,
       tokens: sol.tokens || 0, maxTokens: sol.maxTokens || 0,
-      items: itemsBrief(sol.items, poolById, libMap)
+      items: itemsBrief(sol.items, poolById, ctx)
     },
     costTiers: (sol.costTiers || []).map(function (t) {
       return {
         grade: t.grade, threshold: t.threshold, tokens: t.tokens,
         cost: t.cost, peakPrice: t.peakPrice, status: t.status || '',
-        items: itemsBrief(t.items, poolById, libMap)
+        items: itemsBrief(t.items, poolById, ctx)
       };
     }),
     tags: tags,
@@ -294,6 +352,76 @@ function buildSetDetail(sd, poolById, libMap) {
   };
 }
 
+// ── 上传 + 增量发布（v2.1）─────────────────────────────────────────────────
+// 规则 116/100/125B：SDK 180s 超时 + 3 次重试 + race 480s + 回读校验；不清空旧文件直到新 meta 写成功。
+const RACE_MS = 480000;   // 规则 125B：>1MB 产物必须 RACE≥480s，否则慢速档被 SDK 240s 强杀
+
+async function uploadJsonSafe(app, cloudPath, buf) {
+  let lastErr = null;
+  for (let i = 1; i <= 3; i++) {
+    try {
+      const up = await Promise.race([
+        app.uploadFile({ cloudPath: cloudPath, fileContent: buf }),
+        new Promise(function (_, rej) { setTimeout(function () { rej(new Error('uploadFile 超时 ' + RACE_MS + 'ms')); }, RACE_MS); })
+      ]);
+      const fileID = (up && up.fileID) || '';
+      if (!fileID) throw new Error('上传未拿到 fileID');
+      const rb = await app.downloadFile({ fileID: fileID });
+      const rbBuf = rb && rb.fileContent;
+      if (!rbBuf || !rbBuf.length) throw new Error('回读空');
+      return { fileID: fileID, rbBuf: rbBuf };
+    } catch (e) {
+      lastErr = e;
+      console.error('  ⚠️ 上传尝试 ' + i + '/3 失败: ' + e.message);
+    }
+  }
+  throw lastErr || new Error('上传 3 次全失败');
+}
+
+// 对比增量发布：内容 hash 与云端元文档一致 → 整段跳过（不上传、不动 meta，端上不会误判"有更新"）。
+// 双层时间戳：dataUpdatedAt=数据源时间（端上刷新依据），publishedAt=本次写盘时间（排障用）。
+// forceVersion 只在内容真变时 bump（旧逻辑每次 bump → 端上白下载）。
+async function publishIncremental(app, name, obj, dataUpdatedAt) {
+  const jsonStr = JSON.stringify(obj);
+  const buf = Buffer.from(jsonStr);
+  const h = hash8(buf);
+  const cloudPath = CLOUD_DIR + name + '/' + name + '.' + h + '.json';
+
+  let old = null;
+  try {
+    const r = await app.database().collection(META_COLLECTION).doc(name).get();
+    const d = (r && r.data) || null;
+    old = Array.isArray(d) ? (d[0] || null) : d;   // 规则 29：node-sdk .doc().get() 可能返回数组
+  } catch (e) { old = null; }
+
+  if (old && old.hash === h) {
+    log('  ⏭ 跳过（内容未变 hash=' + h + '，现有数据不动）：' + name);
+    return { changed: false, hash: h };
+  }
+
+  const up = await uploadJsonSafe(app, cloudPath, buf);
+  try {
+    const o = JSON.parse(up.rbBuf.toString('utf8'));
+    if (!o || typeof o !== 'object' || Array.isArray(o)) throw new Error('回读非对象');
+  } catch (e) { console.error('  ❌ 回读校验失败: ' + e.message); throw e; }
+
+  const nowIso = new Date().toISOString();
+  const ts = Date.now();
+  await app.database().collection(META_COLLECTION).doc(name).set({
+    fetchedAt: '', count: 0, fileID: up.fileID, hash: h, ts: ts,
+    dataUpdatedAt: dataUpdatedAt || nowIso, dataUpdatedAtCn: cn(dataUpdatedAt || nowIso),
+    publishedAt: nowIso, publishedAtCn: cn(nowIso),
+    prevFileId: (old && old.fileID) || '', updatedAt: nowIso, forceVersion: ts,
+    updatedAtCn: cn(nowIso), tsCn: cn(ts)
+  });
+  if (old && old.fileID && old.fileID !== up.fileID) {
+    try { await app.deleteFile({ fileList: [old.fileID] }); log('  已清理旧文件: ' + name); }
+    catch (e) { log('  ⚠️ 清理旧文件失败（不影响本次）: ' + e.message); }
+  }
+  log('  ✅ 已发布 ' + name + '  hash=' + h + '  (' + (jsonStr.length / 1024).toFixed(1) + 'KB)');
+  return { changed: true, hash: h };
+}
+
 // ── 主流程 ────────────────────────────────────────────────────────────────
 async function run() {
   log('=== FUT Gallery 同步 FC' + VER + '  ' + new Date().toLocaleString('zh-CN') + ' ===');
@@ -301,8 +429,15 @@ async function run() {
 
   if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
-  // 库内卡面映射（决定 items 的 cardSrc/face，见 loadLibMap 说明）
-  const libMap = loadLibMap();
+  // 云初始化（v2：即使 --no-upload 干跑也要读线上库做卡面判定；无凭证直接 exit 1，禁止静默降级）
+  let app = null;
+  try { app = initCloud(); }
+  catch (e) {
+    console.error('❌ 云初始化失败（缺 TCB_* 凭证？）：' + e.message +
+      '\n规则 126：CI 必须在会 initCloud 的步骤注入 TCB_ENV_ID/SECRET_ID/SECRET_KEY；本机用 .env.local。' +
+      '\n禁止降级为「按 gcard 兜底」——那会重演 4419 张误传。');
+    process.exit(3);
+  }
 
   // 1) catalogue
   log('\n[1/4] 拉 catalogue ...');
@@ -357,6 +492,48 @@ async function run() {
   poolRes.out.forEach(function (m) { if (m) for (const k in m) if (!poolById[k]) poolById[k] = m[k]; });
   log('  pool 唯一球员: ' + Object.keys(poolById).length);
 
+  // ── 4-预) 线上库内卡面映射（v2 核心，规则 133：一律线上最新）────────────
+  // 候选 id = 池子全部 eaId（供全息卡找「普通孪生」）+ 解法卡的 playerEaId（供 Base Icon/Hero 兜底）
+  const candIds = Object.keys(poolById).slice();
+  sdOk.forEach(function (sd) {
+    const sol = sd.solution || {};
+    [sol].concat(sol.costTiers || []).forEach(function (blk) {
+      (blk.items || []).forEach(function (it) { if (it.playerEaId != null) candIds.push(String(it.playerEaId)); });
+    });
+  });
+  const libMap = await queryLibMap(app, candIds);
+  const twinIndex = buildTwinIndex(poolById);
+
+  // 第一遍扫描：找出「需要名字+总评兜底」的卡（很少，避免对它们逐个查库以外的开销）
+  const missList = [];
+  const missSeen = {};
+  sdOk.forEach(function (sd) {
+    const sol = sd.solution || {};
+    [sol].concat(sol.costTiers || []).forEach(function (blk) {
+      (blk.items || []).forEach(function (it) {
+        const p = poolById[String(it.eaId)] || null;
+        const isHolo = !!(p && p.holographic);
+        let hit = false;
+        if (isHolo) {
+          const t = twinIndex[twinKey(p)];
+          hit = !!(t && libMap[t]) || !!(it.playerEaId != null && libMap[String(it.playerEaId)]);
+        } else {
+          hit = !!libMap[String(it.eaId)] || !!(it.playerEaId != null && libMap[String(it.playerEaId)]);
+        }
+        if (!hit) {
+          const k = String(it.overall) + '|' + String((p && (p.commonName || p.cardName)) || '').toLowerCase();
+          if (!missSeen[k] && (p && (p.commonName || p.cardName))) { missSeen[k] = 1; missList.push({ overall: it.overall, name: (p.commonName || p.cardName) }); }
+        }
+      });
+    });
+  });
+  const nameIndex = await buildNameIndex(app, missList);
+
+  // 清空统计/缓存后进入正式生成（第一遍的判定不带 nameIndex，不能复用）
+  Object.keys(FACE_CACHE).forEach(function (k) { delete FACE_CACHE[k]; });
+  Object.keys(FACE_STATS).forEach(function (k) { FACE_STATS[k] = 0; });
+  const ctx = { libMap: libMap, twinIndex: twinIndex, nameIndex: nameIndex };
+
   // ── 生成本地产物 ──
   const degraded = [];   // set detail 失败的 set（用 catalogue+hub 最小数据）
   const sdById = {};
@@ -394,7 +571,7 @@ async function run() {
     const needGcards = {};   // eaId -> cardUrl（lib 之外的卡才需要）
     let n = 0;
     for (const sd of sdOk) {
-      const detail = buildSetDetail(sd, poolById, libMap);
+      const detail = buildSetDetail(sd, poolById, ctx);
       const str = JSON.stringify(detail);
       fs.writeFileSync(path.join(OUT_DIR, 'gallery_set_' + sd.set.id + '.json'), str);
       n++;
@@ -407,6 +584,9 @@ async function run() {
     const needStr = JSON.stringify(needGcards);
     fs.writeFileSync(path.join(OUT_DIR, 'needed_gcards.json'), needStr);
     log('[生成] gallery_set_*.json × ' + n + '  需转传卡面 ' + Object.keys(needGcards).length + ' 张');
+    log('[卡面判定] 库内精确 ' + FACE_STATS.libExact + ' / 库内 playerEaId ' + FACE_STATS.libPlayerId +
+      ' / 全息→普通孪生 ' + FACE_STATS.libTwin + ' / 名字兜底 ' + FACE_STATS.libByName +
+      ' / 需转存 gcard ' + FACE_STATS.gcard + '   （全息卡共 ' + (FACE_STATS.libTwin + FACE_STATS.libPlayerId) + ' 张走普通卡面+标签口径）');
     // 顺手落一份本地已传清单的初始化（卡面转传模式消费/回写）
     const sentFile = path.join(OUT_DIR, 'sent_gcards.json');
     if (!fs.existsSync(sentFile)) fs.writeFileSync(sentFile, '{}');
@@ -430,33 +610,32 @@ async function run() {
     return;
   }
 
-  // ── 上传 ──
-  log('\n[上传] 初始化云 ...');
-  const app = initCloud();
+  // ── 上传（v2.1：对比增量 —— hash 未变整段跳过，现有数据零影响）──
+  const PUB = { changed: 0, skipped: 0, failed: 0 };
 
   // 4c) gallery_index
   if (ONLY !== 'set') {
     const index = JSON.parse(fs.readFileSync(path.join(OUT_DIR, 'gallery_index.json'), 'utf8'));
-    await publishObject(app, 'gallery_index', index);
-    log('  ✅ gallery_index 已发布（元文档 meta_fc' + VER + '/gallery_index）');
+    const r = await publishIncremental(app, 'gallery_index', index, index.computedAt || index.capturedAt || '');
+    PUB[r.changed ? 'changed' : 'skipped']++;
   }
 
   // 4d) gallery_set_{id} × N（并发 4）
   if (ONLY !== 'index') {
     const files = fs.readdirSync(OUT_DIR).filter(function (f) { return /^gallery_set_\d+\.json$/.test(f); });
-    log('[上传] gallery_set × ' + files.length + '（并发 ' + CONC + '）...');
-    let ok = 0, fail = 0;
+    log('[上传] gallery_set × ' + files.length + '（并发 ' + CONC + '，增量：仅内容变化才写云）...');
     const upRes = await poolMap(files, CONC, async function (f) {
       const obj = JSON.parse(fs.readFileSync(path.join(OUT_DIR, f), 'utf8'));
-      await publishObject(app, 'gallery_set_' + obj.setId, obj);
-      return true;
+      const r = await publishIncremental(app, 'gallery_set_' + obj.setId, obj, obj.updatedAt || '');
+      return r;
     });
-    upRes.out.forEach(function (r) { if (r) ok++; });
-    fail = upRes.errs.length;
-    log('  ✅ 上传成功 ' + ok + ' / ' + files.length + (fail ? '  ❌ 失败 ' + fail : ''));
+    upRes.out.forEach(function (r) { if (!r) return; PUB[r.changed ? 'changed' : 'skipped']++; });
+    PUB.failed = upRes.errs.length;
     upRes.errs.slice(0, 10).forEach(function (e) { log('    ❌ ' + e.item + ': ' + e.err.message); });
-    if (fail > 0) { console.error('有 set 上传失败'); process.exit(2); }
   }
+
+  log('\n[发布汇总] 变更 ' + PUB.changed + ' / 跳过 ' + PUB.skipped + ' / 失败 ' + PUB.failed);
+  if (PUB.failed > 0) { console.error('有产物发布失败'); process.exit(2); }
 
   log('\n=== gallery_sync 完成 ===');
   if (sdRes.errs.length) {
