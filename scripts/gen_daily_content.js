@@ -27,6 +27,12 @@
 //   · SBC / EVO 的 endTime 在 72h 内（>0 且 <=72）。
 //   · 球员无到期概念，不进「即将结束」tab。
 //
+// ⚠️ 装饰类进化不进弹窗（用户 2026-10-23 拍板，2026-10-24 补漏）：
+//   「即将结束」一路自 10-23 起过滤，「新增」一路从实现起漏过滤——今日 4 条 Ultimate
+//   Scream 卡面进化（2625-2628）混进新增 tab 挂「装饰」标。现两路对称：云端 evoSourceKey
+//  判 'cosmetic' 即跳过；端上 components/daily-content-modal#applyDerived 的
+//   dailyEnding.processNew / buildEndingView 按 srcKeyResolved 再兜一层（双保险）。
+//
 // 摘要口径（2026-10-14 用户改版）：
 //   · SBC —— **只给奖励**，不再显示「成本 xx」（用户：SBC 信息不需要成本信息）；无奖励则为空串，端上不渲染副行。
 //   · EVO —— 不再显示「金币 免费」这类成本信息，改由左侧**来源标签**表达花费
@@ -253,6 +259,10 @@ async function run() {
   });
   evoRaw.forEach(function (e) {
     if (!isTodayCn(e, today)) return;
+    // 装饰类进化不进弹窗（用户口径 2026-10-23：装饰不展示；2026-10-24 补漏到「新增」一路）：
+    // 此前只过滤了「即将结束」，今日 4 条 Ultimate Scream 卡面进化（2625-2628）混进新增 tab。
+    // 云端 srcKey 与端上 dailyEnding.isCosmetic 同 key（'cosmetic'），双保险。
+    if (evoSourceKey(e) === 'cosmetic') return;
     // srcKey = 进化来源档（免费进化/付费进化/训练营/…），端上标签文案由 SOURCE_LABEL 映射
     newChallenges.push({ id: String(e.id), type: 'evo', name: nameOf(e), summary: evoSummary(e), srcKey: evoSourceKey(e), endTime: e.endTime || '' });
   });
@@ -265,6 +275,9 @@ async function run() {
     const rh = remainHours(x.endTime);
     if (rh != null && rh > 0 && rh <= ENDING_WINDOW_H) {
       const type = ('cost' in x) ? 'sbc' : 'evo';   // SBC 有 cost 字段、EVO 没有
+      // 装饰类进化不进弹窗（与「新增」一路同口径，2026-10-24 起两路对称）：
+      // 任务奖励/通行证送的卡面进化同样是装饰，云端先剔除，端上 processEnding 再兜一层。
+      if (type === 'evo' && evoSourceKey(x) === 'cosmetic') return;
       ending.push({
         id: String(x.id), type: type, name: nameOf(x),
         summary: type === 'sbc' ? sbcSummary(x) : evoSummary(x),
