@@ -242,7 +242,17 @@ function cardBrief(x) {
 // ① 库内判定一律走**线上云库最新数据**（禁本地 players.json / lib_eaids 快照）。
 // ② **全息卡不转存卡面**：pool 的 `holographic:true` 是唯一可靠判据（全息 id 无前缀规律，
 //    禁止按 id 段猜）；全息卡 = 普通卡面 + 端上「全息」角标，积分自带 1.5×（item.score）。
-// ③ pristine 卡池里标 holographic=false 且主流程已抓 → 天然走普通卡分支，无需特殊处理。
+//
+// 🔴 v3（2026-10-24，判定链纠错）：**Pristine 与普通全息都标 holographic=true**，
+//    唯一区别是 eaId 是否等于某张基础卡的 holoVariantEaId。
+//    实证（14546 pool item / 195 pools）：
+//      · 云库 holographicType='pristine' 挂在**基础卡**上（203 行，含义「该球员有 pristine 变体」），
+//        其 holoVariantEaId 才是 pristine 卡自身的 eaId（集合 P，203 个）。
+//      · pool 中 eaId ∈ P 的 349 个 item（去重 197 卡）= Pristine，且 holographic 全为 true。
+//      · pool 中 holographic=true 且 ∉P 的 911 个 item（去重 295 卡）= 普通全息。
+//      · 两集合不重叠；27 名球员同时拥有两版 → 端上必须分别标注。
+//    ⚠️ 旧口径（用「pool.eaId ∈ {holographicType='pristine' 行的 eaId}」判）会把 152 张
+//       **普通基础卡**（holographic=false，如 eaId=166676 Base Hero）误标成 Pristine —— 已废弃。
 //
 // 端上按 cardSrc/faceEaId/face 拼 fc27/images/ 路径（零外域依赖，与列表/详情页同一套卡面）：
 //   · cardSrc='lib'   → {faceEaId}_{face}.webp（face='card'；imagePath 为空的少数人 face='np'）
@@ -274,9 +284,13 @@ function itemsBrief(items, poolById, ctx) {
   return (items || []).map(function (it) {
     const p = poolById[String(it.eaId)] || null;
     const r = resolveFace(it, p, ctx);
-    // Pristine 判定：pool item.eaId 与云库 eaId 同源（实证），命中且 holographicType='pristine' 即珍藏全息
-    const libRow = ctx.libMap[String(it.eaId)];
-    const holoType = (libRow && libRow.pristine) ? 'pristine' : (r.isHolo ? 'holo' : '');
+    // Pristine 判定（v3 纠错后的唯一正确口径）：
+    //   云库 holographicType='pristine' 挂在**基础卡**上（含义「该球员有 pristine 变体」），
+    //   其 holoVariantEaId 才是 pristine 卡自身的 eaId → 集合 P（203 个）。
+    //   pool item.eaId ∈ P → Pristine；否则 pool.holographic=true → 普通全息。
+    // ⚠️ 禁止用「pool.eaId ∈ {holographicType='pristine' 行的 eaId}」——那是基础卡，会误标 152 张普通卡。
+    const isPristine = ctx.pristineIds && ctx.pristineIds.has(String(it.eaId));
+    const holoType = isPristine ? 'pristine' : (r.isHolo ? 'holo' : '');
     if (holoType) HOLO_STATS[holoType] = (HOLO_STATS[holoType] || 0) + 1;
     const o = {
       eaId: it.eaId, playerEaId: it.playerEaId,
@@ -285,9 +299,8 @@ function itemsBrief(items, poolById, ctx) {
       positions: p && Array.isArray(p.positions) ? p.positions : [],
       score: it.score, price: it.price,
       // holoType: 'pristine'（Pristine 珍藏全息）| 'holo'（普通全息）| ''（非全息）
-      // 判定：库里 holographicType='pristine' → pristine；否则 pool.holographic=true → 普通全息。
-      // 实证（2026-10-24，14546 个 pool item）：pristine 152 张（holographic 均为 false）、
-      // 普通全息 1260 张，两者**不重叠**；有 60 名球员同时拥有两种版本，必须区分显示。
+      // 实证（2026-10-24，14546 pool item）：Pristine 349 occurrence（去重 197 卡，holographic 全 true）、
+      // 普通全息 911 occurrence（去重 295 卡）—— 两集合不重叠；27 名球员同时拥有两版，端上须分别标注。
       holoType: holoType, isHolo: holoType !== '',
       cardSrc: r.cardSrc, faceEaId: r.faceEaId, face: r.face
     };
@@ -345,16 +358,45 @@ async function queryLibMap(app, ids) {
       .where({ eaId: app.database().command.in(batch.map(Number).filter(function (n) { return !isNaN(n); })) })
       .limit(1000).get();
     const d = (r && r.data) || [];
-    // 值 = { face:'card'|'np', pristine:boolean }（pristine 供端上区分「普通全息 / Pristine」角标）
+    // 值 = { face:'card'|'np' }（卡面来源判定用）
     d.forEach(function (x) {
       if (x && x.eaId != null) {
-        map[String(x.eaId)] = { face: x.imagePath ? 'card' : 'np', pristine: x.holographicType === 'pristine' };
+        map[String(x.eaId)] = { face: x.imagePath ? 'card' : 'np' };
       }
     });
     reads += d.length;
   }
   log('[库内] 按需查库 ' + uniq.length + ' 个 eaId → 命中 ' + Object.keys(map).length + ' 张（DB 读 ' + reads + ' 条）');
   return map;
+}
+
+// ── Pristine 卡集合（云库基础卡的 holoVariantEaId）────────────────────────────
+// 🔴 语义纠错（2026-10-24）：云库 players_fc27 的 holographicType='pristine' 挂在**基础卡**上，
+//    含义是「该球员存在 pristine 全息变体」；变体卡自身的 eaId = 该基础卡的 holoVariantEaId。
+//    因此 Pristine 判定必须用本函数产出的集合 P（pristine 卡自身 eaId），不能用基础卡 eaId。
+// 实证：全库仅 203 条 holographicType='pristine'（全表 where 精确匹配，DB 读 203 条 = 配额内），
+//    产出的 P 有 203 个 id；pool 中命中 349 occurrence（去重 197 卡）。
+// ⚠️ 失败必须 throw：空集合会把全部 Pristine 误判成普通全息（静默降级）。
+async function queryPristineIds(app) {
+  const db = app.database();
+  const set = new Set();
+  let skip = 0, reads = 0;
+  while (true) {
+    const r = await db.collection(COL)
+      .field({ eaId: true, holographicType: true, holoVariantEaId: true })
+      .where({ holographicType: 'pristine' })
+      .skip(skip).limit(1000).get();
+    const d = (r && r.data) || [];
+    d.forEach(function (x) {
+      if (x && x.holoVariantEaId != null) set.add(String(x.holoVariantEaId));
+    });
+    reads += d.length;
+    if (d.length < 1000) break;
+    skip += 1000;
+  }
+  if (!set.size) throw new Error('Pristine 集合为空（云库 holographicType=pristine 查询异常）——禁止继续，会把 Pristine 误判成普通全息');
+  log('[全息] Pristine 基础卡 ' + reads + ' 条 → 变体卡集合 P ' + set.size + ' 个 eaId（DB 读 ' + reads + ' 条）');
+  return set;
 }
 
 // 名字+总评兜底索引（只查上一轮没命中的少量卡，避免全表扫）
@@ -620,6 +662,8 @@ async function run() {
     });
   });
   const libMap = await queryLibMap(app, candIds);
+  // Pristine 变体卡集合（holoVariantEaId）：判定「普通全息 vs Pristine」的唯一正确口径
+  const pristineIds = await queryPristineIds(app);
   const twinIndex = buildTwinIndex(poolById);
 
   // 第一遍扫描：找出「需要名字+总评兜底」的卡（很少，避免对它们逐个查库以外的开销）
@@ -650,7 +694,7 @@ async function run() {
   // 清空统计/缓存后进入正式生成（第一遍的判定不带 nameIndex，不能复用）
   Object.keys(FACE_CACHE).forEach(function (k) { delete FACE_CACHE[k]; });
   Object.keys(FACE_STATS).forEach(function (k) { FACE_STATS[k] = 0; });
-  const ctx = { libMap: libMap, twinIndex: twinIndex, nameIndex: nameIndex };
+  const ctx = { libMap: libMap, twinIndex: twinIndex, nameIndex: nameIndex, pristineIds: pristineIds };
 
   // ── 生成本地产物 ──
   const degraded = [];   // set detail 失败的 set（用 catalogue+hub 最小数据）
