@@ -22,6 +22,10 @@ on:
         description: '内部自重试计数（勿手动填，由 retry 作业自动递增）'
         type: string
         default: '0'
+      simulateFail:
+        description: '自检用：true=在拉价前故意失败，用于演练失败自重试链（勿在正式调度里填）'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -58,6 +62,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # ── 自检闸门（simulateFail=true 时故意失败，用于端到端演练 retry 链）──
+      # 放在拉价之前，保证演练绝不碰云存储数据（不写 price_view / series）。
+      - name: Self-test gate (simulateFail)
+        if: ${{ inputs.simulateFail == true }}
+        run: |
+          echo "::error::simulateFail=1 → 故意失败以验证失败自重试链（本次不写任何云端数据）"
+          exit 1
+
       - name: Sync & upload (upload=${{ github.event.inputs.upload }})
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
@@ -69,29 +81,41 @@ jobs:
   # sync 失败时，由本作业通过 API 派发一个新 run（retryCount+1），最多 2 次，
   # 让瞬时链路抖动（如 #514 的 loadRoster 3x30s 超时）在重跑时跨过，避免再丢一小时价格。
   # retryCount 由本作业注入；原始触发方（cron-job.org）无需任何改动，照旧每小时 POST 即可。
-  # ⚠️ GitHub Actions 表达式不支持算术 +，故 retryCount+1 在脚本内用 JS Number()+1 计算。
+  # ⚠️ GitHub Actions 表达式不支持算术 +，故 retryCount+1 在脚本内用 shell $(( )) 计算。
+  # ⚠️ inputs.upload / inputs.simulateFail 是「有类型的 boolean」，插值后是 true/false 字符串；
+  #    这里统一转成 JSON 布尔再发 dispatch —— 直接透传空串会被 GitHub 判 422（曾踩坑）。
   retry:
     name: Auto-retry on failure
     needs: sync
-    if: ${{ failure() && fromJSON(inputs.retryCount) < 2 }}
+    if: ${{ failure() && fromJSON(inputs.retryCount || '0') < 2 }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      # 等抖动窗口过去：#514 那次 loadRoster 连挂 3×30s（90s+），等 60s 再重跑更可能跨过
       - name: Wait out transient blip
-        run: sleep 30
+        run: sleep 60
+
       - name: Re-dispatch run (retry ${{ inputs.retryCount }}+1)
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const next = String(Number(${{ inputs.retryCount }}) + 1);
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'market-sync.yml',
-              ref: context.ref_name,
-              inputs: {
-                upload: ${{ github.event.inputs.upload }},
-                retryCount: next
-              }
-            });
-            core.info('已派发自重试 run（retryCount=' + next + '）');
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CUR=${{ inputs.retryCount || '0' }}
+          NEXT=$((CUR + 1))
+          UP='${{ inputs.upload }}'
+          [ "$UP" = "false" ] && UPJ=false || UPJ=true
+          SF='${{ inputs.simulateFail }}'
+          [ "$SF" = "true" ] && SFJ=true || SFJ=false
+          echo "派发自重试 run：retryCount=${NEXT} upload=${UPJ} simulateFail=${SFJ}"
+          CODE=$(curl -s -o /tmp/dispatch.out -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -d "{\"ref\":\"${{ github.ref_name }}\",\"inputs\":{\"upload\":${UPJ},\"retryCount\":\"${NEXT}\",\"simulateFail\":${SFJ}}}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/market-sync.yml/dispatches")
+          echo "dispatch HTTP=${CODE}"
+          cat /tmp/dispatch.out || true
+          # 派发失败必须让本作业失败，否则等于静默放弃重试（规则 125：不得静默失败）
+          if [ "$CODE" != "204" ]; then
+            echo "::error::派发自重试 run 失败，HTTP=${CODE}"
+            exit 1
+          fi
