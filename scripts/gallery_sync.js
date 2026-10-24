@@ -109,6 +109,101 @@ async function poolMap(items, conc, fn) {
   return { out: out, errs: errs };
 }
 
+// ── 分类徽标（2026-10-24 真实图标）────────────────────────────────────────
+// 来源：fut.gg 联赛列表页 HTML（catalogue API 无图标字段，诊断见 gallery-probe 两个 run）。
+// 徽标 URL 模式：https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=80/2027/league/{id}.{hash}.png
+// （URL 带内容 hash，必须从 HTML 抠；league-light 为浅色变体；rarities/leagues 类分类无联赛徽标，端上回退首字徽标。）
+const LEAGUES_PAGE = 'https://www.fut.gg/leagues/';
+// gallery 分类 slug → 联赛页名称与列表不一致的别名（其余按名称规范化匹配）
+const CAT_LEAGUE_ALIAS = {
+  'mls': 'Major League Soccer',
+  'national-women-s-soccer-league': "National Women's Soccer League"
+};
+
+function normName(s) { return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
+
+// 二进制抓取（图片 / HTML），带 Referer（game-assets 有防盗链）
+function curlRaw(url, referer, tries) {
+  tries = tries || 3;
+  return new Promise(function (resolve, reject) {
+    let n = 0;
+    function go() {
+      n++;
+      const args = ['-s', '--compressed', '--max-time', '60', '-A', UA];
+      if (referer) args.push('-e', referer);
+      args.push(url);
+      execFile('curl', args, { maxBuffer: 32 * 1024 * 1024, encoding: 'buffer' }, function (err, stdout) {
+        if (err) { if (n < tries) return setTimeout(go, 1000 * n); reject(new Error('curl 退出 ' + err.code)); return; }
+        resolve(stdout);
+      });
+    }
+    go();
+  });
+}
+
+// 解析联赛列表页：slug → { name, url }（每个 /leagues/{slug}/ 链接块内找 game-assets 徽标 URL）
+function parseLeagueLogos(html) {
+  const out = {};
+  const parts = String(html).split(/href="\/leagues\//);
+  for (let i = 1; i < parts.length; i++) {
+    const seg = parts[i].slice(0, 1500);
+    const sm = /^([a-z0-9-]+)\//.exec(seg);
+    if (!sm) continue;
+    const um = /https:\/\/game-assets\.fut\.gg\/cdn-cgi\/[^"'\s\\]+\/2027\/league\/[^"'\s\\]+/.exec(seg);
+    const nm = /alt="([^"]+)"/.exec(seg);
+    if (um && !out[sm[1]]) out[sm[1]] = { url: um[0], name: nm ? nm[1] : '' };
+  }
+  return out;
+}
+
+// 抓取并转存分类徽标 → fc27/images/cat_{slug}.png；返回 Set(成功转存的 catSlug)。fail-soft：任何失败只告警不阻塞主流程。
+async function transferCatLogos(app, cats) {
+  const ok = new Set();
+  try {
+    const html = (await curlRaw(LEAGUES_PAGE, 'https://www.fut.gg/')).toString('utf8');
+    const lg = parseLeagueLogos(html);
+    const byName = {};
+    Object.keys(lg).forEach(function (slug) { if (lg[slug].name) byName[normName(lg[slug].name)] = slug; });
+    log('[徽标] 联赛列表页解析出 ' + Object.keys(lg).length + ' 个联赛徽标');
+    if (!Object.keys(lg).length) { log('⚠️ 徽标解析为 0（页面结构变了？），本轮跳过，端上回退首字徽标'); return ok; }
+
+    // 旧 hash 元文档（内容未变 → 跳过上传）
+    let oldHashes = {};
+    try {
+      const r = await app.database().collection(META_COLLECTION).doc('gallery_cat_logos').get();
+      const d = (r && r.data) || null;
+      const dd = Array.isArray(d) ? (d[0] || null) : d;
+      if (dd && dd.hashes) oldHashes = dd.hashes;
+    } catch (e) { /* 首跑无此文档 */ }
+
+    const hashes = {};
+    for (const c of (cats || [])) {
+      try {
+        const target = CAT_LEAGUE_ALIAS[c.slug] || String(c.name || '').split('/')[0].trim();
+        const lslug = byName[normName(target)];
+        if (!lslug || !lg[lslug]) { log('  [徽标] ' + c.slug + '（' + c.name + '）无联赛徽标，端上回退首字'); continue; }
+        // cdn-cgi 参数调整：png 定格式（端上按约定 .png 拼 cloudImg）、宽 120 清晰度够用
+        const url = lg[lslug].url.replace('format=auto', 'format=png').replace('width=80', 'width=120');
+        const buf = await curlRaw(url, 'https://www.fut.gg/');
+        if (!buf || buf.length < 500 || String(buf.slice(0, 1)) === '<') { log('  ⚠️ [徽标] ' + c.slug + ' 下载异常(' + (buf ? buf.length : 0) + 'B)，跳过'); continue; }
+        const h = hash8(buf);
+        hashes[c.slug] = h;
+        if (oldHashes[c.slug] === h) { ok.add(c.slug); log('  ⏭ [徽标] ' + c.slug + ' 未变跳过'); continue; }
+        await uploadJsonSafe(app, 'fc27/images/cat_' + c.slug + '.png', buf);
+        ok.add(c.slug);
+        log('  ✅ [徽标] ' + c.slug + ' ← ' + lslug + ' ' + buf.length + 'B');
+      } catch (e) { log('  ⚠️ [徽标] ' + c.slug + ' 失败: ' + e.message); }
+    }
+    // 回写 hash 元文档（供下次跳过）
+    try {
+      await app.database().collection(META_COLLECTION).doc('gallery_cat_logos').set({ hashes: hashes, updatedAt: new Date().toISOString() });
+    } catch (e) { log('  ⚠️ [徽标] hash 元文档写入失败: ' + e.message); }
+  } catch (e) {
+    log('⚠️ 分类徽标抓取失败（fail-soft，端上回退首字徽标）: ' + e.message);
+  }
+  return ok;
+}
+
 // ── 数据投影 ──────────────────────────────────────────────────────────────
 // 21 个全局标签瘦身（列表/详情都需要：一手规则 tiers 就在这里面）
 function tagBrief(t) {
@@ -625,9 +720,13 @@ async function run() {
   // ── 上传（v2.1：对比增量 —— hash 未变整段跳过，现有数据零影响）──
   const PUB = { changed: 0, skipped: 0, failed: 0 };
 
-  // 4c) gallery_index
+  // 4c) gallery_index（先转存分类徽标并把 logo 标记注入 categories，再走增量发布）
   if (ONLY !== 'set') {
     const index = JSON.parse(fs.readFileSync(path.join(OUT_DIR, 'gallery_index.json'), 'utf8'));
+    const logoSlugs = await transferCatLogos(app, index.categories || []);
+    (index.categories || []).forEach(function (c) {
+      if (logoSlugs.has(c.slug)) c.logo = true; else delete c.logo;
+    });
     const r = await publishIncremental(app, 'gallery_index', index, index.computedAt || index.capturedAt || '');
     PUB[r.changed ? 'changed' : 'skipped']++;
   }
