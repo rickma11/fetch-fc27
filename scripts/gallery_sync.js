@@ -141,10 +141,11 @@ function curlRaw(url, referer, tries) {
   });
 }
 
-// 解析联赛列表页：slug → { name, url }（每个 /leagues/{slug}/ 链接块内找 game-assets 徽标 URL）
+// 解析联赛列表页：slug → { name, url }（每个联赛链接块内找 game-assets 徽标 URL）。
+// 注意 href 是绝对 URL（https://www.fut.gg/leagues/{slug}/），兼容相对路径两种写法。
 function parseLeagueLogos(html) {
   const out = {};
-  const parts = String(html).split(/href="\/leagues\//);
+  const parts = String(html).split(/href="(?:https:\/\/www\.fut\.gg)?\/leagues\//);
   for (let i = 1; i < parts.length; i++) {
     const seg = parts[i].slice(0, 1500);
     const sm = /^([a-z0-9-]+)\//.exec(seg);
@@ -759,4 +760,4 @@ if (require.main === module) {
   run().catch(function (e) { console.error('失败:', e); process.exit(1); });
 }
 
-module.exports = { fetchJSON: fetchJSON, buildIndex: buildIndex, buildSetDetail: buildSetDetail, tagBrief: tagBrief, gradeBrief: gradeBrief, itemsBrief: itemsBrief };
+module.exports = { fetchJSON: fetchJSON, buildIndex: buildIndex, buildSetDetail: buildSetDetail, tagBrief: tagBrief, gradeBrief: gradeBrief, itemsBrief: itemsBrief, parseLeagueLogos: parseLeagueLogos };
