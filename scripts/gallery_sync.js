@@ -252,6 +252,8 @@ function cardBrief(x) {
 //   全息  ：池内普通孪生(playerEaId+overall+rarityName,非全息)在库 → libMap[playerEaId]
 //           → 名字+总评查库 → gcard
 const FACE_STATS = { libExact: 0, libPlayerId: 0, libTwin: 0, libByName: 0, gcard: 0 };
+// 全息分类统计：普通全息 holo / Pristine 珍藏全息 pristine（端上角标区分用）
+const HOLO_STATS = { holo: 0, pristine: 0 };
 const FACE_CACHE = {};   // eaId → { cardSrc, faceEaId, face, isHolo }（跨 set 复用，同一张卡只判一次）
 
 function twinKey(x) { return String(x.playerEaId) + '|' + x.overall + '|' + (x.rarityName || ''); }
@@ -272,13 +274,21 @@ function itemsBrief(items, poolById, ctx) {
   return (items || []).map(function (it) {
     const p = poolById[String(it.eaId)] || null;
     const r = resolveFace(it, p, ctx);
+    // Pristine 判定：pool item.eaId 与云库 eaId 同源（实证），命中且 holographicType='pristine' 即珍藏全息
+    const libRow = ctx.libMap[String(it.eaId)];
+    const holoType = (libRow && libRow.pristine) ? 'pristine' : (r.isHolo ? 'holo' : '');
+    if (holoType) HOLO_STATS[holoType] = (HOLO_STATS[holoType] || 0) + 1;
     const o = {
       eaId: it.eaId, playerEaId: it.playerEaId,
       name: (p && (p.commonName || p.cardName)) || '',
       overall: it.overall, rarityName: (p && p.rarityName) || '',
       positions: p && Array.isArray(p.positions) ? p.positions : [],
       score: it.score, price: it.price,
-      isHolo: !!r.isHolo,                       // 端上据此叠「全息」角标
+      // holoType: 'pristine'（Pristine 珍藏全息）| 'holo'（普通全息）| ''（非全息）
+      // 判定：库里 holographicType='pristine' → pristine；否则 pool.holographic=true → 普通全息。
+      // 实证（2026-10-24，14546 个 pool item）：pristine 152 张（holographic 均为 false）、
+      // 普通全息 1260 张，两者**不重叠**；有 60 名球员同时拥有两种版本，必须区分显示。
+      holoType: holoType, isHolo: holoType !== '',
       cardSrc: r.cardSrc, faceEaId: r.faceEaId, face: r.face
     };
     if (r.cardSrc === 'gcard') o.cardUrl = (p && p.cardImageUrl) || '';   // 仅 gcard 需要（转传源+占位）
@@ -304,7 +314,8 @@ function resolveFace(it, p, ctx) {
     else if (it.playerEaId != null && libMap[String(it.playerEaId)]) { faceEaId = String(it.playerEaId); how = 'libPlayerId'; }
   }
 
-  let cardSrc = 'lib', face = faceEaId ? (libMap[faceEaId] || 'card') : '';
+  const libRow = libMap[faceEaId];
+  let cardSrc = 'lib', face = faceEaId ? ((libRow && libRow.face) || 'card') : '';
   if (!faceEaId) {
     // 名字+总评兜底（ctx.nameIndex 由 run() 预查询填充；键 = overall|小写的 pool 全名）
     // ⚠️ 必须用 pool 的全名：set detail 的原始 item 没有 name 字段，直接取 it.name 会永远空、兜底永不命中。
@@ -330,11 +341,16 @@ async function queryLibMap(app, ids) {
   for (let i = 0; i < uniq.length; i += BATCH) {
     const batch = uniq.slice(i, i + BATCH);
     const r = await app.database().collection(COL)
-      .field({ eaId: true, imagePath: true })
+      .field({ eaId: true, imagePath: true, holographicType: true })
       .where({ eaId: app.database().command.in(batch.map(Number).filter(function (n) { return !isNaN(n); })) })
       .limit(1000).get();
     const d = (r && r.data) || [];
-    d.forEach(function (x) { if (x && x.eaId != null) map[String(x.eaId)] = x.imagePath ? 'card' : 'np'; });
+    // 值 = { face:'card'|'np', pristine:boolean }（pristine 供端上区分「普通全息 / Pristine」角标）
+    d.forEach(function (x) {
+      if (x && x.eaId != null) {
+        map[String(x.eaId)] = { face: x.imagePath ? 'card' : 'np', pristine: x.holographicType === 'pristine' };
+      }
+    });
     reads += d.length;
   }
   log('[库内] 按需查库 ' + uniq.length + ' 个 eaId → 命中 ' + Object.keys(map).length + ' 张（DB 读 ' + reads + ' 条）');
@@ -686,6 +702,7 @@ async function run() {
     const needStr = JSON.stringify(needGcards);
     fs.writeFileSync(path.join(OUT_DIR, 'needed_gcards.json'), needStr);
     log('[生成] gallery_set_*.json × ' + n + '  需转传卡面 ' + Object.keys(needGcards).length + ' 张');
+    log('[全息分类] 普通全息 ' + (HOLO_STATS.holo || 0) + ' / Pristine ' + (HOLO_STATS.pristine || 0));
     log('[卡面判定] 库内精确 ' + FACE_STATS.libExact + ' / 库内 playerEaId ' + FACE_STATS.libPlayerId +
       ' / 全息→普通孪生 ' + FACE_STATS.libTwin + ' / 名字兜底 ' + FACE_STATS.libByName +
       ' / 需转存 gcard ' + FACE_STATS.gcard + '   （全息卡共 ' + (FACE_STATS.libTwin + FACE_STATS.libPlayerId) + ' 张走普通卡面+标签口径）');
