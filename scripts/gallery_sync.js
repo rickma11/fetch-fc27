@@ -451,6 +451,14 @@ async function run() {
   const cd = catalogue.data || catalogue;
   log('  ✅ ' + catCount + ' 分类 / ' + setCount + ' set / ' + ((cd.tags || []).length) + ' 标签  capturedAt=' + (cd.capturedAt || ''));
 
+  // 🔍 诊断（2026-10-24 分类真实图标）：打印 category 完整字段，确认有无图标/logo 类字段
+  (cd.categories || []).slice(0, 2).forEach(function (c, i) {
+    const slim = {}; Object.keys(c).forEach(function (k) { if (k !== 'sets') slim[k] = c[k]; });
+    log('  [诊断] category[' + i + '] keys=' + JSON.stringify(Object.keys(c)) + ' sample=' + JSON.stringify(slim).slice(0, 500));
+  });
+  const s0 = (((cd.categories || [])[0] || {}).sets || [])[0];
+  if (s0) log('  [诊断] set[0] keys=' + JSON.stringify(Object.keys(s0)) + ' sample=' + JSON.stringify(s0).slice(0, 400));
+
   // 2) hub
   log('\n[2/4] 拉 hub ...');
   const hubRaw = await fetchJSON(BASE + '/hub/');
