@@ -1,16 +1,14 @@
 // scripts/gallery_probe.js —— 诊断 fut.gg 联赛图标来源（本机 IP 被拦，仅 CI 直连可达，规则 111）。
-// 目标：① 确认 leagues API 是否存在及其字段（有无 logo/image 路径）；
-//       ② 探测 game-assets.fut.gg 联赛徽标 URL 模式（为 gallery 分类真实图标转存定源）。
+// v2：API 主机是 www.fut.gg（v1 误用 api.fut.gg 致 DNS 失败）；徽标探测带 Referer 防盗链；
+//     另抓联赛页 HTML 抠真实 <img> 徽标 URL 模式。
 const https = require('https');
 
-function get(url, maxBytes) {
+function get(url, maxBytes, referer) {
   maxBytes = maxBytes || 300000;
   return new Promise(function (res) {
-    const req = https.request(url, {
-      method: 'GET',
-      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'Accept': 'application/json,text/html,*/*' },
-      timeout: 20000
-    }, function (r) {
+    const headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'Accept': 'application/json,text/html,*/*' };
+    if (referer) headers['Referer'] = referer;
+    const req = https.request(url, { method: 'GET', headers: headers, timeout: 20000 }, function (r) {
       const chunks = [];
       let total = 0;
       r.on('data', function (c) { total += c.length; if (total <= maxBytes) chunks.push(c); });
@@ -25,13 +23,13 @@ function get(url, maxBytes) {
 }
 
 (async function main() {
-  // ① leagues API 候选端点
+  // ① leagues API 候选端点（www.fut.gg）
   const cands = [
-    'https://api.fut.gg/api/fut/leagues/fc27/',
-    'https://api.fut.gg/api/fut/leagues/',
-    'https://api.fut.gg/api/fut/leagues/fc27/list/'
+    'https://www.fut.gg/api/fut/leagues/fc27/',
+    'https://www.fut.gg/api/fut/leagues/',
+    'https://www.fut.gg/api/fut/leagues/fc27/list/'
   ];
-  let leaguesSample = null;
+  let leagueId = 13;
   for (const u of cands) {
     const r = await get(u);
     console.log('\n== GET ' + u + ' -> ' + r.status + (r.error ? ' err=' + r.error : ''));
@@ -43,31 +41,37 @@ function get(url, maxBytes) {
       console.log('  count=' + arr.length);
       const keys = new Set();
       arr.slice(0, 80).forEach(function (x) { Object.keys(x).forEach(function (k) { keys.add(k); }); });
-      console.log('  keys union=' + JSON.stringify([].concat.apply([], [Array.from(keys)])));
+      console.log('  keys union=' + JSON.stringify(Array.from(keys)));
       console.log('  sample=' + JSON.stringify(arr.slice(0, 3)).slice(0, 1500));
-      if (!leaguesSample && arr.length) leaguesSample = arr;
+      const pl = arr.filter(function (x) { return /premier league/i.test(x.name || ''); })[0];
+      if (pl && (pl.id || pl.leagueId)) leagueId = pl.id || pl.leagueId;
     } catch (e) {
       console.log('  non-json head=' + r.body.slice(0, 300));
     }
   }
 
-  // ② 徽标 URL 模式探测：用 leagues API 里的真实 id（若有），否则用常见 id 兜底
-  let ids = [];
-  if (leaguesSample) {
-    ids = leaguesSample.slice(0, 3).map(function (x) { return x.id || x.leagueId || x.league_id; }).filter(Boolean);
+  // ② 联赛页 HTML：抠 game-assets 徽标 URL（最可靠来源）
+  const page = await get('https://www.fut.gg/leagues/premier-league/', 500000, 'https://www.fut.gg/');
+  console.log('\n== league page -> ' + page.status + ' bytes=' + page.body.length);
+  if (page.status === 200) {
+    const urls = page.body.match(/https?:\/\/[^"'\s\\)]+game-assets[^"'\s\\)]+/g) || [];
+    const uniq = [];
+    urls.forEach(function (u) { if (uniq.indexOf(u) < 0 && uniq.length < 12) uniq.push(u); });
+    console.log('  game-assets urls (' + urls.length + ' total):');
+    uniq.forEach(function (u) { console.log('    ' + u); });
+    const lg = page.body.match(/https?:\/\/[^"'\s\\)]*(?:league|crest|logo)[^"'\s\\)]*\.(?:png|webp|svg)/gi) || [];
+    console.log('  league/crest/logo urls: ' + JSON.stringify(lg.slice(0, 8)));
   }
-  if (!ids.length) ids = [13, 31];
+
+  // ③ 徽标 URL 模式探测（带 Referer）
   const imgPatterns = [
     function (id) { return 'https://game-assets.fut.gg/2027/leagues/' + id + '.png'; },
-    function (id) { return 'https://game-assets.fut.gg/2027/leagues/' + id + '.webp'; },
-    function (id) { return 'https://cdn.soccersapi.com/images/leagues/' + id + '.png'; }
+    function (id) { return 'https://game-assets.fut.gg/2027/leagues/' + id + '.webp'; }
   ];
   for (const mk of imgPatterns) {
-    for (const id of ids.slice(0, 2)) {
-      const u = mk(id);
-      const r = await get(u, 64);
-      console.log('IMG ' + u + ' -> ' + r.status + ' ' + ((r.headers && r.headers['content-type']) || '') + ' len=' + ((r.headers && r.headers['content-length']) || '?'));
-    }
+    const u = mk(leagueId);
+    const r = await get(u, 64, 'https://www.fut.gg/');
+    console.log('IMG ' + u + ' -> ' + r.status + ' ' + ((r.headers && r.headers['content-type']) || '') + ' len=' + ((r.headers && r.headers['content-length']) || '?'));
   }
-  console.log('\nPROBE DONE');
+  console.log('\nPROBE DONE leagueId=' + leagueId);
 })();
