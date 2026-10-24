@@ -69,6 +69,7 @@ jobs:
   # sync 失败时，由本作业通过 API 派发一个新 run（retryCount+1），最多 2 次，
   # 让瞬时链路抖动（如 #514 的 loadRoster 3x30s 超时）在重跑时跨过，避免再丢一小时价格。
   # retryCount 由本作业注入；原始触发方（cron-job.org）无需任何改动，照旧每小时 POST 即可。
+  # ⚠️ GitHub Actions 表达式不支持算术 +，故 retryCount+1 在脚本内用 JS Number()+1 计算。
   retry:
     name: Auto-retry on failure
     needs: sync
@@ -82,14 +83,15 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const next = String(Number(${{ inputs.retryCount }}) + 1);
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'market-sync.yml',
               ref: context.ref_name,
               inputs: {
-                upload: '${{ github.event.inputs.upload }}',
-                retryCount: '${{ fromJSON(inputs.retryCount) + 1 }}'
+                upload: ${{ github.event.inputs.upload }},
+                retryCount: next
               }
             });
-            core.info('已派发自重试 run（retryCount=' + ${{ fromJSON(inputs.retryCount) + 1 }} + '）');
+            core.info('已派发自重试 run（retryCount=' + next + '）');
