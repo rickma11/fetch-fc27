@@ -1,77 +1,47 @@
 // scripts/gallery_probe.js —— 诊断 fut.gg 联赛图标来源（本机 IP 被拦，仅 CI 直连可达，规则 111）。
-// v2：API 主机是 www.fut.gg（v1 误用 api.fut.gg 致 DNS 失败）；徽标探测带 Referer 防盗链；
-//     另抓联赛页 HTML 抠真实 <img> 徽标 URL 模式。
-const https = require('https');
+// v3：验证「抓联赛详情页 → 抠徽标 URL → 改 cdn-cgi 参数(format=png,width=120) → 下载 → 校验 PNG」整链路。
+//     列表页 /leagues/ 是客户端渲染无徽标，徽标只在 /leagues/{slug}/ 详情页原始 HTML 里。
+const { execFileSync } = require('child_process');
 
-function get(url, maxBytes, referer) {
-  maxBytes = maxBytes || 300000;
-  return new Promise(function (res) {
-    const headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'Accept': 'application/json,text/html,*/*' };
-    if (referer) headers['Referer'] = referer;
-    const req = https.request(url, { method: 'GET', headers: headers, timeout: 20000 }, function (r) {
-      const chunks = [];
-      let total = 0;
-      r.on('data', function (c) { total += c.length; if (total <= maxBytes) chunks.push(c); });
-      r.on('end', function () {
-        res({ status: r.statusCode, headers: r.headers, body: Buffer.concat(chunks).toString('utf8').slice(0, maxBytes) });
-      });
-    });
-    req.on('error', function (e) { res({ status: 0, error: e.message }); });
-    req.on('timeout', function () { req.destroy(); res({ status: 0, error: 'timeout' }); });
-    req.end();
-  });
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/120 Safari/537.36';
+
+function curlRaw(url, referer, asBuffer) {
+  const args = ['-s', '--compressed', '--max-time', '60', '-A', UA];
+  if (referer) args.push('-e', referer);
+  args.push(url);
+  return execFileSync('curl', args, { maxBuffer: 64 * 1024 * 1024, encoding: asBuffer ? 'buffer' : 'utf8' });
 }
 
-(async function main() {
-  // ① leagues API 候选端点（www.fut.gg）
-  const cands = [
-    'https://www.fut.gg/api/fut/leagues/fc27/',
-    'https://www.fut.gg/api/fut/leagues/',
-    'https://www.fut.gg/api/fut/leagues/fc27/list/'
-  ];
-  let leagueId = 13;
-  for (const u of cands) {
-    const r = await get(u);
-    console.log('\n== GET ' + u + ' -> ' + r.status + (r.error ? ' err=' + r.error : ''));
-    if (r.status !== 200) continue;
-    try {
-      const j = JSON.parse(r.body);
-      const d = j.data || j;
-      const arr = Array.isArray(d) ? d : (d.leagues || d.results || []);
-      console.log('  count=' + arr.length);
-      const keys = new Set();
-      arr.slice(0, 80).forEach(function (x) { Object.keys(x).forEach(function (k) { keys.add(k); }); });
-      console.log('  keys union=' + JSON.stringify(Array.from(keys)));
-      console.log('  sample=' + JSON.stringify(arr.slice(0, 3)).slice(0, 1500));
-      const pl = arr.filter(function (x) { return /premier league/i.test(x.name || ''); })[0];
-      if (pl && (pl.id || pl.leagueId)) leagueId = pl.id || pl.leagueId;
-    } catch (e) {
-      console.log('  non-json head=' + r.body.slice(0, 300));
-    }
-  }
+// 深色版徽标（排除 league-light 浅色变体）
+function extractCrest(html) {
+  const re = /https:\/\/game-assets\.fut\.gg\/cdn-cgi\/image\/[^"'\s\\]+\/2027\/league\/[0-9]+\.[0-9a-f]+\.png/g;
+  const all = String(html).match(re) || [];
+  const dark = all.filter(function (u) { return u.indexOf('/league-light/') < 0; });
+  return dark[0] || all[0] || '';
+}
 
-  // ② 联赛页 HTML：抠 game-assets 徽标 URL（最可靠来源）
-  const page = await get('https://www.fut.gg/leagues/premier-league/', 500000, 'https://www.fut.gg/');
-  console.log('\n== league page -> ' + page.status + ' bytes=' + page.body.length);
-  if (page.status === 200) {
-    const urls = page.body.match(/https?:\/\/[^"'\s\\)]+game-assets[^"'\s\\)]+/g) || [];
-    const uniq = [];
-    urls.forEach(function (u) { if (uniq.indexOf(u) < 0 && uniq.length < 12) uniq.push(u); });
-    console.log('  game-assets urls (' + urls.length + ' total):');
-    uniq.forEach(function (u) { console.log('    ' + u); });
-    const lg = page.body.match(/https?:\/\/[^"'\s\\)]*(?:league|crest|logo)[^"'\s\\)]*\.(?:png|webp|svg)/gi) || [];
-    console.log('  league/crest/logo urls: ' + JSON.stringify(lg.slice(0, 8)));
-  }
+const targets = [
+  ['premier-league', 'premier-league'],
+  ['laliga', 'laliga-ea-sports'],
+  ['bundesliga', 'bundesliga'],
+  ['ligue-1', 'ligue-1-mcdonalds'],
+  ['serie-a', 'serie-a-enilive'],
+  ['roshn-saudi-league', 'roshn-saudi-league'],
+  ['mls', 'major-league-soccer'],
+  ['national-women-s-soccer-league', 'national-womens-soccer-league']
+];
 
-  // ③ 徽标 URL 模式探测（带 Referer）
-  const imgPatterns = [
-    function (id) { return 'https://game-assets.fut.gg/2027/leagues/' + id + '.png'; },
-    function (id) { return 'https://game-assets.fut.gg/2027/leagues/' + id + '.webp'; }
-  ];
-  for (const mk of imgPatterns) {
-    const u = mk(leagueId);
-    const r = await get(u, 64, 'https://www.fut.gg/');
-    console.log('IMG ' + u + ' -> ' + r.status + ' ' + ((r.headers && r.headers['content-type']) || '') + ' len=' + ((r.headers && r.headers['content-length']) || '?'));
+targets.forEach(function (t) {
+  const cat = t[0], page = t[1];
+  try {
+    const html = curlRaw('https://www.fut.gg/leagues/' + page + '/', 'https://www.fut.gg/', false);
+    const crest = extractCrest(html);
+    if (!crest) { console.log('✗ ' + cat + ' 未抠到徽标 (page len=' + html.length + ')'); return; }
+    const url = crest.replace('format=auto', 'format=png').replace('width=80', 'width=120');
+    const buf = curlRaw(url, 'https://www.fut.gg/', true);
+    console.log('✅ ' + cat + ' → ' + page + '  ' + buf.length + 'B magic=' + buf.slice(0, 8).toString('hex') + '  ' + url.slice(0, 130));
+  } catch (e) {
+    console.log('✗ ' + cat + ' 失败: ' + e.message);
   }
-  console.log('\nPROBE DONE leagueId=' + leagueId);
-})();
+});
+console.log('PROBE DONE');
