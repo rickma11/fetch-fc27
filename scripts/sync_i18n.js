@@ -202,6 +202,7 @@ async function scan(db) {
         seasonPassLevel: true, seasonPassTier: true,
         gender: true, bodytypeCode: true,
         sbcPoints: true, sbcCost: true, tokenStoreCost: true,
+        tokenTabId: true, tokenTabName: true, tokenTabIcon: true,   // v17：代币商城子页签
         holographicType: true, holoVariantEaId: true, holoCardImagePath: true,
         attributes: true,
         'rarity.imagePath': true, 'rarity.name': true, 'rarity.rarityGroupName': true,

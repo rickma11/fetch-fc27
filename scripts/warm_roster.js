@@ -9,6 +9,7 @@ process.chdir(path.resolve(__dirname));
 const { resolve } = require('./tcb_env');
 const ziplite = require('./ziplite');   // 极简 zip 写入器（roster 压缩分片上传用，见第 3 步）
 const { cn } = require('./cn_time');    // 北京时间直读字段（控制台用）
+const crypto = require('crypto');       // P2：属性版本戳 sha256
 
 const VER = 27;
 // R29k：共享扫描缓存（由 sync_i18n.js 在扫全表时 write，本脚本与 gen_squad_chem 用 --from-cache 读）。
@@ -43,6 +44,26 @@ function rarityFileKeyOf(imagePath) {
   const base = String(imagePath || '').split('/').pop();
   const m = /\.([0-9a-f]{16,})\./i.exec(base);
   return (m ? m[1] : '').slice(0, 16);
+}
+
+// P2（2026-10-05）：属性全局版本戳。对全量球员 attributes 做内容哈希，任一球员属性变化 ⇒ 戳变 ⇒
+// 端上跳过后台重拉的判断失效（改为重拉）；全不变 ⇒ 戳不变 ⇒ 端上跳过后台重拉（省一次云请求）。
+// 仅取数值子属性（EA 子属性都是数字），避免 JSON key 顺序差异；排序后整体 sha256，保证顺序无关。
+function attrSig(attrs) {
+  if (!attrs || typeof attrs !== 'object') return '';
+  const ks = Object.keys(attrs).filter(function (k) { return typeof attrs[k] === 'number'; }).sort();
+  let s = '';
+  for (let i = 0; i < ks.length; i++) s += ks[i] + ':' + attrs[ks[i]] + ';';
+  return s;
+}
+function globalAttrVersion(rows) {
+  const parts = [];
+  for (let i = 0; i < rows.length; i++) {
+    const p = rows[i];
+    parts.push((p.eaId != null ? p.eaId : i) + '|' + attrSig(p.attributes));
+  }
+  parts.sort();
+  return crypto.createHash('sha256').update(parts.join('\n')).digest('hex').slice(0, 16);
 }
 
 // 把 roster 切成若干「压缩后 ≤ MAX_PART_ZIP」的分片，每片是一个只含 roster_p{i}.json 的标准 zip。
@@ -170,6 +191,10 @@ if (require.main === module) {
     sbcCost: true,
     // v13：收藏室代币兑换价（sync_token_store.js 从 r2 token-store 数据集回写），详情页「收藏室兑换」条首屏直显
     tokenStoreCost: true,
+    // v17：代币商城**子页签**（2026-10-24）：tokenTabId(1=收藏馆/2=冠军赛/3=Ultimate Scream) + 页签名/图标。
+    //      tokenStoreCost 只说明「有代币兑换价」，**是哪个页签**看这三个字段——
+    //      缺失会让图鉴「收藏馆」徽章按 tokenStoreCost>0 把尖叫页签球员也标成收藏馆。
+    tokenTabId: true, tokenTabName: true, tokenTabIcon: true,
     // v16：全息卡（pristine 版本，2026-09-22 改版）。holographicType 非空（恒 "pristine"）
     //      ⇒ 端上显示「全息卡」pill；holoCardImagePath ⇒ 详情页「版本」区2 的 {eaId}_holo.webp
     //      （EA 官方卡面，取自带全息光效的**变体条目**）；holoVariantEaId ⇒ 该变体 item 的 eaId。
@@ -207,6 +232,9 @@ if (require.main === module) {
     console.log('fetched', all.length, 'players in', ((Date.now() - t0) / 1000).toFixed(1) + 's（未命中缓存 ⇒ 自己扫）');
   }
   if (all.length < 19000) { console.error('安全闸：球员数 <19000，疑似拉取不完整，拒绝写库'); process.exit(1); }
+
+  // P2：在删除 attributes 之前，先用原始 attributes 算全局版本戳（任一属性变 ⇒ 戳变）
+  const attrVersion = globalAttrVersion(all);
 
   // 2) 预计算 keyAttrs + rarityImgs（与云函数同逻辑）
   const rarityImgs = {};
@@ -287,6 +315,7 @@ try {
     ts: ts,
     count: all.length,
     schemaVersion: ROSTER_SCHEMA_VERSION,
+    attrVersion: attrVersion,        // P2：属性全局版本戳（2026-10-05），端上据此跳过后台重拉
     rawSize: packs.rawTotal,
     zipSize: packs.zipTotal,
     tsCn: cn(ts)   // 北京时间直读（控制台用；纯展示）

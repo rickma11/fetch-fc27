@@ -10,10 +10,17 @@
 // 球员类条目 itemType==='player'，join 键 = player.eaId（实测与小程序/云库 eaId 一致，Walcott 164859 ✓）。
 // 商店会轮换（整店 storeExpiresAt + 条目各有 startTime/endTime）→ 每次跑都要经 manifest 取最新 hash。
 //
+// ⚠️ 2026-10-24 起：代币商城**内部分子页签**（真源 = manifest 的 event-tokens 数据集）
+//   1=Gallery 收藏馆 / 2=Champions 冠军赛 / 3=Ultimate Scream 尖叫…；
+//   每条 item 只带 eventTokenId，页签名/图标必须查 event-tokens（item 自身 eventName 恒为空串）。
+//   只回写 tokenStoreCost 会让端上把尖叫页签球员（Jill Scott 1500 / Tverskov 50）一律标成「收藏馆兑换」，
+//   故现在连同 tokenTabId / tokenTabName / tokenTabIcon 共四个字段一起回写。
+//
 // 数据流（对齐 sbcCost 的 upload_sbcs 自愈模式）：
 //   本脚本（独立 CI 步骤，continue-on-error）
 //     阶段1 浏览器抓数据集 → cloud-data/fc{ver}/token_store.json（小文件，随 git 提交）
 //     阶段2 TCB 局部 update 回写 players_fc{ver} + details_fc{ver} 的 tokenStoreCost
+//           + tokenTabId / tokenTabName / tokenTabIcon（代币页签，2026-10-24 起四字段一起写）
 //   管线顺序：Upload to CloudBase（doc.set 抹平非 pickPlayer 字段）→ 本步重补 → Warm up roster
 //   ＝ 天然自愈：每天落库抹平后本步立刻补回，roster payload 当天就带上。
 //
@@ -89,6 +96,40 @@ async function fetchTokenStore() {
   try { man = JSON.parse(manTxt); } catch (e) { try { await ctx.close(); } catch (e2) {} throw new Error('manifest 解析失败: ' + manTxt.slice(0, 120)); }
   const hash = man['token-store'];
   if (!hash) { try { await ctx.close(); } catch (e) {} throw new Error('manifest 无 token-store 键'); }
+
+  // ── 页签定义（event-tokens 数据集，2026-10-24 新增）──────────────────────
+  // 代币商城内部**分子页签**：收藏馆 / 冠军赛 / Ultimate Scream 各自一种代币。
+  // token-store 的每条兑换 item 只带 eventTokenId（item 自身 eventName 恒为空串），
+  // 页签的人名/图标**只能**从 event-tokens 数据集取（id → shortName/displayName/iconUrl）。
+  // 不区分会把 Ultimate Scream 页签的球员（Jill Scott 1500 / Tverskov 50，eventTokenId=3）
+  // 一起标成「收藏馆兑换」——本脚本原先正是这么错的。
+  let tabDefs = {};
+  const etHash = man['event-tokens'];
+  if (etHash) {
+    const etTxt = await page.evaluate(async u => {
+      try { const r = await fetch(u); return await r.text(); } catch (e) { return 'ERR:' + e.message; }
+    }, `https://r2.fut.gg/${VER}/event-tokens.v1.${etHash}.json`);
+    try {
+      const et = JSON.parse(etTxt);
+      const arr = Array.isArray(et) ? et : (et.items || []);
+      arr.forEach(function (t) {
+        const id = Number(t && t.eventTokenId);
+        if (!id) return;
+        tabDefs[id] = {
+          shortName: String((t && t.shortName) || '').trim(),
+          displayName: String((t && t.displayName) || '').trim(),
+          iconUrl: String((t && t.iconUrl) || '').trim()
+        };
+      });
+      console.log('event-tokens 页签 ' + Object.keys(tabDefs).length + ' 个: ' +
+        Object.keys(tabDefs).map(function (k) { return k + '=' + (tabDefs[k].shortName || tabDefs[k].displayName); }).join(' | '));
+    } catch (e) {
+      console.log('⚠️ event-tokens 解析失败，页签降级为纯 id: ' + String(e.message).slice(0, 100));
+    }
+  } else {
+    console.log('⚠️ manifest 无 event-tokens 键，页签降级为纯 id');
+  }
+
   // 商店未变短路：hash 与上次提交一致 → 不抓 r2 全量，但仍用本地缓存回写云库。
   // 注意：upload_db.js 每日用 doc(id).set 整体覆盖 players/details，会把 tokenStoreCost
   // 抹平，所以即使商店未轮换也必须重新 enrichCloud 一遍，否则详情页收藏馆兑换价会丢失。
@@ -97,7 +138,17 @@ async function fetchTokenStore() {
   if (prevHash && prevHash === hash && prevData) {
     console.log('token-store hash 未变（' + hash + '）→ 商店未轮换，跳过网络抓取，使用本地缓存回写云库');
     try { await ctx.close(); } catch (e) {}
-    return { ...prevData, unchanged: true };
+    // 旧缓存可能没有页签字段（2026-10-24 之前只存 tokenCost）→ 用刚拉到的最新页签定义回填一次，
+    // 保证「未轮换」路径下 tokenTabName/tokenTabIcon 也是最新的（旧条目都带 eventTokenId）。
+    const ps0 = prevData.players || {};
+    Object.keys(ps0).forEach(function (k) {
+      const id = ps0[k].tokenTabId != null ? Number(ps0[k].tokenTabId)
+        : (ps0[k].eventTokenId != null ? Number(ps0[k].eventTokenId) : null);
+      ps0[k].tokenTabId = id;
+      ps0[k].tokenTabName = tabNameOf(tabDefs, id);
+      ps0[k].tokenTabIcon = tabIconOf(tabDefs, id);
+    });
+    return { ...prevData, tabDefs: tabDefs, unchanged: true };
   }
   const url = `https://r2.fut.gg/${VER}/token-store.v1.${hash}.json`;
   console.log('token-store url:', url);
@@ -119,18 +170,25 @@ async function fetchTokenStore() {
     const cost = Number(it.tokenCost);
     if (!eaId || !cost || cost <= 0) continue;
     if (players[eaId] && players[eaId].tokenCost !== cost) { dup++; console.log('  ⚠️ eaId ' + eaId + ' 冲突价 ' + players[eaId].tokenCost + ' vs ' + cost + '，保留先者'); continue; }
+    // eventTokenId = 所属代币页签（1=收藏馆 / 2=冠军赛 / 3=Ultimate Scream …），名称图标查 tabDefs
+    const tabId = (it.eventTokenId != null ? Number(it.eventTokenId) : null);
     players[eaId] = {
       tokenCost: cost,
+      tokenTabId: tabId,
+      tokenTabName: tabNameOf(tabDefs, tabId),
+      tokenTabIcon: tabIconOf(tabDefs, tabId),
       name: String(it.name || '').trim(),
       purchaseLimit: Number(it.purchaseLimit) || 0,
       endTime: it.endTime || null,
-      eventTokenId: it.eventTokenId != null ? Number(it.eventTokenId) : null,
+      eventTokenId: tabId,   // 与 tokenTabId 同值，保留旧键兼容
     };
   }
   const out = {
     ver: VER,
     hash: hash,
     sourceUrl: url,
+    // 代币页签定义（event-tokens 数据集）：{ id: { shortName, displayName, iconUrl } }
+    tabDefs: tabDefs,
     storeExpiresAt: j.storeExpiresAt || null,
     fetchedAt: new Date().toISOString(),
     itemCount: items.length,
@@ -142,6 +200,19 @@ async function fetchTokenStore() {
   fs.writeFileSync(OUT_FILE, JSON.stringify(out, null, 2));
   console.log(`token-store：共 ${items.length} 条，球员类 ${Object.keys(players).length} 人${dup ? '（冲突 ' + dup + '）' : ''}，已写 ${OUT_FILE}`);
   return out;
+}
+
+// └── 阶段 1 结束 ────────────────────────────────────────────────────────────
+
+// 页签取值辅助：tabDefs 缺失（event-tokens 拉失败）时返回空串，端上会回落「收藏馆」文案，
+// 绝不因页签数据缺失把整条兑换价弄丢。
+function tabNameOf(tabDefs, id) {
+  const d = tabDefs && tabDefs[id];
+  return (d && (d.shortName || d.displayName)) || '';
+}
+function tabIconOf(tabDefs, id) {
+  const d = tabDefs && tabDefs[id];
+  return (d && d.iconUrl) || '';
 }
 
 // ── 阶段 2：TCB 局部 update 回写云库（对齐 upload_sbcs.js sbcCost 段）────────
@@ -161,24 +232,32 @@ async function enrichCloud(data) {
   let ok = 0, fail = 0;
   for (const ea of eaIds) {
     const val = map[ea].tokenCost;
+    // 四个字段一起写：兑换价 + 所属页签（id / 名 / 图标）。
+    // 端上按 tokenTabId 决定文案（1 收藏馆 / 2 冠军赛 / 3 尖叫代币 …），不再一律叫「收藏馆兑换」。
+    const patch = {
+      tokenStoreCost: val,
+      tokenTabId: (map[ea].tokenTabId != null ? map[ea].tokenTabId : null),
+      tokenTabName: map[ea].tokenTabName || null,
+      tokenTabIcon: map[ea].tokenTabIcon || null
+    };
     for (const c of COLS) {
       let done = false, lastErr = null;
       for (let k = 1; k <= 3 && !done; k++) {
-        try { await db.collection(c).where({ eaId: ea }).update({ tokenStoreCost: val }); done = true; }
+        try { await db.collection(c).where({ eaId: ea }).update(patch); done = true; }
         catch (e) { lastErr = e; await sleep(800 * k); }
       }
-      if (done) { ok++; console.log('  UP', c, 'eaId=' + ea, 'tokenStoreCost=' + val, map[ea].name || ''); }
+      if (done) { ok++; console.log('  UP', c, 'eaId=' + ea, 'tokenStoreCost=' + val, 'tab=' + (map[ea].tokenTabId || '-'), (map[ea].tokenTabName || ''), map[ea].name || ''); }
       else { fail++; console.error('  FAIL', c, 'eaId=' + ea, (lastErr && lastErr.message) || lastErr); }
     }
   }
-  // 清理失效：曾有过 tokenStoreCost 但当前商店已不含该球员（兑换下架）→ 置 null，避免残留旧价。
+  // 清理失效：曾有过 tokenStoreCost 但当前商店已不含该球员（兑换下架）→ 四个字段一并置 null，避免残留旧价/旧页签。
   let cleared = 0;
   for (const c of COLS) {
     try {
       const stale = await db.collection(c).where({ tokenStoreCost: _.gt(0) }).get();
       const rm = (stale.data || []).filter(d => eaIds.indexOf(Number(d.eaId)) < 0);
       for (const d of rm) {
-        await db.collection(c).doc(d._id).update({ tokenStoreCost: null });
+        await db.collection(c).doc(d._id).update({ tokenStoreCost: null, tokenTabId: null, tokenTabName: null, tokenTabIcon: null });
         cleared++;
       }
       if (rm.length) console.log('  CLR', c, '清掉失效 tokenStoreCost ' + rm.length + ' 人');
