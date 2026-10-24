@@ -430,9 +430,17 @@ function buildIndex(catalogue, hub) {
     (c.sets || []).forEach(function (s) {
       const h = hubById[String(s.id)] || null;
       // 各档最省成本（hub.costTiers 与 set detail.solution.costTiers 同构；S 档成本列表页要展示）
+      // ⚠️ has 标记（2026-10-24）：fut.gg 对「该档无解」返回 items=[] 且 cost=0 / totalScore=0
+      //    （实证：196 set 共 10 个 cost=0 档位，全部 items=[]，**无一例真实免费**）。
+      //    不带标记的话端上会把无解档显示成「0 金币」→ 误导，必须让端上显示「暂无」。
       const costs = {};
       if (h && Array.isArray(h.costTiers)) {
-        h.costTiers.forEach(function (t) { costs[t.grade] = { cost: t.cost, tokens: t.tokens, peakPrice: t.peakPrice }; });
+        h.costTiers.forEach(function (t) {
+          costs[t.grade] = {
+            cost: t.cost, tokens: t.tokens, peakPrice: t.peakPrice,
+            has: Array.isArray(t.items) && t.items.length > 0
+          };
+        });
       }
       sets.push({
         id: s.id, name: s.name, slug: s.slug, catSlug: c.slug, catName: c.name,
@@ -711,7 +719,12 @@ async function run() {
         if (idxIds.has(String(s.id))) return;
         const h = (hub.sets || []).filter(function (x) { return String(x.setId) === String(s.id); })[0] || null;
         const costs = {};
-        if (h && Array.isArray(h.costTiers)) h.costTiers.forEach(function (t) { costs[t.grade] = { cost: t.cost, tokens: t.tokens, peakPrice: t.peakPrice }; });
+        if (h && Array.isArray(h.costTiers)) h.costTiers.forEach(function (t) {
+          costs[t.grade] = {
+            cost: t.cost, tokens: t.tokens, peakPrice: t.peakPrice,
+            has: Array.isArray(t.items) && t.items.length > 0
+          };
+        });
         index.sets.push({
           id: s.id, name: s.name, slug: s.slug, catSlug: c.slug, catName: c.name,
           desc: s.description || '', requiredCards: s.requiredCards || 0,
