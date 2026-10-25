@@ -1,0 +1,53 @@
+name: Daily Column Audit (one-off diagnostic)
+
+# 一次性诊断：审计线上 daily_7d.json 每一列的真实语义（2026-10-25）。
+#
+# 背景（bug 详情见 scripts/market_core.js#updateDaily 头注）：
+#   旧 alignHist 用 `a.slice(a.length - keep)` 保留末尾 keep 格，同日重跑时 days 不增长
+#   ⇒ 每小时整列左移一位、最旧列被挤掉。线上实证线索：market_overview「vs 昨日」
+#   avgChg≈+0.2% 且过半卡片 |Δ|<0.5% 记持平——与「同日 partial 互比」特征完全吻合。
+#   若成立，则存量三列全是「今日不同截止小时的 partial」，标签 10-23/10-24 均为虚标，
+#   真实历史全日值已不在 series 24h 滚动窗口内、不可恢复 ⇒ 修复只能走「干净重建」。
+#
+# 方法：以 series_24h.json 为真值，对今日每个候选截止小时重算 per-player
+#   [avg,min,max]（同 updateDaily#dayAgg 公式），与线上每列精确比对 ⇒ 每列最佳匹配
+#   截止点即其真实语义。另与本地备份做逐列相等矩阵验证左移推断。
+#
+# 安全：只读（SDK downloadFile），不写任何云端数据，不影响每小时 market-sync。
+# 用法：Actions → Daily Column Audit → Run workflow；结论在 job 日志尾部「结论」段。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Audit daily columns (read-only)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/daily_column_audit.js
