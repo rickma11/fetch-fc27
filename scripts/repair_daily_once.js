@@ -1,33 +1,41 @@
 // 一次性修复 daily_7d.json「同日重跑列错位」（2026-10-25，配合 market_core.js#updateDaily bug 修复）。
 //
-// 背景（bug 详情见 market_core.js#updateDaily 头注）：
-//   旧 updateDaily 在同日重跑（days≥2）时把「上一小时算出的今日残留值」当成历史列保留，
-//   导致 daily_7d.json 的列与 days 标签整体错位一位：标称「昨日」列实际是今日上午旧值、
-//   真实历史每日小时被提前挤掉。线上实证：昨日列与今日真值更近的卡 1064/1128 张。
-//   影响：① market_overview「vs 昨日」恒为 0%；② 端上 Price24hSheet 按天视图自 10-24 起显示错位点。
+// 背景（bug 机制见 market_core.js#updateDaily 头注）：
+//   旧 alignHist 用 `a.slice(a.length - keep)` 保留末尾 keep 格，同日重跑时 days 不增长
+//   ⇒ 每个整点 run 都把列整体左移一位、最旧列被挤掉。污染从 10-24 第二个 run 起持续发生。
 //
-// 修复方式（一次性）：
-//   用线上 series_24h.json 重新算一份「干净首跑」daily（days=[今日]，今日值=序列今日桶聚合），
-//   覆盖写入 daily_7d.json 主路径 + daily_7d_backup_latest.json（备份路径同步覆盖，
-//   防止 CI 的「主文件读不到→回退 backup」双保险把错位旧文件恢复回来）。
+// 2026-10-25 15:07 线上审计实证（scripts/daily_column_audit.js，CI 只读跑批，commit ae8ed04）：
+//   线上 days=["20261023","20261024","20261025"]，但三列 100%（1242/1242 张）分别等于
+//   「今日 00-10 时 / 00-11 时 / 00-15 时的 partial」——存量历史列已全部被左移污染，
+//   标签 10-23/10-24 均为虚标；真实全日值已不在 series 24h 滚动窗口内，不可恢复。
+//   ⇒ 「只剥脏列」方案不成立（没有正确的历史列可保留），唯一正确修法＝干净重建。
+//   影响佐证：market_overview「vs 昨日」avgChg≈+0.2% 且过半卡片 |Δ|<0.5%（同日 partial 互比特征）。
+//
+// 修复方式（一次性，干净重建）：
+//   以线上 series_24h.json 为真值，core.updateDaily(null, series, dayKey) 走「首跑」路径
+//   生成 days=[今日] 的干净 daily（今日值=序列今日桶聚合；端上按天视图/概览指数从今日起每日 +1，
+//   14 天长满——与规则 131「首日 1 根」同机制）。上传前先把线上现状快照到本地 backups/。
+//   上传顺序：先备份路径（daily_7d_backup_latest.json）再主路径，两者同写干净内容
+//   （堵住 CI「主文件读不到→回退 backup」把错位旧文件恢复回来的路径）。
 //   此后每小时 CI 用修好的 updateDaily 续写，历史列逐日正确累积。
-//   ⚠️ 真实的全日历史（10-23 / 10-24 00:00-11:00）已不在 24h 序列内，不可恢复；
-//      按契约「当日=已采集小时点均值」从头累积（端上按天视图与概览指数从今日起每日 +1）。
 //
 // 用法：
 //   node scripts/repair_daily_once.js            # dry-run：算 + 落本地副本 + 打印摘要，不上传
-//   node scripts/repair_daily_once.js --upload   # 真跑：上传主路径 + 备份路径（需 TCB_* 凭证）
+//   node scripts/repair_daily_once.js --upload   # 真跑：先快照线上现状，再上传主+备份路径（需 TCB_* 凭证）
 'use strict';
 
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 const core = require('./market_core.js');
 
 const SERIES_DOMAIN = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la';
 const SERIES_READ_URL = SERIES_DOMAIN + '/fc27/market/series_24h.json';
+const DAILY_READ_URL = SERIES_DOMAIN + '/fc27/market/daily_7d.json';
 const DAILY_CLOUD_PATH = 'fc27/market/daily_7d.json';
 const DAILY_CLOUD_PATH_BACKUP = 'fc27/market/daily_7d_backup_latest.json';
 const OUT_LOCAL = __dirname + '/daily_7d.repair.json';
+const SNAP_DIR = path.join(__dirname, '..', 'backups', '20261025', 'market-overview');
 
 function pad2(n) { return n < 10 ? '0' + n : '' + n; }
 function bucketOf(d) {
@@ -36,34 +44,61 @@ function bucketOf(d) {
   const z = new Date(ms);
   return '' + z.getUTCFullYear() + pad2(z.getUTCMonth() + 1) + pad2(z.getUTCDate()) + pad2(z.getUTCHours()) + '00';
 }
-function httpGetJson(url, timeoutMs) {
+function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+// CDN 读（3 次重试；随机 query 破边缘缓存，确保 origin 最新）
+function httpGetJson(url, timeoutMs, tries) {
   timeoutMs = timeoutMs || 90000;
+  tries = tries || 3;
+  const bust = (url.indexOf('?') >= 0 ? '&' : '?') + 'repair=' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
   return new Promise(function (resolve, reject) {
-    const timer = setTimeout(function () { req.destroy(); reject(new Error('timeout')); }, timeoutMs);
-    const req = https.get(url, function (res) {
-      let data = '';
-      res.on('data', function (c) { data += c; });
-      res.on('end', function () {
-        clearTimeout(timer);
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          try { resolve(JSON.parse(data)); } catch (e) { reject(new Error('json parse: ' + e.message)); }
-        } else reject(new Error('http ' + res.statusCode));
+    (function attempt(k) {
+      const timer = setTimeout(function () { req.destroy(); reject(new Error('timeout')); }, timeoutMs);
+      const req = https.get(url + bust, function (res) {
+        let data = '';
+        res.on('data', function (c) { data += c; });
+        res.on('end', function () {
+          clearTimeout(timer);
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            try { resolve(JSON.parse(data)); } catch (e) { reject(new Error('json parse: ' + e.message)); }
+          } else if (k < tries) { setTimeout(function () { attempt(k + 1); }, 800 * k); }
+          else { reject(new Error('http ' + res.statusCode)); }
+        });
       });
-    });
-    req.on('error', function (e) { clearTimeout(timer); reject(e); });
+      req.on('error', function (e) {
+        clearTimeout(timer);
+        if (k < tries) setTimeout(function () { attempt(k + 1); }, 800 * k);
+        else reject(e);
+      });
+    })(1);
   });
 }
-function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
 (async function main() {
   const doUpload = process.argv.indexOf('--upload') >= 0;
   const dayKey = bucketOf(new Date()).slice(0, 8);   // 北京日期 YYYYMMDD
   console.log('[repair_daily] dayKey=' + dayKey + ' upload=' + doUpload);
 
-  // 1) 读线上 series（3 次重试，与 price_sync_cloud 同口径）
+  // 0) 上传前快照线上现状（本地留底；读不到只警告不阻塞——审计已证实其内容可由 series 复推）
+  try {
+    const cur = await httpGetJson(DAILY_READ_URL);
+    const days = cur && cur.days;
+    const nP = cur && cur.players ? Object.keys(cur.players).length : 0;
+    if (Array.isArray(days) && nP) {
+      try { fs.mkdirSync(SNAP_DIR, { recursive: true }); } catch (e) { /* 已存在 */ }
+      const snap = path.join(SNAP_DIR, 'daily_7d.pre-repair-' + dayKey + '.json');
+      fs.writeFileSync(snap, JSON.stringify(cur));
+      console.log('[repair_daily] 线上现状快照已留底 ' + snap + '（days=' + JSON.stringify(days) + ' players=' + nP + '）');
+    } else {
+      console.warn('[repair_daily] ⚠️ 线上文件结构异常（days=' + JSON.stringify(days) + ' players=' + nP + '），跳过快照');
+    }
+  } catch (e) {
+    console.warn('[repair_daily] ⚠️ 线上现状快照失败（不阻塞修复）: ' + (e && e.message || e));
+  }
+
+  // 1) 读线上 series（3 次重试 + 随机 query 破缓存）
   let series = null;
   for (let attempt = 1; attempt <= 3 && !series; attempt++) {
-    try { series = await httpGetJson(SERIES_READ_URL + '?v=' + bucketOf(new Date()) + '-' + Math.random().toString(36).slice(2, 8)); }
+    try { series = await httpGetJson(SERIES_READ_URL); }
     catch (e) { console.warn('[repair_daily] series 读取失败(第' + attempt + '次): ' + (e && e.message || e)); if (attempt < 3) await sleep(800 * attempt); }
   }
   if (!series || !series.players || !(series.buckets || []).length) {
@@ -77,7 +112,7 @@ function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
     process.exit(1);
   }
 
-  // 2) 干净首跑 daily：days=[today]，今日值由序列今日桶算出（updateDaily(null, ...) 即首跑路径）
+  // 2) 干净重建：updateDaily(null, ...) 即首跑路径 ⇒ days=[today]，历史列全 null 起步
   const clean = core.updateDaily(null, series, dayKey);
 
   // 3) 结构自检（脏数据绝不外传）
@@ -123,16 +158,26 @@ function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
   }
   const cloudbase = require('@cloudbase/node-sdk');
   const app = cloudbase.init({ env: process.env.TCB_ENV_ID, secretId: process.env.TCB_SECRET_ID, secretKey: process.env.TCB_SECRET_KEY, timeout: 180000 });
+  const buf = Buffer.from(JSON.stringify(clean));
+  // 规则 116：超时 + 最多 3 次重试（单文件 ~75KB，慢速档也远低于 480s 竞赛上限）
   async function uploadSafe(cloudPath) {
-    const buf = Buffer.from(JSON.stringify(clean));
-    const p = app.uploadFile({ cloudPath: cloudPath, fileContent: buf });
-    const race = new Promise(function (_, rej) { setTimeout(function () { rej(new Error('race timeout')); }, 480000); });
-    await Promise.race([p, race]);
-    console.log('[repair_daily] 上传 ' + cloudPath + ' ✓ (' + (buf.length / 1024).toFixed(0) + 'KB)');
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const p = app.uploadFile({ cloudPath: cloudPath, fileContent: buf });
+        const race = new Promise(function (_, rej) { setTimeout(function () { rej(new Error('race timeout')); }, 480000); });
+        await Promise.race([p, race]);
+        console.log('[repair_daily] 上传 ' + cloudPath + ' ✓ (attempt ' + attempt + ', ' + (buf.length / 1024).toFixed(0) + 'KB)');
+        return;
+      } catch (e) {
+        console.warn('[repair_daily] 上传 ' + cloudPath + ' 第 ' + attempt + ' 次失败: ' + (e && e.message || e));
+        if (attempt >= 3) throw e;
+        await sleep(2000 * attempt);
+      }
+    }
   }
   await uploadSafe(DAILY_CLOUD_PATH_BACKUP);   // 先备份路径，再主路径（与 CI「先备后写」同序）
   await uploadSafe(DAILY_CLOUD_PATH);
-  console.log('[repair_daily] 修复完成：daily_7d.json 已重置为干净首跑状态（days=[' + dayKey + ']）');
+  console.log('[repair_daily] 修复完成：daily_7d.json 已干净重建（days=[' + dayKey + ']），备份路径同步');
 })().catch(function (e) {
   console.error('[repair_daily] FAIL: ' + (e && e.message || e));
   process.exit(1);

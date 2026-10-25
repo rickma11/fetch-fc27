@@ -1,0 +1,54 @@
+name: Daily Repair (one-off, clean rebuild)
+
+# 一次性修复：把线上 daily_7d.json 干净重建为 days=[今日]（2026-10-25）。
+#
+# 为什么必须重建（2026-10-25 15:07 审计实证，见 scripts/daily_column_audit.js）：
+#   旧 updateDaily#alignHist 同日重跑时整列左移，线上三列 100% 都是「今日不同截止小时的
+#   partial」，标签 10-23/10-24 均为虚标，真实全日值已不在 series 24h 窗口内、不可恢复。
+#   ⇒ 「只剥脏列」不成立，唯一正确修法＝以 series 干净重建。
+#
+# 脚本行为（scripts/repair_daily_once.js --upload）：
+#   ① CDN 快照线上现状到本地 backups/（留底，读不到只警告）；
+#   ② 读 series（3 次重试 + 随机 query 破缓存）→ core.updateDaily(null, series, 今日) 首跑重建；
+#   ③ 结构自检（days=[今日]、players 非空、数组对齐、无双平台空）——不过则放弃、绝不上传；
+#   ④ 上传：先备份路径 daily_7d_backup_latest.json 再主路径 daily_7d.json，两者同写干净内容
+#      （堵住 CI「主文件读不到→回退 backup」把错位旧文件恢复回来的路径）。
+#
+# 安全：dispatch 即执行；无定时触发，不影响每小时 market-sync。
+# 用法：Actions → Daily Repair → Run workflow；结果在 job 日志。
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Snapshot + clean rebuild + upload
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/repair_daily_once.js --upload
