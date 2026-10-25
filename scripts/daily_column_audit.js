@@ -12,12 +12,44 @@
 
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
 
 const DAILY_PATH = 'fc27/market/daily_7d.json';
 const SERIES_PATH = 'fc27/market/series_24h.json';
+const SERIES_DOMAIN = 'https://636c-cloud1-d5gq6q3np8708aeef-1475854307.tcb.qcloud.la';
 const BACKUP_LOCAL = path.join(__dirname, '..', 'backups', '20261025', 'market-overview', 'daily_7d.json.pre-corrupt');
 
 function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+function describe(e) {
+  if (e == null) return String(e);
+  const parts = [String(e && e.message ? e.message : e)];
+  if (e && e.code) parts.push('code=' + e.code);
+  if (e && e.requestId) parts.push('requestId=' + e.requestId);
+  if (e && e.stack) parts.push('stack=' + String(e.stack).split('\n').slice(0, 4).join(' | '));
+  return parts.join(' ;; ');
+}
+// CDN 兜底读取（GitHub runner 可达；随机 query 破边缘缓存，确保拿到 origin 最新）
+function cdnGet(cloudPath, tries) {
+  tries = tries || 3;
+  const url = SERIES_DOMAIN + '/' + cloudPath + '?audit=' + Date.now() + '-' + Math.random().toString(36).slice(2, 8);
+  return new Promise(function (resolve, reject) {
+    (function attempt(k) {
+      https.get(url, function (res) {
+        let d = '';
+        res.on('data', function (c) { d += c; });
+        res.on('end', function () {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            try { resolve(JSON.parse(d)); } catch (e) { reject(new Error('json parse: ' + e.message)); }
+          } else if (k < tries) { setTimeout(function () { attempt(k + 1); }, 800 * k); }
+          else { reject(new Error('http ' + res.statusCode)); }
+        });
+      }).on('error', function (e) {
+        if (k < tries) setTimeout(function () { attempt(k + 1); }, 800 * k);
+        else reject(e);
+      });
+    })(1);
+  });
+}
 function todayKey() {
   const z = new Date(Date.now() + 8 * 60 * 60 * 1000);
   return '' + z.getUTCFullYear() + pad2(z.getUTCMonth() + 1) + pad2(z.getUTCDate());
@@ -41,18 +73,44 @@ function loadCreds() {
 (async function main() {
   loadCreds();
   const cloudbase = require('@cloudbase/node-sdk');
-  const app = cloudbase.init({
-    env: process.env.TCB_ENV_ID, secretId: process.env.TCB_SECRET_ID, secretKey: process.env.TCB_SECRET_KEY, timeout: 180000
-  });
+  let app;
+  try {
+    app = cloudbase.init({
+      env: process.env.TCB_ENV_ID, secretId: process.env.TCB_SECRET_ID, secretKey: process.env.TCB_SECRET_KEY, timeout: 180000
+    });
+  } catch (e) {
+    console.error('[audit] cloudbase.init 抛出: ' + describe(e));
+    process.exit(1);
+  }
   async function dl(p) {
-    const r = await app.downloadFile({ fileID: p });
-    if (!r || !r.fileContent) throw new Error('空内容: ' + p);
-    return JSON.parse(r.fileContent.toString('utf8'));
+    let r;
+    try {
+      r = await app.downloadFile({ fileID: p });
+    } catch (e) {
+      throw new Error('downloadFile(' + p + ') 拒绝: ' + describe(e));
+    }
+    if (!r || !r.fileContent) throw new Error('downloadFile(' + p + ') 无 fileContent（message=' + (r && r.message) + '）');
+    try {
+      return JSON.parse(r.fileContent.toString('utf8'));
+    } catch (e) {
+      throw new Error('JSON 解析失败(' + p + '): ' + e.message);
+    }
   }
 
-  console.log('[audit] 下载线上 daily_7d.json + series_24h.json（SDK 直读，绕开 CDN）…');
-  const daily = await dl(DAILY_PATH);
-  const series = await dl(SERIES_PATH);
+  console.log('[audit] 下载线上 daily_7d.json + series_24h.json…');
+  // SDK 优先（origin 直读无缓存）；失败则 CDN 兜底（runner 可达，随机 query 破缓存）
+  async function fetchCloud(cloudPath) {
+    try {
+      return await dl(cloudPath);
+    } catch (e) {
+      console.warn('[audit] SDK 读取 ' + cloudPath + ' 失败（' + describe(e).slice(0, 300) + '），改走 CDN 兜底…');
+      return await cdnGet(cloudPath);
+    }
+  }
+  const daily = await fetchCloud(DAILY_PATH);
+  console.log('[audit] daily_7d.json OK');
+  const series = await fetchCloud(SERIES_PATH);
+  console.log('[audit] series_24h.json OK');
   const dayKey = todayKey();
   const days = daily.days || [];
   const players = daily.players || {};
@@ -167,6 +225,6 @@ function loadCreds() {
     verdict.forEach(function (v) { console.log('    列' + v.col + '(' + v.label + ') → ' + v.best + ' 匹配率 ' + (v.ratio * 100).toFixed(1) + '% (n=' + v.n + ')'); });
   }
 })().catch(function (e) {
-  console.error('[audit] FAIL: ' + (e && e.message || e));
+  console.error('[audit] FAIL: ' + describe(e));
   process.exit(1);
 });
