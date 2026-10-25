@@ -435,9 +435,13 @@ function updateDaily(oldDaily, series, dayKey) {
 //   daily: core.updateDaily 产物 { v, ts, days:['YYYYMMDD' ≤14], players:{ eaId:{ pc:[[avg,min,max]|null ×N], ps:[...] } } }
 //   built: core.build 产物（built.view.tier 已带 rarity/overall/pc/ps，line 134）
 //   dayKey: 北京日期 YYYYMMDD（今日格；找不到 ⇒ 无当日对比，统计按「积累中」输出）
-// 输出契约（端上 pages/market-overview 只读）：
+//   base: 归一化基期 { pc:{day,v}, ps:{day,v} }（CI 读旧概览携带；缺 ⇒ 自动初始化，见下）
+// 输出契约（端上 pages/market「整体」页签只读）：
 //   { v, ts, days, cats:[{key,label,cards}×9], unCat,
-//     index:{ pc:{ all:[median|null ×N], <catKey>:[...] }, ps:{...} },
+//     index:{ pc:{ all:[median|null ×N], <catKey>:[...] }, ps:{...} },          // 绝对中位价（保留）
+//     idx100:{ 同 index 结构 },                                                  // 归一化指数（÷基期×100）
+//     base:{ pc:{day,v}|null, ps:{day,v}|null },                                 // 持久化基期
+//     indexN:{ pc:[每日有效卡数 ×N], ps:[...] },                                  // 读数行「有效 N 张」
 //     today:{ pc:{ all:{cards,cmp,avgChg,up,hold,down,vol5,amp,ampN}, cats:{...}, tiers:{'500k':{cards,chg},'1m':{...}} }, ps:{...} } }
 //   - index/today.cats 只输出 cards>0 的分类（端上空分类隐藏）；cats 始终给全 9 档（cards 可为 0）
 //   - unCat：未命中任何分类的卡数（rarity 漂移监测；>0 时 CI 打警告，卡仍计入「全市场」）
@@ -447,6 +451,12 @@ function updateDaily(oldDaily, series, dayKey) {
 //   · 平均涨跌 = 每卡 (今日avg−昨日avg)/昨日avg 的简单平均；|Δ|<0.5% 记持平、≥5% 记波动；
 //   · 振幅 = 每卡 (窗口内 max−min)/窗口均值 的均值（需 ≥2 个有效日，ampN=参与卡数）；
 //   · 高价档 = 当前价 ≥50万 / ≥100万 两组的简单平均涨跌 + 卡数（按平台各自取价）。
+// 归一化指数（docs/37 §12，用户 2026-10-25 确认实施）：
+//   · idx100 = 当日中位价 ÷ 基期值 × 100（1 位小数）；基期持久化于输出 base（双平台各自）；
+//   · 基期缺失时自动初始化 =「最早的已冻结日」首个有效中位价（当日是 partial 值，绝不作基期
+//     ⇒ 00:00 跨日轮自动初始化，当日指数恰为 100.0；dayKey 对不上时全部日子视为已冻结）；
+//   · 14 日窗口滚过后基期日不在窗口内也不断裂——base 由 CI 读旧概览携带（price_sync_cloud.js），
+//     读不到才按上一条从数据确定性重建。
 // 纯函数（无 IO），scripts/market_overview_test.js 离线覆盖。
 var OVERVIEW_CATS = [
   { key: 'gold_80_84', label: '金卡 80-84', rarity: 'Gold', min: 80, max: 84 },
@@ -492,7 +502,7 @@ function overviewMedian(arr) {
   return Math.round(v);
 }
 
-function buildOverview(daily, built, dayKey) {
+function buildOverview(daily, built, dayKey, base) {
   var tier = (built && built.view && built.view.tier) || [];
   var days = (daily && Array.isArray(daily.days)) ? daily.days.slice() : [];
   var dPlayers = (daily && daily.players) || {};
@@ -500,6 +510,8 @@ function buildOverview(daily, built, dayKey) {
   // 今日格：优先按 dayKey 定位（updateDaily 保证其为末位）；定位不到 ⇒ 无当日对比数据
   var todayIdx = dayKey ? days.lastIndexOf(dayKey) : N - 1;
   var yestIdx = todayIdx - 1;
+  // 已冻结日上界（基期初始化只用冻结日；dayKey 对不上 ⇒ 全部视为已冻结）
+  var frozenEnd = todayIdx < 0 ? N : todayIdx;
 
   // 1) 分类成员（当前有报价卡；卡数平台无关，pc/ps 视图共用）
   var members = {};
@@ -512,7 +524,8 @@ function buildOverview(daily, built, dayKey) {
   });
 
   // 2) 指数：每平台每分类「当日中位价」序列（与 days 按下标对齐，当日无值为 null）
-  function indexOf(catItems, pf) {
+  //    nOut（可选）：回填每日有效卡数（端上读数行「有效 N 张」；只对全市场有意义）
+  function indexOf(catItems, pf, nOut) {
     var out = [];
     for (var d = 0; d < N; d++) {
       var vals = [];
@@ -521,13 +534,15 @@ function buildOverview(daily, built, dayKey) {
         var cell = rec && rec[pf] && rec[pf][d];
         if (cell && cell[0] != null) vals.push(cell[0]);
       });
+      if (nOut) nOut.push(vals.length);
       out.push(overviewMedian(vals));
     }
     return out;
   }
   var index = { pc: {}, ps: {} };
-  index.pc.all = indexOf(tier, 'pc');
-  index.ps.all = indexOf(tier, 'ps');
+  var indexNPc = [], indexNPs = [];
+  index.pc.all = indexOf(tier, 'pc', indexNPc);
+  index.ps.all = indexOf(tier, 'ps', indexNPs);
   OVERVIEW_CATS.forEach(function (c) {
     if (!members[c.key] || !members[c.key].length) return;   // 空分类不出指数（端上隐藏）
     index.pc[c.key] = indexOf(members[c.key], 'pc');
@@ -579,10 +594,36 @@ function buildOverview(daily, built, dayKey) {
     return { cards: st.cards, chg: st.avgChg };
   }
 
+  // 5) 归一化指数（docs/37 §12）：idx100 = 中位价 ÷ 基期 × 100；基期持久化回写
+  function initBaseOf(pf) {
+    var b = base && base[pf];
+    if (b && b.v > 0 && b.day) return { day: b.day, v: b.v };   // 携带旧基期（窗口滚过也不重算）
+    for (var d = 0; d < frozenEnd; d++) {                        // 自动初始化：最早的已冻结日
+      var v = index[pf].all[d];
+      if (v != null) return { day: days[d], v: v };
+    }
+    return null;                                                 // 无冻结有效日（如今日首跑）⇒ 不初始化
+  }
+  var baseOut = { pc: null, ps: null };
+  var idx100 = { pc: {}, ps: {} };
+  ['pc', 'ps'].forEach(function (pf) {
+    var b = initBaseOf(pf);
+    if (!b) return;                                              // 该平台无基期 ⇒ idx100 缺（端上回退绝对线）
+    baseOut[pf] = { day: b.day, v: b.v };
+    Object.keys(index[pf]).forEach(function (k) {
+      idx100[pf][k] = index[pf][k].map(function (v) {
+        return v == null ? null : +(v / b.v * 100).toFixed(1);
+      });
+    });
+  });
+
   var out = {
     v: 1, ts: Date.now(), days: days, unCat: unCat,
     cats: OVERVIEW_CATS.map(function (c) { return { key: c.key, label: c.label, cards: (members[c.key] || []).length }; }),
     index: index,
+    idx100: idx100,
+    base: baseOut,
+    indexN: { pc: indexNPc, ps: indexNPs },
     today: {
       pc: { all: statOf(tier, 'pc'), cats: {}, tiers: {} },
       ps: { all: statOf(tier, 'ps'), cats: {}, tiers: {} }

@@ -175,8 +175,10 @@ async function uploadText(cloudPath, obj) {
 //   强制边缘 miss 回源取最新（端上 priceStore.urlOfAlerts 同款手段，实测 X-Cache-Lookup: Cache Miss 可证）。
 //   代价：每小时多一次回源拉取（under80 序列 1.8MB），读取耗时已打日志监控。
 // url 可传（默认 80+ 的 SERIES_READ_URL）；sub-80 传 SERIES_UNDER80_BACKUP_READ_URL 复用同一套加固语义。
-async function readOldSeries(url) {
+// expectKey 可传（默认 'players'）：market_overview.json 无 players 字段，传 'index' 复用同一套重试/404 语义。
+async function readOldSeries(url, expectKey) {
   url = url || SERIES_READ_URL;
+  expectKey = expectKey || 'players';
   url += (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + bucketOf(new Date()) + '-' + Math.random().toString(36).slice(2, 8);
   // ⚠️ 2026-10-17 事故修复（规则 126 后续）：旧逻辑「错误消息含 404 就立刻 return null 当首跑」
   //    把 COS/CDN 偶发 404（10/17 北京 07:00 run #334 实测中招）误判成文件不存在，
@@ -187,7 +189,7 @@ async function readOldSeries(url) {
     const t0 = Date.now();
     try {
       const j = await httpGetJson(url, 90000);
-      if (j && j.players) { logStep('readOldSeries OK (' + Math.round((Date.now() - t0) / 1000) + 's, ' + url.split('/').pop() + ')'); return j; }
+      if (j && j[expectKey]) { logStep('readOldSeries OK (' + Math.round((Date.now() - t0) / 1000) + 's, ' + url.split('/').pop() + ')'); return j; }
       return null; // 拿到了但结构不符（空/无 players）→ 视同首跑
     } catch (e) {
       const msg = (e && e.message) || '';
@@ -376,16 +378,28 @@ async function runHourlySync(doUpload) {
         logStep('upload daily done, days=' + daily.days.length + ' (最新=' + daily.days[daily.days.length - 1] + '), players=' + Object.keys(daily.players).length);
 
         // 市场整体波动（2026-10-25）：daily 写成功才聚合；失败同样只跳过本轮、保留云上旧文件。
-        // buildOverview 是纯函数（分类映射/中位指数/简单平均涨跌/振幅/高价档），无 IO 无新链路。
+        // buildOverview 是纯函数（分类映射/中位指数/简单平均涨跌/振幅/高价档/归一化指数），无 IO 无新链路。
         try {
-          const ov = core.buildOverview(daily, built, dayKey);
+          // 归一化基期（docs/37 §12）：读旧概览取 base 携带传入；读不到（首跑 404 / 结构异常）
+          // ⇒ 传 null，buildOverview 从「最早的已冻结日」自动初始化（00:00 跨日轮生效）。
+          // 瞬断不阻断本轮：基期可由数据确定性重建，概览失败本就只警告跳过。
+          let ovBase = null;
+          try {
+            const oldOv = await readOldSeries(OVERVIEW_READ_URL, 'index');
+            if (oldOv && oldOv.base) ovBase = oldOv.base;
+          } catch (re) {
+            console.warn('[market_sync_gh] 读旧概览取 base 失败（按自动初始化处理）: ' + ((re && re.message) || re));
+          }
+          const ov = core.buildOverview(daily, built, dayKey, ovBase);
           if (ov.unCat) {
             console.warn('[market_sync_gh] ⚠️ market_overview 有 ' + ov.unCat + ' 张卡未命中任何分类（rarity 漂移？），已计入「全市场」但不进 9 分类网格');
           }
           await uploadJsonSafe(OVERVIEW_CLOUD_PATH, ov);
           logStep('upload overview done, days=' + ov.days.length + ', cards=' + ov.today.pc.all.cards +
             ', 非空分类=' + ov.cats.filter(function (c) { return c.cards > 0; }).length + '/9' +
-            ', avgChg(pc)=' + ov.today.pc.all.avgChg + ', cmp=' + ov.today.pc.all.cmp);
+            ', avgChg(pc)=' + ov.today.pc.all.avgChg + ', cmp=' + ov.today.pc.all.cmp +
+            ', base(pc)=' + (ov.base && ov.base.pc ? ov.base.pc.day + ':' + ov.base.pc.v : '—') +
+            ', idx100=' + (ov.idx100 && ov.idx100.pc && ov.idx100.pc.all ? ov.idx100.pc.all[ov.idx100.pc.all.length - 1] : '—'));
         } catch (oe) {
           console.warn('[market_sync_gh] overview 更新跳过（云上旧文件已保留）: ' + (oe && oe.message || oe));
         }

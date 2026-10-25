@@ -169,5 +169,59 @@ console.log('\n[8] 导出：分类键/高价档键');
   ok(core.OVERVIEW_CATS.every(function (c) { return c.label; }), '每个分类都有中文标签');
 }
 
+// ── 场景 9：归一化指数 idx100 / 基期 base / indexN（docs/37 §12，2026-10-25）──
+console.log('\n[9] 归一化指数：基期自动初始化 / 显式携带 / 跨窗口 / null 传播 / indexN');
+{
+  // 9a 自动初始化：days 末日=今日 ⇒ 只取已冻结日（day0）首个有效中位价
+  const ov = core.buildOverview(daily, built, '20261025');
+  eq(ov.base.pc, { day: '20261023', v: 100 }, 'base.pc 自动初始化=最早冻结日(10-23)中位价 100');
+  eq(ov.base.ps, { day: '20261023', v: 550000 }, 'base.ps 双平台各自初始化');
+  eq(ov.idx100.pc.all, [100, 200, 150], 'idx100.pc.all=中位价÷100×100（基期日恰 100）');
+  eq(ov.idx100.ps.all, [100, 100, 100], 'idx100.ps.all');
+  eq(Object.keys(ov.idx100.pc).sort(), Object.keys(ov.index.pc).sort(), 'idx100 与 index 同构（全市场+非空分类）');
+  ok(ov.idx100.pc.all.length === ov.index.pc.all.length, 'idx100 长度与 days 对齐');
+
+  // 9b 显式携带 + 数值换算（基期=10-24 的 200）
+  const ov2 = core.buildOverview(daily, built, '20261025', { pc: { day: '20261024', v: 200 }, ps: { day: '20261024', v: 550000 } });
+  eq(ov2.idx100.pc.all, [50, 100, 75], 'idx100=中位价÷200×100（50/100/75）');
+  eq(ov2.base.pc, { day: '20261024', v: 200 }, '显式基期原样回写（不重新初始化）');
+
+  // 9c 跨窗口携带：基期日已滚出 14 日窗口也不断裂、不重新起算
+  const ov3 = core.buildOverview(daily, built, '20261025', { pc: { day: '20260101', v: 250 } });
+  eq(ov3.idx100.pc.all, [40, 80, 60], '基期日不在窗口内：指数仍按旧基期算（40/80/60）');
+  eq(ov3.base.pc, { day: '20260101', v: 250 }, '跨窗口不重算基期');
+
+  // 9d null 传播：中位价为 null 的格 idx100 同步为 null（不除零、不错位）
+  eq(ov2.idx100.ps.gold_85_92, [null, null, null], 'ps 无数据分类 idx100 全 null');
+  ok(ov2.idx100.pc.all.every(function (v) { return v != null; }), 'pc 全市场无 null 格');
+
+  // 9e 基期值非法（v<=0 / 缺 day）⇒ 忽略并按自动初始化
+  const ov4 = core.buildOverview(daily, built, '20261025', { pc: { day: '20261024', v: 0 } });
+  eq(ov4.base.pc, { day: '20261023', v: 100 }, 'v=0 的基期被忽略，回退自动初始化');
+
+  // 9f indexN：每日有效卡数（端上读数行「有效 N 张」；104 昨日 null ⇒ 15）
+  eq(ov.indexN.pc, [16, 15, 16], 'indexN.pc 每日有效卡数（104 day1 null → 15）');
+  eq(ov.indexN.ps, [1, 1, 1], 'indexN.ps 仅英雄卡有 ps 日聚合');
+
+  // 9g 当日 partial 绝不作基期：单日文件 + 今日 dayKey ⇒ 不初始化（等 00:00 跨日轮）
+  const dailySingle = { v: 1, ts: 1750000000000, days: ['20261025'], players: spec };
+  const ov5 = core.buildOverview(dailySingle, built, '20261025');
+  eq(ov5.base.pc, null, '仅今日（partial）：不初始化基期');
+  ok(ov5.idx100.pc.all === undefined, '无基期 ⇒ idx100 缺该平台键（端上回退绝对线）');
+  eq(ov5.indexN.pc, [16], '单日 indexN 仍输出');
+  eq(ov5.index.pc.all, [100], '单日绝对中位价仍在');
+  // 同一文件但 dayKey 对不上（测试态）⇒ 全部视为已冻结，允许初始化
+  const ov6 = core.buildOverview(dailySingle, built, '20261024');
+  eq(ov6.base.pc, { day: '20261025', v: 100 }, 'dayKey 对不上：全部日子视为已冻结，取首日初始化');
+  eq(ov6.idx100.pc.all, [100], 'idx100 单日=100');
+}
+
+// ── 场景 10：idx100 四舍五入（1 位小数）──
+console.log('\n[10] idx100 数值精度：1 位小数');
+{
+  const ov = core.buildOverview(daily, built, '20261025', { pc: { day: '20261023', v: 3 } });
+  eq(ov.idx100.pc.all, [3333.3, 6666.7, 5000], '100/3×100=3333.3（1 位小数四舍五入）');
+}
+
 console.log('\n结果: ' + pass + ' 通过, ' + fail + ' 失败');
 process.exit(fail ? 1 : 0);
