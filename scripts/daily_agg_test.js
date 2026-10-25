@@ -1,5 +1,6 @@
 // updateDaily 离线覆盖（node scripts/daily_agg_test.js，纯函数无 IO）
-// 场景：首跑 / 同日重跑幂等 / 新球员对齐 / 跨日滚动 / 离场球员补 null / 7 日封顶 / avg-min-max 口径
+// 场景：首跑 / 同日重跑幂等 / 新球员对齐 / 跨日滚动 / 离场球员补 null / 14 日封顶 / avg-min-max 口径
+// ⚠️ 2026-10-25：DAILY_KEEP_DAYS 7→14（市场概览 14 日窗口，用户拍板；docs/37 §5），场景 7 同步改 14。
 'use strict';
 const core = require('./market_core.js');
 
@@ -73,18 +74,40 @@ console.log('\n[6] 离场球员：今日补 null，历史保留');
   ok(JSON.stringify(d2.players['200'].pc) === JSON.stringify([[500, 500, 500], null]), '离场球员：昨日保留、今日 null');
 }
 
-// ── 场景 7：7 日封顶滚动 ──
-console.log('\n[7] 7 日封顶：超 7 天丢最旧');
+// ── 场景 7：14 日封顶滚动（2026-10-25 起 DAILY_KEEP_DAYS=14）──
+console.log('\n[7] 14 日封顶：超 14 天丢最旧');
 {
   let d = null;
-  for (let day = 20; day <= 28; day++) {
+  for (let day = 10; day <= 33; day++) {
     const key = '202610' + (day < 10 ? '0' + day : day);
     d = core.updateDaily(d, mkSeries([key + '0900'], { '100': { pc: [day * 10], ps: [] } }), key);
   }
-  ok(d.days.length === 7, 'days 长度=7');
-  ok(d.days[0] === '20261022' && d.days[6] === '20261028', '滚动后=[22..28]');
-  ok(JSON.stringify(d.players['100'].pc[0]) === JSON.stringify([220, 220, 220]), '最旧格=22 日（10-20/21 已丢）');
-  ok(JSON.stringify(d.players['100'].pc[6]) === JSON.stringify([280, 280, 280]), '最新格=28 日');
+  ok(d.days.length === 14, 'days 长度=14');
+  ok(d.days[0] === '20261020' && d.days[13] === '20261033', '滚动后=[20..33]');
+  ok(JSON.stringify(d.players['100'].pc[0]) === JSON.stringify([200, 200, 200]), '最旧格=20 日（10-10..19 已丢）');
+  ok(JSON.stringify(d.players['100'].pc[13]) === JSON.stringify([330, 330, 330]), '最新格=33 日');
+}
+
+// ── 场景 9：同日重跑（days≥2）不得把上一小时今日残留当昨日列（2026-10-25 bug 修复回归）──
+console.log('\n[9] 同日重跑（多日历史）：剥掉今日残留，历史列不错位');
+{
+  const d1 = core.updateDaily(null, mkSeries(['202610240900', '202610241000'], { '100': { pc: [100, 110], ps: [] } }), '20261024');
+  ok(JSON.stringify(d1.players['100'].pc[0]) === JSON.stringify([105, 100, 110]), '24 日首行 avg=105');
+  const d2 = core.updateDaily(d1, mkSeries(['202610240900', '202610241000', '202610241100'], { '100': { pc: [100, 110, 130], ps: [] } }), '20261024');
+  ok(d2.days.length === 1 && JSON.stringify(d2.players['100'].pc[0]) === JSON.stringify([113, 100, 130]), '同日重跑(days=1)：值重算 113、不膨胀');
+  // 跨到 25 日首跑：days=[24,25]，昨日(24)冻结保留
+  const d3 = core.updateDaily(d2, mkSeries(['202610250000', '202610250100'], { '100': { pc: [200, 210], ps: [] } }), '20261025');
+  ok(d3.days.length === 2 && JSON.stringify(d3.players['100'].pc[0]) === JSON.stringify([113, 100, 130]), '跨日：days=[24,25]，昨日列=24 日冻结值');
+  // 25 日同日第二次跑（历史 2 天）：上一小时今日残留必须剥掉，不得占「昨日」格
+  const d4 = core.updateDaily(d3, mkSeries(['202610250000', '202610250100', '202610250200'], { '100': { pc: [200, 210, 240], ps: [] } }), '20261025');
+  ok(d4.days.length === 2, 'days 仍为 [24,25]（不膨胀）');
+  ok(JSON.stringify(d4.players['100'].pc[0]) === JSON.stringify([113, 100, 130]), '回归：昨日列仍是 24 日冻结值（不是 25 日残留 205）');
+  ok(JSON.stringify(d4.players['100'].pc[1]) === JSON.stringify([217, 200, 240]), '今日列=avg(200,210,240)=217');
+  ok(d4.players['100'].pc.length === 2, '数组长度=2（未膨胀）');
+  // 连续多轮同日重跑：历史列始终稳定
+  const d5 = core.updateDaily(d4, mkSeries(['202610250000', '202610250100', '202610250200', '202610250300'], { '100': { pc: [200, 210, 240, 300], ps: [] } }), '20261025');
+  ok(JSON.stringify(d5.players['100'].pc[0]) === JSON.stringify([113, 100, 130]), '再跑一轮：昨日列仍稳定');
+  ok(JSON.stringify(d5.players['100'].pc[1]) === JSON.stringify([238, 200, 300]), '今日列更新为 avg(200,210,240,300)=238');
 }
 
 console.log('\n结果: ' + pass + ' 通过, ' + fail + ' 失败');

@@ -48,11 +48,19 @@ const ALERTS_RECENT_CLOUD_PATH = 'fc27/market/' + ALERTS_RECENT_FILE;
 // 按天聚合（2026-10-23 新增）：近 7 日「日均价/最低/最高」，端上走势弹层「按天」视图数据源。
 //   生成逻辑（core.updateDaily，纯函数）：每小时从新 series 截「今日桶」重算当日值，
 //   过去日冻结、跨日滚动保留 7 天；读旧/上传复用 series 那套加固（规则 128/130）。
+//   ⚠️ 2026-10-25：保留窗口 7→14 天（市场概览 14 日指数/振幅，用户拍板；docs/37 §5）。
 const DAILY_FILE = 'daily_7d.json';
 const DAILY_CLOUD_PATH = 'fc27/market/' + DAILY_FILE;
 const DAILY_BACKUP_FILE = 'daily_7d_backup_latest.json';
 const DAILY_CLOUD_PATH_BACKUP = 'fc27/market/' + DAILY_BACKUP_FILE;
 const DAILY_READ_URL = SERIES_DOMAIN + '/' + DAILY_CLOUD_PATH;
+// 市场整体波动（2026-10-25 新增，docs/37）：9 分类 + 全市场 + 高价两档的概览聚合，
+//   由 core.buildOverview 从「新 daily + 当前 tier」纯计算（零新数据链），端上 market-overview 页只读。
+//   固定文件名（同 under80_alerts 口径：同路径覆写 + 端上 ?v=桶 破 CDN 边缘缓存）；
+//   失败只警告跳过本轮（云上旧文件保留），不影响 price_view/series/daily 主链。
+const OVERVIEW_FILE = 'market_overview.json';
+const OVERVIEW_CLOUD_PATH = 'fc27/market/' + OVERVIEW_FILE;
+const OVERVIEW_READ_URL = SERIES_DOMAIN + '/' + OVERVIEW_CLOUD_PATH;
 // 80↓ backup（2026-10-23 起语义变更）：存「最新序列」（而非覆盖前的旧序列），
 //   作为 Actions cache 丢失时的灾难恢复点；best-effort 上传，失败不阻塞主流程。
 //   主状态已不在云上（见下方 UNDER80_STATE_FILE），更长的 24h 恢复靠 under80_view_ 快照回填。
@@ -366,6 +374,21 @@ async function runHourlySync(doUpload) {
         }
         await uploadJsonSafe(DAILY_CLOUD_PATH, daily);
         logStep('upload daily done, days=' + daily.days.length + ' (最新=' + daily.days[daily.days.length - 1] + '), players=' + Object.keys(daily.players).length);
+
+        // 市场整体波动（2026-10-25）：daily 写成功才聚合；失败同样只跳过本轮、保留云上旧文件。
+        // buildOverview 是纯函数（分类映射/中位指数/简单平均涨跌/振幅/高价档），无 IO 无新链路。
+        try {
+          const ov = core.buildOverview(daily, built, dayKey);
+          if (ov.unCat) {
+            console.warn('[market_sync_gh] ⚠️ market_overview 有 ' + ov.unCat + ' 张卡未命中任何分类（rarity 漂移？），已计入「全市场」但不进 9 分类网格');
+          }
+          await uploadJsonSafe(OVERVIEW_CLOUD_PATH, ov);
+          logStep('upload overview done, days=' + ov.days.length + ', cards=' + ov.today.pc.all.cards +
+            ', 非空分类=' + ov.cats.filter(function (c) { return c.cards > 0; }).length + '/9' +
+            ', avgChg(pc)=' + ov.today.pc.all.avgChg + ', cmp=' + ov.today.pc.all.cmp);
+        } catch (oe) {
+          console.warn('[market_sync_gh] overview 更新跳过（云上旧文件已保留）: ' + (oe && oe.message || oe));
+        }
       } catch (de) {
         console.warn('[market_sync_gh] daily 更新跳过（读旧瞬断，云上旧文件已保留）: ' + (de && de.message || de));
       }

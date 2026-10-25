@@ -14,7 +14,7 @@
 //   3. 额外保留「最大 Key」（最新写入）防竞态；
 //   4. 删掉 keep 集合之外的所有文件。
 //   5. 对 market 目录特殊处理（2026-10-18 重写，事故见规则 130）：
-//      活文件白名单永不删（series_24h* / *_backup_latest / under80_alerts / daily_7d* / under80_view_* 族）
+//      活文件白名单永不删（series_24h* / *_backup_latest / under80_alerts / daily_7d* / market_overview / under80_view_* 族）
 //      ＋ 只删已知垃圾（_chain_* / price_all_* / 超出最新 12 个的 price_view）
 //      ＋ 不明文件默认保留并 ::error 告警。
 //      ⚠️ 旧逻辑「只留 12 个 price_view、其余全删」把活文件当孤儿每天删一次，导致 24h 序列
@@ -171,7 +171,8 @@ async function run() {
   //      series_24h.json / series_24h_backup_latest.json /
   //      series_24h_under80.json / series_24h_under80_backup_latest.json /
   //      under80_alerts.json /
-  //      daily_7d.json / daily_7d_backup_latest.json（2026-10-23 按天聚合）
+  //      daily_7d.json / daily_7d_backup_latest.json（2026-10-23 按天聚合）/
+  //      market_overview.json（2026-10-25 市场整体波动，docs/37）
   //      外加 under80_view_*.json 整族（寿命由 sync 的 pruneOldUnder80Views 管，这里不碰）；
   //   ② 已知垃圾才删：_chain_*.json、price_all_*.json、超出最新 12 个的 price_view_*.json；
   //   ③ 不明文件（不在白名单、不匹配任何已知家族）→ 默认不删 + ::error 告警。
@@ -183,10 +184,11 @@ async function run() {
     'series_24h_under80_backup_latest.json',
     'under80_alerts.json',
     'daily_7d.json',
-    'daily_7d_backup_latest.json'
+    'daily_7d_backup_latest.json',
+    'market_overview.json'
   ];
   const MARKET_DEAD_PATTERNS = [/^_chain_.*\.json$/, /^price_all_.*\.json$/];
-  const MARKET_LIVE_NAME_RE = /^(series_24h.*\.json|under80_alerts\.json|under80_view_\d{12}\.json|daily_7d.*\.json)$/;
+  const MARKET_LIVE_NAME_RE = /^(series_24h.*\.json|under80_alerts\.json|under80_view_\d{12}\.json|daily_7d.*\.json|market_overview\.json)$/;
   try {
     const marketFiles = await storage.walkCloudDir(marketPrefix);
     const marketKeys = (marketFiles || []).map(function (f) { return f.Key; }).filter(Boolean);

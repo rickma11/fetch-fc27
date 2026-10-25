@@ -363,11 +363,20 @@ function computeUnder80Alerts(series, rosterMap, cfg) {
 //     （昨日最后一次写入=23:00 那一刻=全日 24 点精确值），避免 sum/count 状态漂移。
 //   - 跨日（北京）自动滚动：push 新日、丢最旧（>DAILY_KEEP_DAYS）。
 //   - 同小时重跑幂等：今日值整体重算替换，历史不动。
-// 纯函数（无 IO），scripts/daily_agg_test.js 离线覆盖。
-var DAILY_KEEP_DAYS = 7;
+//   - ⚠️ 同日重跑（days≥2）必须先剥掉旧数组末格的「上一小时今日残留值」再拼历史列——
+//     2026-10-25 修复的列错位 bug：旧代码把残留值当成历史保留，导致「昨日」列显示的
+//     是今日上午的旧值（线上实证：昨日列与今日真值更近的卡 1064/1128 张），
+//     market_overview「vs 昨日」因此恒为 0%，端上按天视图同期起显示错位点。
+// 纯函数（无 IO），scripts/daily_agg_test.js 离线覆盖（场景 9 专测同日重跑不错位）。
+// ⚠️ 2026-10-25：7→14（市场概览 14 日指数/振幅窗口，用户拍板；docs/37 §5）。
+//   存量云上文件 ≤7 天不受影响：alignHist 只保留末尾 keep 格，days 逐日增长至 14 封顶。
+var DAILY_KEEP_DAYS = 14;
 function updateDaily(oldDaily, series, dayKey) {
   oldDaily = oldDaily || {};
-  var days = Array.isArray(oldDaily.days) ? oldDaily.days.slice() : [];
+  var oldDays = Array.isArray(oldDaily.days) ? oldDaily.days.slice() : [];
+  // 同日重跑判定（必须在 push 新日之前取旧 days 末位）
+  var sameDayRerun = oldDays.length > 0 && oldDays[oldDays.length - 1] === dayKey;
+  var days = oldDays.slice();
   var oldPlayers = oldDaily.players || {};
   if (days[days.length - 1] !== dayKey) {
     days.push(dayKey);
@@ -391,6 +400,8 @@ function updateDaily(oldDaily, series, dayKey) {
   }
   function alignHist(arr) {                        // 历史列对齐：保留末尾 keep 格，不足前导补 null
     var a = Array.isArray(arr) ? arr.slice() : [];
+    // 同日重跑：旧数组末格是「上一小时算出的今日残留值」而非历史，先剥掉（2026-10-25 bug 修复）
+    if (sameDayRerun && a.length) a = a.slice(0, a.length - 1);
     if (a.length > keep) a = a.slice(a.length - keep);
     while (a.length < keep) a.unshift(null);
     return a;
@@ -418,10 +429,181 @@ function updateDaily(oldDaily, series, dayKey) {
   return { v: 1, ts: Date.now(), days: days, players: players };
 }
 
+// ── 市场整体波动聚合（2026-10-25 新增，供 price_sync_cloud.js 每小时生成 market_overview.json）──
+// 方案：docs/37-market-overview-design.md（用户 10-25 拍板：切法 B / 14 日 / 高价两档）。
+// 输入：
+//   daily: core.updateDaily 产物 { v, ts, days:['YYYYMMDD' ≤14], players:{ eaId:{ pc:[[avg,min,max]|null ×N], ps:[...] } } }
+//   built: core.build 产物（built.view.tier 已带 rarity/overall/pc/ps，line 134）
+//   dayKey: 北京日期 YYYYMMDD（今日格；找不到 ⇒ 无当日对比，统计按「积累中」输出）
+// 输出契约（端上 pages/market-overview 只读）：
+//   { v, ts, days, cats:[{key,label,cards}×9], unCat,
+//     index:{ pc:{ all:[median|null ×N], <catKey>:[...] }, ps:{...} },
+//     today:{ pc:{ all:{cards,cmp,avgChg,up,hold,down,vol5,amp,ampN}, cats:{...}, tiers:{'500k':{cards,chg},'1m':{...}} }, ps:{...} } }
+//   - index/today.cats 只输出 cards>0 的分类（端上空分类隐藏）；cats 始终给全 9 档（cards 可为 0）
+//   - unCat：未命中任何分类的卡数（rarity 漂移监测；>0 时 CI 打警告，卡仍计入「全市场」）
+// 口径（docs/37 §3，用户已确认）：
+//   · 分类成员 = 当前有报价卡（built.view.tier），历史值按 eaId 取 daily 对应列；
+//   · 指数 = 分类「当日中位价」序列（中位抗极值，Icon 高价不扭曲金卡档）；
+//   · 平均涨跌 = 每卡 (今日avg−昨日avg)/昨日avg 的简单平均；|Δ|<0.5% 记持平、≥5% 记波动；
+//   · 振幅 = 每卡 (窗口内 max−min)/窗口均值 的均值（需 ≥2 个有效日，ampN=参与卡数）；
+//   · 高价档 = 当前价 ≥50万 / ≥100万 两组的简单平均涨跌 + 卡数（按平台各自取价）。
+// 纯函数（无 IO），scripts/market_overview_test.js 离线覆盖。
+var OVERVIEW_CATS = [
+  { key: 'gold_80_84', label: '金卡 80-84', rarity: 'Gold', min: 80, max: 84 },
+  { key: 'gold_85_92', label: '金卡 85-92', rarity: 'Gold', min: 85, max: 92 },
+  { key: 'icon', label: '基础传奇', rarity: 'Base Icon', min: 0, max: 999 },
+  { key: 'hero', label: '基础英雄', rarity: 'Base Hero', min: 0, max: 999 },
+  { key: 'promo_80_84', label: '活动卡 80-84', promo: true, min: 80, max: 84 },
+  { key: 'promo_85_89', label: '活动卡 85-89', promo: true, min: 85, max: 89 },
+  { key: 'promo_90p', label: '活动卡 90+', promo: true, min: 90, max: 999 },
+  { key: 'totw_80_84', label: '周黑 80-84', rarity: 'Team of the week', min: 80, max: 84 },
+  { key: 'totw_85p', label: '周黑 85+', rarity: 'Team of the week', min: 85, max: 999 }
+];
+// 活动卡口径＝非金/非基础传奇/非基础英雄/非周黑的全部 promo 稀有度（含活动英雄，如 Ultimate Scream Hero）
+var OVERVIEW_BASE_RARITIES = ['Gold', 'Base Icon', 'Base Hero', 'Team of the week'];
+var OVERVIEW_TIERS = [
+  { key: '500k', min: 500000 },
+  { key: '1m', min: 1000000 }
+];
+var OVERVIEW_HOLD_PCT = 0.5;   // |Δ|<0.5% 记持平
+var OVERVIEW_VOL_PCT = 5;      // |Δ|≥5% 记波动
+
+// 单卡分类（切法 B：区间下限含、上限不含——85 归中档、90 归 90+，9 档无缝分区）
+function overviewCatOf(item) {
+  var r = item.rarity || '';
+  var ov = item.overall || 0;
+  for (var i = 0; i < OVERVIEW_CATS.length; i++) {
+    var c = OVERVIEW_CATS[i];
+    if (ov < c.min || ov > c.max) continue;
+    if (c.promo) {
+      if (!r || OVERVIEW_BASE_RARITIES.indexOf(r) >= 0) continue;   // 基础稀有度不落活动卡
+      return c.key;
+    }
+    if (r === c.rarity) return c.key;
+  }
+  return '';
+}
+
+function overviewMedian(arr) {
+  if (!arr.length) return null;
+  var s = arr.slice().sort(function (a, b) { return a - b; });
+  var m = s.length >> 1;
+  var v = (s.length % 2) ? s[m] : (s[m - 1] + s[m]) / 2;
+  return Math.round(v);
+}
+
+function buildOverview(daily, built, dayKey) {
+  var tier = (built && built.view && built.view.tier) || [];
+  var days = (daily && Array.isArray(daily.days)) ? daily.days.slice() : [];
+  var dPlayers = (daily && daily.players) || {};
+  var N = days.length;
+  // 今日格：优先按 dayKey 定位（updateDaily 保证其为末位）；定位不到 ⇒ 无当日对比数据
+  var todayIdx = dayKey ? days.lastIndexOf(dayKey) : N - 1;
+  var yestIdx = todayIdx - 1;
+
+  // 1) 分类成员（当前有报价卡；卡数平台无关，pc/ps 视图共用）
+  var members = {};
+  var unCat = 0;
+  tier.forEach(function (it) {
+    var k = overviewCatOf(it);
+    if (!k) { unCat++; return; }
+    if (!members[k]) members[k] = [];
+    members[k].push(it);
+  });
+
+  // 2) 指数：每平台每分类「当日中位价」序列（与 days 按下标对齐，当日无值为 null）
+  function indexOf(catItems, pf) {
+    var out = [];
+    for (var d = 0; d < N; d++) {
+      var vals = [];
+      catItems.forEach(function (it) {
+        var rec = dPlayers[String(it.eaId)];
+        var cell = rec && rec[pf] && rec[pf][d];
+        if (cell && cell[0] != null) vals.push(cell[0]);
+      });
+      out.push(overviewMedian(vals));
+    }
+    return out;
+  }
+  var index = { pc: {}, ps: {} };
+  index.pc.all = indexOf(tier, 'pc');
+  index.ps.all = indexOf(tier, 'ps');
+  OVERVIEW_CATS.forEach(function (c) {
+    if (!members[c.key] || !members[c.key].length) return;   // 空分类不出指数（端上隐藏）
+    index.pc[c.key] = indexOf(members[c.key], 'pc');
+    index.ps[c.key] = indexOf(members[c.key], 'ps');
+  });
+
+  // 3) 当日统计（按平台）：涨跌需今日+昨日都有效且昨日>0；振幅需 ≥2 个有效日
+  function statOf(catItems, pf) {
+    var st = { cards: catItems.length, cmp: 0, up: 0, hold: 0, down: 0, vol5: 0, avgChg: null, amp: null, ampN: 0 };
+    if (!N || todayIdx < 0) return st;
+    var chgSum = 0, ampSum = 0;
+    catItems.forEach(function (it) {
+      var rec = dPlayers[String(it.eaId)];
+      var arr = rec && rec[pf] ? rec[pf] : null;
+      if (arr && yestIdx >= 0) {
+        var y = arr[yestIdx], t = arr[todayIdx];
+        if (y && t && y[0] > 0 && t[0] != null) {
+          var pct = (t[0] - y[0]) / y[0] * 100;
+          st.cmp++; chgSum += pct;
+          if (pct >= OVERVIEW_HOLD_PCT) st.up++;
+          else if (pct <= -OVERVIEW_HOLD_PCT) st.down++;
+          else st.hold++;
+          if (Math.abs(pct) >= OVERVIEW_VOL_PCT) st.vol5++;
+        }
+      }
+      if (arr) {
+        var vs = [];
+        for (var d = 0; d < N; d++) { var cell = arr[d]; if (cell && cell[0] != null) vs.push(cell[0]); }
+        if (vs.length >= 2) {
+          var mn = vs[0], mx = vs[0], s = 0;
+          for (var j = 0; j < vs.length; j++) { if (vs[j] < mn) mn = vs[j]; if (vs[j] > mx) mx = vs[j]; s += vs[j]; }
+          var mean = s / vs.length;
+          if (mean > 0) { ampSum += (mx - mn) / mean * 100; st.ampN++; }
+        }
+      }
+    });
+    if (st.cmp) st.avgChg = +(chgSum / st.cmp).toFixed(1);
+    if (st.ampN) st.amp = +(ampSum / st.ampN).toFixed(1);
+    return st;
+  }
+
+  // 4) 高价档：按平台当前价过滤后复用 statOf（只取 cards/chg）
+  function tierStat(catItems, pf, minPrice) {
+    var sel = catItems.filter(function (it) {
+      var v = (pf === 'ps') ? it.ps : it.pc;
+      return v != null && v >= minPrice;
+    });
+    var st = statOf(sel, pf);
+    return { cards: st.cards, chg: st.avgChg };
+  }
+
+  var out = {
+    v: 1, ts: Date.now(), days: days, unCat: unCat,
+    cats: OVERVIEW_CATS.map(function (c) { return { key: c.key, label: c.label, cards: (members[c.key] || []).length }; }),
+    index: index,
+    today: {
+      pc: { all: statOf(tier, 'pc'), cats: {}, tiers: {} },
+      ps: { all: statOf(tier, 'ps'), cats: {}, tiers: {} }
+    }
+  };
+  ['pc', 'ps'].forEach(function (pf) {
+    OVERVIEW_CATS.forEach(function (c) {
+      if (members[c.key] && members[c.key].length) out.today[pf].cats[c.key] = statOf(members[c.key], pf);
+    });
+    OVERVIEW_TIERS.forEach(function (t) {
+      out.today[pf].tiers[t.key] = tierStat(tier, pf, t.min);
+    });
+  });
+  return out;
+}
+
 module.exports = {
   PRICE_API: PRICE_API, BATCH: BATCH, TIER_MIN: TIER_MIN, DAILY_KEEP_DAYS: DAILY_KEEP_DAYS,
   key: key, sleep: sleep, cardCloudId: cardCloudId,
   fetchBatch: fetchBatch, pullPlatforms: pullPlatforms,   build: build,
   buildSeries: buildSeries, slimSnapshot: slimSnapshot,
-  computeUnder80Alerts: computeUnder80Alerts, updateDaily: updateDaily
+  computeUnder80Alerts: computeUnder80Alerts, updateDaily: updateDaily,
+  buildOverview: buildOverview, OVERVIEW_CATS: OVERVIEW_CATS, OVERVIEW_TIERS: OVERVIEW_TIERS
 };
