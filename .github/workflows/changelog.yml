@@ -1,0 +1,54 @@
+name: Changelog static (repo JSON -> CloudBase storage)
+
+# changelog 静态 JSON 发布（替代云函数 cloudfunctions/get_changelog 的 republish 职责，2026-10-26）：
+#   读仓库内源文件 cloud-data/fc{ver}/changelog.json = { version, date, items, enabled }
+#   → 上传云存储 fc{ver}/data/changelog/changelog_<ts>.json（数组 [{version,date,items,enabled}]）
+#   ＋ 写元文档 meta_fc{ver}/changelog {version,enabled,fetchedAt,count,fileID,hash,ts}
+#   （端上 utils/changelog.js → cloudJson.fetchList('changelog',{fresh:true}) 直读，B 线已删，零云函数）。
+# ⚠️ 与其它 workflow 完全隔离：独立 concurrency 组（changelog-static），不碰抓取管线、不提交 git。
+# 幂等：version + enabled 均未变 ⇒ 跳过上传（与原云函数 republish 条件一致）；源无 version ⇒ 跳过（防空内容覆盖线上好文件）。
+# 触发：仅 workflow_dispatch（由 cron-job.org 每小时 POST 本 workflow，或手动触发）。
+#   与 dict-static / market-sync / sync-votes 同口径：统一走第三方 cron-job.org，不用 GitHub native schedule。
+#   cron-job.org 配置（照抄 dict-static，见 docs/19）：POST
+#     https://api.github.com/repos/rickma11/fetch-fc27/actions/workflows/changelog.yml/dispatches
+#     Header: Authorization: Bearer <PAT(Actions:write)>  Accept: application/vnd.github+json
+#     Body:   {"ref":"main","inputs":{"fc_ver":"27"}}
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: changelog-static
+  cancel-in-progress: false
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+
+      - name: Publish changelog static (upload to CloudBase storage + write meta doc)
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_changelog_static.js ${{ github.event.inputs.fc_ver || '27' }}
