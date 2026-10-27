@@ -77,7 +77,7 @@ const FULL_UPSERT_CONC = 12; // 全量增量覆盖并发（doc(id).set 整体覆
 // 按 commonName 整名匹配 → 屏蔽该球员名下所有稀有度卡（列表 / 详情 / 搜索 / 图鉴全链路失效）。
 // 匹配做「重音 + 大小写」归一（'Kylian Mbappé' ↔ 'Kylian Mbappe' 都能命中），避免云库拼写带/不带重音漏杀。
 // 取消屏蔽：把名字从 PLAYER_BLACKLIST_NAMES 移除 + 重跑一次本脚本（fut.gg 次日会重新抓回该球员）。
-const PLAYER_BLACKLIST_NAMES = ['Kylian Mbappé'];
+const PLAYER_BLACKLIST_NAMES = []; // 2026-10-27 撤：屏蔽改由生成层（warm_roster/gen_static_details/price_sync）+ 云函数（get_players/get_player_detail）+ 端上 suppress.json 三重过滤，源库不再删；恢复只需往 suppress.json players 段加名 + 重跑生成层
 const _blNorm = function (s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
 const _blSet = new Set(PLAYER_BLACKLIST_NAMES.map(_blNorm));
 function _inPlayerBlacklist(name) { return name != null && _blSet.has(_blNorm(name)); }
