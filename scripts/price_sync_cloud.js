@@ -305,13 +305,15 @@ async function runHourlySync(doUpload) {
   if (!roster.length) throw new Error('roster 为空，疑似 roster_83plus.json 未发布或 URL 不可达');
 
   // 球员黑名单（2026-10-27）：suppress.json players 段过滤 roster → 价格视图全链不含被屏球员
-  {
-    const pbl = require('./player_blacklist');
-    const _bl = await pbl.loadBlacklist();
-    const _pf = pbl.applyBlacklist(roster, _bl);
-    if (_pf.blockedEaIds.length) logStep('🚫 球员黑名单屏蔽 ' + _pf.blockedEaIds.length + ' 张卡: ' + _pf.blockedEaIds.join(','));
-    roster = _pf.kept;
-  }
+  const pbl = require('./player_blacklist');
+  const _bl = await pbl.loadBlacklist();
+  const _pf = pbl.applyBlacklist(roster, _bl);
+  if (_pf.blockedEaIds.length) logStep('🚫 球员黑名单屏蔽 ' + _pf.blockedEaIds.length + ' 张卡: ' + _pf.blockedEaIds.join(','));
+  // 被屏 eaId 集合（含按 commonName 展开的 eaId）→ 清 series/daily/under80 历史残留桶
+  const _blockedEaIds = new Set(_pf.blockedEaIds.map(String));
+  const _purgeKeyed = function (obj) { if (obj && obj.players) { for (const k of Object.keys(obj.players)) if (_blockedEaIds.has(String(k))) delete obj.players[k]; } };
+  const _purgeArr = function (arr) { return (arr || []).filter(function (a) { return !_blockedEaIds.has(String(a.eaId)); }); };
+  roster = _pf.kept;
 
   // 拉 83+ 价（pc+ps 并行，并发 6，561 人 ≈ 12 批，预期 ≤~8s）
   const pull = await core.pullPlatforms(roster, 0, 6);
@@ -355,6 +357,7 @@ async function runHourlySync(doUpload) {
         try { await uploadJsonSafe(SERIES_CLOUD_PATH_BACKUP, oldSeries); }
         catch (be) { console.warn('[market_sync_gh] backup 上传失败(非致命): ' + (be && be.message || be)); }
       }
+      _purgeKeyed(series);   // 黑名单 purge（防御）：清历史残留被屏 eaId
       await uploadJsonSafe(SERIES_CLOUD_PATH, series);
       logStep('upload series done, players=' + Object.keys(series.players).length + ', buckets=' + series.buckets.length);
     } catch (se) {
@@ -379,6 +382,7 @@ async function runHourlySync(doUpload) {
         }
         const dayKey = bucketOf(new Date()).slice(0, 8);      // 北京日期 YYYYMMDD
         const daily = core.updateDaily(oldDaily, series, dayKey);
+        _purgeKeyed(daily);   // 黑名单 purge：daily.players 残留部署前历史 7 天桶（oldDaily 冻结保留），剔除被屏 eaId
         if (oldDaily) {
           try { await uploadJsonSafe(DAILY_CLOUD_PATH_BACKUP, oldDaily); }
           catch (be) { console.warn('[market_sync_gh] daily backup 上传失败(非致命): ' + (be && be.message || be)); }
@@ -656,6 +660,9 @@ async function runUnder80Sync(doUpload) {
       alertsRecent.players[String(a.eaId)] = { pc: r.pc || [], ps: r.ps || [] };
       delete a.recent;
     });
+    // 黑名单 purge：剔除被屏 eaId（历史入选残留）
+    if (alerts.alerts) alerts.alerts = _purgeArr(alerts.alerts);
+    for (const k of Object.keys(alertsRecent.players)) if (_blockedEaIds.has(String(k))) delete alertsRecent.players[k];
     await uploadJsonSafe(ALERTS_RECENT_CLOUD_PATH, alertsRecent);
     logStep('upload under80_alerts_recent done, players=' + Object.keys(alertsRecent.players).length);
     await uploadJsonSafe(ALERTS_CLOUD_PATH, alerts);
