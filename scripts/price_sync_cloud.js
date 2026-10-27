@@ -547,7 +547,10 @@ async function runBackfillUnder80(doUpload) {
 // 零 429、墙钟 ~39s，可行；数量级过大时由 market-sync-under80.yml 降频为 2h 一次。
 async function loadRosterUnder80() {
   let lastErr = null;
-  for (let attempt = 1; attempt <= 3; attempt++) {
+  // 与 loadRoster 同口径但重试 5 次（2026-10-27 #317：跨太平洋 CDN 偶发 ~2 分钟级抖动，
+  // 3 次×30s=90s 撑不过 ⇒ 整轮 timeout 红。规则 135：抖动优先加重试而非调大超时；
+  // 退避 1500×attempt 把 5 次尝试铺开到 ~3 分钟窗口，给 CDN 恢复留时间）。超时仍保持 30s。
+  for (let attempt = 1; attempt <= 5; attempt++) {
     try {
       const j = await httpGetJson(ROSTER_UNDER80_URL);
       const list = Array.isArray(j) ? j : (j.players || []);
@@ -559,10 +562,10 @@ async function loadRosterUnder80() {
     } catch (e) {
       lastErr = e;
       logStep('loadRosterUnder80 attempt ' + attempt + ' failed: ' + (e && e.message || e));
-      if (attempt < 3) await sleep(800 * attempt);
+      if (attempt < 5) await sleep(1500 * attempt);
     }
   }
-  throw new Error('loadRosterUnder80 重试 3 次仍失败: ' + (lastErr && lastErr.message || lastErr));
+  throw new Error('loadRosterUnder80 重试 5 次仍失败: ' + (lastErr && lastErr.message || lastErr));
 }
 
 async function runUnder80Sync(doUpload) {
