@@ -73,6 +73,23 @@ const UPSERT_CONC = 8;      // 增量 upsert 并发
 const FULL_CONC = 10;       // 逐条 upsert 并发（add() 不可用 / 批次兜底时用）
 const FULL_UPSERT_CONC = 12; // 全量增量覆盖并发（doc(id).set 整体覆盖，按 eaId 幂等）
 
+// ── 球员黑名单（2026-10-27 临时屏蔽机制：不改小程序版、只改 CI 数据层）──
+// 按 commonName 整名匹配 → 屏蔽该球员名下所有稀有度卡（列表 / 详情 / 搜索 / 图鉴全链路失效）。
+// 匹配做「重音 + 大小写」归一（'Kylian Mbappé' ↔ 'Kylian Mbappe' 都能命中），避免云库拼写带/不带重音漏杀。
+// 取消屏蔽：把名字从 PLAYER_BLACKLIST_NAMES 移除 + 重跑一次本脚本（fut.gg 次日会重新抓回该球员）。
+const PLAYER_BLACKLIST_NAMES = ['Kylian Mbappé'];
+const _blNorm = function (s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
+const _blSet = new Set(PLAYER_BLACKLIST_NAMES.map(_blNorm));
+function _inPlayerBlacklist(name) { return name != null && _blSet.has(_blNorm(name)); }
+function applyPlayerBlacklist(rows) {
+  const blocked = [];
+  const list = (rows || []).filter(function (p) {
+    if (p && _inPlayerBlacklist(p.commonName)) { blocked.push(String(p.eaId)); return false; }
+    return true;
+  });
+  return { list: list, blocked: blocked };
+}
+
 async function ensureCollection(name) {
   try {
     await db.createCollection(name);
@@ -371,8 +388,16 @@ async function uploadEvolutions(ver, dir) {
       process.exit(1);
     }
     const inc = JSON.parse(fs.readFileSync(incFile, 'utf8'));
-    const players = (inc.players || []).map(function (p) { return Object.assign({}, p, { _id: String(p.eaId) }); });
-    const details = Object.keys(inc.details || {}).map(function (k) { return Object.assign({}, inc.details[k], { _id: String(k) }); });
+    let players = (inc.players || []).map(function (p) { return Object.assign({}, p, { _id: String(p.eaId) }); });
+    let details = Object.keys(inc.details || {}).map(function (k) { return Object.assign({}, inc.details[k], { _id: String(k) }); });
+    // 球员黑名单：写库前剔除整名匹配者（同时清其详情 + 加入下架删除）
+    const _pfInc = applyPlayerBlacklist(players); players = _pfInc.list;
+    const _blocked = _pfInc.blocked;
+    if (_blocked.length) {
+      const _keep = new Set(_blocked);
+      details = details.filter(function (d) { return !_keep.has(d.eaId != null ? String(d.eaId) : d._id); });
+      console.log(`  🚫 球员黑名单屏蔽 ${_blocked.length} 张卡:`, _blocked);
+    }
     console.log(`增量包：需写库 ${players.length} 条，详情 ${details.length} 条，下架 ${(inc.removedIds || []).length} 条，列表总数 ${inc.total}`);
 
     console.log('== 增量写入', pCol, '==');
@@ -384,8 +409,8 @@ async function uploadEvolutions(ver, dir) {
     await upsertAll(dCol, details, UPSERT_CONC, 'details');
 
     console.log('== 删除下架 ==');
-    await removeByIds(pCol, inc.removedIds);
-    await removeByIds(dCol, inc.removedIds);
+    await removeByIds(pCol, (inc.removedIds || []).concat(_blocked));
+    await removeByIds(dCol, (inc.removedIds || []).concat(_blocked));
 
     if (inc.facets) {
       console.log('== 更新', mCol, '==');
@@ -404,8 +429,17 @@ async function uploadEvolutions(ver, dir) {
     console.log(`FC${VER}：列表 ${players.length} 条，详情 ${details.length} 条`);
 
     // _id 固定为 eaId：详情可按主键直查，且避免每日重复累积
-    const pDocs = players.map(function (p) { return Object.assign({}, p, { _id: String(p.eaId) }); });
-    const dDocs = details.map(function (d) { return Object.assign({}, d, { _id: String(d.eaId) }); });
+    let pDocs = players.map(function (p) { return Object.assign({}, p, { _id: String(p.eaId) }); });
+    let dDocs = details.map(function (d) { return Object.assign({}, d, { _id: String(d.eaId) }); });
+
+    // 球员黑名单：全量写库前剔除整名匹配者（全量默认不删，这里额外清掉已上线的记录）
+    const _pfFull = applyPlayerBlacklist(pDocs); pDocs = _pfFull.list;
+    const _blockedFull = _pfFull.blocked;
+    if (_blockedFull.length) {
+      const _keepF = new Set(_blockedFull);
+      dDocs = dDocs.filter(function (d) { return !_keepF.has(d.eaId != null ? String(d.eaId) : d._id); });
+      console.log(`  🚫 球员黑名单屏蔽 ${_blockedFull.length} 张卡:`, _blockedFull);
+    }
 
     // 全量「增量覆盖（不删除）」：按 eaId 逐条 set 覆盖，缺失的球员保留、新字段自然带入。
     // 仅在显式 FORCE_WIPE=1 时才走破坏性「清空+全插」（改 schema / 清脏数据等场景）。
@@ -427,6 +461,12 @@ async function uploadEvolutions(ver, dir) {
       console.log('== 全量增量覆盖（不删除）', dCol, '==');
       await ensureCollection(dCol);
       await upsertAll(dCol, dDocs, FULL_UPSERT_CONC, 'details');
+
+      // 黑名单补充删除：全量模式默认不删，这里把已上线的被屏蔽卡清掉
+      if (_blockedFull.length) {
+        await removeByIds(pCol, _blockedFull);
+        await removeByIds(dCol, _blockedFull);
+      }
     }
 
     // 筛选取值（联赛/俱乐部/稀有度…），单文档，供前端筛选面板使用
