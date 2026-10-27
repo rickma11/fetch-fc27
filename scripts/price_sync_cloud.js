@@ -575,16 +575,20 @@ async function runUnder80Sync(doUpload) {
 
   // 球员黑名单（2026-10-27）：under80 roster 用 name 字段（非 commonName），映射后走同一套黑名单
   let pullRoster = roster;
+  let _blockedEaIds = new Set();
   {
     const pbl = require('./player_blacklist');
     const _bl = await pbl.loadBlacklist();
     const _pf = pbl.applyBlacklist(roster.map(function (p) { return { eaId: p.eaId, commonName: p.name }; }), _bl);
     if (_pf.blockedEaIds.length) {
       logStep('🚫 球员黑名单屏蔽(under80) ' + _pf.blockedEaIds.length + ' 张卡: ' + _pf.blockedEaIds.join(','));
-      const _set = new Set(_pf.blockedEaIds);
-      pullRoster = roster.filter(function (p) { return !_set.has(String(p.eaId)); });
+      _blockedEaIds = new Set(_pf.blockedEaIds);
+      pullRoster = roster.filter(function (p) { return !_blockedEaIds.has(String(p.eaId)); });
     }
   }
+  // 与 runHourlySync（L313-315）对齐：供下方 alerts/recent 上传段黑名单 purge 使用（历史 series 残桶防御）。
+  // ⚠️ 此前漏定义 ⇒ runUnder80Sync 作用域内 _purgeArr/_blockedEaIds 未定义，每次必崩（#307-#311）。
+  const _purgeArr = function (arr) { return (arr || []).filter(function (a) { return !_blockedEaIds.has(String(a.eaId)); }); };
 
   // DRY 验证用：限制拉价人数（避免本地空跑也 hammer 全量 18k 请求），CI 全量不限制。
   const dryLimit = parseInt(process.env.UNDER80_DRY_LIMIT || '0', 10) || 0;
