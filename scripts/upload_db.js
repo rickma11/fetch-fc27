@@ -90,6 +90,21 @@ function applyPlayerBlacklist(rows) {
   return { list: list, blocked: blocked };
 }
 
+// 从云库按 commonName 反查被屏蔽球员的 eaId（增量模式兜底：增量包不含该球员时也清掉已上线的被屏蔽卡）。
+// 正常日 upload_db 走 incremental（FC_MODE=auto 且 incremental.json 恒存在），增量包只含「变化/新增」卡，
+// 无变化的被屏蔽球员不会出现在包里 ⇒ 必须直接查库删除，否则线上记录残留在列表/搜索里。
+async function blockedEaIdsFromDb(colName) {
+  if (!PLAYER_BLACKLIST_NAMES.length) return [];
+  try {
+    const res = await db.collection(colName).where({ commonName: _.in(PLAYER_BLACKLIST_NAMES) }).limit(1000).get();
+    const list = (res && res.data) || [];
+    return list.map(function (d) { return String(d.eaId != null ? d.eaId : d._id); });
+  } catch (e) {
+    console.warn('  ⚠ 黑名单云库反查失败（本次不补删，下轮重试）:', e.message);
+    return [];
+  }
+}
+
 async function ensureCollection(name) {
   try {
     await db.createCollection(name);
@@ -390,9 +405,13 @@ async function uploadEvolutions(ver, dir) {
     const inc = JSON.parse(fs.readFileSync(incFile, 'utf8'));
     let players = (inc.players || []).map(function (p) { return Object.assign({}, p, { _id: String(p.eaId) }); });
     let details = Object.keys(inc.details || {}).map(function (k) { return Object.assign({}, inc.details[k], { _id: String(k) }); });
-    // 球员黑名单：写库前剔除整名匹配者（同时清其详情 + 加入下架删除）
+    // 球员黑名单：① 增量包内整名匹配者剔除；② 增量包可能不含该球员（无变化）→ 直接查云库删已上线的被屏蔽卡
     const _pfInc = applyPlayerBlacklist(players); players = _pfInc.list;
-    const _blocked = _pfInc.blocked;
+    let _blocked = _pfInc.blocked;
+    if (PLAYER_BLACKLIST_NAMES.length) {
+      const _dbBlocked = await blockedEaIdsFromDb(pCol);
+      _dbBlocked.forEach(function (id) { if (_blocked.indexOf(id) < 0) _blocked.push(id); });
+    }
     if (_blocked.length) {
       const _keep = new Set(_blocked);
       details = details.filter(function (d) { return !_keep.has(d.eaId != null ? String(d.eaId) : d._id); });
@@ -434,7 +453,11 @@ async function uploadEvolutions(ver, dir) {
 
     // 球员黑名单：全量写库前剔除整名匹配者（全量默认不删，这里额外清掉已上线的记录）
     const _pfFull = applyPlayerBlacklist(pDocs); pDocs = _pfFull.list;
-    const _blockedFull = _pfFull.blocked;
+    let _blockedFull = _pfFull.blocked;
+    if (PLAYER_BLACKLIST_NAMES.length) {
+      const _dbBlockedF = await blockedEaIdsFromDb(pCol);
+      _dbBlockedF.forEach(function (id) { if (_blockedFull.indexOf(id) < 0) _blockedFull.push(id); });
+    }
     if (_blockedFull.length) {
       const _keepF = new Set(_blockedFull);
       dDocs = dDocs.filter(function (d) { return !_keepF.has(d.eaId != null ? String(d.eaId) : d._id); });
