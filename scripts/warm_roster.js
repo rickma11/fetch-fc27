@@ -10,6 +10,7 @@ const { resolve } = require('./tcb_env');
 const ziplite = require('./ziplite');   // 极简 zip 写入器（roster 压缩分片上传用，见第 3 步）
 const { cn } = require('./cn_time');    // 北京时间直读字段（控制台用）
 const crypto = require('crypto');       // P2：属性版本戳 sha256
+const pbl = require('./player_blacklist'); // 球员黑名单（suppress.json players 段，生成层过滤）
 
 const VER = 27;
 // R29k：共享扫描缓存（由 sync_i18n.js 在扫全表时 write，本脚本与 gen_squad_chem 用 --from-cache 读）。
@@ -232,6 +233,15 @@ if (require.main === module) {
     console.log('fetched', all.length, 'players in', ((Date.now() - t0) / 1000).toFixed(1) + 's（未命中缓存 ⇒ 自己扫）');
   }
   if (all.length < 19000) { console.error('安全闸：球员数 <19000，疑似拉取不完整，拒绝写库'); process.exit(1); }
+
+  // 球员黑名单（2026-10-27）：单一真源 = 云存储 suppress/suppress.json 的 players 段。
+  // 在生成层过滤 ⇒ 旧版客户端（没有端上黑名单逻辑）也被屏蔽，无需发版即全量生效。
+  const _bl = await pbl.loadBlacklist();
+  const _pf = pbl.applyBlacklist(all, _bl);
+  if (_pf.blockedEaIds.length) {
+    console.log('🚫 球员黑名单屏蔽', _pf.blockedEaIds.length, '张卡:', _pf.blockedEaIds.join(','));
+    all = _pf.kept;
+  }
 
   // P2：在删除 attributes 之前，先用原始 attributes 算全局版本戳（任一属性变 ⇒ 戳变）
   const attrVersion = globalAttrVersion(all);

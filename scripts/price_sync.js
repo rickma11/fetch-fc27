@@ -169,6 +169,16 @@ function bucketOf(d) {
   }
   console.log('roster 条数 =', roster.length);
 
+  // 球员黑名单（2026-10-27）：suppress.json players 段过滤 roster → 价格视图/序列全链不含被屏球员。
+  // 只过滤 roster（视图/抓价来源）；price_all 历史合并价不删，没有 roster 行就永远不出视图。
+  {
+    const pbl = require('./player_blacklist');
+    const _bl = await pbl.loadBlacklist();
+    const _pf = pbl.applyBlacklist(roster, _bl);
+    if (_pf.blockedEaIds.length) console.log('🚫 球员黑名单屏蔽', _pf.blockedEaIds.length, '张卡:', _pf.blockedEaIds.join(','));
+    roster = _pf.kept;
+  }
+
   const prev = loadPrev();
   console.log('上一轮基准 prev =', Object.keys(prev).length, '条',
     prev && Object.keys(prev).length ? ('（来自 ' + fs.readdirSync(OUT_DIR).filter(function (f) { return /^price_all/.test(f); }).pop() + '）') : '');

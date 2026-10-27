@@ -300,9 +300,18 @@ async function runHourlySync(doUpload) {
   const runStart = Date.now();
   logStep('runHourlySync start (upload=' + !!doUpload + ')');
 
-  const roster = await loadRoster();
+  let roster = await loadRoster();
   logStep('loadRoster done, n=' + roster.length);
   if (!roster.length) throw new Error('roster 为空，疑似 roster_83plus.json 未发布或 URL 不可达');
+
+  // 球员黑名单（2026-10-27）：suppress.json players 段过滤 roster → 价格视图全链不含被屏球员
+  {
+    const pbl = require('./player_blacklist');
+    const _bl = await pbl.loadBlacklist();
+    const _pf = pbl.applyBlacklist(roster, _bl);
+    if (_pf.blockedEaIds.length) logStep('🚫 球员黑名单屏蔽 ' + _pf.blockedEaIds.length + ' 张卡: ' + _pf.blockedEaIds.join(','));
+    roster = _pf.kept;
+  }
 
   // 拉 83+ 价（pc+ps 并行，并发 6，561 人 ≈ 12 批，预期 ≤~8s）
   const pull = await core.pullPlatforms(roster, 0, 6);
@@ -560,9 +569,22 @@ async function runUnder80Sync(doUpload) {
   logStep('loadRosterUnder80 done, n=' + roster.length);
   if (!roster.length) throw new Error('roster_under80 为空，疑似 roster_under80.json 未发布或 URL 不可达');
 
+  // 球员黑名单（2026-10-27）：under80 roster 用 name 字段（非 commonName），映射后走同一套黑名单
+  let pullRoster = roster;
+  {
+    const pbl = require('./player_blacklist');
+    const _bl = await pbl.loadBlacklist();
+    const _pf = pbl.applyBlacklist(roster.map(function (p) { return { eaId: p.eaId, commonName: p.name }; }), _bl);
+    if (_pf.blockedEaIds.length) {
+      logStep('🚫 球员黑名单屏蔽(under80) ' + _pf.blockedEaIds.length + ' 张卡: ' + _pf.blockedEaIds.join(','));
+      const _set = new Set(_pf.blockedEaIds);
+      pullRoster = roster.filter(function (p) { return !_set.has(String(p.eaId)); });
+    }
+  }
+
   // DRY 验证用：限制拉价人数（避免本地空跑也 hammer 全量 18k 请求），CI 全量不限制。
   const dryLimit = parseInt(process.env.UNDER80_DRY_LIMIT || '0', 10) || 0;
-  const pullRoster = dryLimit > 0 ? roster.slice(0, dryLimit) : roster;
+  if (dryLimit > 0) pullRoster = pullRoster.slice(0, dryLimit);
 
   const pull = await core.pullPlatforms(pullRoster, 0, 20);
   logStep('pullPlatforms(under80) done, failed=' + pull.failed + '/' + pull.batches + ', keys=' + Object.keys(pull.rows).length);

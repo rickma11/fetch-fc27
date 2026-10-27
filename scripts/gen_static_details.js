@@ -30,6 +30,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const cloudbase = require('@cloudbase/node-sdk');
+const pbl = require('./player_blacklist');   // 球员黑名单（suppress.json players 段，生成层过滤）
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(ROOT, 'probe', 'static_details');
@@ -182,8 +183,19 @@ async function main() {
   HOT_NAMES.forEach(function (n) { if (!nationNameToId[norm(n)]) console.warn('  ⚠️ 热门国家未匹配:', n); });
 
   // 3) 统一分类入桶（__raw -> 各 key 桶）
-  const raw = buckets.__raw || [];
+  let raw = buckets.__raw || [];
   delete buckets.__raw;
+  // 球员黑名单（2026-10-27）：分桶前剔除被屏球员（suppress.json players 段，与端上 utils/suppress.js 同源）
+  // ⇒ 静态分片不含被屏球员，详情页走「未找到」。detail 文档 = {...p} 展开，必带 eaId/commonName。
+  {
+    const _bl = await pbl.loadBlacklist();
+    const _pf = pbl.applyBlacklist(raw.map(function (it) { return it.rec; }), _bl);
+    if (_pf.blockedEaIds.length) {
+      const _set = new Set(_pf.blockedEaIds);
+      console.log('  🚫 球员黑名单屏蔽', _set.size, '张详情:', Array.from(_set).join(','));
+      raw = raw.filter(function (it) { return !_set.has(String(it.rec.eaId)); });
+    }
+  }
   for (const item of raw) {
     const p = { overall: item.overall, leagueEaId: item.lgId, nationEaId: item.ntId };
     const key = classifyKey(p, big5, hot);
