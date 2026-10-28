@@ -22,6 +22,9 @@ const VER = Number(process.argv[2] || process.env.FC_VER || 27);
 const OUT = path.join(ROOT, 'cloud-data', 'fc' + VER, 'objectives.json');
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36';
 const BASE = 'https://www.fut.gg/api/fut/objectives/' + VER + '/groups';
+// 索引页：fut.gg /groups 分页存在重叠（同 id 跨页重复，把部分 group 挤出结果集），
+//   故用索引页拿全量 slug 名录，缺失的走单条详情接口 BASE/{slug} 补齐。
+const INDEX_URL = 'https://www.fut.gg/objectives/';
 
 // 代理：显式 FUTGG_PROXY > 环境 HTTPS_PROXY/HTTP_PROXY；CI 不设则直连
 function proxyArgs() {
@@ -49,6 +52,36 @@ function curlJSON(url, tries) {
     }
     attempt(1);
   });
+}
+
+// 抓纯文本（索引页 HTML）
+function curlText(url, tries) {
+  tries = tries || 3;
+  return new Promise(function (resolve, reject) {
+    function attempt(n) {
+      const args = ['-sL', '--compressed', '--max-time', '60', '-A', UA].concat(proxyArgs(), [url]);
+      execFile('curl', args, { maxBuffer: 64 * 1024 * 1024, encoding: 'utf8' }, function (err, stdout) {
+        if (err || !stdout) {
+          if (n < tries) return setTimeout(function () { attempt(n + 1); }, 1000 * n);
+          return reject(new Error('curl 取文本失败'));
+        }
+        resolve(stdout);
+      });
+    }
+    attempt(1);
+  });
+}
+
+// 从索引页 HTML 解析全量 slug（链接形如 /objectives/{cat}/{slug}/）
+function parseIndexSlugs(html) {
+  const re = /\/objectives\/([a-z-]+)\/([0-9]+-[a-z0-9-]+)\//g;
+  const seen = {};
+  const out = [];
+  let m;
+  while ((m = re.exec(html))) {
+    if (!seen[m[2]]) { seen[m[2]] = 1; out.push({ cat: m[1], slug: m[2] }); }
+  }
+  return out;
 }
 
 async function fetchAll() {
@@ -116,8 +149,52 @@ async function run() {
   console.log('  原始 group 数:', raw.length);
   if (!raw.length) { console.error('未抓到任何 group，终止'); process.exit(4); }
 
+  // ① 去重：fut.gg 分页重叠（同 id 会出现在相邻两页）→ 按 id 保留首次，避免重复计数/重复卡片
+  const seenId = {};
+  const uniq = [];
+  raw.forEach(function (g) {
+    const k = String(g && g.id);
+    if (!k || seenId[k]) return;
+    seenId[k] = 1;
+    uniq.push(g);
+  });
+  if (uniq.length !== raw.length) {
+    console.log('  ⚠️ 分页重叠：去重 ' + raw.length + ' → ' + uniq.length + '（按 id 保留首次）');
+  }
+
+  // ② 补全：被重叠挤出结果集的 group，用索引页 slug 名录 + 单条详情接口补回
+  let filled = 0;
+  try {
+    const html = await curlText(INDEX_URL);
+    const idx = parseIndexSlugs(html);
+    const have = {};
+    uniq.forEach(function (g) { if (g && g.slug) have[g.slug] = 1; });
+    const missing = idx.filter(function (x) { return !have[x.slug]; });
+    console.log('  索引页 slug 名录: ' + idx.length + '，本地缺失: ' + missing.length);
+    for (let i = 0; i < missing.length; i++) {
+      const s = missing[i].slug;
+      try {
+        const r = await curlJSON(BASE + '/' + s, 3);
+        const g = r && (r.data || r);
+        if (g && g.id && g.name) {
+          uniq.push(g);
+          filled++;
+          console.log('    补齐: ' + g.id + ' | ' + g.name + ' (' + ((g.category && g.category.slug) || '?') + ')');
+        } else {
+          console.log('    跳过（空响应）: ' + s);
+        }
+      } catch (e) {
+        console.log('    补齐失败: ' + s + ' → ' + e.message);
+      }
+    }
+  } catch (e) {
+    // 降级：索引页不可用时仅去重，不阻断（数据仍可用，只是可能缺条）
+    console.warn('  ⚠️ 索引页抓取失败，跳过补全（仅去重）: ' + e.message);
+  }
+  console.log('  最终 group 数: ' + uniq.length + '（其中补全 ' + filled + ' 条）');
+
   const fetchedAt = new Date().toISOString();   // 批次抓取时间：注入每条 group._fetchedAt（供端上「数据更新于」取 max）
-  const groups = raw.map(function (g) { return slimGroup(g, fetchedAt); }).filter(Boolean);
+  const groups = uniq.map(function (g) { return slimGroup(g, fetchedAt); }).filter(Boolean);
   // 默认按 startTime 倒序（从新到旧）；无 startTime 的排末尾
   groups.sort(function (a, b) {
     const ta = a.startTime ? Date.parse(a.startTime) : 0;
