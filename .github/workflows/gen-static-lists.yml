@@ -41,6 +41,12 @@ jobs:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'   # 本流程无浏览器抓取，跳过 Chromium 下载省时间
         run: npm install
 
+      - name: Refresh objectives from fut.gg (best-effort)
+        # 自动更新任务的「数据源」：从 fut.gg 重新抓取 FC27 任务写 objectives.json。
+        # continue-on-error：抓取失败（网络/限流）不阻断 SBC/进化发布，回落使用仓库内已提交的 objectives.json。
+        continue-on-error: true
+        run: node scripts/gen_objectives.js ${{ github.event.inputs.fc_ver || '27' }}
+
       - name: Gen static lists (upload to CloudBase storage + write meta docs)
         env:
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}

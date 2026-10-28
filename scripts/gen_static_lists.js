@@ -266,6 +266,19 @@ async function run() {
   const evoRaw = Array.isArray(evoSrc.all) ? evoSrc.all : [];
   const evoArr = evoRaw.map(slimRecord);  // 必须与云函数 list 返回形状一致
 
+  // objectives（FC27 任务）本地源：由 scripts/gen_objectives.js 抓取精简产出；缺失则跳过，不阻断 sbc/evo。
+  let objArr = [];
+  let objFetchedAt = '';
+  const objPath = path.join(ROOT, 'cloud-data/fc27/objectives.json');
+  if (fs.existsSync(objPath)) {
+    const objSrc = JSON.parse(fs.readFileSync(objPath, 'utf8'));
+    objArr = Array.isArray(objSrc.groups) ? objSrc.groups : [];
+    objFetchedAt = objSrc.fetchedAt || maxFetchedAt(objArr) || new Date().toISOString();
+    console.log('[objectives] 本地源 ' + objArr.length + ' 个 group');
+  } else {
+    console.log('[objectives] 本地源不存在（' + objPath + '），跳过 objectives 发布');
+  }
+
   if (!sbcArr.length) { console.error('sbcs.json 无 sets'); process.exit(8); }
   if (!evoArr.length) { console.error('evolutions.json 无 all'); process.exit(8); }
 
@@ -283,6 +296,12 @@ async function run() {
   const app = initCloud();
   const sbcMeta = await publishOne(app, 'get_sbcs', sbcArr, sbcFetchedAt);
   const evoMeta = await publishOne(app, 'get_evolutions', evoArr, evoFetchedAt);
+  let objMeta = null;
+  if (objArr.length) {
+    objMeta = await publishOne(app, 'objectives', objArr, objFetchedAt);
+  } else {
+    console.log('[objectives] 无数据，跳过发布');
+  }
 
   // 内容更新告知：feed_meta（evo/sbc 指纹；players 指纹端上直读 roster meta，不在此写）。
   // rev = 列表内容 hash（内容不变则不变 → 端上据此判断「有无新内容」）；updatedAt = 本次 CI ts（ISO），
@@ -296,6 +315,10 @@ async function run() {
       sbc: {
         rev: (sbcMeta && sbcMeta.hash) || '',
         updatedAt: (sbcMeta && sbcMeta.ts) ? new Date(sbcMeta.ts).toISOString() : ''
+      },
+      objectives: {
+        rev: (objMeta && objMeta.hash) || '',
+        updatedAt: (objMeta && objMeta.ts) ? new Date(objMeta.ts).toISOString() : ''
       }
     }
   };
