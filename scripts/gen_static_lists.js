@@ -115,6 +115,31 @@ function initCloud() {
   return cloudbase.init({ env: envId, secretId: sid, secretKey: skey, timeout: 180000 });
 }
 function shortFid(fid) { return fid ? String(fid).slice(0, 64) + (fid.length > 64 ? '…' : '') : ''; }
+
+// ── 云库直读（规则 142：真源＝云端，禁止以本机工作区快照为源）──
+// 背景：2026-10-29 事故 —— 本机仓库落后 main 27 天，`cloud-data/fc27/evolutions.json`
+// 仍是 10-01 的 45 条，却被本脚本当作源上传，覆盖了云端正确的 151 条，端上退回「31 个 / 10-01」。
+// 故改为直读云库：本机有没有本地文件都不影响，从根上杜绝「陈旧本地数据污染云端」。
+async function fetchAll(app, coll) {
+  const db = app.database();
+  const out = [];
+  for (;;) {
+    const r = await db.collection(coll).skip(out.length).limit(100).get();
+    const d = (r && r.data) || [];
+    if (!d.length) break;
+    for (let i = 0; i < d.length; i++) out.push(d[i]);
+    if (d.length < 100) break;
+  }
+  return out;
+}
+
+// 未过期判定：无 endTime（长期有效/永不过期）视为有效；解析失败保守保留。
+// ⚠️ 云库 sbcs_fc27 是**历史累积**（实测 79 条中 50 条已过期），不做这层过滤会把过期 SBC 全量放上线。
+function notEnded(s) {
+  if (!s || !s.endTime) return true;
+  const t = Date.parse(s.endTime);
+  return isNaN(t) ? true : t > Date.now();
+}
 function hash8(buf) { return crypto.createHash('md5').update(buf).digest('hex').slice(0, 8); }
 
 // 规则 116（2026-10-03 实测）：@cloudbase/node-sdk 的 uploadFile 从 CI runner→腾讯 COS 偶发卡死无告警，
@@ -258,15 +283,20 @@ async function publishObject(app, name, obj) {
 }
 
 async function run() {
-  // 读取现有本地产物（只读，不碰现有 CI 逻辑）
-  const sbcsSrc = JSON.parse(fs.readFileSync(path.join(ROOT, 'cloud-data/fc27/sbcs.json'), 'utf8'));
-  const evoSrc = JSON.parse(fs.readFileSync(path.join(ROOT, 'cloud-data/fc27/evolutions.json'), 'utf8'));
+  const app = initCloud();
 
-  const sbcArr = Array.isArray(sbcsSrc.sets) ? sbcsSrc.sets : [];
-  const evoRaw = Array.isArray(evoSrc.all) ? evoSrc.all : [];
+  // 真源＝云库（规则 142）。进化取全量；SBC 取全量后过滤过期项（对齐 scrape 的「当前有效集合」）。
+  const evoRaw = await fetchAll(app, 'evolutions_fc' + VER);
+  const sbcAll = await fetchAll(app, 'sbcs_fc' + VER);
+  const sbcArr = sbcAll.filter(notEnded);
+  console.log('[源] 云库 evolutions_fc' + VER + ' = ' + evoRaw.length + ' 条');
+  console.log('[源] 云库 sbcs_fc' + VER + ' = ' + sbcAll.length + ' 条 → 过滤过期后 ' + sbcArr.length + ' 条');
   const evoArr = evoRaw.map(slimRecord);  // 必须与云函数 list 返回形状一致
 
   // objectives（FC27 任务）本地源：由 scripts/gen_objectives.js 抓取精简产出；缺失则跳过，不阻断 sbc/evo。
+  // ⚠️ 规则 142 的唯一例外：云库**没有** objectives_fc27 集合（实测 Db or Table not exist），
+  //    且 CI 里 gen-static-lists.yml 会先跑 gen_objectives.js 实时重抓再调本脚本，故源是「本次刚抓的新产物」
+  //    而非陈旧快照，不构成污染风险。若本机缺该文件则跳过发布（云端保留上一版，不会被清空）。
   let objArr = [];
   let objFetchedAt = '';
   const objPath = path.join(ROOT, 'cloud-data/fc27/objectives.json');
@@ -279,11 +309,11 @@ async function run() {
     console.log('[objectives] 本地源不存在（' + objPath + '），跳过 objectives 发布');
   }
 
-  if (!sbcArr.length) { console.error('sbcs.json 无 sets'); process.exit(8); }
-  if (!evoArr.length) { console.error('evolutions.json 无 all'); process.exit(8); }
+  if (!sbcArr.length) { console.error('云库 sbcs_fc' + VER + ' 无有效记录'); process.exit(8); }
+  if (!evoArr.length) { console.error('云库 evolutions_fc' + VER + ' 无记录'); process.exit(8); }
 
-  // fetchedAt：进化用源顶层已有字段；SBC 用数组 max 或回退到本次 ts
-  const evoFetchedAt = evoSrc.fetchedAt || maxFetchedAt(evoRaw) || new Date().toISOString();
+  // fetchedAt：取整批记录 _fetchedAt 的最大值（云库是唯一真源，不再有本地顶层字段可依赖）
+  const evoFetchedAt = maxFetchedAt(evoRaw) || new Date().toISOString();
   const sbcFetchedAt = maxFetchedAt(sbcArr) || new Date().toISOString();
 
   if (NO_UPLOAD) {
@@ -293,7 +323,6 @@ async function run() {
     process.exit(0);
   }
 
-  const app = initCloud();
   const sbcMeta = await publishOne(app, 'get_sbcs', sbcArr, sbcFetchedAt);
   const evoMeta = await publishOne(app, 'get_evolutions', evoArr, evoFetchedAt);
   let objMeta = null;
