@@ -1,0 +1,4161 @@
+{
+  "ver": 27,
+  "count": 44,
+  "fetchedAt": "2026-10-28T12:20:22.714Z",
+  "groups": [
+    {
+      "id": 2657,
+      "slug": "149-weekly-rush-points",
+      "name": "Weekly Rush Points",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Complete Rush Bonuses alongside your teammates to earn Rush Points and pack rewards! All rewards are untradeable.",
+      "startTime": "2026-10-27T18:00:00Z",
+      "endTime": "2026-11-03T17:59:59Z",
+      "tasksCount": 5,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 84+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 84+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 84 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13397,
+          "name": "35,000 Rush Points",
+          "description": "Earn 35,000 points by completing bonuses in Rush.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "83+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "83+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 83 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13398,
+          "name": "25,000 Rush Points",
+          "description": "Earn 25,000 points by completing bonuses in Rush.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 82+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 82+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 82 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13399,
+          "name": "20,000 Rush Points",
+          "description": "Earn 20,000 points by completing bonuses in Rush.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 80+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13400,
+          "name": "10,000 Rush Points",
+          "description": "Earn 10,000 points by completing bonuses in Rush.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 78+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 78+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 78 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13401,
+          "name": "2,500 Rush Points",
+          "description": "Earn 2,500 points by completing bonuses in Rush.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 77+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 77+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 77 or higher."
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2658,
+      "slug": "143-fc-pro-open-cup-1",
+      "name": "FC Pro Open Cup 1",
+      "category": {
+        "slug": "fc-pro",
+        "name": "FC Pro"
+      },
+      "description": "Show your skills in the FC Pro Open Cup 1 to compete in the group and earn rewards. All rewards are untradeable.",
+      "startTime": "2026-10-27T18:00:00Z",
+      "endTime": "2026-11-04T17:59:59Z",
+      "tasksCount": 2,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "EVO_UNLOCK",
+          "name": "Evo Unlock",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13402,
+          "name": "Compete",
+          "description": "Play 5 matches in the FC Pro Open Cup 1.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        },
+        {
+          "id": 13403,
+          "name": "Reach Division 5 Rivals",
+          "description": "Reach Division 5 in Rivals to qualify for the FC Pro Open Cup 1.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2656,
+      "slug": "165-season-2-daily-knockout-tournament-bonus",
+      "name": "Season 2 Daily Knockout Tournament Bonus",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "description": "Play matches in the Season 2 Daily Knockout Tournament and earn Ultimate Scream Tokens!",
+      "startTime": "2026-10-26T18:00:00Z",
+      "endTime": "2026-11-06T17:59:59Z",
+      "tasksCount": 4,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "EVENT_TOKEN",
+          "name": "40 Ultimate Scream Tokens",
+          "count": 1,
+          "eventToken": 40
+        },
+        {
+          "type": "XP",
+          "name": "50 SP",
+          "count": 1,
+          "xp": 50
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13393,
+          "name": "Win 5",
+          "description": "Win 5 matches in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "40 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 40
+            }
+          ]
+        },
+        {
+          "id": 13394,
+          "name": "Score in 5",
+          "description": "Score at least 1 goal in 5 separate matches in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "40 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 40
+            }
+          ]
+        },
+        {
+          "id": 13395,
+          "name": "Win 2",
+          "description": "Win 2 matches in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "40 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 40
+            }
+          ]
+        },
+        {
+          "id": 13396,
+          "name": "Score 1",
+          "description": "Score 1 goal in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "40 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 40
+            },
+            {
+              "type": "PLAYER_ITEM",
+              "name": "Selina Vobian (Loan)",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50603487.0887a37a4628e697d3eaa664598e49ef13a4da6f46521b5d839494dfabf00c59.webp",
+              "playerItem": {
+                "name": "Selina Vobian",
+                "eaId": 50603487,
+                "rating": 0,
+                "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50603487.e0bd28373a1b235c935e4c2958501a999f203e99f4779e948cb57817fff4d84c.webp"
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2652,
+      "slug": "156-ultimate-scream-puzzle-completionist",
+      "name": "Ultimate Scream Puzzle Completionist",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "description": "Complete Ultimate Scream Puzzle SBCs and earn Ultimate Scream Tokens and SP!",
+      "startTime": "2026-10-23T17:00:00Z",
+      "endTime": "2026-11-06T17:59:59Z",
+      "tasksCount": 6,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "EVENT_TOKEN",
+          "name": "100 Ultimate Scream Tokens",
+          "count": 1,
+          "eventToken": 100
+        },
+        {
+          "type": "XP",
+          "name": "100 SP",
+          "count": 1,
+          "xp": 100
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13372,
+          "name": "Hocus Pocus",
+          "description": "Complete Hocus Pocus Puzzle SBC.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "30 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 30
+            }
+          ]
+        },
+        {
+          "id": 13373,
+          "name": "Pumpkin Seeds",
+          "description": "Complete Pumpkin Seeds Puzzle SBC.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "30 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 30
+            }
+          ]
+        },
+        {
+          "id": 13374,
+          "name": "Freaky Zombie",
+          "description": "Complete Freaky Zombie Puzzle SBC.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "30 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 30
+            }
+          ]
+        },
+        {
+          "id": 13375,
+          "name": "Boo Hoo Party",
+          "description": "Complete Boo Hoo Party Puzzle SBC.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "30 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 30
+            }
+          ]
+        },
+        {
+          "id": 13376,
+          "name": "Scary Candy",
+          "description": "Complete Scary Candy Puzzle SBC.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "30 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 30
+            }
+          ]
+        },
+        {
+          "id": 13377,
+          "name": "Spooky Nights",
+          "description": "Complete Spooky Nights Puzzle SBC.",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "30 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 30
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2654,
+      "slug": "162-phantom-playgrounds",
+      "name": "Phantom Playgrounds",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "description": "Master a series of terrifying challenges and earn Ultimate Scream Tokens to redeem in the Token Store!",
+      "startTime": "2026-10-23T17:00:00Z",
+      "endTime": "2026-11-06T17:59:59Z",
+      "tasksCount": 7,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "EVENT_TOKEN",
+          "name": "100 Ultimate Scream Tokens",
+          "count": 1,
+          "eventToken": 100
+        },
+        {
+          "type": "XP",
+          "name": "50 SP",
+          "count": 1,
+          "xp": 50
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13383,
+          "name": "Spirit Harvest",
+          "description": "Score 50 goals while having Min. 1 Ultimate Scream Player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ]
+        },
+        {
+          "id": 13384,
+          "name": "The Red Countess",
+          "description": "Score at least one Chip Shot goal in 5 separate matches while having min. 1 Hungarian player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ]
+        },
+        {
+          "id": 13385,
+          "name": "Lost Your Head?",
+          "description": "Score 10 headers while having Min. 1 USA player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ]
+        },
+        {
+          "id": 13386,
+          "name": "Grýla's Cauldron",
+          "description": "Win 13 matches while having Min. 1 Iceland player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ]
+        },
+        {
+          "id": 13387,
+          "name": "Nessie's Deep Gift",
+          "description": "Assist at least 1 goal with a through ball in 15 separate matches while having Min. 1 Scottish player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ]
+        },
+        {
+          "id": 13388,
+          "name": "Tricks and Treats",
+          "description": "Score at least 1 goal from outside the box in 10 separate matches with 4* or higher WF players in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ]
+        },
+        {
+          "id": 13389,
+          "name": "Gulyabani's Wrath",
+          "description": "Play 7 matches while having Min. 1 Türkiye player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Ultimate Scream Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2653,
+      "slug": "159-ultimate-scream-gallery",
+      "name": "Ultimate Scream Gallery",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "description": "Make progress in the Ultimate Scream Gallery Set and earn exclusive Ultimate Scream rewards! All rewards are untradeable.",
+      "startTime": "2026-10-23T17:00:00Z",
+      "endTime": "2026-11-20T17:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Adidas Cnxt25 Pro Ball",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/8120207.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13378,
+          "name": "S Rank",
+          "description": "Achieve S Rank in the Ultimate Scream Gallery Set.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Ultimate Scream",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10200323.png"
+            }
+          ]
+        },
+        {
+          "id": 13379,
+          "name": "A Rank",
+          "description": "Achieve A Rank in the Ultimate Scream Gallery Set.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Ultimate Scream Stadium Theme",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        },
+        {
+          "id": 13380,
+          "name": "B Rank",
+          "description": "Achieve B Rank in the Ultimate Scream Gallery Set.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Adidas Cnxt25 Pro Ball",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/8120201.png"
+            }
+          ]
+        },
+        {
+          "id": 13381,
+          "name": "C Rank",
+          "description": "Achieve C Rank in the Ultimate Scream Gallery Set.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Ultimate Scream Tifo",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10000323.png"
+            }
+          ]
+        },
+        {
+          "id": 13382,
+          "name": "D Rank",
+          "description": "Achieve D Rank in the Ultimate Scream Gallery Set.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Halloween Vip",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2651,
+      "slug": "168-daily-objectives",
+      "name": "Daily Objectives",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Play, complete and earn SP from daily objective every 24 hours!",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-10-29T17:59:59Z",
+      "tasksCount": 2,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "XP",
+          "name": "10 SP",
+          "count": 1,
+          "xp": 10
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13370,
+          "name": "Play 1",
+          "description": "Play 1 match in any FUT game mode.",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ]
+        },
+        {
+          "id": 13371,
+          "name": "Scoring Success",
+          "description": "Score 2 goals in any FUT game mode.",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2644,
+      "slug": "157-fc-heritage-circuit-professional-event",
+      "name": "FC Heritage Circuit Professional Event",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Compete in the FC Heritage Circuit Professional Event to earn packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 81+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 81+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 81 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13340,
+          "name": "Premier Pride",
+          "description": "Win 2 matches while having Min. 3 Premier League players in your starting 11 in the FC Heritage Circuit Professional Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "82+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "82+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 82 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13341,
+          "name": "French Connection",
+          "description": "Score at least 3 goals in one match while having Min. 1 French player in your starting 11 in the FC Heritage Circuit Professional Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 80+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13342,
+          "name": "Belgian Tower",
+          "description": "Assist at least 3 goals while having Min. 1 Belgian player in your starting 11 in the FC Heritage Circuit Professional Event.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,000 Coins",
+              "count": 1,
+              "coins": 2000
+            }
+          ]
+        },
+        {
+          "id": 13343,
+          "name": "Three Lions Legacy",
+          "description": "Score at least 1 goal in 2 separate matches while having Min. 1 English player in your starting 11 in the FC Heritage Circuit Professional Event.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Consumable",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003110.png"
+            }
+          ]
+        },
+        {
+          "id": 13344,
+          "name": "Win 1",
+          "description": "Win 1 match in the FC Heritage Circuit Professional Event and qualify for the FC Heritage Circuit World Class Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "80+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "80+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 80 or higher."
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2643,
+      "slug": "155-fc-heritage-circuit-semi-pro-event",
+      "name": "FC Heritage Circuit Semi-Pro Event",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Compete in the FC Heritage Circuit Semi-Pro Event to earn packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 80+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 80+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 80 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13335,
+          "name": "Madrid After Midnight",
+          "description": "Win 2 matches while having Min. 2 Real Madrid (LALIGA) players in your starting 11 in the FC Heritage Circuit Semi-Pro Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "81+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "81+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 81 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13336,
+          "name": "MLS After Dark",
+          "description": "Score at least 2 goals in one match while having Min. 1 MLS player in your starting 11 in the FC Heritage Circuit Semi-Pro Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "80+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "80+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13337,
+          "name": "French Fright",
+          "description": "Assist at least 3 goals while having Min. 1 Ligue 1 player in your starting 11 in the FC Heritage Circuit Semi-Pro Event.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "1,500 Coins",
+              "count": 1,
+              "coins": 1500
+            }
+          ]
+        },
+        {
+          "id": 13338,
+          "name": "Scream in Serie A",
+          "description": "Score in 2 separate matches while having Min. 1 Serie A player in your starting 11 in the FC Heritage Circuit Semi-Pro Event.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Consumable",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003106.png"
+            }
+          ]
+        },
+        {
+          "id": 13339,
+          "name": "Win 1",
+          "description": "Win 1 match in the FC Heritage Circuit Semi-Pro Event and qualify for the FC Heritage Circuit Professional Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 78+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 78+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 78 or higher."
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2642,
+      "slug": "154-season-2-daily-knockout-tournament",
+      "name": "Season 2 Daily Knockout Tournament",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Complete 7 of 8 challenges in the Season 2 Daily Knockout Tournament and earn packs, coins, and exclusive rewards! All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 8,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Olga Carmona",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50594105.60e4603f0e220528f3f9ece2351a32dd9f65b9fe913a9019baceefc24736c794.webp",
+          "playerItem": {
+            "name": "Olga Carmona",
+            "eaId": 50594105,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50594105.5a27b9a3e7b06c3993508be7b22f645b3904e6c355f54fcb116cb1b059aa8a99.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13327,
+          "name": "Win Tournament Five Times",
+          "description": "Win the Season 2 Daily Knockout Tournament five times.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 84+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 84+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 84 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13328,
+          "name": "Score in 50",
+          "description": "Score at least 1 goal in 50 separate matches in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 84+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 84+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 84 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13329,
+          "name": "Win Tournament",
+          "description": "Win the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 83+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 83+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 83 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13330,
+          "name": "Score in 12",
+          "description": "Score at least 1 goal in 12 separate matches in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 83+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 83+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 83 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13331,
+          "name": "Score 15",
+          "description": "Score 15 goals in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 82+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 82+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 82 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13332,
+          "name": "Play 20",
+          "description": "Play 20 matches in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 81+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13333,
+          "name": "Play 10",
+          "description": "Play 10 matches in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Award",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        },
+        {
+          "id": 13334,
+          "name": "Play 1",
+          "description": "Play 1 match in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "1,500 Coins",
+              "count": 1,
+              "coins": 1500
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2641,
+      "slug": "134-weekly-objectives",
+      "name": "Weekly Objectives",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Complete Weekly Objectives to earn SP!",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-10-29T17:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "XP",
+          "name": "250 SP",
+          "count": 1,
+          "xp": 250
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13322,
+          "name": "Score 10",
+          "description": "Score 10 goals in any FUT game mode using a player from Germany.",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "50 SP",
+              "count": 1,
+              "xp": 50
+            }
+          ]
+        },
+        {
+          "id": 13323,
+          "name": "Win 10",
+          "description": "Win 10 matches in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush).",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "50 SP",
+              "count": 1,
+              "xp": 50
+            }
+          ]
+        },
+        {
+          "id": 13324,
+          "name": "Play 10",
+          "description": "Play 10 matches in Squad Battles on any difficulty (or Rush/Rivals).",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "50 SP",
+              "count": 1,
+              "xp": 50
+            }
+          ]
+        },
+        {
+          "id": 13325,
+          "name": "Buy 10",
+          "description": "Buy 10 Player Items using Buy Now in the Transfer Market.",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "50 SP",
+              "count": 1,
+              "xp": 50
+            }
+          ]
+        },
+        {
+          "id": 13326,
+          "name": "List 10",
+          "description": "List 10 player items in the Transfer Market.",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "50 SP",
+              "count": 1,
+              "xp": 50
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2645,
+      "slug": "158-fc-heritage-circuit-tournament",
+      "name": "FC Heritage Circuit Tournament",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Compete in the FC Heritage Circuit Tournament to earn a special FC Heritage Alexis Sánchez, packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 7,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Alexis Sánchez",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50516589.163fb91b771ef20e8d99107c53533d3c3654d02cac37ab539185d75b9c406b60.webp",
+          "playerItem": {
+            "name": "Alexis Sánchez",
+            "eaId": 50516589,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50516589.61e000ad3fc0288b28874f11022a51f89828132174b464bc21bb8a6f15673e65.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13345,
+          "name": "Heritage Champion",
+          "description": "Win the FC Heritage Circuit Tournament 3 times.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 84+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 84+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 84 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13346,
+          "name": "Thunder Final",
+          "description": "Win the FC Heritage Circuit Tournament while having Min. 2 Premier League players in your starting 11.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 83+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 83+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 83 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13347,
+          "name": "Ligue 1 Finest",
+          "description": "Win 2 matches while having Min. 2 Ligue 1 players in your starting 11 in the FC Heritage Circuit Tournament.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 81+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13348,
+          "name": "Oranje Legacy",
+          "description": "Assist at least 1 goal in 3 separate matches while having Min. 1 Dutch player in your starting 11 in the FC Heritage Circuit Tournament.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 80+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13349,
+          "name": "Madrid Royalty",
+          "description": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player in your starting 11 in the FC Heritage Circuit Tournament.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 82+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 82+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 82 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13350,
+          "name": "French Thrill",
+          "description": "Score at least 2 goals in 1 match while having Min. 1 French player in your starting 11 in the FC Heritage Circuit Tournament.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "3,000 Coins",
+              "count": 1,
+              "coins": 3000
+            }
+          ]
+        },
+        {
+          "id": 13351,
+          "name": "Serie A after Dark",
+          "description": "Win 1 Quarter-Finals match while having Min. 2 Serie A players in your starting 11 in the FC Heritage Circuit Tournament.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Consumable",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Consumable",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2646,
+      "slug": "160-fc-heritage-circuit-kick-off-event",
+      "name": "FC Heritage Circuit Kick Off Event",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Compete in the FC Heritage Circuit Kick Off Event to earn packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 4,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 79+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 79+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 79 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13352,
+          "name": "Win 1",
+          "description": "Win 1 match in the FC Heritage Circuit Kick Off Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "78+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "78+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 78 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13353,
+          "name": "Assist in 2",
+          "description": "Assist at least 1 goal in 2 separate matches in the FC Heritage Circuit Kick Off Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 75+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13354,
+          "name": "Play 2",
+          "description": "Play 2 matches in the FC Heritage Circuit Kick Off Event.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "1,500 Coins",
+              "count": 1,
+              "coins": 1500
+            }
+          ]
+        },
+        {
+          "id": 13355,
+          "name": "Score 1",
+          "description": "Score 1 goal in the FC Heritage Circuit Kick Off Event.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Consumable",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003105.png"
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2647,
+      "slug": "161-fc-heritage-circuit-world-class-event",
+      "name": "FC Heritage Circuit World Class Event",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Compete in the FC Heritage Circuit World Class Event to earn packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 82+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 82+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 82 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13356,
+          "name": "Bundesliga Backbone",
+          "description": "Win 3 matches while having Min. 3 player items from Bundesliga in your starting 11 in the FC Heritage Circuit World Class Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 81+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13357,
+          "name": "Bavarian Thunder",
+          "description": "Score 5 goals while having Min. 1 FC Bayern München (Bundesliga) player item in your starting 11 in the FC Heritage Circuit World Class Event.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 80+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13358,
+          "name": "Paris Power Surge",
+          "description": "Assist 4 goals while having Min. 1 PSG (Ligue 1) player item in your starting 11 in the FC Heritage Circuit World Class Event.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        },
+        {
+          "id": 13359,
+          "name": "Bernabéu Thunder",
+          "description": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player item in your starting 11 in the FC Heritage Circuit World Class Event.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Consumable",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
+            }
+          ]
+        },
+        {
+          "id": 13360,
+          "name": "Win 1",
+          "description": "Win 1 match in the FC Heritage Circuit World Class Event and qualify for the FC Heritage Circuit Tournament.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "81+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "81+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 81 or higher."
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2649,
+      "slug": "166-season-2-daily-knockout-tournament-weekly-play",
+      "name": "Season 2 Daily Knockout Tournament Weekly Play",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Compete in the Season 2 Daily Knockout Tournament to earn exclusive rewards! All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 1,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Consumable",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13364,
+          "name": "Score in 5",
+          "description": "Score at least 1 goal in 5 separate matches in the Season 2 Daily Knockout Tournament.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Finisher",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003097.png"
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2648,
+      "slug": "164-fc-heritage-circuit-completionist",
+      "name": "FC Heritage Circuit Completionist",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Complete the FC Heritage Circuit Objectives to earn rewards. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Jeremiah St. Juste",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50558501.ea0ddec0e3ae5e5a036c4565fe7498375f7a40f23d0d3b8ea0631fac9b8e9161.webp",
+          "playerItem": {
+            "name": "Jeremiah St. Juste",
+            "eaId": 50558501,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50558501.cf6971231057c192c53c5cdc81f85bf312091e9aaec306c4fc9afa8ae73f98c4.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13361,
+          "name": "FC Heritage Circuit World Class Challenge",
+          "description": "Complete the FC Heritage Circuit World Class Event objective.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "7,000 Coins",
+              "count": 1,
+              "coins": 7000
+            }
+          ]
+        },
+        {
+          "id": 13362,
+          "name": "FC Heritage Circuit Professional Challenge",
+          "description": "Complete the FC Heritage Circuit Professional Event objective.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "6,000 Coins",
+              "count": 1,
+              "coins": 6000
+            }
+          ]
+        },
+        {
+          "id": 13363,
+          "name": "FC Heritage Circuit Semi-Pro Challenge",
+          "description": "Complete the FC Heritage Circuit Semi-Pro Event objective.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "4,000 Coins",
+              "count": 1,
+              "coins": 4000
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2650,
+      "slug": "167-season-2-daily-knockout-tournament-weekly-play-completionist",
+      "name": "Season 2 Daily Knockout Tournament Weekly Play Completionist",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Complete all Season 2 Daily Knockout Tournament Weekly Play objectives to earn FC Heritage Axel Witsel and Coins! All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Axel Witsel",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50509061.11676e798ebfce52b963007a4d4b59520080de26de570612132ddee3590356fd.webp",
+          "playerItem": {
+            "name": "Axel Witsel",
+            "eaId": 50509061,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50509061.5b65a66d8e4eb2f3061e3d705a7f2460043c40d70ee9de6a9f1b9ba454692e70.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13365,
+          "name": "5 Completions",
+          "description": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 5 times.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "8,000 Coins",
+              "count": 1,
+              "coins": 8000
+            }
+          ]
+        },
+        {
+          "id": 13366,
+          "name": "4 Completions",
+          "description": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 4 times.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "6,000 Coins",
+              "count": 1,
+              "coins": 6000
+            }
+          ]
+        },
+        {
+          "id": 13367,
+          "name": "3 Completions",
+          "description": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 3 times.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ]
+        },
+        {
+          "id": 13368,
+          "name": "2 Completions",
+          "description": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 2 times.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "3,500 Coins",
+              "count": 1,
+              "coins": 3500
+            }
+          ]
+        },
+        {
+          "id": 13369,
+          "name": "1 Completion",
+          "description": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 1 time.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2628,
+      "slug": "128-future-stars-academy",
+      "name": "Future Stars Academy",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "description": "Play with your Future Stars Academy players to earn packs & other rewards! All rewards are untradeable.",
+      "startTime": "2026-10-11T17:00:00Z",
+      "endTime": "2026-11-02T17:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "5X 81+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "5x 81+ Gold Players Pack",
+            "description": "Contains 5 Gold Player Items, rated 81 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13265,
+          "name": "Shining Star",
+          "description": "Score at least 1 goal in 15 separate matches with a Future Stars Academy player in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "5X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "5x 80+ Gold Players Pack",
+                "description": "Contains 5 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13266,
+          "name": "Cementing their Place",
+          "description": "Play 10 matches while having min. 1 Future Stars Academy player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
+          "awards": [
+            {
+              "type": "EVO_UNLOCK",
+              "name": "Future Stars Regular Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+            }
+          ]
+        },
+        {
+          "id": 13267,
+          "name": "Star in the Making",
+          "description": "Win 7 matches while having min. 1 Future Stars Academy player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        },
+        {
+          "id": 13268,
+          "name": "Consistent Reps",
+          "description": "Play 5 matches while having min. 1 Future Stars Academy player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 80+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13269,
+          "name": "The Starlet's Debut",
+          "description": "Score at least 1 goal with a Future Stars Academy player in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 75+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 75 or higher."
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2607,
+      "slug": "123-gallery-foundations",
+      "name": "Gallery Foundations",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Learn the basics of the Gallery! Grade and complete Sets, achieve Rank S, and increase your Gallery Level as you explore everything the Gallery has to offer. All rewards are untradeable.",
+      "startTime": "2026-09-25T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "COINS",
+          "name": "1,000 Coins",
+          "count": 1,
+          "coins": 1000
+        },
+        {
+          "type": "EVENT_TOKEN",
+          "name": "5 Gallery Tokens",
+          "count": 1,
+          "eventToken": 5
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13163,
+          "name": "Level Up",
+          "description": "Earn Gallery Score and reach Gallery Level 2.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13164,
+          "name": "Three of a Kind",
+          "description": "Complete 3 Sets in the Gallery.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Gold Pack",
+                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13165,
+          "name": "Set the Standard",
+          "description": "Achieve Rank S on any Set in the Gallery.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Small Silver Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Small Silver Players Pack",
+                "description": "Includes 6 Silver Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13166,
+          "name": "Set in Motion",
+          "description": "Complete the Starter Set and get familiar with the Gallery.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Bronze Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Bronze Pack",
+                "description": "Includes 24 Bronze Items, with at least 6 guaranteed to be Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13167,
+          "name": "Make the Grade",
+          "description": "Grade any Set in the Gallery and see how your squad measures up.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "250 Coins",
+              "count": 1,
+              "coins": 250
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2601,
+      "slug": "112-claim-the-armband",
+      "name": "Claim the Armband",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "description": "Complete this objective and choose 1 Squad Foundations Player Item from: Miley (Premier League), Moi Gómez (LALIGA EA SPORTS), Banzuzi (Bundesliga), or Danois (Ligue 1). All rewards are untradeable.",
+      "startTime": "2026-09-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 1,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "1 Of 4 Squad Foundations Pick",
+          "count": 1
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13148,
+          "name": "Play 1",
+          "description": "Play a match in any FUT game mode.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "500 Coins",
+              "count": 1,
+              "coins": 500
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2567,
+      "slug": "98-ted-lassos-masterclass",
+      "name": "Ted Lasso's Masterclass",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Complete challenges celebrating manager Ted Lasso and AFC Richmond to earn exclusive rewards! All rewards are untradeable.",
+      "startTime": "2026-09-11T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 6,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Manager",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+        },
+        {
+          "type": "EVO_UNLOCK",
+          "name": "Believe",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13020,
+          "name": "Believe",
+          "description": "Win 1 match in any Football Ultimate Team game mode.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Award",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        },
+        {
+          "id": 13021,
+          "name": "Biscuits with the Boss",
+          "description": "Build 20+ Chemistry in your squad.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Manager",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        },
+        {
+          "id": 13022,
+          "name": "Barbecue Sauce",
+          "description": "Score 5 goals in any Football Ultimate Team game mode while having at least 1 player from any Premier League team and 1 player from any Women's Super League team in your starting 11.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Award",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        },
+        {
+          "id": 13023,
+          "name": "Be a Goldfish",
+          "description": "Play 3 matches in any Football Ultimate Team game mode while having at least 2 players from USA in your starting 11.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Stadium Tifo",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10000253.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Stadium Background Tifo",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10100253.png"
+            }
+          ]
+        },
+        {
+          "id": 13024,
+          "name": "Unselfish Play",
+          "description": "Assist 4 goals in any Football Ultimate Team game mode.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Stadium Stadium Theme",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        },
+        {
+          "id": 13025,
+          "name": "Football is Life",
+          "description": "Play 1 match in any Football Ultimate Team game mode.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Award",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2576,
+      "slug": "43-rivals-milestone",
+      "name": "Rivals Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "The ultimate test of skill awaits in Division Rivals. Battle against the competition and emerge victorious.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 82+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 82+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 82 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13054,
+          "name": "Play 15",
+          "description": "Play 15 Rivals matches.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            },
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13055,
+          "name": "Play 10",
+          "description": "Play 10 Rivals matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 2 78+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": 13056,
+          "name": "Play 5",
+          "description": "Play 5 Rivals matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 2 77+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2575,
+      "slug": "42-squad-battles-milestone",
+      "name": "Squad Battles Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "The challenge is set. Take to the pitch in Squad Battles and battle through the competition.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Large Gold Pack",
+          "count": 1,
+          "pack": {
+            "name": "Large Gold Pack",
+            "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13051,
+          "name": "Play 15",
+          "description": "Play 15 Squad Battles Matches on any difficulty.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            },
+            {
+              "type": "PACK",
+              "name": "X2 Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "x2 Players Pack",
+                "description": "Includes 2 Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13052,
+          "name": "Play 10",
+          "description": "Play 10 Squad Battles Matches on any difficulty.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13053,
+          "name": "Play 5",
+          "description": "Play 5 Squad Battles Matches on any difficulty.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Coin Boost",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004066.png"
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2574,
+      "slug": "48-live-events-milestone",
+      "name": "Live Events Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Get acquainted with Live Events matches.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "1 Of 2 80+ Gold Player Pick",
+          "count": 1
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13048,
+          "name": "Play 20",
+          "description": "Play 20 Live Events matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Small Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Small Gold Players Pack",
+                "description": "Includes 6 Gold Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13049,
+          "name": "Play 10",
+          "description": "Play 10 Live Events matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Gold Pack",
+                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13050,
+          "name": "Play 5",
+          "description": "Play 5 Live Events matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 3 79+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2581,
+      "slug": "56-squad-building-mastery",
+      "name": "Squad Building Mastery",
+      "category": {
+        "slug": "mastery",
+        "name": "Mastery"
+      },
+      "description": "Build your way up to become a Squad Building Master!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Stadium Trophy",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10600069.png"
+        },
+        {
+          "type": "PACK",
+          "name": "2X 83+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 83+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 83 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13074,
+          "name": "250 SBCs",
+          "description": "Complete 250 Squad Building Challenge groups.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "10X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "10x 80+ Gold Players Pack",
+                "description": "Contains 10 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13075,
+          "name": "100 SBCs",
+          "description": "Complete 100 Squad Building Challenge groups.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "7X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "7x 75+ Gold Players Pack",
+                "description": "Contains 7 Gold Player Items, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13076,
+          "name": "50 SBCs",
+          "description": "Complete 50 Squad Building Challenge groups.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Gold Pack",
+                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
+              }
+            },
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2573,
+      "slug": "47-transfer-market-milestone",
+      "name": "Transfer Market Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Wheel and deal your way to Transfer Market Mastery!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 4,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Coin Boost",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004068.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13044,
+          "name": "List 50",
+          "description": "List 50 players on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ]
+        },
+        {
+          "id": 13045,
+          "name": "List 25",
+          "description": "List 25 players on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        },
+        {
+          "id": 13046,
+          "name": "50 Buy Now",
+          "description": "Buy 50 players using Buy Now on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ]
+        },
+        {
+          "id": 13047,
+          "name": "25 Buy Now",
+          "description": "Buy 25 players using Buy Now on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2570,
+      "slug": "50-rush-milestone",
+      "name": "Rush Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Squad up and complete Rush bonuses alongside other players as you try to reign supreme in Rush!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 6,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "1 Of 2 78+ Gold Player Pick",
+          "count": 1
+        },
+        {
+          "type": "ITEM",
+          "name": "Coin Boost",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004066.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13032,
+          "name": "Score 20",
+          "description": "Score 20 goals as a team in Rush.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Small Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Small Gold Players Pack",
+                "description": "Includes 6 Gold Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13033,
+          "name": "Complete 20 Bonuses",
+          "description": "Complete 20 Rush bonuses.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2x 75+ Gold Player Pack",
+              "count": 2,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13034,
+          "name": "Complete 10 Bonuses",
+          "description": "Complete 10 Rush bonuses.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13035,
+          "name": "Play 15",
+          "description": "Play 15 Rush matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Gold Pack",
+                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13036,
+          "name": "Play 10",
+          "description": "Play 10 Rush matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 2 78+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": 13037,
+          "name": "Play 5",
+          "description": "Play 5 Rush matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 2 78+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2585,
+      "slug": "53-rivals-mastery",
+      "name": "Rivals Mastery",
+      "category": {
+        "slug": "mastery",
+        "name": "Mastery"
+      },
+      "description": "Beat your Rivals to prove you are the G.O.A.T!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Large Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "Large Gold Players Pack",
+            "description": "Includes 12 Gold Player Items, with 2 guaranteed to be rated 82 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13089,
+          "name": "Win 100",
+          "description": "Win 100 Rivals matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Giant Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Giant Gold Pack",
+                "description": "Contains 30 Gold Items, including at least 10 Player Items with 1 guaranteed to be 82+ and 4 guaranteed to be 75-82."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13090,
+          "name": "Win 50",
+          "description": "Win 50 Rivals matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "10X 78+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "10x 78+ Gold Players Pack",
+                "description": "Contains 10 Gold Player Items, rated 78 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13091,
+          "name": "Win 25",
+          "description": "Win 25 Rivals matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Large Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Large Gold Pack",
+                "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2568,
+      "slug": "45-draft-milestone",
+      "name": "Draft Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Draft your path to greatness!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Large Gold Pack",
+          "count": 1,
+          "pack": {
+            "name": "Large Gold Pack",
+            "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13026,
+          "name": "Play 15",
+          "description": "Play 15 Draft matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            },
+            {
+              "type": "PACK",
+              "name": "X2 Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "x2 Players Pack",
+                "description": "Includes 2 Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13027,
+          "name": "Play 10",
+          "description": "Play 10 Draft matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 2 78+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": 13028,
+          "name": "Play 5",
+          "description": "Play 5 Draft matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Coin Boost",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004066.png"
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2566,
+      "slug": "25-the-journey-begins",
+      "name": "The Journey Begins",
+      "category": {
+        "slug": "foundations",
+        "name": "Foundations"
+      },
+      "description": "PVE Live Events offer a new way to play. Compete, earn and upgrade your way to the top. All rewards are untradeable.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 4,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "3X Premier League Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "3x Premier League Gold Players Pack",
+            "description": "Contains 3 Gold Player Items from Premier League."
+          }
+        },
+        {
+          "type": "ITEM",
+          "name": "Consumable",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003110.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13016,
+          "name": "A Test of Skill",
+          "description": "Win a PVE Live Events match on min. Semi-Pro difficulty (or PVP Live Events).",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Gold Pack",
+                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
+              }
+            },
+            {
+              "type": "COINS",
+              "name": "100 Coins",
+              "count": 1,
+              "coins": 100
+            }
+          ]
+        },
+        {
+          "id": 13017,
+          "name": "Finding the Net",
+          "description": "Score 20 goals in any Live Events match (or Rivals/Squad Battles).",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Silver Pack",
+              "count": 1,
+              "pack": {
+                "name": "Silver Pack",
+                "description": "Includes 9 Silver Items, with at least 2 guaranteed to be Player Items."
+              }
+            },
+            {
+              "type": "PACK",
+              "name": "Bronze Pack",
+              "count": 1,
+              "pack": {
+                "name": "Bronze Pack",
+                "description": "Includes 9 Bronze Items, with at least 2 guaranteed to be Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13018,
+          "name": "Hit the Pitch",
+          "description": "Play 7 Live Events matches (or Rivals/Squad Battles).",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Bronze Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Bronze Pack",
+                "description": "Includes 24 Bronze Items, with at least 6 guaranteed to be Player Items."
+              }
+            },
+            {
+              "type": "PACK",
+              "name": "Consumables Pack",
+              "count": 1,
+              "pack": {
+                "name": "Consumables Pack",
+                "description": "Includes 12 Gold Consumable Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13019,
+          "name": "Lace 'em Up",
+          "description": "Play any Live Events match (or Rivals/Squad Battles).",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "100 SP",
+              "count": 1,
+              "xp": 100
+            },
+            {
+              "type": "PLAYER_ITEM",
+              "name": "Victor Lindelöf",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50553308.d138662985c0c7442dae82f0163ccea292aa06f88f4852d17a5622a0b4e94365.webp",
+              "playerItem": {
+                "name": "Victor Lindelöf",
+                "eaId": 50553308,
+                "rating": 0,
+                "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50553308.8451cc69b902bf2c30b7113332408f677ec2038cb81dc055d087b0df8fcd3bb5.webp"
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2571,
+      "slug": "51-moments-stars-milestone",
+      "name": "Moments Stars Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Complete Moments challenges and earn stars to show your football dominance!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Coin Boost",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004069.png"
+        },
+        {
+          "type": "COINS",
+          "name": "5,000 Coins",
+          "count": 1,
+          "coins": 5000
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13038,
+          "name": "60 Stars",
+          "description": "Complete Moments challenges to earn 60 Stars.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Small Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Small Gold Players Pack",
+                "description": "Includes 6 Gold Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13039,
+          "name": "30 Stars",
+          "description": "Complete Moments challenges to earn 30 Stars.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Large Silver Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Large Silver Players Pack",
+                "description": "Includes 12 Silver Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13040,
+          "name": "15 Stars",
+          "description": "Complete Moments challenges to earn 15 Stars.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Large Bronze Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Large Bronze Players Pack",
+                "description": "Includes 12 Bronze Player Items."
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2572,
+      "slug": "49-squad-building-milestone",
+      "name": "Squad Building Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Build your way up to become a Squad Building Master!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Large Gold Pack",
+          "count": 1,
+          "pack": {
+            "name": "Large Gold Pack",
+            "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13041,
+          "name": "25 SBCs",
+          "description": "Complete 25 Squad Building Challenge groups.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Small Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Small Gold Players Pack",
+                "description": "Includes 6 Gold Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13042,
+          "name": "10 SBCs",
+          "description": "Complete 10 Squad Building Challenge groups.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Gold Pack",
+                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13043,
+          "name": "5 SBCs",
+          "description": "Complete 5 Squad Building Challenge groups.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 3 79+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2573,
+      "slug": "47-transfer-market-milestone",
+      "name": "Transfer Market Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Wheel and deal your way to Transfer Market Mastery!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 4,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Coin Boost",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004068.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13044,
+          "name": "List 50",
+          "description": "List 50 players on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ]
+        },
+        {
+          "id": 13045,
+          "name": "List 25",
+          "description": "List 25 players on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        },
+        {
+          "id": 13046,
+          "name": "50 Buy Now",
+          "description": "Buy 50 players using Buy Now on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ]
+        },
+        {
+          "id": 13047,
+          "name": "25 Buy Now",
+          "description": "Buy 25 players using Buy Now on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2574,
+      "slug": "48-live-events-milestone",
+      "name": "Live Events Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Get acquainted with Live Events matches.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "1 Of 2 80+ Gold Player Pick",
+          "count": 1
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13048,
+          "name": "Play 20",
+          "description": "Play 20 Live Events matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Small Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Small Gold Players Pack",
+                "description": "Includes 6 Gold Player Items."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13049,
+          "name": "Play 10",
+          "description": "Play 10 Live Events matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Gold Pack",
+                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13050,
+          "name": "Play 5",
+          "description": "Play 5 Live Events matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 3 79+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2563,
+      "slug": "28-total-football",
+      "name": "Total Football",
+      "category": {
+        "slug": "foundations",
+        "name": "Foundations"
+      },
+      "description": "Prove your worth by completing each of the Foundation Objectives groups to earn big rewards. All rewards are untradeable.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "Gold Players Pack",
+            "description": "Includes 12 Gold Player Items."
+          }
+        },
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Charalampos Kostoulas",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50405533.9f16c83fb48ddfc88524ed34a6b77f582027e9a27f69d177179d54c780564a2b.webp",
+          "playerItem": {
+            "name": "Charalampos Kostoulas",
+            "eaId": 50405533,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50405533.505390a2f34ced8a6eefa4bc0493861c79aba83e40117a157dc9a50926c1581b.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13005,
+          "name": "Complete 'Rising Through the Ranks'",
+          "description": "Fully complete the 'Rising Through the Ranks' Objectives Group.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "82+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "82+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 82 or higher."
+              }
+            },
+            {
+              "type": "XP",
+              "name": "100 SP",
+              "count": 1,
+              "xp": 100
+            }
+          ]
+        },
+        {
+          "id": 13006,
+          "name": "Complete 'First Team Dreams'",
+          "description": "Fully complete the 'First Team Dreams' Objectives Group.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 3 80+ Gold Player Pick",
+              "count": 1
+            },
+            {
+              "type": "XP",
+              "name": "100 SP",
+              "count": 1,
+              "xp": 100
+            }
+          ]
+        },
+        {
+          "id": 13007,
+          "name": "Complete 'The Journey Begins'",
+          "description": "Fully complete the 'The Journey Begins' Objectives Group.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 3 75+ Gold Player Pick",
+              "count": 1
+            },
+            {
+              "type": "XP",
+              "name": "100 SP",
+              "count": 1,
+              "xp": 100
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2576,
+      "slug": "43-rivals-milestone",
+      "name": "Rivals Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "The ultimate test of skill awaits in Division Rivals. Battle against the competition and emerge victorious.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 82+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 82+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 82 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13054,
+          "name": "Play 15",
+          "description": "Play 15 Rivals matches.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            },
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13055,
+          "name": "Play 10",
+          "description": "Play 10 Rivals matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 2 78+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": 13056,
+          "name": "Play 5",
+          "description": "Play 5 Rivals matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 2 77+ Gold Player Pick",
+              "count": 1
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2577,
+      "slug": "44-champions-milestone",
+      "name": "Champions Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Every legend has a beginning. Enter Champions and begin your path to becoming the Golden G.O.A.T.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "COINS",
+          "name": "5,000 Coins",
+          "count": 1,
+          "coins": 5000
+        },
+        {
+          "type": "PACK",
+          "name": "81+ Gold Player Pack",
+          "count": 1,
+          "pack": {
+            "name": "81+ Gold Player Pack",
+            "description": "Contains 1 Gold Player Item, rated 81 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13057,
+          "name": "Play 15",
+          "description": "Play 15 Champions matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "4X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "4x 81+ Gold Players Pack",
+                "description": "Contains 4 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13058,
+          "name": "Play 10",
+          "description": "Play 10 Champions matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "75-83 Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75-83 Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated between 75 and 83."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13059,
+          "name": "Play 5",
+          "description": "Play 5 Champions matches.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Coin Boost",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004068.png"
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2578,
+      "slug": "81-gallery-milestone",
+      "name": "Gallery Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "description": "Grow your Gallery Score, hit new levels, and earn rewards to build the ultimate club showcase!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "EVO_UNLOCK",
+          "name": "Gallery Excellence",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13060,
+          "name": "Level 25",
+          "description": "Reach Gallery Level 25.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 5 92+ Holographic Base Icon Player Pick",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": 13061,
+          "name": "Level 20",
+          "description": "Reach Gallery Level 20.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 5 88+ Holographic Base Hero Player Pick",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": 13062,
+          "name": "Level 15",
+          "description": "Reach Gallery Level 15.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 5 Holographic Base Icon Player Pick",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": 13063,
+          "name": "Level 10",
+          "description": "Reach Gallery Level 10.",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 5 Holographic Base Hero Player Pick",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "id": 13064,
+          "name": "Level 5",
+          "description": "Reach Gallery Level 5.",
+          "awards": [
+            {
+              "type": "PLAYER_ITEM",
+              "name": "Jesús Corona",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50524813.c98e2ecebec60b2c0fe4bd94964865c6352b2658e99dcd560b5e54908fc0dbb1.webp",
+              "playerItem": {
+                "name": "Jesús Corona",
+                "eaId": 50524813,
+                "rating": 0,
+                "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50524813.ac436a7f4364b96538fe784a2a9cb683fed4229979403c6d1b5e7ef215a318f1.webp"
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2579,
+      "slug": "59-first-owned-mastery",
+      "name": "First Owned Mastery",
+      "category": {
+        "slug": "mastery",
+        "name": "Mastery"
+      },
+      "description": "Assemble a squad with First Owned (acquired from packs, objectives and SBCs) players and complete these Milestones!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Giant Gold Pack",
+          "count": 1,
+          "pack": {
+            "name": "Giant Gold Pack",
+            "description": "Contains 30 Gold Items, including at least 10 Player Items with 1 guaranteed to be 82+ and 4 guaranteed to be 75-82."
+          }
+        },
+        {
+          "type": "COINS",
+          "name": "10,000 Coins",
+          "count": 1,
+          "coins": 10000
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13065,
+          "name": "First Owned Win 100",
+          "description": "Win 100 matches in any FUT game mode with a starting squad of First Owned players.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "10X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "10x 75+ Gold Players Pack",
+                "description": "Contains 10 Gold Player Items, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13066,
+          "name": "First Owned Win 50",
+          "description": "Win 50 matches in any FUT game mode with a starting squad of First Owned players.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "7X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "7x 75+ Gold Players Pack",
+                "description": "Contains 7 Gold Player Items, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13067,
+          "name": "First Owned Win 25",
+          "description": "Win 25 matches in any FUT game mode with a starting squad of First Owned players.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "10,000 Coins",
+              "count": 1,
+              "coins": 10000
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2580,
+      "slug": "58-goals-and-assist-mastery",
+      "name": "Goals and Assist Mastery",
+      "category": {
+        "slug": "mastery",
+        "name": "Mastery"
+      },
+      "description": "Tally up your goals and assists and become a G/A Master!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 6,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Stadium Trophy",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10600060.png"
+        },
+        {
+          "type": "ITEM",
+          "name": "Stadium Trophy",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10600063.png"
+        },
+        {
+          "type": "PACK",
+          "name": "Giant Gold Pack",
+          "count": 1,
+          "pack": {
+            "name": "Giant Gold Pack",
+            "description": "Contains 30 Gold Items, including at least 10 Player Items with 1 guaranteed to be 82+ and 4 guaranteed to be 75-82."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13068,
+          "name": "50 Assists from Crosses",
+          "description": "Assist 50 times from a cross in any FUT game mode.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "10,000 Coins",
+              "count": 1,
+              "coins": 10000
+            }
+          ]
+        },
+        {
+          "id": 13069,
+          "name": "50 Direct Free Kicks",
+          "description": "Score 50 direct Free Kicks in any FUT game mode.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "10,000 Coins",
+              "count": 1,
+              "coins": 10000
+            }
+          ]
+        },
+        {
+          "id": 13070,
+          "name": "Score 500",
+          "description": "Score 500 times in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events).",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Coin Boost",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004067.png"
+            },
+            {
+              "type": "PACK",
+              "name": "80+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "80+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13071,
+          "name": "Score 100",
+          "description": "Score 100 times in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events).",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 75+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 75 or higher."
+              }
+            },
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        },
+        {
+          "id": 13072,
+          "name": "Assist 500",
+          "description": "Assist 500 times in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events).",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Coin Boost",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004067.png"
+            },
+            {
+              "type": "PACK",
+              "name": "80+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "80+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13073,
+          "name": "Assist 100",
+          "description": "Assist 100 times in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events).",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 75+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 75 or higher."
+              }
+            },
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2581,
+      "slug": "56-squad-building-mastery",
+      "name": "Squad Building Mastery",
+      "category": {
+        "slug": "mastery",
+        "name": "Mastery"
+      },
+      "description": "Build your way up to become a Squad Building Master!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Stadium Trophy",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10600069.png"
+        },
+        {
+          "type": "PACK",
+          "name": "2X 83+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 83+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 83 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13074,
+          "name": "250 SBCs",
+          "description": "Complete 250 Squad Building Challenge groups.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "10X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "10x 80+ Gold Players Pack",
+                "description": "Contains 10 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13075,
+          "name": "100 SBCs",
+          "description": "Complete 100 Squad Building Challenge groups.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "7X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "7x 75+ Gold Players Pack",
+                "description": "Contains 7 Gold Player Items, rated 75 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13076,
+          "name": "50 SBCs",
+          "description": "Complete 50 Squad Building Challenge groups.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Gold Pack",
+                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
+              }
+            },
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2582,
+      "slug": "55-transfer-market-mastery",
+      "name": "Transfer Market Mastery",
+      "category": {
+        "slug": "mastery",
+        "name": "Mastery"
+      },
+      "description": "Wheel and deal your way to Transfer Market Mastery!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 6,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Stadium Trophy",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10600072.png"
+        },
+        {
+          "type": "PACK",
+          "name": "2X 82+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 82+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 82 or higher."
+          }
+        },
+        {
+          "type": "COINS",
+          "name": "10,000 Coins",
+          "count": 1,
+          "coins": 10000
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13077,
+          "name": "List 1,000",
+          "description": "List 1,000 players on the Transfer Market.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 81+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13078,
+          "name": "List 500",
+          "description": "List 500 players on the Transfer Market.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "80+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "80+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 80 or higher."
+              }
+            },
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        },
+        {
+          "id": 13079,
+          "name": "List 250",
+          "description": "List 250 players on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ]
+        },
+        {
+          "id": 13080,
+          "name": "1,000 Buy Now",
+          "description": "Buy 1,000 players using Buy Now on the Transfer Market.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 81+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13081,
+          "name": "500 Buy Now",
+          "description": "Buy 500 players using Buy Now on the Transfer Market.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "80+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "80+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 80 or higher."
+              }
+            },
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ]
+        },
+        {
+          "id": 13082,
+          "name": "250 Buy Now",
+          "description": "Buy 250 players using Buy Now on the Transfer Market.",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2583,
+      "slug": "57-live-events-mastery",
+      "name": "Live Events Mastery",
+      "category": {
+        "slug": "mastery",
+        "name": "Mastery"
+      },
+      "description": "Generate that winning feeling in Live Events matches!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Giant Gold Pack",
+          "count": 1,
+          "pack": {
+            "name": "Giant Gold Pack",
+            "description": "Contains 30 Gold Items, including at least 10 Player Items with 1 guaranteed to be 82+ and 4 guaranteed to be 75-82."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13083,
+          "name": "Win 100",
+          "description": "Win 100 Live Events matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "84+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "84+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 84 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13084,
+          "name": "Win 50",
+          "description": "Win 50 Live Events matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Large Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Large Gold Pack",
+                "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13085,
+          "name": "Win 25",
+          "description": "Win 25 Live Events matches.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Small Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Small Gold Players Pack",
+                "description": "Includes 6 Gold Player Items."
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    },
+    {
+      "id": 2584,
+      "slug": "54-squad-battles-mastery",
+      "name": "Squad Battles Mastery",
+      "category": {
+        "slug": "mastery",
+        "name": "Mastery"
+      },
+      "description": "Keep battling over the year to prove you are a Squad Battles Master!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Giant Gold Pack",
+          "count": 1,
+          "pack": {
+            "name": "Giant Gold Pack",
+            "description": "Contains 30 Gold Items, including at least 10 Player Items with 1 guaranteed to be 82+ and 4 guaranteed to be 75-82."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13086,
+          "name": "Win 100",
+          "description": "Win 100 Squad Battles matches on min. Semi-Pro difficulty.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "84+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "84+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 84 or higher."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13087,
+          "name": "Win 50",
+          "description": "Win 50 Squad Battles matches on min. Semi-Pro difficulty.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Large Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Large Gold Pack",
+                "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
+              }
+            }
+          ]
+        },
+        {
+          "id": 13088,
+          "name": "Win 25",
+          "description": "Win 25 Squad Battles matches on min. Semi-Pro difficulty.",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Small Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Small Gold Players Pack",
+                "description": "Includes 6 Gold Player Items."
+              }
+            }
+          ]
+        }
+      ],
+      "_fetchedAt": "2026-10-28T12:20:22.714Z"
+    }
+  ]
+}
