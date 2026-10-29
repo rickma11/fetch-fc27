@@ -30,6 +30,7 @@ const fs = require('fs');
 const path = require('path');
 const cloudbase = require('@cloudbase/node-sdk');
 const genStatic = require('./gen_static_lists.js');
+const pbl = require('./player_blacklist');   // 球员黑名单（suppress.json players 段，生成层过滤；旧版端上也由此被屏蔽、无需发版）
 
 const ROOT = path.resolve(__dirname, '..');
 const VER = Number(process.argv[2] || process.env.FC_VER || 27);
@@ -204,6 +205,12 @@ async function run() {
   const db = app.database();
   const cmd = db.command;
   const dicts = await loadDicts(app);
+  // 球员黑名单（2026-10-30 补）：热门/新增两段共用 suppress.json 的 players 段（与端上 utils/suppress.js 同一份真源）。
+  // ⚠️ 此前本脚本是生成层里**唯一**没接黑名单的（gen_static_details / warm_roster / price_sync 都接了），
+  //    导致「搜索能屏蔽、首页新增球员仍显示被屏球员（周黑卡）」——静态 JSON 里就带着他，端上再过滤也无用。
+  //    接在这里＝静态 JSON 本身不含被屏球员，旧版客户端不发版同样被屏蔽（player_blacklist.js 设计即如此）。
+  const bl = await pbl.loadBlacklist();
+  console.log('[gen_home_payload] 黑名单 names=' + bl.names.size + ' eaIds=' + bl.eaIds.size);
 
   // 1) 热门榜 top20
   const board = await loadHotboard(app);
@@ -220,12 +227,24 @@ async function run() {
     (hr.data || []).forEach(function (p) { byId[idOf(p)] = p; });
     hotRecords = hotIds.map(function (id) { return byId[id]; }).filter(Boolean);
   }
+  const hotFiltered = pbl.applyBlacklist(hotRecords, bl);
+  hotRecords = hotFiltered.kept;
+  if (hotFiltered.blockedEaIds.length) {
+    console.log('[gen_home_payload] 热门屏蔽 ' + hotFiltered.blockedEaIds.length + ' 人: ' + hotFiltered.blockedEaIds.join(','));
+  }
   decorate(hotRecords, dicts);
   hotRecords.forEach(function (p) { p.hotViews = Number(hotV[idOf(p)]) || 0; });
 
   // 3) 新增球员：createdAt desc 取 NEW_CANDIDATE → newFeed 过滤 → 取最新 20
   const nr = await db.collection(PLAYERS_COLLECTION).orderBy('createdAt', 'desc').limit(NEW_CANDIDATE).get();
   let newCandidates = (nr.data || []).filter(passNewFeed);
+  // 先对**全部候选**过滤、再取前 20：否则被屏球员会白白占掉一个名额，列表只剩 19 条
+  // （应让他让位、由后面的球员补上，才符合「屏蔽」语义）。
+  const newFiltered = pbl.applyBlacklist(newCandidates, bl);
+  newCandidates = newFiltered.kept;
+  if (newFiltered.blockedEaIds.length) {
+    console.log('[gen_home_payload] 新增屏蔽 ' + newFiltered.blockedEaIds.length + ' 人: ' + newFiltered.blockedEaIds.join(','));
+  }
   let newRecords = newCandidates.slice(0, NEW_LIMIT);
   decorate(newRecords, dicts);
 
