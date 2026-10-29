@@ -1,0 +1,58 @@
+name: Community score (miniapp engagement -> CloudBase storage)
+
+# 方案B（2026-10-30）：聚合小程序端上信号 → 生成「档位内热度分位 h」静态 JSON，
+#   供端上 utils/communityScore.js 与 fut.gg 好评率按 α（上限 0.3）融合，
+#   解决 FUTGG 样本极稀疏问题（常见「67% / 共 3 名参与」）。
+#
+# 读云库：hot_fc{ver}(views 累计打开次数) + eng_fc{ver}(shares 分享面板触发次数，2026-10-30 新增)
+#         + players_fc{ver}(overall，用于球员分档)
+# 写云存储：fc{ver}/data/community_score/community_score_<hash>.json
+# 写元文档：meta_fc{ver}/community_score（端上 cloudJson.fetchObject 直读，零云函数）
+#
+# ⚠️ 与其它 workflow 完全隔离：独立 concurrency 组（community-score），不碰抓取管线、不提交 git。
+# 触发：仅 workflow_dispatch（由 cron-job.org 每日 POST，或手动触发）。
+#   与 changelog / dict-static / market-sync / sync-votes 同口径：统一走第三方 cron-job.org，
+#   不用 GitHub native schedule。
+#   cron-job.org 配置（照抄 changelog，见 docs/19）：POST
+#     https://api.github.com/repos/rickma11/fetch-fc27/actions/workflows/community-score.yml/dispatches
+#     Header: Authorization: Bearer <PAT(Actions:write)>  Accept: application/vnd.github+json
+#     Body:   {"ref":"main","inputs":{"fc_ver":"27"}}
+on:
+  workflow_dispatch:
+    inputs:
+      fc_ver:
+        description: 'FC 主版本（默认 27）'
+        type: string
+        default: '27'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: community-score
+  cancel-in-progress: false
+
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+
+      - name: Generate + publish community score
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/gen_community_score.js ${{ github.event.inputs.fc_ver || '27' }}
