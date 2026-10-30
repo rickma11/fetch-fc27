@@ -222,6 +222,15 @@ jobs:
       # fc27/data/<name>/，端上 utils/cloudJson.js 直读，list/meta 零云函数调用。
       # 失败不致命（continue-on-error）：端上自动回退云函数 B 线，不影响主链。
       # 条件与 scrape 一致：images-only / no-portrait-only 跳过（无新鲜 SBC/进化数据）。
+      # 防覆盖（2026-10-30 事故）：下方 gen_static_lists.js 会发布 objectives，但本 workflow
+      # 此前从不在内重抓 → 用仓库已提交的旧 objectives.json 把 gen-static-lists.yml 早前
+      # 发布的新数据覆盖回去（端上 Daily/Weekly 任务因此消失）。故发布前先重抓一轮；
+      # continue-on-error：抓取失败回落仓库文件，不阻断主链（与发布步同条件、同容忍度）。
+      - name: Refresh objectives from fut.gg (best-effort)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        run: node scripts/gen_objectives.js 27
+
       - name: Publish SBC/Evolutions static JSON (Phase 1, after scrape)
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         continue-on-error: true
