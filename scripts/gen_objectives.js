@@ -202,6 +202,17 @@ async function run() {
     return tb - ta;
   });
 
+  // 翻译条件标题+正文（2026-10-31 方案①+②双链）：name/description 直接中译（nameEn/descriptionEn 留原文），
+  // 组介绍 group.description 不翻（用户要求保持英文）。增量缓存：命中绝不重翻 ⇒ 译文永不漂移；
+  // LLM(DeepSeek→Qwen) 全挂落机翻，再挂保留英文（零回归）。LLM_API_KEY 缺失时 LLM 跳过、仅剩机翻兜底。
+  try {
+    const tr = require('./translate_objectives.js');
+    const stat = await tr.translateGroups(groups, { ver: VER });
+    console.log('  翻译: 新翻 ' + stat.fresh + ' | 缓存命中 ' + stat.cached + ' | 应用 ' + stat.applied + ' 条 | 引擎 ' + stat.engine);
+  } catch (e) {
+    console.warn('  ⚠️ 翻译步骤失败(保留英文，不阻断): ' + e.message);
+  }
+
   const out = { ver: VER, count: groups.length, fetchedAt: fetchedAt, groups: groups };
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2));

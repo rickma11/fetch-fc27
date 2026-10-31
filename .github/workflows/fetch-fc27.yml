@@ -229,6 +229,9 @@ jobs:
       - name: Refresh objectives from fut.gg (best-effort)
         if: ${{ steps.mode.outputs.skip_db != 'true' }}
         continue-on-error: true
+        env:
+          # 翻译链（translate_objectives）：缺 key 时自动跳过 LLM、仅剩机翻兜底，不阻断
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: node scripts/gen_objectives.js 27
 
       - name: Publish SBC/Evolutions static JSON (Phase 1, after scrape)
@@ -463,6 +466,10 @@ jobs:
           git add cloud-data/fc27/token_store.json || true
           # 卡片来源 / SBC积分 已解析记录（fetch_ci self-heal 豁免用）
           git add cloud-data/fc27/source_resolved.json || true
+          # 任务(Objectives)产物 + 译文缓存（translate_objectives 产出）。⚠️ 缓存必须提交：
+          # runner 每轮从零开始，不落盘 → 每天全量重翻 382 条（费用可忽略但译文会漂移 + 白耗 LLM）。
+          # 缓存键=英文原文 sha1，命中绝不重翻 ⇒ 新增条件当天增量翻译，历史译文永不改写。
+          git add cloud-data/fc27/objectives.json cloud-data/fc27/objectives_translations.json || true
           # ⚠️ 不再提交 players.json / details.json：全量数据单文件常超 GitHub 100MB 硬限，
           # pre-receive 会确定性拒绝且整次 push（含小清单）一起失败。全量真源是云库，无需在 git 留版本快照。
           git commit -m "chore: FC27 ${{ steps.mode.outputs.mode }} sync $(TZ=Asia/Shanghai date +'%Y-%m-%d %H:%M')" || echo "no changes"
