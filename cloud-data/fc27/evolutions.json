@@ -55444,9 +55444,9 @@
       "sbcName": null,
       "sbcUrl": null,
       "sbcSlug": null,
-      "objectiveGroupName": null,
-      "objectiveGroupUrl": null,
-      "objectiveGroupSlug": null,
+      "objectiveGroupName": "Ghoul Fest",
+      "objectiveGroupUrl": "/objectives/campaigns/175-ghoul-fest/",
+      "objectiveGroupSlug": "175-ghoul-fest",
       "timedCustom": null,
       "customUnlockable": null,
       "isTimed": false,
@@ -55490,7 +55490,7 @@
         "6:39398745:1165"
       ],
       "isCosmeticEvolution": true,
-      "isRewardEvolution": false
+      "isRewardEvolution": true
     },
     {
       "id": 2641,
@@ -55852,9 +55852,9 @@
       "sbcName": null,
       "sbcUrl": null,
       "sbcSlug": null,
-      "objectiveGroupName": null,
-      "objectiveGroupUrl": null,
-      "objectiveGroupSlug": null,
+      "objectiveGroupName": "Score 2",
+      "objectiveGroupUrl": "/objectives/campaigns/175-ghoul-fest/",
+      "objectiveGroupSlug": "175-ghoul-fest",
       "timedCustom": null,
       "customUnlockable": null,
       "isTimed": false,
@@ -55898,7 +55898,7 @@
         "6:07914688:1164"
       ],
       "isCosmeticEvolution": true,
-      "isRewardEvolution": false
+      "isRewardEvolution": true
     },
     {
       "id": 2642,
@@ -93231,7 +93231,7 @@
           "totalUpgradesText": [
             {
               "label": "Rarity",
-              "value": "Future Stars Academy",
+              "value": "Future Stars Evolution",
               "maxValue": null
             },
             {
@@ -93768,7 +93768,7 @@
       "totalUpgradesText": [
         {
           "label": "Rarity",
-          "value": "Future Stars Academy",
+          "value": "Future Stars Evolution",
           "maxValue": null
         },
         {
@@ -98039,7 +98039,7 @@
         "readableSchemas": [
           {
             "label": "Rarity",
-            "value": "Future Stars Academy"
+            "value": "Future Stars Evolution"
           },
           {
             "label": "Overall",
@@ -98990,7 +98990,7 @@
       "requirementsText": [
         {
           "label": "Rarity",
-          "value": "Future Stars Academy"
+          "value": "Future Stars Evolution"
         },
         {
           "label": "Overall",
@@ -100372,7 +100372,7 @@
         "readableSchemas": [
           {
             "label": "Rarity",
-            "value": "Future Stars Academy"
+            "value": "Future Stars Evolution"
           },
           {
             "label": "Overall",
@@ -100899,7 +100899,7 @@
       "requirementsText": [
         {
           "label": "Rarity",
-          "value": "Future Stars Academy"
+          "value": "Future Stars Evolution"
         },
         {
           "label": "Overall",
@@ -106771,7 +106771,7 @@
         "readableSchemas": [
           {
             "label": "Rarity",
-            "value": "Future Stars Academy"
+            "value": "Future Stars Evolution"
           },
           {
             "label": "Overall",
@@ -107571,7 +107571,7 @@
       "requirementsText": [
         {
           "label": "Rarity",
-          "value": "Future Stars Academy"
+          "value": "Future Stars Evolution"
         },
         {
           "label": "Overall",
@@ -154973,9 +154973,9 @@
       "sbcName": null,
       "sbcUrl": null,
       "sbcSlug": null,
-      "objectiveGroupName": null,
-      "objectiveGroupUrl": null,
-      "objectiveGroupSlug": null,
+      "objectiveGroupName": "Ghoul Fest",
+      "objectiveGroupUrl": "/objectives/campaigns/175-ghoul-fest/",
+      "objectiveGroupSlug": "175-ghoul-fest",
       "timedCustom": null,
       "customUnlockable": null,
       "isTimed": false,
@@ -155019,7 +155019,7 @@
         "6:39398745:1165"
       ],
       "isCosmeticEvolution": true,
-      "isRewardEvolution": false
+      "isRewardEvolution": true
     },
     {
       "id": 2641,
@@ -155381,9 +155381,9 @@
       "sbcName": null,
       "sbcUrl": null,
       "sbcSlug": null,
-      "objectiveGroupName": null,
-      "objectiveGroupUrl": null,
-      "objectiveGroupSlug": null,
+      "objectiveGroupName": "Score 2",
+      "objectiveGroupUrl": "/objectives/campaigns/175-ghoul-fest/",
+      "objectiveGroupSlug": "175-ghoul-fest",
       "timedCustom": null,
       "customUnlockable": null,
       "isTimed": false,
@@ -155427,7 +155427,7 @@
         "6:07914688:1164"
       ],
       "isCosmeticEvolution": true,
-      "isRewardEvolution": false
+      "isRewardEvolution": true
     },
     {
       "id": 2642,
@@ -156688,7 +156688,7 @@
       "isRewardEvolution": false
     }
   ],
-  "activeHash": "5f8b7857",
-  "allHash": "0228bba4",
-  "fetchedAt": "2026-10-30T18:05:58.647Z"
+  "activeHash": "a45e0d04",
+  "allHash": "5834babd",
+  "fetchedAt": "2026-10-31T01:06:33.537Z"
 }
