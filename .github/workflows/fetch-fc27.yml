@@ -205,6 +205,22 @@ jobs:
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
         run: node scripts/upload_sbcs.js --ver 27 --skip-sbc-cost
 
+      # 进化早写库（2026-11-01 修正竞态）：scrape 步 L175 已产出新鲜 evolutions.json，
+      # 但原 upload_db（L280）排在球员主链 + 封面同步之后，导致进化写库晚于发布步 / 外部 02:20，
+      # 偶发「当天抓到新进化、端上不更新」（2026-10-28、11-01 两次实证）。
+      # 此处紧接 SBC 写库（L196）之后、封面同步（L211，曾从 35s 拖到 512s）之前先把进化落云库，
+      # 使内部 L237 发布与外部 02:20 发布都读到新进化，从根上消除时间差竞态。
+      # --evolutions-only：只 upsert evolutions_fc27，跳过球员/详情/facets，不删、只标 isStale，幂等。
+      - name: Upload Evolutions to CloudBase Database (early, before publish)
+        if: ${{ steps.mode.outputs.skip_db != 'true' }}
+        continue-on-error: true
+        timeout-minutes: 10
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: node scripts/upload_db.js --ver 27 --evolutions-only
+
       # SBC set 封面转存云存储（2026-09-19 补）：小程序端 sbcs.js#imgUrl 按确定性命名
       # sbc_<id>.webp 直拼 cloud fileID，本步骤把当日新增 set 封面下载（真实浏览器过 CF）
       # 并上传到 fc27/images/ —— 没有这步，当天新 SBC 的封面在真机上全部缺图（CDN 真机取不到）。
