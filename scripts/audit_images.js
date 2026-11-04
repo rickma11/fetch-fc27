@@ -194,6 +194,7 @@ async function seedFetchList(page) {
 // 返回 { url: fp }；fp ∈ etag字符串 | '404' | 'ERR' | 'E<status>'
 async function headProbe(page, urls) {
   return page.evaluate(async ({ urls, conc }) => {
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
     const out = {};
     let cursor = 0, done = 0;
     async function one(u) {
