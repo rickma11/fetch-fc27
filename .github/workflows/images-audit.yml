@@ -1,0 +1,80 @@
+name: FC27 Images Audit (same-URL content drift)
+
+# 卡面「同 URL 换图」内容审计 —— 独立于每日 Fetch FC27 管线（检测层，详见 scripts/audit_images.js 头注）。
+# 背景：每日管线签名 = 下载 URL 的 SHA1，EA 换图路径（hash 变）能自动重传；
+#       但 fut.gg 偶尔同 URL 原地换内容（hash 不变）→ 签名永不变 → 永不重传
+#       （实锤：Alexia Putellas 云端停在 09-23 旧头像）。
+# 本 workflow 用「fut.gg ETag 指纹基线」（存云存储 fc27/images/img_audit_base.json，单文件覆盖，
+# 仓库零增长）检测同 URL 内容漂移：基线缺失自动 seed（全量下载比对+建基线，~1.5~2h）；
+# 基线存在走周跑（纯 HEAD 探测，~20~30min，流量几 MB）。
+#
+# 调度：由 cron-job.org 每周派发一次（workflow_dispatch，PAT 需 Actions:write，
+# 与 dict-static 同款；建议低频另行派发 mode=force-seed 重建基线，纳管 URL 换代后流失的球员）。
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'auto=基线缺失自动 seed、否则周跑；force-seed=强制重建基线并全量下载比对（顺手修历史漏网）'
+        type: choice
+        default: auto
+        options: [auto, force-seed]
+      max:
+        description: '本次最多下载比对多少张（0=不限；冒烟测试可设 50）'
+        type: string
+        default: '0'
+
+permissions:
+  contents: read
+
+# 同一时间只跑一个，避免两轮审计互相覆盖基线
+concurrency:
+  group: images-audit
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    # seed（首跑/强制）= 22k 全量下载比对 ≈ 1.5~2h；周跑 HEAD 探测 ≈ 20~30min
+    timeout-minutes: 240
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+        run: npm install
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run images audit
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+          FC_AUDIT_MODE: ${{ github.event.inputs.mode }}
+          FC_AUDIT_MAX: ${{ github.event.inputs.max }}
+        run: node scripts/audit_images.js --ver 27
+
+      # 失败通知（同 fetch-fc27 口径）：Server酱 推个人微信，避免静默失败。
+      - name: Notify on failure (Server酱)
+        if: failure()
+        env:
+          SCT_SENDKEY: ${{ secrets.SCT_SENDKEY }}
+        run: |
+          if [ -z "$SCT_SENDKEY" ]; then
+            echo "[跳过] 未配置 SCT_SENDKEY，不推送 Server酱。"
+            exit 0
+          fi
+          # ⚠️ 必须用 API 域名 sctapi.ftqq.com（sct.ftqq.com 是官网，POST 被拦/GET 只返网页）；
+          #    实测 GET 正常返回 {"code":0}，故用 -G 把 --data-urlencode 当作查询参数。
+          curl -s -G -o /dev/null -w "SCT(http): %{http_code}\n" \
+            --data-urlencode "title=【OAO fetch-fc27】卡面内容审计失败" \
+            --data-urlencode "desp=images-audit 任务异常退出，需排查。run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            "https://sctapi.ftqq.com/$SCT_SENDKEY.send"
