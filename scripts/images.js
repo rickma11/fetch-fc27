@@ -94,13 +94,7 @@ function srcUrlOf(item, type, raw) {
 
 function fileNameOf(eaId, type, item) {
   const t = typeof type === 'string' ? typeByKey(type) : type;
-  let suffix = t ? t.suffix : '';
-  // 会升级的稀有度：card 类型文件名按 overall 版本化，升级即换新文件（破 WeChat 图片缓存）。
-  // overall 缺失则回落普卡名（与 imgSigOf 同口径，避免签名/文件名错位）。
-  if (t && t.key === 'card' && item && isUpgradeRarity(item)) {
-    const ovr = Number(item.overall);
-    if (ovr > 0) suffix = '_card_' + ovr + '.webp';
-  }
+  const suffix = t ? t.suffix : '';
   return String(eaId) + suffix;
 }
 
@@ -111,13 +105,13 @@ function cloudPathOf(fileName, ver) {
 // ---- 会升级的稀有度（动态卡）------------------------------------------------
 // Showdown / Showdown Upgrade / Ones to Watch / Future Stars 等：满足条件后 OVR 会变化
 // （如 Showdown 比赛结果、OTW 入选周黑、Future Stars 升级），fut.gg 在**同一** cardImagePath
-// 下重渲染新评分卡面（URL 的内容 hash 不变）→ 旧签名不变 → 卡面永不重传 → 端上永久显示旧评分。
+// 下重渲染新评分卡面（URL 的内容 hash 不变）。
 // 真实案例：eaId 50545314（Ruben Loftus-Cheek）Showdown 升级 83→84 后，端上两天仍显示旧 83 卡面（2026-11-04）。
-// 处理：① 签名并入 overall（升级即变 → 触发重传，见 imgSigOf）；② 文件名按 overall 版本化
-//      （升级即换新文件，破 WeChat 图片缓存，见 fileNameOf）。
-// 仅"会升级"的卡受影响，普卡签名/文件名逐字节不变，不触发任何额外重传（零 blast radius）。
-// ⚠️ 新增会升级的活动卡时：把其英文稀有度名（小写）加入此集合；
-//    端上 utils/format.js#UPGRADE_RARITY_NAMES、market_core.js#UPGRADE_RARITY_NAMES 同步。
+// 根因：imgSigOf 没把升级后 OVR 算进签名 → 签名不变 → 管线永不重传 → 云端 _card.webp 一直是旧脸。
+// 修复（见 imgSigOf）：仅对会升级的卡把 |OVR|ovr 并入签名 → OVR 变化即触发重传新脸，
+//       覆盖同名 _card.webp（沿用既有固定名机制，不引入版本化文件名，避免文件缺失导致破图）。
+// 仅"会升级"的卡受影响，普卡签名逐字节不变，不触发任何额外重传（零 blast radius）。
+// ⚠️ 新增会升级的活动卡时：把其英文稀有度名（小写）加入此集合（仅管线侧 imgSigOf 使用）。
 const UPGRADE_RARITY_NAMES = new Set([
   'showdown', 'showdown upgrade', 'ones to watch', 'future stars'
 ]);
