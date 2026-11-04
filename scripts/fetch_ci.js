@@ -552,6 +552,7 @@ function readResolved() {
     types.forEach((t, i) => { typeOrder[t.key] = i; });
     for (const it of listRes.items) {
       const eaId = it.eaId;
+      const ovr = Number(it.overall) || 0;
       // 全息卡面叠加：路径来自阶段 3.5 的批量采集（基础球员 → 全息变体的 cardImagePath，
       // 见 scripts/holo.js）。列表接口的 cardImagePath 是 fut.gg 自绘平版，**变体那张才有全息光效**。
       // ⚠️ 必须在 imgSigOf 之前叠加：签名要吃进这个字段，否则官方面换了内容不会触发重传。
@@ -559,18 +560,24 @@ function readResolved() {
       if (holoMap[eaId]) it.holoCardImagePath = String(holoMap[eaId]);
       const sig = imgLib.imgSigOf(it);
       if (!sig) continue;                                   // 该球员没有图片字段
-      if (!FORCE_IMG && manifest[eaId] === sig) { imgStats.skipped++; continue; }
+      // 会升级的卡：强制重传（不被签名跳过）。原因：此前的签名曾记入「含 OVR」值但云端 _card.webp
+      // 未真正覆盖，导致「签名匹配→跳过」死锁；且升级卡 OVR 会变，强制可确保云端始终是最新脸。
+      // 升级卡数量极少，开销可忽略。
+      const isUp = imgLib.isUpgradeRarity(it);
+      if (!FORCE_IMG && !isUp && manifest[eaId] === sig) { imgStats.skipped++; continue; }
       const files = {};
+      let cardUrl = null, cardRawUrl = null;
       for (const t of types) {
         const url = imgLib.srcUrlOf(it, t, false);
         if (!url) continue;
         const name = imgLib.fileNameOf(eaId, t, it);
+        if (t.key === 'card') { cardUrl = url; cardRawUrl = imgLib.srcUrlOf(it, t, true); }
         files[t.key] = name;
         tasks.push({
           eaId, type: t.key, url,
           rawUrl: imgLib.srcUrlOf(it, t, true),
           file: path.join(IMG_DIR, name),
-          ovr: Number(it.overall) || 0,
+          ovr,
           // 置顶标记：当前无头像（!imagePath && cardImagePath）或已在 noportrait 清单内（可能刚补头像）的球员
           pri: ((!it.imagePath && it.cardImagePath) || npManifest.has(String(it.eaId))) ? 1 : 0,
           // 置顶组内顺序：card 先于 portrait（_np 建底板只需 card；补头像时两者都抓）
@@ -589,6 +596,19 @@ function readResolved() {
           ovr: Number(it.overall) || 0,
           pri: 1,          // 稀疏且必须拿到 → 与「无头像」同优先级，避免被 FC_IMG_MAX 上限饿死
           typePri: 3
+        });
+      }
+      // 会升级的卡：额外产出 _card.webp 兜底文件（与版本化 _card_{ovr}.webp 同内容、分别下载上传），
+      // 供①旧版小程序（请求 _card.webp）②版本化文件尚未生成时回落，避免破图。
+      if (isUp && ovr > 0 && cardUrl) {
+        const fbName = String(eaId) + '_card.webp';
+        files.cardFb = fbName;
+        tasks.push({
+          eaId, type: 'card_fb', url: cardUrl,
+          rawUrl: cardRawUrl,
+          file: path.join(IMG_DIR, fbName),
+          ovr,
+          pri: 0, typePri: 0
         });
       }
       if (Object.keys(files).length) taskMeta[eaId] = { sig, files };

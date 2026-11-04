@@ -94,7 +94,14 @@ function srcUrlOf(item, type, raw) {
 
 function fileNameOf(eaId, type, item) {
   const t = typeof type === 'string' ? typeByKey(type) : type;
-  const suffix = t ? t.suffix : '';
+  let suffix = t ? t.suffix : '';
+  // 会升级的稀有度：card 文件名按 overall 版本化（{eaId}_card_{ovr}.webp），
+  // 升级即换新 fileID → 破微信 <image>/自定义缓存对同 fileID 的缓存；
+  // 管线会额外上传同名 _card.webp 兜底（fetch_ci.js），旧版小程序/版本化文件缺失时回落。
+  if (t && t.key === 'card' && item && isUpgradeRarity(item)) {
+    const ovr = Number(item.overall);
+    if (ovr > 0) suffix = '_card_' + ovr + '.webp';
+  }
   return String(eaId) + suffix;
 }
 
@@ -107,11 +114,14 @@ function cloudPathOf(fileName, ver) {
 // （如 Showdown 比赛结果、OTW 入选周黑、Future Stars 升级），fut.gg 在**同一** cardImagePath
 // 下重渲染新评分卡面（URL 的内容 hash 不变）。
 // 真实案例：eaId 50545314（Ruben Loftus-Cheek）Showdown 升级 83→84 后，端上两天仍显示旧 83 卡面（2026-11-04）。
-// 根因：imgSigOf 没把升级后 OVR 算进签名 → 签名不变 → 管线永不重传 → 云端 _card.webp 一直是旧脸。
-// 修复（见 imgSigOf）：仅对会升级的卡把 |OVR|ovr 并入签名 → OVR 变化即触发重传新脸，
-//       覆盖同名 _card.webp（沿用既有固定名机制，不引入版本化文件名，避免文件缺失导致破图）。
-// 仅"会升级"的卡受影响，普卡签名逐字节不变，不触发任何额外重传（零 blast radius）。
-// ⚠️ 新增会升级的活动卡时：把其英文稀有度名（小写）加入此集合（仅管线侧 imgSigOf 使用）。
+// 根因①：管线 imgSigOf 旧版没把升级后 OVR 算进签名 → 签名不变 → 永不重传 → 云端停在旧脸。
+// 根因②：微信 <image> 按 cloud:// fileID 缓存，同 fileID 换内容不会重新拉取 → 即便云端更新，端上仍旧。
+// 修复（见 imgSigOf + fileNameOf）：① 签名并入 OVR（OVR 变化即触发重传）；② 文件名按 OVR 版本化
+//       （{eaId}_card_{ovr}.webp，升级即换新 fileID → 破微信缓存）；③ 管线双传同名 _card.webp 兜底
+//       （旧版小程序/版本化文件缺失时回落，绝不破图，见 fetch_ci.js）。
+// 仅"会升级"的卡受影响，普卡签名/文件名逐字节不变（零 blast radius）。
+// ⚠️ 新增会升级的活动卡时：把其英文稀有度名（小写）加入此集合；
+//    端上 utils/format.js#UPGRADE_RARITY_NAMES、market_core.js#UPGRADE_RARITY_NAMES 同步。
 const UPGRADE_RARITY_NAMES = new Set([
   'showdown', 'showdown upgrade', 'ones to watch', 'future stars'
 ]);
@@ -159,5 +169,5 @@ module.exports = {
   CDN, TRANSFORM, ALL_TYPES, HOLO_TYPE,
   RARITY_TRANSFORM, RARITY_BASE_TIERS, rarityFileKeyOf, rarityFileNameOf, raritySrcUrlOf, rarityManifestPath,
   activeTypes, typeByKey, relPathOf, srcUrlOf, fileNameOf, cloudPathOf,
-  imgSigOf, readManifest, writeManifest
+  imgSigOf, readManifest, writeManifest, isUpgradeRarity
 };
