@@ -126,7 +126,11 @@ const UPGRADE_RARITY_NAMES = new Set([
   'showdown', 'showdown upgrade', 'ones to watch', 'future stars'
 ]);
 function isUpgradeRarity(item) {
-  const nm = item && item.rarity && item.rarity.name;
+  if (!item) return false;
+  // ⚠️ 双源读取：管线抓的**列表**条目是扁平 rarityName 字符串（见 fetch_ci.js#runRarityStage
+  //    等处的 it.rarityName 用法）；只有落库后的球员文档才是 rarity.name 对象。
+  //    只读 rarity.name 会导致升级判定恒 false → 签名永不变化 → 卡面永不重传（11-04 实锤的根因）。
+  const nm = item.rarityName != null ? item.rarityName : (item.rarity && item.rarity.name);
   return !!(nm && UPGRADE_RARITY_NAMES.has(String(nm).toLowerCase()));
 }
 
