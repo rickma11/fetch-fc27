@@ -91,7 +91,7 @@ async function writeBaseline(items) {
       const p = app.uploadFile({ cloudPath: `fc${VER}/images/img_audit_base.json.gz`, fileContent: buf });
       const race = new Promise((_, rej) => setTimeout(() => rej(new Error('upload race timeout')), RACE));
       await Promise.race([p, race]);
-      console.log(`基线已上传 fc${VER}/images/img_audit_base.json（${(buf.length / 1048576).toFixed(1)}MB，${Math.round((Date.now() - t0) / 1000)}s，${Object.keys(items).length} 人）`);
+      console.log(`基线已上传 fc${VER}/images/img_audit_base.json.gz（${(buf.length / 1048576).toFixed(1)}MB gzip，${Math.round((Date.now() - t0) / 1000)}s，${Object.keys(items).length} 人）`);
       return;
     } catch (e) {
       lastErr = e;
@@ -116,7 +116,7 @@ async function cloudEtagMap(eaIds) {
     catch (e) { batch.forEach(id => { out[id] = null; }); continue; }
     await Promise.all((res.fileList || []).map(async f => {
       const id = String(f.fileID).split('/').pop().replace('_card.webp', '');
-      if (f.code || !f.tempFileURL) { out[id] = null; return; }   // 文件不存在 → null（按需上传）
+      if (f.code && f.code !== 'SUCCESS') { out[id] = null; return; }   // 文件不存在等真错误 → null（按需上传）
       try {
         const r = await fetch(f.tempFileURL + '?cb=' + Date.now(), { method: 'HEAD' });
         let et = r.ok ? (r.headers.get('etag') || '') : '';
