@@ -1,0 +1,47 @@
+name: HF Oracle Watchdog
+
+# HF 战术预言机存活看门狗：由 cron-job.org（建议每天 09:00 / 每 6 小时，Asia/Shanghai）POST dispatch 一次，
+# 直接打 HF Space 的 /gradio_api/healthz；若 ok!=true / 超时 / 网络错，经 Server酱 推一条到个人微信，
+# 避免 Space 崩了/休眠了无人知晓。
+#
+# 与「OAO HF tactics-oracle keepalive」是搭档：keepalive 每 30 分钟保活，本任务低频巡检+告警。
+#
+# 调度不在本文件内（禁用 GitHub 原生 schedule），由 cron-job.org 调用：
+#   POST https://api.github.com/repos/rickma11/fetch-fc27/actions/workflows/hf-oracle-watch.yml/dispatches
+#   body: {"ref":"main"}   （PAT 需 Actions:write 权限，时区 Asia/Shanghai）
+#
+# 依赖仓库 Secrets：SCT_SENDKEY（现成，见 healthcheck-watch.yml）
+# 缺失则空跑跳过，不报错。
+
+on:
+  workflow_dispatch:
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    env:
+      SCT_SENDKEY: ${{ secrets.SCT_SENDKEY }}
+      HF_URL: "https://rickma-tactics-oracle.hf.space/gradio_api/healthz"
+    steps:
+      - name: Check HF healthz & alert via Server酱
+        run: |
+          if [ -z "$SCT_SENDKEY" ]; then
+            echo "[跳过] 缺少 SCT_SENDKEY，不执行看门狗。"
+            exit 0
+          fi
+          # 打 healthz，12s 超时；分离 HTTP 状态码与响应体
+          RESP=$(curl -s -m 12 -w "\nHTTP:%{http_code}" "$HF_URL" 2>/dev/null)
+          BODY=$(echo "$RESP" | sed '/^HTTP:/d')
+          HTTP=$(echo "$RESP" | grep '^HTTP:' | cut -d: -f2)
+          # 解析 ok 与 ready（非 JSON / 缺失字段一律视为异常）
+          OK=$(echo "$BODY" | node -e "let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{try{const j=JSON.parse(d);console.log((j.ok===true&&j.ready===true)?'true':'false')}catch(e){console.log('false')}})")
+          echo "healthz http=$HTTP ok=$OK"
+          if [ "$OK" != "true" ]; then
+            echo "[告警] HF 预言机存活异常，推送 Server酱…"
+            curl -s -G -o /dev/null -w "SCT(http): %{http_code}\n" \
+              --data-urlencode "title=【OAO 战术预言机】HF Space 存活异常" \
+              --data-urlencode "desp=healthz 返回异常(http=$HTTP, ok=$OK)，预言机可能已崩溃/休眠，请手动重启 Space 并查日志。check: $HF_URL" \
+              "https://sctapi.ftqq.com/$SCT_SENDKEY.send"
+          else
+            echo "[正常] HF 预言机存活正常，无需推送"
+          fi
