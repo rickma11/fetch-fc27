@@ -564,7 +564,7 @@ function readResolved() {
       for (const t of types) {
         const url = imgLib.srcUrlOf(it, t, false);
         if (!url) continue;
-        const name = imgLib.fileNameOf(eaId, t);
+        const name = imgLib.fileNameOf(eaId, t, it);
         files[t.key] = name;
         tasks.push({
           eaId, type: t.key, url,

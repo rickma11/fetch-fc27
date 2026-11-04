@@ -92,13 +92,38 @@ function srcUrlOf(item, type, raw) {
   return raw ? (CDN + rel) : (CDN + TRANSFORM + rel);
 }
 
-function fileNameOf(eaId, type) {
+function fileNameOf(eaId, type, item) {
   const t = typeof type === 'string' ? typeByKey(type) : type;
-  return String(eaId) + (t ? t.suffix : '');
+  let suffix = t ? t.suffix : '';
+  // 会升级的稀有度：card 类型文件名按 overall 版本化，升级即换新文件（破 WeChat 图片缓存）。
+  // overall 缺失则回落普卡名（与 imgSigOf 同口径，避免签名/文件名错位）。
+  if (t && t.key === 'card' && item && isUpgradeRarity(item)) {
+    const ovr = Number(item.overall);
+    if (ovr > 0) suffix = '_card_' + ovr + '.webp';
+  }
+  return String(eaId) + suffix;
 }
 
 function cloudPathOf(fileName, ver) {
   return `fc${ver || 27}/images/${fileName}`;
+}
+
+// ---- 会升级的稀有度（动态卡）------------------------------------------------
+// Showdown / Showdown Upgrade / Ones to Watch / Future Stars 等：满足条件后 OVR 会变化
+// （如 Showdown 比赛结果、OTW 入选周黑、Future Stars 升级），fut.gg 在**同一** cardImagePath
+// 下重渲染新评分卡面（URL 的内容 hash 不变）→ 旧签名不变 → 卡面永不重传 → 端上永久显示旧评分。
+// 真实案例：eaId 50545314（Ruben Loftus-Cheek）Showdown 升级 83→84 后，端上两天仍显示旧 83 卡面（2026-11-04）。
+// 处理：① 签名并入 overall（升级即变 → 触发重传，见 imgSigOf）；② 文件名按 overall 版本化
+//      （升级即换新文件，破 WeChat 图片缓存，见 fileNameOf）。
+// 仅"会升级"的卡受影响，普卡签名/文件名逐字节不变，不触发任何额外重传（零 blast radius）。
+// ⚠️ 新增会升级的活动卡时：把其英文稀有度名（小写）加入此集合；
+//    端上 utils/format.js#UPGRADE_RARITY_NAMES、market_core.js#UPGRADE_RARITY_NAMES 同步。
+const UPGRADE_RARITY_NAMES = new Set([
+  'showdown', 'showdown upgrade', 'ones to watch', 'future stars'
+]);
+function isUpgradeRarity(item) {
+  const nm = item && item.rarity && item.rarity.name;
+  return !!(nm && UPGRADE_RARITY_NAMES.has(String(nm).toLowerCase()));
 }
 
 // 图片签名：由「实际下载地址」算出。地址里含内容 hash，
@@ -109,7 +134,10 @@ function imgSigOf(item) {
   const parts = activeTypes().map(t => srcUrlOf(item, t, false) || '');
   const holo = srcUrlOf(item, HOLO_TYPE, false) || '';
   if (!parts.some(Boolean) && !holo) return '';
-  const s = parts.join('|') + (holo ? '|H|' + holo : '');
+  let s = parts.join('|') + (holo ? '|H|' + holo : '');
+  // 会升级的卡：评分变即触发卡面重传。overall 缺失则不加（回落普卡签名，避免误判）
+  const ovr = Number(item && item.overall);
+  if (isUpgradeRarity(item) && ovr > 0) s += '|OVR|' + ovr;
   return crypto.createHash('sha1').update(s).digest('hex').slice(0, 16);
 }
 
