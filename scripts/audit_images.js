@@ -29,6 +29,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const zlib = require('zlib');
 const { chromium } = require('playwright');
 const cloudbase = require('@cloudbase/node-sdk');
 const { resolve } = require('./tcb_env');
@@ -57,7 +58,9 @@ const cred = resolve();
 if (cred.missing.length) { console.error(cred.hint); process.exit(1); }
 // 云存储前缀（桶名由环境派生，勿手写；同 gen_noportrait_cards.js）
 const PREFIX = 'cloud://' + cred.ENV_ID + '.' + (cred.BUCKET || ('636c-' + cred.ENV_ID + '-1475854307')) + `/fc${VER}/images/`;
-const BASELINE_FILEID = PREFIX + 'img_audit_base.json';
+// 基线 gzip 存储（2026-11-04 冒烟实锤：20k 条明文 JSON ≈4MB，Actions→TCB 20-45KB/s 下 480s 竞速超时
+// 两次全挂；gzip 后 ~400KB 秒传）。改名 .json.gz，读取端先解压。
+const BASELINE_FILEID = PREFIX + 'img_audit_base.json.gz';
 
 const app = cloudbase.init({ env: cred.ENV_ID, secretId: cred.SECRET_ID, secretKey: cred.SECRET_KEY, timeout: 480000 });
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -68,10 +71,10 @@ async function readBaseline() {
   try {
     const res = await app.getTempFileURL({ fileList: [BASELINE_FILEID] });
     const f = res.fileList && res.fileList[0];
-    if (!f || f.code || !f.tempFileURL) return null;
+    if (!f || (f.code && f.code !== 'SUCCESS') || !f.tempFileURL) return null;
     const r = await fetch(f.tempFileURL + '?cb=' + Date.now());
     if (!r.ok) return null;
-    const j = await r.json();
+    const j = JSON.parse(zlib.gunzipSync(Buffer.from(await r.arrayBuffer())).toString('utf8'));
     if (j && typeof j === 'object' && j.ver === VER && j.items && typeof j.items === 'object') return j;
     return null;
   } catch (e) { return null; }
@@ -79,13 +82,13 @@ async function readBaseline() {
 
 async function writeBaseline(items) {
   const obj = { ver: VER, updatedAt: new Date().toISOString(), items };
-  const buf = Buffer.from(JSON.stringify(obj));
+  const buf = zlib.gzipSync(Buffer.from(JSON.stringify(obj)));
   const RACE = 480000, MAX_ATTEMPT = 3, FAST_FAIL_MS = 90000;
   let lastErr = null, slowRetried = false;
   for (let attempt = 1; attempt <= MAX_ATTEMPT; attempt++) {
     const t0 = Date.now();
     try {
-      const p = app.uploadFile({ cloudPath: `fc${VER}/images/img_audit_base.json`, fileContent: buf });
+      const p = app.uploadFile({ cloudPath: `fc${VER}/images/img_audit_base.json.gz`, fileContent: buf });
       const race = new Promise((_, rej) => setTimeout(() => rej(new Error('upload race timeout')), RACE));
       await Promise.race([p, race]);
       console.log(`基线已上传 fc${VER}/images/img_audit_base.json（${(buf.length / 1048576).toFixed(1)}MB，${Math.round((Date.now() - t0) / 1000)}s，${Object.keys(items).length} 人）`);
@@ -290,6 +293,9 @@ async function auditCandidates(ctx, page, cands) {
           sameContent++;       // 源变了但云端已同步（管线刚传过）→ 只需刷新基线指纹
           okSet.add(c.eaId);
         } else {
+          if (changed + uploaded < 3) {
+            console.log(`[样例] ${c.eaId} 源ETag=${c.fp} | 云端ETag=${cet || '(无)'} | 下载MD5=${md5}`);
+          }
           let okU = false, lastErr = null;
           for (let t = 0; t < 3 && !okU; t++) {
             try { await app.uploadFile({ cloudPath: imgLib.cloudPathOf(c.eaId + '_card.webp', VER), fileContent: buf }); okU = true; }
