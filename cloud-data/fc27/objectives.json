@@ -1,8 +1,236 @@
 {
   "ver": 27,
-  "count": 50,
-  "fetchedAt": "2026-11-05T07:08:41.922Z",
+  "count": 49,
+  "fetchedAt": "2026-11-05T18:07:35.133Z",
   "groups": [
+    {
+      "id": 2671,
+      "slug": "170-daily-objectives",
+      "name": "Daily Objectives",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Play, complete and earn SP from daily objective every 24 hours!",
+      "startTime": "2026-11-05T18:00:00Z",
+      "endTime": "2026-11-12T17:59:59Z",
+      "tasksCount": 2,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "XP",
+          "name": "10 SP",
+          "count": 1,
+          "xp": 10
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13445,
+          "name": "进行1场",
+          "description": "在任意 FUT 游戏模式中进行1场比赛。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ],
+          "nameEn": "Play 1",
+          "descriptionEn": "Play 1 match in any FUT game mode."
+        },
+        {
+          "id": 13446,
+          "name": "进球成功",
+          "description": "在任意 FUT 游戏模式中打入2球。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ],
+          "nameEn": "Scoring Success",
+          "descriptionEn": "Score 2 goals in any FUT game mode."
+        }
+      ]
+    },
+    {
+      "id": 2670,
+      "slug": "136-weekly-objectives",
+      "name": "Weekly Objectives",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Complete Weekly Objectives to earn SP!",
+      "startTime": "2026-11-05T18:00:00Z",
+      "endTime": "2026-11-12T17:59:59Z",
+      "tasksCount": 5,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "XP",
+          "name": "750 SP",
+          "count": 1,
+          "xp": 750
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13440,
+          "name": "打入10球",
+          "description": "在任意 FUT 比赛模式中使用一名来自葡萄牙的球员打进 10 球。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "Score 10",
+          "descriptionEn": "Score 10 goals in any FUT game mode using a player from Portugal."
+        },
+        {
+          "id": 13441,
+          "name": "获胜10场",
+          "description": "在组内对抗中于最低半职业难度赢得10场比赛（或对手赛/冠军赛/现场活动/快攻）。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "Win 10",
+          "descriptionEn": "Win 10 matches in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
+        },
+        {
+          "id": 13442,
+          "name": "进行10场",
+          "description": "在组内对抗中于任意难度进行10场比赛（或快攻/对手赛）。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "Play 10",
+          "descriptionEn": "Play 10 matches in Squad Battles on any difficulty (or Rush/Rivals)."
+        },
+        {
+          "id": 13443,
+          "name": "购买10个",
+          "description": "在转会市场使用立即购买购买10个球员物品。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "Buy 10",
+          "descriptionEn": "Buy 10 Player Items using Buy Now in the Transfer Market."
+        },
+        {
+          "id": 13444,
+          "name": "上架10个",
+          "description": "在转会市场上架10个球员物品。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "List 10",
+          "descriptionEn": "List 10 player items in the Transfer Market."
+        }
+      ]
+    },
+    {
+      "id": 2672,
+      "slug": "191-fc-pro-open-global-qualifier",
+      "name": "FC Pro Open Global Qualifier",
+      "category": {
+        "slug": "fc-pro",
+        "name": "FC Pro"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Join in on the action of the FC Pro Open Global Qualifier Broadcast at Twitch/EASPORTSFC or YouTube/EASPORTSFCPRO to earn your viewership rewards! All rewards are untradeable.",
+      "startTime": "2026-11-05T18:00:00Z",
+      "endTime": "2026-11-14T17:59:59Z",
+      "tasksCount": 2,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "5X 80+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "5x 80+ Gold Players Pack",
+            "description": "Contains 5 Gold Player Items, rated 80 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13447,
+          "name": "观看 60 分钟",
+          "description": "观看 FC Pro Open Global Qualifier 至少 60 分钟。直播将于 11 月 7 日 15:00 UTC 开始，持续至 22:00 UTC。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "5X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "5x 81+ Gold Players Pack",
+                "description": "Contains 5 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ],
+          "nameEn": "Watch 60 minutes",
+          "descriptionEn": "Watch the FC Pro Open Global Qualifier for at least 60 minutes. Broadcast will go live on November 7 at 15:00 UTC until 22:00 UTC."
+        },
+        {
+          "id": 13448,
+          "name": "观看 15 分钟",
+          "description": "观看 FC Pro Open Global Qualifier 至少 15 分钟。直播将于 11 月 7 日 15:00 UTC 开始，持续至 22:00 UTC。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 80+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ],
+          "nameEn": "Watch 15 minutes",
+          "descriptionEn": "Watch the FC Pro Open Global Qualifier for at least 15 minutes. Broadcast will go live on November 7 at 15:00 UTC until 22:00 UTC."
+        }
+      ]
+    },
     {
       "id": 2669,
       "slug": "150-weekly-rush-points",
@@ -11,12 +239,12 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Complete Rush Bonuses alongside your teammates to earn Rush Points and pack rewards! All rewards are untradeable.",
       "startTime": "2026-11-03T18:00:00Z",
       "endTime": "2026-11-10T17:59:59Z",
       "tasksCount": 5,
-      "isNew": true,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
@@ -132,7 +360,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Celebrate 'El Día de Muertos' in Football Ultimate Team! Complete challenges to earn an exclusive kit. All rewards are untradeable.",
       "startTime": "2026-11-01T18:00:00Z",
       "endTime": "2026-11-08T17:59:59Z",
@@ -204,85 +432,6 @@
       ]
     },
     {
-      "id": 2668,
-      "slug": "189-silver-bullets-flash-rush",
-      "name": "Silver Bullets Flash Rush",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Load up in the Silver Bullets Flash Rush Event and earn Ultimate Scream Token rewards!",
-      "startTime": "2026-11-01T18:00:00Z",
-      "endTime": "2026-11-04T17:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "EVENT_TOKEN",
-          "name": "100 Ultimate Scream Tokens",
-          "count": 1,
-          "eventToken": 100
-        },
-        {
-          "type": "XP",
-          "name": "150 SP",
-          "count": 1,
-          "xp": 150
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13432,
-          "name": "银卡赢家",
-          "description": "在银弹闪击快攻活动中赢得 3 场比赛。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "30 Ultimate Scream Tokens",
-              "count": 1,
-              "eventToken": 30
-            }
-          ],
-          "nameEn": "Silver Winners",
-          "descriptionEn": "Win 3 matches in the Silver Bullets Flash Rush Event."
-        },
-        {
-          "id": 13433,
-          "name": "最佳神射手",
-          "description": "在银弹闪击快攻活动中使用前锋至少打进 4 球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "30 Ultimate Scream Tokens",
-              "count": 1,
-              "eventToken": 30
-            }
-          ],
-          "nameEn": "Top Scorers",
-          "descriptionEn": "Score at least 4 goals with a Striker in the Silver Bullets Flash Rush Event."
-        },
-        {
-          "id": 13434,
-          "name": "友好队友",
-          "description": "在银弹闪击快攻活动中助攻 3 球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "30 Ultimate Scream Tokens",
-              "count": 1,
-              "eventToken": 30
-            }
-          ],
-          "nameEn": "Friendly Teammate",
-          "descriptionEn": "Assist 3 goals in the Silver Bullets Flash Rush Event."
-        }
-      ]
-    },
-    {
       "id": 2667,
       "slug": "182-movember",
       "name": "Movember",
@@ -290,10 +439,10 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Complete this objective to earn the Movember kit and stadium items! All rewards are untradeable.",
       "startTime": "2026-11-01T18:00:00Z",
-      "endTime": "2026-11-15T17:59:59Z",
+      "endTime": "2026-11-30T17:59:59Z",
       "tasksCount": 3,
       "isNew": false,
       "isExpired": false,
@@ -375,7 +524,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Unleash the terror on the pitch! Complete this spooky set of challenges to survive Hannibal's Haunting and earn exclusive rewards. All rewards are untradeable.",
       "startTime": "2026-10-31T18:00:00Z",
       "endTime": "2026-11-07T17:59:59Z",
@@ -523,7 +672,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Celebrate the return of Liga BBVA MX to FC with this objective set. All rewards are untradeable.",
       "startTime": "2026-10-30T18:00:00Z",
       "endTime": "2026-11-06T17:59:59Z",
@@ -605,7 +754,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Complete this objective to earn the Bundesliga x Playmobil kit! All rewards are untradeable.",
       "startTime": "2026-10-30T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
@@ -678,7 +827,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Compete in the Ghoul Fest Live Event to earn rewards. All rewards are untradeable.",
       "startTime": "2026-10-30T18:00:00Z",
       "endTime": "2026-11-06T17:59:59Z",
@@ -798,225 +947,6 @@
       ]
     },
     {
-      "id": 2660,
-      "slug": "135-weekly-objectives",
-      "name": "Weekly Objectives",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Complete Weekly Objectives to earn SP!",
-      "startTime": "2026-10-29T18:00:00Z",
-      "endTime": "2026-11-05T17:59:59Z",
-      "tasksCount": 5,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "XP",
-          "name": "250 SP",
-          "count": 1,
-          "xp": 250
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13404,
-          "name": "打入10球",
-          "description": "在任意 FUT 游戏模式中，使用一名德国球员打入10球。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "50 SP",
-              "count": 1,
-              "xp": 50
-            }
-          ],
-          "nameEn": "Score 10",
-          "descriptionEn": "Score 10 goals in any FUT game mode using a player from Germany."
-        },
-        {
-          "id": 13405,
-          "name": "获胜10场",
-          "description": "在组内对抗中于最低半职业难度赢得10场比赛（或对手赛/冠军赛/现场活动/快攻）。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "50 SP",
-              "count": 1,
-              "xp": 50
-            }
-          ],
-          "nameEn": "Win 10",
-          "descriptionEn": "Win 10 matches in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
-        },
-        {
-          "id": 13406,
-          "name": "进行10场",
-          "description": "在组内对抗中于任意难度进行10场比赛（或快攻/对手赛）。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "50 SP",
-              "count": 1,
-              "xp": 50
-            }
-          ],
-          "nameEn": "Play 10",
-          "descriptionEn": "Play 10 matches in Squad Battles on any difficulty (or Rush/Rivals)."
-        },
-        {
-          "id": 13407,
-          "name": "购买10个",
-          "description": "在转会市场使用立即购买购买10个球员物品。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "50 SP",
-              "count": 1,
-              "xp": 50
-            }
-          ],
-          "nameEn": "Buy 10",
-          "descriptionEn": "Buy 10 Player Items using Buy Now in the Transfer Market."
-        },
-        {
-          "id": 13408,
-          "name": "上架10个",
-          "description": "在转会市场上架10个球员物品。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "50 SP",
-              "count": 1,
-              "xp": 50
-            }
-          ],
-          "nameEn": "List 10",
-          "descriptionEn": "List 10 player items in the Transfer Market."
-        }
-      ]
-    },
-    {
-      "id": 2661,
-      "slug": "169-daily-objectives",
-      "name": "Daily Objectives",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Play, complete and earn SP from daily objective every 24 hours!",
-      "startTime": "2026-10-29T18:00:00Z",
-      "endTime": "2026-11-05T17:59:59Z",
-      "tasksCount": 2,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "XP",
-          "name": "10 SP",
-          "count": 1,
-          "xp": 10
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13409,
-          "name": "进行1场",
-          "description": "在任意 FUT 游戏模式中进行1场比赛。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "10 SP",
-              "count": 1,
-              "xp": 10
-            }
-          ],
-          "nameEn": "Play 1",
-          "descriptionEn": "Play 1 match in any FUT game mode."
-        },
-        {
-          "id": 13410,
-          "name": "进球成功",
-          "description": "在任意 FUT 游戏模式中打入2球。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "10 SP",
-              "count": 1,
-              "xp": 10
-            }
-          ],
-          "nameEn": "Scoring Success",
-          "descriptionEn": "Score 2 goals in any FUT game mode."
-        }
-      ]
-    },
-    {
-      "id": 2658,
-      "slug": "143-fc-pro-open-cup-1",
-      "name": "FC Pro Open Cup 1",
-      "category": {
-        "slug": "fc-pro",
-        "name": "FC Pro"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Show your skills in the FC Pro Open Cup 1 to compete in the group and earn rewards. All rewards are untradeable.",
-      "startTime": "2026-10-27T18:00:00Z",
-      "endTime": "2026-11-04T17:59:59Z",
-      "tasksCount": 2,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "EVO_UNLOCK",
-          "name": "Evo Unlock",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13402,
-          "name": "参赛",
-          "description": "进行5场FC Pro 公开赛杯 1比赛。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Badge",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-            }
-          ],
-          "nameEn": "Compete",
-          "descriptionEn": "Play 5 matches in the FC Pro Open Cup 1."
-        },
-        {
-          "id": 13403,
-          "name": "达到第5级别对手赛",
-          "description": "在对手赛中达到第5级别，以取得FC Pro 公开赛杯 1参赛资格。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Badge",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-            }
-          ],
-          "nameEn": "Reach Division 5 Rivals",
-          "descriptionEn": "Reach Division 5 in Rivals to qualify for the FC Pro Open Cup 1."
-        }
-      ]
-    },
-    {
       "id": 2656,
       "slug": "165-season-2-daily-knockout-tournament-bonus",
       "name": "Season 2 Daily Knockout Tournament Bonus",
@@ -1024,7 +954,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Play matches in the Season 2 Daily Knockout Tournament and earn Ultimate Scream Tokens!",
       "startTime": "2026-10-26T18:00:00Z",
       "endTime": "2026-11-06T17:59:59Z",
@@ -1123,6 +1053,109 @@
       ]
     },
     {
+      "id": 2653,
+      "slug": "159-ultimate-scream-gallery",
+      "name": "Ultimate Scream Gallery",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Make progress in the Ultimate Scream Gallery Set and earn exclusive Ultimate Scream rewards! All rewards are untradeable.",
+      "startTime": "2026-10-23T17:00:00Z",
+      "endTime": "2026-11-20T17:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Adidas Cnxt25 Pro Ball",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/8120207.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13378,
+          "name": "S 级",
+          "description": "在终极尖叫 收藏馆 Set中达到S Rank。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Ultimate Scream",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10200323.png"
+            }
+          ],
+          "nameEn": "S Rank",
+          "descriptionEn": "Achieve S Rank in the Ultimate Scream Gallery Set."
+        },
+        {
+          "id": 13379,
+          "name": "A 级",
+          "description": "在终极尖叫 收藏馆 Set中达到A Rank。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Ultimate Scream Stadium Theme",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "A Rank",
+          "descriptionEn": "Achieve A Rank in the Ultimate Scream Gallery Set."
+        },
+        {
+          "id": 13380,
+          "name": "B 级",
+          "description": "在终极尖叫 收藏馆 Set中达到B Rank。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Adidas Cnxt25 Pro Ball",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/8120201.png"
+            }
+          ],
+          "nameEn": "B Rank",
+          "descriptionEn": "Achieve B Rank in the Ultimate Scream Gallery Set."
+        },
+        {
+          "id": 13381,
+          "name": "C 级",
+          "description": "在终极尖叫 收藏馆 Set中达到C Rank。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Ultimate Scream Tifo",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10000323.png"
+            }
+          ],
+          "nameEn": "C Rank",
+          "descriptionEn": "Achieve C Rank in the Ultimate Scream Gallery Set."
+        },
+        {
+          "id": 13382,
+          "name": "D 级",
+          "description": "在终极尖叫 收藏馆 Set中达到D Rank。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Halloween Vip",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "D Rank",
+          "descriptionEn": "Achieve D Rank in the Ultimate Scream Gallery Set."
+        }
+      ]
+    },
+    {
       "id": 2654,
       "slug": "162-phantom-playgrounds",
       "name": "Phantom Playgrounds",
@@ -1130,7 +1163,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Master a series of terrifying challenges and earn Ultimate Scream Tokens to redeem in the Token Store!",
       "startTime": "2026-10-23T17:00:00Z",
       "endTime": "2026-11-06T17:59:59Z",
@@ -1269,7 +1302,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Complete Ultimate Scream Puzzle SBCs and earn Ultimate Scream Tokens and SP!",
       "startTime": "2026-10-23T17:00:00Z",
       "endTime": "2026-11-06T17:59:59Z",
@@ -1386,827 +1419,6 @@
       ]
     },
     {
-      "id": 2653,
-      "slug": "159-ultimate-scream-gallery",
-      "name": "Ultimate Scream Gallery",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Make progress in the Ultimate Scream Gallery Set and earn exclusive Ultimate Scream rewards! All rewards are untradeable.",
-      "startTime": "2026-10-23T17:00:00Z",
-      "endTime": "2026-11-20T17:59:59Z",
-      "tasksCount": 5,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "ITEM",
-          "name": "Adidas Cnxt25 Pro Ball",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/8120207.png"
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13378,
-          "name": "S 级",
-          "description": "在终极尖叫 收藏馆 Set中达到S Rank。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Ultimate Scream",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10200323.png"
-            }
-          ],
-          "nameEn": "S Rank",
-          "descriptionEn": "Achieve S Rank in the Ultimate Scream Gallery Set."
-        },
-        {
-          "id": 13379,
-          "name": "A 级",
-          "description": "在终极尖叫 收藏馆 Set中达到A Rank。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Ultimate Scream Stadium Theme",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-            }
-          ],
-          "nameEn": "A Rank",
-          "descriptionEn": "Achieve A Rank in the Ultimate Scream Gallery Set."
-        },
-        {
-          "id": 13380,
-          "name": "B 级",
-          "description": "在终极尖叫 收藏馆 Set中达到B Rank。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Adidas Cnxt25 Pro Ball",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/8120201.png"
-            }
-          ],
-          "nameEn": "B Rank",
-          "descriptionEn": "Achieve B Rank in the Ultimate Scream Gallery Set."
-        },
-        {
-          "id": 13381,
-          "name": "C 级",
-          "description": "在终极尖叫 收藏馆 Set中达到C Rank。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Ultimate Scream Tifo",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10000323.png"
-            }
-          ],
-          "nameEn": "C Rank",
-          "descriptionEn": "Achieve C Rank in the Ultimate Scream Gallery Set."
-        },
-        {
-          "id": 13382,
-          "name": "D 级",
-          "description": "在终极尖叫 收藏馆 Set中达到D Rank。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Halloween Vip",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-            }
-          ],
-          "nameEn": "D Rank",
-          "descriptionEn": "Achieve D Rank in the Ultimate Scream Gallery Set."
-        }
-      ]
-    },
-    {
-      "id": 2646,
-      "slug": "160-fc-heritage-circuit-kick-off-event",
-      "name": "FC Heritage Circuit Kick Off Event",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Compete in the FC Heritage Circuit Kick Off Event to earn packs and more. All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 4,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PACK",
-          "name": "2X 79+ Gold Players Pack",
-          "count": 1,
-          "pack": {
-            "name": "2x 79+ Gold Players Pack",
-            "description": "Contains 2 Gold Player Items, rated 79 or higher."
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13352,
-          "name": "获胜1场",
-          "description": "在 FC Heritage Circuit Kick Off Event 中获胜1场比赛。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "78+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "78+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 78 or higher."
-              }
-            }
-          ],
-          "nameEn": "Win 1",
-          "descriptionEn": "Win 1 match in the FC Heritage Circuit Kick Off Event."
-        },
-        {
-          "id": 13353,
-          "name": "在2场中助攻",
-          "description": "在 FC Heritage Circuit Kick Off Event 中，在2场不同比赛中至少助攻1球。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 75+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 75+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 75 or higher."
-              }
-            }
-          ],
-          "nameEn": "Assist in 2",
-          "descriptionEn": "Assist at least 1 goal in 2 separate matches in the FC Heritage Circuit Kick Off Event."
-        },
-        {
-          "id": 13354,
-          "name": "进行2场",
-          "description": "在 FC Heritage Circuit Kick Off Event 中进行2场比赛。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "1,500 Coins",
-              "count": 1,
-              "coins": 1500
-            }
-          ],
-          "nameEn": "Play 2",
-          "descriptionEn": "Play 2 matches in the FC Heritage Circuit Kick Off Event."
-        },
-        {
-          "id": 13355,
-          "name": "打入1球",
-          "description": "在 FC Heritage Circuit Kick Off Event 中打入1球。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Engine",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003105.png"
-            }
-          ],
-          "nameEn": "Score 1",
-          "descriptionEn": "Score 1 goal in the FC Heritage Circuit Kick Off Event."
-        }
-      ]
-    },
-    {
-      "id": 2649,
-      "slug": "166-season-2-daily-knockout-tournament-weekly-play",
-      "name": "Season 2 Daily Knockout Tournament Weekly Play",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Compete in the Season 2 Daily Knockout Tournament to earn exclusive rewards! All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 1,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "ITEM",
-          "name": "Shadow",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13364,
-          "name": "在5场中进球",
-          "description": "在Season 2 Daily 淘汰赛 Tournament中于5场不同比赛各至少打入1球。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Finisher",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003097.png"
-            }
-          ],
-          "nameEn": "Score in 5",
-          "descriptionEn": "Score at least 1 goal in 5 separate matches in the Season 2 Daily Knockout Tournament."
-        }
-      ]
-    },
-    {
-      "id": 2650,
-      "slug": "167-season-2-daily-knockout-tournament-weekly-play-completionist",
-      "name": "Season 2 Daily Knockout Tournament Weekly Play Completionist",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Complete all Season 2 Daily Knockout Tournament Weekly Play objectives to earn FC Heritage Axel Witsel and Coins! All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 5,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PLAYER_ITEM",
-          "name": "Axel Witsel",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50509061.11676e798ebfce52b963007a4d4b59520080de26de570612132ddee3590356fd.webp",
-          "playerItem": {
-            "name": "Axel Witsel",
-            "eaId": 50509061,
-            "rating": 0,
-            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50509061.5b65a66d8e4eb2f3061e3d705a7f2460043c40d70ee9de6a9f1b9ba454692e70.webp"
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13365,
-          "name": "完成5次",
-          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务5次。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "8,000 Coins",
-              "count": 1,
-              "coins": 8000
-            }
-          ],
-          "nameEn": "5 Completions",
-          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 5 times."
-        },
-        {
-          "id": 13366,
-          "name": "完成4次",
-          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务4次。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "6,000 Coins",
-              "count": 1,
-              "coins": 6000
-            }
-          ],
-          "nameEn": "4 Completions",
-          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 4 times."
-        },
-        {
-          "id": 13367,
-          "name": "完成3次",
-          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务3次。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "5,000 Coins",
-              "count": 1,
-              "coins": 5000
-            }
-          ],
-          "nameEn": "3 Completions",
-          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 3 times."
-        },
-        {
-          "id": 13368,
-          "name": "完成2次",
-          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务2次。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "3,500 Coins",
-              "count": 1,
-              "coins": 3500
-            }
-          ],
-          "nameEn": "2 Completions",
-          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 2 times."
-        },
-        {
-          "id": 13369,
-          "name": "完成1次",
-          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务1次。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "2,500 Coins",
-              "count": 1,
-              "coins": 2500
-            }
-          ],
-          "nameEn": "1 Completion",
-          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 1 time."
-        }
-      ]
-    },
-    {
-      "id": 2645,
-      "slug": "158-fc-heritage-circuit-tournament",
-      "name": "FC Heritage Circuit Tournament",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Compete in the FC Heritage Circuit Tournament to earn a special FC Heritage Alexis Sánchez, packs and more. All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 7,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PLAYER_ITEM",
-          "name": "Alexis Sánchez",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50516589.163fb91b771ef20e8d99107c53533d3c3654d02cac37ab539185d75b9c406b60.webp",
-          "playerItem": {
-            "name": "Alexis Sánchez",
-            "eaId": 50516589,
-            "rating": 0,
-            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50516589.61e000ad3fc0288b28874f11022a51f89828132174b464bc21bb8a6f15673e65.webp"
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13345,
-          "name": "传承冠军",
-          "description": "赢得 FC Heritage Circuit Tournament 3次。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 84+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 84+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 84 or higher."
-              }
-            }
-          ],
-          "nameEn": "Heritage Champion",
-          "descriptionEn": "Win the FC Heritage Circuit Tournament 3 times."
-        },
-        {
-          "id": 13346,
-          "name": "雷霆决赛",
-          "description": "在首发11人中至少有2名英超球员的情况下赢得 FC Heritage Circuit Tournament。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 83+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 83+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 83 or higher."
-              }
-            }
-          ],
-          "nameEn": "Thunder Final",
-          "descriptionEn": "Win the FC Heritage Circuit Tournament while having Min. 2 Premier League players in your starting 11."
-        },
-        {
-          "id": 13347,
-          "name": "法甲精英",
-          "description": "在 FC Heritage Circuit Tournament 中，首发11人中至少有2名法甲球员，获胜2场比赛。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "3X 81+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "3x 81+ Gold Players Pack",
-                "description": "Contains 3 Gold Player Items, rated 81 or higher."
-              }
-            }
-          ],
-          "nameEn": "Ligue 1 Finest",
-          "descriptionEn": "Win 2 matches while having Min. 2 Ligue 1 players in your starting 11 in the FC Heritage Circuit Tournament."
-        },
-        {
-          "id": 13348,
-          "name": "橙衣传承",
-          "description": "在 FC Heritage Circuit Tournament 中，首发11人中至少有1名荷兰球员，在3场不同比赛中至少助攻1球。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "3X 80+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "3x 80+ Gold Players Pack",
-                "description": "Contains 3 Gold Player Items, rated 80 or higher."
-              }
-            }
-          ],
-          "nameEn": "Oranje Legacy",
-          "descriptionEn": "Assist at least 1 goal in 3 separate matches while having Min. 1 Dutch player in your starting 11 in the FC Heritage Circuit Tournament."
-        },
-        {
-          "id": 13349,
-          "name": "马德里皇室",
-          "description": "在首发十一人中拥有至少1名Real Madrid (西甲)球员的情况下，于FC Heritage Circuit Tournament中在3场不同比赛各至少打入1球。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 82+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 82+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 82 or higher."
-              }
-            }
-          ],
-          "nameEn": "Madrid Royalty",
-          "descriptionEn": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player in your starting 11 in the FC Heritage Circuit Tournament."
-        },
-        {
-          "id": 13350,
-          "name": "法国激情",
-          "description": "在 FC Heritage Circuit Tournament 中，首发11人中至少有1名法国球员，在1场比赛中至少打入2球。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "3,000 Coins",
-              "count": 1,
-              "coins": 3000
-            }
-          ],
-          "nameEn": "French Thrill",
-          "descriptionEn": "Score at least 2 goals in 1 match while having Min. 1 French player in your starting 11 in the FC Heritage Circuit Tournament."
-        },
-        {
-          "id": 13351,
-          "name": "夜幕下的意甲",
-          "description": "在 FC Heritage Circuit Tournament 中，首发11人中至少有2名意甲球员，赢得1场四分之一决赛。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Shadow",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
-            },
-            {
-              "type": "ITEM",
-              "name": "Hunter",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
-            }
-          ],
-          "nameEn": "Serie A after Dark",
-          "descriptionEn": "Win 1 Quarter-Finals match while having Min. 2 Serie A players in your starting 11 in the FC Heritage Circuit Tournament."
-        }
-      ]
-    },
-    {
-      "id": 2648,
-      "slug": "164-fc-heritage-circuit-completionist",
-      "name": "FC Heritage Circuit Completionist",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Complete the FC Heritage Circuit Objectives to earn rewards. All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PLAYER_ITEM",
-          "name": "Jeremiah St. Juste",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50558501.ea0ddec0e3ae5e5a036c4565fe7498375f7a40f23d0d3b8ea0631fac9b8e9161.webp",
-          "playerItem": {
-            "name": "Jeremiah St. Juste",
-            "eaId": 50558501,
-            "rating": 0,
-            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50558501.cf6971231057c192c53c5cdc81f85bf312091e9aaec306c4fc9afa8ae73f98c4.webp"
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13361,
-          "name": "FC Heritage Circuit 世界级 挑战",
-          "description": "完成FC Heritage Circuit 世界级 Event 任务。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "7,000 Coins",
-              "count": 1,
-              "coins": 7000
-            }
-          ],
-          "nameEn": "FC Heritage Circuit World Class Challenge",
-          "descriptionEn": "Complete the FC Heritage Circuit World Class Event objective."
-        },
-        {
-          "id": 13362,
-          "name": "FC Heritage Circuit 职业 挑战",
-          "description": "完成FC Heritage Circuit 职业 Event 任务。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "6,000 Coins",
-              "count": 1,
-              "coins": 6000
-            }
-          ],
-          "nameEn": "FC Heritage Circuit Professional Challenge",
-          "descriptionEn": "Complete the FC Heritage Circuit Professional Event objective."
-        },
-        {
-          "id": 13363,
-          "name": "FC Heritage Circuit 半职业 挑战",
-          "description": "完成FC Heritage Circuit 半职业 Event 任务。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "4,000 Coins",
-              "count": 1,
-              "coins": 4000
-            }
-          ],
-          "nameEn": "FC Heritage Circuit Semi-Pro Challenge",
-          "descriptionEn": "Complete the FC Heritage Circuit Semi-Pro Event objective."
-        }
-      ]
-    },
-    {
-      "id": 2644,
-      "slug": "157-fc-heritage-circuit-professional-event",
-      "name": "FC Heritage Circuit Professional Event",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Compete in the FC Heritage Circuit Professional Event to earn packs and more. All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 5,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PACK",
-          "name": "2X 81+ Gold Players Pack",
-          "count": 1,
-          "pack": {
-            "name": "2x 81+ Gold Players Pack",
-            "description": "Contains 2 Gold Player Items, rated 81 or higher."
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13340,
-          "name": "英超骄傲",
-          "description": "在首发十一人中拥有至少3名英超球员的情况下，于FC Heritage Circuit 职业 Event中赢得2场比赛。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "82+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "82+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 82 or higher."
-              }
-            }
-          ],
-          "nameEn": "Premier Pride",
-          "descriptionEn": "Win 2 matches while having Min. 3 Premier League players in your starting 11 in the FC Heritage Circuit Professional Event."
-        },
-        {
-          "id": 13341,
-          "name": "法国连线",
-          "description": "在首发十一人中拥有至少1名French球员的情况下，于FC Heritage Circuit 职业 Event中在一场比赛内至少打入3球。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 80+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 80+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 80 or higher."
-              }
-            }
-          ],
-          "nameEn": "French Connection",
-          "descriptionEn": "Score at least 3 goals in one match while having Min. 1 French player in your starting 11 in the FC Heritage Circuit Professional Event."
-        },
-        {
-          "id": 13342,
-          "name": "比利时高塔",
-          "description": "在首发十一人中拥有至少1名Belgian球员的情况下，于FC Heritage Circuit 职业 Event中至少助攻3球。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "2,000 Coins",
-              "count": 1,
-              "coins": 2000
-            }
-          ],
-          "nameEn": "Belgian Tower",
-          "descriptionEn": "Assist at least 3 goals while having Min. 1 Belgian player in your starting 11 in the FC Heritage Circuit Professional Event."
-        },
-        {
-          "id": 13343,
-          "name": "三狮传承",
-          "description": "在首发十一人中拥有至少1名English球员的情况下，于FC Heritage Circuit 职业 Event中在2场不同比赛各至少打入1球。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Anchor",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003110.png"
-            }
-          ],
-          "nameEn": "Three Lions Legacy",
-          "descriptionEn": "Score at least 1 goal in 2 separate matches while having Min. 1 English player in your starting 11 in the FC Heritage Circuit Professional Event."
-        },
-        {
-          "id": 13344,
-          "name": "获胜1场",
-          "description": "在FC Heritage Circuit 职业 Event中赢得1场比赛，并取得FC Heritage Circuit 世界级 Event参赛资格。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "80+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "80+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 80 or higher."
-              }
-            }
-          ],
-          "nameEn": "Win 1",
-          "descriptionEn": "Win 1 match in the FC Heritage Circuit Professional Event and qualify for the FC Heritage Circuit World Class Event."
-        }
-      ]
-    },
-    {
-      "id": 2647,
-      "slug": "161-fc-heritage-circuit-world-class-event",
-      "name": "FC Heritage Circuit World Class Event",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Compete in the FC Heritage Circuit World Class Event to earn packs and more. All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 5,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PACK",
-          "name": "2X 82+ Gold Players Pack",
-          "count": 1,
-          "pack": {
-            "name": "2x 82+ Gold Players Pack",
-            "description": "Contains 2 Gold Player Items, rated 82 or higher."
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13356,
-          "name": "德甲支柱",
-          "description": "在首发十一人中拥有至少3个来自德甲的球员物品的情况下，于FC Heritage Circuit 世界级 Event中赢得3场比赛。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 81+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 81+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 81 or higher."
-              }
-            }
-          ],
-          "nameEn": "Bundesliga Backbone",
-          "descriptionEn": "Win 3 matches while having Min. 3 player items from Bundesliga in your starting 11 in the FC Heritage Circuit World Class Event."
-        },
-        {
-          "id": 13357,
-          "name": "巴伐利亚雷霆",
-          "description": "在首发十一人中拥有至少1张FC Bayern München (德甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中打入5球。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "3X 80+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "3x 80+ Gold Players Pack",
-                "description": "Contains 3 Gold Player Items, rated 80 or higher."
-              }
-            }
-          ],
-          "nameEn": "Bavarian Thunder",
-          "descriptionEn": "Score 5 goals while having Min. 1 FC Bayern München (Bundesliga) player item in your starting 11 in the FC Heritage Circuit World Class Event."
-        },
-        {
-          "id": 13358,
-          "name": "巴黎力量涌动",
-          "description": "在首发十一人中拥有至少1张PSG (法甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中助攻4球。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "2,500 Coins",
-              "count": 1,
-              "coins": 2500
-            }
-          ],
-          "nameEn": "Paris Power Surge",
-          "descriptionEn": "Assist 4 goals while having Min. 1 PSG (Ligue 1) player item in your starting 11 in the FC Heritage Circuit World Class Event."
-        },
-        {
-          "id": 13359,
-          "name": "伯纳乌雷霆",
-          "description": "在首发十一人中拥有至少1张Real Madrid (西甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中在3场不同比赛各至少打入1球。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Hunter",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
-            }
-          ],
-          "nameEn": "Bernabéu Thunder",
-          "descriptionEn": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player item in your starting 11 in the FC Heritage Circuit World Class Event."
-        },
-        {
-          "id": 13360,
-          "name": "获胜1场",
-          "description": "在FC Heritage Circuit 世界级 Event中赢得1场比赛，并取得FC Heritage Circuit Tournament参赛资格。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "81+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "81+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 81 or higher."
-              }
-            }
-          ],
-          "nameEn": "Win 1",
-          "descriptionEn": "Win 1 match in the FC Heritage Circuit World Class Event and qualify for the FC Heritage Circuit Tournament."
-        }
-      ]
-    },
-    {
       "id": 2642,
       "slug": "154-season-2-daily-knockout-tournament",
       "name": "Season 2 Daily Knockout Tournament",
@@ -2214,7 +1426,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Complete 7 of 8 challenges in the Season 2 Daily Knockout Tournament and earn packs, coins, and exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2379,6 +1591,121 @@
       ]
     },
     {
+      "id": 2647,
+      "slug": "161-fc-heritage-circuit-world-class-event",
+      "name": "FC Heritage Circuit World Class Event",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Compete in the FC Heritage Circuit World Class Event to earn packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 82+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 82+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 82 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13356,
+          "name": "德甲支柱",
+          "description": "在首发十一人中拥有至少3个来自德甲的球员物品的情况下，于FC Heritage Circuit 世界级 Event中赢得3场比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 81+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ],
+          "nameEn": "Bundesliga Backbone",
+          "descriptionEn": "Win 3 matches while having Min. 3 player items from Bundesliga in your starting 11 in the FC Heritage Circuit World Class Event."
+        },
+        {
+          "id": 13357,
+          "name": "巴伐利亚雷霆",
+          "description": "在首发十一人中拥有至少1张FC Bayern München (德甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中打入5球。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 80+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ],
+          "nameEn": "Bavarian Thunder",
+          "descriptionEn": "Score 5 goals while having Min. 1 FC Bayern München (Bundesliga) player item in your starting 11 in the FC Heritage Circuit World Class Event."
+        },
+        {
+          "id": 13358,
+          "name": "巴黎力量涌动",
+          "description": "在首发十一人中拥有至少1张PSG (法甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中助攻4球。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ],
+          "nameEn": "Paris Power Surge",
+          "descriptionEn": "Assist 4 goals while having Min. 1 PSG (Ligue 1) player item in your starting 11 in the FC Heritage Circuit World Class Event."
+        },
+        {
+          "id": 13359,
+          "name": "伯纳乌雷霆",
+          "description": "在首发十一人中拥有至少1张Real Madrid (西甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中在3场不同比赛各至少打入1球。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Hunter",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
+            }
+          ],
+          "nameEn": "Bernabéu Thunder",
+          "descriptionEn": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player item in your starting 11 in the FC Heritage Circuit World Class Event."
+        },
+        {
+          "id": 13360,
+          "name": "获胜1场",
+          "description": "在FC Heritage Circuit 世界级 Event中赢得1场比赛，并取得FC Heritage Circuit Tournament参赛资格。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "81+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "81+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 81 or higher."
+              }
+            }
+          ],
+          "nameEn": "Win 1",
+          "descriptionEn": "Win 1 match in the FC Heritage Circuit World Class Event and qualify for the FC Heritage Circuit Tournament."
+        }
+      ]
+    },
+    {
       "id": 2643,
       "slug": "155-fc-heritage-circuit-semi-pro-event",
       "name": "FC Heritage Circuit Semi-Pro Event",
@@ -2386,7 +1713,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Compete in the FC Heritage Circuit Semi-Pro Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2494,6 +1821,609 @@
       ]
     },
     {
+      "id": 2644,
+      "slug": "157-fc-heritage-circuit-professional-event",
+      "name": "FC Heritage Circuit Professional Event",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Compete in the FC Heritage Circuit Professional Event to earn packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 81+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 81+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 81 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13340,
+          "name": "英超骄傲",
+          "description": "在首发十一人中拥有至少3名英超球员的情况下，于FC Heritage Circuit 职业 Event中赢得2场比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "82+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "82+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 82 or higher."
+              }
+            }
+          ],
+          "nameEn": "Premier Pride",
+          "descriptionEn": "Win 2 matches while having Min. 3 Premier League players in your starting 11 in the FC Heritage Circuit Professional Event."
+        },
+        {
+          "id": 13341,
+          "name": "法国连线",
+          "description": "在首发十一人中拥有至少1名French球员的情况下，于FC Heritage Circuit 职业 Event中在一场比赛内至少打入3球。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 80+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ],
+          "nameEn": "French Connection",
+          "descriptionEn": "Score at least 3 goals in one match while having Min. 1 French player in your starting 11 in the FC Heritage Circuit Professional Event."
+        },
+        {
+          "id": 13342,
+          "name": "比利时高塔",
+          "description": "在首发十一人中拥有至少1名Belgian球员的情况下，于FC Heritage Circuit 职业 Event中至少助攻3球。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,000 Coins",
+              "count": 1,
+              "coins": 2000
+            }
+          ],
+          "nameEn": "Belgian Tower",
+          "descriptionEn": "Assist at least 3 goals while having Min. 1 Belgian player in your starting 11 in the FC Heritage Circuit Professional Event."
+        },
+        {
+          "id": 13343,
+          "name": "三狮传承",
+          "description": "在首发十一人中拥有至少1名English球员的情况下，于FC Heritage Circuit 职业 Event中在2场不同比赛各至少打入1球。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Anchor",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003110.png"
+            }
+          ],
+          "nameEn": "Three Lions Legacy",
+          "descriptionEn": "Score at least 1 goal in 2 separate matches while having Min. 1 English player in your starting 11 in the FC Heritage Circuit Professional Event."
+        },
+        {
+          "id": 13344,
+          "name": "获胜1场",
+          "description": "在FC Heritage Circuit 职业 Event中赢得1场比赛，并取得FC Heritage Circuit 世界级 Event参赛资格。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "80+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "80+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 80 or higher."
+              }
+            }
+          ],
+          "nameEn": "Win 1",
+          "descriptionEn": "Win 1 match in the FC Heritage Circuit Professional Event and qualify for the FC Heritage Circuit World Class Event."
+        }
+      ]
+    },
+    {
+      "id": 2648,
+      "slug": "164-fc-heritage-circuit-completionist",
+      "name": "FC Heritage Circuit Completionist",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Complete the FC Heritage Circuit Objectives to earn rewards. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Jeremiah St. Juste",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50558501.ea0ddec0e3ae5e5a036c4565fe7498375f7a40f23d0d3b8ea0631fac9b8e9161.webp",
+          "playerItem": {
+            "name": "Jeremiah St. Juste",
+            "eaId": 50558501,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50558501.cf6971231057c192c53c5cdc81f85bf312091e9aaec306c4fc9afa8ae73f98c4.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13361,
+          "name": "FC Heritage Circuit 世界级 挑战",
+          "description": "完成FC Heritage Circuit 世界级 Event 任务。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "7,000 Coins",
+              "count": 1,
+              "coins": 7000
+            }
+          ],
+          "nameEn": "FC Heritage Circuit World Class Challenge",
+          "descriptionEn": "Complete the FC Heritage Circuit World Class Event objective."
+        },
+        {
+          "id": 13362,
+          "name": "FC Heritage Circuit 职业 挑战",
+          "description": "完成FC Heritage Circuit 职业 Event 任务。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "6,000 Coins",
+              "count": 1,
+              "coins": 6000
+            }
+          ],
+          "nameEn": "FC Heritage Circuit Professional Challenge",
+          "descriptionEn": "Complete the FC Heritage Circuit Professional Event objective."
+        },
+        {
+          "id": 13363,
+          "name": "FC Heritage Circuit 半职业 挑战",
+          "description": "完成FC Heritage Circuit 半职业 Event 任务。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "4,000 Coins",
+              "count": 1,
+              "coins": 4000
+            }
+          ],
+          "nameEn": "FC Heritage Circuit Semi-Pro Challenge",
+          "descriptionEn": "Complete the FC Heritage Circuit Semi-Pro Event objective."
+        }
+      ]
+    },
+    {
+      "id": 2645,
+      "slug": "158-fc-heritage-circuit-tournament",
+      "name": "FC Heritage Circuit Tournament",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Compete in the FC Heritage Circuit Tournament to earn a special FC Heritage Alexis Sánchez, packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 7,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Alexis Sánchez",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50516589.163fb91b771ef20e8d99107c53533d3c3654d02cac37ab539185d75b9c406b60.webp",
+          "playerItem": {
+            "name": "Alexis Sánchez",
+            "eaId": 50516589,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50516589.61e000ad3fc0288b28874f11022a51f89828132174b464bc21bb8a6f15673e65.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13345,
+          "name": "传承冠军",
+          "description": "赢得 FC Heritage Circuit Tournament 3次。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 84+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 84+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 84 or higher."
+              }
+            }
+          ],
+          "nameEn": "Heritage Champion",
+          "descriptionEn": "Win the FC Heritage Circuit Tournament 3 times."
+        },
+        {
+          "id": 13346,
+          "name": "雷霆决赛",
+          "description": "在首发11人中至少有2名英超球员的情况下赢得 FC Heritage Circuit Tournament。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 83+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 83+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 83 or higher."
+              }
+            }
+          ],
+          "nameEn": "Thunder Final",
+          "descriptionEn": "Win the FC Heritage Circuit Tournament while having Min. 2 Premier League players in your starting 11."
+        },
+        {
+          "id": 13347,
+          "name": "法甲精英",
+          "description": "在 FC Heritage Circuit Tournament 中，首发11人中至少有2名法甲球员，获胜2场比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 81+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ],
+          "nameEn": "Ligue 1 Finest",
+          "descriptionEn": "Win 2 matches while having Min. 2 Ligue 1 players in your starting 11 in the FC Heritage Circuit Tournament."
+        },
+        {
+          "id": 13348,
+          "name": "橙衣传承",
+          "description": "在 FC Heritage Circuit Tournament 中，首发11人中至少有1名荷兰球员，在3场不同比赛中至少助攻1球。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 80+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ],
+          "nameEn": "Oranje Legacy",
+          "descriptionEn": "Assist at least 1 goal in 3 separate matches while having Min. 1 Dutch player in your starting 11 in the FC Heritage Circuit Tournament."
+        },
+        {
+          "id": 13349,
+          "name": "马德里皇室",
+          "description": "在首发十一人中拥有至少1名Real Madrid (西甲)球员的情况下，于FC Heritage Circuit Tournament中在3场不同比赛各至少打入1球。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 82+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 82+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 82 or higher."
+              }
+            }
+          ],
+          "nameEn": "Madrid Royalty",
+          "descriptionEn": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player in your starting 11 in the FC Heritage Circuit Tournament."
+        },
+        {
+          "id": 13350,
+          "name": "法国激情",
+          "description": "在 FC Heritage Circuit Tournament 中，首发11人中至少有1名法国球员，在1场比赛中至少打入2球。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "3,000 Coins",
+              "count": 1,
+              "coins": 3000
+            }
+          ],
+          "nameEn": "French Thrill",
+          "descriptionEn": "Score at least 2 goals in 1 match while having Min. 1 French player in your starting 11 in the FC Heritage Circuit Tournament."
+        },
+        {
+          "id": 13351,
+          "name": "夜幕下的意甲",
+          "description": "在 FC Heritage Circuit Tournament 中，首发11人中至少有2名意甲球员，赢得1场四分之一决赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Shadow",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Hunter",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
+            }
+          ],
+          "nameEn": "Serie A after Dark",
+          "descriptionEn": "Win 1 Quarter-Finals match while having Min. 2 Serie A players in your starting 11 in the FC Heritage Circuit Tournament."
+        }
+      ]
+    },
+    {
+      "id": 2646,
+      "slug": "160-fc-heritage-circuit-kick-off-event",
+      "name": "FC Heritage Circuit Kick Off Event",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Compete in the FC Heritage Circuit Kick Off Event to earn packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 4,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 79+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 79+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 79 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13352,
+          "name": "获胜1场",
+          "description": "在 FC Heritage Circuit Kick Off Event 中获胜1场比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "78+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "78+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 78 or higher."
+              }
+            }
+          ],
+          "nameEn": "Win 1",
+          "descriptionEn": "Win 1 match in the FC Heritage Circuit Kick Off Event."
+        },
+        {
+          "id": 13353,
+          "name": "在2场中助攻",
+          "description": "在 FC Heritage Circuit Kick Off Event 中，在2场不同比赛中至少助攻1球。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 75+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 75 or higher."
+              }
+            }
+          ],
+          "nameEn": "Assist in 2",
+          "descriptionEn": "Assist at least 1 goal in 2 separate matches in the FC Heritage Circuit Kick Off Event."
+        },
+        {
+          "id": 13354,
+          "name": "进行2场",
+          "description": "在 FC Heritage Circuit Kick Off Event 中进行2场比赛。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "1,500 Coins",
+              "count": 1,
+              "coins": 1500
+            }
+          ],
+          "nameEn": "Play 2",
+          "descriptionEn": "Play 2 matches in the FC Heritage Circuit Kick Off Event."
+        },
+        {
+          "id": 13355,
+          "name": "打入1球",
+          "description": "在 FC Heritage Circuit Kick Off Event 中打入1球。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Engine",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003105.png"
+            }
+          ],
+          "nameEn": "Score 1",
+          "descriptionEn": "Score 1 goal in the FC Heritage Circuit Kick Off Event."
+        }
+      ]
+    },
+    {
+      "id": 2649,
+      "slug": "166-season-2-daily-knockout-tournament-weekly-play",
+      "name": "Season 2 Daily Knockout Tournament Weekly Play",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Compete in the Season 2 Daily Knockout Tournament to earn exclusive rewards! All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 1,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Shadow",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13364,
+          "name": "在5场中进球",
+          "description": "在Season 2 Daily 淘汰赛 Tournament中于5场不同比赛各至少打入1球。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Finisher",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003097.png"
+            }
+          ],
+          "nameEn": "Score in 5",
+          "descriptionEn": "Score at least 1 goal in 5 separate matches in the Season 2 Daily Knockout Tournament."
+        }
+      ]
+    },
+    {
+      "id": 2650,
+      "slug": "167-season-2-daily-knockout-tournament-weekly-play-completionist",
+      "name": "Season 2 Daily Knockout Tournament Weekly Play Completionist",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Complete all Season 2 Daily Knockout Tournament Weekly Play objectives to earn FC Heritage Axel Witsel and Coins! All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Axel Witsel",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50509061.11676e798ebfce52b963007a4d4b59520080de26de570612132ddee3590356fd.webp",
+          "playerItem": {
+            "name": "Axel Witsel",
+            "eaId": 50509061,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50509061.5b65a66d8e4eb2f3061e3d705a7f2460043c40d70ee9de6a9f1b9ba454692e70.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13365,
+          "name": "完成5次",
+          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务5次。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "8,000 Coins",
+              "count": 1,
+              "coins": 8000
+            }
+          ],
+          "nameEn": "5 Completions",
+          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 5 times."
+        },
+        {
+          "id": 13366,
+          "name": "完成4次",
+          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务4次。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "6,000 Coins",
+              "count": 1,
+              "coins": 6000
+            }
+          ],
+          "nameEn": "4 Completions",
+          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 4 times."
+        },
+        {
+          "id": 13367,
+          "name": "完成3次",
+          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务3次。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ],
+          "nameEn": "3 Completions",
+          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 3 times."
+        },
+        {
+          "id": 13368,
+          "name": "完成2次",
+          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务2次。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "3,500 Coins",
+              "count": 1,
+              "coins": 3500
+            }
+          ],
+          "nameEn": "2 Completions",
+          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 2 times."
+        },
+        {
+          "id": 13369,
+          "name": "完成1次",
+          "description": "完成Season 2 Daily 淘汰赛 Tournament Weekly Play 任务1次。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ],
+          "nameEn": "1 Completion",
+          "descriptionEn": "Complete the Season 2 Daily Knockout Tournament Weekly Play Objective 1 time."
+        }
+      ]
+    },
+    {
       "id": 2607,
       "slug": "123-gallery-foundations",
       "name": "Gallery Foundations",
@@ -2501,7 +2431,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Learn the basics of the Gallery! Grade and complete Sets, achieve Rank S, and increase your Gallery Level as you explore everything the Gallery has to offer. All rewards are untradeable.",
       "startTime": "2026-09-25T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2622,7 +2552,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Complete this objective and choose 1 Squad Foundations Player Item from: Miley (Premier League), Moi Gómez (LALIGA EA SPORTS), Banzuzi (Bundesliga), or Danois (Ligue 1). All rewards are untradeable.",
       "startTime": "2026-09-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2664,7 +2594,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Complete challenges celebrating manager Ted Lasso and AFC Richmond to earn exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-09-11T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2793,6 +2723,261 @@
       ]
     },
     {
+      "id": 2575,
+      "slug": "42-squad-battles-milestone",
+      "name": "Squad Battles Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "The challenge is set. Take to the pitch in Squad Battles and battle through the competition.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Large Gold Pack",
+          "count": 1,
+          "pack": {
+            "name": "Large Gold Pack",
+            "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13051,
+          "name": "进行15场",
+          "description": "在任意难度下进行 15 场 组内对抗 比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            },
+            {
+              "type": "PACK",
+              "name": "X2 Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "x2 Players Pack",
+                "description": "Includes 2 Player Items."
+              }
+            }
+          ],
+          "nameEn": "Play 15",
+          "descriptionEn": "Play 15 Squad Battles Matches on any difficulty."
+        },
+        {
+          "id": 13052,
+          "name": "进行10场",
+          "description": "在任意难度下进行 10 场 组内对抗 比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            }
+          ],
+          "nameEn": "Play 10",
+          "descriptionEn": "Play 10 Squad Battles Matches on any difficulty."
+        },
+        {
+          "id": 13053,
+          "name": "进行5场",
+          "description": "在任意难度下进行 5 场 组内对抗 比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Coin Boost",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004066.png"
+            }
+          ],
+          "nameEn": "Play 5",
+          "descriptionEn": "Play 5 Squad Battles Matches on any difficulty."
+        }
+      ]
+    },
+    {
+      "id": 2574,
+      "slug": "48-live-events-milestone",
+      "name": "Live Events Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Get acquainted with Live Events matches.",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "1 Of 2 80+ Gold Player Pick",
+          "count": 1
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13048,
+          "name": "进行20场",
+          "description": "进行20场现场活动比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Small Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "Small Gold Players Pack",
+                "description": "Includes 6 Gold Player Items."
+              }
+            }
+          ],
+          "nameEn": "Play 20",
+          "descriptionEn": "Play 20 Live Events matches."
+        },
+        {
+          "id": 13049,
+          "name": "进行10场",
+          "description": "进行10场现场活动比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Jumbo Gold Pack",
+              "count": 1,
+              "pack": {
+                "name": "Jumbo Gold Pack",
+                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
+              }
+            }
+          ],
+          "nameEn": "Play 10",
+          "descriptionEn": "Play 10 Live Events matches."
+        },
+        {
+          "id": 13050,
+          "name": "进行5场",
+          "description": "进行5场现场活动比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 3 79+ Gold Player Pick",
+              "count": 1
+            }
+          ],
+          "nameEn": "Play 5",
+          "descriptionEn": "Play 5 Live Events matches."
+        }
+      ]
+    },
+    {
+      "id": 2568,
+      "slug": "45-draft-milestone",
+      "name": "Draft Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Draft your path to greatness!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "Large Gold Pack",
+          "count": 1,
+          "pack": {
+            "name": "Large Gold Pack",
+            "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13026,
+          "name": "进行15场",
+          "description": "进行15场 Draft 比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "75+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "75+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 75 or higher."
+              }
+            },
+            {
+              "type": "PACK",
+              "name": "X2 Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "x2 Players Pack",
+                "description": "Includes 2 Player Items."
+              }
+            }
+          ],
+          "nameEn": "Play 15",
+          "descriptionEn": "Play 15 Draft matches."
+        },
+        {
+          "id": 13027,
+          "name": "进行10场",
+          "description": "进行10场 Draft 比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 2 78+ Gold Player Pick",
+              "count": 1
+            }
+          ],
+          "nameEn": "Play 10",
+          "descriptionEn": "Play 10 Draft matches."
+        },
+        {
+          "id": 13028,
+          "name": "进行5场",
+          "description": "进行5场 Draft 比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Coin Boost",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004066.png"
+            }
+          ],
+          "nameEn": "Play 5",
+          "descriptionEn": "Play 5 Draft matches."
+        }
+      ]
+    },
+    {
       "id": 2566,
       "slug": "25-the-journey-begins",
       "name": "The Journey Begins",
@@ -2800,7 +2985,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "PVE Live Events offer a new way to play. Compete, earn and upgrade your way to the top. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2935,184 +3120,6 @@
       ]
     },
     {
-      "id": 2575,
-      "slug": "42-squad-battles-milestone",
-      "name": "Squad Battles Milestone",
-      "category": {
-        "slug": "milestones",
-        "name": "Milestones"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "The challenge is set. Take to the pitch in Squad Battles and battle through the competition.",
-      "startTime": "2026-08-17T17:00:00Z",
-      "endTime": "2031-10-01T16:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PACK",
-          "name": "Large Gold Pack",
-          "count": 1,
-          "pack": {
-            "name": "Large Gold Pack",
-            "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13051,
-          "name": "进行15场",
-          "description": "在任意难度下进行 15 场 组内对抗 比赛。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "75+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "75+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 75 or higher."
-              }
-            },
-            {
-              "type": "PACK",
-              "name": "X2 Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "x2 Players Pack",
-                "description": "Includes 2 Player Items."
-              }
-            }
-          ],
-          "nameEn": "Play 15",
-          "descriptionEn": "Play 15 Squad Battles Matches on any difficulty."
-        },
-        {
-          "id": 13052,
-          "name": "进行10场",
-          "description": "在任意难度下进行 10 场 组内对抗 比赛。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "75+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "75+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 75 or higher."
-              }
-            }
-          ],
-          "nameEn": "Play 10",
-          "descriptionEn": "Play 10 Squad Battles Matches on any difficulty."
-        },
-        {
-          "id": 13053,
-          "name": "进行5场",
-          "description": "在任意难度下进行 5 场 组内对抗 比赛。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Coin Boost",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004066.png"
-            }
-          ],
-          "nameEn": "Play 5",
-          "descriptionEn": "Play 5 Squad Battles Matches on any difficulty."
-        }
-      ]
-    },
-    {
-      "id": 2568,
-      "slug": "45-draft-milestone",
-      "name": "Draft Milestone",
-      "category": {
-        "slug": "milestones",
-        "name": "Milestones"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Draft your path to greatness!",
-      "startTime": "2026-08-17T17:00:00Z",
-      "endTime": "2031-10-01T16:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PACK",
-          "name": "Large Gold Pack",
-          "count": 1,
-          "pack": {
-            "name": "Large Gold Pack",
-            "description": "Contains 12 gold items, including at least 3 player items, with 2 guaranteed to be 75-82."
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13026,
-          "name": "进行15场",
-          "description": "进行15场 Draft 比赛。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "75+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "75+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 75 or higher."
-              }
-            },
-            {
-              "type": "PACK",
-              "name": "X2 Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "x2 Players Pack",
-                "description": "Includes 2 Player Items."
-              }
-            }
-          ],
-          "nameEn": "Play 15",
-          "descriptionEn": "Play 15 Draft matches."
-        },
-        {
-          "id": 13027,
-          "name": "进行10场",
-          "description": "进行10场 Draft 比赛。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "1 Of 2 78+ Gold Player Pick",
-              "count": 1
-            }
-          ],
-          "nameEn": "Play 10",
-          "descriptionEn": "Play 10 Draft matches."
-        },
-        {
-          "id": 13028,
-          "name": "进行5场",
-          "description": "进行5场 Draft 比赛。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Coin Boost",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004066.png"
-            }
-          ],
-          "nameEn": "Play 5",
-          "descriptionEn": "Play 5 Draft matches."
-        }
-      ]
-    },
-    {
       "id": 2569,
       "slug": "46-co-op-milestone",
       "name": "Co-Op Milestone",
@@ -3120,7 +3127,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Team up with Friends to embark on the Co-op journey!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3213,7 +3220,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Squad up and complete Rush bonuses alongside other players as you try to reign supreme in Rush!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3346,7 +3353,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Complete Moments challenges and earn stars to show your football dominance!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3434,7 +3441,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3515,7 +3522,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Wheel and deal your way to Transfer Market Mastery!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3596,15 +3603,15 @@
       ]
     },
     {
-      "id": 2574,
-      "slug": "48-live-events-milestone",
-      "name": "Live Events Milestone",
+      "id": 2563,
+      "slug": "28-total-football",
+      "name": "Total Football",
       "category": {
-        "slug": "milestones",
-        "name": "Milestones"
+        "slug": "foundations",
+        "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Get acquainted with Live Events matches.",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
+      "description": "Prove your worth by completing each of the Foundation Objectives groups to earn big rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
       "tasksCount": 3,
@@ -3614,61 +3621,91 @@
       "isLocked": false,
       "awards": [
         {
-          "type": "ITEM",
-          "name": "1 Of 2 80+ Gold Player Pick",
-          "count": 1
+          "type": "PACK",
+          "name": "Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "Gold Players Pack",
+            "description": "Includes 12 Gold Player Items."
+          }
+        },
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Charalampos Kostoulas",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50405533.9f16c83fb48ddfc88524ed34a6b77f582027e9a27f69d177179d54c780564a2b.webp",
+          "playerItem": {
+            "name": "Charalampos Kostoulas",
+            "eaId": 50405533,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50405533.505390a2f34ced8a6eefa4bc0493861c79aba83e40117a157dc9a50926c1581b.webp"
+          }
         }
       ],
       "objectives": [
         {
-          "id": 13048,
-          "name": "进行20场",
-          "description": "进行20场现场活动比赛。",
+          "id": 13005,
+          "name": "完成“扶摇直上”",
+          "description": "完全完成“扶摇直上”任务目标分组。",
           "awards": [
             {
               "type": "PACK",
-              "name": "Small Gold Players Pack",
+              "name": "82+ Gold Player Pack",
               "count": 1,
               "pack": {
-                "name": "Small Gold Players Pack",
-                "description": "Includes 6 Gold Player Items."
+                "name": "82+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 82 or higher."
               }
-            }
-          ],
-          "nameEn": "Play 20",
-          "descriptionEn": "Play 20 Live Events matches."
-        },
-        {
-          "id": 13049,
-          "name": "进行10场",
-          "description": "进行10场现场活动比赛。",
-          "awards": [
+            },
             {
-              "type": "PACK",
-              "name": "Jumbo Gold Pack",
+              "type": "XP",
+              "name": "100 SP",
               "count": 1,
-              "pack": {
-                "name": "Jumbo Gold Pack",
-                "description": "Contains 24 Gold Items, including at least 7 Player Items with 6 guaranteed to be 75-82."
-              }
+              "xp": 100
             }
           ],
-          "nameEn": "Play 10",
-          "descriptionEn": "Play 10 Live Events matches."
+          "nameEn": "Complete 'Rising Through the Ranks'",
+          "descriptionEn": "Fully complete the 'Rising Through the Ranks' Objectives Group."
         },
         {
-          "id": 13050,
-          "name": "进行5场",
-          "description": "进行5场现场活动比赛。",
+          "id": 13006,
+          "name": "完成“线队梦想”",
+          "description": "完全完成“线队梦想”任务目标分组。",
           "awards": [
             {
               "type": "ITEM",
-              "name": "1 Of 3 79+ Gold Player Pick",
+              "name": "1 Of 3 80+ Gold Player Pick",
               "count": 1
+            },
+            {
+              "type": "XP",
+              "name": "100 SP",
+              "count": 1,
+              "xp": 100
             }
           ],
-          "nameEn": "Play 5",
-          "descriptionEn": "Play 5 Live Events matches."
+          "nameEn": "Complete 'First Team Dreams'",
+          "descriptionEn": "Fully complete the 'First Team Dreams' Objectives Group."
+        },
+        {
+          "id": 13007,
+          "name": "完成“踏上征程”",
+          "description": "完全完成“踏上征程”任务目标分组。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 3 75+ Gold Player Pick",
+              "count": 1
+            },
+            {
+              "type": "XP",
+              "name": "100 SP",
+              "count": 1,
+              "xp": 100
+            }
+          ],
+          "nameEn": "Complete 'The Journey Begins'",
+          "descriptionEn": "Fully complete the 'The Journey Begins' Objectives Group."
         }
       ]
     },
@@ -3680,7 +3717,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "The ultimate test of skill awaits in Division Rivals. Battle against the competition and emerge victorious.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3763,7 +3800,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Every legend has a beginning. Enter Champions and begin your path to becoming the Golden G.O.A.T.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3851,7 +3888,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Grow your Gallery Score, hit new levels, and earn rewards to build the ultimate club showcase!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3956,7 +3993,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Assemble a squad with First Owned (acquired from packs, objectives and SBCs) players and complete these Milestones!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4044,7 +4081,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Tally up your goals and assists and become a G/A Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4213,7 +4250,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4310,7 +4347,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Wheel and deal your way to Transfer Market Mastery!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4467,7 +4504,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Generate that winning feeling in Live Events matches!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4552,7 +4589,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Keep battling over the year to prove you are a Squad Battles Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4637,7 +4674,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Beat your Rivals to prove you are the G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4722,7 +4759,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "The stage is set! Show everyone you have what it takes to be the Golden G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4825,7 +4862,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "All good clubs need polishing on and off the pitch. Complete these maintenance objectives to earn rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4967,113 +5004,6 @@
       ]
     },
     {
-      "id": 2563,
-      "slug": "28-total-football",
-      "name": "Total Football",
-      "category": {
-        "slug": "foundations",
-        "name": "Foundations"
-      },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
-      "description": "Prove your worth by completing each of the Foundation Objectives groups to earn big rewards. All rewards are untradeable.",
-      "startTime": "2026-08-17T17:00:00Z",
-      "endTime": "2031-10-01T16:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PACK",
-          "name": "Gold Players Pack",
-          "count": 1,
-          "pack": {
-            "name": "Gold Players Pack",
-            "description": "Includes 12 Gold Player Items."
-          }
-        },
-        {
-          "type": "PLAYER_ITEM",
-          "name": "Charalampos Kostoulas",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50405533.9f16c83fb48ddfc88524ed34a6b77f582027e9a27f69d177179d54c780564a2b.webp",
-          "playerItem": {
-            "name": "Charalampos Kostoulas",
-            "eaId": 50405533,
-            "rating": 0,
-            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50405533.505390a2f34ced8a6eefa4bc0493861c79aba83e40117a157dc9a50926c1581b.webp"
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13005,
-          "name": "完成“扶摇直上”",
-          "description": "完全完成“扶摇直上”任务目标分组。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "82+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "82+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 82 or higher."
-              }
-            },
-            {
-              "type": "XP",
-              "name": "100 SP",
-              "count": 1,
-              "xp": 100
-            }
-          ],
-          "nameEn": "Complete 'Rising Through the Ranks'",
-          "descriptionEn": "Fully complete the 'Rising Through the Ranks' Objectives Group."
-        },
-        {
-          "id": 13006,
-          "name": "完成“线队梦想”",
-          "description": "完全完成“线队梦想”任务目标分组。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "1 Of 3 80+ Gold Player Pick",
-              "count": 1
-            },
-            {
-              "type": "XP",
-              "name": "100 SP",
-              "count": 1,
-              "xp": 100
-            }
-          ],
-          "nameEn": "Complete 'First Team Dreams'",
-          "descriptionEn": "Fully complete the 'First Team Dreams' Objectives Group."
-        },
-        {
-          "id": 13007,
-          "name": "完成“踏上征程”",
-          "description": "完全完成“踏上征程”任务目标分组。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "1 Of 3 75+ Gold Player Pick",
-              "count": 1
-            },
-            {
-              "type": "XP",
-              "name": "100 SP",
-              "count": 1,
-              "xp": 100
-            }
-          ],
-          "nameEn": "Complete 'The Journey Begins'",
-          "descriptionEn": "Fully complete the 'The Journey Begins' Objectives Group."
-        }
-      ]
-    },
-    {
       "id": 2565,
       "slug": "26-first-team-dreams",
       "name": "First Team Dreams",
@@ -5081,7 +5011,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-05T07:08:41.922Z",
+      "_fetchedAt": "2026-11-05T18:07:35.133Z",
       "description": "Complete these Squad Building Challenges to earn rewards and improve your squad. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",

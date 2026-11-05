@@ -5,6 +5,361 @@
   "count": 35,
   "sets": [
     {
+      "id": 5354,
+      "game": "27",
+      "eaId": 108,
+      "slug": "27-108-marquee-matchups",
+      "categoryEaId": 3,
+      "name": "Marquee Matchups",
+      "description": "Complete challenges themed around this week's key matchups.",
+      "imagePath": "2027/sbcs/108.png",
+      "endTime": "2026-11-12T18:00:00.475793Z",
+      "createdAt": "2026-11-05T18:00:14.478712Z",
+      "isRepeatable": false,
+      "numberOfRepeats": 0,
+      "repeatRefreshInterval": 0,
+      "repeatabilityMode": "NON_REPEATABLE",
+      "challengesCount": 4,
+      "challengeEaIds": [
+        159,
+        160,
+        161,
+        162
+      ],
+      "awardsIds": [
+        24617
+      ],
+      "url": "/sbc/challenges/27-108-marquee-matchups/",
+      "poolId": null,
+      "metadata": null,
+      "relatedArticle": null,
+      "isNew": true,
+      "hasStreamlinedChallenges": false,
+      "scoreRequirement": null,
+      "cost": null,
+      "costPc": null,
+      "pool": null,
+      "awards": [
+        {
+          "id": 24617,
+          "game": "27",
+          "count": 1,
+          "isUntradeable": false,
+          "other": null,
+          "coins": null,
+          "eventToken": null,
+          "eventTokenId": null,
+          "pack": "Large Mixed Electrum Players Pack",
+          "playerEaId": null,
+          "evolutionName": null,
+          "evolutionSlug": null,
+          "pool": null,
+          "player": null
+        }
+      ],
+      "challenges": [
+        {
+          "id": 14621,
+          "eaId": 159,
+          "game": "27",
+          "challengeType": "OPEN_CHALLENGE",
+          "scoreRequirement": null,
+          "eligibilityOperation": "AND",
+          "setEaId": 108,
+          "name": "Club Brugge v RSC Anderlecht",
+          "description": "Exchange a squad themed around Club Brugge and RSC Anderlecht.",
+          "imagePath": "2027/sbcs/challenges/159.png",
+          "awardsIds": [
+            24618
+          ],
+          "cheapestSolutionId": 6905516,
+          "cheapestSolutionPrice": 4900,
+          "cheapestSolutionUrl": "/27/squad-builder/72035bd9-00f4-4e83-867d-a8d193242806/",
+          "cheapestSolutionPcId": 6905517,
+          "cheapestSolutionPricePc": 7500,
+          "cheapestSolutionPcUrl": "/27/squad-builder/7b419211-4c1d-479d-9bad-d6b3c1329135/",
+          "requirementsText": [
+            "Club: Min. 1 player from Club Brugge or RSC Anderlecht",
+            "Clubs: Max. 6",
+            "Quality: Min. 3 Silver players",
+            "Quality: Min. Bronze",
+            "Chemistry: Min. 14"
+          ],
+          "isStreamlined": false,
+          "awards": [
+            {
+              "id": 24618,
+              "game": "27",
+              "count": 1,
+              "isUntradeable": false,
+              "other": null,
+              "coins": null,
+              "eventToken": null,
+              "eventTokenId": null,
+              "pack": "Large Silver Players Pack",
+              "playerEaId": null,
+              "evolutionName": null,
+              "evolutionSlug": null,
+              "pool": null,
+              "player": null
+            }
+          ],
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/challenges/159.png",
+          "playerUrl": null,
+          "hasPlayerAward": false
+        },
+        {
+          "id": 14622,
+          "eaId": 160,
+          "game": "27",
+          "challengeType": "OPEN_CHALLENGE",
+          "scoreRequirement": null,
+          "eligibilityOperation": "AND",
+          "setEaId": 108,
+          "name": "Stade Rennais FC v LOSC",
+          "description": "Exchange a squad themed around Stade Rennais FC and LOSC.",
+          "imagePath": "2027/sbcs/challenges/160.png",
+          "awardsIds": [
+            24619
+          ],
+          "cheapestSolutionId": 6905519,
+          "cheapestSolutionPrice": 6950,
+          "cheapestSolutionUrl": "/27/squad-builder/bb68ee47-4101-4fcd-b1ef-0e8d0ef9f617/",
+          "cheapestSolutionPcId": 6905520,
+          "cheapestSolutionPricePc": 7900,
+          "cheapestSolutionPcUrl": "/27/squad-builder/17c236ae-20d8-43a3-b0e0-568f4237fa01/",
+          "requirementsText": [
+            "Club: Min. 1 player from Stade Rennais FC or LOSC",
+            "Same club: Max. 2 players",
+            "Leagues: Min. 3",
+            "Quality: Min. 1 Gold player",
+            "Quality: Min. Silver",
+            "Chemistry: Min. 18"
+          ],
+          "isStreamlined": false,
+          "awards": [
+            {
+              "id": 24619,
+              "game": "27",
+              "count": 1,
+              "isUntradeable": false,
+              "other": null,
+              "coins": 4000,
+              "eventToken": null,
+              "eventTokenId": null,
+              "pack": null,
+              "playerEaId": null,
+              "evolutionName": null,
+              "evolutionSlug": null,
+              "pool": null,
+              "player": null
+            }
+          ],
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/challenges/160.png",
+          "playerUrl": null,
+          "hasPlayerAward": false
+        },
+        {
+          "id": 14623,
+          "eaId": 161,
+          "game": "27",
+          "challengeType": "OPEN_CHALLENGE",
+          "scoreRequirement": null,
+          "eligibilityOperation": "AND",
+          "setEaId": 108,
+          "name": "Fiorentina v Juventus FC",
+          "description": "Exchange a squad themed around Fiorentina and Juventus FC.",
+          "imagePath": "2027/sbcs/challenges/161.png",
+          "awardsIds": [
+            24620
+          ],
+          "cheapestSolutionId": 6905523,
+          "cheapestSolutionPrice": 7900,
+          "cheapestSolutionUrl": "/27/squad-builder/3b15abb9-2c8b-44bf-86f0-28f31d2edd28/",
+          "cheapestSolutionPcId": 6905524,
+          "cheapestSolutionPricePc": 8050,
+          "cheapestSolutionPcUrl": "/27/squad-builder/a1d18caf-a49e-47fc-b2e0-36f8f7c1b126/",
+          "requirementsText": [
+            "Club: Min. 2 players from ACF Fiorentina or Juventus FC",
+            "Same club: Min. 2 players",
+            "Same league: Max. 4 players",
+            "Quality: Min. 2 Gold players",
+            "Quality: Min. Silver",
+            "Chemistry: Min. 22"
+          ],
+          "isStreamlined": false,
+          "awards": [
+            {
+              "id": 24620,
+              "game": "27",
+              "count": 1,
+              "isUntradeable": false,
+              "other": null,
+              "coins": null,
+              "eventToken": null,
+              "eventTokenId": null,
+              "pack": "Small Gold Players Pack",
+              "playerEaId": null,
+              "evolutionName": null,
+              "evolutionSlug": null,
+              "pool": null,
+              "player": null
+            }
+          ],
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/challenges/161.png",
+          "playerUrl": null,
+          "hasPlayerAward": false
+        },
+        {
+          "id": 14624,
+          "eaId": 162,
+          "game": "27",
+          "challengeType": "OPEN_CHALLENGE",
+          "scoreRequirement": null,
+          "eligibilityOperation": "AND",
+          "setEaId": 108,
+          "name": "Atlético de Madrid v FC Barcelona",
+          "description": "Exchange a squad themed around Atlético de Madrid and FC Barcelona.",
+          "imagePath": "2027/sbcs/challenges/162.png",
+          "awardsIds": [
+            24621
+          ],
+          "cheapestSolutionId": null,
+          "cheapestSolutionPrice": 0,
+          "cheapestSolutionUrl": null,
+          "cheapestSolutionPcId": null,
+          "cheapestSolutionPricePc": 0,
+          "cheapestSolutionPcUrl": null,
+          "requirementsText": [
+            "Club: Min. 2 players from Atlético de Madrid or FC Barcelona",
+            "Same nation: Max. 3 players",
+            "Same club: Min. 4 players",
+            "Leagues: Min. 3",
+            "Team rating: Min. 75",
+            "Chemistry: Min. 26"
+          ],
+          "isStreamlined": false,
+          "awards": [
+            {
+              "id": 24621,
+              "game": "27",
+              "count": 1,
+              "isUntradeable": false,
+              "other": null,
+              "coins": null,
+              "eventToken": null,
+              "eventTokenId": null,
+              "pack": "Small Electrum Pack",
+              "playerEaId": null,
+              "evolutionName": null,
+              "evolutionSlug": null,
+              "pool": null,
+              "player": null
+            }
+          ],
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/challenges/162.png",
+          "playerUrl": null,
+          "hasPlayerAward": false
+        }
+      ],
+      "category": {
+        "id": 35,
+        "game": "27",
+        "eaId": 3,
+        "name": "Challenges",
+        "slug": "challenges",
+        "setCount": 0
+      },
+      "allAwards": [
+        {
+          "id": 24617,
+          "game": "27",
+          "count": 1,
+          "isUntradeable": false,
+          "other": null,
+          "coins": null,
+          "eventToken": null,
+          "eventTokenId": null,
+          "pack": "Large Mixed Electrum Players Pack",
+          "playerEaId": null,
+          "evolutionName": null,
+          "evolutionSlug": null,
+          "pool": null,
+          "player": null
+        },
+        {
+          "id": 24618,
+          "game": "27",
+          "count": 1,
+          "isUntradeable": false,
+          "other": null,
+          "coins": null,
+          "eventToken": null,
+          "eventTokenId": null,
+          "pack": "Large Silver Players Pack",
+          "playerEaId": null,
+          "evolutionName": null,
+          "evolutionSlug": null,
+          "pool": null,
+          "player": null
+        },
+        {
+          "id": 24619,
+          "game": "27",
+          "count": 1,
+          "isUntradeable": false,
+          "other": null,
+          "coins": 4000,
+          "eventToken": null,
+          "eventTokenId": null,
+          "pack": null,
+          "playerEaId": null,
+          "evolutionName": null,
+          "evolutionSlug": null,
+          "pool": null,
+          "player": null
+        },
+        {
+          "id": 24620,
+          "game": "27",
+          "count": 1,
+          "isUntradeable": false,
+          "other": null,
+          "coins": null,
+          "eventToken": null,
+          "eventTokenId": null,
+          "pack": "Small Gold Players Pack",
+          "playerEaId": null,
+          "evolutionName": null,
+          "evolutionSlug": null,
+          "pool": null,
+          "player": null
+        },
+        {
+          "id": 24621,
+          "game": "27",
+          "count": 1,
+          "isUntradeable": false,
+          "other": null,
+          "coins": null,
+          "eventToken": null,
+          "eventTokenId": null,
+          "pack": "Small Electrum Pack",
+          "playerEaId": null,
+          "evolutionName": null,
+          "evolutionSlug": null,
+          "pool": null,
+          "player": null
+        }
+      ],
+      "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/108.png",
+      "playerUrl": null,
+      "hasPlayerAward": false,
+      "expiresIn": "6 days",
+      "isExpired": false,
+      "repeatRefreshIntervalText": null
+    },
+    {
       "id": 5353,
       "game": "27",
       "eaId": 96,
@@ -13,7 +368,7 @@
       "name": "Martín Ojeda",
       "description": "Earn a special Ultimate Scream Martín Ojeda.",
       "imagePath": "2027/sbcs/96.png",
-      "endTime": "2026-11-11T18:00:01.300755Z",
+      "endTime": "2026-11-11T18:00:01.470348Z",
       "createdAt": "2026-11-04T18:00:21.500085Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -30,11 +385,11 @@
       "poolId": null,
       "metadata": null,
       "relatedArticle": null,
-      "isNew": true,
+      "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 24000,
-      "cost": 25810,
-      "costPc": 31175,
+      "cost": 21025,
+      "costPc": 26680,
       "pool": null,
       "awards": [
         {
@@ -348,7 +703,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 25375,
+            "price": 22040,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -445,10 +800,10 @@
           "imagePath": "2027/sbcs/challenges/145.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 25810,
+          "cheapestSolutionPrice": 21025,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 31175,
+          "cheapestSolutionPricePc": 26680,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -780,7 +1135,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 25375,
+            "price": 22040,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -866,7 +1221,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50572392.d29df4cdfdceb28221d8ab1f8d8bbdce59cdeb05c26e429759a74cea9347b8d6.webp",
       "playerUrl": "/players/240744-martin-ojeda/27-50572392/",
       "hasPlayerAward": true,
-      "expiresIn": "6 days",
+      "expiresIn": "5 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -879,7 +1234,7 @@
       "name": "Ethan Ampadu",
       "description": "Earn a special Ultimate Scream Ethan Ampadu.",
       "imagePath": "2027/sbcs/97.png",
-      "endTime": "2026-11-10T18:00:01.320373Z",
+      "endTime": "2026-11-10T18:00:01.483056Z",
       "createdAt": "2026-11-03T18:00:28.035970Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -899,8 +1254,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 22000,
-      "cost": 23870,
-      "costPc": 28490,
+      "cost": 19575,
+      "costPc": 24700,
       "pool": null,
       "awards": [
         {
@@ -1227,7 +1582,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 23510,
+            "price": 20520,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -1310,10 +1665,10 @@
           "imagePath": "2027/sbcs/challenges/146.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 23870,
+          "cheapestSolutionPrice": 19575,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 28490,
+          "cheapestSolutionPricePc": 24700,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -1658,7 +2013,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 23510,
+            "price": 20520,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -1730,7 +2085,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-67344599.2b180479c3f84ca7650a7b7c26ab6aec273507692c4317b2b517985043cced50.webp",
       "playerUrl": "/players/235735-ethan-ampadu/27-67344599/",
       "hasPlayerAward": true,
-      "expiresIn": "5 days",
+      "expiresIn": "4 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -1743,7 +2098,7 @@
       "name": "2x 83+ Upgrade",
       "description": "Earn a pack containing 2 Gold Player Items, rated 83 or higher.",
       "imagePath": "2027/sbcs/109.png",
-      "endTime": "2026-11-10T18:00:01.211739Z",
+      "endTime": "2026-11-10T18:00:01.356071Z",
       "createdAt": "2026-11-03T18:00:24.632958Z",
       "isRepeatable": true,
       "numberOfRepeats": 1,
@@ -1763,8 +2118,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 5500,
-      "cost": 6230,
-      "costPc": 7500,
+      "cost": 5075,
+      "costPc": 6440,
       "pool": null,
       "awards": [
         {
@@ -1798,10 +2153,10 @@
           "imagePath": "2027/sbcs/challenges/163.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 6230,
+          "cheapestSolutionPrice": 5075,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 7500,
+          "cheapestSolutionPricePc": 6440,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -1842,7 +2197,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/109.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "5 days",
+      "expiresIn": "4 days",
       "isExpired": false,
       "repeatRefreshIntervalText": "2 days"
     },
@@ -1855,7 +2210,7 @@
       "name": "Hocus Pocus",
       "description": "Discover the phrase and earn a Jumbo Gold Pack.",
       "imagePath": "2027/sbcs/77.png",
-      "endTime": "2026-11-06T18:00:01.009511Z",
+      "endTime": "2026-11-06T18:00:00.465000Z",
       "createdAt": "2026-11-03T18:00:20.287242Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -1875,8 +2230,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 7800,
-      "costPc": 6200,
+      "cost": 11000,
+      "costPc": 13700,
       "pool": null,
       "awards": [
         {
@@ -1909,12 +2264,12 @@
           "description": "Discover the phrase and earn a Jumbo Gold Pack.",
           "imagePath": "2027/sbcs/challenges/117.png",
           "awardsIds": [],
-          "cheapestSolutionId": 6902716,
-          "cheapestSolutionPrice": 7800,
-          "cheapestSolutionUrl": "/27/squad-builder/03f6dc24-f673-4120-936c-729020fee2db/",
-          "cheapestSolutionPcId": 6902733,
-          "cheapestSolutionPricePc": 6200,
-          "cheapestSolutionPcUrl": "/27/squad-builder/b2342a7c-0ef4-499a-bfb6-35c23ce8f9b9/",
+          "cheapestSolutionId": 6905490,
+          "cheapestSolutionPrice": 11000,
+          "cheapestSolutionUrl": "/27/squad-builder/27527196-b7a4-4b7d-98d9-003180462a40/",
+          "cheapestSolutionPcId": 6905489,
+          "cheapestSolutionPricePc": 13700,
+          "cheapestSolutionPcUrl": "/27/squad-builder/d499394c-1a53-45e5-a43b-0a2037450564/",
           "requirementsText": [
             "Same league: Min. 4 players",
             "Same club: Max. 3 players",
@@ -1960,7 +2315,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/77.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "1 day",
+      "expiresIn": "24 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -1973,7 +2328,7 @@
       "name": "1 of 3 79+ Gold Player Pick",
       "description": "Earn 1 of 3 Gold Player Items, rated 79 or higher.",
       "imagePath": "2027/sbcs/105.png",
-      "endTime": "2026-11-09T18:00:01.198773Z",
+      "endTime": "2026-11-09T18:00:01.335740Z",
       "createdAt": "2026-11-02T18:00:39.101367Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -1993,8 +2348,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 2500,
-      "cost": 2870,
-      "costPc": 3425,
+      "cost": 2375,
+      "costPc": 2960,
       "pool": null,
       "awards": [
         {
@@ -2028,10 +2383,10 @@
           "imagePath": "2027/sbcs/challenges/156.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2870,
+          "cheapestSolutionPrice": 2375,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 3425,
+          "cheapestSolutionPricePc": 2960,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -2072,7 +2427,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/105.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "4 days",
+      "expiresIn": "3 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -2085,7 +2440,7 @@
       "name": "Max. 88 Base Hero Upgrade",
       "description": "Earn a pack containing 1 Base Hero Player Item, rated 88 or lower.",
       "imagePath": "2027/sbcs/101.png",
-      "endTime": "2026-11-08T18:00:01.163203Z",
+      "endTime": "2026-11-08T18:00:01.284606Z",
       "createdAt": "2026-11-02T18:00:34.060419Z",
       "isRepeatable": true,
       "numberOfRepeats": 1,
@@ -2105,8 +2460,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 140000,
-      "cost": 150410,
-      "costPc": 179665,
+      "cost": 122525,
+      "costPc": 155480,
       "pool": {
         "id": 356,
         "name": "Max. 88 Base Hero Upgrade Pool",
@@ -2149,10 +2504,10 @@
           "imagePath": "2027/sbcs/challenges/152.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 150410,
+          "cheapestSolutionPrice": 122525,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 179665,
+          "cheapestSolutionPricePc": 155480,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -2193,7 +2548,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/101.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3 days",
+      "expiresIn": "2 days",
       "isExpired": false,
       "repeatRefreshIntervalText": "3 days",
       "choicePlayers": [
@@ -2478,7 +2833,7 @@
       "name": "MLS & NWSL",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from MLS & NWSL.",
       "imagePath": "2027/sbcs/100.png",
-      "endTime": "2026-12-06T18:00:01.141515Z",
+      "endTime": "2026-12-06T18:00:01.272269Z",
       "createdAt": "2026-11-02T18:00:30.227163Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -2499,8 +2854,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 3000,
-      "cost": 3560,
-      "costPc": 4300,
+      "cost": 2900,
+      "costPc": 3680,
       "pool": null,
       "awards": [
         {
@@ -2536,10 +2891,10 @@
             24609
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 1780,
+          "cheapestSolutionPrice": 1450,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 2150,
+          "cheapestSolutionPricePc": 1840,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -2582,10 +2937,10 @@
             24610
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 1780,
+          "cheapestSolutionPrice": 1450,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 2150,
+          "cheapestSolutionPricePc": 1840,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -2675,7 +3030,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/100.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "31 days",
+      "expiresIn": "30 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -2688,7 +3043,7 @@
       "name": "Serie A & ROSHN Saudi League",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from Serie A & ROSHN Saudi League.",
       "imagePath": "2027/sbcs/99.png",
-      "endTime": "2026-12-06T18:00:01.126342Z",
+      "endTime": "2026-12-06T18:00:01.254105Z",
       "createdAt": "2026-11-02T18:00:26.355328Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -2709,8 +3064,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 3000,
-      "cost": 3560,
-      "costPc": 4300,
+      "cost": 2900,
+      "costPc": 3680,
       "pool": null,
       "awards": [
         {
@@ -2746,10 +3101,10 @@
             24606
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 1780,
+          "cheapestSolutionPrice": 1450,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 2150,
+          "cheapestSolutionPricePc": 1840,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -2792,10 +3147,10 @@
             24607
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 1780,
+          "cheapestSolutionPrice": 1450,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 2150,
+          "cheapestSolutionPricePc": 1840,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -2885,7 +3240,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/99.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "31 days",
+      "expiresIn": "30 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -2898,7 +3253,7 @@
       "name": "LALIGA & Liga F",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from LL and LF.",
       "imagePath": "2027/sbcs/94.png",
-      "endTime": "2026-12-06T18:00:01.117717Z",
+      "endTime": "2026-12-06T18:00:01.243068Z",
       "createdAt": "2026-11-02T18:00:22.572857Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -2919,8 +3274,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 6000,
-      "cost": 7120,
-      "costPc": 8600,
+      "cost": 5800,
+      "costPc": 7360,
       "pool": null,
       "awards": [
         {
@@ -2956,10 +3311,10 @@
             24603
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 3560,
+          "cheapestSolutionPrice": 2900,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 4300,
+          "cheapestSolutionPricePc": 3680,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -3002,10 +3357,10 @@
             24604
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 3560,
+          "cheapestSolutionPrice": 2900,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 4300,
+          "cheapestSolutionPricePc": 3680,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -3095,7 +3450,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/94.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "31 days",
+      "expiresIn": "30 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -3108,7 +3463,7 @@
       "name": "Premier League & Barclays WSL",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from PL and WSL.",
       "imagePath": "2027/sbcs/93.png",
-      "endTime": "2026-12-06T18:00:01.106520Z",
+      "endTime": "2026-12-06T18:00:01.232985Z",
       "createdAt": "2026-11-02T18:00:16.671999Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -3129,8 +3484,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 9000,
-      "cost": 10360,
-      "costPc": 11830,
+      "cost": 8640,
+      "costPc": 10600,
       "pool": null,
       "awards": [
         {
@@ -3166,10 +3521,10 @@
             24600
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 5180,
+          "cheapestSolutionPrice": 4320,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 5915,
+          "cheapestSolutionPricePc": 5300,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -3212,10 +3567,10 @@
             24601
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 5180,
+          "cheapestSolutionPrice": 4320,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 5915,
+          "cheapestSolutionPricePc": 5300,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -3305,7 +3660,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/93.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "31 days",
+      "expiresIn": "30 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -3318,7 +3673,7 @@
       "name": "Lea Schüller",
       "description": "Earn a special Ultimate Scream Lea Schüller.",
       "imagePath": "2027/sbcs/98.png",
-      "endTime": "2026-11-08T18:00:01.340914Z",
+      "endTime": "2026-11-08T18:00:01.498758Z",
       "createdAt": "2026-11-01T18:00:25.411516Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -3338,8 +3693,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 35000,
-      "cost": 38110,
-      "costPc": 45165,
+      "cost": 31120,
+      "costPc": 39330,
       "pool": null,
       "awards": [
         {
@@ -3650,7 +4005,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 37495,
+            "price": 32180,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -3730,10 +4085,10 @@
           "imagePath": "2027/sbcs/challenges/147.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 38110,
+          "cheapestSolutionPrice": 31120,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 45165,
+          "cheapestSolutionPricePc": 39330,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -4062,7 +4417,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 37495,
+            "price": 32180,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -4131,7 +4486,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50575950.a4f8195e6b5f9c2e260216021ecc22864493a14bbeff4920cb45620a09105fdf.webp",
       "playerUrl": "/players/244302-lea-schuller/27-50575950/",
       "hasPlayerAward": true,
-      "expiresIn": "3 days",
+      "expiresIn": "2 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -4144,7 +4499,7 @@
       "name": "Pumpkin Seeds",
       "description": "Plant the pumpkin seeds to earn a Large Gold Players Pack.",
       "imagePath": "2027/sbcs/76.png",
-      "endTime": "2026-11-06T18:00:01.002668Z",
+      "endTime": "2026-11-06T18:00:00.457269Z",
       "createdAt": "2026-11-01T18:00:20.223957Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -4164,8 +4519,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 6700,
-      "costPc": 6300,
+      "cost": 17900,
+      "costPc": 6550,
       "pool": null,
       "awards": [
         {
@@ -4198,12 +4553,12 @@
           "description": "Plant the pumpkin seeds to earn a Large Gold Players Pack.",
           "imagePath": "2027/sbcs/challenges/116.png",
           "awardsIds": [],
-          "cheapestSolutionId": 6902732,
-          "cheapestSolutionPrice": 6700,
-          "cheapestSolutionUrl": "/27/squad-builder/360d199d-5b42-4d33-8f59-b7c0c318fc5e/",
-          "cheapestSolutionPcId": 6902734,
-          "cheapestSolutionPricePc": 6300,
-          "cheapestSolutionPcUrl": "/27/squad-builder/667f9a52-26de-4da0-b592-507df7eb3909/",
+          "cheapestSolutionId": 6905381,
+          "cheapestSolutionPrice": 17900,
+          "cheapestSolutionUrl": "/27/squad-builder/69477097-4da3-4c0b-b281-9b4a18426c11/",
+          "cheapestSolutionPcId": 6905303,
+          "cheapestSolutionPricePc": 6550,
+          "cheapestSolutionPcUrl": "/27/squad-builder/d3c37b0b-0c23-47f8-9577-9e819153b3bb/",
           "requirementsText": [
             "Same league: Max. 4 players",
             "Same club: Min. 3 players",
@@ -4249,7 +4604,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/76.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "1 day",
+      "expiresIn": "24 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -4262,7 +4617,7 @@
       "name": "Jonny",
       "description": "Earn a special Ultimate Scream Jonny.",
       "imagePath": "2027/sbcs/106.png",
-      "endTime": "2026-11-07T18:00:01.360340Z",
+      "endTime": "2026-11-07T18:00:01.507589Z",
       "createdAt": "2026-10-31T18:00:09.109159Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -4282,8 +4637,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 42000,
-      "cost": 45390,
-      "costPc": 53800,
+      "cost": 36975,
+      "costPc": 46920,
       "pool": null,
       "awards": [
         {
@@ -4605,7 +4960,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 44625,
+            "price": 38250,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -4703,10 +5058,10 @@
           "imagePath": "2027/sbcs/challenges/157.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 45390,
+          "cheapestSolutionPrice": 36975,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 53800,
+          "cheapestSolutionPricePc": 46920,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -5046,7 +5401,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 44625,
+            "price": 38250,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -5133,7 +5488,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50542103.4ae7502102a254d88fa7cdd12bfb28b9910109fa27bf7963df708fbffc00e4a9.webp",
       "playerUrl": "/players/210455-jonny/27-50542103/",
       "hasPlayerAward": true,
-      "expiresIn": "2 days",
+      "expiresIn": "1 day",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -5146,7 +5501,7 @@
       "name": "Tijjani Reijnders",
       "description": "Earn a special Ultimate Scream Tijjani Reijnders.",
       "imagePath": "2027/sbcs/95.png",
-      "endTime": "2026-11-06T18:00:01.292840Z",
+      "endTime": "2026-11-06T18:00:01.406604Z",
       "createdAt": "2026-10-30T18:00:29.323158Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -5166,8 +5521,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 60000,
-      "cost": 64810,
-      "costPc": 76930,
+      "cost": 52890,
+      "costPc": 66930,
       "pool": null,
       "awards": [
         {
@@ -5487,7 +5842,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 64810,
+            "price": 54695,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -5576,10 +5931,10 @@
           "imagePath": "2027/sbcs/challenges/144.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 64810,
+          "cheapestSolutionPrice": 52890,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 76930,
+          "cheapestSolutionPricePc": 66930,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -5917,7 +6272,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 64810,
+            "price": 54695,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -5995,7 +6350,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50572286.a62403fc335e57825f85455550ac90f47590930e07a6751530413606dfa12597.webp",
       "playerUrl": "/players/240638-tijjani-reijnders/27-50572286/",
       "hasPlayerAward": true,
-      "expiresIn": "1 day",
+      "expiresIn": "24 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -6008,7 +6363,7 @@
       "name": "81+ TOTW 1-7 Upgrade",
       "description": "Earn a pack containing 1 TOTW Player Item, rated 81 or higher, from TOTW 1 to 7.",
       "imagePath": "2027/sbcs/102.png",
-      "endTime": "2026-11-06T18:00:01.172804Z",
+      "endTime": "2026-11-06T18:00:01.301902Z",
       "createdAt": "2026-10-30T18:00:24.997534Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -6028,8 +6383,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 22000,
-      "cost": 23870,
-      "costPc": 28490,
+      "cost": 19575,
+      "costPc": 24700,
       "pool": {
         "id": 355,
         "name": "81+ TOTW 1-7 Upgrade Pool",
@@ -6072,10 +6427,10 @@
           "imagePath": "2027/sbcs/challenges/153.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 23870,
+          "cheapestSolutionPrice": 19575,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 28490,
+          "cheapestSolutionPricePc": 24700,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -6116,7 +6471,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/102.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "1 day",
+      "expiresIn": "24 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null,
       "choicePlayers": [
@@ -6401,7 +6756,7 @@
       "name": "Freaky Zombie",
       "description": "Play the song to earn a Large Gold Pack.",
       "imagePath": "2027/sbcs/75.png",
-      "endTime": "2026-11-06T18:00:00.990691Z",
+      "endTime": "2026-11-06T18:00:00.432586Z",
       "createdAt": "2026-10-30T18:00:19.502691Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -6421,8 +6776,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 19000,
-      "costPc": 6050,
+      "cost": 11850,
+      "costPc": 7150,
       "pool": null,
       "awards": [
         {
@@ -6455,12 +6810,12 @@
           "description": "Play the song to earn a Large Gold Pack.",
           "imagePath": "2027/sbcs/challenges/115.png",
           "awardsIds": [],
-          "cheapestSolutionId": 6902662,
-          "cheapestSolutionPrice": 19000,
-          "cheapestSolutionUrl": "/27/squad-builder/58bff89a-797b-426d-aed6-d383183003d9/",
-          "cheapestSolutionPcId": 6902687,
-          "cheapestSolutionPricePc": 6050,
-          "cheapestSolutionPcUrl": "/27/squad-builder/56243319-f45f-49b6-930d-e67b3d0d19e1/",
+          "cheapestSolutionId": 6905383,
+          "cheapestSolutionPrice": 11850,
+          "cheapestSolutionUrl": "/27/squad-builder/8146234c-8bfa-4aba-add6-3327fb98c0fe/",
+          "cheapestSolutionPcId": 6905318,
+          "cheapestSolutionPricePc": 7150,
+          "cheapestSolutionPcUrl": "/27/squad-builder/b2a9ee46-994e-412b-b995-b56f470ac4f5/",
           "requirementsText": [
             "Same nation: Min. 4 players",
             "Same league: Max. 5 players",
@@ -6506,7 +6861,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/75.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "1 day",
+      "expiresIn": "24 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -6519,7 +6874,7 @@
       "name": "1 of 4 Chemistry Styles Pick",
       "description": "Earn 1 Chemistry Style Pick (1 of 4). Choose between Anchor, Engine, Shadow and Hunter.",
       "imagePath": "2027/sbcs/104.png",
-      "endTime": "2026-11-12T18:00:01.181498Z",
+      "endTime": "2026-11-12T18:00:01.314821Z",
       "createdAt": "2026-10-29T18:00:26.130453Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -6539,8 +6894,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 5000,
-      "cost": 5540,
-      "costPc": 6455,
+      "cost": 4550,
+      "costPc": 5720,
       "pool": null,
       "awards": [
         {
@@ -6574,10 +6929,10 @@
           "imagePath": "2027/sbcs/challenges/155.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 5540,
+          "cheapestSolutionPrice": 4550,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 6455,
+          "cheapestSolutionPricePc": 5720,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -6618,363 +6973,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/104.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "7 days",
-      "isExpired": false,
-      "repeatRefreshIntervalText": null
-    },
-    {
-      "id": 5334,
-      "game": "27",
-      "eaId": 78,
-      "slug": "27-78-marquee-matchups",
-      "categoryEaId": 3,
-      "name": "Marquee Matchups",
-      "description": "Complete challenges themed around this week's key matchups.",
-      "imagePath": "2027/sbcs/78.png",
-      "endTime": "2026-11-05T18:00:01.016838Z",
-      "createdAt": "2026-10-29T18:00:15.071315Z",
-      "isRepeatable": false,
-      "numberOfRepeats": 0,
-      "repeatRefreshInterval": 0,
-      "repeatabilityMode": "NON_REPEATABLE",
-      "challengesCount": 4,
-      "challengeEaIds": [
-        118,
-        119,
-        120,
-        121
-      ],
-      "awardsIds": [
-        24585
-      ],
-      "url": "/sbc/challenges/27-78-marquee-matchups/",
-      "poolId": null,
-      "metadata": null,
-      "relatedArticle": null,
-      "isNew": false,
-      "hasStreamlinedChallenges": false,
-      "scoreRequirement": null,
-      "cost": 33750,
-      "costPc": 27050,
-      "pool": null,
-      "awards": [
-        {
-          "id": 24585,
-          "game": "27",
-          "count": 1,
-          "isUntradeable": false,
-          "other": null,
-          "coins": null,
-          "eventToken": null,
-          "eventTokenId": null,
-          "pack": "Jumbo Gold Pack",
-          "playerEaId": null,
-          "evolutionName": null,
-          "evolutionSlug": null,
-          "pool": null,
-          "player": null
-        }
-      ],
-      "challenges": [
-        {
-          "id": 14594,
-          "eaId": 118,
-          "game": "27",
-          "challengeType": "OPEN_CHALLENGE",
-          "scoreRequirement": null,
-          "eligibilityOperation": "AND",
-          "setEaId": 78,
-          "name": "Villarreal CF v RCD Espanyol",
-          "description": "Exchange a squad themed around Villarreal CF and RCD Espanyol.",
-          "imagePath": "2027/sbcs/challenges/118.png",
-          "awardsIds": [
-            24586
-          ],
-          "cheapestSolutionId": 6902605,
-          "cheapestSolutionPrice": 3700,
-          "cheapestSolutionUrl": "/27/squad-builder/6ed5975f-c59e-4fd1-add3-f51c1e3ec428/",
-          "cheapestSolutionPcId": 6902618,
-          "cheapestSolutionPricePc": 3600,
-          "cheapestSolutionPcUrl": "/27/squad-builder/42c3ab44-4711-491d-8ca9-43a41ee5d91a/",
-          "requirementsText": [
-            "Club: Min. 1 player from Villarreal CF or RCD Espanyol",
-            "Nation: Min. 1 player from Spain",
-            "Clubs: Min. 2",
-            "Leagues: Min. 3",
-            "Quality: Min. Bronze",
-            "Chemistry: Min. 14"
-          ],
-          "isStreamlined": false,
-          "awards": [
-            {
-              "id": 24586,
-              "game": "27",
-              "count": 1,
-              "isUntradeable": false,
-              "other": null,
-              "coins": null,
-              "eventToken": null,
-              "eventTokenId": null,
-              "pack": "Small Gold Pack",
-              "playerEaId": null,
-              "evolutionName": null,
-              "evolutionSlug": null,
-              "pool": null,
-              "player": null
-            }
-          ],
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/challenges/118.png",
-          "playerUrl": null,
-          "hasPlayerAward": false
-        },
-        {
-          "id": 14595,
-          "eaId": 119,
-          "game": "27",
-          "challengeType": "OPEN_CHALLENGE",
-          "scoreRequirement": null,
-          "eligibilityOperation": "AND",
-          "setEaId": 78,
-          "name": "FC Bayern München v Borussia Dortmund",
-          "description": "Exchange a squad themed around FC Bayern München and Borussia Dortmund.",
-          "imagePath": "2027/sbcs/challenges/119.png",
-          "awardsIds": [
-            24587
-          ],
-          "cheapestSolutionId": 6902607,
-          "cheapestSolutionPrice": 8550,
-          "cheapestSolutionUrl": "/27/squad-builder/69a83fac-f41a-4027-8f38-d1c248cee753/",
-          "cheapestSolutionPcId": 6902619,
-          "cheapestSolutionPricePc": 7350,
-          "cheapestSolutionPcUrl": "/27/squad-builder/f07e0821-2533-44f7-8956-adc4d3d32014/",
-          "requirementsText": [
-            "Club: Min. 1 player from FC Bayern München or Borussia Dortmund",
-            "Nation: Min. 1 player from Germany",
-            "Leagues: Max. 6",
-            "Same nation: Min. 2 players",
-            "Quality: Min. Silver",
-            "Chemistry: Min. 18"
-          ],
-          "isStreamlined": false,
-          "awards": [
-            {
-              "id": 24587,
-              "game": "27",
-              "count": 1,
-              "isUntradeable": false,
-              "other": null,
-              "coins": null,
-              "eventToken": null,
-              "eventTokenId": null,
-              "pack": "Small Electrum Players Pack",
-              "playerEaId": null,
-              "evolutionName": null,
-              "evolutionSlug": null,
-              "pool": null,
-              "player": null
-            }
-          ],
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/challenges/119.png",
-          "playerUrl": null,
-          "hasPlayerAward": false
-        },
-        {
-          "id": 14596,
-          "eaId": 120,
-          "game": "27",
-          "challengeType": "OPEN_CHALLENGE",
-          "scoreRequirement": null,
-          "eligibilityOperation": "AND",
-          "setEaId": 78,
-          "name": "Milano FC v Lombardia FC",
-          "description": "Exchange a squad themed around Milano FC and Lombardia FC.",
-          "imagePath": "2027/sbcs/challenges/120.png",
-          "awardsIds": [
-            24588
-          ],
-          "cheapestSolutionId": 6902609,
-          "cheapestSolutionPrice": 15000,
-          "cheapestSolutionUrl": "/27/squad-builder/95fd7d44-60b0-4a30-8af3-1bf37028a6d4/",
-          "cheapestSolutionPcId": 6902621,
-          "cheapestSolutionPricePc": 9050,
-          "cheapestSolutionPcUrl": "/27/squad-builder/b32c80f5-8128-4caf-855a-49644973da67/",
-          "requirementsText": [
-            "Club: Min. 2 players from Milano FC or Lombardia FC",
-            "Nation: Min. 2 players from Italy",
-            "Same league: Max. 5 players",
-            "Same nation: Min. 3 players",
-            "Quality: Min. Silver",
-            "Chemistry: Min. 22"
-          ],
-          "isStreamlined": false,
-          "awards": [
-            {
-              "id": 24588,
-              "game": "27",
-              "count": 1,
-              "isUntradeable": false,
-              "other": null,
-              "coins": null,
-              "eventToken": null,
-              "eventTokenId": null,
-              "pack": "Gold Pack",
-              "playerEaId": null,
-              "evolutionName": null,
-              "evolutionSlug": null,
-              "pool": null,
-              "player": null
-            }
-          ],
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/challenges/120.png",
-          "playerUrl": null,
-          "hasPlayerAward": false
-        },
-        {
-          "id": 14597,
-          "eaId": 121,
-          "game": "27",
-          "challengeType": "OPEN_CHALLENGE",
-          "scoreRequirement": null,
-          "eligibilityOperation": "AND",
-          "setEaId": 78,
-          "name": "Liverpool v Arsenal",
-          "description": "Exchange a squad themed around Liverpool and Arsenal.",
-          "imagePath": "2027/sbcs/challenges/121.png",
-          "awardsIds": [
-            24589
-          ],
-          "cheapestSolutionId": 6902612,
-          "cheapestSolutionPrice": 6500,
-          "cheapestSolutionUrl": "/27/squad-builder/b016d37d-f4c0-4b98-84dc-927998782b01/",
-          "cheapestSolutionPcId": 6902352,
-          "cheapestSolutionPricePc": 7050,
-          "cheapestSolutionPcUrl": "/27/squad-builder/8c31d913-1550-4419-897e-00c8230c102d/",
-          "requirementsText": [
-            "Club: Min. 2 players from Liverpool or Arsenal",
-            "League: Min. 2 players from Premier League",
-            "Same league: Min. 4 players",
-            "Same club: Min. 3 players",
-            "Team rating: Min. 75",
-            "Chemistry: Min. 26"
-          ],
-          "isStreamlined": false,
-          "awards": [
-            {
-              "id": 24589,
-              "game": "27",
-              "count": 1,
-              "isUntradeable": false,
-              "other": null,
-              "coins": null,
-              "eventToken": null,
-              "eventTokenId": null,
-              "pack": "Large Electrum Players Pack",
-              "playerEaId": null,
-              "evolutionName": null,
-              "evolutionSlug": null,
-              "pool": null,
-              "player": null
-            }
-          ],
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/challenges/121.png",
-          "playerUrl": null,
-          "hasPlayerAward": false
-        }
-      ],
-      "category": {
-        "id": 35,
-        "game": "27",
-        "eaId": 3,
-        "name": "Challenges",
-        "slug": "challenges",
-        "setCount": 0
-      },
-      "allAwards": [
-        {
-          "id": 24585,
-          "game": "27",
-          "count": 1,
-          "isUntradeable": false,
-          "other": null,
-          "coins": null,
-          "eventToken": null,
-          "eventTokenId": null,
-          "pack": "Jumbo Gold Pack",
-          "playerEaId": null,
-          "evolutionName": null,
-          "evolutionSlug": null,
-          "pool": null,
-          "player": null
-        },
-        {
-          "id": 24586,
-          "game": "27",
-          "count": 1,
-          "isUntradeable": false,
-          "other": null,
-          "coins": null,
-          "eventToken": null,
-          "eventTokenId": null,
-          "pack": "Small Gold Pack",
-          "playerEaId": null,
-          "evolutionName": null,
-          "evolutionSlug": null,
-          "pool": null,
-          "player": null
-        },
-        {
-          "id": 24587,
-          "game": "27",
-          "count": 1,
-          "isUntradeable": false,
-          "other": null,
-          "coins": null,
-          "eventToken": null,
-          "eventTokenId": null,
-          "pack": "Small Electrum Players Pack",
-          "playerEaId": null,
-          "evolutionName": null,
-          "evolutionSlug": null,
-          "pool": null,
-          "player": null
-        },
-        {
-          "id": 24588,
-          "game": "27",
-          "count": 1,
-          "isUntradeable": false,
-          "other": null,
-          "coins": null,
-          "eventToken": null,
-          "eventTokenId": null,
-          "pack": "Gold Pack",
-          "playerEaId": null,
-          "evolutionName": null,
-          "evolutionSlug": null,
-          "pool": null,
-          "player": null
-        },
-        {
-          "id": 24589,
-          "game": "27",
-          "count": 1,
-          "isUntradeable": false,
-          "other": null,
-          "coins": null,
-          "eventToken": null,
-          "eventTokenId": null,
-          "pack": "Large Electrum Players Pack",
-          "playerEaId": null,
-          "evolutionName": null,
-          "evolutionSlug": null,
-          "pool": null,
-          "player": null
-        }
-      ],
-      "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/78.png",
-      "playerUrl": null,
-      "hasPlayerAward": false,
-      "expiresIn": "11 hours",
+      "expiresIn": "6 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -6987,7 +6986,7 @@
       "name": "Ligue 1 & Arkema Première Ligue",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from L1 and Arkema PL.",
       "imagePath": "2027/sbcs/92.png",
-      "endTime": "2026-12-06T18:00:01.094716Z",
+      "endTime": "2026-12-06T18:00:01.205938Z",
       "createdAt": "2026-10-28T18:00:24.804354Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -7008,8 +7007,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 5000,
-      "cost": 5740,
-      "costPc": 6850,
+      "cost": 4750,
+      "costPc": 5920,
       "pool": null,
       "awards": [
         {
@@ -7045,10 +7044,10 @@
             24581
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2870,
+          "cheapestSolutionPrice": 2375,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 3425,
+          "cheapestSolutionPricePc": 2960,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -7091,10 +7090,10 @@
             24582
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2870,
+          "cheapestSolutionPrice": 2375,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 3425,
+          "cheapestSolutionPricePc": 2960,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -7184,7 +7183,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/92.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "31 days",
+      "expiresIn": "30 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -7197,7 +7196,7 @@
       "name": "Bundesliga & Google Pixel Frauen-Bundesliga",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from BL and GPFBL.",
       "imagePath": "2027/sbcs/91.png",
-      "endTime": "2026-12-06T18:00:01.080969Z",
+      "endTime": "2026-12-06T18:00:01.187577Z",
       "createdAt": "2026-10-28T18:00:20.628465Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -7218,8 +7217,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 5000,
-      "cost": 5740,
-      "costPc": 6850,
+      "cost": 4750,
+      "costPc": 5920,
       "pool": null,
       "awards": [
         {
@@ -7255,10 +7254,10 @@
             24578
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2870,
+          "cheapestSolutionPrice": 2375,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 3425,
+          "cheapestSolutionPricePc": 2960,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -7301,10 +7300,10 @@
             24579
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2870,
+          "cheapestSolutionPrice": 2375,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 3425,
+          "cheapestSolutionPricePc": 2960,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -7394,7 +7393,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/91.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "31 days",
+      "expiresIn": "30 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -7407,7 +7406,7 @@
       "name": "Boo Hoo Party",
       "description": "Start the party to earn a Large Electrum Players Pack.",
       "imagePath": "2027/sbcs/74.png",
-      "endTime": "2026-11-06T18:00:00.983233Z",
+      "endTime": "2026-11-06T18:00:00.419000Z",
       "createdAt": "2026-10-28T18:00:11.761261Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -7427,8 +7426,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 7000,
-      "costPc": 8000,
+      "cost": 6650,
+      "costPc": 7150,
       "pool": null,
       "awards": [
         {
@@ -7461,12 +7460,12 @@
           "description": "Start the party to earn a Large Electrum Players Pack.",
           "imagePath": "2027/sbcs/challenges/114.png",
           "awardsIds": [],
-          "cheapestSolutionId": 6902672,
-          "cheapestSolutionPrice": 7000,
-          "cheapestSolutionUrl": "/27/squad-builder/5f9e7a94-62c9-490a-825d-8646c428db2e/",
-          "cheapestSolutionPcId": 6902567,
-          "cheapestSolutionPricePc": 8000,
-          "cheapestSolutionPcUrl": "/27/squad-builder/cd81ab6a-466d-4fa6-9257-9923c67d863e/",
+          "cheapestSolutionId": 6905450,
+          "cheapestSolutionPrice": 6650,
+          "cheapestSolutionUrl": "/27/squad-builder/c0430f07-1608-4fc1-9eac-d2729e2e44e8/",
+          "cheapestSolutionPcId": 6905468,
+          "cheapestSolutionPricePc": 7150,
+          "cheapestSolutionPcUrl": "/27/squad-builder/392fc09b-b12d-424e-8655-904a17406a64/",
           "requirementsText": [
             "Same club: Max. 3 players",
             "Same league: Min. 4 players",
@@ -7512,7 +7511,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/74.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "1 day",
+      "expiresIn": "24 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -7525,7 +7524,7 @@
       "name": "Base Hero Player Pick",
       "description": "Earn 1 of 4 Base Hero Player Item between Rui Costa, Hernández, Larsson and Park Ji-sung. (See Reward Details)",
       "imagePath": "2027/sbcs/87.png",
-      "endTime": "2026-11-08T18:00:01.281196Z",
+      "endTime": "2026-11-08T18:00:01.392457Z",
       "createdAt": "2026-10-25T18:00:30.978182Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -7545,8 +7544,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 200000,
-      "cost": 214490,
-      "costPc": 256595,
+      "cost": 174725,
+      "costPc": 221720,
       "pool": {
         "id": 354,
         "name": "Base Hero Player Pick Pool",
@@ -7589,10 +7588,10 @@
           "imagePath": "2027/sbcs/challenges/132.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 214490,
+          "cheapestSolutionPrice": 174725,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 256595,
+          "cheapestSolutionPricePc": 221720,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -7633,7 +7632,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/87.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3 days",
+      "expiresIn": "2 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null,
       "choicePlayers": [
@@ -7684,7 +7683,7 @@
       "name": "Scary Candy",
       "description": "Find the scary candy and earn a Mixed Players Pack.",
       "imagePath": "2027/sbcs/73.png",
-      "endTime": "2026-11-06T18:00:00.976210Z",
+      "endTime": "2026-11-06T18:00:00.408665Z",
       "createdAt": "2026-10-25T18:00:10.534373Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -7704,8 +7703,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 5350,
-      "costPc": 5600,
+      "cost": 5000,
+      "costPc": 4800,
       "pool": null,
       "awards": [
         {
@@ -7738,12 +7737,12 @@
           "description": "Find the scary candy and earn a Mixed Players Pack.",
           "imagePath": "2027/sbcs/challenges/113.png",
           "awardsIds": [],
-          "cheapestSolutionId": 6902585,
-          "cheapestSolutionPrice": 5350,
-          "cheapestSolutionUrl": "/27/squad-builder/d1ac3906-b7ee-4bc0-afdf-903c3fef4a8a/",
-          "cheapestSolutionPcId": 6902663,
-          "cheapestSolutionPricePc": 5600,
-          "cheapestSolutionPcUrl": "/27/squad-builder/82664858-c61e-4fee-893a-bb20e03aaa48/",
+          "cheapestSolutionId": 6905355,
+          "cheapestSolutionPrice": 5000,
+          "cheapestSolutionUrl": "/27/squad-builder/0c09005c-b34c-4af6-bb8a-5cfac47bc6f9/",
+          "cheapestSolutionPcId": 6905308,
+          "cheapestSolutionPricePc": 4800,
+          "cheapestSolutionPcUrl": "/27/squad-builder/661fb0c6-1052-4270-834f-c98bab323e8c/",
           "requirementsText": [
             "Same league: Max. 5 players",
             "Same club: Min. 2 players",
@@ -7789,7 +7788,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/73.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "1 day",
+      "expiresIn": "24 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -7802,7 +7801,7 @@
       "name": "Spooky Nights",
       "description": "Escape the spooky night and earn a Small Gold Players Pack.",
       "imagePath": "2027/sbcs/72.png",
-      "endTime": "2026-11-06T18:00:00.967875Z",
+      "endTime": "2026-11-06T18:00:00.399658Z",
       "createdAt": "2026-10-23T17:00:22.357433Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -7822,8 +7821,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 3300,
-      "costPc": 7050,
+      "cost": 3550,
+      "costPc": 3050,
       "pool": null,
       "awards": [
         {
@@ -7856,12 +7855,12 @@
           "description": "Escape the spooky night and earn a Small Gold Players Pack.",
           "imagePath": "2027/sbcs/challenges/112.png",
           "awardsIds": [],
-          "cheapestSolutionId": 6902630,
-          "cheapestSolutionPrice": 3300,
-          "cheapestSolutionUrl": "/27/squad-builder/19813dbb-ec66-438f-9eb8-73537cd91aef/",
-          "cheapestSolutionPcId": 6902623,
-          "cheapestSolutionPricePc": 7050,
-          "cheapestSolutionPcUrl": "/27/squad-builder/8f2cfd66-0051-4d6d-9e71-d1732819f248/",
+          "cheapestSolutionId": 6905366,
+          "cheapestSolutionPrice": 3550,
+          "cheapestSolutionUrl": "/27/squad-builder/076307bb-8d64-42c5-b6e1-4b9226008783/",
+          "cheapestSolutionPcId": 6905350,
+          "cheapestSolutionPricePc": 3050,
+          "cheapestSolutionPcUrl": "/27/squad-builder/686fe93a-ff6f-44eb-8607-08584c60dd9f/",
           "requirementsText": [
             "Same nation: Min. 3 players",
             "Same league: Max. 4 players",
@@ -7906,7 +7905,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/72.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "1 day",
+      "expiresIn": "24 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -7919,7 +7918,7 @@
       "name": "Ligue 1 POTM September",
       "description": "Earn the Ligue 1 Player of the Month for September.",
       "imagePath": "2027/sbcs/58.png",
-      "endTime": "2026-11-10T17:00:01.244013Z",
+      "endTime": "2026-11-10T17:00:01.375972Z",
       "createdAt": "2026-10-13T16:00:30.352748Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -7939,8 +7938,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 123000,
-      "cost": 132450,
-      "costPc": 157630,
+      "cost": 107970,
+      "costPc": 136850,
       "pool": null,
       "awards": [
         {
@@ -8260,7 +8259,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 132450,
+            "price": 111680,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -8343,10 +8342,10 @@
           "imagePath": "2027/sbcs/challenges/95.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 132450,
+          "cheapestSolutionPrice": 107970,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 157630,
+          "cheapestSolutionPricePc": 136850,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -8684,7 +8683,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 132450,
+            "price": 111680,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -8756,7 +8755,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-67350325.d79a6ce2647bb953a03cc1af8af7763a95de765467e2912d26ec52ec081e7e2e.webp",
       "playerUrl": "/players/241461-ferran-torres/27-67350325/",
       "hasPlayerAward": true,
-      "expiresIn": "5 days",
+      "expiresIn": "4 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -8769,7 +8768,7 @@
       "name": "Intro to Player SBCs",
       "description": "Complete the Intro to Player SBCs to earn Squad Foundations Cristian Espinoza.",
       "imagePath": "2027/sbcs/20.png",
-      "endTime": "2035-08-31T17:00:00.926587Z",
+      "endTime": "2035-08-31T17:00:00.874050Z",
       "createdAt": "2026-09-24T17:00:19.217328Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -8789,8 +8788,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 4000,
-      "cost": 4450,
-      "costPc": 5375,
+      "cost": 3625,
+      "costPc": 4600,
       "pool": null,
       "awards": [
         {
@@ -9103,7 +9102,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 4375,
+            "price": 3750,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -9192,10 +9191,10 @@
           "imagePath": "2027/sbcs/challenges/47.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 4450,
+          "cheapestSolutionPrice": 3625,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 5375,
+          "cheapestSolutionPricePc": 4600,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -9526,7 +9525,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 4375,
+            "price": 3750,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -9604,7 +9603,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50558033.6f5ecad666e298fecbfc0113a4c6ed0493bd1c7a7a13829c9c34af9abb375582.webp",
       "playerUrl": "/players/226385-cristian-espinoza/27-50558033/",
       "hasPlayerAward": true,
-      "expiresIn": "3221 days",
+      "expiresIn": "3220 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -9617,7 +9616,7 @@
       "name": "Gold Upgrade",
       "description": "Exchange Gold items for rewards.",
       "imagePath": "2027/sbcs/6.png",
-      "endTime": "2035-08-20T17:00:01.073711Z",
+      "endTime": "2035-08-20T17:00:09.247206Z",
       "createdAt": "2026-09-15T20:13:32.506330Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -9637,8 +9636,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 8550,
-      "costPc": 9300,
+      "cost": 8400,
+      "costPc": 8450,
       "pool": null,
       "awards": [
         {
@@ -9671,12 +9670,12 @@
           "description": "Exchange Gold items for rewards.",
           "imagePath": "2027/sbcs/challenges/18.png",
           "awardsIds": [],
-          "cheapestSolutionId": 6902636,
-          "cheapestSolutionPrice": 8550,
-          "cheapestSolutionUrl": "/27/squad-builder/a6e9ab71-25a8-4d07-a294-01ac9cd21ae5/",
-          "cheapestSolutionPcId": 6902710,
-          "cheapestSolutionPricePc": 9300,
-          "cheapestSolutionPcUrl": "/27/squad-builder/03c88efe-2dde-4f7f-b1db-0ddefc304fe1/",
+          "cheapestSolutionId": 6905105,
+          "cheapestSolutionPrice": 8400,
+          "cheapestSolutionUrl": "/27/squad-builder/e89abe61-7651-4d4b-a0eb-4a891c49360e/",
+          "cheapestSolutionPcId": 6905510,
+          "cheapestSolutionPricePc": 8450,
+          "cheapestSolutionPcUrl": "/27/squad-builder/fc3c7e1d-f602-4a75-9729-34b66e1862ab/",
           "requirementsText": [
             "Quality: Min. Gold"
           ],
@@ -9716,7 +9715,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/6.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3210 days",
+      "expiresIn": "3209 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -9729,7 +9728,7 @@
       "name": "Silver Upgrade",
       "description": "Exchange Silver items for rewards.",
       "imagePath": "2027/sbcs/5.png",
-      "endTime": "2035-08-20T11:00:00.703975Z",
+      "endTime": "2035-08-20T11:00:00.604873Z",
       "createdAt": "2026-09-15T20:13:29.185429Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -9750,7 +9749,7 @@
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
       "cost": 2200,
-      "costPc": 2200,
+      "costPc": 2300,
       "pool": null,
       "awards": [
         {
@@ -9783,12 +9782,12 @@
           "description": "Exchange Silver items for rewards.",
           "imagePath": "2027/sbcs/challenges/42.png",
           "awardsIds": [],
-          "cheapestSolutionId": 6901930,
+          "cheapestSolutionId": 6905339,
           "cheapestSolutionPrice": 2200,
-          "cheapestSolutionUrl": "/27/squad-builder/ca060d49-fb3c-4d67-9958-1e8582c776e0/",
-          "cheapestSolutionPcId": 6902635,
-          "cheapestSolutionPricePc": 2200,
-          "cheapestSolutionPcUrl": "/27/squad-builder/cfb35ef1-cc4e-4540-944b-ff8068462793/",
+          "cheapestSolutionUrl": "/27/squad-builder/d6faa235-00f8-48c8-a51f-1399a613717b/",
+          "cheapestSolutionPcId": 6903524,
+          "cheapestSolutionPricePc": 2300,
+          "cheapestSolutionPcUrl": "/27/squad-builder/bb5f3421-c142-4f7a-9bb1-eeb09b9741a1/",
           "requirementsText": [
             "Quality: Silver only"
           ],
@@ -9828,7 +9827,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/5.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3210 days",
+      "expiresIn": "3209 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -9841,7 +9840,7 @@
       "name": "Bronze Upgrade",
       "description": "Exchange Bronze items for rewards.",
       "imagePath": "2027/sbcs/4.png",
-      "endTime": "2035-08-20T17:00:00.696491Z",
+      "endTime": "2035-08-20T17:00:00.600839Z",
       "createdAt": "2026-09-15T20:13:25.982246Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -9862,7 +9861,7 @@
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
       "cost": 2200,
-      "costPc": 2350,
+      "costPc": 2200,
       "pool": null,
       "awards": [
         {
@@ -9898,9 +9897,9 @@
           "cheapestSolutionId": 6901434,
           "cheapestSolutionPrice": 2200,
           "cheapestSolutionUrl": "/27/squad-builder/c1d0ac7f-730c-40bd-8688-867ffa5cf06f/",
-          "cheapestSolutionPcId": 6902215,
-          "cheapestSolutionPricePc": 2350,
-          "cheapestSolutionPcUrl": "/27/squad-builder/4d4a2250-fb28-45d2-a116-8632c28b9733/",
+          "cheapestSolutionPcId": 6905109,
+          "cheapestSolutionPricePc": 2200,
+          "cheapestSolutionPcUrl": "/27/squad-builder/8c859488-f9be-47c4-8ab9-f5639310af1b/",
           "requirementsText": [
             "Quality: Bronze only"
           ],
@@ -9940,7 +9939,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/4.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3210 days",
+      "expiresIn": "3209 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -9953,7 +9952,7 @@
       "name": "League & Nation Advanced",
       "description": "Complete these Puzzle-based challenges to earn rewards.",
       "imagePath": "2027/sbcs/10.png",
-      "endTime": "2035-08-31T17:00:00.960339Z",
+      "endTime": "2035-08-31T17:00:00.384049Z",
       "createdAt": "2026-09-15T20:13:22.599384Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -9976,8 +9975,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 23700,
-      "costPc": 24050,
+      "cost": 22800,
+      "costPc": 22150,
       "pool": null,
       "awards": [
         {
@@ -10028,12 +10027,12 @@
           "awardsIds": [
             24472
           ],
-          "cheapestSolutionId": 6902727,
-          "cheapestSolutionPrice": 8850,
-          "cheapestSolutionUrl": "/27/squad-builder/955b996e-a820-4b03-addb-297e7f1298ef/",
-          "cheapestSolutionPcId": 6902664,
-          "cheapestSolutionPricePc": 9600,
-          "cheapestSolutionPcUrl": "/27/squad-builder/44de1c54-2647-4c0c-9a6b-81de58c8d48e/",
+          "cheapestSolutionId": 6905397,
+          "cheapestSolutionPrice": 8200,
+          "cheapestSolutionUrl": "/27/squad-builder/55a74513-d76e-478c-9f3b-3a70d8637fe0/",
+          "cheapestSolutionPcId": 6905444,
+          "cheapestSolutionPricePc": 8550,
+          "cheapestSolutionPcUrl": "/27/squad-builder/6d5392b3-7671-4951-aa15-10f094d0858d/",
           "requirementsText": [
             "Leagues: Exactly 3",
             "Nations: Exactly 2",
@@ -10079,12 +10078,12 @@
           "awardsIds": [
             24473
           ],
-          "cheapestSolutionId": 6902728,
-          "cheapestSolutionPrice": 6150,
-          "cheapestSolutionUrl": "/27/squad-builder/9871609b-6b16-4af4-a0bd-a45070c65121/",
-          "cheapestSolutionPcId": 6902665,
-          "cheapestSolutionPricePc": 6100,
-          "cheapestSolutionPcUrl": "/27/squad-builder/009a6389-7948-4a64-a178-06309fc37b17/",
+          "cheapestSolutionId": 6905398,
+          "cheapestSolutionPrice": 6300,
+          "cheapestSolutionUrl": "/27/squad-builder/8a0abb68-3970-40fb-9ac6-af7bf24a92fc/",
+          "cheapestSolutionPcId": 6905356,
+          "cheapestSolutionPricePc": 5300,
+          "cheapestSolutionPcUrl": "/27/squad-builder/b384763a-d2a4-45df-8072-7643d7b1679c/",
           "requirementsText": [
             "Leagues: Exactly 4",
             "Nations: Exactly 5",
@@ -10130,12 +10129,12 @@
           "awardsIds": [
             24474
           ],
-          "cheapestSolutionId": 6902730,
-          "cheapestSolutionPrice": 8700,
-          "cheapestSolutionUrl": "/27/squad-builder/bc71feda-2004-4c45-873e-1f77445abdc7/",
-          "cheapestSolutionPcId": 6902666,
-          "cheapestSolutionPricePc": 8350,
-          "cheapestSolutionPcUrl": "/27/squad-builder/3c4645b3-ca9f-4754-b771-d498e54adc8d/",
+          "cheapestSolutionId": 6905399,
+          "cheapestSolutionPrice": 8300,
+          "cheapestSolutionUrl": "/27/squad-builder/adabb730-5d16-435a-aeb9-e260232ac7d7/",
+          "cheapestSolutionPcId": 6905451,
+          "cheapestSolutionPricePc": 8300,
+          "cheapestSolutionPcUrl": "/27/squad-builder/d5b8bc5d-9308-4760-8bc5-51d648124538/",
           "requirementsText": [
             "Leagues: Exactly 5",
             "Nations: Exactly 6",
@@ -10260,7 +10259,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/10.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3221 days",
+      "expiresIn": "3220 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -10273,7 +10272,7 @@
       "name": "Gold Re-Roll",
       "description": "Submit 1,250 Score to earn Rewards.",
       "imagePath": "2027/sbcs/9.png",
-      "endTime": "2035-08-20T17:00:00.916444Z",
+      "endTime": "2035-08-20T17:00:00.860064Z",
       "createdAt": "2026-09-15T20:13:19.292638Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -10293,8 +10292,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 1250,
-      "cost": 2585,
-      "costPc": 2465,
+      "cost": 2285,
+      "costPc": 2300,
       "pool": null,
       "awards": [
         {
@@ -10328,10 +10327,10 @@
           "imagePath": "2027/sbcs/challenges/24.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2585,
+          "cheapestSolutionPrice": 2285,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 2465,
+          "cheapestSolutionPricePc": 2300,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 83"
@@ -10372,7 +10371,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/9.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3210 days",
+      "expiresIn": "3209 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -10385,7 +10384,7 @@
       "name": "Bronze and Silver Re-roll",
       "description": "Submit 500 Score to earn Rewards.",
       "imagePath": "2027/sbcs/8.png",
-      "endTime": "2035-08-20T17:00:00.901038Z",
+      "endTime": "2035-08-20T17:00:00.845656Z",
       "createdAt": "2026-09-15T20:13:16.191134Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -10405,8 +10404,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 500,
-      "cost": 2450,
-      "costPc": 2570,
+      "cost": 2270,
+      "costPc": 2300,
       "pool": null,
       "awards": [
         {
@@ -10440,10 +10439,10 @@
           "imagePath": "2027/sbcs/challenges/23.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2450,
+          "cheapestSolutionPrice": 2270,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 2570,
+          "cheapestSolutionPricePc": 2300,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 79"
@@ -10484,7 +10483,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/8.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3210 days",
+      "expiresIn": "3209 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -10497,7 +10496,7 @@
       "name": "Intro to Streamlined SBCs",
       "description": "Submit any players from your collection to earn rewards",
       "imagePath": "2027/sbcs/7.png",
-      "endTime": "2035-08-20T17:00:00.870356Z",
+      "endTime": "2035-08-20T17:00:00.837546Z",
       "createdAt": "2026-09-15T20:13:11.895287Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -10521,8 +10520,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 1000,
-      "cost": 8475,
-      "costPc": 8420,
+      "cost": 8345,
+      "costPc": 8330,
       "pool": null,
       "awards": [
         {
@@ -10666,10 +10665,10 @@
             24466
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 875,
+          "cheapestSolutionPrice": 745,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 820,
+          "cheapestSolutionPricePc": 730,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "League: Premier League"
@@ -10853,7 +10852,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/7.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3210 days",
+      "expiresIn": "3209 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -10866,7 +10865,7 @@
       "name": "Intro to Upgrade SBCs",
       "description": "Complete these Upgrade-based challenges to earn rewards. ",
       "imagePath": "2027/sbcs/3.png",
-      "endTime": "2035-08-20T17:00:00.829046Z",
+      "endTime": "2035-08-20T17:00:00.315895Z",
       "createdAt": "2026-09-15T20:13:07.545947Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -10888,8 +10887,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 18650,
-      "costPc": 18300,
+      "cost": 19650,
+      "costPc": 18400,
       "pool": null,
       "awards": [
         {
@@ -10924,12 +10923,12 @@
           "awardsIds": [
             24459
           ],
-          "cheapestSolutionId": 6902631,
-          "cheapestSolutionPrice": 2200,
-          "cheapestSolutionUrl": "/27/squad-builder/00d81e9d-7b6b-4a0e-88cf-97c5d424b283/",
-          "cheapestSolutionPcId": 6902712,
+          "cheapestSolutionId": 6905491,
+          "cheapestSolutionPrice": 2450,
+          "cheapestSolutionUrl": "/27/squad-builder/8df96044-1e3e-4342-9f85-1a9fef78d8b9/",
+          "cheapestSolutionPcId": 6905209,
           "cheapestSolutionPricePc": 2200,
-          "cheapestSolutionPcUrl": "/27/squad-builder/fe6d9748-d8c4-4d37-8ad0-143f54cd4961/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/cac706b8-ce95-429e-a944-1aba4075e710/",
           "requirementsText": [
             "Quality: Min. 11 Bronze players",
             "Team rating: Max. 64"
@@ -10971,12 +10970,12 @@
           "awardsIds": [
             24460
           ],
-          "cheapestSolutionId": 6902633,
-          "cheapestSolutionPrice": 7600,
-          "cheapestSolutionUrl": "/27/squad-builder/f27d2799-a9ad-421c-ba07-996959c1f149/",
-          "cheapestSolutionPcId": 6902713,
-          "cheapestSolutionPricePc": 7100,
-          "cheapestSolutionPcUrl": "/27/squad-builder/ce2f6f24-7797-482e-a2b1-da2fba2d800b/",
+          "cheapestSolutionId": 6905493,
+          "cheapestSolutionPrice": 8350,
+          "cheapestSolutionUrl": "/27/squad-builder/5794eee8-b352-42bb-ae29-409a937e4876/",
+          "cheapestSolutionPcId": 6905372,
+          "cheapestSolutionPricePc": 7450,
+          "cheapestSolutionPcUrl": "/27/squad-builder/6e0fe608-0e35-4856-93cf-27af52c0a67d/",
           "requirementsText": [
             "Quality: Min. 11 Silver players"
           ],
@@ -11017,12 +11016,12 @@
           "awardsIds": [
             24461
           ],
-          "cheapestSolutionId": 6902634,
+          "cheapestSolutionId": 6905494,
           "cheapestSolutionPrice": 8850,
-          "cheapestSolutionUrl": "/27/squad-builder/9ce781b4-4a96-4550-b973-0d5e73395bbc/",
-          "cheapestSolutionPcId": 6902714,
-          "cheapestSolutionPricePc": 9000,
-          "cheapestSolutionPcUrl": "/27/squad-builder/e0e62552-e68e-4943-ba20-b2485ca87b0c/",
+          "cheapestSolutionUrl": "/27/squad-builder/f6b6a9ac-6f21-4250-b3fd-315750bdaf9c/",
+          "cheapestSolutionPcId": 6905373,
+          "cheapestSolutionPricePc": 8750,
+          "cheapestSolutionPcUrl": "/27/squad-builder/70fd54cb-da99-4bb6-bf98-a0ba432ca3a5/",
           "requirementsText": [
             "Quality: Min. 11 Gold players",
             "Team rating: Max. 85",
@@ -11129,7 +11128,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/3.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3210 days",
+      "expiresIn": "3209 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -11142,7 +11141,7 @@
       "name": "Intro to SBCs",
       "description": "Complete these OVR-based challenges to earn rewards. ",
       "imagePath": "2027/sbcs/1.png",
-      "endTime": "2035-08-20T17:00:00.812560Z",
+      "endTime": "2035-08-20T17:00:00.304582Z",
       "createdAt": "2026-09-15T20:13:01.726932Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -11165,8 +11164,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 7450,
-      "costPc": 6650,
+      "cost": 6950,
+      "costPc": 6550,
       "pool": null,
       "awards": [
         {
@@ -11249,10 +11248,10 @@
             24455
           ],
           "cheapestSolutionId": 6863346,
-          "cheapestSolutionPrice": 1850,
+          "cheapestSolutionPrice": 1800,
           "cheapestSolutionUrl": "/27/squad-builder/afc78737-927c-441b-941d-a0dd05f503b2/",
           "cheapestSolutionPcId": 6884313,
-          "cheapestSolutionPricePc": 1300,
+          "cheapestSolutionPricePc": 1200,
           "cheapestSolutionPcUrl": "/27/squad-builder/bcf0463d-26fa-44ef-be89-c67238a9fb42/",
           "requirementsText": [
             "Rating: Min. 2 players rated 65+",
@@ -11297,10 +11296,10 @@
             24456
           ],
           "cheapestSolutionId": 6871596,
-          "cheapestSolutionPrice": 2150,
+          "cheapestSolutionPrice": 1950,
           "cheapestSolutionUrl": "/27/squad-builder/c184c8fa-39cf-4d66-a3f8-3973f932d9b9/",
           "cheapestSolutionPcId": 6894306,
-          "cheapestSolutionPricePc": 2050,
+          "cheapestSolutionPricePc": 2100,
           "cheapestSolutionPcUrl": "/27/squad-builder/a57765fb-194a-47e5-831f-6c1854a96274/",
           "requirementsText": [
             "Rating: Min. 3 players rated 65+",
@@ -11344,12 +11343,12 @@
           "awardsIds": [
             24457
           ],
-          "cheapestSolutionId": 6902648,
-          "cheapestSolutionPrice": 3250,
-          "cheapestSolutionUrl": "/27/squad-builder/b67a74ae-60e0-4635-a21d-141d8abe062e/",
-          "cheapestSolutionPcId": 6902739,
-          "cheapestSolutionPricePc": 3100,
-          "cheapestSolutionPcUrl": "/27/squad-builder/dee1865e-6c0e-4ae2-95e3-d0366d3afeca/",
+          "cheapestSolutionId": 6905284,
+          "cheapestSolutionPrice": 3000,
+          "cheapestSolutionUrl": "/27/squad-builder/46cef7f7-d506-45c6-af88-d48a81235110/",
+          "cheapestSolutionPcId": 6905499,
+          "cheapestSolutionPricePc": 3050,
+          "cheapestSolutionPcUrl": "/27/squad-builder/7cc1145c-2fd6-4378-8e17-0a7987ef235d/",
           "requirementsText": [
             "Rating: Min. 4 players rated 75+",
             "Rating: Min. 4 players rated 84 or lower",
@@ -11472,10 +11471,10 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/1.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "3210 days",
+      "expiresIn": "3209 days",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     }
   ],
-  "fetchedAt": "2026-11-05T07:06:42.955Z"
+  "fetchedAt": "2026-11-05T18:05:56.298Z"
 }
