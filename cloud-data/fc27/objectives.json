@@ -1,8 +1,89 @@
 {
   "ver": 27,
   "count": 47,
-  "fetchedAt": "2026-11-07T18:07:22.508Z",
+  "fetchedAt": "2026-11-08T18:07:01.635Z",
   "groups": [
+    {
+      "id": 2677,
+      "slug": "195-transfer-embargo-flash-rush",
+      "name": "Transfer Embargo Flash Rush",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
+      "description": "Play in the Transfer Embargo Flash Rush Event to earn exclusive rewards. All rewards are untradeable.",
+      "startTime": "2026-11-08T18:00:00Z",
+      "endTime": "2026-11-11T17:59:59Z",
+      "tasksCount": 3,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "1 Of 5 81+ Gold Player Pick",
+          "count": 1
+        },
+        {
+          "type": "XP",
+          "name": "250 SP",
+          "count": 1,
+          "xp": 250
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13475,
+          "name": "禁止退出",
+          "description": "在转会禁令快攻活动中赢得2场比赛。",
+          "awards": [
+            {
+              "type": "EVO_UNLOCK",
+              "name": "Hawk Instinct",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+            }
+          ],
+          "nameEn": "No Exit Allowed",
+          "descriptionEn": "Win 2 matches in the Transfer Embargo Flash Rush Event."
+        },
+        {
+          "id": 13476,
+          "name": "学院信任",
+          "description": "在转会禁令快攻活动中，使用最高85 PAC的球员在3场不同比赛中助攻。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 75+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 75+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 75 or higher."
+              }
+            }
+          ],
+          "nameEn": "Academy Trust",
+          "descriptionEn": "Assist in 3 separate matches with a Player with max. 85 PAC in the Transfer Embargo Flash Rush Event."
+        },
+        {
+          "id": 13477,
+          "name": "压哨签约",
+          "description": "在转会禁令快攻活动中，使用前锋（主要位置）在3场不同比赛中进球。",
+          "awards": [
+            {
+              "type": "EVO_UNLOCK",
+              "name": "Cosmic Drift",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+            }
+          ],
+          "nameEn": "Signed Before the Buzzer",
+          "descriptionEn": "Score in 3 separate matches with a ST (Primary Position) in the Transfer Embargo Flash Rush Event."
+        }
+      ]
+    },
     {
       "id": 2676,
       "slug": "187-road-to-the-knockouts-tiago-djalo",
@@ -11,12 +92,12 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete challenges to earn Road to the Knockouts: Tiago Djaló and other rewards. All rewards are untradeable.",
       "startTime": "2026-11-07T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
       "tasksCount": 5,
-      "isNew": true,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
@@ -122,6 +203,155 @@
       ]
     },
     {
+      "id": 2674,
+      "slug": "188-road-to-the-knockouts-group-stage",
+      "name": "Road to the Knockouts: Group Stage",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
+      "description": "Complete these group stage challenges to earn packs and more. All rewards are untradeable.",
+      "startTime": "2026-11-06T18:00:00Z",
+      "endTime": "2026-11-13T17:59:59Z",
+      "tasksCount": 7,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 85+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 85+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 85 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13459,
+          "name": "精英中的精英",
+          "description": "在组内对抗中，首发十一人包含至少4名首次拥有的球员，在至少半职业难度下赢得10场独立比赛（或快攻/对手赛/冠军赛/现场活动）。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 3 84+ Gold Player Pick",
+              "count": 1
+            }
+          ],
+          "nameEn": "Best of the Best",
+          "descriptionEn": "Win 10 separate matches while having min. 4 First Owned players in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        },
+        {
+          "id": 13460,
+          "name": "波普的万福玛利亚",
+          "description": "在任意FUT比赛模式中，使用一名门将助攻，首发十一人包含至少1名英格兰球员。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "10X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "10x 80+ Gold Players Pack",
+                "description": "Contains 10 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ],
+          "nameEn": "Pope's Hail Mary",
+          "descriptionEn": "Assist with a GK with min. 1 English player in your starting XI in any FUT game mode."
+        },
+        {
+          "id": 13461,
+          "name": "格列兹曼的世界波",
+          "description": "在任意FUT比赛模式中，使用一名法国球员打入一记倒钩射门，首发十一人包含至少1名法国球员。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "10X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "10x 80+ Gold Players Pack",
+                "description": "Contains 10 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ],
+          "nameEn": "Grizi's Golazo",
+          "descriptionEn": "Score a bicycle kick with min. 1 French player in your starting XI in any FUT game mode."
+        },
+        {
+          "id": 13462,
+          "name": "哈德尔的帽子戏法",
+          "description": "在任意游戏模式中，使用一名GPFBL球员打入帽子戏法",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 84+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 84+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 84 or higher."
+              }
+            }
+          ],
+          "nameEn": "Harder's Hat-trick",
+          "descriptionEn": "Score a hat-trick with a player from GPFBL in any game mode"
+        },
+        {
+          "id": 13463,
+          "name": "毒蛇Vitinha",
+          "description": "在组内对抗中，使用一名法甲中前卫在禁区外打入一球并获胜，至少半职业难度（或快攻/对手赛/冠军赛/现场活动）。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 82+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 82+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 82 or higher."
+              }
+            }
+          ],
+          "nameEn": "Venemous Vitinha",
+          "descriptionEn": "Score a goal outside the box with a Ligue 1 CM and win in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        },
+        {
+          "id": 13464,
+          "name": "反抢的崛起",
+          "description": "在组内对抗中，首发十一人包含至少1名多特蒙德球员，在5场独立比赛中进球，至少半职业难度（或快攻/对手赛/冠军赛/现场活动）。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "1 Of 3 78+ Gold Player Pick",
+              "count": 1
+            }
+          ],
+          "nameEn": "The rise of Gegenpressing",
+          "descriptionEn": "Score in 5 separate matches while having min. 1 Borussia Dortmund player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        },
+        {
+          "id": 13465,
+          "name": "11%的奇迹",
+          "description": "在组内对抗中，首发十一人包含至少1名苏格兰球员，打入2球且失球不超过1球，至少半职业难度（或快攻/对手赛/冠军赛/现场活动）。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "Consumables Pack",
+              "count": 1,
+              "pack": {
+                "name": "Consumables Pack",
+                "description": "Includes 12 Gold Consumable Items."
+              }
+            }
+          ],
+          "nameEn": "The 11% Miracle",
+          "descriptionEn": "Score 2 goals while conceding 1 or less goals with min. 1 Scottish player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        }
+      ]
+    },
+    {
       "id": 2675,
       "slug": "204-road-to-the-knockouts-event",
       "name": "Road to the Knockouts Event",
@@ -129,7 +359,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Compete in the Road to the Knockouts Event to earn RTTK Emiliano Buendía, packs and more. All rewards are untradeable.",
       "startTime": "2026-11-06T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
@@ -237,7 +467,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete 8 of 10 challenges in the Ultimate Gauntlet 3 and earn exclusive rewards! All rewards are untradable.",
       "startTime": "2026-11-06T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
@@ -441,213 +671,6 @@
       ]
     },
     {
-      "id": 2674,
-      "slug": "188-road-to-the-knockouts-group-stage",
-      "name": "Road to the Knockouts: Group Stage",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
-      "description": "Complete these group stage challenges to earn packs and more. All rewards are untradeable.",
-      "startTime": "2026-11-06T18:00:00Z",
-      "endTime": "2026-11-13T17:59:59Z",
-      "tasksCount": 7,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PACK",
-          "name": "2X 85+ Gold Players Pack",
-          "count": 1,
-          "pack": {
-            "name": "2x 85+ Gold Players Pack",
-            "description": "Contains 2 Gold Player Items, rated 85 or higher."
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13459,
-          "name": "精英中的精英",
-          "description": "在组内对抗中，首发十一人包含至少4名首次拥有的球员，在至少半职业难度下赢得10场独立比赛（或快攻/对手赛/冠军赛/现场活动）。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "1 Of 3 84+ Gold Player Pick",
-              "count": 1
-            }
-          ],
-          "nameEn": "Best of the Best",
-          "descriptionEn": "Win 10 separate matches while having min. 4 First Owned players in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
-        },
-        {
-          "id": 13460,
-          "name": "波普的万福玛利亚",
-          "description": "在任意FUT比赛模式中，使用一名门将助攻，首发十一人包含至少1名英格兰球员。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "10X 80+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "10x 80+ Gold Players Pack",
-                "description": "Contains 10 Gold Player Items, rated 80 or higher."
-              }
-            }
-          ],
-          "nameEn": "Pope's Hail Mary",
-          "descriptionEn": "Assist with a GK with min. 1 English player in your starting XI in any FUT game mode."
-        },
-        {
-          "id": 13461,
-          "name": "格列兹曼的世界波",
-          "description": "在任意FUT比赛模式中，使用一名法国球员打入一记倒钩射门，首发十一人包含至少1名法国球员。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "10X 80+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "10x 80+ Gold Players Pack",
-                "description": "Contains 10 Gold Player Items, rated 80 or higher."
-              }
-            }
-          ],
-          "nameEn": "Grizi's Golazo",
-          "descriptionEn": "Score a bicycle kick with min. 1 French player in your starting XI in any FUT game mode."
-        },
-        {
-          "id": 13462,
-          "name": "哈德尔的帽子戏法",
-          "description": "在任意游戏模式中，使用一名GPFBL球员打入帽子戏法",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 84+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 84+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 84 or higher."
-              }
-            }
-          ],
-          "nameEn": "Harder's Hat-trick",
-          "descriptionEn": "Score a hat-trick with a player from GPFBL in any game mode"
-        },
-        {
-          "id": 13463,
-          "name": "毒蛇Vitinha",
-          "description": "在组内对抗中，使用一名法甲中前卫在禁区外打入一球并获胜，至少半职业难度（或快攻/对手赛/冠军赛/现场活动）。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "3X 82+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "3x 82+ Gold Players Pack",
-                "description": "Contains 3 Gold Player Items, rated 82 or higher."
-              }
-            }
-          ],
-          "nameEn": "Venemous Vitinha",
-          "descriptionEn": "Score a goal outside the box with a Ligue 1 CM and win in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
-        },
-        {
-          "id": 13464,
-          "name": "反抢的崛起",
-          "description": "在组内对抗中，首发十一人包含至少1名多特蒙德球员，在5场独立比赛中进球，至少半职业难度（或快攻/对手赛/冠军赛/现场活动）。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "1 Of 3 78+ Gold Player Pick",
-              "count": 1
-            }
-          ],
-          "nameEn": "The rise of Gegenpressing",
-          "descriptionEn": "Score in 5 separate matches while having min. 1 Borussia Dortmund player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
-        },
-        {
-          "id": 13465,
-          "name": "11%的奇迹",
-          "description": "在组内对抗中，首发十一人包含至少1名苏格兰球员，打入2球且失球不超过1球，至少半职业难度（或快攻/对手赛/冠军赛/现场活动）。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "Consumables Pack",
-              "count": 1,
-              "pack": {
-                "name": "Consumables Pack",
-                "description": "Includes 12 Gold Consumable Items."
-              }
-            }
-          ],
-          "nameEn": "The 11% Miracle",
-          "descriptionEn": "Score 2 goals while conceding 1 or less goals with min. 1 Scottish player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
-        }
-      ]
-    },
-    {
-      "id": 2671,
-      "slug": "170-daily-objectives",
-      "name": "Daily Objectives",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
-      "description": "Play, complete and earn SP from daily objective every 24 hours!",
-      "startTime": "2026-11-05T18:00:00Z",
-      "endTime": "2026-11-12T17:59:59Z",
-      "tasksCount": 2,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "XP",
-          "name": "10 SP",
-          "count": 1,
-          "xp": 10
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13445,
-          "name": "进行1场",
-          "description": "在任意 FUT 游戏模式中进行1场比赛。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "10 SP",
-              "count": 1,
-              "xp": 10
-            }
-          ],
-          "nameEn": "Play 1",
-          "descriptionEn": "Play 1 match in any FUT game mode."
-        },
-        {
-          "id": 13446,
-          "name": "进球成功",
-          "description": "在任意 FUT 游戏模式中打入2球。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "10 SP",
-              "count": 1,
-              "xp": 10
-            }
-          ],
-          "nameEn": "Scoring Success",
-          "descriptionEn": "Score 2 goals in any FUT game mode."
-        }
-      ]
-    },
-    {
       "id": 2672,
       "slug": "191-fc-pro-open-global-qualifier",
       "name": "FC Pro Open Global Qualifier",
@@ -655,7 +678,7 @@
         "slug": "fc-pro",
         "name": "FC Pro"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Join in on the action of the FC Pro Open Global Qualifier Broadcast at Twitch/EASPORTSFC or YouTube/EASPORTSFCPRO to earn your viewership rewards! All rewards are untradeable.",
       "startTime": "2026-11-05T18:00:00Z",
       "endTime": "2026-11-14T17:59:59Z",
@@ -722,7 +745,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete Weekly Objectives to earn SP!",
       "startTime": "2026-11-05T18:00:00Z",
       "endTime": "2026-11-12T17:59:59Z",
@@ -818,6 +841,64 @@
       ]
     },
     {
+      "id": 2671,
+      "slug": "170-daily-objectives",
+      "name": "Daily Objectives",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
+      "description": "Play, complete and earn SP from daily objective every 24 hours!",
+      "startTime": "2026-11-05T18:00:00Z",
+      "endTime": "2026-11-12T17:59:59Z",
+      "tasksCount": 2,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "XP",
+          "name": "10 SP",
+          "count": 1,
+          "xp": 10
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13445,
+          "name": "进行1场",
+          "description": "在任意 FUT 游戏模式中进行1场比赛。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ],
+          "nameEn": "Play 1",
+          "descriptionEn": "Play 1 match in any FUT game mode."
+        },
+        {
+          "id": 13446,
+          "name": "进球成功",
+          "description": "在任意 FUT 游戏模式中打入2球。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ],
+          "nameEn": "Scoring Success",
+          "descriptionEn": "Score 2 goals in any FUT game mode."
+        }
+      ]
+    },
+    {
       "id": 2669,
       "slug": "150-weekly-rush-points",
       "name": "Weekly Rush Points",
@@ -825,7 +906,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete Rush Bonuses alongside your teammates to earn Rush Points and pack rewards! All rewards are untradeable.",
       "startTime": "2026-11-03T18:00:00Z",
       "endTime": "2026-11-10T17:59:59Z",
@@ -946,7 +1027,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete this objective to earn the Movember kit and stadium items! All rewards are untradeable.",
       "startTime": "2026-11-01T18:00:00Z",
       "endTime": "2026-11-30T17:59:59Z",
@@ -1024,85 +1105,6 @@
       ]
     },
     {
-      "id": 2666,
-      "slug": "178-liga-bbva-mx-el-dia-de-muertos",
-      "name": "Liga BBVA MX - El Día De Muertos",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
-      "description": "Celebrate 'El Día de Muertos' in Football Ultimate Team! Complete challenges to earn an exclusive kit. All rewards are untradeable.",
-      "startTime": "2026-11-01T18:00:00Z",
-      "endTime": "2026-11-08T17:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "ITEM",
-          "name": "Liga Bbva Mx - Día De Muertos",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13426,
-          "name": "冠军",
-          "description": "在组内对抗中，最低半职业难度（或对手赛/现场活动/快攻/Champs），首发十一人中至少有 1 名来自 Liga BBVA MX 的球员，赢得 3 场比赛。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "1,000 Coins",
-              "count": 1,
-              "coins": 1000
-            }
-          ],
-          "nameEn": "Los Campeones",
-          "descriptionEn": "Win 3 matches while having min. 1 player from Liga BBVA MX in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champs)."
-        },
-        {
-          "id": 13427,
-          "name": "埃尔特里",
-          "description": "在组内对抗中，最低半职业难度（或对手赛/现场活动/快攻/Champs），首发十一人中至少有 3 名墨西哥球员，进行 5 场比赛。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Coin Boost",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004066.png"
-            }
-          ],
-          "nameEn": "El Tri",
-          "descriptionEn": "Play 5 matches while having min. 3 Mexican players in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champs)."
-        },
-        {
-          "id": 13428,
-          "name": "禁区杀手",
-          "description": "在组内对抗中，最低半职业难度（或对手赛/现场活动/快攻/Champs），首发十一人中至少有 2 名来自 Liga BBVA MX 的球员，打进 4 球。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Hunter",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
-            },
-            {
-              "type": "ITEM",
-              "name": "Hawk",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003100.png"
-            }
-          ],
-          "nameEn": "El Matón del área",
-          "descriptionEn": "Score 4 goals while having min. 2 players from Liga BBVA MX in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champs)."
-        }
-      ]
-    },
-    {
       "id": 2664,
       "slug": "181-bundesliga-x-playmobil-kit",
       "name": "Bundesliga x Playmobil Kit",
@@ -1110,7 +1112,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete this objective to earn the Bundesliga x Playmobil kit! All rewards are untradeable.",
       "startTime": "2026-10-30T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
@@ -1183,7 +1185,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Make progress in the Ultimate Scream Gallery Set and earn exclusive Ultimate Scream rewards! All rewards are untradeable.",
       "startTime": "2026-10-23T17:00:00Z",
       "endTime": "2026-11-20T17:59:59Z",
@@ -1286,7 +1288,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete the FC Heritage Circuit Objectives to earn rewards. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1365,7 +1367,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Compete in the FC Heritage Circuit World Class Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1480,7 +1482,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete 7 of 8 challenges in the Season 2 Daily Knockout Tournament and earn packs, coins, and exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1652,7 +1654,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Compete in the FC Heritage Circuit Semi-Pro Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1767,7 +1769,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Compete in the FC Heritage Circuit Professional Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1882,7 +1884,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Compete in the FC Heritage Circuit Tournament to earn a special FC Heritage Alexis Sánchez, packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2042,7 +2044,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Compete in the FC Heritage Circuit Kick Off Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2139,7 +2141,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Compete in the Season 2 Daily Knockout Tournament to earn exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2182,7 +2184,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete all Season 2 Daily Knockout Tournament Weekly Play objectives to earn FC Heritage Axel Witsel and Coins! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2291,7 +2293,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Learn the basics of the Gallery! Grade and complete Sets, achieve Rank S, and increase your Gallery Level as you explore everything the Gallery has to offer. All rewards are untradeable.",
       "startTime": "2026-09-25T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2412,7 +2414,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete this objective and choose 1 Squad Foundations Player Item from: Miley (Premier League), Moi Gómez (LALIGA EA SPORTS), Banzuzi (Bundesliga), or Danois (Ligue 1). All rewards are untradeable.",
       "startTime": "2026-09-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2454,7 +2456,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete challenges celebrating manager Ted Lasso and AFC Richmond to earn exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-09-11T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2590,7 +2592,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "The ultimate test of skill awaits in Division Rivals. Battle against the competition and emerge victorious.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2673,7 +2675,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "The challenge is set. Take to the pitch in Squad Battles and battle through the competition.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2764,7 +2766,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Get acquainted with Live Events matches.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2841,7 +2843,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Wheel and deal your way to Transfer Market Mastery!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2929,7 +2931,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Draft your path to greatness!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3016,7 +3018,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "PVE Live Events offer a new way to play. Compete, earn and upgrade your way to the top. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3158,7 +3160,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Team up with Friends to embark on the Co-op journey!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3251,7 +3253,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Squad up and complete Rush bonuses alongside other players as you try to reign supreme in Rush!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3384,7 +3386,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete Moments challenges and earn stars to show your football dominance!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3472,7 +3474,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3553,7 +3555,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Prove your worth by completing each of the Foundation Objectives groups to earn big rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3660,7 +3662,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Every legend has a beginning. Enter Champions and begin your path to becoming the Golden G.O.A.T.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3748,7 +3750,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Grow your Gallery Score, hit new levels, and earn rewards to build the ultimate club showcase!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3853,7 +3855,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Assemble a squad with First Owned (acquired from packs, objectives and SBCs) players and complete these Milestones!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3941,7 +3943,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Tally up your goals and assists and become a G/A Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4110,7 +4112,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4207,7 +4209,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Wheel and deal your way to Transfer Market Mastery!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4364,7 +4366,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Generate that winning feeling in Live Events matches!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4449,7 +4451,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Keep battling over the year to prove you are a Squad Battles Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4534,7 +4536,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Beat your Rivals to prove you are the G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4619,7 +4621,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "All good clubs need polishing on and off the pitch. Complete these maintenance objectives to earn rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4768,7 +4770,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "Complete these Squad Building Challenges to earn rewards and improve your squad. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4872,7 +4874,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-07T18:07:22.508Z",
+      "_fetchedAt": "2026-11-08T18:07:01.635Z",
       "description": "The stage is set! Show everyone you have what it takes to be the Golden G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
