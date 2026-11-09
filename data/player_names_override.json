@@ -1,0 +1,12 @@
+{
+  "_meta": {
+    "note": "人工覆盖层：gen_player_names_zh.js 合并时优先于 Wikipedia。用于①热门异译（如莱斯↔赖斯）②Wikipedia 译名与你公众号口径不符的纠错③Wikipedia 漏掉的球员。key=commonName（与底表一致），value={zh, alias[]}。"
+  },
+  "Declan Rice": { "zh": "德克兰·赖斯", "alias": ["莱斯", "赖斯"] },
+  "Mohamed Salah": { "zh": "穆罕默德·萨拉赫", "alias": ["萨拉赫", "埃及梅西"] },
+  "Kevin De Bruyne": { "zh": "凯文·德布劳内", "alias": ["丁丁", "德布劳内"] },
+  "Erling Haaland": { "zh": "埃尔林·哈兰德", "alias": ["哈兰德", "魔人布欧"] },
+  "Kylian Mbappe": { "zh": "基利安·姆巴佩", "alias": ["姆巴佩", "姆总"] },
+  "Lionel Messi": { "zh": "利昂内尔·梅西", "alias": ["梅西"] },
+  "Cristiano Ronaldo": { "zh": "克里斯蒂亚诺·罗纳尔多", "alias": ["C罗", "罗纳尔多"] }
+}
