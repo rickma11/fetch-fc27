@@ -1,8 +1,313 @@
 {
   "ver": 27,
-  "count": 48,
-  "fetchedAt": "2026-11-10T17:08:55.940Z",
+  "count": 49,
+  "fetchedAt": "2026-11-10T18:06:48.244Z",
   "groups": [
+    {
+      "id": 2659,
+      "slug": "142-the-top-500-fc-pro-open-cup-1",
+      "name": "The Top 500: FC Pro Open Cup 1",
+      "category": {
+        "slug": "fc-pro",
+        "name": "FC Pro"
+      },
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
+      "description": "Compete and reach the top level of your region's leaderboard in the FC Pro Open Cup 1 to earn rewards. All rewards are untradeable.",
+      "startTime": "2026-11-10T18:00:00Z",
+      "endTime": "2026-11-17T17:59:59Z",
+      "tasksCount": 10,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Badge",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+        },
+        {
+          "type": "ITEM",
+          "name": "Fc Pro Open Trophy",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/10600036.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13487,
+          "name": "大洋洲前500名",
+          "description": "在FC Pro 公开赛杯 1的大洋洲赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in Oceania",
+          "descriptionEn": "Finish top 500 in the Oceania region in the FC Pro Open Cup 1."
+        },
+        {
+          "id": 13488,
+          "name": "北美洲前500名",
+          "description": "在FC Pro 公开赛杯 1的北美洲赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in North America",
+          "descriptionEn": "Finish top 500 in the North America region in the FC Pro Open Cup 1."
+        },
+        {
+          "id": 13489,
+          "name": "中东前500名",
+          "description": "在FC Pro 公开赛杯 1的中东赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in Middle East",
+          "descriptionEn": "Finish top 500 in the Middle East region in the FC Pro Open Cup 1."
+        },
+        {
+          "id": 13490,
+          "name": "LATAM南部前500名",
+          "description": "在FC Pro 公开赛杯 1的血亏ATAM南部赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in LATAM South",
+          "descriptionEn": "Finish top 500 in the LATAM South region in the FC Pro Open Cup 1."
+        },
+        {
+          "id": 13491,
+          "name": "LATAM北部前500名",
+          "description": "在FC Pro 公开赛杯 1的血亏ATAM北部赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in LATAM North",
+          "descriptionEn": "Finish top 500 in the LATAM North region in the FC Pro Open Cup 1."
+        },
+        {
+          "id": 13492,
+          "name": "欧洲东部前500名",
+          "description": "在FC Pro 公开赛杯 1的欧洲东部赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in Europe East",
+          "descriptionEn": "Finish top 500 in the Europe East region in the FC Pro Open Cup 1."
+        },
+        {
+          "id": 13493,
+          "name": "欧洲西部前500名",
+          "description": "在FC Pro 公开赛杯 1的欧洲西部赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in Europe West",
+          "descriptionEn": "Finish top 500 in the Europe West region in the FC Pro Open Cup 1."
+        },
+        {
+          "id": 13494,
+          "name": "亚洲南部前500名",
+          "description": "在FC Pro 公开赛杯 1的亚洲南部赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in Asia South",
+          "descriptionEn": "Finish top 500 in the Asia South region in the FC Pro Open Cup 1."
+        },
+        {
+          "id": 13495,
+          "name": "亚洲北部前500名",
+          "description": "在FC Pro 公开赛杯 1的亚洲北部赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in Asia North",
+          "descriptionEn": "Finish top 500 in the Asia North region in the FC Pro Open Cup 1."
+        },
+        {
+          "id": 13496,
+          "name": "非洲前500名",
+          "description": "在FC Pro 公开赛杯 1的非洲赛区进入前500名。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Fc Pro 500 Club",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Top 500 in Africa",
+          "descriptionEn": "Finish top 500 in the Africa region in the FC Pro Open Cup 1."
+        }
+      ]
+    },
+    {
+      "id": 2679,
+      "slug": "151-weekly-rush-points",
+      "name": "Weekly Rush Points",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
+      "description": "Complete Rush Bonuses alongside your teammates to earn Rush Points and pack rewards! All rewards are untradeable.",
+      "startTime": "2026-11-10T18:00:00Z",
+      "endTime": "2026-11-17T17:59:59Z",
+      "tasksCount": 5,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 84+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 84+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 84 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13482,
+          "name": "35，000 快攻 积分",
+          "description": "通过在快攻中完成奖励目标获得35，000积分",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "83+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "83+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 83 or higher."
+              }
+            }
+          ],
+          "nameEn": "35,000 Rush Points",
+          "descriptionEn": "Earn 35,000 points by completing bonuses in Rush."
+        },
+        {
+          "id": 13483,
+          "name": "25，000 快攻 积分",
+          "description": "通过在快攻中完成奖励目标获得25，000积分",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 82+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 82+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 82 or higher."
+              }
+            }
+          ],
+          "nameEn": "25,000 Rush Points",
+          "descriptionEn": "Earn 25,000 points by completing bonuses in Rush."
+        },
+        {
+          "id": 13484,
+          "name": "20，000 快攻 积分",
+          "description": "通过在快攻中完成奖励目标获得20，000积分",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 80+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ],
+          "nameEn": "20,000 Rush Points",
+          "descriptionEn": "Earn 20,000 points by completing bonuses in Rush."
+        },
+        {
+          "id": 13485,
+          "name": "10，000 快攻 积分",
+          "description": "通过在快攻中完成奖励目标获得10，000积分",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 78+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 78+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 78 or higher."
+              }
+            }
+          ],
+          "nameEn": "10,000 Rush Points",
+          "descriptionEn": "Earn 10,000 points by completing bonuses in Rush."
+        },
+        {
+          "id": 13486,
+          "name": "2，500 快攻 积分",
+          "description": "通过在快攻中完成奖励目标获得2，500积分",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 77+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 77+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 77 or higher."
+              }
+            }
+          ],
+          "nameEn": "2,500 Rush Points",
+          "descriptionEn": "Earn 2,500 points by completing bonuses in Rush."
+        }
+      ]
+    },
     {
       "id": 2678,
       "slug": "197-red-bull-wiiings-challenge",
@@ -11,12 +316,12 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete 3 out of 4 Red Bull Wiiings Challenge objectives to earn bonus pack rewards and more! All rewards are untradeable.",
       "startTime": "2026-11-09T18:00:00Z",
       "endTime": "2026-11-23T17:59:59Z",
       "tasksCount": 4,
-      "isNew": true,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
@@ -141,7 +446,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Play in the Transfer Embargo Flash Rush Event to earn exclusive rewards. All rewards are untradeable.",
       "startTime": "2026-11-08T18:00:00Z",
       "endTime": "2026-11-11T17:59:59Z",
@@ -222,7 +527,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete challenges to earn Road to the Knockouts: Tiago Djaló and other rewards. All rewards are untradeable.",
       "startTime": "2026-11-07T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
@@ -340,7 +645,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete these group stage challenges to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-11-06T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
@@ -414,7 +719,7 @@
         {
           "id": 13462,
           "name": "哈德尔的帽子戏法",
-          "description": "在任意游戏模式中，使用一名GPFBL球员打入帽子戏法",
+          "description": "在任意 FUT 比赛模式中使用一名来自GPFBL的球员完成帽子戏法。",
           "awards": [
             {
               "type": "PACK",
@@ -427,7 +732,7 @@
             }
           ],
           "nameEn": "Harder's Hat-trick",
-          "descriptionEn": "Score a hat-trick with a player from GPFBL in any game mode"
+          "descriptionEn": "Score a hat-trick with a player from GPFBL in any FUT game mode."
         },
         {
           "id": 13463,
@@ -489,7 +794,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Compete in the Road to the Knockouts Event to earn RTTK Emiliano Buendía, packs and more. All rewards are untradeable.",
       "startTime": "2026-11-06T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
@@ -597,7 +902,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete 8 of 10 challenges in the Ultimate Gauntlet 3 and earn exclusive rewards! All rewards are untradable.",
       "startTime": "2026-11-06T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
@@ -801,6 +1106,64 @@
       ]
     },
     {
+      "id": 2671,
+      "slug": "170-daily-objectives",
+      "name": "Daily Objectives",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
+      "description": "Play, complete and earn SP from daily objective every 24 hours!",
+      "startTime": "2026-11-05T18:00:00Z",
+      "endTime": "2026-11-12T17:59:59Z",
+      "tasksCount": 2,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "XP",
+          "name": "10 SP",
+          "count": 1,
+          "xp": 10
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13445,
+          "name": "进行1场",
+          "description": "在任意 FUT 游戏模式中进行1场比赛。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ],
+          "nameEn": "Play 1",
+          "descriptionEn": "Play 1 match in any FUT game mode."
+        },
+        {
+          "id": 13446,
+          "name": "进球成功",
+          "description": "在任意 FUT 游戏模式中打入2球。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ],
+          "nameEn": "Scoring Success",
+          "descriptionEn": "Score 2 goals in any FUT game mode."
+        }
+      ]
+    },
+    {
       "id": 2672,
       "slug": "191-fc-pro-open-global-qualifier",
       "name": "FC Pro Open Global Qualifier",
@@ -808,7 +1171,7 @@
         "slug": "fc-pro",
         "name": "FC Pro"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Join in on the action of the FC Pro Open Global Qualifier Broadcast at Twitch/EASPORTSFC or YouTube/EASPORTSFCPRO to earn your viewership rewards! All rewards are untradeable.",
       "startTime": "2026-11-05T18:00:00Z",
       "endTime": "2026-11-14T17:59:59Z",
@@ -868,64 +1231,6 @@
       ]
     },
     {
-      "id": 2671,
-      "slug": "170-daily-objectives",
-      "name": "Daily Objectives",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
-      "description": "Play, complete and earn SP from daily objective every 24 hours!",
-      "startTime": "2026-11-05T18:00:00Z",
-      "endTime": "2026-11-12T17:59:59Z",
-      "tasksCount": 2,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "XP",
-          "name": "10 SP",
-          "count": 1,
-          "xp": 10
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13445,
-          "name": "进行1场",
-          "description": "在任意 FUT 游戏模式中进行1场比赛。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "10 SP",
-              "count": 1,
-              "xp": 10
-            }
-          ],
-          "nameEn": "Play 1",
-          "descriptionEn": "Play 1 match in any FUT game mode."
-        },
-        {
-          "id": 13446,
-          "name": "进球成功",
-          "description": "在任意 FUT 游戏模式中打入2球。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "10 SP",
-              "count": 1,
-              "xp": 10
-            }
-          ],
-          "nameEn": "Scoring Success",
-          "descriptionEn": "Score 2 goals in any FUT game mode."
-        }
-      ]
-    },
-    {
       "id": 2670,
       "slug": "136-weekly-objectives",
       "name": "Weekly Objectives",
@@ -933,7 +1238,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete Weekly Objectives to earn SP!",
       "startTime": "2026-11-05T18:00:00Z",
       "endTime": "2026-11-12T17:59:59Z",
@@ -1029,127 +1334,6 @@
       ]
     },
     {
-      "id": 2669,
-      "slug": "150-weekly-rush-points",
-      "name": "Weekly Rush Points",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
-      "description": "Complete Rush Bonuses alongside your teammates to earn Rush Points and pack rewards! All rewards are untradeable.",
-      "startTime": "2026-11-03T18:00:00Z",
-      "endTime": "2026-11-10T17:59:59Z",
-      "tasksCount": 5,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PACK",
-          "name": "2X 84+ Gold Players Pack",
-          "count": 1,
-          "pack": {
-            "name": "2x 84+ Gold Players Pack",
-            "description": "Contains 2 Gold Player Items, rated 84 or higher."
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13435,
-          "name": "35，000 快攻 积分",
-          "description": "通过在快攻中完成奖励目标获得35，000积分",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "83+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "83+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 83 or higher."
-              }
-            }
-          ],
-          "nameEn": "35,000 Rush Points",
-          "descriptionEn": "Earn 35,000 points by completing bonuses in Rush."
-        },
-        {
-          "id": 13436,
-          "name": "25，000 快攻 积分",
-          "description": "通过在快攻中完成奖励目标获得25，000积分",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 82+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 82+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 82 or higher."
-              }
-            }
-          ],
-          "nameEn": "25,000 Rush Points",
-          "descriptionEn": "Earn 25,000 points by completing bonuses in Rush."
-        },
-        {
-          "id": 13437,
-          "name": "20，000 快攻 积分",
-          "description": "通过在快攻中完成奖励目标获得20，000积分",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 80+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 80+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 80 or higher."
-              }
-            }
-          ],
-          "nameEn": "20,000 Rush Points",
-          "descriptionEn": "Earn 20,000 points by completing bonuses in Rush."
-        },
-        {
-          "id": 13438,
-          "name": "10，000 快攻 积分",
-          "description": "通过在快攻中完成奖励目标获得10，000积分",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "3X 78+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "3x 78+ Gold Players Pack",
-                "description": "Contains 3 Gold Player Items, rated 78 or higher."
-              }
-            }
-          ],
-          "nameEn": "10,000 Rush Points",
-          "descriptionEn": "Earn 10,000 points by completing bonuses in Rush."
-        },
-        {
-          "id": 13439,
-          "name": "2，500 快攻 积分",
-          "description": "通过在快攻中完成奖励目标获得2，500积分",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "3X 77+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "3x 77+ Gold Players Pack",
-                "description": "Contains 3 Gold Player Items, rated 77 or higher."
-              }
-            }
-          ],
-          "nameEn": "2,500 Rush Points",
-          "descriptionEn": "Earn 2,500 points by completing bonuses in Rush."
-        }
-      ]
-    },
-    {
       "id": 2667,
       "slug": "182-movember",
       "name": "Movember",
@@ -1157,7 +1341,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete this objective to earn the Movember kit and stadium items! All rewards are untradeable.",
       "startTime": "2026-11-01T18:00:00Z",
       "endTime": "2026-11-30T17:59:59Z",
@@ -1242,7 +1426,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete this objective to earn the Bundesliga x Playmobil kit! All rewards are untradeable.",
       "startTime": "2026-10-30T18:00:00Z",
       "endTime": "2026-11-13T17:59:59Z",
@@ -1315,7 +1499,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Make progress in the Ultimate Scream Gallery Set and earn exclusive Ultimate Scream rewards! All rewards are untradeable.",
       "startTime": "2026-10-23T17:00:00Z",
       "endTime": "2026-11-20T17:59:59Z",
@@ -1411,85 +1595,6 @@
       ]
     },
     {
-      "id": 2648,
-      "slug": "164-fc-heritage-circuit-completionist",
-      "name": "FC Heritage Circuit Completionist",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
-      "description": "Complete the FC Heritage Circuit Objectives to earn rewards. All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PLAYER_ITEM",
-          "name": "Jeremiah St. Juste",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50558501.ea0ddec0e3ae5e5a036c4565fe7498375f7a40f23d0d3b8ea0631fac9b8e9161.webp",
-          "playerItem": {
-            "name": "Jeremiah St. Juste",
-            "eaId": 50558501,
-            "rating": 0,
-            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50558501.cf6971231057c192c53c5cdc81f85bf312091e9aaec306c4fc9afa8ae73f98c4.webp"
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13361,
-          "name": "FC Heritage Circuit 世界级 挑战",
-          "description": "完成FC Heritage Circuit 世界级 Event 任务。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "7,000 Coins",
-              "count": 1,
-              "coins": 7000
-            }
-          ],
-          "nameEn": "FC Heritage Circuit World Class Challenge",
-          "descriptionEn": "Complete the FC Heritage Circuit World Class Event objective."
-        },
-        {
-          "id": 13362,
-          "name": "FC Heritage Circuit 职业 挑战",
-          "description": "完成FC Heritage Circuit 职业 Event 任务。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "6,000 Coins",
-              "count": 1,
-              "coins": 6000
-            }
-          ],
-          "nameEn": "FC Heritage Circuit Professional Challenge",
-          "descriptionEn": "Complete the FC Heritage Circuit Professional Event objective."
-        },
-        {
-          "id": 13363,
-          "name": "FC Heritage Circuit 半职业 挑战",
-          "description": "完成FC Heritage Circuit 半职业 Event 任务。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "4,000 Coins",
-              "count": 1,
-              "coins": 4000
-            }
-          ],
-          "nameEn": "FC Heritage Circuit Semi-Pro Challenge",
-          "descriptionEn": "Complete the FC Heritage Circuit Semi-Pro Event objective."
-        }
-      ]
-    },
-    {
       "id": 2647,
       "slug": "161-fc-heritage-circuit-world-class-event",
       "name": "FC Heritage Circuit World Class Event",
@@ -1497,7 +1602,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Compete in the FC Heritage Circuit World Class Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1612,7 +1717,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete 7 of 8 challenges in the Season 2 Daily Knockout Tournament and earn packs, coins, and exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1784,7 +1889,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Compete in the FC Heritage Circuit Semi-Pro Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1899,7 +2004,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Compete in the FC Heritage Circuit Professional Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2007,6 +2112,85 @@
       ]
     },
     {
+      "id": 2648,
+      "slug": "164-fc-heritage-circuit-completionist",
+      "name": "FC Heritage Circuit Completionist",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
+      "description": "Complete the FC Heritage Circuit Objectives to earn rewards. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Jeremiah St. Juste",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50558501.ea0ddec0e3ae5e5a036c4565fe7498375f7a40f23d0d3b8ea0631fac9b8e9161.webp",
+          "playerItem": {
+            "name": "Jeremiah St. Juste",
+            "eaId": 50558501,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50558501.cf6971231057c192c53c5cdc81f85bf312091e9aaec306c4fc9afa8ae73f98c4.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13361,
+          "name": "FC Heritage Circuit 世界级 挑战",
+          "description": "完成FC Heritage Circuit 世界级 Event 任务。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "7,000 Coins",
+              "count": 1,
+              "coins": 7000
+            }
+          ],
+          "nameEn": "FC Heritage Circuit World Class Challenge",
+          "descriptionEn": "Complete the FC Heritage Circuit World Class Event objective."
+        },
+        {
+          "id": 13362,
+          "name": "FC Heritage Circuit 职业 挑战",
+          "description": "完成FC Heritage Circuit 职业 Event 任务。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "6,000 Coins",
+              "count": 1,
+              "coins": 6000
+            }
+          ],
+          "nameEn": "FC Heritage Circuit Professional Challenge",
+          "descriptionEn": "Complete the FC Heritage Circuit Professional Event objective."
+        },
+        {
+          "id": 13363,
+          "name": "FC Heritage Circuit 半职业 挑战",
+          "description": "完成FC Heritage Circuit 半职业 Event 任务。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "4,000 Coins",
+              "count": 1,
+              "coins": 4000
+            }
+          ],
+          "nameEn": "FC Heritage Circuit Semi-Pro Challenge",
+          "descriptionEn": "Complete the FC Heritage Circuit Semi-Pro Event objective."
+        }
+      ]
+    },
+    {
       "id": 2645,
       "slug": "158-fc-heritage-circuit-tournament",
       "name": "FC Heritage Circuit Tournament",
@@ -2014,7 +2198,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Compete in the FC Heritage Circuit Tournament to earn a special FC Heritage Alexis Sánchez, packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2174,7 +2358,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Compete in the FC Heritage Circuit Kick Off Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2271,7 +2455,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Compete in the Season 2 Daily Knockout Tournament to earn exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2314,7 +2498,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete all Season 2 Daily Knockout Tournament Weekly Play objectives to earn FC Heritage Axel Witsel and Coins! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2423,7 +2607,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Learn the basics of the Gallery! Grade and complete Sets, achieve Rank S, and increase your Gallery Level as you explore everything the Gallery has to offer. All rewards are untradeable.",
       "startTime": "2026-09-25T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2544,7 +2728,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete this objective and choose 1 Squad Foundations Player Item from: Miley (Premier League), Moi Gómez (LALIGA EA SPORTS), Banzuzi (Bundesliga), or Danois (Ligue 1). All rewards are untradeable.",
       "startTime": "2026-09-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2586,7 +2770,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete challenges celebrating manager Ted Lasso and AFC Richmond to earn exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-09-11T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2722,7 +2906,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "The challenge is set. Take to the pitch in Squad Battles and battle through the competition.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2813,7 +2997,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Get acquainted with Live Events matches.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -2883,94 +3067,6 @@
       ]
     },
     {
-      "id": 2573,
-      "slug": "47-transfer-market-milestone",
-      "name": "Transfer Market Milestone",
-      "category": {
-        "slug": "milestones",
-        "name": "Milestones"
-      },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
-      "description": "Wheel and deal your way to Transfer Market Mastery!",
-      "startTime": "2026-08-17T17:00:00Z",
-      "endTime": "2031-10-01T16:59:59Z",
-      "tasksCount": 4,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "ITEM",
-          "name": "Coin Boost",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004068.png"
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13044,
-          "name": "上架50个",
-          "description": "在转会市场上架50名球员。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "5,000 Coins",
-              "count": 1,
-              "coins": 5000
-            }
-          ],
-          "nameEn": "List 50",
-          "descriptionEn": "List 50 players on the Transfer Market."
-        },
-        {
-          "id": 13045,
-          "name": "上架25个",
-          "description": "在转会市场上架25名球员。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "2,500 Coins",
-              "count": 1,
-              "coins": 2500
-            }
-          ],
-          "nameEn": "List 25",
-          "descriptionEn": "List 25 players on the Transfer Market."
-        },
-        {
-          "id": 13046,
-          "name": "50次立即购买",
-          "description": "在转会市场使用立即购买购买50名球员。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "5,000 Coins",
-              "count": 1,
-              "coins": 5000
-            }
-          ],
-          "nameEn": "50 Buy Now",
-          "descriptionEn": "Buy 50 players using Buy Now on the Transfer Market."
-        },
-        {
-          "id": 13047,
-          "name": "25次立即购买",
-          "description": "在转会市场使用立即购买购买25名球员。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "2,500 Coins",
-              "count": 1,
-              "coins": 2500
-            }
-          ],
-          "nameEn": "25 Buy Now",
-          "descriptionEn": "Buy 25 players using Buy Now on the Transfer Market."
-        }
-      ]
-    },
-    {
       "id": 2568,
       "slug": "45-draft-milestone",
       "name": "Draft Milestone",
@@ -2978,7 +3074,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Draft your path to greatness!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3065,7 +3161,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "PVE Live Events offer a new way to play. Compete, earn and upgrade your way to the top. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3207,7 +3303,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Team up with Friends to embark on the Co-op journey!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3300,7 +3396,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Squad up and complete Rush bonuses alongside other players as you try to reign supreme in Rush!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3433,7 +3529,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete Moments challenges and earn stars to show your football dominance!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3521,7 +3617,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3595,6 +3691,94 @@
       ]
     },
     {
+      "id": 2573,
+      "slug": "47-transfer-market-milestone",
+      "name": "Transfer Market Milestone",
+      "category": {
+        "slug": "milestones",
+        "name": "Milestones"
+      },
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
+      "description": "Wheel and deal your way to Transfer Market Mastery!",
+      "startTime": "2026-08-17T17:00:00Z",
+      "endTime": "2031-10-01T16:59:59Z",
+      "tasksCount": 4,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Coin Boost",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5004068.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13044,
+          "name": "上架50个",
+          "description": "在转会市场上架50名球员。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ],
+          "nameEn": "List 50",
+          "descriptionEn": "List 50 players on the Transfer Market."
+        },
+        {
+          "id": 13045,
+          "name": "上架25个",
+          "description": "在转会市场上架25名球员。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ],
+          "nameEn": "List 25",
+          "descriptionEn": "List 25 players on the Transfer Market."
+        },
+        {
+          "id": 13046,
+          "name": "50次立即购买",
+          "description": "在转会市场使用立即购买购买50名球员。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "5,000 Coins",
+              "count": 1,
+              "coins": 5000
+            }
+          ],
+          "nameEn": "50 Buy Now",
+          "descriptionEn": "Buy 50 players using Buy Now on the Transfer Market."
+        },
+        {
+          "id": 13047,
+          "name": "25次立即购买",
+          "description": "在转会市场使用立即购买购买25名球员。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ],
+          "nameEn": "25 Buy Now",
+          "descriptionEn": "Buy 25 players using Buy Now on the Transfer Market."
+        }
+      ]
+    },
+    {
       "id": 2563,
       "slug": "28-total-football",
       "name": "Total Football",
@@ -3602,7 +3786,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Prove your worth by completing each of the Foundation Objectives groups to earn big rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3709,7 +3893,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "The ultimate test of skill awaits in Division Rivals. Battle against the competition and emerge victorious.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3792,7 +3976,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Every legend has a beginning. Enter Champions and begin your path to becoming the Golden G.O.A.T.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3880,7 +4064,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Grow your Gallery Score, hit new levels, and earn rewards to build the ultimate club showcase!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3985,7 +4169,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Assemble a squad with First Owned (acquired from packs, objectives and SBCs) players and complete these Milestones!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4073,7 +4257,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Tally up your goals and assists and become a G/A Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4242,7 +4426,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4339,7 +4523,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Wheel and deal your way to Transfer Market Mastery!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4496,7 +4680,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Generate that winning feeling in Live Events matches!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4581,7 +4765,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Keep battling over the year to prove you are a Squad Battles Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4666,7 +4850,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Beat your Rivals to prove you are the G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4751,7 +4935,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "The stage is set! Show everyone you have what it takes to be the Golden G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4854,7 +5038,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "All good clubs need polishing on and off the pitch. Complete these maintenance objectives to earn rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5003,7 +5187,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-10T17:08:55.940Z",
+      "_fetchedAt": "2026-11-10T18:06:48.244Z",
       "description": "Complete these Squad Building Challenges to earn rewards and improve your squad. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
