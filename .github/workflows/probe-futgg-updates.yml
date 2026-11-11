@@ -15,7 +15,7 @@ permissions:
 jobs:
   probe:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,7 +28,16 @@ jobs:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
         run: npm install
       - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+        run: |
+          for i in 1 2 3; do
+            echo "== playwright install attempt $i =="
+            if npx playwright install --with-deps chromium; then
+              echo "playwright install OK"
+              break
+            fi
+            echo "attempt $i failed (transient?), retrying in 20s..."
+            sleep 20
+          done
 
       - name: Run probe
         env:
