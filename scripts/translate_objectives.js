@@ -33,21 +33,25 @@ const { execFile } = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const TERMS_FILE = path.join(__dirname, 'fc_terms.json');
 
-// 补充词表：任务/挑战特有词（fc_terms.json 未覆盖）。译名口径：EA 官方简中客户端 UI。
+// 补充词表：任务/挑战特有词（fc_terms.json 未覆盖）。译名口径：FC27专有名词英中对照表（2026-11-13），
+//   以社区俗称/官方定译为准 —— Squad Battles=SQB、Division Rivals/Rivals=DR、FUT Champions=FUT冠军、
+//   Rush=保留英文、Live Events=实时赛事。EA 官方简中客户端 UI 同步。改这一处即改全部任务译文。
 const OBJ_TERMS = {
-  'Squad Battles matches': '组内对抗比赛',
-  'Squad Battles games': '组内对抗比赛',
-  'Rivals matches': '对手赛比赛',
-  'Rivals games': '对手赛比赛',
-  'Rush matches': '快攻比赛',
-  'Squad Battles': '组内对抗',
-  'Division Rivals': '对手赛',
-  'Rivals': '对手赛',
-  'Rush': '快攻',
-  'Live Event': '现场活动',
-  'Live Events': '现场活动',
-  'starting XI': '首发十一人',
-  'starting 11': '首发十一人',
+  'Squad Battles matches': 'SQB比赛',
+  'Squad Battles games': 'SQB比赛',
+  'Rivals matches': 'DR比赛',
+  'Rivals games': 'DR比赛',
+  'Rush matches': 'Rush比赛',
+  'Squad Battles': 'SQB',
+  'Division Rivals': 'DR',
+  'Rivals': 'DR',
+  'Rush': 'Rush',
+  'FUT Champions': 'FUT冠军',
+  'Champions': 'FUT冠军',
+  'Live Event': '实时赛事',
+  'Live Events': '实时赛事',
+  'starting XI': '首发 11 人',
+  'starting 11': '首发 11 人',
   'Buy Now': '立即购买',
   'Semi-Pro': '半职业',
   'Professional': '职业',
@@ -137,9 +141,9 @@ function postprocess(text) {
     };
     fix(OBJ_COMPILED); fix(PRE_COMPILED);
   }
-  // 量词规整：术语替换后 LLM 易产出「50组内对抗场比赛」⇒ 调成「50场组内对抗比赛」
-  text = text.replace(/(\d+)\s*(组内对抗|对手赛|快攻|现场活动|周赛|冠军赛)场比赛/g, '$1场$2比赛');
-  text = text.replace(/(\d+)\s*场(组内对抗|对手赛|快攻|现场活动|周赛|冠军赛)比赛/g, '$1场$2');
+  // 量词规整：术语替换后 LLM 易产出「50 SQB 场比赛」⇒ 调成「50场SQB」
+  text = text.replace(/(\d+)\s*(SQB|DR|Rush|实时赛事|FUT冠军)场比赛/g, '$1场$2');
+  text = text.replace(/(\d+)\s*场(SQB|DR|Rush|实时赛事|FUT冠军)比赛/g, '$1场$2');
   text = text.replace(/(漂亮|美丽|精彩|伟大|绝妙|惊人)的目标/g, '$1的进球');
   text = text.replace(/,/g, '，').replace(/;/g, '；').replace(/(?<!\d):(?!\d)/g, '：');
   return text;
@@ -170,7 +174,7 @@ const SYS_PROMPT = [
   '把每条英文翻译成简体中文，按「编号|中文」逐行输出，一行一条，绝不输出编号之外任何内容（无解释/无空行/无原文）。',
   '规则：',
   '1. 数字、评分、规格保持原样：86+、2x、min. 1、30 goals 里的数字原样保留。',
-  '2. 输入为中英混合：其中已有的中文词（如 柱式中锋、组内对抗、对手赛）是官方译名，原样保留，不要改写、删除或换说法；只翻译英文部分。',
+  '2. 输入为中英混合：其中已有的中文词（如 柱式中锋、SQB、DR、FUT冠军、实时赛事）是官方译名，原样保留，不要改写、删除或换说法；只翻译英文部分。',
   '3. 严禁编造：原文没说的内容一个字不加，语气平实，不口语化不省略。',
   '4. 只输出译文，不输出任何给译者的话。'
 ].join('\n');

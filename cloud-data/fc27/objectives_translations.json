@@ -43,7 +43,7 @@
  },
  "2ca3adc90ff22a53061f9c375a1e3345546c3a8d": {
   "en": "Score at least 1 goal in 13 separate matches in the Ghoul Fest Live Event.",
-  "zh": "在 Ghoul Fest 现场活动中，在13场不同比赛中至少打入1球。",
+  "zh": "在 Ghoul Fest 实时赛事中，在13场不同比赛中至少打入1球。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
@@ -55,7 +55,7 @@
  },
  "dd0a5068b817e57efc8363283ccaf551827fedf4": {
   "en": "Score a total of 30 goals in the Ghoul Fest Live Event.",
-  "zh": "在 Ghoul Fest 现场活动中累计打入30球。",
+  "zh": "在 Ghoul Fest 实时赛事中累计打入30球。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
@@ -67,7 +67,7 @@
  },
  "54361a0a6ac219ab3d5a95b7e55ecfc4e8d4662a": {
   "en": "Score at least 2 goals in 5 separate matches in the Ghoul Fest Live Event.",
-  "zh": "在 Ghoul Fest 现场活动中，在5场不同比赛中至少打入2球。",
+  "zh": "在 Ghoul Fest 实时赛事中，在5场不同比赛中至少打入2球。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
@@ -79,7 +79,7 @@
  },
  "5fb2b53040d3026fbf34f386db9f62ee29e124d1": {
   "en": "Score at least 3 goals in one match in the Ghoul Fest Live Event.",
-  "zh": "在 Ghoul Fest 现场活动中，在一场比赛中至少打入3球。",
+  "zh": "在 Ghoul Fest 实时赛事中，在一场比赛中至少打入3球。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
@@ -91,7 +91,7 @@
  },
  "83acc9a421ab11b061f48fa1f1d66d539487e224": {
   "en": "Score at least 2 goals in one match in the Ghoul Fest Live Event.",
-  "zh": "在 Ghoul Fest 现场活动中，在一场比赛中至少打入2球。",
+  "zh": "在 Ghoul Fest 实时赛事中，在一场比赛中至少打入2球。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
@@ -715,19 +715,19 @@
  },
  "ee424c4a0d83418f9f3a55dba5338df753d1d7d1": {
   "en": "Play 20 Live Events matches.",
-  "zh": "进行20场现场活动比赛。",
+  "zh": "进行20场实时赛事。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
  "f415d1600f7487cb771a25197c68daba3d252479": {
   "en": "Play 10 Live Events matches.",
-  "zh": "进行10场现场活动比赛。",
+  "zh": "进行10场实时赛事。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
  "05c9e9a49a39136f95b1a8c4d930b09bc9e62035": {
   "en": "Play 5 Live Events matches.",
-  "zh": "进行5场现场活动比赛。",
+  "zh": "进行5场实时赛事。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
@@ -1129,7 +1129,7 @@
  },
  "b73c67112ae1b417e380741033d6bec73fe6a5e4": {
   "en": "Win 100 Live Events matches.",
-  "zh": "赢得100场现场活动比赛。",
+  "zh": "赢得100场实时赛事。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
@@ -1141,7 +1141,7 @@
  },
  "78692e680385d2494acba4bf8cd4c2195c8a3d14": {
   "en": "Win 50 Live Events matches.",
-  "zh": "赢得50场现场活动比赛。",
+  "zh": "赢得50场实时赛事。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
@@ -1153,7 +1153,7 @@
  },
  "137865aaf0b6da9ed04481e263cdca1a87816848": {
   "en": "Win 25 Live Events matches.",
-  "zh": "赢得25场现场活动比赛。",
+  "zh": "赢得25场实时赛事。",
   "src": "llm:deepseek+mt",
   "ts": 1793417308924
  },
@@ -1243,13 +1243,13 @@
  },
  "cf13bf41b9cbc3ef2313ceafc727a08a2eb5ff02": {
   "en": "Win 10 matches in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush).",
-  "zh": "在组内对抗中于最低半职业难度赢得10场比赛（或对手赛/冠军赛/现场活动/快攻）。",
+  "zh": "在SQB中于最低半职业难度赢得10场比赛（或DR/FUT冠军/实时赛事/Rush）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "f3f285aa89197c72acf601327d255d4aa213ebe3": {
   "en": "Play 10 matches in Squad Battles on any difficulty (or Rush/Rivals).",
-  "zh": "在组内对抗中于任意难度进行10场比赛（或快攻/对手赛）。",
+  "zh": "在SQB中于任意难度进行10场比赛（或Rush/DR）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1261,73 +1261,73 @@
  },
  "8044b34b55e65bf2cdb45bebc47c03f720e14309": {
   "en": "Reach Division 5 Rivals",
-  "zh": "达到第5级别对手赛",
+  "zh": "达到第5级别DR",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "e2b663dac7707f783e707bab56b13b96a4c0f7e5": {
   "en": "Reach Division 5 in Rivals to qualify for the FC Pro Open Cup 1.",
-  "zh": "在对手赛中达到第5级别，以取得FC Pro 公开赛杯 1参赛资格。",
+  "zh": "在DR中达到第5级别，以取得FC Pro 公开赛杯 1参赛资格。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "427d9f59c06cf1d250c0a71fa839e7c6c8ed3448": {
   "en": "35,000 Rush Points",
-  "zh": "35，000 快攻 积分",
+  "zh": "35，000 Rush 积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "2840e52857246b2bc60b89b699a9734164754fca": {
   "en": "Earn 35,000 points by completing bonuses in Rush.",
-  "zh": "通过在快攻中完成奖励目标获得35，000积分",
+  "zh": "通过在Rush中通过完成奖励目标获取35，000积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "f5208b06f521ac4cf479ecb55a2cfbf26190871b": {
   "en": "25,000 Rush Points",
-  "zh": "25，000 快攻 积分",
+  "zh": "25，000 Rush 积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "085a640d52398081ccb704e13e9752ac65db1384": {
   "en": "Earn 25,000 points by completing bonuses in Rush.",
-  "zh": "通过在快攻中完成奖励目标获得25，000积分",
+  "zh": "通过在Rush中通过完成奖励目标获取25，000积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "7ccc9a3ac64fc95d843ea0a5cdc3f59bd9f14421": {
   "en": "20,000 Rush Points",
-  "zh": "20，000 快攻 积分",
+  "zh": "20，000 Rush 积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "008ca017a5c769fc99f79926a018dec07e249025": {
   "en": "Earn 20,000 points by completing bonuses in Rush.",
-  "zh": "通过在快攻中完成奖励目标获得20，000积分",
+  "zh": "通过在Rush中通过完成奖励目标获取20，000积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "bb4a154bf19c6a5240b83da2a1e6b6640ae015c8": {
   "en": "10,000 Rush Points",
-  "zh": "10，000 快攻 积分",
+  "zh": "10，000 Rush 积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "15c31b17f14b517929a28f1fff94f737a3f51232": {
   "en": "Earn 10,000 points by completing bonuses in Rush.",
-  "zh": "通过在快攻中完成奖励目标获得10，000积分",
+  "zh": "通过在Rush中通过完成奖励目标获取10，000积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "586efa8dbe546bcfeeea463c10cced94c7ae9565": {
   "en": "2,500 Rush Points",
-  "zh": "2，500 快攻 积分",
+  "zh": "2，500 Rush 积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "772998498d819b946f34b68b4dd37db1b3053e5c": {
   "en": "Earn 2,500 points by completing bonuses in Rush.",
-  "zh": "通过在快攻中完成奖励目标获得2，500积分",
+  "zh": "通过在Rush中通过完成奖励目标获取2，500积分",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1357,43 +1357,43 @@
  },
  "739ef33a11dc6a61642b77bc51ac1171efc3f102": {
   "en": "Score 50 goals while having Min. 1 Ultimate Scream Player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
-  "zh": "在首发十一人中拥有至少1名终极尖叫球员的情况下，于组内对抗中在最低半职业难度打入50球（或对手赛/现场活动/快攻/冠军赛）。",
+  "zh": "在首发 11 人中拥有至少1名终极尖叫球员的情况下，于SQB中在最低半职业难度打入50球（或DR/实时赛事/Rush/FUT冠军）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "f480bc67d16611a861d54d163c49b2e4f9fe51b3": {
   "en": "Score at least one Chip Shot goal in 5 separate matches while having min. 1 Hungarian player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
-  "zh": "在首发十一人中拥有至少1名匈牙利球员的情况下，于5场不同比赛中在组内对抗中在最低半职业难度至少打入1个吊射进球（或对手赛/现场活动/快攻/冠军赛）。",
+  "zh": "在首发 11 人中拥有至少1名匈牙利球员的情况下，于5场不同比赛中在SQB中在最低半职业难度至少打入1个吊射进球（或DR/实时赛事/Rush/FUT冠军）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "068b46f2403eb63fa54743ad9a1543a45009e6e4": {
   "en": "Score 10 headers while having Min. 1 USA player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
-  "zh": "在首发十一人中拥有至少1名美国球员的情况下，于组内对抗中在最低半职业难度打入10个头球（或对手赛/现场活动/快攻/冠军赛）。",
+  "zh": "在首发 11 人中拥有至少1名美国球员的情况下，于SQB中在最低半职业难度打入10个头球（或DR/实时赛事/Rush/FUT冠军）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "7d49dbbba8dc2dc5883160436f7586845b2e5a4e": {
   "en": "Win 13 matches while having Min. 1 Iceland player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
-  "zh": "在首发十一人中拥有至少1名Iceland球员的情况下，于组内对抗中在最低半职业难度赢得13场比赛（或对手赛/现场活动/快攻/冠军赛）。",
+  "zh": "在首发 11 人中拥有至少1名Iceland球员的情况下，于SQB中在最低半职业难度赢得13场比赛（或DR/实时赛事/Rush/FUT冠军）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "d267f7cf3416115e8e86d0e416630bf0f6bca70f": {
   "en": "Assist at least 1 goal with a through ball in 15 separate matches while having Min. 1 Scottish player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
-  "zh": "在首发十一人中拥有至少1名Scottish球员的情况下，于15场不同比赛中在组内对抗中在最低半职业难度用直塞至少助攻1球（或对手赛/现场活动/快攻/冠军赛）。",
+  "zh": "在首发 11 人中拥有至少1名Scottish球员的情况下，于15场不同比赛中在SQB中在最低半职业难度用直塞至少助攻1球（或DR/实时赛事/Rush/FUT冠军）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "4e328d16114867846c0230b07352d9c400d643e9": {
   "en": "Score at least 1 goal from outside the box in 10 separate matches with 4* or higher WF players in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
-  "zh": "在组内对抗中在最低半职业难度，使用4*或更高WF球员于10场不同比赛中至少打入1个禁区外进球（或对手赛/现场活动/快攻/冠军赛）。",
+  "zh": "在SQB中在最低半职业难度，使用4*或更高WF球员于10场不同比赛中至少打入1个禁区外进球（或DR/实时赛事/Rush/FUT冠军）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "b3a1cbe0b3d10f171eed0b15da0014e19069ecb9": {
   "en": "Play 7 matches while having Min. 1 Türkiye player in your starting XI in Squad Battles on Min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champions).",
-  "zh": "在首发十一人中拥有至少1名Türkiye球员的情况下，于组内对抗中在最低半职业难度进行7场比赛（或对手赛/现场活动/快攻/冠军赛）。",
+  "zh": "在首发 11 人中拥有至少1名Türkiye球员的情况下，于SQB中在最低半职业难度进行7场比赛（或DR/实时赛事/Rush/FUT冠军）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1447,25 +1447,25 @@
  },
  "2cbbbea56be37f685d69de88fdea2b0e2f316996": {
   "en": "Win 3 matches while having Min. 3 player items from Bundesliga in your starting 11 in the FC Heritage Circuit World Class Event.",
-  "zh": "在首发十一人中拥有至少3个来自德甲的球员物品的情况下，于FC Heritage Circuit 世界级 Event中赢得3场比赛。",
+  "zh": "在首发 11 人中拥有至少3个来自德甲的球员物品的情况下，于FC Heritage Circuit 世界级 Event中赢得3场比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "804b755c5f2e168bd7876f2b7c9ff084e7581898": {
   "en": "Score 5 goals while having Min. 1 FC Bayern München (Bundesliga) player item in your starting 11 in the FC Heritage Circuit World Class Event.",
-  "zh": "在首发十一人中拥有至少1张FC Bayern München (德甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中打入5球。",
+  "zh": "在首发 11 人中拥有至少1张FC Bayern München (德甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中打入5球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "0db56021a6b706fa836985cbc49b6000fc2b7854": {
   "en": "Assist 4 goals while having Min. 1 PSG (Ligue 1) player item in your starting 11 in the FC Heritage Circuit World Class Event.",
-  "zh": "在首发十一人中拥有至少1张PSG (法甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中助攻4球。",
+  "zh": "在首发 11 人中拥有至少1张PSG (法甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中助攻4球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "68f42c9492aa97814bdbbe3ff4124544a0884773": {
   "en": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player item in your starting 11 in the FC Heritage Circuit World Class Event.",
-  "zh": "在首发十一人中拥有至少1张Real Madrid (西甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中在3场不同比赛各至少打入1球。",
+  "zh": "在首发 11 人中拥有至少1张Real Madrid (西甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中在3场不同比赛各至少打入1球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1477,7 +1477,7 @@
  },
  "99d520734c34fbf712cec02c18a52ff162cd3b63": {
   "en": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player in your starting 11 in the FC Heritage Circuit Tournament.",
-  "zh": "在首发十一人中拥有至少1名Real Madrid (西甲)球员的情况下，于FC Heritage Circuit Tournament中在3场不同比赛各至少打入1球。",
+  "zh": "在首发 11 人中拥有至少1名Real Madrid (西甲)球员的情况下，于FC Heritage Circuit Tournament中在3场不同比赛各至少打入1球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1531,7 +1531,7 @@
  },
  "6aae9b24c883652af2d7d42e2076563639510f52": {
   "en": "Win 2 matches while having Min. 2 Real Madrid (LALIGA) players in your starting 11 in the FC Heritage Circuit Semi-Pro Event.",
-  "zh": "在首发十一人中拥有至少2名Real Madrid (西甲)球员的情况下，于FC Heritage Circuit 半职业 Event中赢得2场比赛。",
+  "zh": "在首发 11 人中拥有至少2名Real Madrid (西甲)球员的情况下，于FC Heritage Circuit 半职业 Event中赢得2场比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1543,19 +1543,19 @@
  },
  "5f81941fbbc2e457e1ae66ed411f9cb9234ab29b": {
   "en": "Score at least 2 goals in one match while having Min. 1 MLS player in your starting 11 in the FC Heritage Circuit Semi-Pro Event.",
-  "zh": "在首发十一人中拥有至少1名美职联球员的情况下，于FC Heritage Circuit 半职业 Event中在一场比赛内至少打入2球。",
+  "zh": "在首发 11 人中拥有至少1名美职联球员的情况下，于FC Heritage Circuit 半职业 Event中在一场比赛内至少打入2球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "09de7b64961ade8112fd1a62132d82b06e5e56f9": {
   "en": "Assist at least 3 goals while having Min. 1 Ligue 1 player in your starting 11 in the FC Heritage Circuit Semi-Pro Event.",
-  "zh": "在首发十一人中拥有至少1名法甲球员的情况下，于FC Heritage Circuit 半职业 Event中至少助攻3球。",
+  "zh": "在首发 11 人中拥有至少1名法甲球员的情况下，于FC Heritage Circuit 半职业 Event中至少助攻3球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "97d427222da6dfda2a94dd830228fe33eca1625c": {
   "en": "Score in 2 separate matches while having Min. 1 Serie A player in your starting 11 in the FC Heritage Circuit Semi-Pro Event.",
-  "zh": "在首发十一人中拥有至少1名意甲球员的情况下，于FC Heritage Circuit 半职业 Event中在2场不同比赛进球。",
+  "zh": "在首发 11 人中拥有至少1名意甲球员的情况下，于FC Heritage Circuit 半职业 Event中在2场不同比赛进球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1567,25 +1567,25 @@
  },
  "32cca7b169348efa39f9756c5b70a775e23f4cee": {
   "en": "Win 2 matches while having Min. 3 Premier League players in your starting 11 in the FC Heritage Circuit Professional Event.",
-  "zh": "在首发十一人中拥有至少3名英超球员的情况下，于FC Heritage Circuit 职业 Event中赢得2场比赛。",
+  "zh": "在首发 11 人中拥有至少3名英超球员的情况下，于FC Heritage Circuit 职业 Event中赢得2场比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "cfc6cc1c83c23941a4afed661931b4127ffb25b8": {
   "en": "Score at least 3 goals in one match while having Min. 1 French player in your starting 11 in the FC Heritage Circuit Professional Event.",
-  "zh": "在首发十一人中拥有至少1名French球员的情况下，于FC Heritage Circuit 职业 Event中在一场比赛内至少打入3球。",
+  "zh": "在首发 11 人中拥有至少1名French球员的情况下，于FC Heritage Circuit 职业 Event中在一场比赛内至少打入3球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "532842a361dbfd375e2d0aaa9a695c61dae1677b": {
   "en": "Assist at least 3 goals while having Min. 1 Belgian player in your starting 11 in the FC Heritage Circuit Professional Event.",
-  "zh": "在首发十一人中拥有至少1名Belgian球员的情况下，于FC Heritage Circuit 职业 Event中至少助攻3球。",
+  "zh": "在首发 11 人中拥有至少1名Belgian球员的情况下，于FC Heritage Circuit 职业 Event中至少助攻3球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "f94e87a0c3befda08a154356ffbbc7b94bcf5297": {
   "en": "Score at least 1 goal in 2 separate matches while having Min. 1 English player in your starting 11 in the FC Heritage Circuit Professional Event.",
-  "zh": "在首发十一人中拥有至少1名English球员的情况下，于FC Heritage Circuit 职业 Event中在2场不同比赛各至少打入1球。",
+  "zh": "在首发 11 人中拥有至少1名English球员的情况下，于FC Heritage Circuit 职业 Event中在2场不同比赛各至少打入1球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1663,31 +1663,31 @@
  },
  "b7144e4888da4b4a1f52815b556fd8247be4da96": {
   "en": "Score at least 1 goal in 15 separate matches with a Future Stars Academy player in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在组内对抗中在最低半职业难度，使用明日之星学院球员于15场不同比赛各至少打入1球（或快攻/对手赛/冠军赛/现场活动）。",
+  "zh": "在SQB中在最低半职业难度，使用明日之星学院球员于15场不同比赛各至少打入1球（或Rush/DR/FUT冠军/实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "e90445e9e184b92a6326c95eb4cfcdfe169ba4d0": {
   "en": "Play 10 matches while having min. 1 Future Stars Academy player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在首发十一人中拥有至少1名明日之星学院球员的情况下，于组内对抗中在最低半职业难度进行10场比赛（或快攻/对手赛/冠军赛/现场活动）。",
+  "zh": "在首发 11 人中拥有至少1名明日之星学院球员的情况下，于SQB中在最低半职业难度进行10场比赛（或Rush/DR/FUT冠军/实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "aa35ac9456ab7b159ec1def70fb66d2fef12bf69": {
   "en": "Win 7 matches while having min. 1 Future Stars Academy player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在首发十一人中拥有至少1名明日之星学院球员的情况下，于组内对抗中在最低半职业难度赢得7场比赛（或快攻/对手赛/冠军赛/现场活动）。",
+  "zh": "在首发 11 人中拥有至少1名明日之星学院球员的情况下，于SQB中在最低半职业难度赢得7场比赛（或Rush/DR/FUT冠军/实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "89458f67e1b6bb32183d5f8f7492b76ce86f72c1": {
   "en": "Play 5 matches while having min. 1 Future Stars Academy player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在首发十一人中拥有至少1名明日之星学院球员的情况下，于组内对抗中在最低半职业难度进行5场比赛（或快攻/对手赛/冠军赛/现场活动）。",
+  "zh": "在首发 11 人中拥有至少1名明日之星学院球员的情况下，于SQB中在最低半职业难度进行5场比赛（或Rush/DR/FUT冠军/实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "19e5672473eef922ee7f17066cbdf9daf395ce54": {
   "en": "Score at least 1 goal with a Future Stars Academy player in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在组内对抗中在最低半职业难度，使用明日之星学院球员至少打入1球（或快攻/对手赛/冠军赛/现场活动）。",
+  "zh": "在SQB中在最低半职业难度，使用明日之星学院球员至少打入1球（或Rush/DR/FUT冠军/实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1729,13 +1729,13 @@
  },
  "55ee2acb652a47304e1829b19189035b6bdfb387": {
   "en": "Score 5 goals in any Football Ultimate Team game mode while having at least 1 player from any Premier League team and 1 player from any Women's Super League team in your starting 11.",
-  "zh": "在任意 Football 终极 Team 游戏模式中打进 5 球，同时首发十一人中至少有 1 名来自任意 英超 球队的球员和 1 名来自任意 Women's Super League 球队的球员。",
+  "zh": "在任意 Football 终极 Team 游戏模式中打进 5 球，同时首发 11 人中至少有 1 名来自任意 英超 球队的球员和 1 名来自任意 Women's Super League 球队的球员。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "5ef2b5f9a3b22f145e513636f4e1eec92488a7aa": {
   "en": "Play 3 matches in any Football Ultimate Team game mode while having at least 2 players from USA in your starting 11.",
-  "zh": "在任意 Football 终极 Team 游戏模式中进行 3 场比赛，同时首发十一人中至少有 2 名来自 美国 的球员。",
+  "zh": "在任意 Football 终极 Team 游戏模式中进行 3 场比赛，同时首发 11 人中至少有 2 名来自 美国 的球员。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1753,97 +1753,97 @@
  },
  "aefd5da9776839c449a0a65e79f3a157702997a8": {
   "en": "Play 15 Rivals matches.",
-  "zh": "进行 15 场 对手赛 比赛。",
+  "zh": "进行 15 场 DR 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "197b8ebc3b09f419ae01583ccbd2f21e18e28bf8": {
   "en": "Play 10 Rivals matches.",
-  "zh": "进行 10 场 对手赛 比赛。",
+  "zh": "进行 10 场 DR 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "496005964aea0546976c041f201e534d5ebab696": {
   "en": "Play 5 Rivals matches.",
-  "zh": "进行 5 场 对手赛 比赛。",
+  "zh": "进行 5 场 DR 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "273133cfc7fc3d8c34f3bb86c4af330df5cdc11f": {
   "en": "Play 15 Squad Battles Matches on any difficulty.",
-  "zh": "在任意难度下进行 15 场 组内对抗 比赛。",
+  "zh": "在任意难度下进行 15 场 SQB 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "636d4da176e530cde1474d970e7110d6f6634ee3": {
   "en": "Play 10 Squad Battles Matches on any difficulty.",
-  "zh": "在任意难度下进行 10 场 组内对抗 比赛。",
+  "zh": "在任意难度下进行 10 场 SQB 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "9291a9e66355e38260a0fed5db5df98f849e2a1e": {
   "en": "Play 5 Squad Battles Matches on any difficulty.",
-  "zh": "在任意难度下进行 5 场 组内对抗 比赛。",
+  "zh": "在任意难度下进行 5 场 SQB 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "328b7042a47580e1cfce51e71b1fb35219b7387d": {
   "en": "Win a PVE Live Events match on min. Semi-Pro difficulty (or PVP Live Events).",
-  "zh": "在最低 半职业 难度下赢得一场 PVE 现场活动 比赛（或 PVP 现场活动）。",
+  "zh": "在最低 半职业 难度下赢得一场 PVE 实时赛事 比赛（或 PVP 实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "c99452fccb9c3251215cce42e698c8a599068718": {
   "en": "Score 20 goals in any Live Events match (or Rivals/Squad Battles).",
-  "zh": "在任意 现场活动 比赛中打进 20 球（或 对手赛/组内对抗）。",
+  "zh": "在任意 实时赛事 比赛中打进 20 球（或 DR/SQB）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "3686779e775760957cc5c1f02027c9e622f9129a": {
   "en": "Play 7 Live Events matches (or Rivals/Squad Battles).",
-  "zh": "进行 7 场 现场活动 比赛（或 对手赛/组内对抗）。",
+  "zh": "进行 7 场 实时赛事 比赛（或 DR/SQB）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "5f1c7b6a002885d65e683c1b4355821ccbc45fbd": {
   "en": "Play any Live Events match (or Rivals/Squad Battles).",
-  "zh": "进行任意 现场活动 比赛（或 对手赛/组内对抗）。",
+  "zh": "进行任意 实时赛事 比赛（或 DR/SQB）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "e39eaba415978323987905457ee4abf1f0ba191d": {
   "en": "Score 20 goals as a team in Rush.",
-  "zh": "在 快攻 中作为球队打进 20 球。",
+  "zh": "在 Rush 中作为球队打进 20 球。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "32b6a32716187b4ab26156b0b5df7322a1956d4d": {
   "en": "Complete 20 Rush bonuses.",
-  "zh": "完成 20 个 快攻 奖励。",
+  "zh": "完成 20 个 Rush 奖励。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "12b98d83572bc4faa70530b675e63ce145b1a846": {
   "en": "Complete 10 Rush bonuses.",
-  "zh": "完成 10 个 快攻 奖励。",
+  "zh": "完成 10 个 Rush 奖励。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "35f7d4ca7b0275e85eeb9ccc4e141ab86346e610": {
   "en": "Play 15 Rush matches.",
-  "zh": "进行 15 场 快攻 比赛。",
+  "zh": "进行 15 场 Rush 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "d3248f64ed543918fbfa86a34852fe1f5c7b00b8": {
   "en": "Play 10 Rush matches.",
-  "zh": "进行 10 场 快攻 比赛。",
+  "zh": "进行 10 场 Rush 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "6190207f827de6683cf308fd9a4e6b254da52fdd": {
   "en": "Play 5 Rush matches.",
-  "zh": "进行 5 场 快攻 比赛。",
+  "zh": "进行 5 场 Rush 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1903,19 +1903,19 @@
  },
  "8a6d7a22bc1f8a644111d3ba6a90968f81c04704": {
   "en": "Play 15 Champions matches.",
-  "zh": "进行 15 场 冠军赛 比赛。",
+  "zh": "进行 15 场 FUT冠军 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "6d0550c856657868f4c51be4e81d52e825fc36d3": {
   "en": "Play 10 Champions matches.",
-  "zh": "进行 10 场 冠军赛 比赛。",
+  "zh": "进行 10 场 FUT冠军 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "9725d0d55e425876a6ca6113516ff8584bb91153": {
   "en": "Play 5 Champions matches.",
-  "zh": "进行 5 场 冠军赛 比赛。",
+  "zh": "进行 5 场 FUT冠军 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1951,25 +1951,25 @@
  },
  "61e3e5d6124f60c55e70451c123675344dc057b8": {
   "en": "Score 500 times in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events).",
-  "zh": "在最低 半职业 难度下在 组内对抗 中进球 500 次（或 对手赛/冠军赛/现场活动）。",
+  "zh": "在最低 半职业 难度下在 SQB 中进球 500 次（或 DR/FUT冠军/实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "dd1e84d72776175d318a124e9a723635c6c0e9bb": {
   "en": "Score 100 times in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events).",
-  "zh": "在最低 半职业 难度下在 组内对抗 中进球 100 次（或 对手赛/冠军赛/现场活动）。",
+  "zh": "在最低 半职业 难度下在 SQB 中进球 100 次（或 DR/FUT冠军/实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "f4d6a06eac6c4e5970ae4aa9d0f31fcba3cb569f": {
   "en": "Assist 500 times in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events).",
-  "zh": "在最低 半职业 难度下在 组内对抗 中助攻 500 次（或 对手赛/冠军赛/现场活动）。",
+  "zh": "在最低 半职业 难度下在 SQB 中助攻 500 次（或 DR/FUT冠军/实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "714233013dcbf7ac6a48bc00f39e039909720d34": {
   "en": "Assist 100 times in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events).",
-  "zh": "在最低 半职业 难度下在 组内对抗 中助攻 100 次（或 对手赛/冠军赛/现场活动）。",
+  "zh": "在最低 半职业 难度下在 SQB 中助攻 100 次（或 DR/FUT冠军/实时赛事）。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
@@ -1993,824 +1993,56 @@
  },
  "70ae5504785cd6bc2b753576d99e17e086c93d23": {
   "en": "Win 100 Squad Battles matches on min. Semi-Pro difficulty.",
-  "zh": "在最低 半职业 难度下赢得 100 场 组内对抗 比赛。",
+  "zh": "在最低 半职业 难度下赢得 100 场 SQB 比赛。",
   "src": "llm:deepseek",
   "ts": 1793417699337
  },
  "0805de60e7de514a9d546242bbb48b5fa78adab0": {
   "en": "Win 50 Squad Battles matches on min. Semi-Pro difficulty.",
-  "zh": "在最低半职业难度下赢得50场组内对抗。",
+  "zh": "在最低半职业难度下赢得50场SQB。",
   "src": "llm:deepseek",
   "ts": 1793417769870
  },
  "2dd8b413f4ce8a17f5392bdb10f0c4bfe73e3164": {
   "en": "Win 25 Squad Battles matches on min. Semi-Pro difficulty.",
-  "zh": "在最低半职业难度下赢得25场组内对抗。",
+  "zh": "在最低半职业难度下赢得25场SQB。",
   "src": "llm:deepseek",
   "ts": 1793417769870
  },
  "5ec52af97c6693e47e04ee6785fe620266e881b4": {
   "en": "Win 100 Rivals matches.",
-  "zh": "赢得100场对手赛。",
+  "zh": "赢得100场DR。",
   "src": "llm:deepseek",
   "ts": 1793417769870
  },
  "9edc413fac15fb5012e0801fd1d050d002f80c05": {
   "en": "Win 50 Rivals matches.",
-  "zh": "赢得50场对手赛。",
+  "zh": "赢得50场DR。",
   "src": "llm:deepseek",
   "ts": 1793417769870
  },
  "1b54982d0c0b94598a692121714c7c257a4e7d9e": {
   "en": "Win 25 Rivals matches.",
-  "zh": "赢得25场对手赛。",
+  "zh": "赢得25场DR。",
   "src": "llm:deepseek",
   "ts": 1793417769870
  },
  "3f7a9caaeb5baefff01e7cdd16b30e14871ca638": {
   "en": "Win 100 Champions matches.",
-  "zh": "赢得100场冠军赛。",
+  "zh": "赢得100场FUT冠军。",
   "src": "llm:deepseek",
   "ts": 1793417769870
  },
  "c1ec442849c09beb5cc31746fbd6a9fa52d5f60c": {
   "en": "Win 50 Champions matches.",
-  "zh": "赢得50场冠军赛。",
+  "zh": "赢得50场FUT冠军。",
   "src": "llm:deepseek",
   "ts": 1793417769870
  },
  "f47c6cebc687dd8954fd0d1f4d5025cb04dd33a5": {
   "en": "Win 25 Champions matches.",
-  "zh": "赢得25场冠军赛。",
+  "zh": "赢得25场FUT冠军。",
   "src": "llm:deepseek",
   "ts": 1793417769870
- },
- "36f8d8cd8d3b35fed8c2dc8d0f3e32834151c321": {
-  "en": "Shadow Runner",
-  "zh": "影子跑动者",
-  "src": "llm:deepseek",
-  "ts": 1793470484088
- },
- "70d92fdeff70f373b20c377e2fb5b0cd9d06c4b4": {
-  "en": "Assist at least 1 goal in 7 separate matches with a player with min. 85 PAC in any FUT game mode.",
-  "zh": "在任意 FUT 比赛模式中，使用最低 85 速度的球员在 7 场不同比赛中至少助攻 1 球。",
-  "src": "llm:deepseek",
-  "ts": 1793470484088
- },
- "d666e7b921fdb56fbd2798300de04f81acf4b8bd": {
-  "en": "Thirteen Nightmares",
-  "zh": "十三个噩梦",
-  "src": "llm:deepseek",
-  "ts": 1793470484088
- },
- "e053d446f4113250f263b10bb998ca2bb76c3304": {
-  "en": "Score at least 1 goal in 13 separate matches with a ST (Main Position) in any FUT game mode.",
-  "zh": "在任意 FUT 比赛模式中，使用前锋（主要位置）在 13 场不同比赛中至少打进 1 球。",
-  "src": "llm:deepseek",
-  "ts": 1793470484088
- },
- "c575a443e6f3a77c1a41210ee67f568d9b319d49": {
-  "en": "Witch's Brew",
-  "zh": "女巫的酿造",
-  "src": "llm:deepseek",
-  "ts": 1793470484088
- },
- "66cbdc30f83b562f7cf04c1477ff804e3c0ee840": {
-  "en": "Complete any 4 SBC Groups.",
-  "zh": "完成任意 4 个 SBC 组。",
-  "src": "llm:deepseek",
-  "ts": 1793470484088
- },
- "fbfa7539e292477ee5143d67db26c471a293956a": {
-  "en": "Grave Keeper",
-  "zh": "Grave 门将",
-  "src": "llm:deepseek",
-  "ts": 1793470484088
- },
- "3501f2495b98a54a7b774455d3bb8421a11f4e7c": {
-  "en": "Win 6 matches in any FUT game mode while having a Defender with min. 66 DEF in your starting 11.",
-  "zh": "在任意 FUT 比赛模式中，在首发十一人中拥有最低 66 防守的后卫的情况下赢得 6 场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793470484088
- },
- "8df5b6f2460d13f2740a2f1aaef61ae528e976b7": {
-  "en": "Movember Animated TIFO",
-  "zh": "十一月动画 TIFO",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "a49403c84ff965a84dd71fd5f9eef9ba1d3ff140": {
-  "en": "Play 1 match in any FUT game mode while having the Movember Animated TIFO equipped.",
-  "zh": "在装备十一月动画 TIFO 的情况下，在任意 FUT 比赛模式中进行 1 场比赛。",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "f1e0146f6344758ba7992c836a2681fd9cbee90b": {
-  "en": "Movember TIFO",
-  "zh": "十一月 TIFO",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "cc26b3a4db766c1c163c1ab050a3a00979d2ce12": {
-  "en": "Play 1 match in any FUT game mode while having the Movember TIFO equipped.",
-  "zh": "在装备十一月 TIFO 的情况下，在任意 FUT 比赛模式中进行 1 场比赛。",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "6d171dd275c0ec0a1ee07ae4f6d3076fa00a32f2": {
-  "en": "Silver Winners",
-  "zh": "银卡赢家",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "21eb5fd1bd86fd42fb47e290512f79ebde608edc": {
-  "en": "Win 3 matches in the Silver Bullets Flash Rush Event.",
-  "zh": "在银弹闪击快攻活动中赢得 3 场比赛。",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "3016e8c460d8aea5882351ba45dbfa6ee19a4afb": {
-  "en": "Top Scorers",
-  "zh": "最佳神射手",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "ad3014adbb1535e1679a615998b0d2b34f1b715e": {
-  "en": "Score at least 4 goals with a Striker in the Silver Bullets Flash Rush Event.",
-  "zh": "在银弹闪击快攻活动中使用前锋至少打进 4 球。",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "d7cae11597fb346d0cdb7a34c55be26313c134cb": {
-  "en": "Friendly Teammate",
-  "zh": "友好队友",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "cce598d5f73cf58b02e18efb08fa7866299790c8": {
-  "en": "Assist 3 goals in the Silver Bullets Flash Rush Event.",
-  "zh": "在银弹闪击快攻活动中助攻 3 球。",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "89728066cfcb438afce699cea885eebfb08a3342": {
-  "en": "Los Campeones",
-  "zh": "冠军",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "8fef3e983c83aa451ba9eb0784138b5b2f1dcf7d": {
-  "en": "Win 3 matches while having min. 1 player from Liga BBVA MX in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champs).",
-  "zh": "在组内对抗中，最低半职业难度（或对手赛/现场活动/快攻/Champs），首发十一人中至少有 1 名来自 Liga BBVA MX 的球员，赢得 3 场比赛。",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "b2da40cc756ac3fe55677d6fe432e41499a25ba7": {
-  "en": "El Tri",
-  "zh": "埃尔特里",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "31564aa113227a93a9f0c8533bc6d363435743e8": {
-  "en": "Play 5 matches while having min. 3 Mexican players in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champs).",
-  "zh": "在组内对抗中，最低半职业难度（或对手赛/现场活动/快攻/Champs），首发十一人中至少有 3 名墨西哥球员，进行 5 场比赛。",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "9c5c5a4af6d9526e3794b1b6c68a154b8ed89175": {
-  "en": "El Matón del área",
-  "zh": "禁区杀手",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "9869e48ddeb0eb12eaeca9f21632e1cd443ba1d6": {
-  "en": "Score 4 goals while having min. 2 players from Liga BBVA MX in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rivals/Live Events/Rush/Champs).",
-  "zh": "在组内对抗中，最低半职业难度（或对手赛/现场活动/快攻/Champs），首发十一人中至少有 2 名来自 Liga BBVA MX 的球员，打进 4 球。",
-  "src": "llm:deepseek+mt",
-  "ts": 1793556427327
- },
- "3f93e88c14d4dcf3b6f1af26f061ebc10cdc537f": {
-  "en": "Score 10 goals in any FUT game mode using a player from Portugal.",
-  "zh": "在任意 FUT 比赛模式中使用一名来自葡萄牙的球员打进 10 球。",
-  "src": "llm:deepseek",
-  "ts": 1793902056866
- },
- "1823d26523efb30afe3c73af7f9bac86b7c3b0c7": {
-  "en": "Watch 60 minutes",
-  "zh": "观看 60 分钟",
-  "src": "llm:deepseek",
-  "ts": 1793902056866
- },
- "c1e8d42eff9450483ade48f79845fb4c44794923": {
-  "en": "Watch the FC Pro Open Global Qualifier for at least 60 minutes. Broadcast will go live on November 7 at 15:00 UTC until 22:00 UTC.",
-  "zh": "观看 FC Pro Open Global Qualifier 至少 60 分钟。直播将于 11 月 7 日 15:00 UTC 开始，持续至 22:00 UTC。",
-  "src": "llm:deepseek",
-  "ts": 1793902056866
- },
- "044714bbda5264d7066b4202082ed36c8dba46fd": {
-  "en": "Watch 15 minutes",
-  "zh": "观看 15 分钟",
-  "src": "llm:deepseek",
-  "ts": 1793902056866
- },
- "0bacf084e372ab762aa2ecd357878a1bcd01374e": {
-  "en": "Watch the FC Pro Open Global Qualifier for at least 15 minutes. Broadcast will go live on November 7 at 15:00 UTC until 22:00 UTC.",
-  "zh": "观看 FC Pro Open Global Qualifier 至少 15 分钟。直播将于 11 月 7 日 15:00 UTC 开始，持续至 22:00 UTC。",
-  "src": "llm:deepseek",
-  "ts": 1793902056866
- },
- "9df7233d91f49eaa750f928f8129f1377220b984": {
-  "en": "Best of the Best",
-  "zh": "精英中的精英",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "75f7297ec636ddf8d97d45a403dba6cded4f11aa": {
-  "en": "Win 10 separate matches while having min. 4 First Owned players in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在组内对抗中，首发十一人包含至少4名首次拥有的球员，在至少半职业难度下赢得10场独立比赛（或快攻/对手赛/冠军赛/现场活动）。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "80113e0206db5fd43e0cd45a04bc3972d7e4b6aa": {
-  "en": "Pope's Hail Mary",
-  "zh": "波普的万福玛利亚",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "46781716f79dce066371a27828ae40d0774b38ae": {
-  "en": "Assist with a GK with min. 1 English player in your starting XI in any FUT game mode.",
-  "zh": "在任意FUT比赛模式中，使用一名门将助攻，首发十一人包含至少1名英格兰球员。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "207f95454985fbb7ba3d60276cabd22b367ad25f": {
-  "en": "Grizi's Golazo",
-  "zh": "格列兹曼的世界波",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "f6663947ce1ca6ba7fd58d7bbdc78e0ccd3566b7": {
-  "en": "Score a bicycle kick with min. 1 French player in your starting XI in any FUT game mode.",
-  "zh": "在任意FUT比赛模式中，使用一名法国球员打入一记倒钩射门，首发十一人包含至少1名法国球员。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "cf7560d368fedcccf1e5b2f11ca30b585f30a69e": {
-  "en": "Harder's Hat-trick",
-  "zh": "哈德尔的帽子戏法",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "e2313ee246091b230202b2b900aaad5ca73a5c82": {
-  "en": "Score a hat-trick with a player from GPFBL in any game mode",
-  "zh": "在任意游戏模式中，使用一名GPFBL球员打入帽子戏法",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "9c4613e9ae1decffaa148d3ca1413729559edb93": {
-  "en": "Venemous Vitinha",
-  "zh": "毒蛇Vitinha",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "4715e52ab166612ce8b9c03df93b605498269622": {
-  "en": "Score a goal outside the box with a Ligue 1 CM and win in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在组内对抗中，使用一名法甲中前卫在禁区外打入一球并获胜，至少半职业难度（或快攻/对手赛/冠军赛/现场活动）。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "0e364773a0a39f042cfce02e5833a65d67f29b83": {
-  "en": "The rise of Gegenpressing",
-  "zh": "反抢的崛起",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "795444859c0ae3561c76945dba158b9ee2736482": {
-  "en": "Score in 5 separate matches while having min. 1 Borussia Dortmund player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在组内对抗中，首发十一人包含至少1名多特蒙德球员，在5场独立比赛中进球，至少半职业难度（或快攻/对手赛/冠军赛/现场活动）。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "97f726297eb02eacd2d168414c3d352014d86693": {
-  "en": "The 11% Miracle",
-  "zh": "11%的奇迹",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "c30f81a70cf03c0544bd1ab77aec19e871f83fd9": {
-  "en": "Score 2 goals while conceding 1 or less goals with min. 1 Scottish player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在组内对抗中，首发十一人包含至少1名苏格兰球员，打入2球且失球不超过1球，至少半职业难度（或快攻/对手赛/冠军赛/现场活动）。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "e5c507bc178cbbfe93dabcea02e150d1d01afd8e": {
-  "en": "Score in 14",
-  "zh": "在14中进球",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "3a11ea21a46a4bc845f21ba9a0043907044be25d": {
-  "en": "Score at least 1 goal in 14 separate matches in the Ultimate Gauntlet 3.",
-  "zh": "在终极Gauntlet 3中，在14场独立比赛中至少打入1球。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "50bb382021fbfca79c4684c99172f649beb8a463": {
-  "en": "Score in 10",
-  "zh": "在10中进球",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "2c8300e7de2b4a4a6cd64309c7ecc6e1db45f62e": {
-  "en": "Score at least 1 goal in 10 separate matches in the Ultimate Gauntlet 3.",
-  "zh": "在终极Gauntlet 3中，在10场独立比赛中至少打入1球。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "1afbec0598c9468349b2364a96e3975582136b15": {
-  "en": "Triple Perfect",
-  "zh": "三连完美",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "a533520fb0844d9cc273c46d320ec1bada73ea19": {
-  "en": "Win both matches in a single Ultimate Gauntlet 3 round, three times.",
-  "zh": "在终极Gauntlet 3中，三次在单轮中赢得两场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "05d9916c6acba08960a74c4e103b4ca84cdb7c94": {
-  "en": "Double Perfect",
-  "zh": "双连完美",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "02cedad1b7fa8d11e170f740c4021bbbb78f40b2": {
-  "en": "Win both matches in a single Ultimate Gauntlet 3 round, twice.",
-  "zh": "在终极Gauntlet 3中，两次在单轮中赢得两场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "2c339c66694d562f1d48da4237da83549d0cb127": {
-  "en": "Perfect Round",
-  "zh": "完美一轮",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "6a8528597d31adf14e39d918c74a6ae6ac05447a": {
-  "en": "Win both matches in a single Ultimate Gauntlet 3 round.",
-  "zh": "在终极Gauntlet 3中，在单轮中赢得两场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "6943f1c5b391a693599fcfa3eaba7b7a05613f55": {
-  "en": "Win 5 matches in the Ultimate Gauntlet 3.",
-  "zh": "在终极Gauntlet 3中赢得5场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "b283f4bcc52790155af319da6ad355ecc625763c": {
-  "en": "Win 3 matches in the Ultimate Gauntlet 3.",
-  "zh": "在终极Gauntlet 3中赢得3场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "edcb81a55396df3efcc6918cb8d1e35c477e790d": {
-  "en": "Win 1 match in the Ultimate Gauntlet 3.",
-  "zh": "在终极Gauntlet 3中赢得1场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "463bc7b171e357bf08b8673fbc11b2ba8242a313": {
-  "en": "Score in 4",
-  "zh": "在4中进球",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "673a20b22fe87fa7984dbd4b5f1977d8a982bca2": {
-  "en": "Score at least 1 goal in 4 separate matches in the Ultimate Gauntlet 3.",
-  "zh": "在终极Gauntlet 3中，在4场独立比赛中至少打入1球。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "c36369aa0021a7cfb811c5ecfd9d3a000572c2b6": {
-  "en": "Score 1 goal in the Ultimate Gauntlet 3.",
-  "zh": "在终极Gauntlet 3中打入1球。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "b7e8916505bf72d3bbd637339087c4847e386b67": {
-  "en": "Legendary",
-  "zh": "传奇",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "2bb41fd83bdbd2b1d1fdde2cd13d094052ff7060": {
-  "en": "Win 1 match in the Road to the Knockouts Event on Legendary difficulty.",
-  "zh": "在淘汰赛之路活动中，以传奇难度赢得1场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "713c530370f7c8439dcad9a9551a94d4de7abfe4": {
-  "en": "World Class",
-  "zh": "世界级",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "0f9a6f08ee09c52ff4c282b942c8e1ff8fe6d352": {
-  "en": "Win 1 match in the Road to the Knockouts Event on World Class difficulty.",
-  "zh": "在淘汰赛之路活动中，以世界级难度赢得1场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "6f719fb045c0b6fc89e44e33177ba6d4c3e21055": {
-  "en": "Professional",
-  "zh": "职业",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "d448d605a155eba58099045818dfa687719d13a5": {
-  "en": "Win 1 match in the Road to the Knockouts Event on Professional difficulty.",
-  "zh": "在淘汰赛之路活动中，以职业难度赢得1场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "e857b48007534f71e7058f87f7939407906e4a2b": {
-  "en": "Semi-Pro",
-  "zh": "半职业",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "b029aa093ba88ac1e9c5f8c5d82cb72fbbd3543c": {
-  "en": "Win 1 match in the Road to the Knockouts Event on Semi-Pro difficulty.",
-  "zh": "在淘汰赛之路活动中，以半职业难度赢得1场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1793989047285
- },
- "4b5d09c796e2050364840fc2ae52d2386f55bfed": {
-  "en": "Unlikely Hero",
-  "zh": "不太可能的英雄",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "04f17822b1beed677be697064e1e93b4e579f0c4": {
-  "en": "Score a header with a CB in Squad Battles on min. Beginner difficulty (or Rivals/Champions/Live Events).",
-  "zh": "在组内对抗中，用中后卫打进一记头球，最低难度为初学者（或对手赛/冠军赛/现场活动）。",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "b89a3acebd0a6d1a54a1c4b508b89a82ab0de284": {
-  "en": "Pursuit of Excellence",
-  "zh": "追求卓越",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "ec32731b7c1e3fedd911f77ffafe8b22783d4499": {
-  "en": "Win 7 matches with min. 3 Portuguese players in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events).",
-  "zh": "在组内对抗中，首发十一人至少有3名葡萄牙球员，赢得7场比赛，最低难度为半职业（或对手赛/冠军赛/现场活动）。",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "c0932562a868ea40b56d7574ab0608f0f0141d8c": {
-  "en": "Elite Pedigree",
-  "zh": "精英血统",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "bcddb4a99b76586b6e98167e99d51fb4675a9a9a": {
-  "en": "Score at least 1 goal in 3 separate matches while having min. 1 UCL/UWCL/UEL/UECL player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在3场不同比赛中至少打进1球，同时首发十一人至少有1名UCL/UWCL/UEL/UECL球员，在组内对抗中，最低难度为半职业（或快攻/对手赛/冠军赛/现场活动）。",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "105a9b80c63c40068e7121b999705a32740dac47": {
-  "en": "Defensive Steel",
-  "zh": "防守钢铁",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "4fbb5960f3235f69ff20cb90d83c7ad58ebbb2c7": {
-  "en": "Concede less than 2 goals in 3 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "在3场不同比赛中失球少于2球，在组内对抗中，最低难度为半职业（或快攻/对手赛/冠军赛/现场活动）。",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "d9225528b8e9db67bfa31ca9f3183737ba6c2cd9": {
-  "en": "Futbol Aşkına",
-  "zh": "为了足球",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "b2c09cb68cc32bdb218b6bbcc343bc123d7c9512": {
-  "en": "Play 1 match while having min. 1 Trendyol Süper Lig player in your starting XI in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events).",
-  "zh": "进行1场比赛，同时首发十一人至少有1名Trendyol Süper Lig球员，在组内对抗中，最低难度为半职业（或快攻/对手赛/冠军赛/现场活动）。",
-  "src": "llm:deepseek",
-  "ts": 1794074844667
- },
- "3b68061ba72ede0ecb3bbf7a234ab5ffa7ad74ad": {
-  "en": "No Exit Allowed",
-  "zh": "禁止退出",
-  "src": "llm:deepseek",
-  "ts": 1794161222891
- },
- "75080df9274733f49d4c04743ddd056ac223edb8": {
-  "en": "Win 2 matches in the Transfer Embargo Flash Rush Event.",
-  "zh": "在转会禁令快攻活动中赢得2场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1794161222891
- },
- "e299af5ea29bf8a59ac9f7b19980fbf925883bbd": {
-  "en": "Academy Trust",
-  "zh": "学院信任",
-  "src": "llm:deepseek",
-  "ts": 1794161222891
- },
- "f0176bc1a5f949ea121dff73aeadb01a5453730f": {
-  "en": "Assist in 3 separate matches with a Player with max. 85 PAC in the Transfer Embargo Flash Rush Event.",
-  "zh": "在转会禁令快攻活动中，使用最高85 PAC的球员在3场不同比赛中助攻。",
-  "src": "llm:deepseek",
-  "ts": 1794161222891
- },
- "63cdad1216726adc321292f70f04d11a83347c5b": {
-  "en": "Signed Before the Buzzer",
-  "zh": "压哨签约",
-  "src": "llm:deepseek",
-  "ts": 1794161222891
- },
- "67fe563cd0eeef1111bca53b7671cd9e43f20ae1": {
-  "en": "Score in 3 separate matches with a ST (Primary Position) in the Transfer Embargo Flash Rush Event.",
-  "zh": "在转会禁令快攻活动中，使用前锋（主要位置）在3场不同比赛中进球。",
-  "src": "llm:deepseek",
-  "ts": 1794161222891
- },
- "29224f326e44fadfa2b24366e0e7dc9d9abf6b3d": {
-  "en": "Drip Too Fly",
-  "zh": "飞溅太炫",
-  "src": "llm:deepseek",
-  "ts": 1794247660043
- },
- "200bc1cd16ea37fb9abcca13970b667130e951db": {
-  "en": "Play 1 match wearing the Red Bull Clubs Members Home Kit in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush).",
-  "zh": "穿着 Red Bull Clubs Members 主场球衣，在组内对抗中于 min. 半职业 难度（或 对手赛/冠军赛/现场活动/快攻）进行 1 场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1794247660043
- },
- "6ff89f48b8a565a18e523fe91bef651532cd39f4": {
-  "en": "Wingers to Winners",
-  "zh": "边锋 to Winners",
-  "src": "llm:deepseek",
-  "ts": 1794247660043
- },
- "c3a23ac4590bbd1403eeaa2c1268749a0b4e362a": {
-  "en": "Assist 5 goals using Crosses while wearing the Red Bull Wings Cup Home Kit in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush).",
-  "zh": "穿着 Red Bull Wings Cup 主场球衣，在组内对抗中于 min. 半职业 难度（或 对手赛/冠军赛/现场活动/快攻）使用传中助攻 5 个进球。",
-  "src": "llm:deepseek",
-  "ts": 1794247660043
- },
- "353e469819f2201d939fd43b5144f3e9d4bf577a": {
-  "en": "Watch Me Fly",
-  "zh": "看我飞",
-  "src": "llm:deepseek",
-  "ts": 1794247660043
- },
- "89df5117ebe6734cfa7eda17490302e229a31b32": {
-  "en": "Score 3 goals using Headers while wearing the Red Bull Wings Cup Home Kit in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush).",
-  "zh": "穿着 Red Bull Wings Cup 主场球衣，在组内对抗中于 min. 半职业 难度（或 对手赛/冠军赛/现场活动/快攻）使用头球打进 3 个进球。",
-  "src": "llm:deepseek",
-  "ts": 1794247660043
- },
- "8142ec4ac1b93bc75b035267946d6d6dc043d73e": {
-  "en": "Get Your Drip",
-  "zh": "获取你的装备",
-  "src": "llm:deepseek",
-  "ts": 1794247660043
- },
- "54e2db89f084054fb8d6e2cdc13cca5448588117": {
-  "en": "Play 3 matches in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush).",
-  "zh": "在组内对抗中于 min. 半职业 难度（或 对手赛/冠军赛/现场活动/快攻）进行 3 场比赛。",
-  "src": "llm:deepseek",
-  "ts": 1794247660043
- },
- "bcaf4c038525c80def2e1e2fb087af0689595a5a": {
-  "en": "Top 500 in Oceania",
-  "zh": "大洋洲前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "76aa98b7bbba73240159b4173f00435c600f9e39": {
-  "en": "Finish top 500 in the Oceania region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的大洋洲赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "a9dd7da4e63084c30d9015d0f23e50a7035f6b20": {
-  "en": "Top 500 in North America",
-  "zh": "北美洲前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "05fb82d70ed28470faa87966d5de72871df10b3d": {
-  "en": "Finish top 500 in the North America region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的北美洲赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "2466571b3f603ab67692bc62a959670f305ee8e8": {
-  "en": "Top 500 in Middle East",
-  "zh": "中东前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "fe3fb212507e46aa1714825a8e3ba026da08e750": {
-  "en": "Finish top 500 in the Middle East region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的中东赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "3402bb9e4a7253d50939798f381af24689d01278": {
-  "en": "Top 500 in LATAM South",
-  "zh": "LATAM南部前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "7afaab3318f5097a883757b2b9414520b1707216": {
-  "en": "Finish top 500 in the LATAM South region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的血亏ATAM南部赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "9d5ffbf0e5d429e13b8bb49d98f8faaa347362f8": {
-  "en": "Top 500 in LATAM North",
-  "zh": "LATAM北部前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "a9cc2df6f9f91bda7ece71f1eb9258e72b1c3da4": {
-  "en": "Finish top 500 in the LATAM North region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的血亏ATAM北部赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "5c2347ea5de6397ceb60baa2b3d28a041cae0e52": {
-  "en": "Top 500 in Europe East",
-  "zh": "欧洲东部前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "0de305f313b0938adb0107ea27d25f55721926d1": {
-  "en": "Finish top 500 in the Europe East region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的欧洲东部赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "4bb8f7da860f3f259d86cf1954953069677ddcc3": {
-  "en": "Top 500 in Europe West",
-  "zh": "欧洲西部前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "6c4df59119e32fe720ffa03a930209a29d1bdb2e": {
-  "en": "Finish top 500 in the Europe West region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的欧洲西部赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "d6027dbe8e59fa8836eeeb18769d40c1b584e5cd": {
-  "en": "Top 500 in Asia South",
-  "zh": "亚洲南部前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "efd693f59d4243ec4d85bb4c90aa30f5838c59b7": {
-  "en": "Finish top 500 in the Asia South region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的亚洲南部赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "7a7ff714797780ec27110d4ea00f674d325436ac": {
-  "en": "Top 500 in Asia North",
-  "zh": "亚洲北部前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "4dd18626bd41f6c124e610a6006554410e6e6006": {
-  "en": "Finish top 500 in the Asia North region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的亚洲北部赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "a5489f4842cc3325c4b00065c5db011c38d6a5fe": {
-  "en": "Top 500 in Africa",
-  "zh": "非洲前500名",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "6e7580bd5a92c713f7d64c14e975a147da55d047": {
-  "en": "Finish top 500 in the Africa region in the FC Pro Open Cup 1.",
-  "zh": "在FC Pro 公开赛杯 1的非洲赛区进入前500名。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "2b4e2f438414eca7f08d4620a5f7effdfd34f37e": {
-  "en": "Score a hat-trick with a player from GPFBL in any FUT game mode.",
-  "zh": "在任意 FUT 比赛模式中使用一名来自GPFBL的球员完成帽子戏法。",
-  "src": "llm:deepseek",
-  "ts": 1794334010395
- },
- "0c223ae88f6e197fe039ba71aef30a3842ebb495": {
-  "en": "Win 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 1 Kit equipped.",
-  "zh": "在任意 FUT 比赛模式中赢得 3 场比赛，同时装备终极尖叫 Evolving - Stage 1 球衣。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "e4c74ca7ae72aae82f341f412cb0e1456c7c487e": {
-  "en": "Score 3 goals in any FUT game mode while having the Ultimate Scream Evolving - Stage 1 Kit equipped.",
-  "zh": "在任意 FUT 比赛模式中打进 3 球，同时装备终极尖叫 Evolving - Stage 1 球衣。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "2097f5d59a9fb2bab5b8c0cd0d3775816a69b7be": {
-  "en": "Play 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 1 Kit equipped.",
-  "zh": "在任意 FUT 比赛模式中进行 3 场比赛，同时装备终极尖叫 Evolving - Stage 1 球衣。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "63813b98c9ca33804c154ed5875f67f2cd143b3c": {
-  "en": "Win 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 2 Kit equipped.",
-  "zh": "在任意 FUT 比赛模式中赢得 3 场比赛，同时装备终极尖叫 Evolving - Stage 2 球衣。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "38145b8ac7db73dc6d34dfa3cb104a34fb690e53": {
-  "en": "Score 3 goals in any FUT game mode while having the Ultimate Scream Evolving - Stage 2 Kit equipped.",
-  "zh": "在任意 FUT 比赛模式中打进 3 球，同时装备终极尖叫 Evolving - Stage 2 球衣。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "a99ea470569be9d120c743bed6f9f72178fe7a9d": {
-  "en": "Play 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 2 Kit equipped.",
-  "zh": "在任意 FUT 比赛模式中进行 3 场比赛，同时装备终极尖叫 Evolving - Stage 2 球衣。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "715221ca7ace01bc2c26ad44142b3ecc1b7fabfe": {
-  "en": "Play 25",
-  "zh": "进行 25 场",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "c81addc245fe17d5d54727c958667ea34215e97a": {
-  "en": "Play 25 matches in Squad Battles on any difficulty (or Rivals/Champions).",
-  "zh": "在组内对抗中于任意难度进行 25 场比赛（或对手赛/冠军赛）。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "0c8fe3b6f7b51004913bb8bbe91a2f4be26b111e": {
-  "en": "Play 20 matches in Squad Battles on any difficulty (or Rivals/Champions).",
-  "zh": "在组内对抗中于任意难度进行 20 场比赛（或对手赛/冠军赛）。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "44e103194b4b9137b44b744f12003edd72c78a1e": {
-  "en": "Play 15 matches in Squad Battles on any difficulty (or Rivals/Champions).",
-  "zh": "在组内对抗中于任意难度进行 15 场比赛（或对手赛/冠军赛）。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "5dfafc04420d83c251ab2fa4633da31dc2bac1d0": {
-  "en": "Play 10 matches in Squad Battles on any difficulty (or Rivals/Champions).",
-  "zh": "在组内对抗中于任意难度进行 10 场比赛（或对手赛/冠军赛）。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "879255971d9c16c11eadaf250f9995fb9faf9539": {
-  "en": "Play 5 matches in Squad Battles on any difficulty (or Rivals/Champions).",
-  "zh": "在组内对抗中于任意难度进行 5 场比赛（或对手赛/冠军赛）。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "249d6e3cbefcf2f32b208e191879708c0a91585e": {
-  "en": "Win 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 3 Kit equipped.",
-  "zh": "在任意 FUT 比赛模式中赢得 3 场比赛，同时装备终极尖叫 Evolving - Stage 3 球衣。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "228633340ee27a4b53eceabe61563b4a5faaee4f": {
-  "en": "Score 3 goals in any FUT game mode while having the Ultimate Scream Evolving - Stage 3 Kit equipped.",
-  "zh": "在任意 FUT 比赛模式中打进 3 球，同时装备终极尖叫 Evolving - Stage 3 球衣。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "15269734181808c8d8ec3129eba16d6e7fd75165": {
-  "en": "Play 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 3 Kit equipped.",
-  "zh": "在任意 FUT 比赛模式中进行 3 场比赛，同时装备终极尖叫 Evolving - Stage 3 球衣。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
- },
- "025f251c09d0179835ad9fd9176aa6a6a94757e5": {
-  "en": "Score 10 goals in any FUT game mode using a player from France.",
-  "zh": "在任意 FUT 比赛模式中使用一名来自法国的球员打进 10 球。",
-  "src": "llm:deepseek",
-  "ts": 1794506853259
  }
 }
