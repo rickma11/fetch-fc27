@@ -1,6 +1,6 @@
 {
   "version": "27",
-  "total": 20476,
+  "total": 20497,
   "positions": [
     "CAM",
     "CB",
@@ -968,7 +968,8 @@
     "UEFA Europa League RTTK",
     "UEFA Champions League RTTK",
     "UEFA Conference League RTTK",
-    "UEFA Women's Champions League RTTK"
+    "UEFA Women's Champions League RTTK",
+    "Hall of FUT: Unleashed"
   ],
   "rarityImgs": {
     "Team of the week": "rarity_8d10186879dd5b45.webp",
@@ -982,9 +983,10 @@
     "UEFA Women's Champions League RTTK": "rarity_2e2f60825ef3daa9.webp",
     "Star Performer": "rarity_ee11da414dd86273.webp",
     "POTM Bundesliga": "rarity_72384b5eb7506cd5.webp",
+    "Hall of FUT: Unleashed": "rarity_b575571e1d9ee7b1.webp",
     "Future Stars": "rarity_1cc0648615e09c1e.webp",
-    "POTM Liga F": "rarity_88f85522b6723d78.webp",
     "Base Hero": "rarity_d77e4f522b688dfc.webp",
+    "POTM Liga F": "rarity_88f85522b6723d78.webp",
     "Debut International Icon": "rarity_8cc9029ef3661521.webp",
     "Ones to Watch": "rarity_a1b6faa80553d8c0.webp",
     "UEFA Europa League RTTK": "rarity_9d0d4c5814c62331.webp",
@@ -1002,6 +1004,15 @@
   },
   "rarityChem": {
     "9": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "10": [
       1,
       0,
       0,
@@ -1052,5 +1063,5 @@
     "EXPLOSIVE",
     "LENGTHY"
   ],
-  "updatedAt": "2026-11-13T12:17:31.152Z"
+  "updatedAt": "2026-11-13T18:15:05.446Z"
 }
