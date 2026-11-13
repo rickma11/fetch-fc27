@@ -1,0 +1,5 @@
+{
+  "enabled": 1,
+  "entryEnabled": 1,
+  "note": "教练MBTI 活动开关；下架把 enabled 改 0 后跑 node scripts/gen_coach_mbti_config.js，秒级生效"
+}
