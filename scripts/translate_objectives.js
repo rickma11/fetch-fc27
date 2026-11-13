@@ -126,8 +126,24 @@ function preprocess(text) {
 
 // 译后：机翻错译校正 + 标点规整 + **安全网**：输出中残留的英文术语兜底替换
 //   （实锤 2026-10-31：LLM 输入曾误用原文致 57 条译文残留 Rivals/Squad Battles 等 ⇒ 任何引擎产出统一过此关）
+//
+// 2026-11-13 新增「中文错词强制对齐」：LLM 偶尔会把 FUT Champions 翻成中文「冠军赛」、
+// Squad Battles 翻成「组内对抗」等（已是中文，上面的英文安全网不触发）。这里无论引擎产出什么，
+// 一律把已知错误中文译名强制替换为 FC27 专有名词，双保险永不复发。
+const TERM_FORCE = [
+  ['组内对抗', 'SQB'],
+  ['对手赛', 'DR'],
+  ['快攻', 'Rush'],
+  ['现场活动', '实时赛事'],
+  ['冠军赛', 'FUT冠军'],
+  ['首发十一人', '首发 11 人']
+];
 function postprocess(text) {
   if (!text) return text;
+  // ① 中文错词强制对齐（先于英文安全网，确保最终落 FC27 专有名词）
+  for (let i = 0; i < TERM_FORCE.length; i++) {
+    if (text.indexOf(TERM_FORCE[i][0]) >= 0) text = text.split(TERM_FORCE[i][0]).join(TERM_FORCE[i][1]);
+  }
   for (let i = 0; i < POST_SORTED.length; i++) {
     if (text.indexOf(POST_SORTED[i]) >= 0) text = text.split(POST_SORTED[i]).join(POST_TERMS[POST_SORTED[i]]);
   }

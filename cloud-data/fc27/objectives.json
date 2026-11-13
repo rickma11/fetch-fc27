@@ -248,7 +248,7 @@
         {
           "id": 13505,
           "name": "进行 25 场",
-          "description": "在 SQB 中任意难度进行 25 场比赛（或 DR/冠军赛）。",
+          "description": "在 SQB 中任意难度进行 25 场比赛（或 DR/FUT冠军）。",
           "awards": [
             {
               "type": "XP",
@@ -263,7 +263,7 @@
         {
           "id": 13506,
           "name": "进行20场",
-          "description": "在 SQB 中任意难度进行 20 场比赛（或 DR/冠军赛）。",
+          "description": "在 SQB 中任意难度进行 20 场比赛（或 DR/FUT冠军）。",
           "awards": [
             {
               "type": "XP",
@@ -278,7 +278,7 @@
         {
           "id": 13507,
           "name": "进行15场",
-          "description": "在 SQB 中任意难度进行 15 场比赛（或 DR/冠军赛）。",
+          "description": "在 SQB 中任意难度进行 15 场比赛（或 DR/FUT冠军）。",
           "awards": [
             {
               "type": "XP",
@@ -293,7 +293,7 @@
         {
           "id": 13508,
           "name": "进行10场",
-          "description": "在 SQB 中任意难度进行 10 场比赛（或 DR/冠军赛）。",
+          "description": "在 SQB 中任意难度进行 10 场比赛（或 DR/FUT冠军）。",
           "awards": [
             {
               "type": "XP",
@@ -308,7 +308,7 @@
         {
           "id": 13509,
           "name": "进行5场",
-          "description": "在 SQB 中任意难度进行 5 场比赛（或 DR/冠军赛）。",
+          "description": "在 SQB 中任意难度进行 5 场比赛（或 DR/FUT冠军）。",
           "awards": [
             {
               "type": "XP",
@@ -850,7 +850,7 @@
         {
           "id": 13478,
           "name": "潮服飞扬",
-          "description": "在 SQB 中最低半职业难度（或 DR/冠军赛/实时赛事/Rush）穿着 Red Bull Clubs Members 主场球衣进行 1 场比赛。",
+          "description": "在 SQB 中最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）穿着 Red Bull Clubs Members 主场球衣进行 1 场比赛。",
           "awards": [
             {
               "type": "ITEM",
@@ -877,7 +877,7 @@
         {
           "id": 13479,
           "name": "边锋致胜",
-          "description": "在 SQB 中最低半职业难度（或 DR/冠军赛/实时赛事/Rush）穿着 Red Bull Wings Cup 主场球衣使用传中助攻 5 球。",
+          "description": "在 SQB 中最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）穿着 Red Bull Wings Cup 主场球衣使用传中助攻 5 球。",
           "awards": [
             {
               "type": "ITEM",
@@ -904,7 +904,7 @@
         {
           "id": 13480,
           "name": "看我飞翔",
-          "description": "在 SQB 中最低半职业难度（或 DR/冠军赛/实时赛事/Rush）穿着 Red Bull Wings Cup 主场球衣使用头球打进 3 球。",
+          "description": "在 SQB 中最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）穿着 Red Bull Wings Cup 主场球衣使用头球打进 3 球。",
           "awards": [
             {
               "type": "PACK",
@@ -928,7 +928,7 @@
         {
           "id": 13481,
           "name": "获取你的潮服",
-          "description": "在 SQB 中最低半职业难度（或 DR/冠军赛/实时赛事/Rush）进行 3 场比赛。",
+          "description": "在 SQB 中最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）进行 3 场比赛。",
           "awards": [
             {
               "type": "ITEM",
@@ -977,7 +977,7 @@
         {
           "id": 13470,
           "name": "意外英雄",
-          "description": "在 SQB 中最低 Beginner 难度（或 DR/冠军赛/实时赛事）使用一名中后卫打进头球。",
+          "description": "在 SQB 中最低 Beginner 难度（或 DR/FUT冠军/实时赛事）使用一名中后卫打进头球。",
           "awards": [
             {
               "type": "COINS",
@@ -992,7 +992,7 @@
         {
           "id": 13471,
           "name": "追求卓越",
-          "description": "在 SQB 中最低半职业难度（或 DR/冠军赛/实时赛事）使用首发 11 人中至少 3 名葡萄牙球员球员赢得 7 场比赛。",
+          "description": "在 SQB 中最低半职业难度（或 DR/FUT冠军/实时赛事）使用首发 11 人中至少 3 名葡萄牙球员球员赢得 7 场比赛。",
           "awards": [
             {
               "type": "COINS",
@@ -1007,7 +1007,7 @@
         {
           "id": 13472,
           "name": "精英血统",
-          "description": "在 SQB 中最低半职业难度（或 Rush/DR/冠军赛/实时赛事）首发 11 人中至少 1 名 UCL/UWCL/UEL/UECL 球员，在 3 场不同比赛中至少打进 1 球。",
+          "description": "在 SQB 中最低半职业难度（或 Rush/DR/FUT冠军/实时赛事）首发 11 人中至少 1 名 UCL/UWCL/UEL/UECL 球员，在 3 场不同比赛中至少打进 1 球。",
           "awards": [
             {
               "type": "XP",
@@ -1022,7 +1022,7 @@
         {
           "id": 13473,
           "name": "钢铁防线",
-          "description": "在 SQB 中最低半职业难度（或 Rush/DR/冠军赛/实时赛事）在 3 场不同比赛中失球少于 2 球。",
+          "description": "在 SQB 中最低半职业难度（或 Rush/DR/FUT冠军/实时赛事）在 3 场不同比赛中失球少于 2 球。",
           "awards": [
             {
               "type": "PACK",
@@ -1040,7 +1040,7 @@
         {
           "id": 13474,
           "name": "为了足球之爱",
-          "description": "在 SQB 中最低半职业难度（或 Rush/DR/冠军赛/实时赛事）首发 11 人中至少 1 名 Trendyol Süper Lig 球员进行 1 场比赛。",
+          "description": "在 SQB 中最低半职业难度（或 Rush/DR/FUT冠军/实时赛事）首发 11 人中至少 1 名 Trendyol Süper Lig 球员进行 1 场比赛。",
           "awards": [
             {
               "type": "PLAYER_ITEM",
@@ -1411,7 +1411,7 @@
         {
           "id": 13459,
           "name": "强者之最",
-          "description": "在 SQB 中最低半职业难度（或 Rush/DR/冠军赛/实时赛事）首发 11 人中至少 4 名 First Owned 球员，赢得 10 场不同比赛。",
+          "description": "在 SQB 中最低半职业难度（或 Rush/DR/FUT冠军/实时赛事）首发 11 人中至少 4 名 First Owned 球员，赢得 10 场不同比赛。",
           "awards": [
             {
               "type": "ITEM",
@@ -1479,7 +1479,7 @@
         {
           "id": 13463,
           "name": "毒蛇Vitinha",
-          "description": "在SQB中至少半职业难度下，使用一名法甲中前卫在禁区外进球并获胜（或Rush/DR/冠军赛/实时赛事）。",
+          "description": "在SQB中至少半职业难度下，使用一名法甲中前卫在禁区外进球并获胜（或Rush/DR/FUT冠军/实时赛事）。",
           "awards": [
             {
               "type": "PACK",
@@ -1497,7 +1497,7 @@
         {
           "id": 13464,
           "name": "高位逼抢的崛起",
-          "description": "在SQB中至少半职业难度下，首发 11 人包含至少 1 名多特蒙德球员，在5场不同比赛中进球（或Rush/DR/冠军赛/实时赛事）。",
+          "description": "在SQB中至少半职业难度下，首发 11 人包含至少 1 名多特蒙德球员，在5场不同比赛中进球（或Rush/DR/FUT冠军/实时赛事）。",
           "awards": [
             {
               "type": "ITEM",
@@ -1511,7 +1511,7 @@
         {
           "id": 13465,
           "name": "11%的奇迹",
-          "description": "在SQB中至少半职业难度下，首发 11 人包含至少 1 名苏格兰球员，进2球且失球不超过1球（或Rush/DR/冠军赛/实时赛事）。",
+          "description": "在SQB中至少半职业难度下，首发 11 人包含至少 1 名苏格兰球员，进2球且失球不超过1球（或Rush/DR/FUT冠军/实时赛事）。",
           "awards": [
             {
               "type": "PACK",
