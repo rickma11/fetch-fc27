@@ -13,7 +13,7 @@ const CLOUD_ENV = 'cloud1-d5gq6q3np8708aeef';
 const CLOUD_BUCKET = '636c-cloud1-d5gq6q3np8708aeef-1475854307';
 // 卡面 cloud:// fileID（按有无半身像选真实卡面 _card.webp / 剪影 _np.webp）
 // 2026-10-01 修正：云端卡面统一在 fc27/images/ 前缀下，与 format.js#cloudImg 口径一致。
-function cardCloudId(eaId, hasPortrait) {
+function cardCloudId(eaId, hasPortrait, rarityName, overall) {
   return 'cloud://' + CLOUD_ENV + '.' + CLOUD_BUCKET + '/fc27/images/' + eaId + (hasPortrait ? '_card.webp' : '_np.webp');
 }
 const TIER_MIN = 80;       // 2026-10-03 拍板：83 → 80（市场页 81+ 分档 + 搜索 80+；原 85+/83+ 历史见 docs）
@@ -130,7 +130,7 @@ function build(roster, cur, prev, src, tsOverride, minRating) {
     return {
       eaId: r.eaId, name: r.name, overall: r.overall, pos: r.pos,
       pc: m[0] == null ? null : m[0], ps: m[1] == null ? null : m[1],
-      img: cardCloudId(r.eaId, !!(r.imagePath)),
+      img: cardCloudId(r.eaId, !!(r.imagePath), r.rarity, r.overall),
       rarity: r.rarity || ''
     };
   });
@@ -323,7 +323,7 @@ function computeUnder80Alerts(series, rosterMap, cfg) {
       name: c.meta.name || '',
       overall: c.ovr,
       pos: c.meta.pos || '',
-      img: cardCloudId(eaId, !!(c.meta.imagePath)),  // 与 build()#tier.img 同口径（有像_card / 无像_np）
+      img: cardCloudId(eaId, !!(c.meta.imagePath), c.meta.rarity, c.ovr),  // 与 build()#tier.img 同口径（有像_card / 无像_np）
       rarity: c.meta.rarity || '',
       pc: c.pc, ps: c.ps,
       meanPc: mPc != null ? Math.round(mPc) : null,
@@ -477,6 +477,10 @@ var OVERVIEW_TIERS = [
 ];
 var OVERVIEW_HOLD_PCT = 0.5;   // |Δ|<0.5% 记持平
 var OVERVIEW_VOL_PCT = 5;      // |Δ|≥5% 记波动
+// 新卡「冷静期」（2026-11-16）：新卡首次有价后需满 SEASONING_DAYS 天才纳入指数中位价，
+// 避免上市首日高价泡沫把指数推虚高（对标 S&P500 新股满 12 个月/上证满 1 年纳入）。
+// 窗口首日（days[0]）已存在的卡视为存量老卡（已过冷静期，豁免）；窗口内首次出现才算新卡。
+var OVERVIEW_SEASONING_DAYS = 7;
 
 // 单卡分类（切法 B：区间下限含、上限不含——85 归中档、90 归 90+，9 档无缝分区）
 function overviewCatOf(item) {
@@ -525,16 +529,35 @@ function buildOverview(daily, built, dayKey, base) {
 
   // 2) 指数：每平台每分类「当日中位价」序列（与 days 按下标对齐，当日无值为 null）
   //    nOut（可选）：回填每日有效卡数（端上读数行「有效 N 张」；只对全市场有意义）
+  // 冷静期：预计算每张卡在各平台的「首个有价日下标」（firstSeen[pf][eaId]）
+  //   fd = -1 → 全程无价（不参与）；fd = 0 → 窗口首日存量老卡（已过冷静期，豁免）；
+  //   fd > 0 → 窗口内新卡，需满 SEASONING_DAYS 天才纳入指数
+  var firstSeen = { pc: {}, ps: {} };
+  ['pc', 'ps'].forEach(function (pf) {
+    Object.keys(dPlayers).forEach(function (eaId) {
+      var arr = dPlayers[eaId] && dPlayers[eaId][pf];
+      var fd = -1;
+      if (arr) for (var i = 0; i < N; i++) { var c = arr[i]; if (c && c[0] != null) { fd = i; break; } }
+      firstSeen[pf][eaId] = fd;
+    });
+  });
+
   function indexOf(catItems, pf, nOut) {
+    var fsMap = firstSeen[pf];
     var out = [];
     for (var d = 0; d < N; d++) {
-      var vals = [];
+      var vals = [], nValid = 0;
       catItems.forEach(function (it) {
-        var rec = dPlayers[String(it.eaId)];
+        var eaId = String(it.eaId);
+        var rec = dPlayers[eaId];
         var cell = rec && rec[pf] && rec[pf][d];
-        if (cell && cell[0] != null) vals.push(cell[0]);
+        if (!cell || cell[0] == null) return;
+        nValid++;                                            // 有效卡数：当日所有有价卡（冷静期新卡也计入）
+        var fs = fsMap[eaId];
+        if (fs > 0 && d < fs + OVERVIEW_SEASONING_DAYS) return; // 窗口内新卡未满冷静期：不进中位价
+        vals.push(cell[0]);
       });
-      if (nOut) nOut.push(vals.length);
+      if (nOut) nOut.push(nValid);
       out.push(overviewMedian(vals));
     }
     return out;
@@ -646,5 +669,6 @@ module.exports = {
   fetchBatch: fetchBatch, pullPlatforms: pullPlatforms,   build: build,
   buildSeries: buildSeries, slimSnapshot: slimSnapshot,
   computeUnder80Alerts: computeUnder80Alerts, updateDaily: updateDaily,
-  buildOverview: buildOverview, OVERVIEW_CATS: OVERVIEW_CATS, OVERVIEW_TIERS: OVERVIEW_TIERS
+  buildOverview: buildOverview, OVERVIEW_CATS: OVERVIEW_CATS, OVERVIEW_TIERS: OVERVIEW_TIERS,
+  OVERVIEW_SEASONING_DAYS: OVERVIEW_SEASONING_DAYS
 };

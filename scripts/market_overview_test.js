@@ -223,5 +223,37 @@ console.log('\n[10] idx100 数值精度：1 位小数');
   eq(ov.idx100.pc.all, [3333.3, 6666.7, 5000], '100/3×100=3333.3（1 位小数四舍五入）');
 }
 
+// ── 场景 11：新卡 7 天冷静期（2026-11-16）──
+console.log('\n[11] 新卡冷静期：首次有价后满 7 天才纳入中位价；有效卡数不受影响');
+{
+  const S = core.OVERVIEW_SEASONING_DAYS;
+  ok(S === 7, '冷静期常量=7 天');
+  // 构造 10 天窗口：1 张存量老卡（首日有价=1000，全程稳定）+ 1 张新卡（d=3 首次有价=百万）
+  const D = []; for (let i = 0; i < 10; i++) D.push('2026110' + i);
+  const players = {
+    '1': { pc: Array(10).fill(null).map(() => cell(1000, 900, 1100)), ps: [null, null, null, null, null, null, null, null, null, null] },
+    '2': { pc: [null, null, null, cell(1000000, 900000, 1100000), cell(900000, 800000, 1000000), cell(800000, 700000, 900000), cell(700000, 600000, 800000), cell(600000, 500000, 700000), cell(500000, 400000, 600000), cell(400000, 300000, 500000)], ps: [null, null, null, null, null, null, null, null, null, null] }
+  };
+  const daily10 = { v: 1, ts: 1, days: D, players: players };
+  const tier10 = [
+    { eaId: 1, name: 'OLD', overall: 82, pos: 'ST', pc: 1000, ps: null, img: '', rarity: 'Gold' },
+    { eaId: 2, name: 'NEW', overall: 91, pos: 'ST', pc: 400000, ps: null, img: '', rarity: 'Team of the week' }
+  ];
+  const ov = core.buildOverview(daily10, { view: { tier: tier10 } }, '20261109');
+  // d=3~9：新卡冷静期未满（3+7=10 > d），中位价只有老卡=1000；d=10 不存在，故全程 1000
+  eq(ov.index.pc.all, [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000], '新卡全程冷静期未满 ⇒ 中位价恒为老卡 1000（不被百万新卡污染）');
+  // 有效卡数：d=0~2 只有老卡=1；d=3~9 新卡也计入=2（冷静期新卡仍计入有效卡数）
+  eq(ov.indexN.pc, [1, 1, 1, 2, 2, 2, 2, 2, 2, 2], '有效卡数含冷静期新卡（d≥3 由 1 变 2）');
+  // 满 7 天的边界：新卡 d=0 首日有价（存量豁免），应全程纳入
+  const players2 = { '1': { pc: Array(10).fill(null).map(() => cell(1000, 900, 1100)), ps: players['1'].ps }, '2': { pc: Array(10).fill(null).map(() => cell(1000000, 900000, 1100000)), ps: players['2'].ps } };
+  const ov2 = core.buildOverview({ v: 1, ts: 1, days: D, players: players2 }, { view: { tier: tier10 } }, '20261109');
+  eq(ov2.index.pc.all, Array(10).fill(500500), '窗口首日有价=存量老卡，立即纳入（老卡1000/新卡100万中位=500500）');
+  // 恰好满 7 天：新卡 d=2 首日，d=9 时 2+7=9 满足 d>=9，应纳入
+  const pcSeries = [null, null, cell(1000000, 900000, 1100000), cell(1000000, 900000, 1100000), cell(1000000, 900000, 1100000), cell(1000000, 900000, 1100000), cell(1000000, 900000, 1100000), cell(1000000, 900000, 1100000), cell(1000000, 900000, 1100000), cell(1000000, 900000, 1100000)];
+  const players3 = { '1': { pc: Array(10).fill(null).map(() => cell(1000, 900, 1100)), ps: players['1'].ps }, '2': { pc: pcSeries, ps: players['2'].ps } };
+  const ov3 = core.buildOverview({ v: 1, ts: 1, days: D, players: players3 }, { view: { tier: tier10 } }, '20261109');
+  eq(ov3.index.pc.all, [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 500500], 'd=9 恰好满 7 天 ⇒ 新卡纳入，中位价跳到 500500');
+}
+
 console.log('\n结果: ' + pass + ' 通过, ' + fail + ' 失败');
 process.exit(fail ? 1 : 0);
