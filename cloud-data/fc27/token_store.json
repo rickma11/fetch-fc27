@@ -1,7 +1,7 @@
 {
   "ver": 27,
-  "hash": "e03b7111",
-  "sourceUrl": "https://r2.fut.gg/27/token-store.v1.e03b7111.json",
+  "hash": "f04e7f6a",
+  "sourceUrl": "https://r2.fut.gg/27/token-store.v1.f04e7f6a.json",
   "tabDefs": {
     "1": {
       "shortName": "Gallery",
@@ -19,10 +19,10 @@
       "iconUrl": "https://game-assets.fut.gg/2027/event-token/3.84b2a11a70ba2bb5b9cf9f7fe9a9607648337554fdaa2d9d93ffce572cd6bd2f.png"
     }
   },
-  "storeExpiresAt": "2026-12-03T07:59:59Z",
-  "fetchedAt": "2026-11-19T12:19:44.262Z",
-  "itemCount": 44,
-  "playerCount": 21,
+  "storeExpiresAt": "2026-12-11T17:59:59Z",
+  "fetchedAt": "2026-11-20T18:16:54.821Z",
+  "itemCount": 67,
+  "playerCount": 28,
   "dupCount": 0,
   "players": {
     "155885": {
@@ -234,6 +234,76 @@
       "purchaseLimit": 1,
       "endTime": "2026-12-03T07:59:59Z",
       "eventTokenId": 1
+    },
+    "50499143": {
+      "tokenCost": 500,
+      "tokenTabId": 4,
+      "tokenTabName": "",
+      "tokenTabIcon": "",
+      "name": "Manuel Neuer",
+      "purchaseLimit": 1,
+      "endTime": "2026-12-11T17:59:59Z",
+      "eventTokenId": 4
+    },
+    "50577285": {
+      "tokenCost": 250,
+      "tokenTabId": 4,
+      "tokenTabName": "",
+      "tokenTabIcon": "",
+      "name": "Georginio Rutter",
+      "purchaseLimit": 1,
+      "endTime": "2026-12-11T17:59:59Z",
+      "eventTokenId": 4
+    },
+    "50577527": {
+      "tokenCost": 750,
+      "tokenTabId": 4,
+      "tokenTabName": "",
+      "tokenTabIcon": "",
+      "name": "Caroline Weir",
+      "purchaseLimit": 1,
+      "endTime": "2026-12-11T17:59:59Z",
+      "eventTokenId": 4
+    },
+    "50590620": {
+      "tokenCost": 100,
+      "tokenTabId": 4,
+      "tokenTabName": "",
+      "tokenTabIcon": "",
+      "name": "Isaak Touré",
+      "purchaseLimit": 1,
+      "endTime": "2026-12-11T17:59:59Z",
+      "eventTokenId": 4
+    },
+    "50592574": {
+      "tokenCost": 500,
+      "tokenTabId": 4,
+      "tokenTabName": "",
+      "tokenTabIcon": "",
+      "name": "Kevin Schade",
+      "purchaseLimit": 1,
+      "endTime": "2026-12-11T17:59:59Z",
+      "eventTokenId": 4
+    },
+    "67330026": {
+      "tokenCost": 2300,
+      "tokenTabId": 4,
+      "tokenTabName": "",
+      "tokenTabIcon": "",
+      "name": "Gabriel Batistuta",
+      "purchaseLimit": 1,
+      "endTime": "2026-12-11T17:59:59Z",
+      "eventTokenId": 4
+    },
+    "84150468": {
+      "tokenCost": 300,
+      "tokenTabId": 4,
+      "tokenTabName": "",
+      "tokenTabIcon": "",
+      "name": "Moleiro",
+      "purchaseLimit": 1,
+      "endTime": "2026-12-11T17:59:59Z",
+      "eventTokenId": 4
     }
   }
 }
