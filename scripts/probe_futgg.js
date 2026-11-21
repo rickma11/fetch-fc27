@@ -169,6 +169,14 @@ function decideDispatch({ changed, runs, now, retryWindowMs }) {
   return { action: 'skip', blocking: 0 };
 }
 
+// 是否保留旧 baseline（不锚定本次变化后的 hash）。
+// 真实变化被 in-flight/recent 护栏挡住时若不保留，变化后的 hash 会被写进 baseline，
+// 下一小时探针会认为"无变化" → 信号被永久吞掉。
+// 典型场景：进化价格回填（主抓 02:05 抓到占位 0，fut.gg 随后回填真价并 bump manifest hash）。
+function shouldKeepBaseline(decision, changed) {
+  return !!(decision && decision.action === 'skip' && decision.blocking > 0 && changed);
+}
+
 // 实际触发 dispatch（调用 gh api）。失败仅置 exitCode，不抛。
 function doDispatch() {
   try {
@@ -296,10 +304,16 @@ async function main() {
     doDispatch();
   }
 
-  // 持久化 baseline，避免重复误报
-  fs.writeFileSync(BASELINE_PATH, JSON.stringify(current, null, 2));
+  // 持久化 baseline，避免重复误报。
+  // 但真实变化被 in-flight/recent 护栏挡住时，必须保留旧 baseline、不锚定新 hash，
+  // 否则下一小时探针会认为"无变化"，变化信号被永久吞掉（进化价格回填就是这种情况）。
+  if (shouldKeepBaseline(decision, changed)) {
+    log('PENDING_CHANGE: 检测到变化但被 %d 个 in-flight/recent run 挡住，保留旧 baseline 让下小时探针继续检测', decision.blocking);
+  } else {
+    fs.writeFileSync(BASELINE_PATH, JSON.stringify(current, null, 2));
+  }
   pingHC(true);
 }
 
 if (require.main === module) { main().catch(e => { console.error(e); process.exit(1); }); }
-module.exports = { decideDispatch, doDispatch };
+module.exports = { decideDispatch, shouldKeepBaseline, doDispatch };

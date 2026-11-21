@@ -327,6 +327,20 @@ function isRoleOnlyOf(e) {
   });
 }
 
+// 价格守卫：新数据为占位 0 但云库已有真价时，逐字段沿用旧值，避免 set() 把 fut.gg 事后回填的价格冲回 0。
+// 纯函数，便于单测；COST_FIELDS 之外的字段（isActive/isStale 等）仍按新数据走。
+const EVO_COST_FIELDS = ['coinsCost', 'pointsCost', 'tokenCost'];
+function guardEvoPrice(doc, old) {
+  if (!old) return doc;
+  const n = function (v) { const x = Number(v); return isFinite(x) && x > 0 ? x : 0; };
+  for (const f of EVO_COST_FIELDS) {
+    if (n(doc[f]) === 0 && n(old[f]) > 0) doc[f] = old[f];
+  }
+  if (!doc.eventTokenId && old.eventTokenId) doc.eventTokenId = old.eventTokenId;
+  if (!doc.isRewardEvolution && old.isRewardEvolution) doc.isRewardEvolution = old.isRewardEvolution;
+  return doc;
+}
+
 async function uploadEvolutions(ver, dir) {
   const f = path.join(dir, 'evolutions.json');
   const col = `evolutions_fc${ver}`;
@@ -342,14 +356,30 @@ async function uploadEvolutions(ver, dir) {
   }
   const activeIds = new Set((Array.isArray(j.active) ? j.active : []).map(function (e) { return String(e && e.id); }));
   const fetchedAt = j.fetchedAt || null;
+  // 读云库旧价，构造守卫映射。进化总量约 200 条，分页读取取现价。
+  const prevPrice = {};
+  try {
+    for (let skip = 0; ; skip += 1000) {
+      const r = await db.collection(col)
+        .field({ _id: true, coinsCost: true, pointsCost: true, tokenCost: true,
+                 eventTokenId: true, isRewardEvolution: true })
+        .skip(skip).limit(1000).get();
+      const rows = (r && r.data) || [];
+      for (const d of rows) prevPrice[String(d._id)] = d;
+      if (rows.length < 1000) break;
+    }
+  } catch (e) { console.warn('  ⚠ 读取旧价失败，价格守卫降级为无守卫:', e.message); }
+
   const docs = all.map(function (e) {
-    return Object.assign({}, e, {
-      _id: String(e.id),
-      isActive: activeIds.has(String(e.id)),
+    const id = String(e.id);
+    const doc = Object.assign({}, e, {
+      _id: id,
+      isActive: activeIds.has(id),
       isStale: false,
       _fetchedAt: fetchedAt,
       roleOnly: isRoleOnlyOf(e)
     });
+    return guardEvoPrice(doc, prevPrice[id]);
   });
 
   console.log('== 写入', col, '==');
