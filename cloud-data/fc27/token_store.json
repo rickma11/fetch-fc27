@@ -1,7 +1,7 @@
 {
   "ver": 27,
-  "hash": "f04e7f6a",
-  "sourceUrl": "https://r2.fut.gg/27/token-store.v1.f04e7f6a.json",
+  "hash": "39dc78f8",
+  "sourceUrl": "https://r2.fut.gg/27/token-store.v1.39dc78f8.json",
   "tabDefs": {
     "1": {
       "shortName": "Gallery",
@@ -17,10 +17,15 @@
       "shortName": "Ultimate Scream",
       "displayName": "Ultimate Scream Token",
       "iconUrl": "https://game-assets.fut.gg/2027/event-token/3.84b2a11a70ba2bb5b9cf9f7fe9a9607648337554fdaa2d9d93ffce572cd6bd2f.png"
+    },
+    "4": {
+      "shortName": "Thunderstruck",
+      "displayName": "Thunderstruck Token",
+      "iconUrl": "https://game-assets.fut.gg/2027/event-token/4.93502f82de4062ad5667c685fa00235683e1db6735636af49f61e815f49663ca.png"
     }
   },
   "storeExpiresAt": "2026-12-11T17:59:59Z",
-  "fetchedAt": "2026-11-20T18:16:54.821Z",
+  "fetchedAt": "2026-11-21T01:48:06.347Z",
   "itemCount": 67,
   "playerCount": 28,
   "dupCount": 0,
@@ -238,8 +243,8 @@
     "50499143": {
       "tokenCost": 500,
       "tokenTabId": 4,
-      "tokenTabName": "",
-      "tokenTabIcon": "",
+      "tokenTabName": "Thunderstruck",
+      "tokenTabIcon": "https://game-assets.fut.gg/2027/event-token/4.93502f82de4062ad5667c685fa00235683e1db6735636af49f61e815f49663ca.png",
       "name": "Manuel Neuer",
       "purchaseLimit": 1,
       "endTime": "2026-12-11T17:59:59Z",
@@ -248,8 +253,8 @@
     "50577285": {
       "tokenCost": 250,
       "tokenTabId": 4,
-      "tokenTabName": "",
-      "tokenTabIcon": "",
+      "tokenTabName": "Thunderstruck",
+      "tokenTabIcon": "https://game-assets.fut.gg/2027/event-token/4.93502f82de4062ad5667c685fa00235683e1db6735636af49f61e815f49663ca.png",
       "name": "Georginio Rutter",
       "purchaseLimit": 1,
       "endTime": "2026-12-11T17:59:59Z",
@@ -258,8 +263,8 @@
     "50577527": {
       "tokenCost": 750,
       "tokenTabId": 4,
-      "tokenTabName": "",
-      "tokenTabIcon": "",
+      "tokenTabName": "Thunderstruck",
+      "tokenTabIcon": "https://game-assets.fut.gg/2027/event-token/4.93502f82de4062ad5667c685fa00235683e1db6735636af49f61e815f49663ca.png",
       "name": "Caroline Weir",
       "purchaseLimit": 1,
       "endTime": "2026-12-11T17:59:59Z",
@@ -268,8 +273,8 @@
     "50590620": {
       "tokenCost": 100,
       "tokenTabId": 4,
-      "tokenTabName": "",
-      "tokenTabIcon": "",
+      "tokenTabName": "Thunderstruck",
+      "tokenTabIcon": "https://game-assets.fut.gg/2027/event-token/4.93502f82de4062ad5667c685fa00235683e1db6735636af49f61e815f49663ca.png",
       "name": "Isaak Touré",
       "purchaseLimit": 1,
       "endTime": "2026-12-11T17:59:59Z",
@@ -278,8 +283,8 @@
     "50592574": {
       "tokenCost": 500,
       "tokenTabId": 4,
-      "tokenTabName": "",
-      "tokenTabIcon": "",
+      "tokenTabName": "Thunderstruck",
+      "tokenTabIcon": "https://game-assets.fut.gg/2027/event-token/4.93502f82de4062ad5667c685fa00235683e1db6735636af49f61e815f49663ca.png",
       "name": "Kevin Schade",
       "purchaseLimit": 1,
       "endTime": "2026-12-11T17:59:59Z",
@@ -288,8 +293,8 @@
     "67330026": {
       "tokenCost": 2300,
       "tokenTabId": 4,
-      "tokenTabName": "",
-      "tokenTabIcon": "",
+      "tokenTabName": "Thunderstruck",
+      "tokenTabIcon": "https://game-assets.fut.gg/2027/event-token/4.93502f82de4062ad5667c685fa00235683e1db6735636af49f61e815f49663ca.png",
       "name": "Gabriel Batistuta",
       "purchaseLimit": 1,
       "endTime": "2026-12-11T17:59:59Z",
@@ -298,8 +303,8 @@
     "84150468": {
       "tokenCost": 300,
       "tokenTabId": 4,
-      "tokenTabName": "",
-      "tokenTabIcon": "",
+      "tokenTabName": "Thunderstruck",
+      "tokenTabIcon": "https://game-assets.fut.gg/2027/event-token/4.93502f82de4062ad5667c685fa00235683e1db6735636af49f61e815f49663ca.png",
       "name": "Moleiro",
       "purchaseLimit": 1,
       "endTime": "2026-12-11T17:59:59Z",
