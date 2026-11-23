@@ -1,53 +1,504 @@
 {
   "ver": 27,
-  "count": 56,
-  "fetchedAt": "2026-11-23T09:10:03.392Z",
+  "count": 55,
+  "fetchedAt": "2026-11-23T18:07:24.600Z",
   "groups": [
     {
-      "id": 2697,
-      "slug": "209-thunderstruck-daily-play",
-      "name": "Thunderstruck Daily Play",
+      "id": 2704,
+      "slug": "198-fc-pro-teams",
+      "name": "FC Pro Teams",
       "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
+        "slug": "fc-pro",
+        "name": "FC Pro"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Complete 1 of 3 objectives in any Football Ultimate Team game mode to earn rewards every 24 hours! All rewards are untradeable.",
-      "startTime": "2026-11-20T18:00:00Z",
-      "endTime": "2026-12-04T17:59:59Z",
-      "tasksCount": 3,
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
+      "description": "Build your collection of FC Pro Team Crests and Kits by completing the objective. All rewards are untradeable.",
+      "startTime": "2026-11-23T18:00:00Z",
+      "endTime": "2027-09-30T17:59:59Z",
+      "tasksCount": 14,
       "isNew": true,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
       "awards": [
         {
-          "type": "EVENT_TOKEN",
-          "name": "15 Thunderstruck Tokens",
+          "type": "PACK",
+          "name": "Single Draft Token Pack",
           "count": 1,
-          "eventToken": 15
+          "pack": {
+            "name": "Single Draft Token Pack",
+            "description": "Includes 1 Draft Token."
+          }
         }
       ],
       "objectives": [
         {
-          "id": 13562,
-          "name": "完成3个SBC",
-          "description": "完成3个SBC。",
+          "id": 13605,
+          "name": "扭曲的心灵",
+          "description": "在任意 Football 终极 Team 游戏模式中使用一名来自沙特阿拉伯的球员打进 2 球。",
           "awards": [
             {
               "type": "ITEM",
-              "name": "Engine",
+              "name": "Badge",
               "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003105.png"
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Twisted Minds",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
             }
           ],
-          "nameEn": "Complete 3 SBCs",
-          "descriptionEn": "Complete 3 SBCS."
+          "nameEn": "Twisted Minds",
+          "descriptionEn": "Score 2 goals in any Football Ultimate Team game mode using a player from Saudi Arabia."
         },
         {
-          "id": 13563,
-          "name": "进行3场",
-          "description": "在任意 FUT 比赛模式中进行3场比赛。",
+          "id": 13606,
+          "name": "Team Vitality",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自法国的球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Team Vitality",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 players from France."
+        },
+        {
+          "id": 13607,
+          "name": "DUX GAMING",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自西班牙的球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Dux",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 players from Spain."
+        },
+        {
+          "id": 13608,
+          "name": "NOVO",
+          "description": "在任意 Football 终极 Team 游戏模式中使用一名来自意大利的球员打进 2 球。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Novo",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Score 2 goals in any Football Ultimate Team game mode using a player from Italy."
+        },
+        {
+          "id": 13609,
+          "name": "星途",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自意大利的球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Exeed",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Exeed",
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 players from Italy."
+        },
+        {
+          "id": 13610,
+          "name": "FOKUS",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自德国的球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Fokus",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 players from Germany."
+        },
+        {
+          "id": 13611,
+          "name": "Team Falcons",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自沙特阿拉伯的球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Team Falcons",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 players from Saudi Arabia."
+        },
+        {
+          "id": 13612,
+          "name": "Tuzzy 电子竞技",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自巴西的球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Tuzzy E-Sports",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Tuzzy E-Sports",
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 players from Brazil."
+        },
+        {
+          "id": 13613,
+          "name": "S8UL Esports",
+          "description": "在任意 Football 终极 Team 游戏模式中使用一名来自印度的球员打进 2 球。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "S8Ul Esports",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Score 2 goals in any Football Ultimate Team game mode using a player from India."
+        },
+        {
+          "id": 13614,
+          "name": "LUNA Esports",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自葡萄牙的球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Luna Esports",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 players from Portugal."
+        },
+        {
+          "id": 13615,
+          "name": "Liquid FC",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自荷兰的球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Liquid Fc",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 players from the Netherlands."
+        },
+        {
+          "id": 13616,
+          "name": "FLUXO W7M",
+          "description": "在任意 Football 终极 Team 游戏模式中使用一名来自巴西的球员打进 2 球。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Fluxo W7M",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Score 2 goals in any Football Ultimate Team game mode using a player from Brazil."
+        },
+        {
+          "id": 13617,
+          "name": "RBLZ Gaming",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自德甲 右后卫 Leipzig 的球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Rblz Gaming",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 players from RB Leipzig in the Bundesliga."
+        },
+        {
+          "id": 13618,
+          "name": "曼城电子竞技队",
+          "description": "在任意 Football 终极 Team 游戏模式中使用至少 3 名来自英超的 Manchester City 球员赢得 1 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Manchester City Esports",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Manchester City Esports",
+          "descriptionEn": "Win 1 match in any Football Ultimate Team game mode while using at least 3 Manchester City players from the Premier League."
+        }
+      ]
+    },
+    {
+      "id": 2699,
+      "slug": "211-storm-chaser",
+      "name": "Storm Chaser",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
+      "description": "Consistency is your best weapon. Conquer the Storm Chaser at your own pace, complete each challenge along the way, and unlock a wave of special rewards designed to take your squad to the next level. All rewards are untradable.",
+      "startTime": "2026-11-20T18:00:00Z",
+      "endTime": "2026-12-04T17:59:59Z",
+      "tasksCount": 7,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "EVENT_TOKEN",
+          "name": "200 Thunderstruck Tokens",
+          "count": 1,
+          "eventToken": 200
+        },
+        {
+          "type": "EVO_UNLOCK",
+          "name": "Thunderstruck Premium Badge",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13575,
+          "name": "大力低射",
+          "description": "在最低半职业难度的SQB（或Rush/DR/FUT冠军/实时赛事）中在15场不同比赛中打进大力低射进球。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 50
+            },
+            {
+              "type": "EVO_UNLOCK",
+              "name": "Slick Operator",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+            }
+          ],
+          "nameEn": "Low Driven",
+          "descriptionEn": "Score a low driven goal in 15 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        },
+        {
+          "id": 13576,
+          "name": "地面直塞",
+          "description": "在最低半职业难度的SQB（或Rush/DR/FUT冠军/实时赛事）中在15场不同比赛中用地面直塞助攻。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ],
+          "nameEn": "Ground Through Balls",
+          "descriptionEn": "Assist with a ground through ball in 15 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        },
+        {
+          "id": 13577,
+          "name": "防守级",
+          "description": "在最低半职业难度的SQB（或Rush/DR/FUT冠军/实时赛事）中在10场不同比赛中失球少于3个。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ],
+          "nameEn": "Defensive Class",
+          "descriptionEn": "Concede less than 3 goals in 10 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        },
+        {
+          "id": 13578,
+          "name": "过顶直塞",
+          "description": "在任意 FUT 比赛模式中用直塞助攻25球。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "25 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 25
+            },
+            {
+              "type": "EVO_UNLOCK",
+              "name": "Field General",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+            }
+          ],
+          "nameEn": "Lofted Through Balls",
+          "descriptionEn": "Assist 25 goals with a lofted through ball in any FUT game mode."
+        },
+        {
+          "id": 13579,
+          "name": "搓射",
+          "description": "在任意 FUT 比赛模式中打进25个搓射进球。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "25 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 25
+            }
+          ],
+          "nameEn": "Finesses",
+          "descriptionEn": "Score 25 finesse goals in any FUT game mode."
+        },
+        {
+          "id": 13580,
+          "name": "助攻者",
+          "description": "在任意 FUT 比赛模式中助攻50球。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "25 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 25
+            }
+          ],
+          "nameEn": "Assister",
+          "descriptionEn": "Assist 50 goals in any FUT game mode."
+        },
+        {
+          "id": 13581,
+          "name": "进50球",
+          "description": "在任意 FUT 比赛模式中进50球。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "25 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 25
+            }
+          ],
+          "nameEn": "Score 50",
+          "descriptionEn": "Score 50 goals in any FUT game mode."
+        }
+      ]
+    },
+    {
+      "id": 2696,
+      "slug": "201-ultimate-weekly-play-objective-week-2",
+      "name": "Ultimate Weekly Play Objective Week 2",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
+      "description": "Play matches in any FUT game mode to make progress in the Ultimate Weekly Play Completionist.",
+      "startTime": "2026-11-20T18:00:00Z",
+      "endTime": "2026-11-27T17:59:59Z",
+      "tasksCount": 1,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Shadow",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13561,
+          "name": "进行2场",
+          "description": "在任意游戏模式中进行 2 场比赛。",
           "awards": [
             {
               "type": "ITEM",
@@ -56,23 +507,66 @@
               "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
             }
           ],
-          "nameEn": "Play 3",
-          "descriptionEn": "Play 3 matches in any FUT game mode."
-        },
+          "nameEn": "Play 2",
+          "descriptionEn": "Play 2 matches in any game mode."
+        }
+      ]
+    },
+    {
+      "id": 2702,
+      "slug": "235-formation-champions-objective",
+      "name": "Formation Champions Objective",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
+      "description": "Complete the Formation Champions Objective to earn Champions Tokens!",
+      "startTime": "2026-11-20T18:00:00Z",
+      "endTime": "2026-11-24T17:59:59Z",
+      "tasksCount": 2,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
         {
-          "id": 13564,
-          "name": "获胜1场",
-          "description": "在任意 FUT 比赛模式中赢得1场比赛。",
+          "type": "EVENT_TOKEN",
+          "name": "50 Champions Tokens",
+          "count": 1,
+          "eventToken": 50
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13598,
+          "name": "四后卫",
+          "description": "在周赛中使用4-3-2-1或4-2-4（不改变阵型）在5场不同比赛中进球。",
           "awards": [
             {
-              "type": "ITEM",
-              "name": "Shadow",
+              "type": "EVENT_TOKEN",
+              "name": "20 Champions Tokens",
               "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
+              "eventToken": 20
             }
           ],
-          "nameEn": "Win 1",
-          "descriptionEn": "Win 1 match in any FUT game mode."
+          "nameEn": "Four at the back",
+          "descriptionEn": "Score in 5 separate matches using the 4-3-2-1 or 4-2-4 (Without changing) in FUT Champions."
+        },
+        {
+          "id": 13599,
+          "name": "三后卫",
+          "description": "在周赛中使用3-1-4-2或3-4-3（不改变阵型）在3场比赛中进球。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "35 Champions Tokens",
+              "count": 1,
+              "eventToken": 35
+            }
+          ],
+          "nameEn": "Three at the back",
+          "descriptionEn": "Score in 3 matches using the 3-1-4-2 or 3-4-3 (Without changing) in FUT Champions."
         }
       ]
     },
@@ -84,12 +578,12 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete the Daily Login Upgrade SBC Completionist to earn additional rewards! All rewards are untradeable.",
       "startTime": "2026-11-20T18:00:00Z",
       "endTime": "2026-12-04T18:00:00Z",
       "tasksCount": 8,
-      "isNew": true,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
@@ -249,64 +743,6 @@
       ]
     },
     {
-      "id": 2702,
-      "slug": "235-formation-champions-objective",
-      "name": "Formation Champions Objective",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Complete the Formation Champions Objective to earn Champions Tokens!",
-      "startTime": "2026-11-20T18:00:00Z",
-      "endTime": "2026-11-24T17:59:59Z",
-      "tasksCount": 2,
-      "isNew": true,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "EVENT_TOKEN",
-          "name": "50 Champions Tokens",
-          "count": 1,
-          "eventToken": 50
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13598,
-          "name": "四后卫",
-          "description": "在周赛中使用4-3-2-1或4-2-4（不改变阵型）在5场不同比赛中进球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "20 Champions Tokens",
-              "count": 1,
-              "eventToken": 20
-            }
-          ],
-          "nameEn": "Four at the back",
-          "descriptionEn": "Score in 5 separate matches using the 4-3-2-1 or 4-2-4 (Without changing) in FUT Champions."
-        },
-        {
-          "id": 13599,
-          "name": "三后卫",
-          "description": "在周赛中使用3-1-4-2或3-4-3（不改变阵型）在3场比赛中进球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "35 Champions Tokens",
-              "count": 1,
-              "eventToken": 35
-            }
-          ],
-          "nameEn": "Three at the back",
-          "descriptionEn": "Score in 3 matches using the 3-1-4-2 or 3-4-3 (Without changing) in FUT Champions."
-        }
-      ]
-    },
-    {
       "id": 2698,
       "slug": "210-ultimate-gauntlet-4",
       "name": "Ultimate Gauntlet 4",
@@ -314,12 +750,12 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete 8 of 10 challenges in the Ultimate Gauntlet 4 and earn Thunderstruck Tokens! All rewards are untradable.",
       "startTime": "2026-11-20T18:00:00Z",
       "endTime": "2026-11-27T17:59:59Z",
       "tasksCount": 10,
-      "isNew": true,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
@@ -492,12 +928,12 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Feel the electrical surge of Black Friday Thunderstruck! Bring the storm onto the pitch by completing 3 of the 5 available challenges to earn your reward. All rewards are untradeable.",
       "startTime": "2026-11-20T18:00:00Z",
       "endTime": "2026-11-27T17:59:59Z",
       "tasksCount": 5,
-      "isNew": true,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
@@ -609,157 +1045,6 @@
       ]
     },
     {
-      "id": 2699,
-      "slug": "211-storm-chaser",
-      "name": "Storm Chaser",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Consistency is your best weapon. Conquer the Storm Chaser at your own pace, complete each challenge along the way, and unlock a wave of special rewards designed to take your squad to the next level. All rewards are untradable.",
-      "startTime": "2026-11-20T18:00:00Z",
-      "endTime": "2026-12-04T17:59:59Z",
-      "tasksCount": 7,
-      "isNew": true,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "EVENT_TOKEN",
-          "name": "200 Thunderstruck Tokens",
-          "count": 1,
-          "eventToken": 200
-        },
-        {
-          "type": "EVO_UNLOCK",
-          "name": "Thunderstruck Premium Badge",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13575,
-          "name": "大力低射",
-          "description": "在最低半职业难度的SQB（或Rush/DR/FUT冠军/实时赛事）中在15场不同比赛中打进大力低射进球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "50 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 50
-            },
-            {
-              "type": "EVO_UNLOCK",
-              "name": "Slick Operator",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
-            }
-          ],
-          "nameEn": "Low Driven",
-          "descriptionEn": "Score a low driven goal in 15 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
-        },
-        {
-          "id": 13576,
-          "name": "地面直塞",
-          "description": "在最低半职业难度的SQB（或Rush/DR/FUT冠军/实时赛事）中在15场不同比赛中用地面直塞助攻。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "50 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 50
-            }
-          ],
-          "nameEn": "Ground Through Balls",
-          "descriptionEn": "Assist with a ground through ball in 15 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
-        },
-        {
-          "id": 13577,
-          "name": "防守级",
-          "description": "在最低半职业难度的SQB（或Rush/DR/FUT冠军/实时赛事）中在10场不同比赛中失球少于3个。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "50 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 50
-            }
-          ],
-          "nameEn": "Defensive Class",
-          "descriptionEn": "Concede less than 3 goals in 10 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
-        },
-        {
-          "id": 13578,
-          "name": "过顶直塞",
-          "description": "在任意 FUT 比赛模式中用直塞助攻25球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "25 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 25
-            },
-            {
-              "type": "EVO_UNLOCK",
-              "name": "Field General",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
-            }
-          ],
-          "nameEn": "Lofted Through Balls",
-          "descriptionEn": "Assist 25 goals with a lofted through ball in any FUT game mode."
-        },
-        {
-          "id": 13579,
-          "name": "搓射",
-          "description": "在任意 FUT 比赛模式中打进25个搓射进球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "25 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 25
-            }
-          ],
-          "nameEn": "Finesses",
-          "descriptionEn": "Score 25 finesse goals in any FUT game mode."
-        },
-        {
-          "id": 13580,
-          "name": "助攻者",
-          "description": "在任意 FUT 比赛模式中助攻50球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "25 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 25
-            }
-          ],
-          "nameEn": "Assister",
-          "descriptionEn": "Assist 50 goals in any FUT game mode."
-        },
-        {
-          "id": 13581,
-          "name": "进50球",
-          "description": "在任意 FUT 比赛模式中进50球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "25 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 25
-            }
-          ],
-          "nameEn": "Score 50",
-          "descriptionEn": "Score 50 goals in any FUT game mode."
-        }
-      ]
-    },
-    {
       "id": 2701,
       "slug": "233-thunderstruck-daily-play-completionist",
       "name": "Thunderstruck Daily Play Completionist",
@@ -767,12 +1052,12 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete the Thunderstruck Daily Play objectives to earn rewards! All rewards are untradeable.",
       "startTime": "2026-11-20T18:00:00Z",
       "endTime": "2026-12-04T17:59:59Z",
       "tasksCount": 8,
-      "isNew": true,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
@@ -929,35 +1214,50 @@
       ]
     },
     {
-      "id": 2696,
-      "slug": "201-ultimate-weekly-play-objective-week-2",
-      "name": "Ultimate Weekly Play Objective Week 2",
+      "id": 2697,
+      "slug": "209-thunderstruck-daily-play",
+      "name": "Thunderstruck Daily Play",
       "category": {
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Play matches in any FUT game mode to make progress in the Ultimate Weekly Play Completionist.",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
+      "description": "Complete 1 of 3 objectives in any Football Ultimate Team game mode to earn rewards every 24 hours! All rewards are untradeable.",
       "startTime": "2026-11-20T18:00:00Z",
-      "endTime": "2026-11-27T17:59:59Z",
-      "tasksCount": 1,
-      "isNew": true,
+      "endTime": "2026-12-04T17:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
       "awards": [
         {
-          "type": "ITEM",
-          "name": "Shadow",
+          "type": "EVENT_TOKEN",
+          "name": "15 Thunderstruck Tokens",
           "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
+          "eventToken": 15
         }
       ],
       "objectives": [
         {
-          "id": 13561,
-          "name": "进行2场",
-          "description": "在任意游戏模式中进行 2 场比赛。",
+          "id": 13562,
+          "name": "完成3个SBC",
+          "description": "完成3个SBC。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Engine",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003105.png"
+            }
+          ],
+          "nameEn": "Complete 3 SBCs",
+          "descriptionEn": "Complete 3 SBCS."
+        },
+        {
+          "id": 13563,
+          "name": "进行3场",
+          "description": "在任意 FUT 比赛模式中进行3场比赛。",
           "awards": [
             {
               "type": "ITEM",
@@ -966,8 +1266,126 @@
               "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
             }
           ],
-          "nameEn": "Play 2",
-          "descriptionEn": "Play 2 matches in any game mode."
+          "nameEn": "Play 3",
+          "descriptionEn": "Play 3 matches in any FUT game mode."
+        },
+        {
+          "id": 13564,
+          "name": "获胜1场",
+          "description": "在任意 FUT 比赛模式中赢得1场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Shadow",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
+            }
+          ],
+          "nameEn": "Win 1",
+          "descriptionEn": "Win 1 match in any FUT game mode."
+        }
+      ]
+    },
+    {
+      "id": 2694,
+      "slug": "147-season-2-sp-chase",
+      "name": "Season 2 SP Chase",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
+      "description": "Complete challenges across FUT to earn SP!",
+      "startTime": "2026-11-19T18:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "XP",
+          "name": "2,000 SP",
+          "count": 1,
+          "xp": 2000
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13554,
+          "name": "进行15场",
+          "description": "在任意 FUT 比赛模式中游玩 15 场比赛。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "1,500 SP",
+              "count": 1,
+              "xp": 1500
+            }
+          ],
+          "nameEn": "Play 15",
+          "descriptionEn": "Play 15 matches in any FUT game mode."
+        },
+        {
+          "id": 13555,
+          "name": "完成 7",
+          "description": "完成任意 7 个 SBC 小组。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "1,500 SP",
+              "count": 1,
+              "xp": 1500
+            }
+          ],
+          "nameEn": "Complete 7",
+          "descriptionEn": "Complete any 7 SBC groups."
+        },
+        {
+          "id": 13556,
+          "name": "游玩 12",
+          "description": "在 DR 中游玩 12 场比赛。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "1,500 SP",
+              "count": 1,
+              "xp": 1500
+            }
+          ],
+          "nameEn": "Play 12",
+          "descriptionEn": "Play 12 matches in Rivals."
+        },
+        {
+          "id": 13557,
+          "name": "助攻 5",
+          "description": "在 SQB 最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）中助攻 5 球。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "Assist 5",
+          "descriptionEn": "Assist 5 goals in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
+        },
+        {
+          "id": 13558,
+          "name": "进球 5",
+          "description": "在 SQB 最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）中进 5 球。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "Score 5",
+          "descriptionEn": "Score 5 goals in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
         }
       ]
     },
@@ -979,7 +1397,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete Weekly Objectives to earn SP!",
       "startTime": "2026-11-19T18:00:00Z",
       "endTime": "2026-11-26T17:59:59Z",
@@ -1082,7 +1500,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Play, complete and earn SP from daily objective every 24 hours!",
       "startTime": "2026-11-19T18:00:00Z",
       "endTime": "2026-11-26T17:59:59Z",
@@ -1133,109 +1551,6 @@
       ]
     },
     {
-      "id": 2694,
-      "slug": "147-season-2-sp-chase",
-      "name": "Season 2 SP Chase",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Complete challenges across FUT to earn SP!",
-      "startTime": "2026-11-19T18:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 5,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "XP",
-          "name": "2,000 SP",
-          "count": 1,
-          "xp": 2000
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13554,
-          "name": "进行15场",
-          "description": "在任意 FUT 比赛模式中游玩 15 场比赛。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "1,500 SP",
-              "count": 1,
-              "xp": 1500
-            }
-          ],
-          "nameEn": "Play 15",
-          "descriptionEn": "Play 15 matches in any FUT game mode."
-        },
-        {
-          "id": 13555,
-          "name": "完成 7",
-          "description": "完成任意 7 个 SBC 小组。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "1,500 SP",
-              "count": 1,
-              "xp": 1500
-            }
-          ],
-          "nameEn": "Complete 7",
-          "descriptionEn": "Complete any 7 SBC groups."
-        },
-        {
-          "id": 13556,
-          "name": "游玩 12",
-          "description": "在 DR 中游玩 12 场比赛。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "1,500 SP",
-              "count": 1,
-              "xp": 1500
-            }
-          ],
-          "nameEn": "Play 12",
-          "descriptionEn": "Play 12 matches in Rivals."
-        },
-        {
-          "id": 13557,
-          "name": "助攻 5",
-          "description": "在 SQB 最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）中助攻 5 球。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "250 SP",
-              "count": 1,
-              "xp": 250
-            }
-          ],
-          "nameEn": "Assist 5",
-          "descriptionEn": "Assist 5 goals in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
-        },
-        {
-          "id": 13558,
-          "name": "进球 5",
-          "description": "在 SQB 最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）中进 5 球。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "250 SP",
-              "count": 1,
-              "xp": 250
-            }
-          ],
-          "nameEn": "Score 5",
-          "descriptionEn": "Score 5 goals in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
-        }
-      ]
-    },
-    {
       "id": 2692,
       "slug": "152-weekly-rush-points",
       "name": "Weekly Rush Points",
@@ -1243,7 +1558,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete Rush Bonuses alongside your teammates to earn Rush Points and pack rewards! All rewards are untradeable.",
       "startTime": "2026-11-17T18:00:00Z",
       "endTime": "2026-11-24T17:59:59Z",
@@ -1364,7 +1679,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Make progress in the Hall of FUT: Unleashed Gallery Set and earn exclusive vanity rewards!",
       "startTime": "2026-11-13T18:00:00Z",
       "endTime": "2026-12-11T17:59:59Z",
@@ -1473,7 +1788,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete the Ultimate Weekly Play Completionist to earn bonus rewards! All rewards are untradeable.",
       "startTime": "2026-11-13T18:00:00Z",
       "endTime": "2026-12-11T17:59:59Z",
@@ -1565,85 +1880,6 @@
       ]
     },
     {
-      "id": 2680,
-      "slug": "131-ultimate-scream-evolving-stage-1-kit",
-      "name": "Ultimate Scream Evolving - Stage 1 Kit",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Equip the Ultimate Scream Evolving - Stage 1 Kit and complete the objectives to earn additional SP.",
-      "startTime": "2026-11-12T18:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "ITEM",
-          "name": "Ultimate Scream - Kit 2",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-        },
-        {
-          "type": "XP",
-          "name": "200 SP",
-          "count": 1,
-          "xp": 200
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13497,
-          "name": "获胜3场",
-          "description": "在任意 FUT 比赛模式中赢得 3 场比赛，同时装备终极尖叫 Evolving - Stage 1 球衣。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "100 SP",
-              "count": 1,
-              "xp": 100
-            }
-          ],
-          "nameEn": "Win 3",
-          "descriptionEn": "Win 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 1 Kit equipped."
-        },
-        {
-          "id": 13498,
-          "name": "打入3球",
-          "description": "在任意 FUT 比赛模式中打进 3 球，同时装备终极尖叫 Evolving - Stage 1 球衣。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "100 SP",
-              "count": 1,
-              "xp": 100
-            }
-          ],
-          "nameEn": "Score 3",
-          "descriptionEn": "Score 3 goals in any FUT game mode while having the Ultimate Scream Evolving - Stage 1 Kit equipped."
-        },
-        {
-          "id": 13499,
-          "name": "进行3场",
-          "description": "在任意 FUT 比赛模式中进行 3 场比赛，同时装备终极尖叫 Evolving - Stage 1 球衣。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "100 SP",
-              "count": 1,
-              "xp": 100
-            }
-          ],
-          "nameEn": "Play 3",
-          "descriptionEn": "Play 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 1 Kit equipped."
-        }
-      ]
-    },
-    {
       "id": 2682,
       "slug": "140-seasonal-objective",
       "name": "Seasonal Objective",
@@ -1651,7 +1887,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete Seasonal Objectives to earn SP!",
       "startTime": "2026-11-12T18:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1747,85 +1983,6 @@
       ]
     },
     {
-      "id": 2684,
-      "slug": "179-ultimate-scream-evolving-stage-2-kit",
-      "name": "Ultimate Scream Evolving - Stage 2 Kit",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Equip the Ultimate Scream Evolving - Stage 2 Kit and complete the objectives to earn additional SP.",
-      "startTime": "2026-11-12T18:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "ITEM",
-          "name": "Ultimate Scream - Kit 3",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-        },
-        {
-          "type": "XP",
-          "name": "200 SP",
-          "count": 1,
-          "xp": 200
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13512,
-          "name": "获胜3场",
-          "description": "在任意 FUT 比赛模式中赢得 3 场比赛，同时装备终极尖叫 Evolving - Stage 2 球衣。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "100 SP",
-              "count": 1,
-              "xp": 100
-            }
-          ],
-          "nameEn": "Win 3",
-          "descriptionEn": "Win 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 2 Kit equipped."
-        },
-        {
-          "id": 13513,
-          "name": "打入3球",
-          "description": "在任意 FUT 比赛模式中打进 3 球，同时装备终极尖叫 Evolving - Stage 2 球衣。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "100 SP",
-              "count": 1,
-              "xp": 100
-            }
-          ],
-          "nameEn": "Score 3",
-          "descriptionEn": "Score 3 goals in any FUT game mode while having the Ultimate Scream Evolving - Stage 2 Kit equipped."
-        },
-        {
-          "id": 13514,
-          "name": "进行3场",
-          "description": "在任意 FUT 比赛模式中进行 3 场比赛，同时装备终极尖叫 Evolving - Stage 2 球衣。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "100 SP",
-              "count": 1,
-              "xp": 100
-            }
-          ],
-          "nameEn": "Play 3",
-          "descriptionEn": "Play 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 2 Kit equipped."
-        }
-      ]
-    },
-    {
       "id": 2685,
       "slug": "180-ultimate-scream-evolving-stage-3-kit",
       "name": "Ultimate Scream Evolving - Stage 3 Kit",
@@ -1833,7 +1990,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Equip the Ultimate Scream Evolving - Stage 3 Kit and complete the objectives to earn additional SP.",
       "startTime": "2026-11-12T18:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1908,31 +2065,28 @@
       ]
     },
     {
-      "id": 2678,
-      "slug": "197-red-bull-wiiings-challenge",
-      "name": "Red Bull Wiiings Challenge",
+      "id": 2680,
+      "slug": "131-ultimate-scream-evolving-stage-1-kit",
+      "name": "Ultimate Scream Evolving - Stage 1 Kit",
       "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
+        "slug": "seasonal",
+        "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Complete 3 out of 4 Red Bull Wiiings Challenge objectives to earn bonus pack rewards and more! All rewards are untradeable.",
-      "startTime": "2026-11-09T18:00:00Z",
-      "endTime": "2026-11-23T17:59:59Z",
-      "tasksCount": 4,
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
+      "description": "Equip the Ultimate Scream Evolving - Stage 1 Kit and complete the objectives to earn additional SP.",
+      "startTime": "2026-11-12T18:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 3,
       "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
       "awards": [
         {
-          "type": "PACK",
-          "name": "2X 83+ Gold Players Pack",
+          "type": "ITEM",
+          "name": "Ultimate Scream - Kit 2",
           "count": 1,
-          "pack": {
-            "name": "2x 83+ Gold Players Pack",
-            "description": "Contains 2 Gold Player Items, rated 83 or higher."
-          }
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
         },
         {
           "type": "XP",
@@ -1943,22 +2097,10 @@
       ],
       "objectives": [
         {
-          "id": 13478,
-          "name": "潮服飞扬",
-          "description": "在 SQB 中最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）穿着 Red Bull Clubs Members 主场球衣进行 1 场比赛。",
+          "id": 13497,
+          "name": "获胜3场",
+          "description": "在任意 FUT 比赛模式中赢得 3 场比赛，同时装备终极尖叫 Evolving - Stage 1 球衣。",
           "awards": [
-            {
-              "type": "ITEM",
-              "name": "Hunter",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
-            },
-            {
-              "type": "ITEM",
-              "name": "Shadow",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
-            },
             {
               "type": "XP",
               "name": "100 SP",
@@ -1966,26 +2108,14 @@
               "xp": 100
             }
           ],
-          "nameEn": "Drip Too Fly",
-          "descriptionEn": "Play 1 match wearing the Red Bull Clubs Members Home Kit in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
+          "nameEn": "Win 3",
+          "descriptionEn": "Win 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 1 Kit equipped."
         },
         {
-          "id": 13479,
-          "name": "边锋致胜",
-          "description": "在 SQB 中最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）穿着 Red Bull Wings Cup 主场球衣使用传中助攻 5 球。",
+          "id": 13498,
+          "name": "打入3球",
+          "description": "在任意 FUT 比赛模式中打进 3 球，同时装备终极尖叫 Evolving - Stage 1 球衣。",
           "awards": [
-            {
-              "type": "ITEM",
-              "name": "Hunter",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
-            },
-            {
-              "type": "ITEM",
-              "name": "Shadow",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
-            },
             {
               "type": "XP",
               "name": "100 SP",
@@ -1993,23 +2123,14 @@
               "xp": 100
             }
           ],
-          "nameEn": "Wingers to Winners",
-          "descriptionEn": "Assist 5 goals using Crosses while wearing the Red Bull Wings Cup Home Kit in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
+          "nameEn": "Score 3",
+          "descriptionEn": "Score 3 goals in any FUT game mode while having the Ultimate Scream Evolving - Stage 1 Kit equipped."
         },
         {
-          "id": 13480,
-          "name": "看我飞翔",
-          "description": "在 SQB 中最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）穿着 Red Bull Wings Cup 主场球衣使用头球打进 3 球。",
+          "id": 13499,
+          "name": "进行3场",
+          "description": "在任意 FUT 比赛模式中进行 3 场比赛，同时装备终极尖叫 Evolving - Stage 1 球衣。",
           "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 80+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 80+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 80 or higher."
-              }
-            },
             {
               "type": "XP",
               "name": "100 SP",
@@ -2017,90 +2138,87 @@
               "xp": 100
             }
           ],
-          "nameEn": "Watch Me Fly",
-          "descriptionEn": "Score 3 goals using Headers while wearing the Red Bull Wings Cup Home Kit in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
-        },
-        {
-          "id": 13481,
-          "name": "获取你的潮服",
-          "description": "在 SQB 中最低半职业难度（或 DR/FUT冠军/实时赛事/Rush）进行 3 场比赛。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Red Bull Wings Cup",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-            }
-          ],
-          "nameEn": "Get Your Drip",
-          "descriptionEn": "Play 3 matches in Squad Battles on min. Semi-Pro difficulty (or Rivals/Champions/Live Events/Rush)."
+          "nameEn": "Play 3",
+          "descriptionEn": "Play 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 1 Kit equipped."
         }
       ]
     },
     {
-      "id": 2672,
-      "slug": "191-fc-pro-open-global-qualifier",
-      "name": "FC Pro Open Global Qualifier",
+      "id": 2684,
+      "slug": "179-ultimate-scream-evolving-stage-2-kit",
+      "name": "Ultimate Scream Evolving - Stage 2 Kit",
       "category": {
-        "slug": "fc-pro",
-        "name": "FC Pro"
+        "slug": "seasonal",
+        "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Join in on the action of the FC Pro Open Global Qualifier Broadcast at Twitch/EASPORTSFC or YouTube/EASPORTSFCPRO to earn your viewership rewards! All rewards are untradeable.",
-      "startTime": "2026-11-05T18:00:00Z",
-      "endTime": "2026-11-21T17:59:59Z",
-      "tasksCount": 2,
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
+      "description": "Equip the Ultimate Scream Evolving - Stage 2 Kit and complete the objectives to earn additional SP.",
+      "startTime": "2026-11-12T18:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 3,
       "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
       "awards": [
         {
-          "type": "PACK",
-          "name": "5X 80+ Gold Players Pack",
+          "type": "ITEM",
+          "name": "Ultimate Scream - Kit 3",
           "count": 1,
-          "pack": {
-            "name": "5x 80+ Gold Players Pack",
-            "description": "Contains 5 Gold Player Items, rated 80 or higher."
-          }
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+        },
+        {
+          "type": "XP",
+          "name": "200 SP",
+          "count": 1,
+          "xp": 200
         }
       ],
       "objectives": [
         {
-          "id": 13447,
-          "name": "观看60分钟",
-          "description": "观看FC Pro Open全球预选赛至少60分钟。直播将于11月7日15:00 UTC至22:00 UTC进行。",
+          "id": 13512,
+          "name": "获胜3场",
+          "description": "在任意 FUT 比赛模式中赢得 3 场比赛，同时装备终极尖叫 Evolving - Stage 2 球衣。",
           "awards": [
             {
-              "type": "PACK",
-              "name": "5X 81+ Gold Players Pack",
+              "type": "XP",
+              "name": "100 SP",
               "count": 1,
-              "pack": {
-                "name": "5x 81+ Gold Players Pack",
-                "description": "Contains 5 Gold Player Items, rated 81 or higher."
-              }
+              "xp": 100
             }
           ],
-          "nameEn": "Watch 60 minutes",
-          "descriptionEn": "Watch the FC Pro Open Global Qualifier for at least 60 minutes. Broadcast will go live on November 7 at 15:00 UTC until 22:00 UTC."
+          "nameEn": "Win 3",
+          "descriptionEn": "Win 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 2 Kit equipped."
         },
         {
-          "id": 13448,
-          "name": "观看15分钟",
-          "description": "观看FC Pro Open全球预选赛至少15分钟。直播将于11月7日15:00 UTC至22:00 UTC进行。",
+          "id": 13513,
+          "name": "打入3球",
+          "description": "在任意 FUT 比赛模式中打进 3 球，同时装备终极尖叫 Evolving - Stage 2 球衣。",
           "awards": [
             {
-              "type": "PACK",
-              "name": "3X 80+ Gold Players Pack",
+              "type": "XP",
+              "name": "100 SP",
               "count": 1,
-              "pack": {
-                "name": "3x 80+ Gold Players Pack",
-                "description": "Contains 3 Gold Player Items, rated 80 or higher."
-              }
+              "xp": 100
             }
           ],
-          "nameEn": "Watch 15 minutes",
-          "descriptionEn": "Watch the FC Pro Open Global Qualifier for at least 15 minutes. Broadcast will go live on November 7 at 15:00 UTC until 22:00 UTC."
+          "nameEn": "Score 3",
+          "descriptionEn": "Score 3 goals in any FUT game mode while having the Ultimate Scream Evolving - Stage 2 Kit equipped."
+        },
+        {
+          "id": 13514,
+          "name": "进行3场",
+          "description": "在任意 FUT 比赛模式中进行 3 场比赛，同时装备终极尖叫 Evolving - Stage 2 球衣。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "100 SP",
+              "count": 1,
+              "xp": 100
+            }
+          ],
+          "nameEn": "Play 3",
+          "descriptionEn": "Play 3 matches in any FUT game mode while having the Ultimate Scream Evolving - Stage 2 Kit equipped."
         }
       ]
     },
@@ -2112,7 +2230,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete this objective to earn the Movember kit and stadium items! All rewards are untradeable.",
       "startTime": "2026-11-01T18:00:00Z",
       "endTime": "2026-11-30T17:59:59Z",
@@ -2197,7 +2315,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Compete in the Season 2 Daily Knockout Tournament to earn exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2233,85 +2351,6 @@
       ]
     },
     {
-      "id": 2648,
-      "slug": "164-fc-heritage-circuit-completionist",
-      "name": "FC Heritage Circuit Completionist",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
-      "description": "Complete the FC Heritage Circuit Objectives to earn rewards. All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 3,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PLAYER_ITEM",
-          "name": "Jeremiah St. Juste",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50558501.ea0ddec0e3ae5e5a036c4565fe7498375f7a40f23d0d3b8ea0631fac9b8e9161.webp",
-          "playerItem": {
-            "name": "Jeremiah St. Juste",
-            "eaId": 50558501,
-            "rating": 0,
-            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50558501.cf6971231057c192c53c5cdc81f85bf312091e9aaec306c4fc9afa8ae73f98c4.webp"
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13361,
-          "name": "FC Heritage Circuit 世界级 挑战",
-          "description": "完成FC Heritage Circuit 世界级 Event 任务。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "7,000 Coins",
-              "count": 1,
-              "coins": 7000
-            }
-          ],
-          "nameEn": "FC Heritage Circuit World Class Challenge",
-          "descriptionEn": "Complete the FC Heritage Circuit World Class Event objective."
-        },
-        {
-          "id": 13362,
-          "name": "FC Heritage Circuit 职业 挑战",
-          "description": "完成FC Heritage Circuit 职业 Event 任务。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "6,000 Coins",
-              "count": 1,
-              "coins": 6000
-            }
-          ],
-          "nameEn": "FC Heritage Circuit Professional Challenge",
-          "descriptionEn": "Complete the FC Heritage Circuit Professional Event objective."
-        },
-        {
-          "id": 13363,
-          "name": "FC Heritage Circuit 半职业 挑战",
-          "description": "完成FC Heritage Circuit 半职业 Event 任务。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "4,000 Coins",
-              "count": 1,
-              "coins": 4000
-            }
-          ],
-          "nameEn": "FC Heritage Circuit Semi-Pro Challenge",
-          "descriptionEn": "Complete the FC Heritage Circuit Semi-Pro Event objective."
-        }
-      ]
-    },
-    {
       "id": 2650,
       "slug": "167-season-2-daily-knockout-tournament-weekly-play-completionist",
       "name": "Season 2 Daily Knockout Tournament Weekly Play Completionist",
@@ -2319,7 +2358,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete all Season 2 Daily Knockout Tournament Weekly Play objectives to earn FC Heritage Axel Witsel and Coins! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2421,6 +2460,85 @@
       ]
     },
     {
+      "id": 2648,
+      "slug": "164-fc-heritage-circuit-completionist",
+      "name": "FC Heritage Circuit Completionist",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
+      "description": "Complete the FC Heritage Circuit Objectives to earn rewards. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 3,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PLAYER_ITEM",
+          "name": "Jeremiah St. Juste",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50558501.ea0ddec0e3ae5e5a036c4565fe7498375f7a40f23d0d3b8ea0631fac9b8e9161.webp",
+          "playerItem": {
+            "name": "Jeremiah St. Juste",
+            "eaId": 50558501,
+            "rating": 0,
+            "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/player-item/27-50558501.cf6971231057c192c53c5cdc81f85bf312091e9aaec306c4fc9afa8ae73f98c4.webp"
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13361,
+          "name": "FC Heritage Circuit 世界级 挑战",
+          "description": "完成FC Heritage Circuit 世界级 Event 任务。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "7,000 Coins",
+              "count": 1,
+              "coins": 7000
+            }
+          ],
+          "nameEn": "FC Heritage Circuit World Class Challenge",
+          "descriptionEn": "Complete the FC Heritage Circuit World Class Event objective."
+        },
+        {
+          "id": 13362,
+          "name": "FC Heritage Circuit 职业 挑战",
+          "description": "完成FC Heritage Circuit 职业 Event 任务。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "6,000 Coins",
+              "count": 1,
+              "coins": 6000
+            }
+          ],
+          "nameEn": "FC Heritage Circuit Professional Challenge",
+          "descriptionEn": "Complete the FC Heritage Circuit Professional Event objective."
+        },
+        {
+          "id": 13363,
+          "name": "FC Heritage Circuit 半职业 挑战",
+          "description": "完成FC Heritage Circuit 半职业 Event 任务。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "4,000 Coins",
+              "count": 1,
+              "coins": 4000
+            }
+          ],
+          "nameEn": "FC Heritage Circuit Semi-Pro Challenge",
+          "descriptionEn": "Complete the FC Heritage Circuit Semi-Pro Event objective."
+        }
+      ]
+    },
+    {
       "id": 2647,
       "slug": "161-fc-heritage-circuit-world-class-event",
       "name": "FC Heritage Circuit World Class Event",
@@ -2428,7 +2546,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Compete in the FC Heritage Circuit World Class Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2543,7 +2661,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete 7 of 8 challenges in the Season 2 Daily Knockout Tournament and earn packs, coins, and exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2715,7 +2833,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Compete in the FC Heritage Circuit Semi-Pro Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2830,7 +2948,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Compete in the FC Heritage Circuit Professional Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2945,7 +3063,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Compete in the FC Heritage Circuit Tournament to earn a special FC Heritage Alexis Sánchez, packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -3105,7 +3223,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Compete in the FC Heritage Circuit Kick Off Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -3202,7 +3320,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Learn the basics of the Gallery! Grade and complete Sets, achieve Rank S, and increase your Gallery Level as you explore everything the Gallery has to offer. All rewards are untradeable.",
       "startTime": "2026-09-25T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3323,7 +3441,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete this objective and choose 1 Squad Foundations Player Item from: Miley (Premier League), Moi Gómez (LALIGA EA SPORTS), Banzuzi (Bundesliga), or Danois (Ligue 1). All rewards are untradeable.",
       "startTime": "2026-09-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3365,7 +3483,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete challenges celebrating manager Ted Lasso and AFC Richmond to earn exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-09-11T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3501,7 +3619,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "All good clubs need polishing on and off the pitch. Complete these maintenance objectives to earn rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3650,7 +3768,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Prove your worth by completing each of the Foundation Objectives groups to earn big rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3757,7 +3875,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete these Squad Building Challenges to earn rewards and improve your squad. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3861,7 +3979,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "PVE Live Events offer a new way to play. Compete, earn and upgrade your way to the top. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4003,7 +4121,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Draft your path to greatness!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4090,7 +4208,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Team up with Friends to embark on the Co-op journey!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4183,7 +4301,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Squad up and complete Rush bonuses alongside other players as you try to reign supreme in Rush!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4316,7 +4434,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Complete Moments challenges and earn stars to show your football dominance!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4404,7 +4522,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4485,7 +4603,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Wheel and deal your way to Transfer Market Mastery!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4573,7 +4691,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Get acquainted with Live Events matches.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4650,7 +4768,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "The challenge is set. Take to the pitch in Squad Battles and battle through the competition.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4741,7 +4859,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "The ultimate test of skill awaits in Division Rivals. Battle against the competition and emerge victorious.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4824,7 +4942,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Every legend has a beginning. Enter Champions and begin your path to becoming the Golden G.O.A.T.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4912,7 +5030,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Grow your Gallery Score, hit new levels, and earn rewards to build the ultimate club showcase!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5017,7 +5135,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Assemble a squad with First Owned (acquired from packs, objectives and SBCs) players and complete these Milestones!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5105,7 +5223,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Tally up your goals and assists and become a G/A Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5274,7 +5392,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5371,7 +5489,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Wheel and deal your way to Transfer Market Mastery!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5528,7 +5646,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Generate that winning feeling in Live Events matches!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5613,7 +5731,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Keep battling over the year to prove you are a Squad Battles Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5698,7 +5816,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "Beat your Rivals to prove you are the G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5783,7 +5901,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-23T09:10:03.392Z",
+      "_fetchedAt": "2026-11-23T18:07:24.600Z",
       "description": "The stage is set! Show everyone you have what it takes to be the Golden G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
