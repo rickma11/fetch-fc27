@@ -13,7 +13,7 @@
       "name": "Bahoya",
       "description": "Earn a special Thunderstruck Bahoya.",
       "imagePath": "2027/sbcs/198.png",
-      "endTime": "2026-12-02T18:00:17.744142Z",
+      "endTime": "2026-12-02T18:00:01.435336Z",
       "createdAt": "2026-11-25T18:00:37.746526Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -33,8 +33,8 @@
       "isNew": true,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 30000,
-      "cost": 39300,
-      "costPc": 48810,
+      "cost": 40610,
+      "costPc": 51500,
       "pool": null,
       "awards": [
         {
@@ -466,10 +466,10 @@
           "imagePath": "2027/sbcs/challenges/273.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 39300,
+          "cheapestSolutionPrice": 40610,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 48810,
+          "cheapestSolutionPricePc": 51500,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -933,7 +933,7 @@
       "name": "Asier Villalibre",
       "description": "Earn a special Thunderstruck Asier Villalibre.",
       "imagePath": "2027/sbcs/188.png",
-      "endTime": "2026-12-02T18:00:09.592396Z",
+      "endTime": "2026-12-02T18:00:01.360688Z",
       "createdAt": "2026-11-25T18:00:29.594590Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -953,8 +953,8 @@
       "isNew": true,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 15000,
-      "cost": 19660,
-      "costPc": 24750,
+      "cost": 20060,
+      "costPc": 25850,
       "pool": null,
       "awards": [
         {
@@ -1285,7 +1285,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 19660,
+            "price": 18810,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -1362,10 +1362,10 @@
           "imagePath": "2027/sbcs/challenges/261.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 19660,
+          "cheapestSolutionPrice": 20060,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 24750,
+          "cheapestSolutionPricePc": 25850,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -1726,7 +1726,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 19660,
+            "price": 18810,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -1805,7 +1805,7 @@
       "name": "UEFA Road to the Knockouts Upgrade",
       "description": "Earn 1 UEFA Road to the Knockouts Player Item.",
       "imagePath": "2027/sbcs/216.png",
-      "endTime": "2026-11-30T18:00:06.102853Z",
+      "endTime": "2026-11-30T18:00:01.203059Z",
       "createdAt": "2026-11-25T18:00:26.104865Z",
       "isRepeatable": true,
       "numberOfRepeats": 1,
@@ -1825,8 +1825,8 @@
       "isNew": true,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 30000,
-      "cost": 39300,
-      "costPc": 48810,
+      "cost": 39890,
+      "costPc": 51500,
       "pool": {
         "id": 368,
         "name": "UEFA Road to the Knockouts Upgrade Pool",
@@ -1873,10 +1873,10 @@
           "imagePath": "2027/sbcs/challenges/295.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 39300,
+          "cheapestSolutionPrice": 39890,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 48810,
+          "cheapestSolutionPricePc": 51500,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -2218,7 +2218,7 @@
       "name": "Daily Thunderstruck Challenge 5",
       "description": "Complete this challenge to earn a reward.",
       "imagePath": "2027/sbcs/145.png",
-      "endTime": "2026-11-26T18:00:01.248740Z",
+      "endTime": "2026-11-26T18:00:01.011015Z",
       "createdAt": "2026-11-25T18:00:21.136278Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -2238,8 +2238,8 @@
       "isNew": true,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 5900,
-      "costPc": 7100,
+      "cost": 5700,
+      "costPc": 8000,
       "pool": null,
       "awards": [
         {
@@ -2276,12 +2276,12 @@
           "description": "Complete this challenge to earn a reward.",
           "imagePath": "2027/sbcs/challenges/209.png",
           "awardsIds": [],
-          "cheapestSolutionId": 7001328,
-          "cheapestSolutionPrice": 5900,
-          "cheapestSolutionUrl": "/27/squad-builder/f75af0d5-8b98-4feb-aa46-0dcd1b7aab04/",
-          "cheapestSolutionPcId": 7001329,
-          "cheapestSolutionPricePc": 7100,
-          "cheapestSolutionPcUrl": "/27/squad-builder/3f49685d-b371-4abe-ab4b-91288f0fb722/",
+          "cheapestSolutionId": 7002474,
+          "cheapestSolutionPrice": 5700,
+          "cheapestSolutionUrl": "/27/squad-builder/bbc7fbba-3887-47c0-afea-9aeb898a1e3f/",
+          "cheapestSolutionPcId": 7002503,
+          "cheapestSolutionPricePc": 8000,
+          "cheapestSolutionPcUrl": "/27/squad-builder/aa8be7c4-47e7-4d5c-9338-f49cfff19dfd/",
           "requirementsText": [
             "Same league: Min. 4 players",
             "Same club: Min. 3 players",
@@ -2392,7 +2392,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/145.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "24 hours",
+      "expiresIn": "16 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -2405,7 +2405,7 @@
       "name": "Thilo Kehrer",
       "description": "Earn a Showdown Thilo Kehrer from the match-up between Feyenoord and Ajax.",
       "imagePath": "2027/sbcs/195.png",
-      "endTime": "2026-11-29T13:00:17.735987Z",
+      "endTime": "2026-11-29T13:00:01.406818Z",
       "createdAt": "2026-11-24T18:00:37.991319Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -2425,8 +2425,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 10000,
-      "cost": 13100,
-      "costPc": 16730,
+      "cost": 13480,
+      "costPc": 17190,
       "pool": null,
       "awards": [
         {
@@ -2775,7 +2775,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 13100,
+            "price": 12640,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -2849,10 +2849,10 @@
           "imagePath": "2027/sbcs/challenges/269.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 13100,
+          "cheapestSolutionPrice": 13480,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 16730,
+          "cheapestSolutionPricePc": 17190,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -3231,7 +3231,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 13100,
+            "price": 12640,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -3307,7 +3307,7 @@
       "name": "Gjivai Zechiël",
       "description": "Earn a Showdown Gjivai Zechiël from the match-up between Feyenoord and Ajax.",
       "imagePath": "2027/sbcs/194.png",
-      "endTime": "2026-11-29T13:00:17.729227Z",
+      "endTime": "2026-11-29T13:00:01.390318Z",
       "createdAt": "2026-11-24T18:00:34.484783Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -3327,8 +3327,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 10000,
-      "cost": 13100,
-      "costPc": 16730,
+      "cost": 13480,
+      "costPc": 17190,
       "pool": null,
       "awards": [
         {
@@ -3670,7 +3670,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 13100,
+            "price": 12640,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -3757,10 +3757,10 @@
           "imagePath": "2027/sbcs/challenges/268.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 13100,
+          "cheapestSolutionPrice": 13480,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 16730,
+          "cheapestSolutionPricePc": 17190,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -4132,7 +4132,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 13100,
+            "price": 12640,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -4221,7 +4221,7 @@
       "name": "Isco",
       "description": "Earn a special Thunderstruck Isco.",
       "imagePath": "2027/sbcs/187.png",
-      "endTime": "2026-12-01T18:00:09.585197Z",
+      "endTime": "2026-12-01T18:00:01.346086Z",
       "createdAt": "2026-11-24T18:00:27.638319Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -4241,8 +4241,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 80000,
-      "cost": 104405,
-      "costPc": 129100,
+      "cost": 105325,
+      "costPc": 136140,
       "pool": null,
       "awards": [
         {
@@ -4598,7 +4598,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 104405,
+            "price": 98605,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -4689,10 +4689,10 @@
           "imagePath": "2027/sbcs/challenges/260.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 104405,
+          "cheapestSolutionPrice": 105325,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 129100,
+          "cheapestSolutionPricePc": 136140,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -5078,7 +5078,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 104405,
+            "price": 98605,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -5171,7 +5171,7 @@
       "name": "5x 81+ Upgrade",
       "description": "Earn a pack containing 5 Gold Player Items, rated 81 or higher.",
       "imagePath": "2027/sbcs/160.png",
-      "endTime": "2026-12-08T18:00:05.964936Z",
+      "endTime": "2026-12-08T18:00:01.064061Z",
       "createdAt": "2026-11-24T18:00:24.161180Z",
       "isRepeatable": true,
       "numberOfRepeats": 2,
@@ -5191,8 +5191,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 6500,
-      "cost": 8640,
-      "costPc": 10925,
+      "cost": 8720,
+      "costPc": 11280,
       "pool": null,
       "awards": [
         {
@@ -5230,10 +5230,10 @@
           "imagePath": "2027/sbcs/challenges/231.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 8640,
+          "cheapestSolutionPrice": 8720,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 10925,
+          "cheapestSolutionPricePc": 11280,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -5303,7 +5303,7 @@
       "name": "Ligue 1 POTM October",
       "description": "Earn the Ligue 1 Player of the Month for October.",
       "imagePath": "2027/sbcs/149.png",
-      "endTime": "2026-12-22T15:00:09.486238Z",
+      "endTime": "2026-12-22T15:00:01.246333Z",
       "createdAt": "2026-11-24T15:00:08.620723Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -5323,8 +5323,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 12000,
-      "cost": 15675,
-      "costPc": 19720,
+      "cost": 15955,
+      "costPc": 20550,
       "pool": null,
       "awards": [
         {
@@ -5647,7 +5647,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 15675,
+            "price": 14975,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -5737,10 +5737,10 @@
           "imagePath": "2027/sbcs/challenges/213.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 15675,
+          "cheapestSolutionPrice": 15955,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 19720,
+          "cheapestSolutionPricePc": 20550,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -6093,7 +6093,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 15675,
+            "price": 14975,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -6185,7 +6185,7 @@
       "name": "Ronald Araújo",
       "description": "Earn a special Thunderstruck Ronald Araújo.",
       "imagePath": "2027/sbcs/186.png",
-      "endTime": "2026-11-30T18:00:09.578594Z",
+      "endTime": "2026-11-30T18:00:01.335678Z",
       "createdAt": "2026-11-23T18:00:28.483873Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -6205,8 +6205,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 80000,
-      "cost": 103605,
-      "costPc": 129225,
+      "cost": 105325,
+      "costPc": 136140,
       "pool": null,
       "awards": [
         {
@@ -6567,7 +6567,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 103605,
+            "price": 98605,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -6649,10 +6649,10 @@
           "imagePath": "2027/sbcs/challenges/259.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 103605,
+          "cheapestSolutionPrice": 105325,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 129225,
+          "cheapestSolutionPricePc": 136140,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -7043,7 +7043,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 103605,
+            "price": 98605,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -7127,7 +7127,7 @@
       "name": "Max. 88 Base Icon Upgrade",
       "description": "Earn a pack containing 1 Base Icon Player Item, up to 88.",
       "imagePath": "2027/sbcs/192.png",
-      "endTime": "2026-11-28T18:00:06.056727Z",
+      "endTime": "2026-11-28T18:00:01.160878Z",
       "createdAt": "2026-11-23T18:00:24.202803Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -7147,8 +7147,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 200000,
-      "cost": 258825,
-      "costPc": 322510,
+      "cost": 262690,
+      "costPc": 339810,
       "pool": {
         "id": 367,
         "name": "Max. 88 Base Icon Upgrade Pool",
@@ -7195,10 +7195,10 @@
           "imagePath": "2027/sbcs/challenges/265.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 258825,
+          "cheapestSolutionPrice": 262690,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 322510,
+          "cheapestSolutionPricePc": 339810,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -7540,7 +7540,7 @@
       "name": "1 of 3 80+ Gold Player Pick",
       "description": "Earn 1 of 3 Gold Player Items, rated 80 or higher.",
       "imagePath": "2027/sbcs/165.png",
-      "endTime": "2026-12-07T18:00:01.431476Z",
+      "endTime": "2026-12-07T18:00:01.194380Z",
       "createdAt": "2026-11-23T18:00:18.491315Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -7601,9 +7601,9 @@
           "cheapestSolutionId": 6996605,
           "cheapestSolutionPrice": 3250,
           "cheapestSolutionUrl": "/27/squad-builder/1289783a-9e10-417d-aebe-41d1f2b5cc0a/",
-          "cheapestSolutionPcId": 7001298,
+          "cheapestSolutionPcId": 7002452,
           "cheapestSolutionPricePc": 4150,
-          "cheapestSolutionPcUrl": "/27/squad-builder/05c794b2-f2c8-4ce6-8109-00ac97d4b41c/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/0ec0f0db-58d4-4b99-9c29-9adcb4b85663/",
           "requirementsText": [
             "Quality: Min. Gold",
             "Players: 5"
@@ -7683,7 +7683,7 @@
       "name": "João Félix",
       "description": "Earn a special Thunderstruck João Félix.",
       "imagePath": "2027/sbcs/199.png",
-      "endTime": "2026-12-13T18:00:20.998522Z",
+      "endTime": "2026-12-13T18:00:01.443810Z",
       "createdAt": "2026-11-22T18:00:36.395099Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -7703,8 +7703,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 250000,
-      "cost": 323460,
-      "costPc": 402990,
+      "cost": 328740,
+      "costPc": 425165,
       "pool": null,
       "awards": [
         {
@@ -8052,7 +8052,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 323460,
+            "price": 307670,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -8084,7 +8084,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -8144,10 +8144,10 @@
           "imagePath": "2027/sbcs/challenges/274.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 323460,
+          "cheapestSolutionPrice": 328740,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 402990,
+          "cheapestSolutionPricePc": 425165,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -8525,7 +8525,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 323460,
+            "price": 307670,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -8557,7 +8557,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -8619,7 +8619,7 @@
       "name": "Ultimate Scream Upgrade",
       "description": "Earn 1 Ultimate Scream Player Item (not including Heroes).",
       "imagePath": "2027/sbcs/197.png",
-      "endTime": "2026-11-27T18:00:06.087219Z",
+      "endTime": "2026-11-27T18:00:01.186409Z",
       "createdAt": "2026-11-22T18:00:30.844727Z",
       "isRepeatable": true,
       "numberOfRepeats": 1,
@@ -8639,8 +8639,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 30000,
-      "cost": 38970,
-      "costPc": 48730,
+      "cost": 39890,
+      "costPc": 51500,
       "pool": {
         "id": 365,
         "name": "Ultimate Scream Upgrade Pool",
@@ -8687,10 +8687,10 @@
           "imagePath": "2027/sbcs/challenges/271.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 38970,
+          "cheapestSolutionPrice": 39890,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 48730,
+          "cheapestSolutionPricePc": 51500,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -9014,7 +9014,7 @@
       "name": "Tradeable 10x 80+ Upgrade",
       "description": "Earn a pack containing 10 tradeable Gold Player Items, rated 80 or higher.",
       "imagePath": "2027/sbcs/162.png",
-      "endTime": "2026-11-27T18:00:05.984663Z",
+      "endTime": "2026-11-27T18:00:01.086955Z",
       "createdAt": "2026-11-22T18:00:27.203567Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -9034,8 +9034,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 14000,
-      "cost": 18360,
-      "costPc": 23100,
+      "cost": 18530,
+      "costPc": 23970,
       "pool": null,
       "awards": [
         {
@@ -9073,10 +9073,10 @@
           "imagePath": "2027/sbcs/challenges/233.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 18360,
+          "cheapestSolutionPrice": 18530,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 23100,
+          "cheapestSolutionPricePc": 23970,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -9146,7 +9146,7 @@
       "name": "Base Icon Matchday Player Pick",
       "description": "Earn 1 of 2 Base Icon Player Item, between Marcel Desailly and Pepe. (see Reward Details)",
       "imagePath": "2027/sbcs/200.png",
-      "endTime": "2026-12-13T18:00:00.886336Z",
+      "endTime": "2026-12-13T18:00:00.880108Z",
       "createdAt": "2026-11-22T18:00:15.276549Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -9170,8 +9170,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 500000,
-      "cost": 647775,
-      "costPc": 806850,
+      "cost": 657475,
+      "costPc": 850050,
       "pool": {
         "id": 366,
         "name": "Base Icon Matchday Player Pick Pool",
@@ -9220,10 +9220,10 @@
             24700
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 129555,
+          "cheapestSolutionPrice": 131495,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 161370,
+          "cheapestSolutionPricePc": 170010,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -9282,10 +9282,10 @@
             24701
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 129555,
+          "cheapestSolutionPrice": 131495,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 161370,
+          "cheapestSolutionPricePc": 170010,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -9344,10 +9344,10 @@
             24702
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 129555,
+          "cheapestSolutionPrice": 131495,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 161370,
+          "cheapestSolutionPricePc": 170010,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -9406,10 +9406,10 @@
             24703
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 129555,
+          "cheapestSolutionPrice": 131495,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 161370,
+          "cheapestSolutionPricePc": 170010,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -9468,10 +9468,10 @@
             24704
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 129555,
+          "cheapestSolutionPrice": 131495,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 161370,
+          "cheapestSolutionPricePc": 170010,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -9682,7 +9682,7 @@
       "name": "Alphonso Davies",
       "description": "Earn a special Thunderstruck Alphonso Davies.",
       "imagePath": "2027/sbcs/171.png",
-      "endTime": "2026-12-12T18:00:09.569280Z",
+      "endTime": "2026-12-12T18:00:01.326635Z",
       "createdAt": "2026-11-21T18:00:39.061835Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -9702,8 +9702,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 270000,
-      "cost": 349125,
-      "costPc": 434845,
+      "cost": 354900,
+      "costPc": 459005,
       "pool": null,
       "awards": [
         {
@@ -10050,7 +10050,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 349125,
+            "price": 348400,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -10076,7 +10076,7 @@
               130,
               147
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -10133,10 +10133,10 @@
           "imagePath": "2027/sbcs/challenges/242.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 349125,
+          "cheapestSolutionPrice": 354900,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 434845,
+          "cheapestSolutionPricePc": 459005,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -10513,7 +10513,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 349125,
+            "price": 348400,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -10539,7 +10539,7 @@
               130,
               147
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -10598,7 +10598,7 @@
       "name": "Mitchell van Bergen",
       "description": "Earn a special FC Heritage Mitchell van Bergen.",
       "imagePath": "2027/sbcs/170.png",
-      "endTime": "2026-11-28T18:00:09.560882Z",
+      "endTime": "2026-11-28T18:00:01.310786Z",
       "createdAt": "2026-11-21T18:00:29.661933Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -10618,8 +10618,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 25000,
-      "cost": 32460,
-      "costPc": 40560,
+      "cost": 33350,
+      "costPc": 42840,
       "pool": null,
       "awards": [
         {
@@ -10942,7 +10942,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 32460,
+            "price": 32750,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -10964,7 +10964,7 @@
               136,
               137
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -11022,10 +11022,10 @@
           "imagePath": "2027/sbcs/challenges/241.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 32460,
+          "cheapestSolutionPrice": 33350,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 40560,
+          "cheapestSolutionPricePc": 42840,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -11378,7 +11378,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 32460,
+            "price": 32750,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -11400,7 +11400,7 @@
               136,
               137
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -11460,7 +11460,7 @@
       "name": "1 of 3 Year in Review Player Pick",
       "description": "Earn 1 of 3 Player Items released via select SBCs up until November 4th (not including Base Icon, Base Hero or Squad Foundations SBCs).",
       "imagePath": "2027/sbcs/196.png",
-      "endTime": "2026-12-04T18:00:06.078516Z",
+      "endTime": "2026-12-04T18:00:01.179156Z",
       "createdAt": "2026-11-21T18:00:26.278952Z",
       "isRepeatable": true,
       "numberOfRepeats": 1,
@@ -11480,8 +11480,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 23000,
-      "cost": 29805,
-      "costPc": 37180,
+      "cost": 30520,
+      "costPc": 39480,
       "pool": {
         "id": 364,
         "name": "1 of 3 Year in Review Player Pick Pool",
@@ -11528,10 +11528,10 @@
           "imagePath": "2027/sbcs/challenges/270.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 29805,
+          "cheapestSolutionPrice": 30520,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 37180,
+          "cheapestSolutionPricePc": 39480,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -11873,7 +11873,7 @@
       "name": "3 of 10 80+ Gold Player Pick",
       "description": "Earn 3 of 10 Gold Player Items, rated 80 or higher.",
       "imagePath": "2027/sbcs/164.png",
-      "endTime": "2026-12-04T18:00:05.999949Z",
+      "endTime": "2026-12-04T18:00:01.114416Z",
       "createdAt": "2026-11-21T18:00:21.830282Z",
       "isRepeatable": true,
       "numberOfRepeats": 2,
@@ -11893,8 +11893,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 6000,
-      "cost": 8115,
-      "costPc": 10140,
+      "cost": 8280,
+      "costPc": 10625,
       "pool": null,
       "awards": [
         {
@@ -11932,10 +11932,10 @@
           "imagePath": "2027/sbcs/challenges/235.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 8115,
+          "cheapestSolutionPrice": 8280,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 10140,
+          "cheapestSolutionPricePc": 10625,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -12005,7 +12005,7 @@
       "name": "Paulo Dybala",
       "description": "Earn a Flashback Paulo Dybala celebrating his remarkable season for Juventus in 2019-2020.",
       "imagePath": "2027/sbcs/189.png",
-      "endTime": "2026-12-11T18:00:17.721990Z",
+      "endTime": "2026-12-11T18:00:01.371772Z",
       "createdAt": "2026-11-20T18:00:57.505224Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -12025,8 +12025,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 375000,
-      "cost": 484875,
-      "costPc": 603845,
+      "cost": 492680,
+      "costPc": 637320,
       "pool": null,
       "awards": [
         {
@@ -12381,7 +12381,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 484875,
+            "price": 483640,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -12406,7 +12406,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -12464,10 +12464,10 @@
           "imagePath": "2027/sbcs/challenges/262.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 484875,
+          "cheapestSolutionPrice": 492680,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 603845,
+          "cheapestSolutionPricePc": 637320,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -12852,7 +12852,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 484875,
+            "price": 483640,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -12877,7 +12877,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -12937,7 +12937,7 @@
       "name": "Moussa Diaby",
       "description": "Earn a special Thunderstruck Moussa Diaby.",
       "imagePath": "2027/sbcs/168.png",
-      "endTime": "2026-11-27T18:00:09.552811Z",
+      "endTime": "2026-11-27T18:00:01.300956Z",
       "createdAt": "2026-11-20T18:00:51.398589Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -12957,8 +12957,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 42000,
-      "cost": 54300,
-      "costPc": 67600,
+      "cost": 55590,
+      "costPc": 71810,
       "pool": null,
       "awards": [
         {
@@ -13311,7 +13311,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 54300,
+            "price": 54570,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -13342,7 +13342,7 @@
               139,
               140
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -13402,10 +13402,10 @@
           "imagePath": "2027/sbcs/challenges/239.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 54300,
+          "cheapestSolutionPrice": 55590,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 67600,
+          "cheapestSolutionPricePc": 71810,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -13788,7 +13788,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 54300,
+            "price": 54570,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -13819,7 +13819,7 @@
               139,
               140
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -13881,7 +13881,7 @@
       "name": "82+ TOTW 1-10 Upgrade",
       "description": "Earn a pack containing 1 TOTW Player Item, rated 82 or higher, from TOTW 1 to 10.",
       "imagePath": "2027/sbcs/201.png",
-      "endTime": "2026-11-27T18:00:06.096169Z",
+      "endTime": "2026-11-27T18:00:01.194471Z",
       "createdAt": "2026-11-20T18:00:47.379771Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -13901,8 +13901,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 15000,
-      "cost": 19500,
-      "costPc": 24445,
+      "cost": 20060,
+      "costPc": 25850,
       "pool": {
         "id": 363,
         "name": "82+ TOTW 1-10 Upgrade Pool",
@@ -13949,10 +13949,10 @@
           "imagePath": "2027/sbcs/challenges/276.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 19500,
+          "cheapestSolutionPrice": 20060,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 24445,
+          "cheapestSolutionPricePc": 25850,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -14294,7 +14294,7 @@
       "name": "2x 81+ Upgrade",
       "description": "Earn a pack containing 2 Gold Player Items, rated 81 or higher.",
       "imagePath": "2027/sbcs/193.png",
-      "endTime": "2026-12-04T18:00:01.486346Z",
+      "endTime": "2026-12-04T18:00:01.247271Z",
       "createdAt": "2026-11-20T18:00:43.240907Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -14315,7 +14315,7 @@
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
       "cost": 3900,
-      "costPc": 4900,
+      "costPc": 5050,
       "pool": null,
       "awards": [
         {
@@ -14352,12 +14352,12 @@
           "description": "Earn a pack containing 2 Gold Player Items, rated 81 or higher.",
           "imagePath": "2027/sbcs/challenges/272.png",
           "awardsIds": [],
-          "cheapestSolutionId": 6996151,
+          "cheapestSolutionId": 7001459,
           "cheapestSolutionPrice": 3900,
-          "cheapestSolutionUrl": "/27/squad-builder/40703b5a-90e7-4acc-b2d5-bdd1c2a504c1/",
-          "cheapestSolutionPcId": 7001279,
-          "cheapestSolutionPricePc": 4900,
-          "cheapestSolutionPcUrl": "/27/squad-builder/de627698-a876-498a-ab68-2eaf7ce9d9ba/",
+          "cheapestSolutionUrl": "/27/squad-builder/bb3f693b-1354-427a-8a08-2ba85e4ff60b/",
+          "cheapestSolutionPcId": 7002440,
+          "cheapestSolutionPricePc": 5050,
+          "cheapestSolutionPcUrl": "/27/squad-builder/3845df3a-71ea-4dff-8ee3-f8ff6fc007c6/",
           "requirementsText": [
             "Quality: Min. Gold",
             "Players: 6"
@@ -14437,7 +14437,7 @@
       "name": "Campaign Mix Upgrade",
       "description": "Earn a pack containing 1 Destined for Glory, Future Stars or Ultimate Scream Player Item (not including Heroes).",
       "imagePath": "2027/sbcs/191.png",
-      "endTime": "2026-11-27T18:00:06.045398Z",
+      "endTime": "2026-11-27T18:00:01.153543Z",
       "createdAt": "2026-11-20T18:00:39.564187Z",
       "isRepeatable": true,
       "numberOfRepeats": 1,
@@ -14457,8 +14457,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 40000,
-      "cost": 51960,
-      "costPc": 64990,
+      "cost": 52970,
+      "costPc": 68435,
       "pool": {
         "id": 362,
         "name": "Campaign Mix Upgrade Pool",
@@ -14505,10 +14505,10 @@
           "imagePath": "2027/sbcs/challenges/264.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 51960,
+          "cheapestSolutionPrice": 52970,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 64990,
+          "cheapestSolutionPricePc": 68435,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -14850,7 +14850,7 @@
       "name": "Base Hero Upgrade",
       "description": "Earn a pack containing 1 Base Hero Player Item.",
       "imagePath": "2027/sbcs/190.png",
-      "endTime": "2026-11-27T18:00:06.030620Z",
+      "endTime": "2026-11-27T18:00:01.145391Z",
       "createdAt": "2026-11-20T18:00:35.544174Z",
       "isRepeatable": true,
       "numberOfRepeats": 1,
@@ -14870,8 +14870,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 60000,
-      "cost": 77625,
-      "costPc": 96845,
+      "cost": 79130,
+      "costPc": 102275,
       "pool": {
         "id": 361,
         "name": "Base Hero Upgrade Pool",
@@ -14918,10 +14918,10 @@
           "imagePath": "2027/sbcs/challenges/263.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 77625,
+          "cheapestSolutionPrice": 79130,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 96845,
+          "cheapestSolutionPricePc": 102275,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -15263,7 +15263,7 @@
       "name": "Daily Login Upgrade",
       "description": "Complete this challenge to progress towards earning the Daily Login Upgrade objective reward.",
       "imagePath": "2027/sbcs/172.png",
-      "endTime": "2026-12-04T18:00:01.370429Z",
+      "endTime": "2026-12-04T18:00:00.721748Z",
       "createdAt": "2026-11-20T18:00:31.400009Z",
       "isRepeatable": true,
       "numberOfRepeats": 1,
@@ -15406,7 +15406,7 @@
       "name": "Dunga",
       "description": "Earn a special Thunderstruck Icon Dunga.",
       "imagePath": "2027/sbcs/169.png",
-      "endTime": "2026-12-11T18:00:00.861659Z",
+      "endTime": "2026-12-11T18:00:00.872667Z",
       "createdAt": "2026-11-20T18:00:12.399115Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -15426,8 +15426,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 420000,
-      "cost": 543000,
-      "costPc": 676000,
+      "cost": 551740,
+      "costPc": 713660,
       "pool": null,
       "awards": [
         {
@@ -15648,7 +15648,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 543000,
+            "price": 541620,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": true,
@@ -15733,10 +15733,10 @@
           "imagePath": "2027/sbcs/challenges/240.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 543000,
+          "cheapestSolutionPrice": 551740,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 676000,
+          "cheapestSolutionPricePc": 713660,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -15987,7 +15987,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 543000,
+            "price": 541620,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": true,
@@ -16074,7 +16074,7 @@
       "name": "Federico Chiesa",
       "description": "Earn a special FC Heritage, Federico Chiesa.",
       "imagePath": "2027/sbcs/150.png",
-      "endTime": "2026-11-26T18:00:09.494049Z",
+      "endTime": "2026-11-26T18:00:01.258567Z",
       "createdAt": "2026-11-19T18:00:24.555804Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -16094,8 +16094,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 150000,
-      "cost": 194190,
-      "costPc": 242160,
+      "cost": 197290,
+      "costPc": 255210,
       "pool": null,
       "awards": [
         {
@@ -16457,7 +16457,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 194190,
+            "price": 193670,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -16483,7 +16483,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -16542,10 +16542,10 @@
           "imagePath": "2027/sbcs/challenges/214.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 194190,
+          "cheapestSolutionPrice": 197290,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 242160,
+          "cheapestSolutionPricePc": 255210,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -16937,7 +16937,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 194190,
+            "price": 193670,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -16963,7 +16963,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -17011,7 +17011,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=300/2027/futgg-player-item-card/27-50567453.a2266a2d27c6c42432824ccf6f56fdd4f937faa63047b265b8e782035ed37697.webp",
       "playerUrl": "/players/235805-federico-chiesa/27-50567453/",
       "hasPlayerAward": true,
-      "expiresIn": "24 hours",
+      "expiresIn": "16 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -17024,7 +17024,7 @@
       "name": "10x 82+ Upgrade",
       "description": "Earn a pack containing 10 Gold Player Items, rated 82 or higher.",
       "imagePath": "2027/sbcs/163.png",
-      "endTime": "2026-11-26T18:00:01.413964Z",
+      "endTime": "2026-11-26T18:00:01.103108Z",
       "createdAt": "2026-11-19T18:00:20.614383Z",
       "isRepeatable": true,
       "numberOfRepeats": 2,
@@ -17044,8 +17044,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 23250,
-      "costPc": 28800,
+      "cost": 23550,
+      "costPc": 29500,
       "pool": null,
       "awards": [
         {
@@ -17082,12 +17082,12 @@
           "description": "Earn a pack containing 10 Gold Player Items, rated 82 or higher.",
           "imagePath": "2027/sbcs/challenges/266.png",
           "awardsIds": [],
-          "cheapestSolutionId": 7001169,
-          "cheapestSolutionPrice": 23250,
-          "cheapestSolutionUrl": "/27/squad-builder/d4a4555e-5ac5-4cfb-b1b8-991e5646301a/",
-          "cheapestSolutionPcId": 7001257,
-          "cheapestSolutionPricePc": 28800,
-          "cheapestSolutionPcUrl": "/27/squad-builder/e5bb18e2-3365-4760-894a-3fdc792d6345/",
+          "cheapestSolutionId": 7002444,
+          "cheapestSolutionPrice": 23550,
+          "cheapestSolutionUrl": "/27/squad-builder/1c27c46a-4c14-4c01-bd68-5992b793ea45/",
+          "cheapestSolutionPcId": 7002467,
+          "cheapestSolutionPricePc": 29500,
+          "cheapestSolutionPcUrl": "/27/squad-builder/a16acbe3-8c14-4354-81e9-6f3860562f2c/",
           "requirementsText": [
             "Rarity: Min. 1 Team of the week player",
             "Team rating: Min. 81"
@@ -17160,7 +17160,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/163.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "24 hours",
+      "expiresIn": "16 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": "1 day"
     },
@@ -17173,7 +17173,7 @@
       "name": "Marquee Matchups",
       "description": "Complete challenges themed around this week's key matchups.",
       "imagePath": "2027/sbcs/112.png",
-      "endTime": "2026-11-26T18:00:01.230546Z",
+      "endTime": "2026-11-26T18:00:00.924213Z",
       "createdAt": "2026-11-19T18:00:11.633279Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -17196,8 +17196,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 20400,
-      "costPc": 26800,
+      "cost": 18000,
+      "costPc": 26700,
       "pool": null,
       "awards": [
         {
@@ -17236,12 +17236,12 @@
           "awardsIds": [
             24671
           ],
-          "cheapestSolutionId": 7001305,
-          "cheapestSolutionPrice": 4400,
-          "cheapestSolutionUrl": "/27/squad-builder/e21e8e9c-cba7-4d0f-9bd0-c9593a154bb4/",
-          "cheapestSolutionPcId": 7001247,
-          "cheapestSolutionPricePc": 6700,
-          "cheapestSolutionPcUrl": "/27/squad-builder/b548dc30-9c26-4266-a718-aec54efe7dc1/",
+          "cheapestSolutionId": 7002475,
+          "cheapestSolutionPrice": 3550,
+          "cheapestSolutionUrl": "/27/squad-builder/eb738ca5-b9e6-47cd-9c1e-49f404e1e14f/",
+          "cheapestSolutionPcId": 7002504,
+          "cheapestSolutionPricePc": 7000,
+          "cheapestSolutionPcUrl": "/27/squad-builder/5ac876de-ca3f-4115-9db5-d17db86edcf6/",
           "requirementsText": [
             "Club: Min. 1 player from LOSC or OL",
             "Clubs: Max. 5",
@@ -17354,12 +17354,12 @@
           "awardsIds": [
             24672
           ],
-          "cheapestSolutionId": 7001307,
-          "cheapestSolutionPrice": 5250,
-          "cheapestSolutionUrl": "/27/squad-builder/0a5fea42-bbca-42c6-a5a0-290a8a22205c/",
-          "cheapestSolutionPcId": 7001249,
-          "cheapestSolutionPricePc": 6950,
-          "cheapestSolutionPcUrl": "/27/squad-builder/4be94080-3c2f-409f-a172-93604829e5c1/",
+          "cheapestSolutionId": 7002476,
+          "cheapestSolutionPrice": 4550,
+          "cheapestSolutionUrl": "/27/squad-builder/5370b72a-d7fc-4cd8-8d63-0ffccd1b96c6/",
+          "cheapestSolutionPcId": 7002505,
+          "cheapestSolutionPricePc": 7100,
+          "cheapestSolutionPcUrl": "/27/squad-builder/4631874d-fdb6-4d55-bb04-0ef822d1a2e8/",
           "requirementsText": [
             "Club: Min. 1 player from Milano FC or Frosinone Calcio",
             "Same club: Max. 3 players",
@@ -17483,12 +17483,12 @@
           "awardsIds": [
             24673
           ],
-          "cheapestSolutionId": 7001308,
-          "cheapestSolutionPrice": 5850,
-          "cheapestSolutionUrl": "/27/squad-builder/7879cb3e-f5ac-4d5a-983b-daf47070e438/",
-          "cheapestSolutionPcId": 7001250,
-          "cheapestSolutionPricePc": 6950,
-          "cheapestSolutionPcUrl": "/27/squad-builder/302ebb10-c828-4f57-9461-34e096a0ba85/",
+          "cheapestSolutionId": 7002478,
+          "cheapestSolutionPrice": 4850,
+          "cheapestSolutionUrl": "/27/squad-builder/7b3a93af-4599-4db9-95da-e0816ddfa7cb/",
+          "cheapestSolutionPcId": 7002506,
+          "cheapestSolutionPricePc": 5850,
+          "cheapestSolutionPcUrl": "/27/squad-builder/8add4b5f-3f70-40cb-9003-652c8870ded5/",
           "requirementsText": [
             "Club: Min. 2 players from Sevilla FC or Real Betis",
             "Same club: Min. 2 players",
@@ -17612,12 +17612,12 @@
           "awardsIds": [
             24674
           ],
-          "cheapestSolutionId": 7001309,
-          "cheapestSolutionPrice": 4900,
-          "cheapestSolutionUrl": "/27/squad-builder/bbd0f118-2584-4af2-b3a3-ab22636e9398/",
-          "cheapestSolutionPcId": 7001252,
-          "cheapestSolutionPricePc": 6200,
-          "cheapestSolutionPcUrl": "/27/squad-builder/1be7ffc6-ccbf-46b3-b57f-3b559933f81b/",
+          "cheapestSolutionId": 7002481,
+          "cheapestSolutionPrice": 5050,
+          "cheapestSolutionUrl": "/27/squad-builder/add6ec51-7884-4d6b-b49a-45ba68636355/",
+          "cheapestSolutionPcId": 7002508,
+          "cheapestSolutionPricePc": 6750,
+          "cheapestSolutionPcUrl": "/27/squad-builder/f2bb6aab-cb25-42f3-af8d-8638d956631d/",
           "requirementsText": [
             "Club: Min. 2 players from Liverpool or Man Utd",
             "Same nation: Max. 4 players",
@@ -17841,7 +17841,7 @@
       "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=400/2027/sbcs/112.png",
       "playerUrl": null,
       "hasPlayerAward": false,
-      "expiresIn": "24 hours",
+      "expiresIn": "16 hours",
       "isExpired": false,
       "repeatRefreshIntervalText": null
     },
@@ -17854,7 +17854,7 @@
       "name": "Base Icon Matchday Player Pick",
       "description": "Earn 1 of 3 Base Icon Player Item, between John Barnes, Emmanuel Petit and Peter Schmeichel. (see Reward Details)",
       "imagePath": "2027/sbcs/159.png",
-      "endTime": "2026-12-01T18:00:09.543104Z",
+      "endTime": "2026-12-01T18:00:01.293905Z",
       "createdAt": "2026-11-17T18:00:22.999153Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -17874,8 +17874,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 300000,
-      "cost": 388065,
-      "costPc": 483340,
+      "cost": 394185,
+      "costPc": 509820,
       "pool": {
         "id": 359,
         "name": "Base Icon Matchday Player Pick Pool",
@@ -17922,10 +17922,10 @@
           "imagePath": "2027/sbcs/challenges/229.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 388065,
+          "cheapestSolutionPrice": 394185,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 483340,
+          "cheapestSolutionPricePc": 509820,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -18024,7 +18024,7 @@
       "name": "2x 84+ Upgrade",
       "description": "Earn a pack containing 2 Gold Player Items, rated 84 or higher.",
       "imagePath": "2027/sbcs/161.png",
-      "endTime": "2026-12-08T18:00:05.972576Z",
+      "endTime": "2026-12-08T18:00:01.079542Z",
       "createdAt": "2026-11-17T18:00:17.404962Z",
       "isRepeatable": true,
       "numberOfRepeats": 1,
@@ -18044,8 +18044,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 9000,
-      "cost": 11880,
-      "costPc": 14930,
+      "cost": 11990,
+      "costPc": 15510,
       "pool": null,
       "awards": [
         {
@@ -18083,10 +18083,10 @@
           "imagePath": "2027/sbcs/challenges/232.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 11880,
+          "cheapestSolutionPrice": 11990,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 14930,
+          "cheapestSolutionPricePc": 15510,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -18156,7 +18156,7 @@
       "name": "2x 80+ Upgrade",
       "description": "Earn a pack containing 2 Gold Player Items, rated 80 or higher.",
       "imagePath": "2027/sbcs/157.png",
-      "endTime": "2026-12-07T18:00:01.371242Z",
+      "endTime": "2026-12-07T18:00:01.054736Z",
       "createdAt": "2026-11-16T18:00:45.468168Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -18177,7 +18177,7 @@
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
       "cost": 3250,
-      "costPc": 4100,
+      "costPc": 4250,
       "pool": null,
       "awards": [
         {
@@ -18217,9 +18217,9 @@
           "cheapestSolutionId": 6981531,
           "cheapestSolutionPrice": 3250,
           "cheapestSolutionUrl": "/27/squad-builder/e14cb9e1-fa0b-4236-9d4d-514d1ff594c4/",
-          "cheapestSolutionPcId": 7001141,
-          "cheapestSolutionPricePc": 4100,
-          "cheapestSolutionPcUrl": "/27/squad-builder/9b7b9aba-5935-4c2b-97ef-a2f10ce04cd3/",
+          "cheapestSolutionPcId": 7002472,
+          "cheapestSolutionPricePc": 4250,
+          "cheapestSolutionPcUrl": "/27/squad-builder/727fa97f-8fc0-419f-b085-9ee46c3f0c8d/",
           "requirementsText": [
             "Quality: Min. Gold",
             "Players: 5"
@@ -18299,7 +18299,7 @@
       "name": "Gallery Milestone SBC",
       "description": "Complete challenges to earn Squad Foundations Player Items, and a Squad Foundations Paula León as a group reward.",
       "imagePath": "2027/sbcs/153.png",
-      "endTime": "2035-08-31T18:00:01.109806Z",
+      "endTime": "2035-08-31T18:00:00.962597Z",
       "createdAt": "2026-11-16T18:00:08.578183Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -18656,7 +18656,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 26,
+            "numberOfEvolutions": 24,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -18715,9 +18715,9 @@
           "cheapestSolutionId": 6998442,
           "cheapestSolutionPrice": 7150,
           "cheapestSolutionUrl": "/27/squad-builder/afc235a2-a61a-4482-8eec-8767eaff0a7c/",
-          "cheapestSolutionPcId": 7001222,
+          "cheapestSolutionPcId": 7002398,
           "cheapestSolutionPricePc": 9750,
-          "cheapestSolutionPcUrl": "/27/squad-builder/63c162cf-bc48-44f4-812a-65cb2602eccd/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/c2bb39cf-f198-4d24-895a-83a6bc1a8a25/",
           "requirementsText": [
             "Quality: Min. Gold"
           ],
@@ -19042,7 +19042,7 @@
                   148,
                   149
                 ],
-                "numberOfEvolutions": 26,
+                "numberOfEvolutions": 24,
                 "pointCost": 0,
                 "coinCost": 0,
                 "playStyleEaIds": [
@@ -19107,9 +19107,9 @@
           "cheapestSolutionId": 6998443,
           "cheapestSolutionPrice": 7150,
           "cheapestSolutionUrl": "/27/squad-builder/6dd133ee-4eca-4809-ac5a-e60205990727/",
-          "cheapestSolutionPcId": 7001223,
+          "cheapestSolutionPcId": 7002399,
           "cheapestSolutionPricePc": 9750,
-          "cheapestSolutionPcUrl": "/27/squad-builder/2628d569-cdc1-4b92-868a-836393458777/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/0b34c476-6c3f-417d-8900-4cb85b219b20/",
           "requirementsText": [
             "Quality: Min. Gold"
           ],
@@ -19433,7 +19433,7 @@
                   146,
                   148
                 ],
-                "numberOfEvolutions": 26,
+                "numberOfEvolutions": 24,
                 "pointCost": 0,
                 "coinCost": 0,
                 "playStyleEaIds": [
@@ -19498,9 +19498,9 @@
           "cheapestSolutionId": 6998444,
           "cheapestSolutionPrice": 7150,
           "cheapestSolutionUrl": "/27/squad-builder/e9385d7e-66cf-4b6a-b864-dd42355b2b12/",
-          "cheapestSolutionPcId": 7001224,
+          "cheapestSolutionPcId": 7002400,
           "cheapestSolutionPricePc": 9750,
-          "cheapestSolutionPcUrl": "/27/squad-builder/bac6f262-1f69-4e71-bbdf-74f09af4fba0/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/15cf383f-e3ef-4385-99f5-8e0d653d7ba9/",
           "requirementsText": [
             "Quality: Min. Gold"
           ],
@@ -19812,7 +19812,7 @@
                   143,
                   144
                 ],
-                "numberOfEvolutions": 26,
+                "numberOfEvolutions": 24,
                 "pointCost": 0,
                 "coinCost": 0,
                 "playStyleEaIds": [
@@ -19874,9 +19874,9 @@
           "cheapestSolutionId": 6998445,
           "cheapestSolutionPrice": 7150,
           "cheapestSolutionUrl": "/27/squad-builder/80ba160c-a3c2-4b4d-b3ab-8b7d754e40d7/",
-          "cheapestSolutionPcId": 7001225,
+          "cheapestSolutionPcId": 7002401,
           "cheapestSolutionPricePc": 9750,
-          "cheapestSolutionPcUrl": "/27/squad-builder/f3680d89-8b69-462c-adfc-e5c2d8a5f00c/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/b93c6c12-53a0-4ee5-b46d-e6dc3928b4ad/",
           "requirementsText": [
             "Quality: Min. Gold"
           ],
@@ -20215,7 +20215,7 @@
                   122,
                   149
                 ],
-                "numberOfEvolutions": 26,
+                "numberOfEvolutions": 24,
                 "pointCost": 0,
                 "coinCost": 0,
                 "playStyleEaIds": [
@@ -20279,9 +20279,9 @@
           "cheapestSolutionId": 6998446,
           "cheapestSolutionPrice": 7150,
           "cheapestSolutionUrl": "/27/squad-builder/e5d86974-75f7-4a14-b103-6e18d9dfb8a4/",
-          "cheapestSolutionPcId": 7001226,
+          "cheapestSolutionPcId": 7002402,
           "cheapestSolutionPricePc": 9750,
-          "cheapestSolutionPcUrl": "/27/squad-builder/524be41c-b006-416a-b59c-b8b0bcebdf17/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/a5433998-0335-419a-89cf-b4a95f24d56e/",
           "requirementsText": [
             "Quality: Min. Gold"
           ],
@@ -20639,7 +20639,7 @@
                   148,
                   149
                 ],
-                "numberOfEvolutions": 26,
+                "numberOfEvolutions": 24,
                 "pointCost": 0,
                 "coinCost": 0,
                 "playStyleEaIds": [
@@ -20704,9 +20704,9 @@
           "cheapestSolutionId": 6998447,
           "cheapestSolutionPrice": 7150,
           "cheapestSolutionUrl": "/27/squad-builder/4bd945c0-5caf-4ba4-9256-daaa18a90a1d/",
-          "cheapestSolutionPcId": 7001227,
+          "cheapestSolutionPcId": 7002403,
           "cheapestSolutionPricePc": 9750,
-          "cheapestSolutionPcUrl": "/27/squad-builder/794fdd5b-97f6-4c1b-96b8-469797c3fef9/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/d24b34cf-6c74-4576-81df-580dde3e93f4/",
           "requirementsText": [
             "Quality: Min. Gold"
           ],
@@ -21062,7 +21062,7 @@
                   140,
                   147
                 ],
-                "numberOfEvolutions": 26,
+                "numberOfEvolutions": 24,
                 "pointCost": 0,
                 "coinCost": 0,
                 "playStyleEaIds": [
@@ -21127,9 +21127,9 @@
           "cheapestSolutionId": 6998448,
           "cheapestSolutionPrice": 7150,
           "cheapestSolutionUrl": "/27/squad-builder/fe8aa845-a78d-4948-ba94-29e96d827123/",
-          "cheapestSolutionPcId": 7001228,
+          "cheapestSolutionPcId": 7002404,
           "cheapestSolutionPricePc": 9750,
-          "cheapestSolutionPcUrl": "/27/squad-builder/ac02b896-3cd0-455b-8657-b4b22b047468/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/2e2a5e70-7863-4189-887f-2c96f3982d0d/",
           "requirementsText": [
             "Quality: Min. Gold"
           ],
@@ -21460,7 +21460,7 @@
                   137,
                   149
                 ],
-                "numberOfEvolutions": 26,
+                "numberOfEvolutions": 24,
                 "pointCost": 0,
                 "coinCost": 0,
                 "playStyleEaIds": [
@@ -21846,7 +21846,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 26,
+            "numberOfEvolutions": 24,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -22193,7 +22193,7 @@
               148,
               149
             ],
-            "numberOfEvolutions": 26,
+            "numberOfEvolutions": 24,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -22542,7 +22542,7 @@
               146,
               148
             ],
-            "numberOfEvolutions": 26,
+            "numberOfEvolutions": 24,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -22879,7 +22879,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 26,
+            "numberOfEvolutions": 24,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -23240,7 +23240,7 @@
               122,
               149
             ],
-            "numberOfEvolutions": 26,
+            "numberOfEvolutions": 24,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -23622,7 +23622,7 @@
               148,
               149
             ],
-            "numberOfEvolutions": 26,
+            "numberOfEvolutions": 24,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -24003,7 +24003,7 @@
               140,
               147
             ],
-            "numberOfEvolutions": 26,
+            "numberOfEvolutions": 24,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -24359,7 +24359,7 @@
               137,
               149
             ],
-            "numberOfEvolutions": 26,
+            "numberOfEvolutions": 24,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -24420,7 +24420,7 @@
       "name": "Alessandro Florenzi",
       "description": "Earn a special Hall of FUT: Unleashed Alessandro Florenzi.",
       "imagePath": "2027/sbcs/155.png",
-      "endTime": "2026-12-04T18:00:09.525343Z",
+      "endTime": "2026-12-04T18:00:01.281209Z",
       "createdAt": "2026-11-13T18:00:24.126821Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -24440,8 +24440,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 380000,
-      "cost": 491355,
-      "costPc": 611780,
+      "cost": 499220,
+      "costPc": 645780,
       "pool": null,
       "awards": [
         {
@@ -24692,7 +24692,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 491355,
+            "price": 490060,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": true,
@@ -24737,7 +24737,7 @@
               147,
               149
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -24799,10 +24799,10 @@
           "imagePath": "2027/sbcs/challenges/225.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 491355,
+          "cheapestSolutionPrice": 499220,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 611780,
+          "cheapestSolutionPricePc": 645780,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -25083,7 +25083,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 491355,
+            "price": 490060,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": true,
@@ -25128,7 +25128,7 @@
               147,
               149
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -25192,7 +25192,7 @@
       "name": "Premier League POTM October",
       "description": "Earn the Premier League Player of the Month for October.",
       "imagePath": "2027/sbcs/148.png",
-      "endTime": "2026-12-11T12:00:09.478884Z",
+      "endTime": "2026-12-11T12:00:01.236905Z",
       "createdAt": "2026-11-13T12:00:22.621082Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -25212,8 +25212,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 17000,
-      "cost": 22155,
-      "costPc": 27825,
+      "cost": 22495,
+      "costPc": 29010,
       "pool": null,
       "awards": [
         {
@@ -25568,7 +25568,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 22155,
+            "price": 22100,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -25587,7 +25587,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 25,
+            "numberOfEvolutions": 23,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -25643,10 +25643,10 @@
           "imagePath": "2027/sbcs/challenges/212.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 22155,
+          "cheapestSolutionPrice": 22495,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 27825,
+          "cheapestSolutionPricePc": 29010,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -26031,7 +26031,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 22155,
+            "price": 22100,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -26050,7 +26050,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 25,
+            "numberOfEvolutions": 23,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -26108,7 +26108,7 @@
       "name": "Bundesliga POTM October",
       "description": "Earn the Bundesliga Player of the Month for October.",
       "imagePath": "2027/sbcs/154.png",
-      "endTime": "2026-12-10T15:00:09.514658Z",
+      "endTime": "2026-12-10T15:00:01.273720Z",
       "createdAt": "2026-11-12T15:00:19.851110Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -26128,8 +26128,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 12000,
-      "cost": 15675,
-      "costPc": 19720,
+      "cost": 15955,
+      "costPc": 20550,
       "pool": null,
       "awards": [
         {
@@ -26448,7 +26448,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 15675,
+            "price": 15680,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -26467,7 +26467,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 25,
+            "numberOfEvolutions": 23,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -26523,10 +26523,10 @@
           "imagePath": "2027/sbcs/challenges/224.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 15675,
+          "cheapestSolutionPrice": 15955,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 19720,
+          "cheapestSolutionPricePc": 20550,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -26875,7 +26875,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 15675,
+            "price": 15680,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -26894,7 +26894,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 25,
+            "numberOfEvolutions": 23,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -26952,7 +26952,7 @@
       "name": "Serie A POTM October",
       "description": "Earn the Serie A Player of the Month for October.",
       "imagePath": "2027/sbcs/152.png",
-      "endTime": "2026-12-10T13:00:09.505194Z",
+      "endTime": "2026-12-10T13:00:01.266335Z",
       "createdAt": "2026-11-12T13:00:14.175429Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -26972,8 +26972,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 23000,
-      "cost": 29805,
-      "costPc": 37180,
+      "cost": 30520,
+      "costPc": 39480,
       "pool": null,
       "awards": [
         {
@@ -27310,7 +27310,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 29805,
+            "price": 29960,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -27335,7 +27335,7 @@
               122,
               149
             ],
-            "numberOfEvolutions": 25,
+            "numberOfEvolutions": 23,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -27393,10 +27393,10 @@
           "imagePath": "2027/sbcs/challenges/216.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 29805,
+          "cheapestSolutionPrice": 30520,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 37180,
+          "cheapestSolutionPricePc": 39480,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -27763,7 +27763,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 29805,
+            "price": 29960,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -27788,7 +27788,7 @@
               122,
               149
             ],
-            "numberOfEvolutions": 25,
+            "numberOfEvolutions": 23,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -27848,7 +27848,7 @@
       "name": "Liga F POTM October",
       "description": "Earn the Liga F Player of the Month for October.",
       "imagePath": "2027/sbcs/121.png",
-      "endTime": "2026-12-28T17:00:09.455372Z",
+      "endTime": "2026-12-28T17:00:01.218925Z",
       "createdAt": "2026-11-10T17:00:15.583676Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -27868,8 +27868,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 14000,
-      "cost": 18360,
-      "costPc": 23100,
+      "cost": 18530,
+      "costPc": 23970,
       "pool": null,
       "awards": [
         {
@@ -28206,7 +28206,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 18360,
+            "price": 18190,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -28232,7 +28232,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 25,
+            "numberOfEvolutions": 23,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -28292,10 +28292,10 @@
           "imagePath": "2027/sbcs/challenges/182.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 18360,
+          "cheapestSolutionPrice": 18530,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 23100,
+          "cheapestSolutionPricePc": 23970,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -28662,7 +28662,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 18360,
+            "price": 18190,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -28688,7 +28688,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 25,
+            "numberOfEvolutions": 23,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -28750,7 +28750,7 @@
       "name": "LALIGA POTM October",
       "description": "Earn the LALIGA Player of the Month for October.",
       "imagePath": "2027/sbcs/128.png",
-      "endTime": "2026-12-07T17:00:09.464477Z",
+      "endTime": "2026-12-07T17:00:01.227947Z",
       "createdAt": "2026-11-09T17:00:10.795980Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -28770,8 +28770,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 5200000,
-      "cost": 6723035,
-      "costPc": 8369675,
+      "cost": 6829270,
+      "costPc": 8833920,
       "pool": null,
       "awards": [
         {
@@ -29126,7 +29126,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 6723035,
+            "price": 6703975,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -29150,7 +29150,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -29209,10 +29209,10 @@
           "imagePath": "2027/sbcs/challenges/189.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 6723035,
+          "cheapestSolutionPrice": 6829270,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 8369675,
+          "cheapestSolutionPricePc": 8833920,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -29597,7 +29597,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 6723035,
+            "price": 6703975,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -29621,7 +29621,7 @@
               143,
               144
             ],
-            "numberOfEvolutions": 24,
+            "numberOfEvolutions": 22,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -29682,7 +29682,7 @@
       "name": "MLS & NWSL",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from MLS & NWSL.",
       "imagePath": "2027/sbcs/100.png",
-      "endTime": "2026-12-06T18:00:05.950029Z",
+      "endTime": "2026-12-06T18:00:01.047238Z",
       "createdAt": "2026-11-02T18:00:30.227163Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -29703,7 +29703,7 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 3000,
-      "cost": 4320,
+      "cost": 4360,
       "costPc": 5640,
       "pool": null,
       "awards": [
@@ -29744,7 +29744,7 @@
             24609
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2160,
+          "cheapestSolutionPrice": 2180,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
           "cheapestSolutionPricePc": 2820,
@@ -29806,7 +29806,7 @@
             24610
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2160,
+          "cheapestSolutionPrice": 2180,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
           "cheapestSolutionPricePc": 2820,
@@ -29940,7 +29940,7 @@
       "name": "Serie A & ROSHN Saudi League",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from Serie A & ROSHN Saudi League.",
       "imagePath": "2027/sbcs/99.png",
-      "endTime": "2026-12-06T18:00:05.942137Z",
+      "endTime": "2026-12-06T18:00:01.038945Z",
       "createdAt": "2026-11-02T18:00:26.355328Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -29961,7 +29961,7 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 3000,
-      "cost": 4320,
+      "cost": 4360,
       "costPc": 5640,
       "pool": null,
       "awards": [
@@ -30002,7 +30002,7 @@
             24606
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2160,
+          "cheapestSolutionPrice": 2180,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
           "cheapestSolutionPricePc": 2820,
@@ -30064,7 +30064,7 @@
             24607
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2160,
+          "cheapestSolutionPrice": 2180,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
           "cheapestSolutionPricePc": 2820,
@@ -30198,7 +30198,7 @@
       "name": "LALIGA & Liga F",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from LL and LF.",
       "imagePath": "2027/sbcs/94.png",
-      "endTime": "2026-12-06T18:00:05.934397Z",
+      "endTime": "2026-12-06T18:00:01.027228Z",
       "createdAt": "2026-11-02T18:00:22.572857Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -30219,8 +30219,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 6000,
-      "cost": 8640,
-      "costPc": 11120,
+      "cost": 8720,
+      "costPc": 11280,
       "pool": null,
       "awards": [
         {
@@ -30260,10 +30260,10 @@
             24603
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 4320,
+          "cheapestSolutionPrice": 4360,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 5560,
+          "cheapestSolutionPricePc": 5640,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -30322,10 +30322,10 @@
             24604
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 4320,
+          "cheapestSolutionPrice": 4360,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 5560,
+          "cheapestSolutionPricePc": 5640,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -30456,7 +30456,7 @@
       "name": "Premier League & Barclays WSL",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from PL and WSL.",
       "imagePath": "2027/sbcs/93.png",
-      "endTime": "2026-12-06T18:00:05.924588Z",
+      "endTime": "2026-12-06T18:00:01.019059Z",
       "createdAt": "2026-11-02T18:00:16.671999Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -30477,8 +30477,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 9000,
-      "cost": 12025,
-      "costPc": 15175,
+      "cost": 12290,
+      "costPc": 15720,
       "pool": null,
       "awards": [
         {
@@ -30518,10 +30518,10 @@
             24600
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 6070,
+          "cheapestSolutionPrice": 6145,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 7630,
+          "cheapestSolutionPricePc": 7860,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -30580,10 +30580,10 @@
             24601
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 5955,
+          "cheapestSolutionPrice": 6145,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 7545,
+          "cheapestSolutionPricePc": 7860,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -30714,7 +30714,7 @@
       "name": "Ligue 1 & Arkema Première Ligue",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from L1 and Arkema PL.",
       "imagePath": "2027/sbcs/92.png",
-      "endTime": "2026-12-06T18:00:05.915837Z",
+      "endTime": "2026-12-06T18:00:01.010891Z",
       "createdAt": "2026-10-28T18:00:24.804354Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -30735,8 +30735,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 5000,
-      "cost": 6850,
-      "costPc": 8520,
+      "cost": 6940,
+      "costPc": 8860,
       "pool": null,
       "awards": [
         {
@@ -30776,10 +30776,10 @@
             24581
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 3425,
+          "cheapestSolutionPrice": 3470,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 4260,
+          "cheapestSolutionPricePc": 4430,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -30838,10 +30838,10 @@
             24582
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 3425,
+          "cheapestSolutionPrice": 3470,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 4260,
+          "cheapestSolutionPricePc": 4430,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -30972,7 +30972,7 @@
       "name": "Bundesliga & Google Pixel Frauen-Bundesliga",
       "description": "Complete these challenges to earn a total of 10 Bronze and 10 Silver Player Items from BL and GPFBL.",
       "imagePath": "2027/sbcs/91.png",
-      "endTime": "2026-12-06T18:00:05.901560Z",
+      "endTime": "2026-12-06T18:00:01.003251Z",
       "createdAt": "2026-10-28T18:00:20.628465Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -30993,8 +30993,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 5000,
-      "cost": 6850,
-      "costPc": 8520,
+      "cost": 6940,
+      "costPc": 8860,
       "pool": null,
       "awards": [
         {
@@ -31034,10 +31034,10 @@
             24578
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 3425,
+          "cheapestSolutionPrice": 3470,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 4260,
+          "cheapestSolutionPricePc": 4430,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -31096,10 +31096,10 @@
             24579
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 3425,
+          "cheapestSolutionPrice": 3470,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 4260,
+          "cheapestSolutionPricePc": 4430,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -31230,7 +31230,7 @@
       "name": "Intro to Player SBCs",
       "description": "Complete the Intro to Player SBCs to earn Squad Foundations Cristian Espinoza.",
       "imagePath": "2027/sbcs/20.png",
-      "endTime": "2035-08-31T17:00:00.681636Z",
+      "endTime": "2035-08-31T17:00:00.830816Z",
       "createdAt": "2026-09-24T17:00:19.217328Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -31250,8 +31250,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 4000,
-      "cost": 5375,
-      "costPc": 6920,
+      "cost": 5450,
+      "costPc": 7050,
       "pool": null,
       "awards": [
         {
@@ -31578,7 +31578,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 5375,
+            "price": 5350,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -31609,7 +31609,7 @@
               136,
               137
             ],
-            "numberOfEvolutions": 35,
+            "numberOfEvolutions": 28,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -31667,10 +31667,10 @@
           "imagePath": "2027/sbcs/challenges/47.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 5375,
+          "cheapestSolutionPrice": 5450,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 6920,
+          "cheapestSolutionPricePc": 7050,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 45"
@@ -32027,7 +32027,7 @@
             "renderOnlyAsHtml": false,
             "isSbc": true,
             "isObjective": false,
-            "price": 5375,
+            "price": 5350,
             "isMyEvolutionsPlayerItem": false,
             "isGgClubPlayerItem": false,
             "isFullChemistry": false,
@@ -32058,7 +32058,7 @@
               136,
               137
             ],
-            "numberOfEvolutions": 35,
+            "numberOfEvolutions": 28,
             "pointCost": 0,
             "coinCost": 0,
             "playStyleEaIds": [
@@ -32118,7 +32118,7 @@
       "name": "Gold Upgrade",
       "description": "Exchange Gold items for rewards.",
       "imagePath": "2027/sbcs/6.png",
-      "endTime": "2035-08-20T17:00:01.292789Z",
+      "endTime": "2035-08-20T17:00:00.990283Z",
       "createdAt": "2026-09-15T20:13:32.506330Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -32179,9 +32179,9 @@
           "cheapestSolutionId": 6998441,
           "cheapestSolutionPrice": 7150,
           "cheapestSolutionUrl": "/27/squad-builder/15db18b7-2e7f-4466-9639-de3bf9be7bca/",
-          "cheapestSolutionPcId": 7001221,
+          "cheapestSolutionPcId": 7002397,
           "cheapestSolutionPricePc": 9750,
-          "cheapestSolutionPcUrl": "/27/squad-builder/b2e6dd98-923d-42cc-b675-3fb490cc8099/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/8aa24977-e93d-44a7-a8f7-d71683bc6395/",
           "requirementsText": [
             "Quality: Min. Gold"
           ],
@@ -32250,7 +32250,7 @@
       "name": "Silver Upgrade",
       "description": "Exchange Silver items for rewards.",
       "imagePath": "2027/sbcs/5.png",
-      "endTime": "2035-08-20T11:00:00.603978Z",
+      "endTime": "2035-08-20T11:00:00.961834Z",
       "createdAt": "2026-09-15T20:13:29.185429Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -32271,7 +32271,7 @@
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
       "cost": 2200,
-      "costPc": 2200,
+      "costPc": 2250,
       "pool": null,
       "awards": [
         {
@@ -32311,9 +32311,9 @@
           "cheapestSolutionId": 6995046,
           "cheapestSolutionPrice": 2200,
           "cheapestSolutionUrl": "/27/squad-builder/c71d60cf-0567-43ab-888f-b26334b6bb6e/",
-          "cheapestSolutionPcId": 7001236,
-          "cheapestSolutionPricePc": 2200,
-          "cheapestSolutionPcUrl": "/27/squad-builder/af91286e-42ac-4352-bf7b-87e5fc88d202/",
+          "cheapestSolutionPcId": 7002396,
+          "cheapestSolutionPricePc": 2250,
+          "cheapestSolutionPcUrl": "/27/squad-builder/ca528bec-1beb-4662-b44e-cdb17c10cbbb/",
           "requirementsText": [
             "Quality: Silver only"
           ],
@@ -32382,7 +32382,7 @@
       "name": "Bronze Upgrade",
       "description": "Exchange Bronze items for rewards.",
       "imagePath": "2027/sbcs/4.png",
-      "endTime": "2035-08-20T17:00:01.341960Z",
+      "endTime": "2035-08-20T17:00:01.024899Z",
       "createdAt": "2026-09-15T20:13:25.982246Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -32402,7 +32402,7 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 2200,
+      "cost": 2250,
       "costPc": 2200,
       "pool": null,
       "awards": [
@@ -32441,11 +32441,11 @@
           "imagePath": "2027/sbcs/challenges/16.png",
           "awardsIds": [],
           "cheapestSolutionId": 6996005,
-          "cheapestSolutionPrice": 2200,
+          "cheapestSolutionPrice": 2250,
           "cheapestSolutionUrl": "/27/squad-builder/df7dca53-326f-4c07-9a76-8b1d033addd2/",
-          "cheapestSolutionPcId": 7000788,
+          "cheapestSolutionPcId": 7002514,
           "cheapestSolutionPricePc": 2200,
-          "cheapestSolutionPcUrl": "/27/squad-builder/f07d8c0b-0e19-4cb5-83b7-9903a7d8eb44/",
+          "cheapestSolutionPcUrl": "/27/squad-builder/83117ee7-94c4-4495-8c5b-702440f52738/",
           "requirementsText": [
             "Quality: Bronze only"
           ],
@@ -32514,7 +32514,7 @@
       "name": "League & Nation Advanced",
       "description": "Complete these Puzzle-based challenges to earn rewards.",
       "imagePath": "2027/sbcs/10.png",
-      "endTime": "2035-08-31T17:00:01.198148Z",
+      "endTime": "2035-08-31T17:00:00.896073Z",
       "createdAt": "2026-09-15T20:13:22.599384Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -32537,8 +32537,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 19250,
-      "costPc": 23750,
+      "cost": 18750,
+      "costPc": 25600,
       "pool": null,
       "awards": [
         {
@@ -32597,12 +32597,12 @@
           "awardsIds": [
             24472
           ],
-          "cheapestSolutionId": 7001177,
-          "cheapestSolutionPrice": 7250,
-          "cheapestSolutionUrl": "/27/squad-builder/6e9adb38-6198-429a-a1ec-deae42f65354/",
-          "cheapestSolutionPcId": 7001127,
-          "cheapestSolutionPricePc": 9100,
-          "cheapestSolutionPcUrl": "/27/squad-builder/583fc5a1-1f38-4418-a4a6-4c1f72330d8c/",
+          "cheapestSolutionId": 7002415,
+          "cheapestSolutionPrice": 7450,
+          "cheapestSolutionUrl": "/27/squad-builder/6e9b4910-b0aa-4ce7-a3fa-a26f00ebdf3c/",
+          "cheapestSolutionPcId": 7002469,
+          "cheapestSolutionPricePc": 10050,
+          "cheapestSolutionPcUrl": "/27/squad-builder/64f0a17a-65f9-4929-a4a4-1048e154aaba/",
           "requirementsText": [
             "Leagues: Exactly 3",
             "Nations: Exactly 2",
@@ -32714,11 +32714,11 @@
           "awardsIds": [
             24473
           ],
-          "cheapestSolutionId": 7001179,
-          "cheapestSolutionPrice": 5550,
-          "cheapestSolutionUrl": "/27/squad-builder/26833301-477f-4f5c-bec5-c03ec237301c/",
+          "cheapestSolutionId": 7002418,
+          "cheapestSolutionPrice": 4750,
+          "cheapestSolutionUrl": "/27/squad-builder/58741342-14fe-49d4-b078-cef1dd9090d4/",
           "cheapestSolutionPcId": 7001129,
-          "cheapestSolutionPricePc": 5850,
+          "cheapestSolutionPricePc": 6350,
           "cheapestSolutionPcUrl": "/27/squad-builder/46273198-7648-4427-ae86-d45def68f581/",
           "requirementsText": [
             "Leagues: Exactly 4",
@@ -32832,11 +32832,11 @@
             24474
           ],
           "cheapestSolutionId": 6999827,
-          "cheapestSolutionPrice": 6450,
+          "cheapestSolutionPrice": 6550,
           "cheapestSolutionUrl": "/27/squad-builder/e253526b-7f59-4c5b-8b2e-10edefd21f08/",
-          "cheapestSolutionPcId": 7001131,
-          "cheapestSolutionPricePc": 8800,
-          "cheapestSolutionPcUrl": "/27/squad-builder/d0a46c40-23ba-4dac-994d-3faf0b332088/",
+          "cheapestSolutionPcId": 7002471,
+          "cheapestSolutionPricePc": 9200,
+          "cheapestSolutionPcUrl": "/27/squad-builder/f1875bd8-e6d5-494b-b6a7-cc92c0cff521/",
           "requirementsText": [
             "Leagues: Exactly 5",
             "Nations: Exactly 6",
@@ -33050,7 +33050,7 @@
       "name": "Gold Re-Roll",
       "description": "Submit 1,250 Score to earn Rewards.",
       "imagePath": "2027/sbcs/9.png",
-      "endTime": "2035-08-20T17:00:00.646080Z",
+      "endTime": "2035-08-20T17:00:00.818269Z",
       "createdAt": "2026-09-15T20:13:19.292638Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -33071,7 +33071,7 @@
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 1250,
       "cost": 2285,
-      "costPc": 2600,
+      "costPc": 2630,
       "pool": null,
       "awards": [
         {
@@ -33112,7 +33112,7 @@
           "cheapestSolutionPrice": 2285,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 2600,
+          "cheapestSolutionPricePc": 2630,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 83"
@@ -33182,7 +33182,7 @@
       "name": "Bronze and Silver Re-roll",
       "description": "Submit 500 Score to earn Rewards.",
       "imagePath": "2027/sbcs/8.png",
-      "endTime": "2035-08-20T17:00:00.623207Z",
+      "endTime": "2035-08-20T17:00:00.811179Z",
       "createdAt": "2026-09-15T20:13:16.191134Z",
       "isRepeatable": true,
       "numberOfRepeats": 0,
@@ -33202,8 +33202,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 500,
-      "cost": 2165,
-      "costPc": 2585,
+      "cost": 2180,
+      "costPc": 2540,
       "pool": null,
       "awards": [
         {
@@ -33241,10 +33241,10 @@
           "imagePath": "2027/sbcs/challenges/23.png",
           "awardsIds": [],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 2165,
+          "cheapestSolutionPrice": 2180,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 2585,
+          "cheapestSolutionPricePc": 2540,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "Rating: Min. 79"
@@ -33314,7 +33314,7 @@
       "name": "Intro to Streamlined SBCs",
       "description": "Submit any players from your collection to earn rewards",
       "imagePath": "2027/sbcs/7.png",
-      "endTime": "2035-08-20T17:00:00.604559Z",
+      "endTime": "2035-08-20T17:00:00.803784Z",
       "createdAt": "2026-09-15T20:13:11.895287Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -33338,8 +33338,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": true,
       "scoreRequirement": 1000,
-      "cost": 8200,
-      "costPc": 8400,
+      "cost": 7980,
+      "costPc": 8405,
       "pool": null,
       "awards": [
         {
@@ -33461,7 +33461,7 @@
             24465
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 900,
+          "cheapestSolutionPrice": 660,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
           "cheapestSolutionPricePc": 1000,
@@ -33523,10 +33523,10 @@
             24466
           ],
           "cheapestSolutionId": null,
-          "cheapestSolutionPrice": 700,
+          "cheapestSolutionPrice": 720,
           "cheapestSolutionUrl": null,
           "cheapestSolutionPcId": null,
-          "cheapestSolutionPricePc": 800,
+          "cheapestSolutionPricePc": 805,
           "cheapestSolutionPcUrl": null,
           "requirementsText": [
             "League: Premier League"
@@ -33785,7 +33785,7 @@
       "name": "Intro to Upgrade SBCs",
       "description": "Complete these Upgrade-based challenges to earn rewards. ",
       "imagePath": "2027/sbcs/3.png",
-      "endTime": "2035-08-20T17:00:01.049625Z",
+      "endTime": "2035-08-20T17:00:00.796041Z",
       "createdAt": "2026-09-15T20:13:07.545947Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -33807,8 +33807,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 13550,
-      "costPc": 17400,
+      "cost": 12500,
+      "costPc": 17600,
       "pool": null,
       "awards": [
         {
@@ -33847,9 +33847,9 @@
           "awardsIds": [
             24459
           ],
-          "cheapestSolutionId": 6998875,
+          "cheapestSolutionId": 7001645,
           "cheapestSolutionPrice": 2200,
-          "cheapestSolutionUrl": "/27/squad-builder/17ac8df6-5f0b-4c6e-8ae6-4f3418ed0b78/",
+          "cheapestSolutionUrl": "/27/squad-builder/16e92367-fa26-4c24-b75e-db263a3baffd/",
           "cheapestSolutionPcId": 7001253,
           "cheapestSolutionPricePc": 2200,
           "cheapestSolutionPcUrl": "/27/squad-builder/ea53e76c-e0ae-44e6-947a-a27f9257809e/",
@@ -33920,12 +33920,12 @@
           "awardsIds": [
             24460
           ],
-          "cheapestSolutionId": 7001276,
-          "cheapestSolutionPrice": 4200,
-          "cheapestSolutionUrl": "/27/squad-builder/4f84996a-8851-406b-b040-7ee1558ff809/",
-          "cheapestSolutionPcId": 7001295,
-          "cheapestSolutionPricePc": 6100,
-          "cheapestSolutionPcUrl": "/27/squad-builder/8d6101a2-4518-44a9-ac4e-a469a08ff759/",
+          "cheapestSolutionId": 7002445,
+          "cheapestSolutionPrice": 3000,
+          "cheapestSolutionUrl": "/27/squad-builder/e7bd7449-3453-4abe-b100-a152de6eb039/",
+          "cheapestSolutionPcId": 7002515,
+          "cheapestSolutionPricePc": 5250,
+          "cheapestSolutionPcUrl": "/27/squad-builder/bcdbe4aa-a28e-4fe5-875f-0f6ff309fa0b/",
           "requirementsText": [
             "Quality: Min. 11 Silver players"
           ],
@@ -33982,12 +33982,12 @@
           "awardsIds": [
             24461
           ],
-          "cheapestSolutionId": 7001189,
-          "cheapestSolutionPrice": 7150,
-          "cheapestSolutionUrl": "/27/squad-builder/9c1278f3-b263-4b96-895b-43c96e2d8400/",
-          "cheapestSolutionPcId": 7001296,
-          "cheapestSolutionPricePc": 9100,
-          "cheapestSolutionPcUrl": "/27/squad-builder/3cc7f255-2eab-4e57-9368-92b286cc7cb2/",
+          "cheapestSolutionId": 7002446,
+          "cheapestSolutionPrice": 7300,
+          "cheapestSolutionUrl": "/27/squad-builder/97d68717-75bf-4130-94ac-5d5565fae815/",
+          "cheapestSolutionPcId": 7002516,
+          "cheapestSolutionPricePc": 10150,
+          "cheapestSolutionPcUrl": "/27/squad-builder/1afa3cc6-f68b-42cf-b8ac-57837458c345/",
           "requirementsText": [
             "Quality: Min. 11 Gold players",
             "Team rating: Max. 85",
@@ -34159,7 +34159,7 @@
       "name": "Intro to SBCs",
       "description": "Complete these OVR-based challenges to earn rewards. ",
       "imagePath": "2027/sbcs/1.png",
-      "endTime": "2035-08-20T17:00:00.510894Z",
+      "endTime": "2035-08-20T17:00:00.779473Z",
       "createdAt": "2026-09-15T20:13:01.726932Z",
       "isRepeatable": false,
       "numberOfRepeats": 0,
@@ -34182,8 +34182,8 @@
       "isNew": false,
       "hasStreamlinedChallenges": false,
       "scoreRequirement": null,
-      "cost": 4600,
-      "costPc": 6500,
+      "cost": 4400,
+      "costPc": 7200,
       "pool": null,
       "awards": [
         {
@@ -34296,10 +34296,10 @@
             24455
           ],
           "cheapestSolutionId": 6863346,
-          "cheapestSolutionPrice": 750,
+          "cheapestSolutionPrice": 650,
           "cheapestSolutionUrl": "/27/squad-builder/afc78737-927c-441b-941d-a0dd05f503b2/",
           "cheapestSolutionPcId": 6970847,
-          "cheapestSolutionPricePc": 1150,
+          "cheapestSolutionPricePc": 1500,
           "cheapestSolutionPcUrl": "/27/squad-builder/aeee59f9-bf87-4884-8124-bb858b6b294f/",
           "requirementsText": [
             "Rating: Min. 2 players rated 65+",
@@ -34380,10 +34380,10 @@
             24456
           ],
           "cheapestSolutionId": 6871596,
-          "cheapestSolutionPrice": 1050,
+          "cheapestSolutionPrice": 950,
           "cheapestSolutionUrl": "/27/squad-builder/c184c8fa-39cf-4d66-a3f8-3973f932d9b9/",
           "cheapestSolutionPcId": 6980689,
-          "cheapestSolutionPricePc": 1750,
+          "cheapestSolutionPricePc": 1900,
           "cheapestSolutionPcUrl": "/27/squad-builder/91ee0ad2-db9f-4fe4-b85a-b9cd4490c2aa/",
           "requirementsText": [
             "Rating: Min. 3 players rated 65+",
@@ -34466,9 +34466,9 @@
           "cheapestSolutionId": 6978916,
           "cheapestSolutionPrice": 2600,
           "cheapestSolutionUrl": "/27/squad-builder/8d3f3d04-ef08-4d7e-8e88-eee602a75aa2/",
-          "cheapestSolutionPcId": 7001237,
-          "cheapestSolutionPricePc": 3400,
-          "cheapestSolutionPcUrl": "/27/squad-builder/8cbecf63-fc41-441f-945b-7d8d7717597d/",
+          "cheapestSolutionPcId": 7002509,
+          "cheapestSolutionPricePc": 3600,
+          "cheapestSolutionPcUrl": "/27/squad-builder/61e562cd-482a-4f0d-af8d-1ea8b7e2833a/",
           "requirementsText": [
             "Rating: Min. 4 players rated 75+",
             "Rating: Min. 4 players rated 84 or lower",
@@ -34652,5 +34652,5 @@
       "repeatRefreshIntervalText": null
     }
   ],
-  "fetchedAt": "2026-11-25T18:05:58.105Z"
+  "fetchedAt": "2026-11-26T02:07:03.779Z"
 }
