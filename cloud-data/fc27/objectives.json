@@ -1,8 +1,309 @@
 {
   "ver": 27,
-  "count": 58,
-  "fetchedAt": "2026-11-27T14:11:28.912Z",
+  "count": 59,
+  "fetchedAt": "2026-11-27T18:08:45.299Z",
   "groups": [
+    {
+      "id": 2714,
+      "slug": "248-formation-champions-objective",
+      "name": "Formation Champions Objective",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
+      "description": "Complete the Formation Champions Objective to earn Champions Tokens!",
+      "startTime": "2026-11-27T18:00:00Z",
+      "endTime": "2026-12-01T17:59:59Z",
+      "tasksCount": 2,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "EVENT_TOKEN",
+          "name": "50 Champions Tokens",
+          "count": 1,
+          "eventToken": 50
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13650,
+          "name": "四后卫",
+          "description": "在周赛中使用4-3-2-1或4-2-4（不改变阵型）在5场不同比赛中进球。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "20 Champions Tokens",
+              "count": 1,
+              "eventToken": 20
+            }
+          ],
+          "nameEn": "Four at the back",
+          "descriptionEn": "Score in 5 separate matches using the 4-3-2-1 or 4-2-4 (Without changing) in FUT Champions."
+        },
+        {
+          "id": 13651,
+          "name": "三后卫",
+          "description": "在周赛中使用3-1-4-2或3-4-3（不改变阵型）在3场比赛中进球。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "35 Champions Tokens",
+              "count": 1,
+              "eventToken": 35
+            }
+          ],
+          "nameEn": "Three at the back",
+          "descriptionEn": "Score in 3 matches using the 3-1-4-2 or 3-4-3 (Without changing) in FUT Champions."
+        }
+      ]
+    },
+    {
+      "id": 2713,
+      "slug": "245-thunder-storm",
+      "name": "Thunder Storm",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
+      "description": "Bring the boom for Thunderstruck! Complete 3 of the 5 available challenges to earn your reward. All rewards are untradeable.",
+      "startTime": "2026-11-27T18:00:00Z",
+      "endTime": "2026-12-04T17:59:59Z",
+      "tasksCount": 5,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "EVENT_TOKEN",
+          "name": "100 Thunderstruck Tokens",
+          "count": 1,
+          "eventToken": 100
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13645,
+          "name": "轰隆来袭",
+          "description": "在交易市场列出5名球员。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Award",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Here Comes The Boom",
+          "descriptionEn": "List 5 players on the Transfer Market."
+        },
+        {
+          "id": 13646,
+          "name": "SBC 雷霆一击",
+          "description": "完成5个SBC。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Award",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "SBC Thunderclap",
+          "descriptionEn": "Complete 5 SBCs."
+        },
+        {
+          "id": 13647,
+          "name": "火花四溅",
+          "description": "在1场DR中助攻。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Engine",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003105.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Architect",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003102.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Catalyst",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003112.png"
+            }
+          ],
+          "nameEn": "Sparked Out",
+          "descriptionEn": "Assist in 1 Division Rivals match."
+        },
+        {
+          "id": 13648,
+          "name": "震撼与敬畏",
+          "description": "在SQB最低半职业难度的2场不同比赛中各打入1粒搓射进球。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Award",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Award",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            },
+            {
+              "type": "ITEM",
+              "name": "Award",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
+            }
+          ],
+          "nameEn": "Shock and Awe",
+          "descriptionEn": "Score a finesse goal in 2 separate matches in Squad Battles on min. Semi-Pro difficulty."
+        },
+        {
+          "id": 13649,
+          "name": "闪电一击",
+          "description": "在任意FUT比赛模式的1场比赛中助攻。",
+          "awards": [
+            {
+              "type": "EVO_UNLOCK",
+              "name": "Thunderstruck Regular Badge",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+            }
+          ],
+          "nameEn": "Lightning Bolt",
+          "descriptionEn": "Assist in 1 match in any FUT game mode."
+        }
+      ]
+    },
+    {
+      "id": 2712,
+      "slug": "202-ultimate-weekly-play-objective-week-3",
+      "name": "Ultimate Weekly Play Objective Week 3",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
+      "description": "Play matches in any FUT game mode to make progress in the Ultimate Weekly Play Completionist.",
+      "startTime": "2026-11-27T18:00:00Z",
+      "endTime": "2026-12-04T17:59:59Z",
+      "tasksCount": 1,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "ITEM",
+          "name": "Shadow",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13644,
+          "name": "进行2场",
+          "description": "在任意游戏模式中进行 2 场比赛。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Hunter",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
+            }
+          ],
+          "nameEn": "Play 2",
+          "descriptionEn": "Play 2 matches in any game mode."
+        }
+      ]
+    },
+    {
+      "id": 2715,
+      "slug": "249-amped-up",
+      "name": "Amped Up",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
+      "description": "Charge up your squad and take over the match! Complete all available challenges to earn your rewards. All rewards are untradeable.",
+      "startTime": "2026-11-27T18:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 3,
+      "isNew": true,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "XP",
+          "name": "500 SP",
+          "count": 1,
+          "xp": 500
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13652,
+          "name": "完美风暴",
+          "description": "在SQB最低半职业难度（或Rush/DR/FUT冠军/实时赛事）的3场不同比赛中获胜。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "Perfect Storm",
+          "descriptionEn": "Win 3 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        },
+        {
+          "id": 13653,
+          "name": "连锁反应",
+          "description": "在SQB最低半职业难度（或Rush/DR/FUT冠军/实时赛事）的5场不同比赛中助攻。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "Chain Reaction",
+          "descriptionEn": "Assist in 5 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        },
+        {
+          "id": 13654,
+          "name": "快速打击",
+          "description": "在SQB最低半职业难度（或Rush/DR/FUT冠军/实时赛事）的3场不同比赛中进球。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "250 SP",
+              "count": 1,
+              "xp": 250
+            }
+          ],
+          "nameEn": "Quick Strike",
+          "descriptionEn": "Score in 3 separate matches in Squad Battles on min. Semi-Pro difficulty (or Rush/Rivals/Champions/Live Events)."
+        }
+      ]
+    },
     {
       "id": 2711,
       "slug": "252-storm-supplies",
@@ -11,7 +312,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Get ready for the Storm by completing objectives to earn packs and gear up your squad for what’s coming next. All rewards are untradeable.",
       "startTime": "2026-11-27T14:00:00Z",
       "endTime": "2026-12-04T17:59:59Z",
@@ -152,122 +453,6 @@
       ]
     },
     {
-      "id": 2710,
-      "slug": "238-thunderstruck-first-to-2",
-      "name": "Thunderstruck First to 2",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
-      "description": "Join in and complete challenges to earn Thunderstruck Tokens. All rewards are untradeable.",
-      "startTime": "2026-11-26T18:00:00Z",
-      "endTime": "2026-11-28T17:59:59Z",
-      "tasksCount": 2,
-      "isNew": true,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "EVENT_TOKEN",
-          "name": "150 Thunderstruck Tokens",
-          "count": 1,
-          "eventToken": 150
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13636,
-          "name": "在3场比赛中进球",
-          "description": "在雷霆万钧 First to 2 Event 的3场独立比赛中进球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "50 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 50
-            }
-          ],
-          "nameEn": "Score in 3",
-          "descriptionEn": "Score in 3 separate matches in the Thunderstruck First to 2 Event."
-        },
-        {
-          "id": 13637,
-          "name": "获胜1场",
-          "description": "在雷霆万钧 First to 2 Event 中赢得1场比赛。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "20 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 20
-            }
-          ],
-          "nameEn": "Win 1",
-          "descriptionEn": "Win 1 match in the Thunderstruck First to 2 Event."
-        }
-      ]
-    },
-    {
-      "id": 2708,
-      "slug": "173-daily-objectives",
-      "name": "Daily Objectives",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
-      "description": "Play, complete and earn SP from daily objective every 24 hours!",
-      "startTime": "2026-11-26T18:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 2,
-      "isNew": true,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "XP",
-          "name": "10 SP",
-          "count": 1,
-          "xp": 10
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13630,
-          "name": "进行1场",
-          "description": "在任意 FUT 游戏模式中进行1场比赛。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "10 SP",
-              "count": 1,
-              "xp": 10
-            }
-          ],
-          "nameEn": "Play 1",
-          "descriptionEn": "Play 1 match in any FUT game mode."
-        },
-        {
-          "id": 13631,
-          "name": "进球成功",
-          "description": "在任意 FUT 游戏模式中打入2球。",
-          "awards": [
-            {
-              "type": "XP",
-              "name": "10 SP",
-              "count": 1,
-              "xp": 10
-            }
-          ],
-          "nameEn": "Scoring Success",
-          "descriptionEn": "Score 2 goals in any FUT game mode."
-        }
-      ]
-    },
-    {
       "id": 2709,
       "slug": "234-thunderstruck-live-event-completionist",
       "name": "Thunderstruck Live Event Completionist",
@@ -275,12 +460,12 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete the Thunderstruck Live Event Completionist to earn Thunderstruck Tokens!",
       "startTime": "2026-11-26T18:00:00Z",
       "endTime": "2026-12-04T17:59:59Z",
       "tasksCount": 4,
-      "isNew": true,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
@@ -363,12 +548,12 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete Weekly Objectives to earn SP!",
       "startTime": "2026-11-26T18:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
       "tasksCount": 5,
-      "isNew": true,
+      "isNew": false,
       "isExpired": false,
       "isPermanent": false,
       "isLocked": false,
@@ -459,6 +644,122 @@
       ]
     },
     {
+      "id": 2708,
+      "slug": "173-daily-objectives",
+      "name": "Daily Objectives",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
+      "description": "Play, complete and earn SP from daily objective every 24 hours!",
+      "startTime": "2026-11-26T18:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 2,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "XP",
+          "name": "10 SP",
+          "count": 1,
+          "xp": 10
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13630,
+          "name": "进行1场",
+          "description": "在任意 FUT 游戏模式中进行1场比赛。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ],
+          "nameEn": "Play 1",
+          "descriptionEn": "Play 1 match in any FUT game mode."
+        },
+        {
+          "id": 13631,
+          "name": "进球成功",
+          "description": "在任意 FUT 游戏模式中打入2球。",
+          "awards": [
+            {
+              "type": "XP",
+              "name": "10 SP",
+              "count": 1,
+              "xp": 10
+            }
+          ],
+          "nameEn": "Scoring Success",
+          "descriptionEn": "Score 2 goals in any FUT game mode."
+        }
+      ]
+    },
+    {
+      "id": 2710,
+      "slug": "238-thunderstruck-first-to-2",
+      "name": "Thunderstruck First to 2",
+      "category": {
+        "slug": "campaigns",
+        "name": "Campaigns"
+      },
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
+      "description": "Join in and complete challenges to earn Thunderstruck Tokens. All rewards are untradeable.",
+      "startTime": "2026-11-26T18:00:00Z",
+      "endTime": "2026-11-28T17:59:59Z",
+      "tasksCount": 2,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "EVENT_TOKEN",
+          "name": "150 Thunderstruck Tokens",
+          "count": 1,
+          "eventToken": 150
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13636,
+          "name": "在3场比赛中进球",
+          "description": "在雷霆万钧 First to 2 Event 的3场独立比赛中进球。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "50 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 50
+            }
+          ],
+          "nameEn": "Score in 3",
+          "descriptionEn": "Score in 3 separate matches in the Thunderstruck First to 2 Event."
+        },
+        {
+          "id": 13637,
+          "name": "获胜1场",
+          "description": "在雷霆万钧 First to 2 Event 中赢得1场比赛。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "20 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 20
+            }
+          ],
+          "nameEn": "Win 1",
+          "descriptionEn": "Win 1 match in the Thunderstruck First to 2 Event."
+        }
+      ]
+    },
+    {
       "id": 2706,
       "slug": "237-samsunspor-x-symbol-of-change-kit",
       "name": "Samsunspor x Symbol of Change Kit",
@@ -466,7 +767,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete this challenge to earn the Samsunspor x Symbol of Change Kit and other rewards. All rewards are untradeable.",
       "startTime": "2026-11-24T18:00:00Z",
       "endTime": "2026-12-01T17:59:59Z",
@@ -509,7 +810,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete Rush Bonuses alongside your teammates to earn Rush Points and pack rewards! All rewards are untradeable.",
       "startTime": "2026-11-24T18:00:00Z",
       "endTime": "2026-12-03T17:59:59Z",
@@ -630,7 +931,7 @@
         "slug": "fc-pro",
         "name": "FC Pro"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Build your collection of FC Pro Team Crests and Kits by completing the objective. All rewards are untradeable.",
       "startTime": "2026-11-23T18:00:00Z",
       "endTime": "2027-09-30T17:59:59Z",
@@ -954,7 +1255,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Consistency is your best weapon. Conquer the Storm Chaser at your own pace, complete each challenge along the way, and unlock a wave of special rewards designed to take your squad to the next level. All rewards are untradable.",
       "startTime": "2026-11-20T18:00:00Z",
       "endTime": "2026-12-04T17:59:59Z",
@@ -1098,18 +1399,18 @@
       ]
     },
     {
-      "id": 2698,
-      "slug": "210-ultimate-gauntlet-4",
-      "name": "Ultimate Gauntlet 4",
+      "id": 2701,
+      "slug": "233-thunderstruck-daily-play-completionist",
+      "name": "Thunderstruck Daily Play Completionist",
       "category": {
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
-      "description": "Complete 8 of 10 challenges in the Ultimate Gauntlet 4 and earn Thunderstruck Tokens! All rewards are untradable.",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
+      "description": "Complete the Thunderstruck Daily Play objectives to earn rewards! All rewards are untradeable.",
       "startTime": "2026-11-20T18:00:00Z",
-      "endTime": "2026-11-27T17:59:59Z",
-      "tasksCount": 10,
+      "endTime": "2026-12-04T17:59:59Z",
+      "tasksCount": 8,
       "isNew": false,
       "isExpired": false,
       "isPermanent": false,
@@ -1117,16 +1418,37 @@
       "awards": [
         {
           "type": "EVENT_TOKEN",
-          "name": "400 Thunderstruck Tokens",
+          "name": "100 Thunderstruck Tokens",
           "count": 1,
-          "eventToken": 400
+          "eventToken": 100
+        },
+        {
+          "type": "EVO_UNLOCK",
+          "name": "Thunderstruck Premium Badge",
+          "count": 1,
+          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
         }
       ],
       "objectives": [
         {
-          "id": 13565,
-          "name": "14 场进球",
-          "description": "在终极 Gauntlet 4中在14场不同比赛中至少进1球。",
+          "id": 13590,
+          "name": "完成10次",
+          "description": "完成雷霆万钧 Daily Play 任务10次。",
+          "awards": [
+            {
+              "type": "EVENT_TOKEN",
+              "name": "30 Thunderstruck Tokens",
+              "count": 1,
+              "eventToken": 30
+            }
+          ],
+          "nameEn": "Complete 10",
+          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 10 times."
+        },
+        {
+          "id": 13591,
+          "name": "完成9次",
+          "description": "完成雷霆万钧 Daily Play 任务9次。",
           "awards": [
             {
               "type": "EVENT_TOKEN",
@@ -1135,13 +1457,13 @@
               "eventToken": 20
             }
           ],
-          "nameEn": "Score in 14",
-          "descriptionEn": "Score at least 1 goal in 14 separate matches in the Ultimate Gauntlet 4."
+          "nameEn": "Complete 9",
+          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 9 times."
         },
         {
-          "id": 13566,
-          "name": "10 场进球",
-          "description": "在终极 Gauntlet 4中在10场不同比赛中至少进1球。",
+          "id": 13592,
+          "name": "完成 7",
+          "description": "完成雷霆万钧 Daily Play 任务7次。",
           "awards": [
             {
               "type": "EVENT_TOKEN",
@@ -1150,88 +1472,88 @@
               "eventToken": 20
             }
           ],
-          "nameEn": "Score in 10",
-          "descriptionEn": "Score at least 1 goal in 10 separate matches in the Ultimate Gauntlet 4."
+          "nameEn": "Complete 7",
+          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 7 times."
         },
         {
-          "id": 13567,
-          "name": "三度完美",
-          "description": "在单轮终极 Gauntlet 4中赢得两场比赛，完成三次。",
+          "id": 13593,
+          "name": "完成5次",
+          "description": "完成雷霆万钧 Daily Play 任务5次。",
+          "awards": [
+            {
+              "type": "EVO_UNLOCK",
+              "name": "Zero to Sixty",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+            },
+            {
+              "type": "EVO_UNLOCK",
+              "name": "Yellow Lightning",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
+            }
+          ],
+          "nameEn": "Complete 5",
+          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 5 times."
+        },
+        {
+          "id": 13594,
+          "name": "完成4次",
+          "description": "完成雷霆万钧 Daily Play 任务4次。",
           "awards": [
             {
               "type": "EVENT_TOKEN",
-              "name": "20 Thunderstruck Tokens",
+              "name": "15 Thunderstruck Tokens",
               "count": 1,
-              "eventToken": 20
+              "eventToken": 15
             }
           ],
-          "nameEn": "Triple Perfect",
-          "descriptionEn": "Win both matches in a single Ultimate Gauntlet 4 round, three times."
+          "nameEn": "Complete 4",
+          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 4 times."
         },
         {
-          "id": 13568,
-          "name": "双度完美",
-          "description": "在单轮终极 Gauntlet 4中赢得两场比赛，完成两次。",
+          "id": 13595,
+          "name": "完成3次",
+          "description": "完成雷霆万钧 Daily Play 任务3次。",
           "awards": [
             {
               "type": "EVENT_TOKEN",
-              "name": "20 Thunderstruck Tokens",
+              "name": "15 Thunderstruck Tokens",
               "count": 1,
-              "eventToken": 20
+              "eventToken": 15
             }
           ],
-          "nameEn": "Double Perfect",
-          "descriptionEn": "Win both matches in a single Ultimate Gauntlet 4 round, twice."
+          "nameEn": "Complete 3",
+          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 3 times."
         },
         {
-          "id": 13569,
-          "name": "完美轮次",
-          "description": "在单轮终极 Gauntlet 4中赢得两场比赛。",
+          "id": 13596,
+          "name": "完成2次",
+          "description": "完成雷霆万钧 Daily Play 任务2次。",
           "awards": [
             {
-              "type": "EVENT_TOKEN",
-              "name": "50 Thunderstruck Tokens",
+              "type": "PACK",
+              "name": "Consumables Pack",
               "count": 1,
-              "eventToken": 50
-            }
-          ],
-          "nameEn": "Perfect Round",
-          "descriptionEn": "Win both matches in a single Ultimate Gauntlet 4 round."
-        },
-        {
-          "id": 13570,
-          "name": "获胜5场",
-          "description": "在终极 Gauntlet 4中赢得5场比赛。",
-          "awards": [
+              "pack": {
+                "name": "Consumables Pack",
+                "description": "Includes 12 Gold Consumable Items."
+              }
+            },
             {
               "type": "EVENT_TOKEN",
-              "name": "75 Thunderstruck Tokens",
+              "name": "15 Thunderstruck Tokens",
               "count": 1,
-              "eventToken": 75
+              "eventToken": 15
             }
           ],
-          "nameEn": "Win 5",
-          "descriptionEn": "Win 5 matches in the Ultimate Gauntlet 4."
+          "nameEn": "Complete 2",
+          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 2 times."
         },
         {
-          "id": 13571,
-          "name": "获胜3场",
-          "description": "在终极 Gauntlet 4中赢得3场比赛。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "75 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 75
-            }
-          ],
-          "nameEn": "Win 3",
-          "descriptionEn": "Win 3 matches in the Ultimate Gauntlet 4."
-        },
-        {
-          "id": 13572,
-          "name": "获胜1场",
-          "description": "在终极 Gauntlet 4中赢得1场比赛。",
+          "id": 13597,
+          "name": "完成1次",
+          "description": "完成雷霆万钧 Daily Play 任务1次。",
           "awards": [
             {
               "type": "EVENT_TOKEN",
@@ -1240,81 +1562,8 @@
               "eventToken": 25
             }
           ],
-          "nameEn": "Win 1",
-          "descriptionEn": "Win 1 match in the Ultimate Gauntlet 4."
-        },
-        {
-          "id": 13573,
-          "name": "4 场进球",
-          "description": "在终极 Gauntlet 4中在4场不同比赛中至少进1球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "75 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 75
-            }
-          ],
-          "nameEn": "Score in 4",
-          "descriptionEn": "Score at least 1 goal in 4 separate matches in the Ultimate Gauntlet 4."
-        },
-        {
-          "id": 13574,
-          "name": "打入1球",
-          "description": "在终极 Gauntlet 4中进1球。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "20 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 20
-            }
-          ],
-          "nameEn": "Score 1",
-          "descriptionEn": "Score 1 goal in the Ultimate Gauntlet 4."
-        }
-      ]
-    },
-    {
-      "id": 2696,
-      "slug": "201-ultimate-weekly-play-objective-week-2",
-      "name": "Ultimate Weekly Play Objective Week 2",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
-      "description": "Play matches in any FUT game mode to make progress in the Ultimate Weekly Play Completionist.",
-      "startTime": "2026-11-20T18:00:00Z",
-      "endTime": "2026-11-27T17:59:59Z",
-      "tasksCount": 1,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "ITEM",
-          "name": "Shadow",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003113.png"
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13561,
-          "name": "进行2场",
-          "description": "在任意游戏模式中进行 2 场比赛。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Hunter",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
-            }
-          ],
-          "nameEn": "Play 2",
-          "descriptionEn": "Play 2 matches in any game mode."
+          "nameEn": "Complete 1",
+          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 1 time."
         }
       ]
     },
@@ -1326,7 +1575,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete the Daily Login Upgrade SBC Completionist to earn additional rewards! All rewards are untradeable.",
       "startTime": "2026-11-20T18:00:00Z",
       "endTime": "2026-12-04T18:00:00Z",
@@ -1491,175 +1740,6 @@
       ]
     },
     {
-      "id": 2701,
-      "slug": "233-thunderstruck-daily-play-completionist",
-      "name": "Thunderstruck Daily Play Completionist",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
-      "description": "Complete the Thunderstruck Daily Play objectives to earn rewards! All rewards are untradeable.",
-      "startTime": "2026-11-20T18:00:00Z",
-      "endTime": "2026-12-04T17:59:59Z",
-      "tasksCount": 8,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "EVENT_TOKEN",
-          "name": "100 Thunderstruck Tokens",
-          "count": 1,
-          "eventToken": 100
-        },
-        {
-          "type": "EVO_UNLOCK",
-          "name": "Thunderstruck Premium Badge",
-          "count": 1,
-          "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13590,
-          "name": "完成10次",
-          "description": "完成雷霆万钧 Daily Play 任务10次。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "30 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 30
-            }
-          ],
-          "nameEn": "Complete 10",
-          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 10 times."
-        },
-        {
-          "id": 13591,
-          "name": "完成9次",
-          "description": "完成雷霆万钧 Daily Play 任务9次。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "20 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 20
-            }
-          ],
-          "nameEn": "Complete 9",
-          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 9 times."
-        },
-        {
-          "id": 13592,
-          "name": "完成 7",
-          "description": "完成雷霆万钧 Daily Play 任务7次。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "20 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 20
-            }
-          ],
-          "nameEn": "Complete 7",
-          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 7 times."
-        },
-        {
-          "id": 13593,
-          "name": "完成5次",
-          "description": "完成雷霆万钧 Daily Play 任务5次。",
-          "awards": [
-            {
-              "type": "EVO_UNLOCK",
-              "name": "Zero to Sixty",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
-            },
-            {
-              "type": "EVO_UNLOCK",
-              "name": "Yellow Lightning",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
-            }
-          ],
-          "nameEn": "Complete 5",
-          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 5 times."
-        },
-        {
-          "id": 13594,
-          "name": "完成4次",
-          "description": "完成雷霆万钧 Daily Play 任务4次。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "15 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 15
-            }
-          ],
-          "nameEn": "Complete 4",
-          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 4 times."
-        },
-        {
-          "id": 13595,
-          "name": "完成3次",
-          "description": "完成雷霆万钧 Daily Play 任务3次。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "15 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 15
-            }
-          ],
-          "nameEn": "Complete 3",
-          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 3 times."
-        },
-        {
-          "id": 13596,
-          "name": "完成2次",
-          "description": "完成雷霆万钧 Daily Play 任务2次。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "Consumables Pack",
-              "count": 1,
-              "pack": {
-                "name": "Consumables Pack",
-                "description": "Includes 12 Gold Consumable Items."
-              }
-            },
-            {
-              "type": "EVENT_TOKEN",
-              "name": "15 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 15
-            }
-          ],
-          "nameEn": "Complete 2",
-          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 2 times."
-        },
-        {
-          "id": 13597,
-          "name": "完成1次",
-          "description": "完成雷霆万钧 Daily Play 任务1次。",
-          "awards": [
-            {
-              "type": "EVENT_TOKEN",
-              "name": "25 Thunderstruck Tokens",
-              "count": 1,
-              "eventToken": 25
-            }
-          ],
-          "nameEn": "Complete 1",
-          "descriptionEn": "Complete the Thunderstruck Daily Play Objective 1 time."
-        }
-      ]
-    },
-    {
       "id": 2697,
       "slug": "209-thunderstruck-daily-play",
       "name": "Thunderstruck Daily Play",
@@ -1667,7 +1747,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete 1 of 3 objectives in any Football Ultimate Team game mode to earn rewards every 24 hours! All rewards are untradeable.",
       "startTime": "2026-11-20T18:00:00Z",
       "endTime": "2026-12-04T17:59:59Z",
@@ -1733,130 +1813,6 @@
       ]
     },
     {
-      "id": 2703,
-      "slug": "236-thunder-and-lightning",
-      "name": "Thunder and Lightning",
-      "category": {
-        "slug": "campaigns",
-        "name": "Campaigns"
-      },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
-      "description": "Feel the electrical surge of Black Friday Thunderstruck! Bring the storm onto the pitch by completing 3 of the 5 available challenges to earn your reward. All rewards are untradeable.",
-      "startTime": "2026-11-20T18:00:00Z",
-      "endTime": "2026-11-27T17:59:59Z",
-      "tasksCount": 5,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "EVENT_TOKEN",
-          "name": "100 Thunderstruck Tokens",
-          "count": 1,
-          "eventToken": 100
-        },
-        {
-          "type": "XP",
-          "name": "500 SP",
-          "count": 1,
-          "xp": 500
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13600,
-          "name": "市场火花",
-          "description": "在交易市场上架5件物品。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Award",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-            }
-          ],
-          "nameEn": "Market Spark",
-          "descriptionEn": "List 5 items on the Transfer Market."
-        },
-        {
-          "id": 13601,
-          "name": "SBC冲击波",
-          "description": "完成5个SBC。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Award",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/ut-placeholder.png"
-            }
-          ],
-          "nameEn": "SBC Shockwave",
-          "descriptionEn": "Complete 5 SBCs."
-        },
-        {
-          "id": 13602,
-          "name": "高压电",
-          "description": "在1场DR中进球。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Marksman",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003099.png"
-            },
-            {
-              "type": "ITEM",
-              "name": "Hunter",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
-            },
-            {
-              "type": "ITEM",
-              "name": "Deadeye",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003098.png"
-            }
-          ],
-          "nameEn": "High Voltage",
-          "descriptionEn": "Score in 1 Division Rivals match."
-        },
-        {
-          "id": 13603,
-          "name": "雷电导管",
-          "description": "在最低半职业难度的SQB中在2场不同比赛中助攻。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "Consumables Pack",
-              "count": 1,
-              "pack": {
-                "name": "Consumables Pack",
-                "description": "Includes 12 Gold Consumable Items."
-              }
-            }
-          ],
-          "nameEn": "Thunder Conduit",
-          "descriptionEn": "Assist in 2 separate matches in Squad Battles on min. Semi-Pro difficulty."
-        },
-        {
-          "id": 13604,
-          "name": "闪电打击",
-          "description": "在任意 FUT 比赛模式中在1场比赛中进球。",
-          "awards": [
-            {
-              "type": "EVO_UNLOCK",
-              "name": "Thunderstruck Regular Badge",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/static/evo-unlock.webp"
-            }
-          ],
-          "nameEn": "Lightning Strike",
-          "descriptionEn": "Score in 1 match in any FUT game mode."
-        }
-      ]
-    },
-    {
       "id": 2694,
       "slug": "147-season-2-sp-chase",
       "name": "Season 2 SP Chase",
@@ -1864,7 +1820,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete challenges across FUT to earn SP!",
       "startTime": "2026-11-19T18:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -1967,7 +1923,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Make progress in the Hall of FUT: Unleashed Gallery Set and earn exclusive vanity rewards!",
       "startTime": "2026-11-13T18:00:00Z",
       "endTime": "2026-12-11T17:59:59Z",
@@ -2076,7 +2032,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete the Ultimate Weekly Play Completionist to earn bonus rewards! All rewards are untradeable.",
       "startTime": "2026-11-13T18:00:00Z",
       "endTime": "2026-12-11T17:59:59Z",
@@ -2175,7 +2131,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete Seasonal Objectives to earn SP!",
       "startTime": "2026-11-12T18:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2278,7 +2234,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Equip the Ultimate Scream Evolving - Stage 3 Kit and complete the objectives to earn additional SP.",
       "startTime": "2026-11-12T18:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2360,7 +2316,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Equip the Ultimate Scream Evolving - Stage 1 Kit and complete the objectives to earn additional SP.",
       "startTime": "2026-11-12T18:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2439,7 +2395,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Equip the Ultimate Scream Evolving - Stage 2 Kit and complete the objectives to earn additional SP.",
       "startTime": "2026-11-12T18:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2518,7 +2474,7 @@
         "slug": "campaigns",
         "name": "Campaigns"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete this objective to earn the Movember kit and stadium items! All rewards are untradeable.",
       "startTime": "2026-11-01T18:00:00Z",
       "endTime": "2026-11-30T17:59:59Z",
@@ -2603,7 +2559,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete the FC Heritage Circuit Objectives to earn rewards. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2682,7 +2638,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete all Season 2 Daily Knockout Tournament Weekly Play objectives to earn FC Heritage Axel Witsel and Coins! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -2784,121 +2740,6 @@
       ]
     },
     {
-      "id": 2647,
-      "slug": "161-fc-heritage-circuit-world-class-event",
-      "name": "FC Heritage Circuit World Class Event",
-      "category": {
-        "slug": "seasonal",
-        "name": "Seasonal"
-      },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
-      "description": "Compete in the FC Heritage Circuit World Class Event to earn packs and more. All rewards are untradeable.",
-      "startTime": "2026-10-22T07:00:00Z",
-      "endTime": "2026-12-03T07:59:59Z",
-      "tasksCount": 5,
-      "isNew": false,
-      "isExpired": false,
-      "isPermanent": false,
-      "isLocked": false,
-      "awards": [
-        {
-          "type": "PACK",
-          "name": "2X 82+ Gold Players Pack",
-          "count": 1,
-          "pack": {
-            "name": "2x 82+ Gold Players Pack",
-            "description": "Contains 2 Gold Player Items, rated 82 or higher."
-          }
-        }
-      ],
-      "objectives": [
-        {
-          "id": 13356,
-          "name": "德甲支柱",
-          "description": "在首发 11 人中拥有至少3个来自德甲的球员物品的情况下，于FC Heritage Circuit 世界级 Event中赢得3场比赛。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "2X 81+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "2x 81+ Gold Players Pack",
-                "description": "Contains 2 Gold Player Items, rated 81 or higher."
-              }
-            }
-          ],
-          "nameEn": "Bundesliga Backbone",
-          "descriptionEn": "Win 3 matches while having Min. 3 player items from Bundesliga in your starting 11 in the FC Heritage Circuit World Class Event."
-        },
-        {
-          "id": 13357,
-          "name": "巴伐利亚雷霆",
-          "description": "在首发 11 人中拥有至少1张FC Bayern München (德甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中打入5球。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "3X 80+ Gold Players Pack",
-              "count": 1,
-              "pack": {
-                "name": "3x 80+ Gold Players Pack",
-                "description": "Contains 3 Gold Player Items, rated 80 or higher."
-              }
-            }
-          ],
-          "nameEn": "Bavarian Thunder",
-          "descriptionEn": "Score 5 goals while having Min. 1 FC Bayern München (Bundesliga) player item in your starting 11 in the FC Heritage Circuit World Class Event."
-        },
-        {
-          "id": 13358,
-          "name": "巴黎力量涌动",
-          "description": "在首发 11 人中拥有至少1张PSG (法甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中助攻4球。",
-          "awards": [
-            {
-              "type": "COINS",
-              "name": "2,500 Coins",
-              "count": 1,
-              "coins": 2500
-            }
-          ],
-          "nameEn": "Paris Power Surge",
-          "descriptionEn": "Assist 4 goals while having Min. 1 PSG (Ligue 1) player item in your starting 11 in the FC Heritage Circuit World Class Event."
-        },
-        {
-          "id": 13359,
-          "name": "伯纳乌雷霆",
-          "description": "在首发 11 人中拥有至少1张Real Madrid (西甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中在3场不同比赛各至少打入1球。",
-          "awards": [
-            {
-              "type": "ITEM",
-              "name": "Hunter",
-              "count": 1,
-              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
-            }
-          ],
-          "nameEn": "Bernabéu Thunder",
-          "descriptionEn": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player item in your starting 11 in the FC Heritage Circuit World Class Event."
-        },
-        {
-          "id": 13360,
-          "name": "获胜1场",
-          "description": "在FC Heritage Circuit 世界级 Event中赢得1场比赛，并取得FC Heritage Circuit Tournament参赛资格。",
-          "awards": [
-            {
-              "type": "PACK",
-              "name": "81+ Gold Player Pack",
-              "count": 1,
-              "pack": {
-                "name": "81+ Gold Player Pack",
-                "description": "Contains 1 Gold Player Item, rated 81 or higher."
-              }
-            }
-          ],
-          "nameEn": "Win 1",
-          "descriptionEn": "Win 1 match in the FC Heritage Circuit World Class Event and qualify for the FC Heritage Circuit Tournament."
-        }
-      ]
-    },
-    {
       "id": 2642,
       "slug": "154-season-2-daily-knockout-tournament",
       "name": "Season 2 Daily Knockout Tournament",
@@ -2906,7 +2747,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete 7 of 8 challenges in the Season 2 Daily Knockout Tournament and earn packs, coins, and exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -3078,7 +2919,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Compete in the FC Heritage Circuit Semi-Pro Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -3193,7 +3034,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Compete in the FC Heritage Circuit Professional Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -3308,7 +3149,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Compete in the FC Heritage Circuit Tournament to earn a special FC Heritage Alexis Sánchez, packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -3468,7 +3309,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Compete in the Season 2 Daily Knockout Tournament to earn exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -3504,6 +3345,121 @@
       ]
     },
     {
+      "id": 2647,
+      "slug": "161-fc-heritage-circuit-world-class-event",
+      "name": "FC Heritage Circuit World Class Event",
+      "category": {
+        "slug": "seasonal",
+        "name": "Seasonal"
+      },
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
+      "description": "Compete in the FC Heritage Circuit World Class Event to earn packs and more. All rewards are untradeable.",
+      "startTime": "2026-10-22T07:00:00Z",
+      "endTime": "2026-12-03T07:59:59Z",
+      "tasksCount": 5,
+      "isNew": false,
+      "isExpired": false,
+      "isPermanent": false,
+      "isLocked": false,
+      "awards": [
+        {
+          "type": "PACK",
+          "name": "2X 82+ Gold Players Pack",
+          "count": 1,
+          "pack": {
+            "name": "2x 82+ Gold Players Pack",
+            "description": "Contains 2 Gold Player Items, rated 82 or higher."
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": 13356,
+          "name": "德甲支柱",
+          "description": "在首发 11 人中拥有至少3个来自德甲的球员物品的情况下，于FC Heritage Circuit 世界级 Event中赢得3场比赛。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "2X 81+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "2x 81+ Gold Players Pack",
+                "description": "Contains 2 Gold Player Items, rated 81 or higher."
+              }
+            }
+          ],
+          "nameEn": "Bundesliga Backbone",
+          "descriptionEn": "Win 3 matches while having Min. 3 player items from Bundesliga in your starting 11 in the FC Heritage Circuit World Class Event."
+        },
+        {
+          "id": 13357,
+          "name": "巴伐利亚雷霆",
+          "description": "在首发 11 人中拥有至少1张FC Bayern München (德甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中打入5球。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "3X 80+ Gold Players Pack",
+              "count": 1,
+              "pack": {
+                "name": "3x 80+ Gold Players Pack",
+                "description": "Contains 3 Gold Player Items, rated 80 or higher."
+              }
+            }
+          ],
+          "nameEn": "Bavarian Thunder",
+          "descriptionEn": "Score 5 goals while having Min. 1 FC Bayern München (Bundesliga) player item in your starting 11 in the FC Heritage Circuit World Class Event."
+        },
+        {
+          "id": 13358,
+          "name": "巴黎力量涌动",
+          "description": "在首发 11 人中拥有至少1张PSG (法甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中助攻4球。",
+          "awards": [
+            {
+              "type": "COINS",
+              "name": "2,500 Coins",
+              "count": 1,
+              "coins": 2500
+            }
+          ],
+          "nameEn": "Paris Power Surge",
+          "descriptionEn": "Assist 4 goals while having Min. 1 PSG (Ligue 1) player item in your starting 11 in the FC Heritage Circuit World Class Event."
+        },
+        {
+          "id": 13359,
+          "name": "伯纳乌雷霆",
+          "description": "在首发 11 人中拥有至少1张Real Madrid (西甲) 球员卡的情况下，于FC Heritage Circuit 世界级 Event中在3场不同比赛各至少打入1球。",
+          "awards": [
+            {
+              "type": "ITEM",
+              "name": "Hunter",
+              "count": 1,
+              "imageUrl": "https://game-assets.fut.gg/cdn-cgi/image/quality=85,format=auto,width=250/2027/items/5003111.png"
+            }
+          ],
+          "nameEn": "Bernabéu Thunder",
+          "descriptionEn": "Score at least 1 goal in 3 separate matches while having Min. 1 Real Madrid (LALIGA) player item in your starting 11 in the FC Heritage Circuit World Class Event."
+        },
+        {
+          "id": 13360,
+          "name": "获胜1场",
+          "description": "在FC Heritage Circuit 世界级 Event中赢得1场比赛，并取得FC Heritage Circuit Tournament参赛资格。",
+          "awards": [
+            {
+              "type": "PACK",
+              "name": "81+ Gold Player Pack",
+              "count": 1,
+              "pack": {
+                "name": "81+ Gold Player Pack",
+                "description": "Contains 1 Gold Player Item, rated 81 or higher."
+              }
+            }
+          ],
+          "nameEn": "Win 1",
+          "descriptionEn": "Win 1 match in the FC Heritage Circuit World Class Event and qualify for the FC Heritage Circuit Tournament."
+        }
+      ]
+    },
+    {
       "id": 2646,
       "slug": "160-fc-heritage-circuit-kick-off-event",
       "name": "FC Heritage Circuit Kick Off Event",
@@ -3511,7 +3467,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Compete in the FC Heritage Circuit Kick Off Event to earn packs and more. All rewards are untradeable.",
       "startTime": "2026-10-22T07:00:00Z",
       "endTime": "2026-12-03T07:59:59Z",
@@ -3608,7 +3564,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Learn the basics of the Gallery! Grade and complete Sets, achieve Rank S, and increase your Gallery Level as you explore everything the Gallery has to offer. All rewards are untradeable.",
       "startTime": "2026-09-25T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3729,7 +3685,7 @@
         "slug": "seasonal",
         "name": "Seasonal"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete this objective and choose 1 Squad Foundations Player Item from: Miley (Premier League), Moi Gómez (LALIGA EA SPORTS), Banzuzi (Bundesliga), or Danois (Ligue 1). All rewards are untradeable.",
       "startTime": "2026-09-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3771,7 +3727,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete challenges celebrating manager Ted Lasso and AFC Richmond to earn exclusive rewards! All rewards are untradeable.",
       "startTime": "2026-09-11T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3907,7 +3863,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Get acquainted with Live Events matches.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -3984,7 +3940,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "All good clubs need polishing on and off the pitch. Complete these maintenance objectives to earn rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4133,7 +4089,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Wheel and deal your way to Transfer Market Mastery!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4221,7 +4177,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4302,7 +4258,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete Moments challenges and earn stars to show your football dominance!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4390,7 +4346,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Squad up and complete Rush bonuses alongside other players as you try to reign supreme in Rush!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4523,7 +4479,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Team up with Friends to embark on the Co-op journey!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4616,7 +4572,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Draft your path to greatness!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4703,7 +4659,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "PVE Live Events offer a new way to play. Compete, earn and upgrade your way to the top. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4845,7 +4801,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Complete these Squad Building Challenges to earn rewards and improve your squad. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -4949,7 +4905,7 @@
         "slug": "foundations",
         "name": "Foundations"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Prove your worth by completing each of the Foundation Objectives groups to earn big rewards. All rewards are untradeable.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5056,7 +5012,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "The challenge is set. Take to the pitch in Squad Battles and battle through the competition.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5147,7 +5103,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "The ultimate test of skill awaits in Division Rivals. Battle against the competition and emerge victorious.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5230,7 +5186,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Every legend has a beginning. Enter Champions and begin your path to becoming the Golden G.O.A.T.",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5318,7 +5274,7 @@
         "slug": "milestones",
         "name": "Milestones"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Grow your Gallery Score, hit new levels, and earn rewards to build the ultimate club showcase!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5423,7 +5379,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Assemble a squad with First Owned (acquired from packs, objectives and SBCs) players and complete these Milestones!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5511,7 +5467,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Tally up your goals and assists and become a G/A Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5680,7 +5636,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Build your way up to become a Squad Building Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5777,7 +5733,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Wheel and deal your way to Transfer Market Mastery!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -5934,7 +5890,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Generate that winning feeling in Live Events matches!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -6019,7 +5975,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Keep battling over the year to prove you are a Squad Battles Master!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -6104,7 +6060,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "Beat your Rivals to prove you are the G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
@@ -6189,7 +6145,7 @@
         "slug": "mastery",
         "name": "Mastery"
       },
-      "_fetchedAt": "2026-11-27T14:11:28.912Z",
+      "_fetchedAt": "2026-11-27T18:08:45.299Z",
       "description": "The stage is set! Show everyone you have what it takes to be the Golden G.O.A.T!",
       "startTime": "2026-08-17T17:00:00Z",
       "endTime": "2031-10-01T16:59:59Z",
