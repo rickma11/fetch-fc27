@@ -20,7 +20,7 @@ try { scanCache = require('./scan_cache.js'); } catch (e) {
   console.warn('[warm_roster] 未能加载 scan_cache.js（' + String((e && e.message) || e).slice(0, 80) + '）→ 本步自己扫全表');
 }
 // 与 get_players/index.js 保持一致（v16：全息卡 pristine 变体三字段 + roster 压缩分片传输）
-const ROSTER_SCHEMA_VERSION = 16;
+const ROSTER_SCHEMA_VERSION = 17;   // v17（2026-11-27）：新增 cardSig（卡面内容签名，破 fileID 缓存）
 const COL = 'players_fc' + VER;
 const M_COL = 'meta_fc' + VER;
 const MAX_PART_ZIP = 2 * 1024 * 1024;   // 单 zip 片体积上限（与 buildPacks 同源；分档打包 chooseSlices 共用）
@@ -176,6 +176,8 @@ if (require.main === module) {
   // 1) 全量拉取（与云函数相同投影）
   const proj = {
     eaId: true, commonName: true, overall: true, position: true, imagePath: true,
+    // 卡面内容签名（2026-11-27）：只「换过脸」的人有值 ⇒ roster 下发后端上请求签名新图破 fileID 缓存。
+    cardSig: true,
     facePace: true, faceShooting: true, facePassing: true, faceDribbling: true,
     faceDefending: true, facePhysicality: true,
     height: true, createdAt: true, accelerateType: true,

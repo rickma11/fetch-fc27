@@ -165,6 +165,9 @@ function pickPlayer(item) {
     rarity: normalizeRarity(item),
     imagePath: item.imagePath || '',
     cardImagePath: item.cardImagePath || '',
+    // 卡面内容签名（2026-11-27）：CI 只为「换脸触发重传」的人写，端上据此请求 {eaId}_card_{cardSig}.webp 破缓存。
+    // 未换脸的人无此字段 ⇒ 端上回落旧名，零改动。undefined 会被 JSON.stringify 丢键，不涨库容。
+    cardSig: item.cardSig || undefined,
     simpleCardImagePath: item.simpleCardImagePath || '',
     // 全息卡（pristine 版本）：**刻意不从列表接口取 holographicType** ——
     //   列表里带该字段的是另一种全息形态（"holographic"，实测 100 人），按用户决策不采集；

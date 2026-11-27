@@ -92,6 +92,18 @@ function srcUrlOf(item, type, raw) {
   return raw ? (CDN + rel) : (CDN + TRANSFORM + rel);
 }
 
+// 卡面内容签名（2026-11-27 增量签名图方案）：取 cardImagePath 文件名里的 EA 内容 hash 前 16 位。
+// EA 换脸 = 换 hash ⇒ 签名变 ⇒ CI 只为这批人生成新的 {eaId}_card_{sig}.webp；
+// 未变的人一个字节不动（旧图 _card.webp 保留不删，老版本小程序照常用）。
+// 与 rarityFileKeyOf 同口径（都是从 URL 文件名里抠 hex），端上不重算、只读 CI 写进 DB 的 cardSig 字段。
+function cardSigOf(item) {
+  const p = (item && (item.cardImagePath || item.imagePath)) || '';
+  return rarityFileKeyOf(p);   // 空路径 → ''（无签名的球员端上回落旧图）
+}
+function cardSigFileNameOf(eaId, sig) {
+  return sig ? String(eaId) + '_card_' + sig + '.webp' : '';
+}
+
 function fileNameOf(eaId, type, item) {
   const t = typeof type === 'string' ? typeByKey(type) : type;
   let suffix = t ? t.suffix : '';
@@ -173,5 +185,6 @@ module.exports = {
   CDN, TRANSFORM, ALL_TYPES, HOLO_TYPE,
   RARITY_TRANSFORM, RARITY_BASE_TIERS, rarityFileKeyOf, rarityFileNameOf, raritySrcUrlOf, rarityManifestPath,
   activeTypes, typeByKey, relPathOf, srcUrlOf, fileNameOf, cloudPathOf,
-  imgSigOf, readManifest, writeManifest, isUpgradeRarity
+  imgSigOf, readManifest, writeManifest, isUpgradeRarity,
+  cardSigOf, cardSigFileNameOf
 };

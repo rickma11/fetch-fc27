@@ -565,6 +565,12 @@ function readResolved() {
       // 升级卡数量极少，开销可忽略。
       const isUp = imgLib.isUpgradeRarity(it);
       if (!FORCE_IMG && !isUp && manifest[eaId] === sig) { imgStats.skipped++; continue; }
+      // 卡面内容签名（2026-11-27 增量签名图）：只有「本次触发重传」的人才会写 cardSig + 生成签名图文件。
+      // 未换脸的球员直接跳过上面这行 ⇒ 库里不写 cardSig ⇒ 端上继续用旧名 _card.webp（零改动、零流量）。
+      // EA 换脸 = cardImagePath 里的 hash 变 = cardSig 变 ⇒ 生成 {eaId}_card_{sig}.webp 新 fileID 破缓存。
+      // ⚠️ 非升级卡才走签名图（升级卡已有 _card_{ovr}.webp 版本化，不重复传）。
+      const cardSig = !isUp ? imgLib.cardSigOf(it) : '';
+      if (cardSig) it.cardSig = cardSig;
       const files = {};
       let cardUrl = null, cardRawUrl = null;
       for (const t of types) {
@@ -573,10 +579,17 @@ function readResolved() {
         const name = imgLib.fileNameOf(eaId, t, it);
         if (t.key === 'card') { cardUrl = url; cardRawUrl = imgLib.srcUrlOf(it, t, true); }
         files[t.key] = name;
+        // 签名图：card 类型 + 本次触发重传 + 有 cardSig ⇒ 下载后复制一份成 {eaId}_card_{sig}.webp。
+        // 与旧名 _card.webp 双传（同内容）：老版本小程序请求旧名照旧出图，新版本按 cardSig 请求新名破缓存。
+        // 复用同一次下载（copyFileSync），不增加网络流量。
+        const aliasFile = (t.key === 'card' && cardSig)
+          ? path.join(IMG_DIR, imgLib.cardSigFileNameOf(eaId, cardSig)) : '';
+        if (aliasFile) files.cardSig = path.basename(aliasFile);
         tasks.push({
           eaId, type: t.key, url,
           rawUrl: imgLib.srcUrlOf(it, t, true),
           file: path.join(IMG_DIR, name),
+          aliasFile,
           ovr,
           // 置顶标记：当前无头像（!imagePath && cardImagePath）或已在 noportrait 清单内（可能刚补头像）的球员
           pri: ((!it.imagePath && it.cardImagePath) || npManifest.has(String(it.eaId))) ? 1 : 0,
@@ -662,6 +675,11 @@ function readResolved() {
                 try { imgStats.bytes += await pick(ch, t.rawUrl, t.file, 90000); ok = true; break; }
                 catch (e) { lastErr = e; }
               }
+            }
+            // 签名图：与旧名同内容，下载成功后复制一份（零额外网络流量）
+            if (ok && t.aliasFile) {
+              try { fs.copyFileSync(t.file, t.aliasFile); }
+              catch (e) { console.warn('[img] 签名图复制失败', t.eaId, String(e && e.message || e)); }
             }
             if (ok) imgStats.done++;
             else {
