@@ -17,6 +17,8 @@
 //   · evolutions（进化名中文）＝ evolutions1.json（数组）
 //   · tac（阵型战术推荐文章链接）/ player_review（球员公众号评测）/ tlib（战术库开关）
 //     ＝ miniapp-dictionaries.json#{TAC,PLAYER_REVIEW,TLIB}，沿用云函数里的白名单/开关解析
+//   · tags（代币/活动角标等标签文案，值即最终完整文案）＝ miniapp-dictionaries.json#TAG
+//     （2026-11-27：端上三处文案函数 TAG 优先、硬编码兜底，改 Gitee 即热刷不用发版）
 //
 // 校验闸门（与云函数一致，防把词典写坏）：basic<10 / evolutions<10 / names 四类合计<50 ⇒ 本次拒绝发布（保留上次好文件）。
 // 幂等：内容哈希未变 ⇒ 跳过上传（不浪费存储操作、不 bump forceVersion）。
@@ -350,7 +352,11 @@ async function buildDict() {
   });
   const fcut = { enabled: true, map: fcutMap, count: Object.keys(fcutMap).length };
 
-  // ⑦ tlib（战术库开关；on 必须显式 boolean，否则写 null 让端上回落包内默认开）
+  // ⑦ tags（代币/活动角标文案；值即最终完整文案，如 TAG.Thunderstruck = 雷霆兑换）
+  //   独立段，不并入 basic —— 避免改标签译名连带改稀有度标题（规则 144b 同类问题）。
+  const tags = extractCategory(miniappJson, 'TAG');
+
+  // ⑧ tlib（战术库开关；on 必须显式 boolean，否则写 null 让端上回落包内默认开）
   const tlibSec = (miniappJson && miniappJson.TLIB) || null;
   let on = null;
   if (tlibSec) {
@@ -379,6 +385,7 @@ async function buildDict() {
     tac: tac,
     player_review: player_review,
     fcut: fcut,
+    tags: tags,
     tlib: tlib
   };
   return dict;
@@ -388,7 +395,8 @@ async function buildDict() {
 function contentSig(dict) {
   const pick = {
     basic: dict.basic, names: dict.names, evolutions: dict.evolutions,
-    tac: dict.tac, player_review: dict.player_review, fcut: dict.fcut, tlib: dict.tlib
+    tac: dict.tac, player_review: dict.player_review, fcut: dict.fcut,
+    tags: dict.tags, tlib: dict.tlib
   };
   return crypto.createHash('md5').update(JSON.stringify(pick)).digest('hex');
 }
@@ -426,7 +434,8 @@ async function publishDict(app, dict) {
     console.log('  basic=' + Object.keys(dict.basic.map).length +
       ' names(league/club/nation)=' + dict.names.counts.league + '/' + dict.names.counts.club + '/' + dict.names.counts.nation +
       ' evo=' + dict.evolutions.count +
-      ' tac.enabled=' + dict.tac.enabled + ' player_review=' + dict.player_review.count + ' fcut=' + dict.fcut.count + ' tlib.on=' + dict.tlib.on);
+      ' tac.enabled=' + dict.tac.enabled + ' player_review=' + dict.player_review.count + ' fcut=' + dict.fcut.count +
+      ' tags=' + Object.keys(dict.tags || {}).length + ' tlib.on=' + dict.tlib.on);
     return { skipped: true, sig: sig };
   }
 
