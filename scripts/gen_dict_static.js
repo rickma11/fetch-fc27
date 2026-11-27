@@ -404,21 +404,38 @@ function contentSig(dict) {
 // 发布单版本：哈希命名上传 ＋ 写元文档 ＋ 回读校验 ＋ 清理旧文件 ＋ 内容未变跳过
 async function publishDict(app, dict) {
   const ts = Date.now();
-  const jsonStr = JSON.stringify(dict);
-  const buf = Buffer.from(jsonStr);
-  const h = hash8(buf);
-  const cloudPath = CLOUD_DIR + META_DOC + '.' + h + '.json';
 
   // 读旧元文档（拿 prevFileId / prevHash / prevFV / prevSig）
   let prevFileId = '', prevHash = '', prevFV = 0, prevSig = '';
   try {
-    const old = await app.database().collection(META_COLLECTION).doc(META_DOC).get();
-    const od = (old && old.data) || null;
+    // ⚠️ 必须用 where(_id) 而非 doc(META_DOC).get()：2026-11-27 实测后者返回空 data，
+    // 会让 prevFileId/prevSig 恒空 ⇒ 幂等失效、旧文件不清理、tags 防回退分支永不进入。
+    const old = await app.database().collection(META_COLLECTION).where({ _id: META_DOC }).limit(1).get();
+    const od = (old && old.data && old.data[0]) || null;
     if (od) {
       prevFileId = od.fileID || ''; prevHash = od.hash || '';
       prevFV = od.forceVersion || 0; prevSig = od.contentSig || '';
     }
   } catch (e) { /* 首轮无元文档 */ }
+
+  // tags 防回退（2026-11-27 实证）：Gitee git push 后 raw/API 数小时仍返回旧版，CI 会抓到 tags=0；
+  // 旧云端已有非空 tags 时沿用，避免本轮把已生效的标签文案抹掉（运营主动删空此机制不适用，极少见）。
+  if (app && prevFileId && (!dict.tags || !Object.keys(dict.tags).length)) {
+    try {
+      const rb = await downloadFileSafe(app, prevFileId);
+      const old = JSON.parse(rb.fileContent.toString('utf8'));
+      if (old.tags && Object.keys(old.tags).length) {
+        dict.tags = old.tags;
+        console.log('[gen_dict_static] TAG 段沿用云端旧值（Gitee 同步延迟，' + Object.keys(old.tags).length + ' 条）');
+      }
+    } catch (e) { console.warn('[gen_dict_static] 读旧 TAG 段失败（不影响本次）:', e.message); }
+  }
+
+  // JSON/hash 必须在 tags 保护之后算，否则哈希对应的是空 tags 版本
+  const jsonStr = JSON.stringify(dict);
+  const buf = Buffer.from(jsonStr);
+  const h = hash8(buf);
+  const cloudPath = CLOUD_DIR + META_DOC + '.' + h + '.json';
 
   const sig = contentSig(dict);
   const nowIso = new Date().toISOString();
