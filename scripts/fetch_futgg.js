@@ -322,11 +322,36 @@ async function main() {
     if (HOLO) Object.keys(HOLO).forEach(function (k) { const h = HOLO[k]; if (h && h.variantEaId != null) holoVariantSet.add(String(h.variantEaId)); });
     if (dump.count != null) DUMP_META.count = dump.count;
 
+    // 卡面签名注入（2026-11-27）：真源 = cloud-data/fc27/card_sigs.json（git 跟踪）。
+    // ⚠️ 为什么必须从真源注入、而不是只靠 dump 里的 item.cardSig：
+    //   落库用 doc(id).set() **整文档覆盖**，而 dump 的 item.cardSig 只有「本次换脸触发重传」的人才有
+    //   ⇒ 球员「评分变了但卡面没变」时文档被重写、cardSig 被抹 ⇒ 端上永久回落旧图
+    //   （每周 full 模式全量覆盖 ⇒ 必然发生）。从真源注入后，增量/full 都不会丢。
+    //
+    // ⚠️ 为什么**只用真源、不用 pending**：
+    //   真源里的签名 = 该球员的签名图**已确认上传到云端**；pending 只是「图已生成、还没传完」。
+    //   若把 pending 也灌库，一旦上传失败，端上会去请求不存在的 {eaId}_card_{sig}.webp ⇒ 破图。
+    //   「本次刚换脸的人」由 upload_images 在上传成功后直接 update DB 补上（当场生效），
+    //   下次 CI 再由真源保持住（防被整文档覆盖抹掉）。
+    let cardSigsAll = {};
+    try {
+      const imgLib = require('./images.js');
+      cardSigsAll = imgLib.readCardSigs(VER);
+      const nSigs = Object.keys(cardSigsAll).length;
+      if (nSigs) console.log('卡面签名真源载入:', nSigs, '人');
+    } catch (e) {
+      console.warn('[fetch_futgg] 未能加载卡面签名真源（' + String((e && e.message) || e).slice(0, 80) + '）');
+    }
+
     const rawList = Array.isArray(dump.list) ? dump.list
                   : (Array.isArray(dump.players) ? dump.players : []);
     rawList.forEach(item => {
       if (item && item.eaId != null && !listIdSet.has(item.eaId)) {
         listIdSet.add(item.eaId);
+        const sig = cardSigsAll[String(item.eaId)];
+        // ⚠️ 优先级：dump 里本次新算的 cardSig（fetch_ci 检出换脸时写入）**优先**于真源旧值
+        //   —— 否则同一球员连续换脸时会被真源的旧签名覆盖，拿不到新图。
+        if (sig && !item.cardSig) item.cardSig = sig;
         rawItems.push(item);
         listPlayers.push(pickPlayer(item));
       }

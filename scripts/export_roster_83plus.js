@@ -45,7 +45,10 @@ function project(p) {
     overall: p.overall || 0,
     pos: p.position || '',
     imagePath: p.imagePath || '',
-    rarity: (p.rarity && p.rarity.name) || ''
+    rarity: (p.rarity && p.rarity.name) || '',
+    // 卡面内容签名（2026-11-27）：换过脸的人有值 ⇒ 市场页据此拼 {eaId}_card_{sig}.webp 破 fileID 缓存。
+    // 无值 = 没换过脸 ⇒ 市场页用旧名 _card.webp（与改版前一致）。
+    cardSig: p.cardSig || ''
   };
 }
 
@@ -101,7 +104,7 @@ async function main() {
     const db = app.database();
     const cmd = db.command;
     const COL = 'players_fc' + VER;
-    const proj = { eaId: true, commonName: true, overall: true, position: true, imagePath: true, 'rarity.name': true };
+    const proj = { eaId: true, commonName: true, overall: true, position: true, imagePath: true, cardSig: true, 'rarity.name': true };
     const all = [];
     let skip = 0;
     while (true) {

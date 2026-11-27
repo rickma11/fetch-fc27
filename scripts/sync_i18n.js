@@ -191,6 +191,11 @@ async function scan(db) {
         // 少任何一个，对应的消费方读缓存就会拿到残缺数据（warm_roster 会直接写出不完整的 roster）。
         // ① warm_roster 那份（本脚本只吃 club/league/nation.name，其余全是喂它的）
         eaId: true, commonName: true, overall: true, position: true, imagePath: true,
+        // v17：卡面内容签名（换过脸的人才有值）。⚠️ 必须在这里带上：
+        //   warm_roster --from-cache 吃的就是本脚本落的 _scan_cache.json，
+        //   投影里没有 cardSig ⇒ 缓存里的球员全都没有签名 ⇒ roster 不带 cardSig
+        //   ⇒ 端上永远请求旧名 _card.webp（签名图机制形同虚设）。
+        cardSig: true,
         facePace: true, faceShooting: true, facePassing: true, faceDribbling: true,
         faceDefending: true, facePhysicality: true,
         height: true, createdAt: true, accelerateType: true,

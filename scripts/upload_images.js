@@ -77,17 +77,40 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const doneFiles = new Set();
   let failed = 0, bytes = 0, sinceFlush = 0;
 
+  // 卡面签名写回 DB（2026-11-27）：本次新换脸的人，签名图上传成功 ⇒ 立刻把 cardSig 写进
+  //   players_fc27 文档 ⇒ 当天 roster 重建就能带上 ⇒ 端上当天拿到新图（不必等次日 CI）。
+  //   ⚠️ 只在「该球员的签名图确实上传成功」时才写（doneEa 收录 = 该球员所有图都传完），
+  //      否则库里会有签名但云端没图 ⇒ 端上破图。
+  //   为什么需要这一步：落库用 doc(id).set() 整文档覆盖，真源 card_sigs.json 只能保证「不丢」，
+  //   但「本次刚换脸」的真源要等上传成功才并入 ⇒ 若不直接写库，本次换脸要次日才生效。
+  const pendingSigs = imgLib.readCardSigsPending(VER);
+  const db = app.database();
+  let dbSigWritten = 0;
+  async function writeCardSigToDb(eaId) {
+    const sig = pendingSigs[String(eaId)];
+    if (!sig) return;
+    try {
+      await db.collection('players_fc' + VER).doc(String(eaId)).update({ cardSig: sig });
+      dbSigWritten++;
+    } catch (e) {
+      // 写库失败不拖累上传主流程：真源里已有签名，下次 CI 的 fetch_futgg 会补上
+      console.warn('  [签名] 写库失败 eaId=' + eaId, (e && e.message) || e);
+    }
+  }
+
   // 续传兜底：上传过程中把 images.json 清单实时推回 git，
   // 这样即便 job 在 timeout-minutes(300) 硬超时下被强杀（连 if:always() 步骤都不会执行），
   // 已上传的部分也已记账并入库，下次 run 只补剩下的，不会从头重来。
   // 仅在 GitHub Actions 环境生效；本地手动跑不触发 push（避免污染本地仓库）。
   const MANIFEST_REL = path.join('cloud-data', `fc${VER || 27}`, 'images.json');
+  // 卡面签名真源（2026-11-27）：与 images.json 一起提交，保证「换过脸的人」这一信息不丢。
+  const CARD_SIGS_REL = path.join('cloud-data', `fc${VER || 27}`, 'card_sigs.json');
   function gitCheckpoint() {
     if (process.env.GITHUB_ACTIONS !== 'true') return;
     try {
       cp.execSync('git config user.email "github-actions[bot]@users.noreply.github.com"', { cwd: ROOT, stdio: 'ignore' });
       cp.execSync('git config user.name "github-actions[bot]"', { cwd: ROOT, stdio: 'ignore' });
-      cp.execSync(`git add ${MANIFEST_REL}`, { cwd: ROOT, stdio: 'ignore' });
+      cp.execSync(`git add ${MANIFEST_REL} ${CARD_SIGS_REL}`, { cwd: ROOT, stdio: 'ignore' });
       try {
         cp.execSync(`git commit -m "checkpoint: images.json auto-sync (ver ${VER})"`, { cwd: ROOT, stdio: 'ignore' });
       } catch (e) {
@@ -116,6 +139,23 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   function flush() {
     const merged = Object.assign({}, manifest, doneEa);
     const written = imgLib.writeManifest(VER, merged);
+    // 卡面签名真源（2026-11-27）：某球员的**签名图确实上传成功**时，才把他的签名并入
+    // card_sigs.json（git 跟踪的持久真源）。这样 fetch_futgg 无论增量还是 full 覆盖，
+    // 都能从真源取到 cardSig ⇒ 不会因 doc(id).set() 整文档覆盖而丢失。
+    // pending 里没被本次收录的（下载/上传失败）不并入 ⇒ 端上仍用旧图，绝不破图。
+    const pending = imgLib.readCardSigsPending(VER);
+    if (pending && Object.keys(pending).length) {
+      const sigs = imgLib.readCardSigs(VER);
+      let added = 0;
+      for (const id of Object.keys(pending)) {
+        // 该球员本次完整上传（doneEa 收录）⇒ 其签名图已在云端
+        if (doneEa[id] !== undefined && sigs[id] !== pending[id]) { sigs[id] = pending[id]; added++; }
+      }
+      if (added) {
+        imgLib.writeCardSigs(VER, sigs);
+        console.log(`  [签名] 并入 card_sigs.json ${added} 人（真源共 ${Object.keys(sigs).length} 人）`);
+      }
+    }
     doneFiles.forEach(f => { try { fs.unlinkSync(path.join(IMG_DIR, f)); } catch (e) { } });
     console.log(`  [记账] 清单已更新 ${Object.keys(written).length} 人 | 本次完整 ${Object.keys(doneEa).length} 人 | 已传 ${Math.round(bytes / 1048576)} MB`);
     gitCheckpoint();
@@ -149,7 +189,11 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
         doneFiles.add(f);
         const id = owner[f];
         remain[id]--;
-        if (remain[id] === 0) doneEa[id] = index[id].sig;
+        if (remain[id] === 0) {
+          doneEa[id] = index[id].sig;
+          // 该球员本轮全部文件上传成功（含签名图）⇒ 签名可写库，当天生效
+          if (pendingSigs[String(id)]) await writeCardSigToDb(id);
+        }
       } catch (e) {
         failed++;
         if (failed <= 5) console.log('  上传失败', f, (e && e.message) || e);
@@ -167,6 +211,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   flush();
   const complete = Object.keys(doneEa).length;
   console.log(`上传完成: 文件成功 ${doneFiles.size}/${files.length} | 失败 ${failed} | 本次完整球员 ${complete}/${eaIds.length}`);
+  if (dbSigWritten) console.log(`  [签名] 已写库 cardSig ${dbSigWritten} 人（当天生效）`);
 
   if (failed) {
     console.error(`⚠️ 有 ${failed} 个文件上传失败，这些球员未计入清单，下次运行会自动重试`);

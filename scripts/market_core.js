@@ -13,7 +13,22 @@ const CLOUD_ENV = 'cloud1-d5gq6q3np8708aeef';
 const CLOUD_BUCKET = '636c-cloud1-d5gq6q3np8708aeef-1475854307';
 // 卡面 cloud:// fileID（按有无半身像选真实卡面 _card.webp / 剪影 _np.webp）
 // 2026-10-01 修正：云端卡面统一在 fc27/images/ 前缀下，与 format.js#cloudImg 口径一致。
-function cardCloudId(eaId, hasPortrait, rarityName, overall) {
+// 会升级的稀有度（Showdown/OTW/Future Stars…）：卡面按 overall 版本化文件名（{eaId}_card_{overall}.webp）
+//   → 升级换名破微信缓存；云端同时双传同名 _card.webp 兜底（版本化文件缺失时回落不致破图）。
+//   与 fetch-fc27/scripts/images.js#UPGRADE_RARITY_NAMES、eafc-miniapp/utils/format.js 同源同步。
+const UPGRADE_RARITY_NAMES = new Set([
+  'showdown', 'showdown upgrade', 'ones to watch', 'future stars'
+]);
+function cardCloudId(eaId, hasPortrait, rarityName, overall, cardSig) {
+  // 卡面内容签名（2026-11-27）：EA 换脸的人 → {eaId}_card_{cardSig}.webp 新 fileID ⇒ 破缓存。
+  //   无 cardSig = 没换过脸 ⇒ 旧名（与改版前一致）。
+  //   ⚠️ 本副本与 eafc-miniapp/cloudfunctions/market_sync/market_core.js 必须同步（规则 93）。
+  if (cardSig) {
+    return 'cloud://' + CLOUD_ENV + '.' + CLOUD_BUCKET + '/fc27/images/' + eaId + '_card_' + String(cardSig) + '.webp';
+  }
+  if (hasPortrait && UPGRADE_RARITY_NAMES.has(String(rarityName || '').toLowerCase()) && Number(overall) > 0) {
+    return 'cloud://' + CLOUD_ENV + '.' + CLOUD_BUCKET + '/fc27/images/' + eaId + '_card_' + Number(overall) + '.webp';
+  }
   return 'cloud://' + CLOUD_ENV + '.' + CLOUD_BUCKET + '/fc27/images/' + eaId + (hasPortrait ? '_card.webp' : '_np.webp');
 }
 const TIER_MIN = 80;       // 2026-10-03 拍板：83 → 80（市场页 81+ 分档 + 搜索 80+；原 85+/83+ 历史见 docs）
@@ -130,7 +145,7 @@ function build(roster, cur, prev, src, tsOverride, minRating) {
     return {
       eaId: r.eaId, name: r.name, overall: r.overall, pos: r.pos,
       pc: m[0] == null ? null : m[0], ps: m[1] == null ? null : m[1],
-      img: cardCloudId(r.eaId, !!(r.imagePath), r.rarity, r.overall),
+      img: cardCloudId(r.eaId, !!(r.imagePath), r.rarity, r.overall, r.cardSig),
       rarity: r.rarity || ''
     };
   });
@@ -323,7 +338,7 @@ function computeUnder80Alerts(series, rosterMap, cfg) {
       name: c.meta.name || '',
       overall: c.ovr,
       pos: c.meta.pos || '',
-      img: cardCloudId(eaId, !!(c.meta.imagePath), c.meta.rarity, c.ovr),  // 与 build()#tier.img 同口径（有像_card / 无像_np）
+      img: cardCloudId(eaId, !!(c.meta.imagePath), c.meta.rarity, c.ovr, c.meta.cardSig),  // 与 build()#tier.img 同口径（有像_card / 无像_np；换脸者用签名名）
       rarity: c.meta.rarity || '',
       pc: c.pc, ps: c.ps,
       meanPc: mPc != null ? Math.round(mPc) : null,

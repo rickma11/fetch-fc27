@@ -134,7 +134,7 @@ async function loadRoster() {
       return list
         .filter(function (p) { return p && p.eaId != null; })
         .map(function (p) {
-          return { eaId: p.eaId, name: p.name || '', overall: p.overall || 0, pos: p.pos || '', imagePath: p.imagePath || '', rarity: p.rarity || '' };
+          return { eaId: p.eaId, name: p.name || '', overall: p.overall || 0, pos: p.pos || '', imagePath: p.imagePath || '', rarity: p.rarity || '', cardSig: p.cardSig || '' };
         });
     } catch (e) {
       lastErr = e;
@@ -557,7 +557,7 @@ async function loadRosterUnder80() {
       return list
         .filter(function (p) { return p && p.eaId != null; })
         .map(function (p) {
-          return { eaId: p.eaId, name: p.name || '', overall: p.overall || 0, pos: p.pos || '', imagePath: p.imagePath || '', rarity: p.rarity || '' };
+          return { eaId: p.eaId, name: p.name || '', overall: p.overall || 0, pos: p.pos || '', imagePath: p.imagePath || '', rarity: p.rarity || '', cardSig: p.cardSig || '' };
         });
     } catch (e) {
       lastErr = e;

@@ -104,6 +104,53 @@ function cardSigFileNameOf(eaId, sig) {
   return sig ? String(eaId) + '_card_' + sig + '.webp' : '';
 }
 
+// ---- 卡面签名清单（card_sigs.json）--------------------------------------------
+// 2026-11-27：cardSig 原来只存在 players_fc27 文档里，但落库用 doc(id).set() **整文档覆盖**，
+// 而 pickPlayer 只在「本次换脸触发重传」时才带 cardSig ⇒ 球员「评分变了但卡面没变」时，
+// 文档被重写、cardSig 被抹掉 ⇒ 端上永久回落旧图（每周 full 模式全量覆盖 ⇒ 必然发生）。
+//
+// 修法：把「谁换过脸 + 当前签名」抽成**独立持久化真源** cloud-data/fc27/card_sigs.json
+//   · fetch_ci 阶段 4 检出换脸 ⇒ 写入 pending（images_out/_card_sigs.json，随 images_out 被 gitignore）
+//   · upload_images 上传成功 ⇒ 把 pending 合并进 card_sigs.json 并 commit（= 图确实在云端了）
+//   · fetch_futgg 成型 ⇒ 从 card_sigs.json 取 cardSig 灌进球员文档
+//     ⇒ 无论落库是增量还是 full 覆盖，cardSig 都不会丢。
+//   · 端上只读 roster/DB 下发的 cardSig（不自己算），无签名则回落旧名 _card.webp。
+const CARD_SIGS = (ver) => require('path').resolve(__dirname, '..', 'cloud-data', `fc${ver || 27}`, 'card_sigs.json');
+const CARD_SIGS_PENDING = (ver) => require('path').resolve(__dirname, '..', 'images_out', '_card_sigs.json');
+
+function readCardSigs(ver) {
+  try {
+    const j = JSON.parse(require('fs').readFileSync(CARD_SIGS(ver), 'utf8'));
+    return (j && typeof j === 'object' && !Array.isArray(j)) ? j : {};
+  } catch (e) { return {}; }
+}
+
+function writeCardSigs(ver, obj) {
+  const p = CARD_SIGS(ver);
+  require('fs').mkdirSync(require('path').dirname(p), { recursive: true });
+  const out = {};
+  Object.keys(obj).map(Number).filter(n => !isNaN(n)).sort((a, b) => a - b)
+    .forEach(n => { out[n] = obj[n]; });
+  require('fs').writeFileSync(p, JSON.stringify(out));
+  return out;
+}
+
+// pending：本次 run 检出换脸、签名图已生成但**尚未确认上传成功**的签名。
+// 图传成功后才由 upload_images 合并进 card_sigs.json（持久真源）。
+function readCardSigsPending(ver) {
+  try {
+    const j = JSON.parse(require('fs').readFileSync(CARD_SIGS_PENDING(ver), 'utf8'));
+    return (j && typeof j === 'object' && !Array.isArray(j)) ? j : {};
+  } catch (e) { return {}; }
+}
+
+function writeCardSigsPending(ver, obj) {
+  const p = CARD_SIGS_PENDING(ver);
+  require('fs').mkdirSync(require('path').dirname(p), { recursive: true });
+  require('fs').writeFileSync(p, JSON.stringify(obj));
+  return obj;
+}
+
 function fileNameOf(eaId, type, item) {
   const t = typeof type === 'string' ? typeByKey(type) : type;
   let suffix = t ? t.suffix : '';
@@ -186,5 +233,7 @@ module.exports = {
   RARITY_TRANSFORM, RARITY_BASE_TIERS, rarityFileKeyOf, rarityFileNameOf, raritySrcUrlOf, rarityManifestPath,
   activeTypes, typeByKey, relPathOf, srcUrlOf, fileNameOf, cloudPathOf,
   imgSigOf, readManifest, writeManifest, isUpgradeRarity,
-  cardSigOf, cardSigFileNameOf
+  cardSigOf, cardSigFileNameOf,
+  readCardSigs, writeCardSigs, readCardSigsPending, writeCardSigsPending,
+  CARD_SIGS, CARD_SIGS_PENDING
 };

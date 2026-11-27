@@ -537,6 +537,8 @@ function readResolved() {
   if (String(process.env.FC_IMG || '1') !== '0') {
     const manifest = imgLib.readManifest(VER);
     const types = imgLib.activeTypes();
+    // 本次检出换脸、签名图已生成的 eaId→签名（待 upload_images 确认上传成功后并入 card_sigs.json）
+    const cardSigsPending = imgLib.readCardSigsPending(VER);
     // 无头像 / 已在 noportrait 清单的球员 → 图片任务置顶，避免被 FC_IMG_MAX 上限 + 总评降序排序饿死：
     // 否则低总评无头像球员出 _np.webp 会滞后数天（gen_noportrait_cards 必须先从云存储取 _card.webp 建底板），
     // 且他们后来补的真实头像也会因同一上限 + 排序而滞后下载。
@@ -570,7 +572,16 @@ function readResolved() {
       // EA 换脸 = cardImagePath 里的 hash 变 = cardSig 变 ⇒ 生成 {eaId}_card_{sig}.webp 新 fileID 破缓存。
       // ⚠️ 非升级卡才走签名图（升级卡已有 _card_{ovr}.webp 版本化，不重复传）。
       const cardSig = !isUp ? imgLib.cardSigOf(it) : '';
-      if (cardSig) it.cardSig = cardSig;
+      if (cardSig) {
+        it.cardSig = cardSig;
+        // ⚠️ 关键（2026-11-27 修正）：cardSig 的**持久真源是 card_sigs.json**，不是 DB 文档。
+        //    DB 落库用 doc(id).set() 整文档覆盖，而 pickPlayer 只在「本次换脸」时才带 cardSig
+        //    ⇒ 球员「评分变了但卡面没变」时文档被重写、cardSig 被抹 ⇒ 端上永久回落旧图。
+        //    所以：检出换脸 ⇒ 写入 pending（本次已生成签名图，待上传确认）
+        //    → upload_images 上传成功后合并进 card_sigs.json（= 图确实在云端）
+        //    → fetch_futgg 成型时从 card_sigs.json 取值灌库 ⇒ 增量/full 都不丢。
+        cardSigsPending[String(eaId)] = cardSig;
+      }
       const files = {};
       let cardUrl = null, cardRawUrl = null;
       for (const t of types) {
@@ -703,8 +714,16 @@ function readResolved() {
         if (!fs.existsSync(t.file)) continue;
         const m = index[t.eaId] || (index[t.eaId] = { sig: taskMeta[t.eaId].sig, files: {} });
         m.files[t.type] = path.basename(t.file);
+        // 签名图也记进 files（与旧名同内容、不同文件名）⇒ upload_images 会一并上传，
+        //   并据此判断「该球员的签名图确实在云端了」→ 才把签名并入 card_sigs.json 真源。
+        if (t.aliasFile && fs.existsSync(t.aliasFile)) m.files.cardSig = path.basename(t.aliasFile);
       }
       fs.writeFileSync(path.join(IMG_DIR, '_tasks.json'), JSON.stringify(index));
+      // 本次检出换脸的签名写 pending（待上传确认后并入 card_sigs.json 真源）
+      if (Object.keys(cardSigsPending).length) {
+        imgLib.writeCardSigsPending(VER, cardSigsPending);
+        console.log('[img] 本次换脸签名(pending):', Object.keys(cardSigsPending).length, '人');
+      }
       console.log('待上传球员:', Object.keys(index).length, '人 →images_out/_tasks.json');
     }
   } else {
