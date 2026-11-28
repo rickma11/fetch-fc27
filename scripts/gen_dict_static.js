@@ -11,7 +11,7 @@
 //
 // 数据来源（与 cloudfunctions/dict_basic/index.js 同口径，逐项照搬抽取逻辑）：
 //   · basic（稀有度/卡类型 + SBC 短语 + EVO 进化条件中文化）＝ built-in-dictionaries.json#basic
-//     ＋ miniapp-dictionaries.json#{sbc,EVO}
+//     ＋ miniapp-dictionaries.json#{basic,sbc,EVO}（2026-11-28 起纳入 miniapp#basic，补 Icons 等词条）
 //   · names（联赛/俱乐部/国家）＝ sync_i18n.js 的 buildMaps（包内快照 BUNDLE ＋ 增长层 SUPP ＋ Gitee basic gap-fill），
 //     与线上 dicts/names 同源同口径（不再依赖云函数覆盖写）；再叠加 built-in-dictionaries.json#names 段做二次 gap-fill
 //   · evolutions（进化名中文）＝ evolutions1.json（数组）
@@ -270,6 +270,12 @@ async function buildDict() {
 
   // ① basic（稀有度/卡类型）＋ SBC 短语 ＋ EVO 进化条件中文化
   const basic = extractBasic(srcJson);
+  // 2026-11-28：miniapp-dictionaries.json#basic 也并入（Icons=传奇球员等词条只在 Gitee 这一段，
+  //   builtin#basic 没有；原生成器只读 builtin#basic + miniapp#sbc/EVO ⇒ 端上永远拿不到 Icons）。
+  //   extractBasic 的 zhOf() 会把 {webpagedata:'传奇球员'} 拍平成字符串，正好过 sbcPhraseZh 的字符串校验。
+  //   if !(k in basic) 保证 builtin 已有词条不被覆盖，仅补缺口。
+  const mbasic = extractBasic(miniappJson);
+  Object.keys(mbasic).forEach(function (k) { if (!(k in basic)) basic[k] = mbasic[k]; });
   const sbcMap = extractCategory(miniappJson, 'sbc');
   Object.keys(sbcMap).forEach(function (k) { if (!(k in basic)) basic[k] = sbcMap[k]; });
   const evoMapCat = extractCategory(miniappJson, 'EVO');
